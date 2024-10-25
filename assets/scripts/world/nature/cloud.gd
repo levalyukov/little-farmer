@@ -33,7 +33,7 @@ func _on_life_cycle_timeout() -> void:
 	change_animation(false)
 
 func _life_cycle_end() -> void:
-	shadow.all_clouds -= 1
+	shadow.clouds_value -= 1
 	life.stop()
 	remove_child(self)
 	queue_free()
