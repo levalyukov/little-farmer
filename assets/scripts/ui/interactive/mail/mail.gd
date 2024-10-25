@@ -20,10 +20,6 @@ extends Control
 @onready var items_container:GridContainer = $Panel/HBoxContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/HBoxContainer/Items/GridContainer
 @onready var items_block:MarginContainer = $Panel/HBoxContainer/ContentScroll/VBoxContainer/LetterItems
 @onready var header_label:Label = $Panel/HBoxContainer/ContentScroll/VBoxContainer/LetterHeader/Title
-@onready var description_label:Label = $Panel/HBoxContainer/ContentScroll/VBoxContainer/MainContent/Text
-@onready var author_label:Label = $Panel/HBoxContainer/ContentScroll/VBoxContainer/Author/Author
-@onready var attached_items_label:Label = $Panel/HBoxContainer/ContentScroll/VBoxContainer/Items/VBoxContainer/LabelContainer/Label
-@onready var button:Button = $Panel/HBoxContainer/ContentScroll/VBoxContainer/Items/VBoxContainer/ButtonContainer/GetItems
 @onready var description_label:Label = $Panel/HBoxContainer/ContentScroll/VBoxContainer/LetterContent/Text
 @onready var author_label:Label = $Panel/HBoxContainer/ContentScroll/VBoxContainer/LetterAuthor/Author
 @onready var attached_items_label:Label = $Panel/HBoxContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/LabelContainer/Label
@@ -45,6 +41,39 @@ func _ready():
 	check_window()
 	reset_data()
 	delete_letters(letters_container)
+
+	letter(
+		"Доброе начало",
+		"Приветствую тебя! Видя, что ты начинаешь свое дело, решил я помочь тебе на первых шагах. Знаю, что всегда тяжело сделать первый шаг, особенно когда дело касается строительства. Поэтому собрал немного стройматериалов — доски, гвозди и прочее, что, быть может, понадобится тебе на старте.\n\nПусть этот небольшой подарок станет твоей поддержкой и толчком к тому, чтобы начать строить что-то полезное на твоей ферме. Если знаешь, с чего начать — вперед! Если еще думаешь, не торопись, материалы подождут. Главное — не бойся начинать.\n\nЕсли понадобится совет или помощь, не стесняйся обращаться — всегда буду рад помочь!",
+		"С уважением,\nПлотник Гюнтер",
+		0,
+		{
+			1:{"amount":100},
+			2:{"amount":100},
+			3:{"amount":100},
+		}
+	)
+
+	letter(
+		"Скромный подарок",
+		"Поздравляем с началом вашего фермерского пути! Мы рады, что вы выбрали это важное и благородное дело. Чтобы помочь вам сделать первые шаги, мы подготовили для вас небольшой подарок. Надеемся, что он окажется полезным и облегчит вам начало работы.\n\n\nЖелаем вам успехов, крепкого здоровья и хороших урожаев! Пусть ваше начинание принесет много радости и удовлетворения.",
+		"Мэр города",
+		0,
+		{
+			13:{"amount":36},
+			14:{"amount":36},
+			15:{"amount":36},
+			16:{"amount":36},
+		}
+	)
+
+	letter(
+		"Воздаяние долга",
+		"С великим сокрушением серца сего пишу к тебе, ибо суждено было мне долг сей воздать твоему достославному деду, да не поспел я в предначертанный час. Сей долг, должонный мне, я ныне передаю тебе, внуче его, дабы продолжить договор, коий был меж мною и твоим дедушкой, человеком чести и совести крепкой.\n\nПрими же от меня сие серебро, не токмо как долг уплаченный, но и как знак почтения моего к роду вашему. Нехай оно сослужит тебе добрую службу и поможет в делах твоих, как и некогда помогло оно мне в трудные дни.\n\nМолю Господа даровать тебе здравие и долголетие. А ежели нужда какая придет, то ведай, что всегда рад буду помочь и подмогу подать.",
+		"Остаюсь с низким поклоном, твой преданный сосед Тихомир",
+		10000,
+		{}
+	)
 
 func letter(header:String, description:String = "", author:String = "", money:int = 0, items:Dictionary = {}) -> void:
 	var key = letters.size() + 1
