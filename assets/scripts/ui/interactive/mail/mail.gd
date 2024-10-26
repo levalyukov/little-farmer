@@ -25,6 +25,7 @@ extends Control
 @onready var attached_items_label:Label = $Main/MailContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/LabelContainer/Label
 @onready var button:Button = $Main/MailContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/ButtonContainer/GetItems
 
+@onready var mail_remove_container:MarginContainer = $Main/MailContainer/ContentScroll/VBoxContainer/LetterManipulationButton
 @onready var mail_remove_button:Button = $Main/MailContainer/ContentScroll/VBoxContainer/LetterManipulationButton/MailRemove
 @onready var remove_all_readed_button:Button = $Main/MailManipulationButtons/MarginContainer/DeleteAllReadedLetters
 
@@ -44,39 +45,6 @@ func _ready():
 	check_window()
 	reset_data()
 	delete_letters()
-
-	letter(
-		"Доброе начало",
-		"Приветствую тебя! Видя, что ты начинаешь свое дело, решил я помочь тебе на первых шагах. Знаю, что всегда тяжело сделать первый шаг, особенно когда дело касается строительства. Поэтому собрал немного стройматериалов — доски, гвозди и прочее, что, быть может, понадобится тебе на старте.\n\nПусть этот небольшой подарок станет твоей поддержкой и толчком к тому, чтобы начать строить что-то полезное на твоей ферме. Если знаешь, с чего начать — вперед! Если еще думаешь, не торопись, материалы подождут. Главное — не бойся начинать.\n\nЕсли понадобится совет или помощь, не стесняйся обращаться — всегда буду рад помочь!",
-		"С уважением,\nПлотник Гюнтер",
-		0,
-		{
-			1:{"amount":100},
-			2:{"amount":100},
-			3:{"amount":100},
-		}
-	)
-
-	letter(
-		"Скромный подарок",
-		"Поздравляем с началом вашего фермерского пути! Мы рады, что вы выбрали это важное и благородное дело. Чтобы помочь вам сделать первые шаги, мы подготовили для вас небольшой подарок. Надеемся, что он окажется полезным и облегчит вам начало работы.\n\n\nЖелаем вам успехов, крепкого здоровья и хороших урожаев! Пусть ваше начинание принесет много радости и удовлетворения.",
-		"Мэр города",
-		0,
-		{
-			13:{"amount":36},
-			14:{"amount":36},
-			15:{"amount":36},
-			16:{"amount":36},
-		}
-	)
-
-	letter(
-		"Воздаяние долга",
-		"С великим сокрушением серца сего пишу к тебе, ибо суждено было мне долг сей воздать твоему достославному деду, да не поспел я в предначертанный час. Сей долг, должонный мне, я ныне передаю тебе, внуче его, дабы продолжить договор, коий был меж мною и твоим дедушкой, человеком чести и совести крепкой.\n\nПрими же от меня сие серебро, не токмо как долг уплаченный, но и как знак почтения моего к роду вашему. Нехай оно сослужит тебе добрую службу и поможет в делах твоих, как и некогда помогло оно мне в трудные дни.\n\nМолю Господа даровать тебе здравие и долголетие. А ежели нужда какая придет, то ведай, что всегда рад буду помочь и подмогу подать.",
-		"Остаюсь с низким поклоном, твой преданный сосед Тихомир",
-		10000,
-		{}
-	)
 
 func letter(header:String, description:String = "", author:String = "", money:int = 0, items:Dictionary = {}) -> void:
 	var key = letters.size() + 1
@@ -241,17 +209,17 @@ func create_letters() -> void:
 			match letters[i]["status"]:
 				"unread":
 					var letter_icon = object.icon
-					_update_letter_icon(object, letter_icon, "unread")
+					update_letter_icon(object, letter_icon, "unread")
 				"readed":
 					var letter_icon = object.icon
-					_update_letter_icon(object, letter_icon, "readed")
+					update_letter_icon(object, letter_icon, "readed")
 				_:
 					data.debug("Invalid letter status: "+str(letters[i]["status"]), "error")
 		else:
 			letters[i]["status"] = "unread"
 			data.debug("The 'status' key was created for the letter with the index: "+str(i), "info")
 
-func _update_letter_icon(object, letter_icon, status:String) -> void:
+func update_letter_icon(object, letter_icon, status:String) -> void:
 	match status:
 		"readed":
 			letter_icon.texture = object.sprites["readed"]
@@ -337,8 +305,7 @@ func _on_delete_all_readed_letters_pressed():
 	remove_all_readed_letters()
 
 func change_state_mail_remove_button(state:bool) -> void:
-	if state is bool:
-		mail_remove_button.visible = state
+	mail_remove_container.visible = state
 
 func mail_remove(letter_id) -> void:
 	letters.erase(letter_id)
@@ -347,8 +314,15 @@ func mail_remove(letter_id) -> void:
 func remove_all_readed_letters() -> void:
 	var ids_remove = []
 	for id in letters:
-		if letters[id].has("collected"):
-			ids_remove.append(id)
+		if letters[id].has("status"):
+			if letters[id]["status"] == "readed":
+				if letters[id].has("items") && letters[id]["items"] != {}\
+				|| letters[id].has("money") && letters[id]["money"] > 0:
+						if letters[id].has("collected"):
+							if letters[id]["collected"] == true:
+								ids_remove.append(id)
+				else:
+					ids_remove.append(id)
 
 	if ids_remove != []:
 		for id in ids_remove:

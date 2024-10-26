@@ -273,7 +273,7 @@ script = ExtResource("3_j40v4")
 [node name="LetterManipulationButton" type="MarginContainer" parent="Main/MailContainer/ContentScroll/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
+theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 25
 
