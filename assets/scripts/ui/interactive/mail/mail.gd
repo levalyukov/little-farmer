@@ -260,8 +260,12 @@ func get_letters() -> Dictionary:
 	return letters
 
 func reset_data() -> void:
-	header_label.text = ""
-	description_label.text = ""
+	if letters != {}:
+		header_label.text = "mail.header"
+		description_label.text = "mail.description_check_your_mail"
+	else:
+		header_label.text = "mail.header"
+		description_label.text = "mail.start_info_description_no_letters"
 	author_label.text = ""
 	items_block.visible = false
 	change_state_mail_remove_button(false)
@@ -271,6 +275,7 @@ func open() -> void:
 	pause.other_menu = true
 	blur.blur(true)
 	anim.play("open")
+	reset_data()
 	create_letters()
 	change_state_mail_remove_button(false)
 	update_mail_manipulation_buttons()
