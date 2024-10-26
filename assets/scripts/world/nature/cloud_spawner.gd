@@ -16,7 +16,6 @@ func _ready() -> void:
 	while clouds.size() < sprite_max:
 		sprite_value += 1
 		clouds.append(load("res://assets/resources/world/clouds/cloud_"+str(sprite_value)+".png"))
-		print(clouds)
 
 func _on_timeout():
 	if clouds != []:
