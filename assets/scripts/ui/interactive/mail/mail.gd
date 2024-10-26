@@ -25,6 +25,9 @@ extends Control
 @onready var attached_items_label:Label = $Main/MailContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/LabelContainer/Label
 @onready var button:Button = $Main/MailContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/ButtonContainer/GetItems
 
+@onready var mail_remove_button:Button = $Main/MailContainer/ContentScroll/VBoxContainer/LetterManipulationButton/MailRemove
+@onready var remove_all_readed_button:Button = $Main/MailManipulationButtons/MarginContainer/DeleteAllReadedLetters
+
 var item:Object = Items.new()
 var menu:bool = false
  
@@ -40,7 +43,7 @@ func _process(_delta):
 func _ready():
 	check_window()
 	reset_data()
-	delete_letters(letters_container)
+	delete_letters()
 
 	letter(
 		"Доброе начало",
@@ -158,6 +161,7 @@ func get_data(letterID) -> void:
 
 				if !letters[index].has("collected"):
 					button.visible = true
+					change_state_mail_remove_button(false)
 					if storage.object.has(storage.level):
 						if storage.object[storage.level].has("slots"):
 							if storage.object[storage.level]["slots"] - inventory.get_all_items() >= get_letter_items():
@@ -169,6 +173,7 @@ func get_data(letterID) -> void:
 					else:
 						data.debug("It is impossible to get the 'level' key from the object", "error")
 				else:
+					change_state_mail_remove_button(true)
 					button.visible = false
 
 			if letters[index]["money"] > 0:
@@ -199,6 +204,7 @@ func get_all_items(id, dictionary:Dictionary) -> void:
 		if dictionary[id]["items"] != {}:
 			if check_letter_item(1, id, dictionary):
 				check_letter_item(2, id, dictionary)
+	change_state_mail_remove_button(true)
 
 	if dictionary[id].has("money"):
 		balance.add_money(dictionary[id]["money"])
@@ -226,11 +232,11 @@ func check_letter_item(check:int, letterID, dictionary:Dictionary):
 				else:
 					data.debug("Incorrect subject ID ("+str(key)+"): Such a subject does not exist in the main subject dictionary.", "error")
 
-func create_letters(dictionary:Dictionary, node:PackedScene, parent:VBoxContainer) -> void:
-	for i in dictionary:
-		var object = node.instantiate()
-		parent.add_child(object)
-		object.set_data(i, dictionary[i]["header"])
+func create_letters() -> void:
+	for i in letters:
+		var object = letter_node.instantiate()
+		letters_container.add_child(object)
+		object.set_data(i, letters[i]["header"])
 		if letters[i].has("status"):
 			match letters[i]["status"]:
 				"unread":
@@ -254,9 +260,9 @@ func _update_letter_icon(object, letter_icon, status:String) -> void:
 		_:
 			data.debug("Invalid letter status: "+str(status),"error")
 
-func delete_letters(parent:VBoxContainer) -> void:
-	for child in parent.get_children():
-		parent.remove_child(child)
+func delete_letters() -> void:
+	for child in letters_container.get_children():
+		letters_container.remove_child(child)
 		child.queue_free()
 
 func get_letter_items():
@@ -289,13 +295,15 @@ func reset_data() -> void:
 	description_label.text = ""
 	author_label.text = ""
 	items_block.visible = false
+	change_state_mail_remove_button(false)
 
 func open() -> void:
 	menu = true
 	pause.other_menu = true
 	blur.blur(true)
 	anim.play("open")
-	create_letters(letters, letter_node, letters_container)
+	create_letters()
+	change_state_mail_remove_button(false)
 	
 func close() -> void:
 	menu = false
@@ -303,7 +311,7 @@ func close() -> void:
 	self.index = 0
 	blur.blur(false)
 	anim.play("close")
-	delete_letters(letters_container)
+	delete_letters()
 
 func check_window() -> void:
 	visible = menu
@@ -319,3 +327,35 @@ func _on_get_items_pressed():
 func _on_close_pressed() -> void:
 	if blur.state:
 		close()
+
+# Mail Manipulation Buttons
+func _on_mail_remove_pressed():
+	if mail_remove_button.visible:
+		mail_remove(index)
+
+func _on_delete_all_readed_letters_pressed():
+	remove_all_readed_letters()
+
+func change_state_mail_remove_button(state:bool) -> void:
+	if state is bool:
+		mail_remove_button.visible = state
+
+func mail_remove(letter_id) -> void:
+	letters.erase(letter_id)
+	mail_update()
+
+func remove_all_readed_letters() -> void:
+	var ids_remove = []
+	for id in letters:
+		if letters[id].has("collected"):
+			ids_remove.append(id)
+
+	if ids_remove != []:
+		for id in ids_remove:
+			letters.erase(id)
+			mail_update()
+
+func mail_update() -> void:
+	reset_data()
+	delete_letters()
+	create_letters()
