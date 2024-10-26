@@ -265,7 +265,7 @@ func reset_data() -> void:
 		description_label.text = "mail.description_check_your_mail"
 	else:
 		header_label.text = "mail.header"
-		description_label.text = "mail.start_info_description_no_letters"
+		description_label.text = "mail.description_no_letters"
 	author_label.text = ""
 	items_block.visible = false
 	change_state_mail_remove_button(false)
