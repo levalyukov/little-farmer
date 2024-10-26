@@ -8,22 +8,22 @@ extends Control
 @onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
 @onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/Storage")
 @onready var balance:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Balance")
-@onready var button_script:Button = get_node("/root/"+main+"/UI/Interactive/Mailbox/Panel/HBoxContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/ButtonContainer/GetItems")
+@onready var button_script:Button = get_node("/root/"+main+"/UI/Interactive/Mailbox/Main/MailContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/ButtonContainer/GetItems")
 @onready var letter_node:PackedScene = load("res://assets/nodes/ui/interactive/mail/letter.tscn")
 @onready var slot:PackedScene = inventory.node
 
 @onready var anim:AnimationPlayer = $AnimationPlayer
-@onready var content_scroll:ScrollContainer = $Panel/HBoxContainer/ContentScroll
-@onready var letters_container:VBoxContainer = $Panel/HBoxContainer/LettersScroll/VBoxContainer
-@onready var content_container:VBoxContainer = $Panel/HBoxContainer/ContentScroll/VBoxContainer
-@onready var items_hbox:HBoxContainer = $Panel/HBoxContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/HBoxContainer
-@onready var items_container:GridContainer = $Panel/HBoxContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/HBoxContainer/Items/GridContainer
-@onready var items_block:MarginContainer = $Panel/HBoxContainer/ContentScroll/VBoxContainer/LetterItems
-@onready var header_label:Label = $Panel/HBoxContainer/ContentScroll/VBoxContainer/LetterHeader/Title
-@onready var description_label:Label = $Panel/HBoxContainer/ContentScroll/VBoxContainer/LetterContent/Text
-@onready var author_label:Label = $Panel/HBoxContainer/ContentScroll/VBoxContainer/LetterAuthor/Author
-@onready var attached_items_label:Label = $Panel/HBoxContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/LabelContainer/Label
-@onready var button:Button = $Panel/HBoxContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/ButtonContainer/GetItems
+@onready var content_scroll:ScrollContainer = $Main/MailContainer/ContentScroll
+@onready var letters_container:VBoxContainer = $Main/MailContainer/LettersScroll/VBoxContainer
+@onready var content_container:VBoxContainer = $Main/MailContainer/ContentScroll/VBoxContainer
+@onready var items_hbox:HBoxContainer = $Main/MailContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/HBoxContainer
+@onready var items_container:GridContainer = $Main/MailContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/HBoxContainer/Items/GridContainer
+@onready var items_block:MarginContainer = $Main/MailContainer/ContentScroll/VBoxContainer/LetterItems
+@onready var header_label:Label = $Main/MailContainer/ContentScroll/VBoxContainer/LetterHeader/Title
+@onready var description_label:Label = $Main/MailContainer/ContentScroll/VBoxContainer/LetterContent/Text
+@onready var author_label:Label = $Main/MailContainer/ContentScroll/VBoxContainer/LetterAuthor/Author
+@onready var attached_items_label:Label = $Main/MailContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/LabelContainer/Label
+@onready var button:Button = $Main/MailContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/ButtonContainer/GetItems
 
 var item:Object = Items.new()
 var menu:bool = false
