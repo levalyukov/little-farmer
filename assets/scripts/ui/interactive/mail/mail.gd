@@ -27,6 +27,7 @@ extends Control
 
 @onready var mail_remove_container:MarginContainer = $Main/MailContainer/ContentScroll/VBoxContainer/LetterManipulationButton
 @onready var mail_remove_button:Button = $Main/MailContainer/ContentScroll/VBoxContainer/LetterManipulationButton/MailRemove
+@onready var mail_manipulation_buttons:HBoxContainer = $Main/MailManipulationButtons
 @onready var remove_all_readed_button:Button = $Main/MailManipulationButtons/MarginContainer/DeleteAllReadedLetters
 
 var item:Object = Items.new()
@@ -233,7 +234,7 @@ func delete_letters() -> void:
 		letters_container.remove_child(child)
 		child.queue_free()
 
-func get_letter_items():
+func get_letter_items() -> int:
 	var item_counter:int = 0
 	for i in items_container.get_children():
 		item_counter+=1
@@ -252,7 +253,7 @@ func letter_delete_items(parent:GridContainer) -> void:
 		parent.remove_child(child)
 		child.queue_free()
 
-func letters_load(content:Dictionary):
+func letters_load(content:Dictionary) -> void:
 	letters = content
 
 func get_letters() -> Dictionary:
@@ -272,6 +273,7 @@ func open() -> void:
 	anim.play("open")
 	create_letters()
 	change_state_mail_remove_button(false)
+	update_mail_manipulation_buttons()
 	
 func close() -> void:
 	menu = false
@@ -284,7 +286,7 @@ func close() -> void:
 func check_window() -> void:
 	visible = menu
 
-func _on_get_items_pressed():
+func _on_get_items_pressed() -> void:
 	if !button_script.button:
 		if button.visible:
 			get_all_items(index, letters)
@@ -297,11 +299,11 @@ func _on_close_pressed() -> void:
 		close()
 
 # Mail Manipulation Buttons
-func _on_mail_remove_pressed():
+func _on_mail_remove_pressed() -> void:
 	if mail_remove_button.visible:
 		mail_remove(index)
 
-func _on_delete_all_readed_letters_pressed():
+func _on_delete_all_readed_letters_pressed() -> void:
 	remove_all_readed_letters()
 
 func change_state_mail_remove_button(state:bool) -> void:
@@ -333,3 +335,12 @@ func mail_update() -> void:
 	reset_data()
 	delete_letters()
 	create_letters()
+	update_mail_manipulation_buttons()
+
+func update_mail_manipulation_buttons() -> void:
+	if letters != {}:
+		if !mail_manipulation_buttons.visible:
+			mail_manipulation_buttons.visible = true
+	else:
+		if mail_manipulation_buttons.visible:
+			mail_manipulation_buttons.visible = false
