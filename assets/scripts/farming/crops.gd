@@ -13,9 +13,9 @@ var crops:Dictionary = {
 		"growth_rate" = 25,
 		"growth_level" = 5,
 		"mortality" = 5,
-		"productivity" = [5,10],
+		"productivity" = [1,5],
 		"X" = 0, "Y" = 0,
-		"crop_id" = 1,
+		"item" = 17,
 	},
 	2: {
 		"caption" = tr("potato.caption"),
@@ -26,7 +26,7 @@ var crops:Dictionary = {
 		"mortality" = 5,
 		"productivity" = [5,10], 
 		"X" = 0, "Y" = 32,
-		"crop_id" = 1,
+		"item" = 18,
 	},
 	3: {
 		"caption" = tr("radish.caption"),
@@ -37,7 +37,7 @@ var crops:Dictionary = {
 		"mortality" = 5,
 		"productivity" = [5,10], 
 		"X" = 0, "Y" = 64,
-		"crop_id" = 1,
+		"item" = 19,
 	},
 	4: {
 		"caption" = tr("cabbage.caption"),
@@ -48,6 +48,6 @@ var crops:Dictionary = {
 		"mortality" = 5,
 		"productivity" = [5,10], 
 		"X" = 0, "Y" = 96,
-		"crop_id" = 1,
+		"item" = 20,
 	},
 }
