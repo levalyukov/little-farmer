@@ -5,6 +5,7 @@ extends Control
 @onready var hud:Control = get_node("/root/"+main+"/UI/Decorative/Hud")
 @onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
 @onready var cycle:CanvasModulate = get_node("/root/"+main+"/Cycle")
+@onready var shadow:Node = get_node("/root/"+main+"/ShadowManager")
 @onready var sprite:CompressedTexture2D = load("res://assets/resources/ui/interactive/hud/clock.png")
 @onready var icon:TextureRect = $Main/Margin/HBoxContainer/Icon/TextureRect
 @onready var label:Label = $Main/Margin/HBoxContainer/Label/Label
@@ -51,6 +52,9 @@ func _on_timer_timeout():
 		if hour > 23:
 			hour = 0
 			_week_update()
+			shadow.remove_all_clouds()
+			await get_tree().create_timer(2.5).timeout
+			shadow.change_state_position_for_clouds(randi_range(0,2),randi_range(0,2))
 		clock_update()
 
 
