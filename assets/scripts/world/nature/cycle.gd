@@ -2,6 +2,7 @@ extends CanvasModulate
 
 @onready var main:String = str(get_tree().root.get_child(1).name)
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
+@onready var blackout:Control = get_node("/root/"+main+"/UI/Decorative/Blackout")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @export var gradient_texture:GradientTexture1D
 
@@ -20,7 +21,8 @@ func _process(delta):
         cycle()
 
 func cycle() -> void:
-    if !pause.paused:
+    if !pause.paused\
+    && !blackout.blackouted:
         if gradient_texture && gradient_texture.gradient:
             var shifted_progress:float
             if time_passed >= day_start && time_passed < day_end:
@@ -37,12 +39,12 @@ func cycle() -> void:
                 value = (sin(value * PI) + 1.0) / 2.0
             else:
                 value = (1.0 - sin(value * PI)) / 2.0
-
             color = gradient_texture.gradient.sample(value)
+            print("Time: ", clock.hour, ":", clock.minute, "0 | ", "Gradient value: ", str(value).left(14), " | Time passed: ", str(time_passed).left(6))
             
-func set_cycle_value(cycle_value:float) -> void:
+func set_cycle_value(cycle_value:float, passed:float) -> void:
     value = cycle_value
-    time_passed = clock.hour * 60.0
+    time_passed = passed
 
 func get_cycle_value() -> float:
     return value
