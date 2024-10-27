@@ -243,7 +243,7 @@ func time_load() -> void:
 		get_key(paths.world, "hour", "time"),
 		get_key(paths.world, "minute", "time")
 	)
-	cycle.set_cycle_value(get_key(paths.world, "cycle", "time"))
+	cycle.set_cycle_value(get_key(paths.world, ".cycle", "time"), get_key(paths.world, ".passed", "time"))
 
 func balance_load() -> void:
 	balance.money = get_key(paths.player, "balance")
@@ -300,7 +300,8 @@ func get_content(content:String) -> Dictionary:
 					"day": clock.day,
 					"hour": clock.hour,
 					"minute": clock.minute,
-					"cycle": cycle.get_cycle_value()
+					".cycle": cycle.get_cycle_value(),
+					".passed": cycle.time_passed
 				}
 			}
 			
