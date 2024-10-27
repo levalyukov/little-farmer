@@ -5,6 +5,8 @@ extends Control
 @onready var background:ColorRect = $ColorRect
 @onready var anim:AnimationPlayer = $Animation
 
+var blackouted:bool = false
+
 func _ready():
 	z_index = 999
 	background.modulate = "ffffff"
@@ -14,9 +16,11 @@ func blackout(state:bool, speed:int = 4) -> void:
 		true:
 			anim.play("blackout")
 			anim.speed_scale = speed
+			blackouted = true
 		false:
 			anim.play("blackout_reset")
 			anim.speed_scale = speed
+			blackouted = false
 
 func change_color(colouring:Color, default_clear_color:bool = false):
 	if typeof(colouring) == TYPE_COLOR:
