@@ -8,7 +8,6 @@ extends Sprite2D
 @onready var anim:AnimationPlayer = $Animation
 @onready var life:Timer = $LifeCycle
 
-const speed:float = 24.256
 const max_distance:int = 500
 
 func _ready():
@@ -17,8 +16,8 @@ func _ready():
 
 func _process(delta) -> void:
 	if !pause.paused:
-		position.x += speed * delta
-		position.y += speed * delta
+		position.x += shadow.vector_x * delta
+		position.y += shadow.vector_y * delta
 		var distance = round(global_position.distance_to(player.global_position))
 		if distance > max_distance:
 			change_animation(false)
