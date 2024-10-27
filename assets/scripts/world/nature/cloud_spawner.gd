@@ -9,7 +9,7 @@ const sprite_min:int = 0
 
 var clouds:Array[CompressedTexture2D] = []
 var sprite_value:int = 0
-var spawn_clouds_time_max:float = 2
+var spawn_clouds_time_max:float = 5
 var spawn_clouds_time_min:float = 0.25
 
 func _ready() -> void:
@@ -22,6 +22,6 @@ func _on_timeout():
 		if has_node("/root/"+main+"/ShadowManager/CanvasGroup"):
 			var random_sprite = randi() % clouds.size()
 			canvas.create_cloud(clouds[random_sprite])
-			wait_time = randi_range(spawn_clouds_time_min*clock.speed, spawn_clouds_time_min*clock.speed)
+			wait_time = randi_range(spawn_clouds_time_min*clock.speed, spawn_clouds_time_max*clock.speed)
 		else:
 			data.debug("The 'CanvasGroup' node is missing.", "error")
