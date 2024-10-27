@@ -157,6 +157,7 @@ func get_data(letterID) -> void:
 				attached_items_label.text = attached_items + ":"
 				attached_items_label.visible = true
 		else:
+			change_state_mail_remove_button(true)
 			items_block.visible = false
 	else:
 		data.debug("Invalid index: " + str(index), "error")
@@ -262,7 +263,10 @@ func get_letters() -> Dictionary:
 func reset_data() -> void:
 	if letters != {}:
 		header_label.text = "mail.header"
-		description_label.text = "mail.description_check_your_mail"
+		if get_all_unreaded_letters() > 0:
+			description_label.text = "mail.description_check_your_mail: " + str(get_all_unreaded_letters())
+		else:
+			description_label.text = "mail.default_description"
 	else:
 		header_label.text = "mail.header"
 		description_label.text = "mail.description_no_letters"
@@ -335,6 +339,14 @@ func remove_all_readed_letters() -> void:
 		for id in ids_remove:
 			letters.erase(id)
 			mail_update()
+
+func get_all_unreaded_letters() -> int:
+	var count_unreaded:int = 0
+	for id in letters:
+		if letters[id].has("status"):
+			if letters[id]["status"] == "unread":
+				count_unreaded+=1
+	return count_unreaded
 
 func mail_update() -> void:
 	reset_data()
