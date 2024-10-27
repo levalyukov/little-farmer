@@ -16,11 +16,14 @@ const max_distance:int = 525
 
 var max_clouds:int = 100
 var clouds_value:int = 0
+var vector_x:float = 24.256
+var vector_y:float = 24.256
+var cloud_position_x_state:int = 0
+var cloud_position_y_state:int = 0
 
 func change_clouds_value(value:int = 5) -> void:
 	if value >= 0:
 		clouds_value = value
-
 
 func create_shadow(shadow_name:String, shadow_texture:CompressedTexture2D, shadow_position:Vector2i) -> void:
 	if shadow_name == "":
@@ -45,3 +48,29 @@ func create_cloud(shadow_texture:CompressedTexture2D) -> void:
 		canvas.add_child(cloud)
 		cloud.change_animation(true)
 		clouds_value += 1
+
+func change_state_position_for_clouds(x_bool:int, y_bool:int) -> void:
+	match x_bool:
+		0: # 0
+			vector_x = vector_x * 0
+		1: # +1
+			if vector_x < 0:
+				vector_x = vector_x * (-1)
+		2: # -1
+			if vector_x > 0:
+				vector_x = vector_x * (-1)
+
+	match y_bool:
+		0: # 0
+			vector_y = vector_y * 0
+		1: # +1
+			if vector_x < 0:
+				vector_y = vector_y * (-1)
+		2: # -1
+			if vector_x > 0:
+				vector_y = vector_y * (-1)
+
+func remove_all_clouds() -> void:
+	for clouds in canvas.get_children():
+		if clouds.has_method("change_animation"):
+			clouds.change_animation(false)
