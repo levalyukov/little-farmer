@@ -3,6 +3,7 @@ extends Control
 @onready var main:String = str(get_tree().root.get_child(1).name)
 @onready var data:Node2D = get_node("/root/"+main)
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
+@onready var modal:Control = get_node("/root/"+main+"/UI/Feedback/Modal")
 @onready var notice:Control = get_node("/root/"+main+"/UI/Feedback/Notifications")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
@@ -161,6 +162,7 @@ func get_data(letterID) -> void:
 			items_block.visible = false
 	else:
 		data.debug("Invalid index: " + str(index), "error")
+	update_state_mail_manipulation_button()
 
 func check_letterID(letterID):
 	for i in letters:
@@ -261,15 +263,16 @@ func get_letters() -> Dictionary:
 	return letters
 
 func reset_data() -> void:
+	var string_header_mail:String = tr("mail.header")
 	if letters != {}:
-		header_label.text = "mail.header"
+		header_label.text = string_header_mail
 		if get_all_unreaded_letters() > 0:
-			description_label.text = "mail.description_check_your_mail: " + str(get_all_unreaded_letters())
+			description_label.text = tr("mail.description_check_your_mail:") + " " + str(get_all_unreaded_letters())
 		else:
-			description_label.text = "mail.default_description"
+			description_label.text = tr("mail.default_description")
 	else:
-		header_label.text = "mail.header"
-		description_label.text = "mail.description_no_letters"
+		header_label.text = string_header_mail
+		description_label.text = tr("mail.description_no_letters")
 	author_label.text = ""
 	items_block.visible = false
 	change_state_mail_remove_button(false)
@@ -282,7 +285,8 @@ func open() -> void:
 	reset_data()
 	create_letters()
 	change_state_mail_remove_button(false)
-	update_mail_manipulation_buttons()
+	update_mail_manipulation_button()
+	update_state_mail_manipulation_button()
 	
 func close() -> void:
 	menu = false
@@ -323,7 +327,8 @@ func mail_remove(letter_id) -> void:
 	mail_update()
 
 func remove_all_readed_letters() -> void:
-	var ids_remove = []
+	var ids_remove:Array[int] = []
+	var deleted:int = 0
 	for id in letters:
 		if letters[id].has("status"):
 			if letters[id]["status"] == "readed":
@@ -337,8 +342,12 @@ func remove_all_readed_letters() -> void:
 
 	if ids_remove != []:
 		for id in ids_remove:
+			deleted+=1
 			letters.erase(id)
-			mail_update()
+		mail_update()
+		modal.modal_create("mail.header_successfully_deleted", "mail.it_was_deleted: " + str(deleted))
+	else:
+		modal.modal_create("mail.header_warning", "mail.not_deleted_because_not_collected")
 
 func get_all_unreaded_letters() -> int:
 	var count_unreaded:int = 0
@@ -348,16 +357,31 @@ func get_all_unreaded_letters() -> int:
 				count_unreaded+=1
 	return count_unreaded
 
+func get_all_readed_letters() -> int:
+	var count_readed:int = 0
+	for id in letters:
+		if letters[id].has("status"):
+			if letters[id]["status"] == "readed":
+				count_readed+=1
+	return count_readed
+
 func mail_update() -> void:
 	reset_data()
 	delete_letters()
 	create_letters()
-	update_mail_manipulation_buttons()
+	update_mail_manipulation_button()
+	update_state_mail_manipulation_button()
 
-func update_mail_manipulation_buttons() -> void:
+func update_mail_manipulation_button() -> void:
 	if letters != {}:
 		if !mail_manipulation_buttons.visible:
 			mail_manipulation_buttons.visible = true
 	else:
 		if mail_manipulation_buttons.visible:
 			mail_manipulation_buttons.visible = false
+
+func update_state_mail_manipulation_button() -> void:
+	if get_all_readed_letters() > 0:
+		remove_all_readed_button.disabled = false
+	else:
+		remove_all_readed_button.disabled = true
