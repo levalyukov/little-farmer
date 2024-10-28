@@ -25,7 +25,7 @@ func _process(_delta):
 	background.material.set_shader_parameter("lod", value)
 
 func blur(bluring:bool) -> void:
-	self.state = bluring
+	state = bluring
 	if has_node("/root/"+main+"/UI/HUD/GameHud"):
 		hud.state(bluring, "all")
 	if has_node("/root/"+main+"/UI/Feedback/Tooltip"):
