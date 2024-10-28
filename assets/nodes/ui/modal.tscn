@@ -1,0 +1,184 @@
+[gd_scene load_steps=7 format=3 uid="uid://b51o72a5t51k6"]
+
+[ext_resource type="Script" path="res://assets/scripts/ui/modal.gd" id="1_vqni3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_plg3u"]
+font_size = 22
+
+[sub_resource type="Animation" id="Animation_17goi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_t6d2u"]
+resource_name = "create"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_check_window"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_44ljn"]
+resource_name = "remove"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_check_window"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1po6e"]
+_data = {
+"RESET": SubResource("Animation_17goi"),
+"create": SubResource("Animation_t6d2u"),
+"remove": SubResource("Animation_44ljn")
+}
+
+[node name="Modal" type="Control"]
+modulate = Color(1, 1, 1, 0)
+z_index = 3
+z_as_relative = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_vqni3")
+
+[node name="MainContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -138.5
+offset_top = -86.0
+offset_right = 138.5
+offset_bottom = 86.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackgroundPanel" type="Panel" parent="MainContainer"]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="MainContainer"]
+layout_mode = 2
+
+[node name="HeaderContainer" type="MarginContainer" parent="MainContainer/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="Header" type="Label" parent="MainContainer/VBox/HeaderContainer"]
+layout_mode = 2
+text = "modal.header"
+label_settings = SubResource("LabelSettings_plg3u")
+horizontal_alignment = 1
+
+[node name="ContentContainer" type="MarginContainer" parent="MainContainer/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="Content" type="Label" parent="MainContainer/VBox/ContentContainer"]
+layout_mode = 2
+text = "modal.description"
+
+[node name="ButtonsContainer" type="MarginContainer" parent="MainContainer/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 20
+
+[node name="HBox" type="HBoxContainer" parent="MainContainer/VBox/ButtonsContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ConfirmButtonMargin" type="MarginContainer" parent="MainContainer/VBox/ButtonsContainer/HBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Confirm" type="Button" parent="MainContainer/VBox/ButtonsContainer/HBox/ConfirmButtonMargin"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "modal.confirm"
+
+[node name="CancelButtonMargin" type="MarginContainer" parent="MainContainer/VBox/ButtonsContainer/HBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Cancel" type="Button" parent="MainContainer/VBox/ButtonsContainer/HBox/CancelButtonMargin"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "modal.cancel"
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1po6e")
+}
+
+[connection signal="pressed" from="MainContainer/VBox/ButtonsContainer/HBox/ConfirmButtonMargin/Confirm" to="." method="_on_confirm_pressed"]
+[connection signal="pressed" from="MainContainer/VBox/ButtonsContainer/HBox/CancelButtonMargin/Cancel" to="." method="_on_cancel_pressed"]
