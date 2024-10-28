@@ -1,10 +1,12 @@
-res://assets/scripts/ui/interactive/inventory/inventory.gd
 res://levels/farm.tscn
 res://assets/shaders/pixel.gdshader
 res://assets/shaders/blur.gdshader
+res://assets/resources/world/day-night.tres
 res://assets/shaders/wind.gdshader
 res://assets/shaders/water.gdshader
 res://assets/shaders/vignette.gdshader
 res://assets/shaders/shadow.gdshader
+res://assets/nodes/ui/modal.tscn
+res://assets/scripts/ui/modal.gd
 res://assets/scripts/ui/interactive/mail/mail.gd
-res://assets/system/gamedata.gd
+res://assets/scripts/world/nature/cycle.gd
