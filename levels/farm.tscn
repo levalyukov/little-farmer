@@ -18,7 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://dcgfhx6lnhmtf" path="res://assets/nodes/buildings/tablet.tscn" id="16_4vo5f"]
 [ext_resource type="Script" path="res://assets/scripts/world/tilemap.gd" id="16_jqh5x"]
 [ext_resource type="PackedScene" uid="uid://cjxf5fki0vra2" path="res://assets/nodes/world/day-night.tscn" id="19_mbw1w"]
-[ext_resource type="Script" path="res://canvas_group.gd" id="20_875pv"]
+[ext_resource type="Script" path="res://assets/scripts/ui/canvas_group.gd" id="20_875pv"]
 [ext_resource type="Script" path="res://assets/scripts/world/teleports.gd" id="43_511qs"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h27nr"]
