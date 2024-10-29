@@ -12,6 +12,7 @@ extends Control
 @onready var anim:AnimationPlayer = $Animation
 
 var state:bool = false
+var header_string:String = tr("modal.header")
 
 func _ready():
 	_check_window()
@@ -56,10 +57,8 @@ func _check_window():
 # Modal window response:
 func _on_confirm_pressed() -> bool:
 	modal_remove()
-	#result = true
 	return true
 
 func _on_cancel_pressed() -> bool:
 	modal_remove()
-	#result = false
 	return false
