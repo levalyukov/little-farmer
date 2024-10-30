@@ -1,0 +1,231 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkmgvs1mpa0pi"]
+
+[ext_resource type="Script" path="res://assets/scripts/ui/interactive/trading/trade_system.gd" id="1_dpoco"]
+[ext_resource type="PackedScene" uid="uid://do4e681e4p00n" path="res://assets/nodes/ui/interactive/inventory/slot.tscn" id="1_oyftu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ijn06"]
+font_size = 20
+
+[node name="TradeMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dpoco")
+
+[node name="Main" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -475.0
+offset_top = -225.0
+offset_right = 475.0
+offset_bottom = 225.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Content" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -462.5
+offset_top = -212.5
+offset_right = 462.5
+offset_bottom = 212.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="PlayerInventory" type="Panel" parent="Content"]
+custom_minimum_size = Vector2(305, 380)
+layout_mode = 2
+
+[node name="PlayerContainer" type="ScrollContainer" parent="Content/PlayerInventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Content/PlayerInventory/PlayerContainer"]
+custom_minimum_size = Vector2(305, 380)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Content/PlayerInventory/PlayerContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="GridContainer" type="GridContainer" parent="Content/PlayerInventory/PlayerContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+columns = 4
+
+[node name="Slot" parent="Content/PlayerInventory/PlayerContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("1_oyftu")]
+layout_mode = 2
+
+[node name="Slot2" parent="Content/PlayerInventory/PlayerContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("1_oyftu")]
+layout_mode = 2
+
+[node name="Slot3" parent="Content/PlayerInventory/PlayerContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("1_oyftu")]
+layout_mode = 2
+
+[node name="Slot4" parent="Content/PlayerInventory/PlayerContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("1_oyftu")]
+layout_mode = 2
+
+[node name="TradeWindow" type="Panel" parent="Content"]
+custom_minimum_size = Vector2(300, 380)
+layout_mode = 2
+
+[node name="TradeWindow" type="ScrollContainer" parent="Content/TradeWindow"]
+custom_minimum_size = Vector2(300, 380)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Content/TradeWindow/TradeWindow"]
+custom_minimum_size = Vector2(300, 380)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="HeaderContainer" type="MarginContainer" parent="Content/TradeWindow/TradeWindow/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_bottom = 15
+
+[node name="Header" type="Label" parent="Content/TradeWindow/TradeWindow/VBoxContainer/HeaderContainer"]
+custom_minimum_size = Vector2(270, 0)
+layout_mode = 2
+text = "trader.window_header"
+label_settings = SubResource("LabelSettings_ijn06")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="ItemsContainer" type="MarginContainer" parent="Content/TradeWindow/TradeWindow/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="Panel" type="Panel" parent="Content/TradeWindow/TradeWindow/VBoxContainer/ItemsContainer"]
+layout_mode = 2
+
+[node name="GridMarginContainer" type="MarginContainer" parent="Content/TradeWindow/TradeWindow/VBoxContainer/ItemsContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="GridContainer" type="GridContainer" parent="Content/TradeWindow/TradeWindow/VBoxContainer/ItemsContainer/GridMarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+columns = 4
+
+[node name="Slot" parent="Content/TradeWindow/TradeWindow/VBoxContainer/ItemsContainer/GridMarginContainer/GridContainer" instance=ExtResource("1_oyftu")]
+layout_mode = 2
+
+[node name="Slot2" parent="Content/TradeWindow/TradeWindow/VBoxContainer/ItemsContainer/GridMarginContainer/GridContainer" instance=ExtResource("1_oyftu")]
+layout_mode = 2
+
+[node name="Slot3" parent="Content/TradeWindow/TradeWindow/VBoxContainer/ItemsContainer/GridMarginContainer/GridContainer" instance=ExtResource("1_oyftu")]
+layout_mode = 2
+
+[node name="Slot4" parent="Content/TradeWindow/TradeWindow/VBoxContainer/ItemsContainer/GridMarginContainer/GridContainer" instance=ExtResource("1_oyftu")]
+layout_mode = 2
+
+[node name="TargetPriceContainer" type="MarginContainer" parent="Content/TradeWindow/TradeWindow/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="TargetPrice" type="Label" parent="Content/TradeWindow/TradeWindow/VBoxContainer/TargetPriceContainer"]
+layout_mode = 2
+text = "trader.target_price"
+autowrap_mode = 3
+
+[node name="ButtonContainer" type="MarginContainer" parent="Content/TradeWindow/TradeWindow/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 25
+
+[node name="Button" type="Button" parent="Content/TradeWindow/TradeWindow/VBoxContainer/ButtonContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "trader.buy_sell_button"
+
+[node name="TraderInventory" type="Panel" parent="Content"]
+custom_minimum_size = Vector2(305, 380)
+layout_mode = 2
+
+[node name="PlayerContainer" type="ScrollContainer" parent="Content/TraderInventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Content/TraderInventory/PlayerContainer"]
+custom_minimum_size = Vector2(305, 380)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Content/TraderInventory/PlayerContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="GridContainer" type="GridContainer" parent="Content/TraderInventory/PlayerContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+columns = 4
+
+[node name="Slot" parent="Content/TraderInventory/PlayerContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("1_oyftu")]
+layout_mode = 2
+
+[node name="Slot2" parent="Content/TraderInventory/PlayerContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("1_oyftu")]
+layout_mode = 2
+
+[node name="Slot3" parent="Content/TraderInventory/PlayerContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("1_oyftu")]
+layout_mode = 2
+
+[node name="Slot4" parent="Content/TraderInventory/PlayerContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("1_oyftu")]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 456.0
+offset_top = -240.0
+offset_right = 488.0
+offset_bottom = -208.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "X"
+
+[node name="Animation" type="AnimationPlayer" parent="."]
