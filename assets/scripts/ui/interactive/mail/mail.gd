@@ -325,6 +325,7 @@ func change_state_mail_remove_button(state:bool) -> void:
 func mail_remove(letter_id) -> void:
 	letters.erase(letter_id)
 	mail_update()
+	modal.modal_create(modal.header_string, "mail.it_was_deleted")
 
 func remove_all_readed_letters() -> void:
 	var ids_remove:Array[int] = []
@@ -345,9 +346,9 @@ func remove_all_readed_letters() -> void:
 			deleted+=1
 			letters.erase(id)
 		mail_update()
-		modal.modal_create("mail.header_successfully_deleted", "mail.it_was_deleted: " + str(deleted))
+		modal.modal_create(modal.header_string, "mail.it_was_deleted: " + str(deleted))
 	else:
-		modal.modal_create("mail.header_warning", "mail.not_deleted_because_not_collected")
+		modal.modal_create(modal.header_string, "Letters with unassembled items were not deleted")
 
 func get_all_unreaded_letters() -> int:
 	var count_unreaded:int = 0
