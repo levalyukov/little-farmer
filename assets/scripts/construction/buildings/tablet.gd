@@ -12,8 +12,6 @@ extends Node2D
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var sprite:Sprite2D = $Sprite2D
 
-#114418401
-#137627939
 var object:Dictionary = {
 	"caption" = tr("tablet.caption"),
 	"description" = tr("tablet.description"),
@@ -62,12 +60,15 @@ func _change_sprite(type:bool) -> void:
 				data.debug("Check the 'caption', 'description' elements.", "error")
 	else:
 		_check_sprite("default")
-		tip.tooltip("")
+		if tip:
+			tip.tooltip("")
 	
 func _check_sprite(key:String) -> void:
 	if object.has(key):
-		if typeof(object[key]) == TYPE_OBJECT and sprite.texture is CompressedTexture2D:
-			sprite.texture = object[key]
+		if typeof(object[key]) == TYPE_OBJECT:
+			if object[key] is CompressedTexture2D:
+				if sprite:
+					sprite.texture = object[key]
 		else:
 			data.debug("The specified sprite cannot be installed.", "error")
 	else:

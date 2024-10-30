@@ -72,13 +72,15 @@ func _change_sprite(type:bool) -> void:
 				data.debug("Check the 'caption', 'description' elements", "error")
 	else:
 		_check_sprite("default")
-		tip.tooltip("")
 		open_menu = false
+		if tip:
+			tip.tooltip("")
 	
 func _check_sprite(key:String) -> void:
 	if object.has(key):
 		if object[key] is CompressedTexture2D:
-			sprite.texture = object[key]
+			if sprite:
+				sprite.texture = object[key]
 		else:
 			data.debug("The specified sprite cannot be installed", "error")
 	else:

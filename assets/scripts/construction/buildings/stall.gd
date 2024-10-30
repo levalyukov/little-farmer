@@ -26,7 +26,8 @@ func _ready():
 func update():
 	if object.has(level):
 		if object[level].has("default"):
-			sprite.texture = object[level]["default"]
+			if sprite:
+				sprite.texture = object[level]["default"]
 		else:
 			data.debug("There is no key at index " + str(level) + ".", "error")
 	else:
@@ -46,13 +47,15 @@ func _change_sprite(type:bool):
 					)
 	else:
 		_check_sprite("default")
-		tip.tooltip("")
+		if tip:
+			tip.tooltip("")
 
 func _check_sprite(key:String):
 	if object.has(level):
 		if object[level].has(key):
 			if object[level][key] is CompressedTexture2D:
-				sprite.texture = object[level][key]
+				if sprite:
+					sprite.texture = object[level][key]
 			else:
 				data.debug("The specified sprite cannot be installed.", "error")
 		else:

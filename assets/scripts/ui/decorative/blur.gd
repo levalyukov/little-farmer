@@ -2,6 +2,7 @@ extends Control
 
 @onready var main:String = str(get_tree().root.get_child(1).name)
 @onready var data = get_node("/root/"+main)
+@onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var hud:Control = get_node("/root/"+main+"/UI/HUD/GameHud")
 @onready var tooltip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
 @onready var camera:CharacterBody2D = get_node("/root/"+main+"/Player")
@@ -34,8 +35,10 @@ func blur(bluring:bool) -> void:
 		camera.switch = bluring
 	if has_node("/root/"+main+"/Player/Camera2D"):
 		zoom.change_zoom = !bluring
-	if bluring:
+	if bluring\
+	&& !pause.paused:
 		if has_node("/root/"+main+"/ConstructionManager/"):
 			for nodes in get_node("/root/"+main+"/ConstructionManager/").get_children():
 				if nodes.has_method("_change_sprite"):
-					nodes._change_sprite(false)
+					if nodes:
+						nodes._change_sprite(false)

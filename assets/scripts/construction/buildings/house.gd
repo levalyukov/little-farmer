@@ -76,9 +76,11 @@ func _check_key(key:String) -> void:
 		"ext":
 			if object[level].has("ext_default"):
 				if (object[level]["ext_default"] && object[level]["ext_hover"]) is CompressedTexture2D:
-					ext.visible = true
+					if ext:
+						ext.visible = true
 				else:
-					ext.visible = false
+					if ext:
+						ext.visible = false
 
 func _change_sprite(type:bool) -> void:
 	if type:
@@ -93,13 +95,15 @@ func _change_sprite(type:bool) -> void:
 				)
 	else:
 		_check_sprite("default")
-		tip.tooltip("")
+		if tip:
+			tip.tooltip("")
 
 func _check_sprite(key:String) -> void:
 	if object.has(level):
 		if object[level].has(key):
 			if object[level][key] is CompressedTexture2D:
-				sprite.texture = object[level][key]
+				if sprite:
+					sprite.texture = object[level][key]
 			else:
 				data.debug("The specified sprite cannot be installed.", "error")
 		else:
