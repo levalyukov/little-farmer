@@ -46,41 +46,47 @@ func set_data(index, item_amount) -> void:
 
 
 func _on_button_mouse_entered():
-	if mailbox.menu:
-		if item.content.has(int(id)):
-			if item.content[int(id)].has("caption"):
-				var item_amount:String = tr("x")
-				tip.tooltip(
-					item.content[int(id)]["caption"] + " [" + item_amount + str(amount) + "]"
-					)
+	if has_node("/root/"+main+"/UI/Interactive/Mailbox"):
+		if mailbox.menu:
+			if item.content.has(int(id)):
+				if item.content[int(id)].has("caption"):
+					var item_amount:String = tr("x")
+					tip.tooltip(
+						item.content[int(id)]["caption"] + " [" + item_amount + str(amount) + "]"
+						)
+				else:
+					print_debug("The 'caption' key is missing.", "error")
 			else:
-				print_debug("The 'caption' key is missing.", "error")
-		else:
-			data.debug("Invalid item ID: " + str(id))
+				data.debug("Invalid item ID: " + str(id))
 
-	if signmenu.menu:
-		if item.content.has(int(id)):
-			if item.content[int(id)].has("caption"):
-				tip.tooltip(
-					item.content[int(id)]["caption"]
-					)
+	if has_node("/root/"+main+"/UI/Interactive/BuildingsMenu/SignMenu"):
+		if signmenu.menu:
+			if item.content.has(int(id)):
+				if item.content[int(id)].has("caption"):
+					tip.tooltip(
+						item.content[int(id)]["caption"]
+						)
+				else:
+					data.debug("The 'caption' key is missing.", "error")
 			else:
-				data.debug("The 'caption' key is missing.", "error")
-		else:
-			data.debug("Invalid item ID: " + str(id), "warning")
+				data.debug("Invalid item ID: " + str(id), "warning")
 
 func _on_button_mouse_exited():
-	if mailbox.menu\
-	|| signmenu.menu:
-		tip.tooltip("")
+	if has_node("/root/"+main+"/UI/Interactive/Mailbox")\
+	|| has_node("/root/"+main+"/UI/Interactive/BuildingsMenu/SignMenu"):
+		if mailbox.menu\
+		|| signmenu.menu:
+			tip.tooltip("")
 
 func _on_button_pressed():
-	if inventory.visible:
-			inventory.get_data(id)
+	if has_node("/root/"+main+"/UI/Interactive/Inventory"):
+		if inventory.visible:
+				inventory.get_data(id)
 
-	if signmenu.visible:
-		if blur.state:
-			for i in buildings.get_children():
-				if i.name == signmenu.sign_name:
-					i.set_sign_sprite(int(id))
-					signmenu._close()
+	if has_node("/root/"+main+"/UI/Interactive/BuildingsMenu/SignMenu"):
+		if signmenu.visible:
+			if blur.state:
+				for i in buildings.get_children():
+					if i.name == signmenu.sign_name:
+						i.set_sign_sprite(int(id))
+						signmenu._close()
