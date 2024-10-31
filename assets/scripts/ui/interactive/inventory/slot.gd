@@ -17,11 +17,11 @@ var item:Object = Items.new()
 
 func set_data(index, item_amount) -> void:
 	self.id = index
-	if item.content.has(int(id)):
+	if item.content.has(int(index)):
 		self.amount = item_amount
-		if item.content[int(id)].has("icon"):
-			if item.content[int(id)]["icon"] is CompressedTexture2D:
-				icon.texture = item.content[int(id)]["icon"]
+		if item.content[int(index)].has("icon"):
+			if item.content[int(index)]["icon"] is CompressedTexture2D:
+				icon.texture = item.content[int(index)]["icon"]
 				icon.visible = true
 			else:
 				icon.visible = false
