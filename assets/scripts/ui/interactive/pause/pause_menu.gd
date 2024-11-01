@@ -37,7 +37,6 @@ func _ready():
 func _process(_delta):
 	if Input.is_action_just_pressed("pause")\
 	and !other_menu\
-	and !other_menu\
 	and !options.visible:
 		pause()
 
