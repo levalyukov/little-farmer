@@ -315,4 +315,5 @@ libraries = {
 "": SubResource("AnimationLibrary_x58a6")
 }
 
+[connection signal="pressed" from="Content/TradeWindow/TradeWindow/VBoxContainer/ButtonContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
