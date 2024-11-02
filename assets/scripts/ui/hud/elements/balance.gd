@@ -29,13 +29,6 @@ func remove_money(amount:int = 0) -> void:
 		self.money -= amount
 		balance_update()
 
-func purchase(price:int) -> bool:
-	if money >= price:
-		remove_money(price)
-		balance_update()
-		return true
-	return false
-
 func check_balance(balance) -> void:
 	if balance < minimum:
 		self.money = minimum
