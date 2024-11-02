@@ -138,8 +138,3 @@ func _on_button_pressed():
 						trade_menu.get_target_price()
 			_:
 				pass
-		print("Initiator: ", trade_menu.initiator)
-		print("Aviabled slots: ", str(storage.object[storage.level]["slots"] - inventory.get_all_items()))
-		print("Trade slots: ", trade_menu.get_all_items_in_trade_window())
-		print("New items in inventory: ", trade_menu.new_items_in_inventory)
-		print("Simillar items: ", trade_menu.simillar_items)
