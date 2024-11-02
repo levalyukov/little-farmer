@@ -27,7 +27,6 @@ expand_mode = 2
 stretch_mode = 6
 
 [node name="Amount" type="Label" parent="Button"]
-z_index = 1
 layout_mode = 0
 offset_right = 64.0
 offset_bottom = 64.0
