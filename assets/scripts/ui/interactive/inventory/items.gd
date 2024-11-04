@@ -8,7 +8,7 @@ var content:Dictionary = {
 		"description": tr("log.description"),
 		"type": "building_materials.type",
 		"purchase": 1,
-		"sale": 0,
+		"sale": 5,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/log.png"),
 	},
 	2: {
@@ -16,7 +16,7 @@ var content:Dictionary = {
 		"description": tr("plank.description"),
 		"type": "building_materials.type",
 		"purchase": 1,
-		"sale": 0,
+		"sale": 5,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/plank.png"),
 	},
 	3: {
@@ -24,7 +24,7 @@ var content:Dictionary = {
 		"description": tr("stone.description"),
 		"type": "building_materials.type",
 		"purchase": 1,
-		"sale": 0,
+		"sale": 5,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/stone.png"),
 	},
 	4: {
@@ -32,7 +32,7 @@ var content:Dictionary = {
 		"description": tr("cobblestone.description"),
 		"type": "building_materials.type",
 		"purchase": 1,
-		"sale": 0,
+		"sale": 5,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/cobblestone.png"),
 	},
 	5: {
@@ -40,7 +40,7 @@ var content:Dictionary = {
 		"description": tr("coal.description"),
 		"type": "building_materials.type",
 		"purchase": 1,
-		"sale": 0,
+		"sale": 5,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/coal.png"),
 	},
 	6: {
@@ -48,7 +48,7 @@ var content:Dictionary = {
 		"description": tr("copper_ore.description"),
 		"type": "ore.type",
 		"purchase": 1,
-		"sale": 0,
+		"sale": 5,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/copper_ore.png"),
 	},
 	7: {
@@ -56,7 +56,7 @@ var content:Dictionary = {
 		"description": tr("iron_ore.description"),
 		"type": "ore.type",
 		"purchase": 1,
-		"sale": 0,
+		"sale": 5,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/iron_ore.png"),
 	},
 	8: {
@@ -64,7 +64,7 @@ var content:Dictionary = {
 		"description": tr("bauxite_ore.description"),
 		"type": "ore.type",
 		"purchase": 1,
-		"sale": 0,
+		"sale": 5,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/bauxite_ore.png"),
 	},
 	9: {
@@ -72,7 +72,7 @@ var content:Dictionary = {
 		"description": tr("copper_ingot.description"),
 		"type": "building_materials.type",
 		"purchase": 1,
-		"sale": 0,
+		"sale": 5,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/copper_ingot.png"),
 	},
 	10: {
@@ -80,7 +80,7 @@ var content:Dictionary = {
 		"description": tr("iron_ingot.description"),
 		"type": "building_materials.type",
 		"purchase": 1,
-		"sale": 0,
+		"sale": 5,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/iron_ingot.png"),
 	},
 	11: {
@@ -88,7 +88,7 @@ var content:Dictionary = {
 		"description": tr("aluminum_ingot.description"),
 		"type": "building_materials.type",
 		"purchase": 1,
-		"sale": 0,
+		"sale": 5,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/aluminum_ingot.png"),
 	},
 	12: {
@@ -96,7 +96,7 @@ var content:Dictionary = {
 		"description": tr("amethyst.description"),
 		"type": "building_materials.type",
 		"purchase": 1,
-		"sale": 0,
+		"sale": 5,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/nail.png"),
 	},
 	13: {
@@ -109,7 +109,7 @@ var content:Dictionary = {
 		},
 		"type": "seeds",
 		"purchase": 1,
-		"sale": 0,
+		"sale": 5,
 		"crop": 1,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_1.png"),
 	},
@@ -123,7 +123,7 @@ var content:Dictionary = {
 		},
 		"type": "seeds",
 		"purchase": 1,
-		"sale": 0,
+		"sale": 5,
 		"crop": 2,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_2.png"),
 	},
@@ -137,7 +137,7 @@ var content:Dictionary = {
 		},
 		"type": "seeds",
 		"purchase": 1,
-		"sale": 0,
+		"sale": 5,
 		"crop": 3,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_3.png"),
 	},
@@ -151,7 +151,7 @@ var content:Dictionary = {
 		},
 		"type": "seeds",
 		"purchase": 1,
-		"sale": 0,
+		"sale": 5,
 		"crop": 4,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_4.png"),
 	},
