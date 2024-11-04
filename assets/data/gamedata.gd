@@ -247,7 +247,7 @@ func time_load() -> void:
 
 func balance_load() -> void:
 	balance.money = get_key(paths.player, "balance")
-	balance.balance_update()
+	balance.update_balance()
 
 func inventory_load() -> void:
 	inventory.load_content(file_load(paths.inventory))

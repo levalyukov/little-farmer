@@ -6,36 +6,37 @@ extends Control
 
 const maximum:int = 999_999_999
 const minimum:int = 0
-var money:int = 0
+var money:int = 100
 
 func _ready():
 	icon.texture = sprite
+	update_balance()
 
-func balance_update() -> void:
+func update_balance() -> void:
 	check_balance(money)
 	text.text = format(money)
 
 func set_money(amount:int = 0) -> void:
 	self.money = amount
-	balance_update()
+	update_balance()
 
 func add_money(amount:int = 0) -> void:
 	if amount > 0 && amount <= maximum:
 		self.money += amount
-		balance_update()
+		update_balance()
 
 func remove_money(amount:int = 0) -> void:
 	if amount > 0 && amount <= maximum:
 		self.money -= amount
-		balance_update()
+		update_balance()
 
 func check_balance(balance) -> void:
 	if balance < minimum:
 		self.money = minimum
-		balance_update()
+		update_balance()
 	if balance > maximum:
 		self.money = maximum
-		balance_update()
+		update_balance()
 
 func format(number:int) -> String:
 	if number > minimum:

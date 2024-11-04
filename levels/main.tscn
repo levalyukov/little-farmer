@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://coers8ktfq5yt"]
+[gd_scene load_steps=23 format=3 uid="uid://coers8ktfq5yt"]
 
 [ext_resource type="PackedScene" uid="uid://ddp2h6ryjofvt" path="res://assets/nodes/ui/hud/cursor.tscn" id="1_ea6rj"]
 [ext_resource type="PackedScene" uid="uid://bq4qdj61kxktg" path="res://assets/nodes/ui/interactive/_main_menu/logotype.tscn" id="1_qiujb"]
@@ -194,9 +194,6 @@ _data = {
 "version_string_show": SubResource("Animation_8gjff")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ow011"]
-size = Vector2(265, 84)
-
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_xofh6")
 
@@ -305,12 +302,6 @@ libraries = {
 "": SubResource("AnimationLibrary_ambvr")
 }
 
-[node name="Area2D" type="Area2D" parent="Canvas/MainMenu/Main/Credits"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Canvas/MainMenu/Main/Credits/Area2D"]
-position = Vector2(1097.5, 578)
-shape = SubResource("RectangleShape2D_ow011")
-
 [node name="Options" type="Node" parent="Canvas"]
 
 [node name="Blur" parent="Canvas/Options" instance=ExtResource("2_3s3hi")]
@@ -318,6 +309,3 @@ shape = SubResource("RectangleShape2D_ow011")
 [node name="Options" parent="Canvas/Options" instance=ExtResource("10_4nrqg")]
 
 [node name="Credits" parent="Canvas/Options" instance=ExtResource("13_nxpwq")]
-
-[connection signal="mouse_entered" from="Canvas/MainMenu/Main/Credits/Area2D" to="." method="_on_area_2d_mouse_entered"]
-[connection signal="mouse_exited" from="Canvas/MainMenu/Main/Credits/Area2D" to="." method="_on_area_2d_mouse_exited"]
