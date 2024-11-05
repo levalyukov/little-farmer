@@ -28,7 +28,7 @@ var menu:bool = false
 var item_index
 var button_index:int
 enum item_type {NOTHING, SEEDS}
-var inventory_items:Dictionary = {}
+var inventory_items:Dictionary = {20:{"amount":99999}}
 
 func _ready():
 	check_window()
@@ -224,11 +224,11 @@ func subject_item(id, item_amount:int = 1) -> void:
 	if typeof(id) == TYPE_INT || typeof(id) == TYPE_STRING:
 		if item_amount != 0:
 			for key in inventory_items:
-				if typeof(id) == TYPE_INT:
+				if id is int:
 					if id == int(key):
 						inventory_items[id]["amount"] -= item_amount 
 						check_amount(id)
-				elif typeof(id) == TYPE_STRING:
+				elif id is String:
 					if id == str(key):
 						inventory_items[id]["amount"] -= item_amount 
 						check_amount(id)
@@ -281,11 +281,11 @@ func check_item_amount(id) -> bool:
 func check_amount(index) -> void:
 	var inventory = inventory_items[index]
 	var items = Items.new()
-	if inventory.has(index):
-		if inventory.has("amount"):
-			if inventory["amount"] > items.maximum:
-				inventory["amount"] = items.maximum
-			if inventory["amount"] <= 0:
+	if inventory_items.has(index):
+		if inventory_items[index].has("amount"):
+			if inventory_items[index]["amount"] > items.maximum:
+				inventory_items[index]["amount"] = items.maximum
+			if inventory_items[index]["amount"] <= 0:
 				remove_item(index)
 		else:
 			push_warning("[ID: " + str(index) + "] The 'amount' element does not exist in the inventory dictionary (array).")
