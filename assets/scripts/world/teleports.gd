@@ -23,14 +23,13 @@ func teleport() -> void:
 			data.gamesave()
 			GameLoader.loading(false)
 			blackout.change_scene(path)
-
 		"Village":
 			var path:String = "res://levels/farm.tscn"
 			GameLoader.loading(true)
 			data.file_save(data.paths.world, "nature")
 			data.file_save(data.paths.player, "player")
+			data.file_save(data.paths.inventory, "inventory")
 			blackout.change_scene(path)
-
 		_:
 			data.debug("Unknown name of the game scene: "+str(main), "error")
 
