@@ -100,7 +100,7 @@ func get_items_trade_window() -> void:
 			slot.set_data(item, trade_content[item]["amount"])
 			slot.tr_arg = slot.tr_initator.NONE
 
-func add_item_trade_window(item_id, slot_arg) -> void:
+func set_item_trade_window(item_id, slot_arg, amount:int = 1) -> void:
 	var node = inventory.node
 	var slot = node.instantiate()
 	match slot_arg:
@@ -109,11 +109,13 @@ func add_item_trade_window(item_id, slot_arg) -> void:
 			if !trade_content.has(item_id):
 				trade_content[item_id] = {}
 				if !trade_content[item_id].has("amount"):
-					trade_content[item_id]["amount"] = 1
+					trade_content[item_id]["amount"] = amount
 			else:
 				if player_inventory.has(item_id):
-					if trade_content[item_id]["amount"] < player_inventory[item_id]["amount"]:
-						trade_content[item_id]["amount"] += 1
+					if trade_content[item_id]["amount"] + amount < player_inventory[item_id]["amount"]:
+						trade_content[item_id]["amount"] += amount
+					else:
+						trade_content[item_id]["amount"] = player_inventory[item_id]["amount"]
 			clear_trade_window()
 			get_items_trade_window()
 		slot.tr_initator.TRADER:
@@ -121,25 +123,58 @@ func add_item_trade_window(item_id, slot_arg) -> void:
 			if !trade_content.has(item_id):
 				trade_content[item_id] = {}
 				if !trade_content[item_id].has("amount"):
-					trade_content[item_id]["amount"] = 1
+					trade_content[item_id]["amount"] = amount
+			else:
+				if trade_content[item_id]["amount"] >= 1:
+					if trade_content[item_id]["amount"] + amount < trader_inventory[item_id]["max"]:
+						trade_content[item_id]["amount"] += amount
+					else:
+						trade_content[item_id]["amount"] = trader_inventory[item_id]["max"]
+			clear_trade_window()
+			get_items_trade_window()
+	update_button_trade_window()
+
+func add_item_trade_window(item_id, slot_arg, amount:int = 1) -> void:
+	var node = inventory.node
+	var slot = node.instantiate()
+	match slot_arg:
+		slot.tr_initator.PLAYER:
+			initiator = initiators.PLAYER
+			if !trade_content.has(item_id):
+				trade_content[item_id] = {}
+				if !trade_content[item_id].has("amount"):
+					trade_content[item_id]["amount"] = amount
+			else:
+				if player_inventory.has(item_id):
+					if trade_content[item_id]["amount"] < player_inventory[item_id]["amount"]:
+						trade_content[item_id]["amount"] += amount
+			clear_trade_window()
+			get_items_trade_window()
+		slot.tr_initator.TRADER:
+			initiator = initiators.TRADER
+			if !trade_content.has(item_id):
+				trade_content[item_id] = {}
+				if !trade_content[item_id].has("amount"):
+					trade_content[item_id]["amount"] = amount
 			else:
 				if trade_content[item_id]["amount"] >= 1:
 					if trade_content[item_id]["amount"] < trader_inventory[item_id]["max"]:
-						trade_content[item_id]["amount"] += 1
+						trade_content[item_id]["amount"] += amount
 			clear_trade_window()
 			get_items_trade_window()
-		_:
-			pass
 	update_button_trade_window()
 
-func remove_item_trade_window(item_id) -> void:
+func remove_item_trade_window(item_id, amount:int = 1) -> void:
 	for item in trade_content:
 		if item_id == item:
 			if trade_content[item_id].has("amount"):
 				if trade_content[item_id]["amount"] == 1:
 					trade_content.erase(item_id)
 				else:
-					trade_content[item_id]["amount"] -= 1
+					if amount > 0:
+						trade_content[item_id]["amount"] -= amount
+					else:
+						trade_content[item_id]["amount"] -= 1
 			clear_trade_window()
 			get_items_trade_window()
 			update_button_trade_window()
