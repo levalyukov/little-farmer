@@ -21,9 +21,13 @@ enum tr_initator {NONE, PLAYER, TRADER}
 var tr_arg:int = 0
 
 func set_data(index, item_amount) -> void:
-	self.id = index
+	id = index
 	if item.content.has(int(index)):
-		self.amount = item_amount
+		amount = item_amount
+
+		if amount > item.maximum:
+			amount = item.maximum
+
 		if item.content[int(index)].has("icon"):
 			if item.content[int(index)]["icon"] is CompressedTexture2D:
 				icon.texture = item.content[int(index)]["icon"]
@@ -35,17 +39,12 @@ func set_data(index, item_amount) -> void:
 			icon.visible = false
 			data.debug("[ID: "+str(index)+"] The object does not have the 'icon' key.", "error")
 		
-		if typeof(amount) == TYPE_INT and amount > 0:
-			if amount > 1:
-				amount_label.visible = true
-				if amount > item.maximum:
-					amount = item.maximum
-				amount_label.text = "x"+str(amount)
-			else:
-				amount_label.visible = false
+		if amount > 1:
+			amount_label.visible = true
+			amount_label.text = "x"+str(amount)
 		else:
-			data.debug("[ID: "+str(index)+"] The object does not have the 'icon' key.", "error")
 			amount_label.visible = false
+
 	else:
 		data.debug("Invalid index: " + str(index), "error")
 
@@ -113,28 +112,54 @@ func _on_button_pressed():
 						signmenu._close()
 
 	if has_node("/root/"+main+"/UI/Interactive/TradeMenu"):
-		match tr_arg:
-			tr_initator.PLAYER:
-				if trade_menu:
-					if trade_menu.initiator == trade_menu.initiators.PLAYER || trade_menu.initiator == trade_menu.initiators.NONE:
-						trade_menu.add_item_trade_window(id, tr_initator.PLAYER)
-						trade_menu.updates_arrays()
-						trade_menu.get_target_price()
-						trade_menu.update_button_trade_window()
-			tr_initator.TRADER:
-				if trade_menu:
-					if trade_menu.initiator == trade_menu.initiators.TRADER || trade_menu.initiator == trade_menu.initiators.NONE:
-						trade_menu.add_item_trade_window(id, tr_initator.TRADER)
-						trade_menu.updates_arrays()
-						trade_menu.get_target_price()
-						trade_menu.update_button_trade_window()
-			tr_initator.NONE:
-				if trade_menu:
-					if trade_menu.initiator == trade_menu.initiators.PLAYER || trade_menu.initiator == trade_menu.initiators.TRADER:
-						trade_menu.remove_item_trade_window(id)
-						if trade_menu.initiator == trade_menu.initiators.TRADER:
+		if !Input.is_action_pressed("shift"):
+			match tr_arg:
+				tr_initator.PLAYER:
+					if trade_menu:
+						if trade_menu.initiator == trade_menu.initiators.PLAYER || trade_menu.initiator == trade_menu.initiators.NONE:
+							trade_menu.add_item_trade_window(id, tr_initator.PLAYER)
 							trade_menu.updates_arrays()
-						trade_menu.update_button_trade_window()
-						trade_menu.get_target_price()
-			_:
-				pass
+							trade_menu.get_target_price()
+							trade_menu.update_button_trade_window()
+				tr_initator.TRADER:
+					if trade_menu:
+						if trade_menu.initiator == trade_menu.initiators.TRADER || trade_menu.initiator == trade_menu.initiators.NONE:
+							trade_menu.add_item_trade_window(id, tr_initator.TRADER)
+							trade_menu.updates_arrays()
+							trade_menu.get_target_price()
+							trade_menu.update_button_trade_window()
+				tr_initator.NONE:
+					if trade_menu:
+						if trade_menu.initiator == trade_menu.initiators.PLAYER || trade_menu.initiator == trade_menu.initiators.TRADER:
+							trade_menu.remove_item_trade_window(id)
+							if trade_menu.initiator == trade_menu.initiators.TRADER:
+								trade_menu.updates_arrays()
+							trade_menu.update_button_trade_window()
+							trade_menu.get_target_price()
+				_:
+					pass
+		else:
+			match tr_arg:
+				tr_initator.PLAYER:
+					if trade_menu:
+						if trade_menu.initiator == trade_menu.initiators.PLAYER || trade_menu.initiator == trade_menu.initiators.NONE:
+							trade_menu.set_item_trade_window(id, tr_initator.PLAYER, amount/4)
+							trade_menu.updates_arrays()
+							trade_menu.get_target_price()
+							trade_menu.update_button_trade_window()
+				tr_initator.TRADER:
+					if trade_menu:
+						if trade_menu.initiator == trade_menu.initiators.TRADER || trade_menu.initiator == trade_menu.initiators.NONE:
+							trade_menu.set_item_trade_window(id, tr_initator.TRADER, amount/4)
+							trade_menu.updates_arrays()
+							trade_menu.get_target_price()
+							trade_menu.update_button_trade_window()
+				tr_initator.NONE:
+					if trade_menu:
+						if trade_menu.initiator == trade_menu.initiators.PLAYER || trade_menu.initiator == trade_menu.initiators.TRADER:
+							var half = round(trade_menu.trade_content[id]["amount"]/4)
+							trade_menu.remove_item_trade_window(id, half)
+							if trade_menu.initiator == trade_menu.initiators.TRADER:
+								trade_menu.updates_arrays()
+							trade_menu.update_button_trade_window()
+							trade_menu.get_target_price()
