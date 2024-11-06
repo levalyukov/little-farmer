@@ -75,6 +75,7 @@ func remove_player_inventory() -> void:
 func get_player_inventory() -> void:
 	var ids_to_remove = []
 	if inventory:
+		inventory.update_inventory_content()
 		player_inventory = inventory.inventory_items
 		if player_inventory != {}:
 			for id in player_inventory:
@@ -86,7 +87,6 @@ func get_player_inventory() -> void:
 					slot.tr_arg = slot.tr_initator.PLAYER
 				else:
 					ids_to_remove.append(id)
-
 		for id in ids_to_remove:
 			player_inventory.erase(id)
 
