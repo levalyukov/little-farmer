@@ -221,7 +221,7 @@ func add_item(id, amount:int = 0) -> void:
 		inventory_items[int(id)] = {"amount": amount}
 		
 func subject_item(id, item_amount:int = 1) -> void:
-	if typeof(id) == TYPE_INT || typeof(id) == TYPE_STRING:
+	if id is int || id is String:
 		if item_amount != 0:
 			for key in inventory_items:
 				if id is int:
@@ -233,11 +233,10 @@ func subject_item(id, item_amount:int = 1) -> void:
 						inventory_items[id]["amount"] -= item_amount 
 						check_amount(id)
 
-	if typeof(id) == TYPE_DICTIONARY:
+	if id is Dictionary:
 		var materials = BuildingMaterials.new()
 		var resources_id = []
 		var amounts = []
-
 		for item in id:
 			if id[item].has("amount"):
 				if id[item]["amount"] > 0:
@@ -279,7 +278,6 @@ func check_item_amount(id) -> bool:
 	return false
 
 func check_amount(index) -> void:
-	var inventory = inventory_items[index]
 	var items = Items.new()
 	if inventory_items.has(index):
 		if inventory_items[index].has("amount"):
@@ -289,7 +287,7 @@ func check_amount(index) -> void:
 				remove_item(index)
 		else:
 			push_warning("[ID: " + str(index) + "] The 'amount' element does not exist in the inventory dictionary (array).")
-			inventory["amount"] = 1
+			inventory_items[index]["amount"] = 1
 
 func get_specifications(index, i) -> void:
 	var items = Items.new()
@@ -298,6 +296,9 @@ func get_specifications(index, i) -> void:
 	else:
 		data.debug("[ID: "+str(index)+"] The '"+ str(i) +"' element is not a string.", "error")
 
+func update_inventory_content() -> void:
+	for items in inventory_items:
+		check_amount(items)
 
 func get_tip(tip:String) -> String:
 	match tip:
