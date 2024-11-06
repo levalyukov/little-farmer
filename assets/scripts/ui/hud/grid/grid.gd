@@ -121,17 +121,13 @@ func _process(_delta):
 						var plant_id = collision.get_plant_id(tilemap.map_to_local(tile_mouse_pos))
 						if crops.crops.has(plant_id):
 							if storage.object[storage.level]["slots"] - inventory.get_all_items() != 0:
-								var crop_caption:String = crops.crops[plant_id]["caption"]
 								var crop_item:int = crops.crops[plant_id]["item"]
 								var crop_productivity:Array = crops.crops[plant_id]["productivity"]
 								var target_productivity:int = randi_range(crop_productivity[0], crop_productivity[1])
-								var notice_content:String = "+"+str(target_productivity)+" "+str(crop_caption)
-								var notice_icon:CompressedTexture2D = items.content[crops.crops[plant_id]["item"]]["icon"]
 
 								tilemap.erase_cell(collision.crops_layer, tile_mouse_pos)
 								farming.plant_destroy(tilemap.map_to_local(tile_mouse_pos))
 								inventory.add_item(crop_item, target_productivity)
-								notifications.create_notice(notice_content, notice_icon)
 							else:
 								notifications.create_notice("error")
 						else:
