@@ -1,23 +1,31 @@
-# Open Non-Commercial License (ONCL)
 
-## 1. Usage Rights
 
-The author grants all users the following rights:
 
-- **1.1.** Free use of the software for non-commercial purposes, including installation, copying, and execution.
-- **1.2.** Free study of the source code for educational and research purposes.
-- **1.3.** The right to modify the source code and create derivative works under the conditions of this license.
 
-## 2. Restriction on Commercial Use
 
-- **2.1.** Commercial use, distribution, or sale of the software and derivative works based on it is prohibited without the express written permission of the author.
-- **2.2.** "Commercial use" refers to any use of the software with the intent to gain direct or indirect profit.
 
-## 3. Conditions for Distributing Derivative Works
 
-- **3.1.** All derivative works created based on the original software must be distributed under the same terms as the original software (i.e., under this license).
-- **3.2.** Derivative works must explicitly acknowledge the original author and provide a link to this license.
 
-## 4. No Warranty
 
-- **4.1.** The software is provided "as is," without any express or implied warranties. The author is not liable for any damages arising from the use of the software.
+# End User License Agreement (EULA)
+
+This End User License Agreement (hereinafter referred to as the “Agreement”) governs the use of the game (hereinafter referred to as the “Software”), created and provided by the author (hereinafter referred to as the “Author”). By installing or using the Software, you agree to comply with the terms of this Agreement.
+
+## 1. Limited License
+
+The Author grants you a personal, limited, non-transferable, non-exclusive license to use the Software solely for personal purposes and in accordance with the terms of this Agreement. You are prohibited from:
+
+- modifying, copying, or distributing the Software or any of its parts;
+- using the Software for commercial purposes without the Author’s written permission;
+- attempting to decompile, reverse engineer, or otherwise analyze the Software’s source code.
+
+## 2. Disclaimer of Liability
+
+The Software is provided “as is,” and the Author assumes no liability for any errors, damages, or other consequences that may arise from the use of the Software. The user assumes all risks associated with using the Software.
+
+## 3. Amendments and License Termination
+
+The Author reserves the right to amend the terms of this Agreement by publishing updates. Continuing to use the Software after an update constitutes acceptance of the changes. The Author may also terminate this license if the terms of this Agreement are violated.
+
+> [!WARNING]\
+> If you do not agree with the terms of this Agreement, please discontinue use of the Software.
