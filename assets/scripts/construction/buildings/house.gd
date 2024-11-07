@@ -15,7 +15,7 @@ extends Node2D
 @onready var ext:Sprite2D = $Sprite2D_2
 @onready var sprite:Sprite2D = $Sprite2D
 
-const name_:String = "House"
+const name_:String = "house"
 var level:int = 1
 var object:Dictionary = {
 	1: {
@@ -111,12 +111,9 @@ func _check_sprite(key:String) -> void:
 	else:
 		data.debug("Index " + str(level) + " is not in the dictionary.", "error")
 
-func _on_area_2d_mouse_entered() -> void:
-	if !blur.state:
-		_change_sprite(true)
-
-func _on_area_2d_mouse_exited() -> void:
-	_change_sprite(false)
+func load_data(obj_level:int) -> void:
+	self.level = obj_level
+	update()
 
 func get_data() -> Dictionary:
 	if object.has(level):
@@ -126,6 +123,9 @@ func get_data() -> Dictionary:
 			}
 	return {}
 
-func load_data(obj_level:int) -> void:
-	self.level = obj_level
-	update()
+func _on_area_2d_mouse_entered() -> void:
+	if !blur.state:
+		_change_sprite(true)
+
+func _on_area_2d_mouse_exited() -> void:
+	_change_sprite(false)
