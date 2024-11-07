@@ -7,6 +7,7 @@ extends Node2D
 @onready var sign_menu:Control = get_node("/root/"+main+"/UI/Interactive/BuildingsMenu/SignMenu")
 @onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
+@onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var icon:TextureRect = $TextureRect
 @onready var sprite:Sprite2D = $Sprite2D
@@ -65,6 +66,16 @@ func _check_sprite(key:String) -> void:
 			data.debug("The specified sprite cannot be installed.", "error")
 	else:
 		data.debug("The specified key is missing.", "error")
+
+func get_data() -> Dictionary:
+	return {
+		"sprite_icon": icon.texture,
+		"position": tilemap.local_to_map(position),
+		}
+
+func set_level(sprite_icon:CompressedTexture2D, node_position:Vector2) -> void:
+	icon.texture = sprite_icon
+	position = tilemap.map_to_local(node_position)
 
 func _on_area_2d_mouse_entered() -> void:
 	if !blur.state:
