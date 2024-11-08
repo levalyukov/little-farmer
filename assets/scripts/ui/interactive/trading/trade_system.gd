@@ -7,7 +7,7 @@ extends Control
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var balance:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Balance")
 @onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
-@onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/Storage")
+@onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/storage")
 
 @onready var player_inventory_main:GridContainer = $Content/PlayerInventory/PlayerContainer/VBoxContainer/MarginContainer/GridContainer
 @onready var trade_window_items:GridContainer =  $Content/TradeWindow/TradeWindow/VBoxContainer/ItemsContainer/GridMarginContainer/GridContainer

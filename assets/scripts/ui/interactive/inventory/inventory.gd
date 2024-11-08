@@ -5,9 +5,9 @@ extends Control
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var build:Control = get_node("/root/"+main+"/UI/Interactive/Crafting")
-@onready var mailbox:Control = get_node("/root/"+main+"/UI/Interactive/Mailbox")
+@onready var mailbox:Control = get_node("/root/"+main+"/UI/Interactive/mailbox")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
-@onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/Storage")
+@onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/storage")
 @onready var node:PackedScene = load("res://assets/nodes/ui/interactive/inventory/slot.tscn")
 @onready var anim:AnimationPlayer = $Animation
 
@@ -28,7 +28,7 @@ var menu:bool = false
 var item_index
 var button_index:int
 enum item_type {NOTHING, SEEDS}
-var inventory_items:Dictionary = {20:{"amount":99999}}
+var inventory_items:Dictionary = {}
 
 func _ready():
 	check_window()
@@ -45,7 +45,7 @@ func inventory_update():
 			inventory_items.erase(i)
 
 func check_inventory():
-	if has_node("/root/"+main+"/ConstructionManager/Storage"):
+	if has_node("/root/"+main+"/ConstructionManager/storage"):
 		var max_slots = storage.object[storage.level]["slots"]
 		while inventory_items.size() > max_slots:
 			for item in inventory_items:
@@ -186,7 +186,7 @@ func item_create(id) -> void:
 
 func update_string_capacity() -> void:
 	if has_node("/root/"+main+"/ConstructionManager"):
-		if has_node("/root/"+main+"/ConstructionManager/Storage"):
+		if has_node("/root/"+main+"/ConstructionManager/storage"):
 			if storage.object[storage.level].has("slots"):
 				var text = tr("storage.capacity")
 				list.text = text + " " + str(get_all_items()) + "/" + str(storage.object[storage.level]["slots"])
@@ -195,7 +195,7 @@ func update_string_capacity() -> void:
 				data.debug("The 'slots' element does not exist.", "error")
 				list.visible = false
 		else:
-			data.debug("In the parent of 'ConstructionManager'  there is no child node 'Storage'", "error")
+			data.debug("In the parent of 'ConstructionManager' there is no child node 'Storage'", "error")
 	else:
 		data.debug("There is no parent of 'ConstructionManager' in the '"+main+"' scene", "error")
 
