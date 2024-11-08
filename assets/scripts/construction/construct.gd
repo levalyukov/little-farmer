@@ -10,6 +10,13 @@ extends Node2D
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridCollision")
 const max_distance:int = 250
 
+var all_buildings:Dictionary = {
+	"house": load("res://assets/nodes/buildings/house.tscn"),
+	"mailbox": load("res://assets/nodes/buildings/mailbox.tscn"),
+	"storage": load("res://assets/nodes/buildings/storage.tscn"),
+	"sign": load("res://assets/nodes/buildings/sign.tscn"),
+}
+
 func get_buildings() -> Dictionary:
 	var data_dict = {}
 	for building in buildings.get_children():
@@ -17,24 +24,29 @@ func get_buildings() -> Dictionary:
 			data_dict[building.name] = building.get_data()
 	return data_dict
 
-func build_content(build_name:String, level:int) -> void:
-	for building in buildings.get_children():
-		if building.name == build_name:
-			if building.has_method("load_data"):
-				building.load_data(level)
-			else:
-				data.debug("The '" + str(building.name) + "' node does not have the 'load_data' method, skipped.", "error")
-
-func construct(node_id:int, node_scene:PackedScene, node_shadow:CompressedTexture2D, node_position:Vector2i) -> void:
-	var building:Node2D = node_scene.instantiate()
-	var blueprints = Blueprints.new()
-	var building_name = "build"
+func construct(node_name:String, node_scene:PackedScene, node_shadow:CompressedTexture2D, node_position:Vector2i) -> void:
+	var building = node_scene.instantiate()
+	var building_name = node_name + "_1"
 
 	add_child(building)
 	tilemap.set_cell(collision.building_layer-1, node_position, 0, Vector2i(0,3))
 	building.set_position(tilemap.map_to_local(node_position))
 	building.z_index = collision.building_layer
-	if blueprints.content[node_id]["type"]["node"].has("name"):
-		building_name = blueprints.content[node_id]["type"]["node"]["name"] + "_1"
-		building.name = building_name
+	building.name = building_name
 	shadows.create_shadow(building_name, node_shadow, node_position)
+
+func construct_load(node_name:String, node_scene:PackedScene, node_position:Vector2i) -> void:
+	var building = node_scene.instantiate()
+	var building_name = node_name + "_1"
+
+	add_child(building)
+	tilemap.set_cell(collision.building_layer-1, node_position, 0, Vector2i(0,3))
+	building.set_position(tilemap.map_to_local(node_position))
+	building.z_index = collision.building_layer
+	building.name = building_name
+	building._shadow_create()
+
+func construct_load_sprites(name_node:String, sprite_id:int) -> void:
+	for build in buildings.get_children():
+		if build.name == name_node:
+			build.set_sign_sprite(sprite_id)
