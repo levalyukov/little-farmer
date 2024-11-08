@@ -4,6 +4,8 @@ extends Area2D
 @onready var data = get_node("/root/"+main)
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var farming:Node2D = get_node("/root/"+main+"/FarmingManager")
+@onready var buildings:Node2D = get_node("/root/"+main+"/ConstructionManager")
+@onready var shadows:Node = get_node("/root/"+main+"/ShadowManager/CanvasGroup")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
 
 var crops = Crops.new()
@@ -48,6 +50,9 @@ func destroy_collision_check() -> int:
 	and check_cell(tile_mouse_pos, crops_layer):
 		grid.change_sprite(false)
 		return 4
+	elif check_cell(tile_mouse_pos, building_layer-1):
+		grid.change_sprite(false)
+		return 5
 	else:
 		grid.change_sprite(true)
 		return -1
@@ -125,6 +130,17 @@ func building_collision_check() -> bool:
 		grid.change_sprite(false)
 		return false
 
+
+func get_building(mouse_position:Vector2i):
+	for node in buildings.get_children():
+		if data.remove_suffix(node.name) in buildings.all_buildings:
+			if tilemap.local_to_map(mouse_position) == tilemap.local_to_map(node.position):
+				return node
+
+func get_shadow(mouse_position:Vector2i):
+	for shadow in shadows.get_children():
+		if tilemap.local_to_map(mouse_position) == tilemap.local_to_map(shadow.position):
+			return shadow
 
 func get_plant(mouse_position:Vector2i) -> bool:
 	for plant in farming.get_children():
