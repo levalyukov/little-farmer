@@ -11,9 +11,6 @@ extends Node2D
 const max_distance:int = 250
 
 var all_buildings:Dictionary = {
-	"house": load("res://assets/nodes/buildings/house.tscn"),
-	"mailbox": load("res://assets/nodes/buildings/mailbox.tscn"),
-	"storage": load("res://assets/nodes/buildings/storage.tscn"),
 	"sign": load("res://assets/nodes/buildings/sign.tscn"),
 }
 
@@ -37,13 +34,12 @@ func construct(node_name:String, node_scene:PackedScene, node_shadow:CompressedT
 
 func construct_load(node_name:String, node_scene:PackedScene, node_position:Vector2i) -> void:
 	var building = node_scene.instantiate()
-	var building_name = node_name + "_1"
 
 	add_child(building)
 	tilemap.set_cell(collision.building_layer-1, node_position, 0, Vector2i(0,3))
 	building.set_position(tilemap.map_to_local(node_position))
 	building.z_index = collision.building_layer
-	building.name = building_name
+	building.name = node_name
 	building._shadow_create()
 
 func construct_load_sprites(name_node:String, sprite_id:int) -> void:
