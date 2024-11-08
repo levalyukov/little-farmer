@@ -73,7 +73,6 @@ _data = {
 }
 
 [node name="SignMenu" type="Control"]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -124,11 +123,11 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Panel" type="Panel" parent="Main/VBoxContainer/MarginContainer"]
+[node name="Panel2" type="Panel" parent="Main/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Main/VBoxContainer/MarginContainer"]
-custom_minimum_size = Vector2(0, 135)
+custom_minimum_size = Vector2(0, 215)
 layout_mode = 2
 horizontal_scroll_mode = 0
 
