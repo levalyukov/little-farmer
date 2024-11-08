@@ -5,6 +5,7 @@ extends Node2D
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var notifications:Control = get_node("/root/"+main+"/UI/Feedback/Notifications")
 @onready var hud:Control = get_node("/root/"+main+"/UI/HUD/GameHud")
+@onready var shadows:Node = get_node("/root/"+main+"/ShadowManager/CanvasGroup")
 @onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var building:Node2D = get_node("/root/"+main+"/ConstructionManager")
@@ -81,6 +82,10 @@ func _process(_delta):
 						4:
 							tilemap.erase_cell(collision.crops_layer,tile_mouse_pos)
 							farming.plant_destroy(tilemap.map_to_local(tile_mouse_pos))
+						5:
+							building.remove_child(collision.get_building(tilemap.map_to_local(tile_mouse_pos)))
+							shadows.remove_child(collision.get_shadow(tilemap.map_to_local(tile_mouse_pos)))
+							tilemap.erase_cell(collision.building_layer-1, tile_mouse_pos)
 				check = false
 
 			modes.FARMING:
