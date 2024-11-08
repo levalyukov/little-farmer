@@ -152,7 +152,13 @@ func _process(_delta):
 				if check:
 					if grid.texture != error:
 						if blueprint.content.has(building_id):
-							building.construct(building_id, building_node, building_shadow, tile_mouse_pos)
+							var build_name = "build"
+							if blueprint.content[building_id].has("type"):
+								if blueprint.content[building_id]["type"].has("node"):
+									if blueprint.content[building_id]["type"]["node"].has("name"):
+										build_name = blueprint.content[building_id]["type"]["node"]["name"]
+							building.construct(build_name, building_node, building_shadow, tile_mouse_pos)
+
 							if blueprint.content[building_id].has("resource"):
 								inventory.subject_item(data_resources)
 				check = false
