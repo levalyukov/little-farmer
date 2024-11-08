@@ -111,17 +111,16 @@ func _check_sprite(key:String) -> void:
 	else:
 		data.debug("Index " + str(level) + " is not in the dictionary.", "error")
 
-func load_data(obj_level:int) -> void:
-	self.level = obj_level
-	update()
-
 func get_data() -> Dictionary:
 	if object.has(level):
 		return {
-			"level": level,
-			"position": tilemap.local_to_map(position),
+			"level": level
 			}
 	return {}
+
+func set_level_obj(obj_level:int) -> void:
+	level = obj_level
+	update()
 
 func _on_area_2d_mouse_entered() -> void:
 	if !blur.state:
