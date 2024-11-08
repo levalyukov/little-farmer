@@ -4,6 +4,7 @@ extends Node2D
 @onready var data:Node2D = get_node("/root/"+main)
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
+@onready var canvas:Node = get_node("/root/"+main+"/ShadowManager")
 @onready var sign_menu:Control = get_node("/root/"+main+"/UI/Interactive/BuildingsMenu/SignMenu")
 @onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
@@ -13,15 +14,20 @@ extends Node2D
 @onready var sprite:Sprite2D = $Sprite2D
 
 var items = Items.new()
+var id:int = 0
 var max_distance:int = 250
 var open_menu:bool = false
 var object:Dictionary = {
 	"description" = tr("sign.description"),
 	"default" = load("res://assets/resources/buildings/sign/sign_0.png"),
 	"hover" = load("res://assets/resources/buildings/sign/sign_1.png"),
+	"shadow" = load("res://assets/resources/buildings/sign/shadow.png"),
 }
 
 func _ready():
+	update()
+
+func update() -> void:
 	if object.has("default"):
 		if typeof(object["default"]) == TYPE_OBJECT and sprite.texture is CompressedTexture2D:
 			sprite.texture = object["default"]
@@ -30,14 +36,26 @@ func _ready():
 	else:
 		data.debug("The specified key is missing.", "error")
 
-func set_sign_sprite(target_sprite):
-	if items.content.has(target_sprite):
-		if items.content[target_sprite].has("icon"):
-			icon.texture = items.content[target_sprite]["icon"]
+func _shadow_create() -> void:
+	if visible:
+		if object:
+			if object.has("shadow"):
+				if object["shadow"] is CompressedTexture2D:
+					var vector2i_position = tilemap.local_to_map(position)
+					var target_position = Vector2i(vector2i_position.x, vector2i_position.y)
+					canvas.create_shadow("sign_shadow", object["shadow"], target_position)
+				else:
+					data.debug("It is not possible to create a game shadow of an object because the sprite is not of the 'CompressedTexture2D' type.", "error")
+
+func set_sign_sprite(item_id):
+	id = item_id
+	if items.content.has(item_id):
+		if items.content[item_id].has("icon"):
+			icon.texture = items.content[item_id]["icon"]
 		else:
 			data.debug("The object does not have the 'description' key", "error")
 	else:
-		data.debug("Invalid index: " + str(target_sprite), "error")
+		data.debug("Invalid index: " + str(item_id), "error")
 
 func _input(event):
 	if event is InputEventMouseButton\
@@ -68,14 +86,15 @@ func _check_sprite(key:String) -> void:
 		data.debug("The specified key is missing.", "error")
 
 func get_data() -> Dictionary:
-	return {
-		"sprite_icon": icon.texture,
-		"position": tilemap.local_to_map(position),
-		}
-
-func set_level(sprite_icon:CompressedTexture2D, node_position:Vector2) -> void:
-	icon.texture = sprite_icon
-	position = tilemap.map_to_local(node_position)
+	if id != 0 && items.content.has(id):
+		return {
+			"TextureRect_sprite": id,
+			"position": tilemap.local_to_map(position),
+			}
+	else:
+		return {
+			"position": tilemap.local_to_map(position),
+			}
 
 func _on_area_2d_mouse_entered() -> void:
 	if !blur.state:
