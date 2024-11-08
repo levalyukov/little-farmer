@@ -1,7 +1,7 @@
 extends Node
 
 class_name Items
-const maximum = 9999
+const maximum:int = 9999
 var content:Dictionary = {
 	1: {
 		"caption": tr("log.caption"),
@@ -160,7 +160,7 @@ var content:Dictionary = {
 		"description": tr("carrot_crop.description"),
 		"type": "crop",
 		"purchase": 1,
-		"sale": 100,
+		"sale": 25,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/crops/carrot.png"),
 	},
 	18: {
@@ -168,7 +168,7 @@ var content:Dictionary = {
 		"description": tr("potato_crop.description"),
 		"type": "crop",
 		"purchase": 1,
-		"sale": 100,
+		"sale": 75,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/crops/potato.png"),
 	},
 	19: {
@@ -176,7 +176,7 @@ var content:Dictionary = {
 		"description": tr("radish_crop.description"),
 		"type": "crop",
 		"purchase": 1,
-		"sale": 100,
+		"sale": 50,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/crops/radish.png"),
 	},
 	20: {
