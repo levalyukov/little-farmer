@@ -136,6 +136,16 @@ func create_terrain(index:int, layer:int, path_file:String, key:String, terrain_
 			for vector in vector_array:
 				return vector_array
 
+func string_to_vector(vector_string:String) -> Vector2i:
+	var cleaned_str = vector_string.replace("(", "").replace(")", "")
+	var components = cleaned_str.split(",")
+	if components.size() < 2:
+		debug("Invalid vector format: " + vector_string, "error")
+		return Vector2i()
+	var x = components[0].to_int()
+	var y = components[1].to_int()
+	return Vector2i(x, y)
+
 func get_position_children(parent:Node2D) -> Array:
 	var children = parent.get_children()
 	var coordinates = []
@@ -261,11 +271,22 @@ func mailbox_load() -> void:
 	mailbox.letters_load(file_load(paths.mailbox))
 
 func buildings_load() -> void:
-	for content in file_load(paths.buildings):
-		if file_load(paths.buildings)[content].has("level"):
-			buildings.build_content(content, file_load(paths.buildings)[content]["level"])
+	if file_load(paths.buildings) != {}:
+		for content in file_load(paths.buildings):
+			if buildings.all_buildings.has(remove_suffix(content)):
+				if file_load(paths.buildings)[content].has("position"):
+					buildings.construct_load(content, buildings.all_buildings[remove_suffix(content)], string_to_vector(file_load(paths.buildings)[content]["position"]))
+				if file_load(paths.buildings)[content].has("TextureRect_sprite"):
+					buildings.construct_load_sprites(content, file_load(paths.buildings)[content]["TextureRect_sprite"])
+	else:
+		debug("building_load(): Empty dictionary.", "error")
 
-func debug(content:String, type:String = "INFO") -> void:
+func remove_suffix(input:String) -> String:
+	var regex = RegEx.new()
+	regex.compile("_[0-9]+$")
+	return regex.sub(input, "")
+
+func debug(content:String, type:String = "info") -> void:
 	var system_datetime = Time.get_datetime_dict_from_system()
 	var datetime:String = "["+str(system_datetime["year"])+"-"+str(system_datetime["month"])+"-"+str(system_datetime["day"])+" "+str(system_datetime["hour"])+":"+str(system_datetime["minute"])+":"+str(system_datetime["second"])+"]"
 	match type.to_lower():
