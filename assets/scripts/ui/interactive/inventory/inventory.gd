@@ -5,30 +5,34 @@ extends Control
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var build:Control = get_node("/root/"+main+"/UI/Interactive/Crafting")
-@onready var mailbox:Control = get_node("/root/"+main+"/UI/Interactive/mailbox")
+@onready var mailbox:Control = get_node("/root/"+main+"/UI/Interactive/Mailbox")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
 @onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/storage")
 @onready var node:PackedScene = load("res://assets/nodes/ui/interactive/inventory/slot.tscn")
 @onready var anim:AnimationPlayer = $Animation
 
-@onready var info:BoxContainer = $Panel/HBoxContainer/ItemInfo/VBoxContainer
-@onready var scroll_info:ScrollContainer = $Panel/HBoxContainer/ItemInfo
-@onready var slots:GridContainer = $Panel/HBoxContainer/Slots/GridContainer
-@onready var scroll_slots:ScrollContainer = $Panel/HBoxContainer/Slots
+@onready var info:BoxContainer = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer
+@onready var scroll_info:ScrollContainer = $Main/HBoxContainer/ItemContent/ScrollContainer
+@onready var slots:GridContainer = $Main/HBoxContainer/InventoryContent/ScrollContainer/GridContainer
+@onready var scroll_slots:ScrollContainer = $Main/HBoxContainer/InventoryContent/ScrollContainer
 
-@onready var icon:TextureRect = $Panel/HBoxContainer/ItemInfo/VBoxContainer/Icon/Icon
-@onready var caption:Label = $Panel/HBoxContainer/ItemInfo/VBoxContainer/Caption/Caption
-@onready var description:Label = $Panel/HBoxContainer/ItemInfo/VBoxContainer/Description/Description
-@onready var specifications:Label = $Panel/HBoxContainer/ItemInfo/VBoxContainer/Specifications/Specifications
-@onready var type:Label = $Panel/HBoxContainer/ItemInfo/VBoxContainer/Type/Type
-@onready var button:Button = $Panel/HBoxContainer/ItemInfo/VBoxContainer/Button/Button
-@onready var list:Label = $Panel/StorageItemList
+@onready var icon:TextureRect = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/ItemIconContainer/TextureRect
+@onready var caption:Label = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/HeaderContainer/Header
+@onready var description:Label = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/ContentContainer/Content
+@onready var specifications:Label = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/Specifications/Specifications
+@onready var type:Label = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/Type/Type
+@onready var button:Button = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/ButtonContainer/Button
+@onready var list:Label = $Main/HBoxContainer/InventoryContent/Label
 
 var menu:bool = false
 var item_index
 var button_index:int
 enum item_type {NOTHING, SEEDS}
-var inventory_items:Dictionary = {}
+var inventory_items:Dictionary = {
+	1:{"amount":25},
+	2:{"amount":25},
+	3:{"amount":25},
+}
 
 func _ready():
 	check_window()
@@ -135,7 +139,7 @@ func get_data(index) -> void:
 
 			if item.content[int(index)].has("type"):
 				if typeof(item.content[int(index)]["type"]) == TYPE_STRING:
-					var type_text = tr("item_type.inventory")
+					var type_text = tr("inventory.item_type")
 					type.visible = true
 					type.text = "\n" + type_text + ": " + item.content[int(index)]["type"] + "\n"
 					check_item_type(item.content[int(index)]["type"])
@@ -188,7 +192,7 @@ func update_string_capacity() -> void:
 	if has_node("/root/"+main+"/ConstructionManager"):
 		if has_node("/root/"+main+"/ConstructionManager/storage"):
 			if storage.object[storage.level].has("slots"):
-				var text = tr("storage.capacity")
+				var text = tr("inventory.storage_slots")
 				list.text = text + " " + str(get_all_items()) + "/" + str(storage.object[storage.level]["slots"])
 				list.visible = true
 			else:
@@ -303,11 +307,11 @@ func update_inventory_content() -> void:
 func get_tip(tip:String) -> String:
 	match tip:
 		"growth":
-			return tr("growthtime_crop.inventory")
+			return tr("inventory.crop_growthtime")
 		"productivity":
-			return tr("productivity_crop.inventory")
+			return tr("inventory.crop_productivity")
 		"conditions":
-			return tr("conditions_crop.inventory")
+			return tr("inventory.crop_conditions")
 		_:
 			return ""
 
@@ -315,7 +319,7 @@ func check_item_type(i_type:String) -> void:
 	if main == "Farm":
 		match i_type:
 			"seeds":
-				var plant_text = tr("plant_seeds.inventory_button")
+				var plant_text = tr("inventory_button.plant_seeds")
 				button_index = item_type.SEEDS
 				button.text = plant_text
 				button.visible = true
