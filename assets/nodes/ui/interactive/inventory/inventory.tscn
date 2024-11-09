@@ -1,7 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cjkwsdkyksvs3"]
+[gd_scene load_steps=8 format=3 uid="uid://cjkwsdkyksvs3"]
 
-[ext_resource type="Script" path="res://assets/scripts/ui/interactive/inventory/inventory.gd" id="1_ula8m"]
-[ext_resource type="Texture2D" uid="uid://bso14d0bn8kw1" path="res://assets/resources/ui/interactive/inventory/items/Sprite-0001.png" id="2_2ovt8"]
+[ext_resource type="Script" path="res://assets/scripts/ui/interactive/inventory/inventory.gd" id="1_oq0ls"]
+[ext_resource type="Texture2D" uid="uid://blip53ufv0jwb" path="res://icon.png" id="2_veyy4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jj68h"]
+font_size = 22
+outline_size = 1
 
 [sub_resource type="Animation" id="Animation_ciguq"]
 length = 0.001
@@ -15,7 +19,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_8fihm"]
@@ -100,7 +104,6 @@ _data = {
 }
 
 [node name="Inventory" type="Control"]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -109,156 +112,162 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ula8m")
+script = ExtResource("1_oq0ls")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Main" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -320.0
-offset_top = -184.0
-offset_right = 320.0
-offset_bottom = 200.0
+offset_left = -350.0
+offset_top = -212.5
+offset_right = 375.0
+offset_bottom = 212.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="Panel"]
-custom_minimum_size = Vector2(275, 0)
-layout_mode = 2
-offset_left = 333.0
-offset_top = 20.0
-offset_right = 608.0
-offset_bottom = 336.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Main"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -299.0
-offset_top = -172.0
-offset_right = 300.0
-offset_bottom = 144.0
+offset_left = -350.0
+offset_top = -201.0
+offset_right = 350.0
+offset_bottom = 201.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="InventoryContent" type="VBoxContainer" parent="Main/HBoxContainer"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Main/HBoxContainer/InventoryContent"]
+custom_minimum_size = Vector2(0, 375)
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="Main/HBoxContainer/InventoryContent/ScrollContainer"]
+layout_mode = 2
+columns = 5
+
+[node name="Label" type="Label" parent="Main/HBoxContainer/InventoryContent"]
+layout_mode = 2
+text = "storage.slots"
+text_overrun_behavior = 3
+
+[node name="ItemContent" type="Panel" parent="Main/HBoxContainer"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Main/HBoxContainer/ItemContent"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Slots" type="ScrollContainer" parent="Panel/HBoxContainer"]
-custom_minimum_size = Vector2(270, 0)
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/HBoxContainer/ItemContent/ScrollContainer"]
 layout_mode = 2
-size_flags_horizontal = 6
+size_flags_horizontal = 3
+size_flags_vertical = 2
+alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="Panel/HBoxContainer/Slots"]
-z_index = 1
-layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 3
-columns = 4
-
-[node name="ItemInfo" type="ScrollContainer" parent="Panel/HBoxContainer"]
-custom_minimum_size = Vector2(275, 0)
-layout_mode = 2
-size_flags_horizontal = 6
-horizontal_scroll_mode = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/ItemInfo"]
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 3
-
-[node name="Icon" type="MarginContainer" parent="Panel/HBoxContainer/ItemInfo/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_top = 5
-
-[node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/ItemInfo/VBoxContainer/Icon"]
-custom_minimum_size = Vector2(96, 96)
+[node name="ItemIconContainer" type="MarginContainer" parent="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("2_2ovt8")
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="TextureRect" type="TextureRect" parent="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/ItemIconContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_veyy4")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Caption" type="MarginContainer" parent="Panel/HBoxContainer/ItemInfo/VBoxContainer"]
+[node name="HeaderContainer" type="MarginContainer" parent="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 10
 
-[node name="Caption" type="Label" parent="Panel/HBoxContainer/ItemInfo/VBoxContainer/Caption"]
-custom_minimum_size = Vector2(0, 50)
+[node name="Header" type="Label" parent="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/HeaderContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
+text = "header"
+label_settings = SubResource("LabelSettings_jj68h")
 horizontal_alignment = 1
-vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Description" type="MarginContainer" parent="Panel/HBoxContainer/ItemInfo/VBoxContainer"]
+[node name="ContentContainer" type="MarginContainer" parent="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-
-[node name="Description" type="Label" parent="Panel/HBoxContainer/ItemInfo/VBoxContainer/Description"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-vertical_alignment = 1
-autowrap_mode = 3
-
-[node name="Specifications" type="MarginContainer" parent="Panel/HBoxContainer/ItemInfo/VBoxContainer"]
-layout_mode = 2
-
-[node name="Specifications" type="Label" parent="Panel/HBoxContainer/ItemInfo/VBoxContainer/Specifications"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-vertical_alignment = 1
-autowrap_mode = 3
-
-[node name="Type" type="MarginContainer" parent="Panel/HBoxContainer/ItemInfo/VBoxContainer"]
-layout_mode = 2
-
-[node name="Type" type="Label" parent="Panel/HBoxContainer/ItemInfo/VBoxContainer/Type"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-vertical_alignment = 1
-autowrap_mode = 3
-
-[node name="Button" type="MarginContainer" parent="Panel/HBoxContainer/ItemInfo/VBoxContainer"]
-custom_minimum_size = Vector2(25, 40)
-layout_mode = 2
-theme_override_constants/margin_top = 15
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 15
 
-[node name="Button" type="Button" parent="Panel/HBoxContainer/ItemInfo/VBoxContainer/Button"]
-custom_minimum_size = Vector2(0, 54)
+[node name="Content" type="Label" parent="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/ContentContainer"]
 layout_mode = 2
-text = "plant_seeds.button"
+text = "content"
+autowrap_mode = 3
 
-[node name="StorageItemList" type="Label" parent="Panel"]
+[node name="Specifications" type="MarginContainer" parent="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 15
+
+[node name="Specifications" type="Label" parent="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/Specifications"]
+layout_mode = 2
+text = "specifications
+"
+autowrap_mode = 3
+
+[node name="Type" type="MarginContainer" parent="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 15
+
+[node name="Type" type="Label" parent="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/Type"]
+layout_mode = 2
+text = "type"
+autowrap_mode = 3
+
+[node name="ButtonContainer" type="MarginContainer" parent="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="Button" type="Button" parent="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/ButtonContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "inventory.button"
+text_overrun_behavior = 3
+
+[node name="Close" type="Button" parent="Main"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.05
-anchor_top = 0.895833
-anchor_right = 0.334375
-anchor_bottom = 0.958333
-offset_right = -59.0
-text = "all_items.storage"
-metadata/_edit_use_anchors_ = true
-
-[node name="Close" type="Button" parent="."]
-layout_mode = 0
-offset_left = 304.0
-offset_top = -200.0
-offset_right = 337.0
-offset_bottom = -168.0
-metadata/_edit_use_anchors_ = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 346.5
+offset_top = -232.5
+offset_right = 379.5
+offset_bottom = -199.5
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Animation" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_of6b4")
 }
 
-[connection signal="pressed" from="Panel/HBoxContainer/ItemInfo/VBoxContainer/Button/Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Close" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="Main/Close" to="." method="_on_close_pressed"]
