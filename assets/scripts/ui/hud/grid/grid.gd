@@ -9,7 +9,7 @@ extends Node2D
 @onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var building:Node2D = get_node("/root/"+main+"/ConstructionManager")
-@onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/Storage")
+@onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/storage")
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var farming:Node2D = get_node("/root/"+main+"/FarmingManager")
 
