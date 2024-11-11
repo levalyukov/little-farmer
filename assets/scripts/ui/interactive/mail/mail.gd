@@ -7,29 +7,27 @@ extends Control
 @onready var notice:Control = get_node("/root/"+main+"/UI/Feedback/Notifications")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
-@onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/Storage")
+@onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/storage")
 @onready var balance:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Balance")
-@onready var button_script:Button = get_node("/root/"+main+"/UI/Interactive/Mailbox/Main/MailContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/ButtonContainer/GetItems")
+@onready var button_script:Button = get_node("/root/"+main+"/UI/Interactive/Mailbox/Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/ButtonContainer/GetItems")
 @onready var letter_node:PackedScene = load("res://assets/nodes/ui/interactive/mail/letter.tscn")
 @onready var slot:PackedScene = inventory.node
 
 @onready var anim:AnimationPlayer = $AnimationPlayer
-@onready var content_scroll:ScrollContainer = $Main/MailContainer/ContentScroll
-@onready var letters_container:VBoxContainer = $Main/MailContainer/LettersScroll/VBoxContainer
-@onready var content_container:VBoxContainer = $Main/MailContainer/ContentScroll/VBoxContainer
-@onready var items_hbox:HBoxContainer = $Main/MailContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/HBoxContainer
-@onready var items_container:GridContainer = $Main/MailContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/HBoxContainer/Items/GridContainer
-@onready var items_block:MarginContainer = $Main/MailContainer/ContentScroll/VBoxContainer/LetterItems
-@onready var header_label:Label = $Main/MailContainer/ContentScroll/VBoxContainer/LetterHeader/Title
-@onready var description_label:Label = $Main/MailContainer/ContentScroll/VBoxContainer/LetterContent/Text
-@onready var author_label:Label = $Main/MailContainer/ContentScroll/VBoxContainer/LetterAuthor/Author
-@onready var attached_items_label:Label = $Main/MailContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/LabelContainer/Label
-@onready var button:Button = $Main/MailContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/ButtonContainer/GetItems
+@onready var content_scroll:ScrollContainer = $Panel/HBoxContainer/LetterContent/ScrollContainer
+@onready var letters_container:GridContainer = $Panel/HBoxContainer/LettersContainer/ScrollContainer/GridContainer
+@onready var items_hbox:MarginContainer = $Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer
+@onready var items_container:GridContainer = $Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/ItemContainer/GridContainer
+@onready var items_block:MarginContainer = $Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/ItemContainer
+@onready var header_label:Label = $Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/LetterHeader/Header
+@onready var description_label:Label = $Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/LetterContent/Content
+@onready var author_label:Label = $Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/LetterAuthor/Author
+@onready var attached_items_label:Label = $Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/MoneyContainer/Label
+@onready var button_container:MarginContainer = $Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/ButtonContainer
+@onready var button:Button = $Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/ButtonContainer/GetItems
 
-@onready var mail_remove_container:MarginContainer = $Main/MailContainer/ContentScroll/VBoxContainer/LetterManipulationButton
-@onready var mail_remove_button:Button = $Main/MailContainer/ContentScroll/VBoxContainer/LetterManipulationButton/MailRemove
-@onready var mail_manipulation_buttons:HBoxContainer = $Main/MailManipulationButtons
-@onready var remove_all_readed_button:Button = $Main/MailManipulationButtons/MarginContainer/DeleteAllReadedLetters
+@onready var mail_manipulation_buttons:Button = $Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ManipulationButtons/MailRemove
+@onready var mails_remove_button:Button = $Panel/DeleteAllReadedLetters
 
 var item:Object = Items.new()
 var menu:bool = false
@@ -71,8 +69,9 @@ func check_all_keys(id, dictionary:Dictionary) -> void:
 			letters[id]["items"][key] = dictionary[key]
 
 func get_data(letterID) -> void:
+	reset_data()
 	index = check_letterID(letterID)
-	content_scroll.scroll_vertical = 0
+	#content_scroll.scroll_vertical = 0
 	if letters.has(index):
 		letter_delete_items(items_container)
 		if letters[index].has("status"):
@@ -110,12 +109,12 @@ func get_data(letterID) -> void:
 
 		if (letters[index].has("items") or letters[index].has("money"))\
 		and (letters[index]["items"] != {} or letters[index]["money"] != 0):
-			items_block.visible = true
+			items_hbox.visible = true
 
 			if (letters[index]["items"] != {} || letters[index]["money"] != 0):
 				button.text = tr("get_all_items.mail")
 				if letters[index]["items"] != {}:
-					items_hbox.visible = true
+					items_block.visible = true
 					for i in letters[index]["items"]:
 						if typeof(letters[index]["items"][i]) == TYPE_DICTIONARY\
 						&& letters[index]["items"][i].has("amount"):
@@ -274,7 +273,7 @@ func reset_data() -> void:
 		header_label.text = string_header_mail
 		description_label.text = tr("mail.description_no_letters")
 	author_label.text = ""
-	items_block.visible = false
+	items_hbox.visible = false
 	change_state_mail_remove_button(false)
 
 func open() -> void:
@@ -313,14 +312,14 @@ func _on_close_pressed() -> void:
 
 # Mail Manipulation Buttons
 func _on_mail_remove_pressed() -> void:
-	if mail_remove_button.visible:
+	if mails_remove_button.visible:
 		mail_remove(index)
 
 func _on_delete_all_readed_letters_pressed() -> void:
 	remove_all_readed_letters()
 
 func change_state_mail_remove_button(state:bool) -> void:
-	mail_remove_container.visible = state
+	mail_manipulation_buttons.visible = state
 
 func mail_remove(letter_id) -> void:
 	letters.erase(letter_id)
@@ -375,14 +374,14 @@ func mail_update() -> void:
 
 func update_mail_manipulation_button() -> void:
 	if letters != {}:
-		if !mail_manipulation_buttons.visible:
-			mail_manipulation_buttons.visible = true
+		if !mails_remove_button.visible:
+			mails_remove_button.visible = true
 	else:
-		if mail_manipulation_buttons.visible:
-			mail_manipulation_buttons.visible = false
+		if mails_remove_button.visible:
+			mails_remove_button.visible = false
 
 func update_state_mail_manipulation_button() -> void:
 	if get_all_readed_letters() > 0:
-		remove_all_readed_button.disabled = false
+		mails_remove_button.disabled = false
 	else:
-		remove_all_readed_button.disabled = true
+		mails_remove_button.disabled = true
