@@ -1,11 +1,11 @@
 extends Control
 
 @onready var main = str(get_tree().root.get_child(1).name)
-@onready var data:Node2D = get_node("/root/"+main)
+@onready var data = get_node("/root/"+main)
 @onready var mail:Control = get_node("/root/"+main+"/UI/Interactive/Mailbox")
 @onready var icon:TextureRect = $Button/HBoxContainer/MarginContainer/TextureRect
 @onready var header:Label = $Button/HBoxContainer/Label
-const symbols:int = 16
+const symbols:int = 32
 
 var index
 var sprites:Dictionary = {
