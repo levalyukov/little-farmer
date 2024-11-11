@@ -9,8 +9,8 @@ const sprite_min:int = 0
 
 var clouds:Array[CompressedTexture2D] = []
 var sprite_value:int = 0
-var spawn_clouds_time_max:float = 5
-var spawn_clouds_time_min:float = 0.25
+var spawn_clouds_time_max:float = 25
+var spawn_clouds_time_min:float = 6.25
 
 func _ready() -> void:
 	while clouds.size() < sprite_max:
