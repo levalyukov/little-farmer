@@ -1,11 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://cwtsqme5qki8s"]
+[gd_scene load_steps=10 format=3 uid="uid://cwtsqme5qki8s"]
 
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/mail/mail.gd" id="1_nrqxv"]
+[ext_resource type="PackedScene" uid="uid://15vmrkth71wi" path="res://assets/nodes/ui/interactive/mail/letter.tscn" id="1_uakyx"]
 [ext_resource type="PackedScene" uid="uid://do4e681e4p00n" path="res://assets/nodes/ui/interactive/inventory/slot.tscn" id="3_2hh12"]
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/mail/receiving_button.gd" id="3_j40v4"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_76bej"]
+[sub_resource type="LabelSettings" id="LabelSettings_y2ytc"]
 font_size = 22
+outline_size = 1
 
 [sub_resource type="Animation" id="Animation_c0gri"]
 length = 0.001
@@ -113,194 +115,203 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_nrqxv")
 
-[node name="Main" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -320.0
-offset_top = -192.0
-offset_right = 320.0
-offset_bottom = 192.0
+offset_left = -362.5
+offset_top = -212.5
+offset_right = 362.5
+offset_bottom = 212.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="Main"]
-layout_mode = 2
-offset_left = 309.0
-offset_top = 16.0
-offset_right = 624.0
-offset_bottom = 368.0
-
-[node name="MailContainer" type="HBoxContainer" parent="Main"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -303.0
-offset_top = -176.0
-offset_right = 304.0
-offset_bottom = 176.0
+offset_left = -352.0
+offset_top = -200.0
+offset_right = 352.0
+offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 1
 
-[node name="LettersScroll" type="ScrollContainer" parent="Main/MailContainer"]
-custom_minimum_size = Vector2(280, 0)
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Main/MailContainer/LettersScroll"]
-layout_mode = 2
-
-[node name="ContentScroll" type="ScrollContainer" parent="Main/MailContainer"]
-custom_minimum_size = Vector2(315, 0)
-layout_mode = 2
-size_flags_horizontal = 10
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Main/MailContainer/ContentScroll"]
-custom_minimum_size = Vector2(315, 0)
-layout_mode = 2
-size_flags_horizontal = 6
-
-[node name="LetterHeader" type="MarginContainer" parent="Main/MailContainer/ContentScroll/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_bottom = 10
-
-[node name="Title" type="Label" parent="Main/MailContainer/ContentScroll/VBoxContainer/LetterHeader"]
-custom_minimum_size = Vector2(25, 25)
-layout_mode = 2
-text = "letter.header"
-label_settings = SubResource("LabelSettings_76bej")
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 3
-
-[node name="LetterContent" type="MarginContainer" parent="Main/MailContainer/ContentScroll/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 5
-
-[node name="Text" type="Label" parent="Main/MailContainer/ContentScroll/VBoxContainer/LetterContent"]
-clip_contents = true
-layout_mode = 2
-theme_override_constants/line_spacing = 0
-text = "letter.content"
-autowrap_mode = 3
-
-[node name="LetterAuthor" type="MarginContainer" parent="Main/MailContainer/ContentScroll/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 5
-
-[node name="Author" type="Label" parent="Main/MailContainer/ContentScroll/VBoxContainer/LetterAuthor"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 15
-text = "letter.author"
-autowrap_mode = 3
-
-[node name="LetterItems" type="MarginContainer" parent="Main/MailContainer/ContentScroll/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="Panel" type="Panel" parent="Main/MailContainer/ContentScroll/VBoxContainer/LetterItems"]
-layout_mode = 2
-auto_translate = false
-localize_numeral_system = false
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Main/MailContainer/ContentScroll/VBoxContainer/LetterItems"]
-layout_mode = 2
-
-[node name="LabelContainer" type="MarginContainer" parent="Main/MailContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 5
-
-[node name="Label" type="Label" parent="Main/MailContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/LabelContainer"]
-layout_mode = 2
-text = "letter.attached_items"
-autowrap_mode = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Main/MailContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer"]
+[node name="LettersContainer" type="VBoxContainer" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 6
+size_flags_vertical = 4
 
-[node name="Items" type="MarginContainer" parent="Main/MailContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/HBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/HBoxContainer/LettersContainer"]
+custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="Main/MailContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/HBoxContainer/Items"]
+[node name="GridContainer" type="GridContainer" parent="Panel/HBoxContainer/LettersContainer/ScrollContainer"]
 layout_mode = 2
-columns = 4
+size_flags_horizontal = 0
 
-[node name="Slot2" parent="Main/MailContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/HBoxContainer/Items/GridContainer" instance=ExtResource("3_2hh12")]
-layout_mode = 2
-
-[node name="Slot3" parent="Main/MailContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/HBoxContainer/Items/GridContainer" instance=ExtResource("3_2hh12")]
+[node name="Letter" parent="Panel/HBoxContainer/LettersContainer/ScrollContainer/GridContainer" instance=ExtResource("1_uakyx")]
 layout_mode = 2
 
-[node name="Slot5" parent="Main/MailContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/HBoxContainer/Items/GridContainer" instance=ExtResource("3_2hh12")]
+[node name="Letter2" parent="Panel/HBoxContainer/LettersContainer/ScrollContainer/GridContainer" instance=ExtResource("1_uakyx")]
 layout_mode = 2
 
-[node name="Slot4" parent="Main/MailContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/HBoxContainer/Items/GridContainer" instance=ExtResource("3_2hh12")]
+[node name="Letter3" parent="Panel/HBoxContainer/LettersContainer/ScrollContainer/GridContainer" instance=ExtResource("1_uakyx")]
 layout_mode = 2
 
-[node name="ButtonContainer" type="MarginContainer" parent="Main/MailContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer"]
+[node name="Letter4" parent="Panel/HBoxContainer/LettersContainer/ScrollContainer/GridContainer" instance=ExtResource("1_uakyx")]
+layout_mode = 2
+
+[node name="Letter5" parent="Panel/HBoxContainer/LettersContainer/ScrollContainer/GridContainer" instance=ExtResource("1_uakyx")]
+layout_mode = 2
+
+[node name="LetterContent" type="Panel" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/HBoxContainer/LetterContent"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/LetterContent/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LetterHeader" type="MarginContainer" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 15
+
+[node name="Header" type="Label" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/LetterHeader"]
+layout_mode = 2
+text = "lettter.header"
+label_settings = SubResource("LabelSettings_y2ytc")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="LetterContent" type="MarginContainer" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+
+[node name="Content" type="Label" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/LetterContent"]
+layout_mode = 2
+text = "lettter.content"
+
+[node name="LetterAuthor" type="MarginContainer" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 10
+
+[node name="Author" type="Label" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/LetterAuthor"]
+layout_mode = 2
+text = "lettter.author"
+
+[node name="ItemsContainer" type="MarginContainer" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 15
+
+[node name="Panel" type="Panel" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer"]
+layout_mode = 2
+
+[node name="MoneyContainer" type="MarginContainer" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 5
+theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="GetItems" type="Button" parent="Main/MailContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/ButtonContainer"]
-custom_minimum_size = Vector2(50, 50)
+[node name="Label" type="Label" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/MoneyContainer"]
 layout_mode = 2
-text = "letter.get_all_items"
-text_overrun_behavior = 3
-script = ExtResource("3_j40v4")
+text = "letter.money"
 
-[node name="LetterManipulationButton" type="MarginContainer" parent="Main/MailContainer/ContentScroll/VBoxContainer"]
+[node name="ItemContainer" type="MarginContainer" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GridContainer" type="GridContainer" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/ItemContainer"]
+layout_mode = 2
+columns = 4
+
+[node name="Slot2" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/ItemContainer/GridContainer" instance=ExtResource("3_2hh12")]
+layout_mode = 2
+
+[node name="Slot5" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/ItemContainer/GridContainer" instance=ExtResource("3_2hh12")]
+layout_mode = 2
+
+[node name="Slot7" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/ItemContainer/GridContainer" instance=ExtResource("3_2hh12")]
+layout_mode = 2
+
+[node name="Slot6" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/ItemContainer/GridContainer" instance=ExtResource("3_2hh12")]
+layout_mode = 2
+
+[node name="ButtonContainer" type="MarginContainer" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GetItems" type="Button" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/ButtonContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "letter.get_all_items"
+script = ExtResource("3_j40v4")
+
+[node name="ManipulationButtons" type="MarginContainer" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
-[node name="MailRemove" type="Button" parent="Main/MailContainer/ContentScroll/VBoxContainer/LetterManipulationButton"]
+[node name="MailRemove" type="Button" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ManipulationButtons"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 text = "letter.remove"
 
-[node name="MailManipulationButtons" type="HBoxContainer" parent="Main"]
-layout_mode = 0
-offset_top = 384.0
-offset_right = 640.0
-offset_bottom = 434.0
-alignment = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Main/MailManipulationButtons"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="DeleteAllReadedLetters" type="Button" parent="Main/MailManipulationButtons/MarginContainer"]
+[node name="DeleteAllReadedLetters" type="Button" parent="Panel"]
 custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-text = "mail.remove_all_readed_letters"
-icon_alignment = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 136.5
+offset_top = 224.5
+offset_right = 363.5
+offset_bottom = 274.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "mail_remove_readed_letters"
+text_overrun_behavior = 3
 
 [node name="Close" type="Button" parent="."]
 custom_minimum_size = Vector2(32, 2)
@@ -310,10 +321,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 304.0
-offset_top = -207.0
-offset_right = 336.0
-offset_bottom = -176.0
+offset_left = 352.0
+offset_top = -232.0
+offset_right = 384.0
+offset_bottom = -200.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "X"
@@ -323,7 +334,7 @@ libraries = {
 "": SubResource("AnimationLibrary_2yx45")
 }
 
-[connection signal="pressed" from="Main/MailContainer/ContentScroll/VBoxContainer/LetterItems/VBoxContainer/ButtonContainer/GetItems" to="." method="_on_get_items_pressed"]
-[connection signal="pressed" from="Main/MailContainer/ContentScroll/VBoxContainer/LetterManipulationButton/MailRemove" to="." method="_on_mail_remove_pressed"]
-[connection signal="pressed" from="Main/MailManipulationButtons/MarginContainer/DeleteAllReadedLetters" to="." method="_on_delete_all_readed_letters_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/ButtonContainer/GetItems" to="." method="_on_get_items_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ManipulationButtons/MailRemove" to="." method="_on_mail_remove_pressed"]
+[connection signal="pressed" from="Panel/DeleteAllReadedLetters" to="." method="_on_delete_all_readed_letters_pressed"]
 [connection signal="pressed" from="Close" to="." method="_on_close_pressed"]
