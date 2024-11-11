@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bkiksla513wrs" path="res://assets/resources/ui/interactive/mail/icons/readed.png" id="2_aeolx"]
 
 [node name="Letter" type="Control"]
-custom_minimum_size = Vector2(280, 64)
+custom_minimum_size = Vector2(340, 64)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,7 +15,7 @@ script = ExtResource("1_objys")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
-offset_right = 280.0
+offset_right = 340.0
 offset_bottom = 64.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Button"]
