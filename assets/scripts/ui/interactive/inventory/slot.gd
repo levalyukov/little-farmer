@@ -12,7 +12,7 @@ extends Control
 @onready var icon:TextureRect = $Button/Icon
 @onready var amount_label:Label = $Button/Amount
 
-@onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/Storage")
+@onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/storage")
 
 var id
 var amount:int
@@ -51,17 +51,18 @@ func set_data(index, item_amount) -> void:
 
 func _on_button_mouse_entered():
 	if has_node("/root/"+main+"/UI/Interactive/Mailbox"):
-		if mailbox.menu:
-			if item.content.has(int(id)):
-				if item.content[int(id)].has("caption"):
-					var item_amount:String = tr("x")
-					tip.tooltip(
-						item.content[int(id)]["caption"] + " [" + item_amount + str(amount) + "]"
-						)
+		if mailbox:
+			if mailbox.menu:
+				if item.content.has(int(id)):
+					if item.content[int(id)].has("caption"):
+						var item_amount:String = tr("x")
+						tip.tooltip(
+							item.content[int(id)]["caption"] + " [" + item_amount + str(amount) + "]"
+							)
+					else:
+						print_debug("The 'caption' key is missing.", "error")
 				else:
-					print_debug("The 'caption' key is missing.", "error")
-			else:
-				data.debug("Invalid item ID: " + str(id))
+					data.debug("Invalid item ID: " + str(id))
 
 	if has_node("/root/"+main+"/UI/Interactive/BuildingsMenu/SignMenu"):
 		if signmenu.menu:
