@@ -6,15 +6,17 @@ extends Control
 @onready var notice:Control = get_node("/root/"+main+"/UI/Feedback/Notifications")
 @onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
-@onready var container:GridContainer = get_node("/root/"+main+"/UI/Interactive/Crafting/Panel/HBoxContainer/Items/GridContainer")
-@onready var build_button:Button = get_node("/root/"+main+"/UI/Interactive/Crafting/Panel/HBoxContainer/Info/VBoxContainer/Button/Craft")
 
 @onready var blueprint:PackedScene = load("res://assets/nodes/ui/interactive/construct/blueprint.tscn")
-@onready var caption:Label = $Panel/HBoxContainer/Info/VBoxContainer/Caption/ObjectCaption
-@onready var description:Label = $Panel/HBoxContainer/Info/VBoxContainer/Description/ObjectDescription
-@onready var resources:Label = $Panel/HBoxContainer/Info/VBoxContainer/Resources/ObjectResources
-@onready var time_create:Label = $Panel/HBoxContainer/Info/VBoxContainer/Time/ObjectCreationTime
-@onready var button:Button = $Panel/HBoxContainer/Info/VBoxContainer/Button/Craft
+@onready var scroll_container_info:ScrollContainer = $Main/HBoxContainer/InfoContent/ScrollContainer
+@onready var container:GridContainer = $Main/HBoxContainer/BlueprintsContent/ScrollContainer/GridContainer
+@onready var icon:TextureRect = $Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/IconContainer/TextureRect
+@onready var caption:Label = $Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/HeaderContainer/Header
+@onready var description:Label = $Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/DescriptionContainer/Description
+@onready var resources:Label = $Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/ResourcesContainer/Resources
+@onready var time_create:Label = $Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/TimeContainer/Time
+@onready var button:Button = $Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button
+@onready var button_script = get_node("/root/"+main+"/UI/Interactive/ConstructMenu/Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button")
 @onready var anim:AnimationPlayer = $AnimationPlayer
 
 var index:int
@@ -83,14 +85,22 @@ func _create_item(id) -> void:
 		data.debug("Cannot load node. Invalid index: " + str(id), "error")
 
 func _delete_all_blueprints() -> void:
-	for child in container.get_children():
-		container.remove_child(child)
-		child.queue_free()
+	if container.get_children() != []:
+		for child in container.get_children():
+			container.remove_child(child)
+			child.queue_free()
 
 func get_data(id):
-	self.index = id
-	button.id = id
+	index = id
+	button_script.id = id
+	scroll_container_info.scroll_vertical = 0
 	if blueprints.content.has(int(index)):
+		if blueprints.content[int(index)].has("icon"):
+			icon.visible = true
+			icon.texture = blueprints.content[int(index)]["icon"]
+		else:
+			data.debug("The object does not have the 'icon' key.", "error")
+			icon.visible = false
 		if blueprints.content[int(index)].has("caption"):
 			if blueprints.content[int(index)]["caption"] is String:
 				caption.text = str(blueprints.content[int(index)]["caption"])
@@ -117,8 +127,7 @@ func get_data(id):
 		if blueprints.content[id].has("resource"):
 			var resources_label = tr("necessary_resources.craft")
 			resources.visible = true
-			resources.text = resources_label + ":"
-
+			description.text = description.text + "\n" + resources_label + ":"
 			get_all_required_items(id)
 			check_all_required_items(id)
 			if all_items:
@@ -128,7 +137,7 @@ func get_data(id):
 		else:
 			resources.visible = false
 			button.disabled = false
-		
+
 		if blueprints.content[id].has("time"):
 			if blueprints.content[id]["time"] is int:
 				if blueprints.content[id]["time"] > 0:
@@ -144,7 +153,6 @@ func get_data(id):
 		else:
 			data.debug("The object does not have the 'time' key.", "error")
 			time_create.visible = false
-		
 		button.text = check_blueprint_type(id)
 		button.visible = true
 	else:
@@ -225,5 +233,5 @@ func _reset_data() -> void:
 func check_window() -> void:
 	visible = menu
 
-func _on_button_pressed() -> void:
+func _on_close_pressed() -> void:
 	window()
