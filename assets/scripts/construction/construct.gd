@@ -28,7 +28,6 @@ func construct(node_name:String, node_scene:PackedScene, node_shadow:CompressedT
 	add_child(building)
 	tilemap.set_cell(collision.building_layer-1, node_position, 0, Vector2i(0,3))
 	building.set_position(tilemap.map_to_local(node_position))
-	building.z_index = collision.building_layer
 	building.name = building_name
 	shadows.create_shadow(building_name, node_shadow, node_position)
 
@@ -38,7 +37,6 @@ func construct_load(node_name:String, node_scene:PackedScene, node_position:Vect
 	add_child(building)
 	tilemap.set_cell(collision.building_layer-1, node_position, 0, Vector2i(0,3))
 	building.set_position(tilemap.map_to_local(node_position))
-	building.z_index = collision.building_layer
 	building.name = node_name
 	building._shadow_create()
 
