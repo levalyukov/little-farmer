@@ -7,7 +7,6 @@
 size = Vector2(12, 12)
 
 [node name="Tablet" type="Node2D"]
-z_index = 4
 script = ExtResource("1_d1lem")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

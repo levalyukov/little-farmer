@@ -142,30 +142,19 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="Content/PlayerInventory/PlayerContainer"]
 custom_minimum_size = Vector2(305, 425)
 layout_mode = 2
+size_flags_horizontal = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Content/PlayerInventory/PlayerContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 5
+theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 5
+theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
 [node name="GridContainer" type="GridContainer" parent="Content/PlayerInventory/PlayerContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 0
 columns = 4
-
-[node name="Slot" parent="Content/PlayerInventory/PlayerContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("1_oyftu")]
-layout_mode = 2
-
-[node name="Slot2" parent="Content/PlayerInventory/PlayerContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("1_oyftu")]
-layout_mode = 2
-
-[node name="Slot3" parent="Content/PlayerInventory/PlayerContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("1_oyftu")]
-layout_mode = 2
-
-[node name="Slot4" parent="Content/PlayerInventory/PlayerContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("1_oyftu")]
-layout_mode = 2
 
 [node name="TradeWindow" type="Panel" parent="Content"]
 custom_minimum_size = Vector2(300, 380)
@@ -209,14 +198,13 @@ layout_mode = 2
 
 [node name="GridMarginContainer" type="MarginContainer" parent="Content/TradeWindow/TradeWindow/VBoxContainer/ItemsContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 5
+theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
+theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 5
 
 [node name="GridContainer" type="GridContainer" parent="Content/TradeWindow/TradeWindow/VBoxContainer/ItemsContainer/GridMarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
 columns = 4
 
 [node name="Slot" parent="Content/TradeWindow/TradeWindow/VBoxContainer/ItemsContainer/GridMarginContainer/GridContainer" instance=ExtResource("1_oyftu")]
@@ -273,27 +261,16 @@ layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Content/TraderInventory/TraderContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 5
+size_flags_horizontal = 0
+theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 5
+theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
 [node name="GridContainer" type="GridContainer" parent="Content/TraderInventory/TraderContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 columns = 4
-
-[node name="Slot" parent="Content/TraderInventory/TraderContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("1_oyftu")]
-layout_mode = 2
-
-[node name="Slot2" parent="Content/TraderInventory/TraderContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("1_oyftu")]
-layout_mode = 2
-
-[node name="Slot3" parent="Content/TraderInventory/TraderContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("1_oyftu")]
-layout_mode = 2
-
-[node name="Slot4" parent="Content/TraderInventory/TraderContainer/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("1_oyftu")]
-layout_mode = 2
 
 [node name="CloseButton" type="Button" parent="."]
 layout_mode = 1

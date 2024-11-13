@@ -212,6 +212,7 @@ theme_override_constants/margin_right = 25
 [node name="Content" type="Label" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/LetterContent"]
 layout_mode = 2
 text = "lettter.content"
+autowrap_mode = 3
 
 [node name="LetterAuthor" type="MarginContainer" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer"]
 layout_mode = 2

@@ -1,8 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://bpmceytvqnc7d"]
+[gd_scene load_steps=9 format=3 uid="uid://bpmceytvqnc7d"]
 
-[ext_resource type="Script" path="res://assets/scripts/ui/interactive/construct/construct.gd" id="1_mol3v"]
-[ext_resource type="PackedScene" uid="uid://cps3s5crjjsv1" path="res://assets/nodes/ui/interactive/construct/blueprint.tscn" id="2_qs4o7"]
-[ext_resource type="Script" path="res://assets/scripts/ui/interactive/construct/crafting.gd" id="3_v0d02"]
+[ext_resource type="Script" path="res://assets/scripts/ui/interactive/construct/construct_system.gd" id="1_qwoah"]
+[ext_resource type="Texture2D" uid="uid://cnfvwixmidxmo" path="res://assets/resources/buildings/sign/sign_0.png" id="3_m1ubu"]
+[ext_resource type="Script" path="res://assets/scripts/ui/interactive/construct/crafting.gd" id="3_s0fee"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1x12y"]
+font_size = 22
+outline_size = 1
 
 [sub_resource type="Animation" id="Animation_bduf1"]
 length = 0.001
@@ -16,7 +20,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_1drgd"]
@@ -100,8 +104,7 @@ _data = {
 "open": SubResource("Animation_p55vt")
 }
 
-[node name="Crafting" type="Control"]
-modulate = Color(1, 1, 1, 0)
+[node name="ConstructMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -110,149 +113,152 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_mol3v")
+script = ExtResource("1_qwoah")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Main" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -320.0
-offset_top = -184.0
-offset_right = 320.0
-offset_bottom = 200.0
+offset_left = -362.5
+offset_top = -212.5
+offset_right = 362.5
+offset_bottom = 212.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="Panel"]
-layout_mode = 0
-offset_left = 309.0
-offset_top = 16.0
-offset_right = 624.0
-offset_bottom = 368.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Main"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.025
-anchor_top = 0.0416667
-anchor_right = 0.975
-anchor_bottom = 0.958333
-offset_left = 1.0
-offset_top = -1.33514e-05
-offset_bottom = 0.00012207
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -200.0
+offset_right = 350.0
+offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Items" type="ScrollContainer" parent="Panel/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 2
-horizontal_scroll_mode = 0
-
-[node name="GridContainer" type="GridContainer" parent="Panel/HBoxContainer/Items"]
-custom_minimum_size = Vector2(280, 0)
+[node name="BlueprintsContent" type="VBoxContainer" parent="Main/HBoxContainer"]
+custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 
-[node name="Item_BuildingMenu" parent="Panel/HBoxContainer/Items/GridContainer" instance=ExtResource("2_qs4o7")]
+[node name="ScrollContainer" type="ScrollContainer" parent="Main/HBoxContainer/BlueprintsContent"]
+custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 
-[node name="Info" type="ScrollContainer" parent="Panel/HBoxContainer"]
-custom_minimum_size = Vector2(315, 0)
+[node name="GridContainer" type="GridContainer" parent="Main/HBoxContainer/BlueprintsContent/ScrollContainer"]
 layout_mode = 2
-size_flags_horizontal = 10
-follow_focus = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/Info"]
-custom_minimum_size = Vector2(315, 0)
+[node name="InfoContent" type="Panel" parent="Main/HBoxContainer"]
+custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
-size_flags_horizontal = 6
 
-[node name="Caption" type="MarginContainer" parent="Panel/HBoxContainer/Info/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+[node name="ScrollContainer" type="ScrollContainer" parent="Main/HBoxContainer/InfoContent"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="ObjectCaption" type="Label" parent="Panel/HBoxContainer/Info/VBoxContainer/Caption"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/HBoxContainer/InfoContent/ScrollContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
-text = "blueprint.caption"
+size_flags_horizontal = 3
+
+[node name="IconContainer" type="MarginContainer" parent="Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="TextureRect" type="TextureRect" parent="Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/IconContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("3_m1ubu")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="HeaderContainer" type="MarginContainer" parent="Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+
+[node name="Header" type="Label" parent="Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/HeaderContainer"]
+layout_mode = 2
+text = "blueprint.header"
+label_settings = SubResource("LabelSettings_1x12y")
 horizontal_alignment = 1
-vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Description" type="MarginContainer" parent="Panel/HBoxContainer/Info/VBoxContainer"]
+[node name="DescriptionContainer" type="MarginContainer" parent="Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 5
-
-[node name="ObjectDescription" type="Label" parent="Panel/HBoxContainer/Info/VBoxContainer/Description"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "blueprint.description"
-vertical_alignment = 1
-autowrap_mode = 3
-
-[node name="Resources" type="MarginContainer" parent="Panel/HBoxContainer/Info/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
+theme_override_constants/margin_left = 25
 theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 0
 
-[node name="ObjectResources" type="Label" parent="Panel/HBoxContainer/Info/VBoxContainer/Resources"]
+[node name="Description" type="Label" parent="Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/DescriptionContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "blueprint.resources"
-vertical_alignment = 1
+text = "blueprint.description
+
+blueprint.resources:"
 autowrap_mode = 3
 
-[node name="Time" type="MarginContainer" parent="Panel/HBoxContainer/Info/VBoxContainer"]
+[node name="ResourcesContainer" type="MarginContainer" parent="Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 10
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 25
+
+[node name="Resources" type="Label" parent="Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/ResourcesContainer"]
+layout_mode = 2
+text = "• content.name (100/500)"
+autowrap_mode = 3
+
+[node name="TimeContainer" type="MarginContainer" parent="Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 25
+
+[node name="Time" type="Label" parent="Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/TimeContainer"]
+layout_mode = 2
+text = "blueprint.time_create
+"
+autowrap_mode = 3
+
+[node name="ButtonContainer" type="MarginContainer" parent="Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
 theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 5
-
-[node name="ObjectCreationTime" type="Label" parent="Panel/HBoxContainer/Info/VBoxContainer/Time"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "blueprint.creation_time"
-vertical_alignment = 2
-
-[node name="Button" type="MarginContainer" parent="Panel/HBoxContainer/Info/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 10
+theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
-[node name="Craft" type="Button" parent="Panel/HBoxContainer/Info/VBoxContainer/Button"]
+[node name="Button" type="Button" parent="Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-size_flags_vertical = 4
-text = "construct.create"
-script = ExtResource("3_v0d02")
+text = "blueprint.craft"
+script = ExtResource("3_s0fee")
 
-[node name="Button" type="Button" parent="Panel"]
-layout_mode = 0
-anchor_left = 0.975
-anchor_top = -0.0416667
-anchor_right = 1.025
-anchor_bottom = 0.0416667
+[node name="Close" type="Button" parent="."]
+layout_mode = 1
+offset_left = 352.0
+offset_top = -232.0
+offset_right = 384.0
+offset_bottom = -200.0
 text = "X"
-metadata/_edit_use_anchors_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_k6ua4")
 }
 
-[connection signal="pressed" from="Panel/HBoxContainer/Info/VBoxContainer/Button/Craft" to="Panel/HBoxContainer/Info/VBoxContainer/Button/Craft" method="_on_pressed"]
-[connection signal="pressed" from="Panel/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button" to="Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button" method="_on_pressed"]
+[connection signal="pressed" from="Close" to="." method="_on_close_pressed"]
