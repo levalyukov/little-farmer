@@ -71,7 +71,7 @@ func check_all_keys(id, dictionary:Dictionary) -> void:
 func get_data(letterID) -> void:
 	reset_data()
 	index = check_letterID(letterID)
-	#content_scroll.scroll_vertical = 0
+	content_scroll.scroll_vertical = 0
 	if letters.has(index):
 		letter_delete_items(items_container)
 		if letters[index].has("status"):
