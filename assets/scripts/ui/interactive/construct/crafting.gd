@@ -6,7 +6,7 @@ extends Button
 @onready var notice:Control = get_node("/root/"+main+"/UI/Feedback/Notifications")
 @onready var hud:Control = get_node("/root/"+main+"/UI/HUD/GameHud")
 @onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
-@onready var craft:Control = get_node("/root/"+main+"/UI/Interactive/Crafting")
+@onready var craft:Control = get_node("/root/"+main+"/UI/Interactive/ConstructMenu")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
 

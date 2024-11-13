@@ -2,7 +2,7 @@ extends Control
 
 @onready var main_scene = str(get_tree().root.get_child(1).name)
 @onready var manager:Node2D = get_node("/root/" + main_scene)
-@onready var build:Control = get_node("/root/" + main_scene + "/UI/Interactive/Crafting")
+@onready var build:Control = get_node("/root/" + main_scene + "/UI/Interactive/ConstructMenu")
 @onready var icon:TextureRect = $Button/HBoxContainer/MarginContainer/Icon
 @onready var caption:Label = $Button/HBoxContainer/Caption
 @onready var index:int

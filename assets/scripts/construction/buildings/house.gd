@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var main = str(get_tree().root.get_child(1).name)
 @onready var data = get_node("/root/"+main)
-@onready var pause:Control = get_node("/root/"+main+"/UI/Inveractive/Pause")
+@onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var canvas:Node = get_node("/root/"+main+"/ShadowManager")
