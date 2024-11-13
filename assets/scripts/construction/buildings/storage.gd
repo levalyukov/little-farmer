@@ -13,7 +13,6 @@ extends Node2D
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var sprite:Sprite2D = $Sprite2D
 
-const name_:String = "Storage"
 var menu:bool = false
 var level:int = 1
 var object:Dictionary = {
@@ -47,13 +46,14 @@ func _ready():
 	_shadow_create()
 
 func update() -> void:
-	if object.has("default"):
-		if typeof(object["default"]) == TYPE_OBJECT and sprite.texture is CompressedTexture2D:
-			sprite.texture = object["default"]
+	if object.has(level):
+		if object[level].has("default"):
+			if object[level]["default"] is CompressedTexture2D:
+				sprite.texture = object[level]["default"]
+			else:
+				data.debug("The specified sprite cannot be installed.", "error")
 		else:
-			data.debug("The specified sprite cannot be installed.", "error")
-	else:
-		data.debug("The specified key is missing.", "error")
+			data.debug("The specified key is missing.", "error")
 
 func _shadow_create() -> void:
 	if visible:
