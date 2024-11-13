@@ -7,7 +7,7 @@ extends Node
 @onready var player:Node2D = get_node("/root/"+main+"/Player")
 @onready var balance:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Balance")
 @onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
-@onready var craft:Control = get_node("/root/"+main+"/UI/Interactive/Crafting")
+@onready var craft:Control = get_node("/root/"+main+"/UI/Interactive/ConstructMenu")
 @onready var mailbox:Control = get_node("/root/"+main+"/UI/Interactive/Mailbox")
 @onready var buildings:Node = get_node("/root/"+main+"/ConstructionManager")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
