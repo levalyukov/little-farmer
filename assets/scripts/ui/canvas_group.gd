@@ -12,5 +12,5 @@ func _ready():
 		self.self_modulate = color
 		z_index = collision.shadow_layer
 	else:
-		z_index = 6
+		z_index = 3
 		self.self_modulate = color

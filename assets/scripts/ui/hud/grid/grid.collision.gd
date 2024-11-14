@@ -20,7 +20,7 @@ const farmland_layer:int = 2
 const watering_layer:int = 3
 const crops_layer:int = 4
 const building_layer:int = 5
-const shadow_layer:int = 6
+const shadow_layer:int = 3
 
 const farming_terrain_set:int = 0
 const watering_terrain_set:int = 1
