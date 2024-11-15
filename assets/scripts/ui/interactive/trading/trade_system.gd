@@ -42,15 +42,6 @@ var all_items:Object = Items.new()
 func _ready():
 	_update_window_visible()
 
-func _process(_delta):
-	if Input.is_action_just_pressed("test")\
-	&& !visible:
-		open_trade_menu()
-
-	if Input.is_action_just_pressed("test")\
-	&& visible:
-		close_trade_menu()
-
 func open_trade_menu() -> void:
 	menu = true
 	pause.other_menu = true
