@@ -2,10 +2,8 @@ extends Control
 
 @onready var main = str(get_tree().root.get_child(1).name)
 @onready var ui:CanvasLayer = get_node("/root/"+main+"/UI")
-
 @onready var hud:Control = get_node("/root/"+main+"/UI/HUD/GameHud")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
-
 @onready var options:Control = get_node("/root/"+main+"/UI/Interactive/Options")
 @onready var blackout:Control = get_node("/root/"+main+"/UI/Decorative/Blackout")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
@@ -54,7 +52,6 @@ func open() -> void:
 	hud.state(true, "all")
 	player.check_switch()
 	version.text = "v"+str(ProjectSettings.get_setting("application/config/version"))
-
 	if has_node("/root/"+main+"/ConstructionManager/Grid"):
 		grid.visible = false
 

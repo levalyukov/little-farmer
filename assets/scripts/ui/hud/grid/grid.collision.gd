@@ -50,7 +50,7 @@ func destroy_collision_check() -> int:
 	and check_cell(tile_mouse_pos, crops_layer):
 		grid.change_sprite(false)
 		return 4
-	elif check_cell(tile_mouse_pos, building_layer-1):
+	elif check_cell(tile_mouse_pos, building_layer):
 		grid.change_sprite(false)
 		return 5
 	else:
@@ -120,7 +120,7 @@ func terrain_collision_check(terrain_layer) -> bool:
 func building_collision_check() -> bool:
 	var mouse_pos:Vector2 = get_global_mouse_position()
 	var tile_mouse_pos = tilemap.local_to_map(mouse_pos)
-	if check_cell(tile_mouse_pos, building_layer-1):
+	if check_cell(tile_mouse_pos, building_layer):
 		grid.change_sprite(true)
 		return true
 	elif check_cell(tile_mouse_pos, farmland_layer):

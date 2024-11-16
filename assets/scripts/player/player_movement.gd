@@ -7,7 +7,7 @@ var switch:bool = true
 
 func _process(_delta):
 	direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	if direction != Vector2.ZERO and !switch:
+	if direction != Vector2.ZERO && !switch:
 		$Camera2D.position_smoothing_speed = camera_speed
 	
 func check_switch() -> void:
