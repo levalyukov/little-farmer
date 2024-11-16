@@ -47,7 +47,7 @@ size_flags_vertical = 4
 
 [node name="Inventory" parent="Interactive" instance=ExtResource("3_e1ua5")]
 
-[node name="Crafting" parent="Interactive" instance=ExtResource("8_bjlhe")]
+[node name="ConstructMenu" parent="Interactive" instance=ExtResource("8_bjlhe")]
 
 [node name="Mailbox" parent="Interactive" instance=ExtResource("5_2qvs7")]
 

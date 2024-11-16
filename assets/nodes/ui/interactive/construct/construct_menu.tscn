@@ -20,7 +20,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_1drgd"]
@@ -105,6 +105,7 @@ _data = {
 }
 
 [node name="ConstructMenu" type="Control"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
