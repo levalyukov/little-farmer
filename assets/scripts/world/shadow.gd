@@ -31,8 +31,20 @@ func create_shadow(shadow_name:String, shadow_texture:CompressedTexture2D, shado
 	var shadow:Sprite2D = Sprite2D.new()
 	shadow.name = shadow_name
 	shadow.texture = shadow_texture
-	shadow.position = tilemap.map_to_local(shadow_position)
+	shadow.set_position(tilemap.map_to_local(shadow_position))
 	canvas.add_child(shadow)
+
+func create_shadow_node(shadow_name:String, shadow_node:PackedScene, shadow_position:Vector2i) -> void:
+	if shadow_node != null:
+		if shadow_name == "":
+			shadow_name = "shadow"
+		var target_node = shadow_node.instantiate()
+		canvas.add_child(target_node)
+		target_node.name = shadow_name
+		target_node.set_position(tilemap.map_to_local(shadow_position))
+	else:
+		data.debug("Fatal error: The '", shadow_node,"' file is corrupted", "error")
+		return
 
 func create_cloud(shadow_texture:CompressedTexture2D) -> void:
 	if clouds_value < max_clouds:
