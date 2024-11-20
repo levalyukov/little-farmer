@@ -7,7 +7,7 @@ extends Node2D
 @onready var tip:Control = get_node("/root/" + main_scene + "/UI/Feedback/Tooltip")
 @onready var tilemap:TileMap = get_node("/root/" + main_scene + "/Tilemap")
 @onready var grid:Node2D = get_node("/root/" + main_scene + "/ConstructionManager/Grid")
-@onready var collision:Area2D = get_node("/root/" + main_scene + "/ConstructionManager/Grid/GridCollision")
+@onready var collision:Node2D = get_node("/root/" + main_scene + "/ConstructionManager/Grid/GridParent")
 @onready var sprite:Sprite2D = $Sprite2D
 @onready var timer:Timer = $Timer
 
