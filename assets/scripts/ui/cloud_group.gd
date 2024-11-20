@@ -7,6 +7,6 @@ const alpha = .15
 const color = Color(0,0,0,alpha)
 
 func _ready():
-	z_index = 2
+	z_index = 3
 	if color is Color:
 		self.self_modulate = color
