@@ -9,12 +9,19 @@ extends Control
 var hoe:int = 1 # for plowing the cells
 var watering_can:int = 1 # for watering the cells
 var sickle:int = 1 # for harvesting
+var planting:int = 1 
 
 # destroy mode
 var axe:int = 1 # for trees
 var pickaxe:int = 1 # for rocks and boulders 
+var destroy:int = 1
 
 var features:Dictionary = {
+	"planting": {
+		1: {
+			"grid_dimensions" = Vector2i(1,1)
+		},
+	},
 	"hoe": {
 		1: {
 			"grid_dimensions" = Vector2i(1,1)
@@ -39,5 +46,10 @@ var features:Dictionary = {
 		1: {
 			"grid_dimensions" = Vector2i(1,1)
 		},
-	}
+	},
+	"destroy": {
+		1: {
+			"grid_dimensions" = Vector2i(1,1)
+		},
+	},
 }
