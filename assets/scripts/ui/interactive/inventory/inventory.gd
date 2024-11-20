@@ -87,7 +87,6 @@ func get_data(index) -> void:
 		var item = Items.new()
 		self.item_index = index
 		scroll_info.scroll_vertical = 0
-
 		if item.content.has(int(index)):
 			if item.content[int(index)].has("icon"):
 				if typeof(item.content[int(index)]["icon"]) == TYPE_OBJECT:
