@@ -29,9 +29,12 @@ func start_building(index) -> void:
 	match target_array[0]:
 		"terrain":
 			if blueprints.content[index]["type"]["terrain"].has("terrain_set"):
+				grid.grid_dimensions = Vector2i(1,1)
 				grid.terrain_set = blueprints.content[index]["type"]["terrain"]["terrain_set"]
 				grid.mode = grid.modes.TERRAIN_SET
 				grid.visible = true
+				grid.generate_grid()
+				
 				craft.close()
 				hud.state(true, "all")
 			else:
@@ -41,13 +44,17 @@ func start_building(index) -> void:
 		"node":
 			if blueprints.content[index]["type"]["node"].has("source"):
 				if blueprints.content[index]["type"]["node"].has("shadow"):
-					grid.building_id = index
-					grid.building_node = blueprints.content[index]["type"]["node"]["source"]
-					grid.building_shadow = blueprints.content[index]["type"]["node"]["shadow"]
-					grid.mode = grid.modes.BUILD
-					grid.visible = true
-					craft.close()
-					hud.state(true, "all")
+					if blueprints.content[index]["type"]["node"].has("grid_dimensions"):
+						grid.node_id = index
+						grid.node_source = blueprints.content[index]["type"]["node"]["source"]
+						grid.node_shadow = blueprints.content[index]["type"]["node"]["shadow"]
+						grid.grid_dimensions = blueprints.content[index]["type"]["node"]["grid_dimensions"]
+						grid.mode = grid.modes.BUILD
+						grid.visible = true
+						grid.generate_grid()
+
+						craft.close()
+						hud.state(true, "all")
 				else:
 					data.debug("The key element is missing - 'shadow'", "error")
 					reset_grid_data(target_array[0])
