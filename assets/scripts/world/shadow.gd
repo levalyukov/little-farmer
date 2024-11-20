@@ -6,6 +6,7 @@ extends Node
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridCollision")
 @onready var canvas:CanvasGroup = get_node("/root/"+main+"/ShadowManager/CanvasGroup")
+@onready var cloud_canvas:CanvasGroup = get_node("/root/"+main+"/ShadowManager/CloudGroup")
 
 const max_widht_map:int = 39
 const min_widht_map:int = -8
@@ -57,7 +58,7 @@ func create_cloud(shadow_texture:CompressedTexture2D) -> void:
 		cloud.name = "cloud_"+ str(clouds_value)
 		cloud.texture = shadow_texture
 		cloud.position = tilemap.map_to_local(target_position)
-		canvas.add_child(cloud)
+		cloud_canvas.add_child(cloud)
 		cloud.change_animation(true)
 		clouds_value += 1
 
