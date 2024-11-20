@@ -21,7 +21,7 @@ extends Control
 
 var index:int
 var menu:bool = false
-var access:Array[int] = [ ]
+var access:Array[int] = []
 var all_items:bool
 
 var items:Object = Items.new()
