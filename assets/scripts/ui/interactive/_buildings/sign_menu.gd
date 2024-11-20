@@ -1,9 +1,10 @@
 extends Control
 
-@onready var main_scene = str(get_tree().root.get_child(1).name)
-@onready var data = get_node("/root/" + main_scene)
-@onready var inventory:Control = get_node("/root/" + main_scene + "/UI/Interactive/Inventory")
-@onready var blur:Control = get_node("/root/" + main_scene + "/UI/Decorative/Blur")
+@onready var main = str(get_tree().root.get_child(1).name)
+@onready var data = get_node("/root/"+main)
+@onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
+@onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
+@onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var container:GridContainer = $Main/VBoxContainer/MarginContainer/ScrollContainer/GridContainer
 @onready var header:Label = $Main/VBoxContainer/Header/Label
 @onready var anim:AnimationPlayer = $AnimationPlayer
@@ -21,12 +22,14 @@ func _open(node_name) -> void:
 	anim.play("open")
 	blur.blur(true)
 	menu = true
+	pause.other_menu = true
 	sign_name = node_name
 
 func _close() -> void:
 	_remove_all_items()
 	anim.play("close")
 	blur.blur(false)
+	pause.other_menu = false
 	menu = false
 
 func _set_header() -> void:
