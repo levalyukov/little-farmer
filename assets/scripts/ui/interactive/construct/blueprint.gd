@@ -1,7 +1,7 @@
 extends Control
 
 @onready var main_scene = str(get_tree().root.get_child(1).name)
-@onready var manager:Node2D = get_node("/root/" + main_scene)
+@onready var data:Node2D = get_node("/root/" + main_scene)
 @onready var build:Control = get_node("/root/" + main_scene + "/UI/Interactive/ConstructMenu")
 @onready var icon:TextureRect = $Button/HBoxContainer/MarginContainer/Icon
 @onready var caption:Label = $Button/HBoxContainer/Caption
@@ -13,23 +13,23 @@ func set_data(id) -> void:
 	if blueprints.content.has(id):
 		self.index = id
 		if blueprints.content[id].has("caption"):
-			if typeof(blueprints.content[id]["caption"]) == TYPE_STRING and caption.text is String:
+			if blueprints.content[index]["caption"] is String:
 				caption.text = str(blueprints.content[index]["caption"])
 			else:
-				print_debug("\n"+str(manager.get_system_datetime()) + " ERROR: The 'caption' key has a non-string type. Variant.type: " + str(typeof(blueprints.content[id]["caption"])))
+				data.debug("The 'caption' key has a non-string type.", "error")
 		else:
-			print_debug("\n"+str(manager.get_system_datetime()) + " ERROR: The object does not have the 'caption' key.")
+			data.debug("The object does not have the 'caption' key.", "error")
 
 		if blueprints.content[id].has("icon"):
-			if typeof(blueprints.content[id]["icon"]) == TYPE_OBJECT and icon.texture is CompressedTexture2D:
+			if blueprints.content[index]["icon"] is CompressedTexture2D:
 				icon.texture = blueprints.content[index]["icon"]
 			else:
-				print_debug("\n"+str(manager.get_system_datetime()) + " ERROR: The key stores a non-Compressed 2D Texture. Variant.type: " + str(typeof(blueprints.content[id]["icon"])))
+				data.debug("The key stores a non-Compressed 2D Texture.", "error")
 		else:
-			print_debug("\n"+str(manager.get_system_datetime()) + " ERROR: The object does not have the 'icon' key.")
+			data.debug("The object does not have the 'icon' key.", "error")
 		visible = true
 	else:
-		print_debug("\n"+str(manager.get_system_datetime()) + " ERROR: Invalid object index: " + str(id))
+		data.debug("Invalid object index: " + str(id), "error")
 		queue_free()
 
 func check_node(id) -> bool:
