@@ -21,7 +21,7 @@ extends Control
 
 var index:int
 var menu:bool = false
-var access:Array[int] = [1,2,3]
+var access:Array[int] = [ ]
 var all_items:bool
 
 var items:Object = Items.new()
@@ -63,6 +63,7 @@ func open() -> void:
 	_start_info()
 	_delete_all_blueprints()
 	check_blueprints()
+	inventory.update_inventory_content()
 	
 func close() -> void:
 	menu = false
@@ -213,6 +214,7 @@ func _start_info() -> void:
 	description.text = start_description
 	resources.text = ""
 	time_create.text = ""
+	icon.visible = false
 	caption.visible = true
 	description.visible = true
 	resources.visible = true
@@ -224,6 +226,7 @@ func _reset_data() -> void:
 	description.text = ""
 	resources.text = ""
 	time_create.text = ""
+	icon.visible = false
 	caption.visible = false
 	description.visible = false
 	resources.visible = false
