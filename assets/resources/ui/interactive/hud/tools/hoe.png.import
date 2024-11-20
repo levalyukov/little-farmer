@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://but4ecurh1gsv"
-path="res://.godot/imported/farming.png-1d8e5399dc176132e0b40876494ada1c.ctex"
+path="res://.godot/imported/hoe.png-b15c0de5f118b0b3f9bc84210e33d3e1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/resources/ui/interactive/hud/tools/farming.png"
-dest_files=["res://.godot/imported/farming.png-1d8e5399dc176132e0b40876494ada1c.ctex"]
+source_file="res://assets/resources/ui/interactive/hud/tools/hoe.png"
+dest_files=["res://.godot/imported/hoe.png-b15c0de5f118b0b3f9bc84210e33d3e1.ctex"]
 
 [params]
 
