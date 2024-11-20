@@ -1,4 +1,5 @@
-res://levels/village.tscn
+res://levels/farm.tscn
+res://assets/scripts/ui/hud/grid/grid.gd
 res://assets/shaders/pixel.gdshader
 res://assets/shaders/blur.gdshader
 res://assets/resources/world/day-night.tres
@@ -6,10 +7,8 @@ res://assets/shaders/wind.gdshader
 res://assets/shaders/water.gdshader
 res://assets/shaders/vignette.gdshader
 res://assets/shaders/shadow.gdshader
-res://levels/farm.tscn
-res://assets/scripts/ui/interactive/inventory/slot.gd
-res://assets/scripts/ui/interactive/trading/trade_system.gd
+res://assets/nodes/buildings/silo/silo.tscn
+res://assets/nodes/buildings/silo/silo_shadow.tscn
+res://assets/scripts/ui/hud/elements/clock.gd
 res://assets/scripts/ui/interactive/inventory/inventory.gd
-res://assets/scripts/ui/interactive/inventory/items.gd
-res://assets/scripts/ui/hud/tools/button_harvesting.gd
-res://assets/scripts/ui/hud/grid/grid.gd
+res://assets/scripts/ui/interactive/construct/construct_system.gd

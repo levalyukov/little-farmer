@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://nxd73p36nfqi"]
 
 [ext_resource type="Script" path="res://assets/scripts/construction/construct.gd" id="1_8rh46"]
-[ext_resource type="PackedScene" uid="uid://w1fmwa12i36k" path="res://assets/nodes/buildings/grid.tscn" id="2_s3k81"]
+[ext_resource type="PackedScene" uid="uid://dhiifehp4845g" path="res://assets/nodes/grid.tscn" id="2_s3k81"]
 
 [node name="ConstructionManager" type="Node2D"]
-z_index = 5
+y_sort_enabled = true
 script = ExtResource("1_8rh46")
 
 [node name="Grid" parent="." instance=ExtResource("2_s3k81")]
