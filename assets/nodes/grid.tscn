@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhiifehp4845g"]
+
+[ext_resource type="Script" path="res://assets/scripts/ui/hud/grid/grid.gd" id="1_nff1s"]
+[ext_resource type="Script" path="res://assets/scripts/ui/hud/grid/collision.gd" id="2_lhwui"]
+
+[node name="Grid" type="Node2D"]
+z_index = 5
+script = ExtResource("1_nff1s")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="GridParent" type="Node2D" parent="."]
+script = ExtResource("2_lhwui")
