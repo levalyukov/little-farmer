@@ -3,6 +3,7 @@ extends Control
 @onready var main:String = str(get_tree().root.get_child(1).name)
 @onready var data:Node2D = get_node("/root/"+main)
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
+@onready var tools:HBoxContainer = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var build:Control = get_node("/root/"+main+"/UI/Interactive/Crafting")
 @onready var mailbox:Control = get_node("/root/"+main+"/UI/Interactive/Mailbox")
@@ -28,11 +29,7 @@ var menu:bool = false
 var item_index
 var button_index:int
 enum item_type {NOTHING, SEEDS}
-var inventory_items:Dictionary = {
-	1:{"amount":25},
-	2:{"amount":25},
-	3:{"amount":25},
-}
+var inventory_items:Dictionary = {}
 
 func _ready():
 	check_window()
@@ -247,13 +244,15 @@ func subject_item(id, item_amount:int = 1) -> void:
 					resources_id.append(materials.resources[item])
 					amounts.append(id[item]["amount"])
 
-		for item_id in resources_id:
-			if inventory_items.has(int(item_id)):
-				inventory_items[int(item_id)]["amount"] -= amounts[int(item_id)-1]
-				check_amount(int(item_id))
-			elif inventory_items.has(str(item_id)):
-				inventory_items[str(item_id)]["amount"] -= amounts[int(item_id)-1]
-				check_amount(str(item_id))
+		for idx in range(resources_id.size()):
+			var ids = resources_id[idx]
+			var amount = amounts[idx]
+			if inventory_items.has(int(ids)):
+				check_amount(int(ids))
+				inventory_items[int(ids)]["amount"] -= amount
+			elif inventory_items.has(str(ids)):
+				check_amount(str(ids))
+				inventory_items[str(ids)]["amount"] -= amount
 
 func remove_item(id) -> void:
 	for key in inventory_items:
@@ -334,6 +333,8 @@ func _on_button_pressed():
 			close()
 			if items.has(int(item_index)):
 				if items[int(item_index)].has("crop"):
+					grid.generate_grid()
+					grid.grid_dimensions = tools.features["planting"][tools.planting]["grid_dimensions"]
 					grid.inventory_item = item_index
 					grid.plantID = items[int(item_index)]["crop"]
 					grid.mode = grid.modes.PLANTING
