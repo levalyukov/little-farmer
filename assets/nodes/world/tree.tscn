@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://1cerbmfbqid"]
+[gd_scene load_steps=3 format=3 uid="uid://1cerbmfbqid"]
 
+[ext_resource type="Script" path="res://assets/scripts/world/nature/tree.gd" id="1_du7mr"]
 [ext_resource type="Texture2D" uid="uid://biaoqgl1773hf" path="res://assets/resources/world/trees/tree_1.png" id="1_tm38x"]
 
 [node name="Tree" type="Node2D"]
+script = ExtResource("1_du7mr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-1, -16)
+position = Vector2(0, -16)
 texture = ExtResource("1_tm38x")
