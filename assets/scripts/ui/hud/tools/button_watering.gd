@@ -16,7 +16,7 @@ func _on_button_pressed() -> void:
 		if has_node("/root/"+main+"/ConstructionManager")\
 		&& has_node("/root/"+main+"/ConstructionManager/Grid"):
 			if !blur.state:
-				#grid.grid_dimensions = tools.features["watering_can"][tools.watering_can]["grid_dimensions"]
-				grid.generate_grid()
+				grid.grid_dimensions = tools.features["watering_can"][tools.watering_can]["grid_dimensions"]
 				grid.mode = grid.modes.WATERING
 				grid.visible = true
+				grid.generate_grid()

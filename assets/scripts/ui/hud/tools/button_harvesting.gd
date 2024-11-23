@@ -17,6 +17,6 @@ func _on_button_pressed() -> void:
 		&& has_node("/root/"+main+"/ConstructionManager/Grid"):
 			if !blur.state:
 				grid.grid_dimensions = tools.features["sickle"][tools.sickle]["grid_dimensions"]
-				grid.generate_grid()
 				grid.mode = grid.modes.HARVESTING
 				grid.visible = true
+				grid.generate_grid()
