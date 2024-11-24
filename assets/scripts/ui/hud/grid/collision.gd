@@ -3,6 +3,7 @@ extends Node2D
 @onready var main = str(get_tree().root.get_child(1).name)
 @onready var data = get_node("/root/"+main)
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
+@onready var nature:Node2D = get_node("/root/"+main+"/Nature")
 @onready var farming:Node2D = get_node("/root/"+main+"/FarmingManager")
 @onready var buildings:Node2D = get_node("/root/"+main+"/ConstructionManager")
 @onready var shadows:Node = get_node("/root/"+main+"/ShadowManager/CanvasGroup")
@@ -21,8 +22,8 @@ const road_layer:int = 1
 const farmland_layer:int = 2
 const watering_layer:int = 3
 const crops_layer:int = 4
-const building_layer:int = 5
-const shadow_layer:int = 3
+const nature_layer:int = 5
+const building_layer:int = 6
 
 const farming_terrain_set:int = 0
 const watering_terrain_set:int = 1
@@ -43,33 +44,44 @@ func collisions_check() -> bool:
 			return false
 	return true
 
-func destroy_collision_check() -> int:
+func destroy_collision_check():
 	for grids in get_children():
 		var grid_position = tilemap.local_to_map(grids.get_global_position())
 		if check_cell(grid_position, road_layer)\
 		&& !check_cell(grid_position, farmland_layer)\
 		&& !check_cell(grid_position, watering_layer)\
 		&& !check_cell(grid_position, crops_layer):
+			grids.texture = default
 			return 0
-		if check_cell(grid_position, farmland_layer)\
+		elif check_cell(grid_position, farmland_layer)\
 		and !check_cell(grid_position, watering_layer)\
 		and !check_cell(grid_position, crops_layer):
+			grids.texture = default
 			return 1
 		elif check_cell(grid_position, farmland_layer)\
 		and check_cell(grid_position, watering_layer)\
 		and !check_cell(grid_position, crops_layer):
+			grids.texture = default
 			return 2
 		elif check_cell(grid_position, farmland_layer)\
 		and check_cell(grid_position, watering_layer)\
 		and check_cell(grid_position, crops_layer):
+			grids.texture = default
 			return 3
 		elif check_cell(grid_position, farmland_layer)\
 		and !check_cell(grid_position, watering_layer)\
 		and check_cell(grid_position, crops_layer):
+			grids.texture = default
 			return 4
 		elif check_cell(grid_position, building_layer):
+			grids.texture = default
 			return 5
-	return -1
+		elif check_cell(grid_position, nature_layer):
+			grids.texture = default
+			return 6
+		else:
+			grids.texture = error
+			return -1
 		
 func farming_collision_check() -> void:
 	for grids in get_children():
@@ -127,16 +139,25 @@ func building_collision_check() -> void:
 	for grids in get_children():
 		var grid_position = tilemap.local_to_map(grids.get_global_position())
 		if !check_cell(grid_position, building_layer)\
-		&& !check_cell(grid_position, farmland_layer):
+		&& !check_cell(grid_position, nature_layer)\
+		&& !check_cell(grid_position, farmland_layer)\
+		&& !check_cell(grid_position, watering_layer) :
 			grids.texture = default
 		else:
 			grids.texture = error
 
-func get_building(mouse_position:Vector2i):
+func get_nature(target_position:Vector2i):
+	for node in nature.get_children():
+		if target_position == tilemap.local_to_map(node.position):
+			return node
+
+func get_building(target_position:Vector2i):
 	for node in buildings.get_children():
-		if data.remove_suffix(node.name) in buildings.all_buildings:
-			if tilemap.local_to_map(mouse_position) == tilemap.local_to_map(node.position):
-				return node
+		#if data.remove_suffix(node.name) in buildings.all_buildings:
+		print(data.remove_suffix(node.name))
+		if tilemap.local_to_map(target_position) == tilemap.local_to_map(node.position)\
+		&& node.name != grid.name:
+			return node
 
 func get_shadow(mouse_position:Vector2i):
 	for shadow in shadows.get_children():
