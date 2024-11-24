@@ -3,6 +3,7 @@ extends Node2D
 @onready var main:String = str(get_tree().root.get_child(1).name)
 @onready var data:Node = get_node("/root/"+main)
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
+@onready var nature:Node2D = get_node("/root/"+main+"/Nature")
 @onready var tools:HBoxContainer = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools")
 @onready var notifications:Control = get_node("/root/"+main+"/UI/Feedback/Notifications")
 @onready var hud:Control = get_node("/root/"+main+"/UI/HUD/GameHud")
@@ -62,44 +63,49 @@ func _process(_delta):
 			modes.DESTROY:
 				collision.destroy_collision_check()
 				if check:
-					match collision.destroy_collision_check():
-						0:
-							if collision.collisions_check():
+					if collision.collisions_check():
+						match collision.destroy_collision_check():
+							0:
 								var remove_terrain = []
 								for i in collision.get_children():
 									var grid_position = tilemap.local_to_map(i.get_global_position())
 									remove_terrain.append(grid_position)
 								tilemap.set_cells_terrain_connect(collision.road_layer,remove_terrain,collision.ground_terrain_set,-1)
-						1:
-							if collision.collisions_check():
+							1:
 								var remove_terrain = []
 								for i in collision.get_children():
 									var grid_position = tilemap.local_to_map(i.get_global_position())
 									remove_terrain.append(grid_position)
 								tilemap.set_cells_terrain_connect(collision.farmland_layer,remove_terrain,collision.farming_terrain_set,-1)
-						2:
-							if collision.collisions_check():
+							2:
 								var remove_terrain = []
 								for i in collision.get_children():
 									var grid_position = tilemap.local_to_map(i.get_global_position())
 									remove_terrain.append(grid_position)
 								tilemap.set_cells_terrain_connect(collision.watering_layer,remove_terrain,collision.watering_terrain_set,-1)
-						3:
-							if collision.collisions_check():
+							3:
 								for i in collision.get_children():
 									var grid_position = tilemap.local_to_map(i.get_global_position())
 									tilemap.erase_cell(collision.crops_layer,grid_position)
 									farming.plant_destroy(tilemap.map_to_local(grid_position))
-						4:
-							if collision.collisions_check():
+							4:
 								for i in collision.get_children():
 									var grid_position = tilemap.local_to_map(i.get_global_position())
 									tilemap.erase_cell(collision.crops_layer,grid_position)
 									farming.plant_destroy(tilemap.map_to_local(grid_position))
-						5:
-							building.remove_child(collision.get_building(tilemap.map_to_local(tile_mouse_pos)))
-							shadows.remove_child(collision.get_shadow(tilemap.map_to_local(tile_mouse_pos)))
-							tilemap.erase_cell(collision.building_layer-1, tile_mouse_pos)
+							5:
+								for i in collision.get_children():
+									var grid_position = tilemap.local_to_map(i.get_global_position())
+								#building.remove_child(collision.get_building(tilemap.map_to_local(tile_mouse_pos)))
+								#shadows.remove_child(collision.get_shadow(tilemap.map_to_local(tile_mouse_pos)))
+								#tilemap.erase_cell(collision.building_layer, tile_mouse_pos)
+							6:
+								for i in collision.get_children():
+									var grid_position = tilemap.local_to_map(i.get_global_position())
+									nature.remove_child(collision.get_nature(grid_position))
+									shadows.remove_child(collision.get_shadow(tilemap.map_to_local(grid_position)))
+									tilemap.erase_cell(collision.nature_layer, grid_position)
+									inventory.add_item(1, randi_range(3,10))
 				check = false
 				
 			modes.FARMING:
@@ -125,19 +131,19 @@ func _process(_delta):
 			modes.PLANTING:
 				collision.planting_collision_check()
 				if inventory.check_item_amount(inventory_item):
-						if inventory.get_item_amount(inventory_item) >= collision.get_children().size():
-							for i in collision.get_children():
-								var grid_position = tilemap.local_to_map(i.get_global_position())
-								if check:
-									if collision.collisions_check():
-										if crops.crops.has(plantID):
-											inventory.subject_item(inventory_item, 1)
-											farming.create_plant(plantID, grid_position)
-										else:
-											data.debug("The numerical ID (" + str(plantID) + ") of this crop is missing in the main file crops.gd", "error")
-						else:
-							grid_dimensions = Vector2i(1,1)
-							generate_grid()
+					if inventory.get_item_amount(inventory_item) >= collision.get_children().size():
+						for i in collision.get_children():
+							var grid_position = tilemap.local_to_map(i.get_global_position())
+							if check:
+								if collision.collisions_check():
+									if crops.crops.has(plantID):
+										inventory.subject_item(inventory_item, 1)
+										farming.create_plant(plantID, grid_position)
+									else:
+										data.debug("The numerical ID (" + str(plantID) + ") of this crop is missing in the main file crops.gd", "error")
+					else:
+						grid_dimensions = Vector2i(1,1)
+						generate_grid()
 				else:
 					hud.state(false, "all")
 					mode = modes.NOTHING
