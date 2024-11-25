@@ -5,7 +5,7 @@ extends Control
 @onready var tools:HBoxContainer = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
-@onready var sprite:CompressedTexture2D = load("res://assets/resources/ui/interactive/hud/tools/destroy.png")
+@onready var sprite:CompressedTexture2D = load("res://assets/resources/ui/interactive/hud/tools/eraser.png")
 @onready var icon:TextureRect = $Main/Margin/Icon
 
 func _ready() -> void:
