@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://6og01lj08srh"]
+
+[ext_resource type="PackedScene" uid="uid://i5wr18nbfkhb" path="res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_destroy.tscn" id="1_osllv"]
+[ext_resource type="PackedScene" uid="uid://d0607ns0r4vi3" path="res://assets/nodes/ui/hud/elements/tools/button_farming.tscn" id="2_72rmh"]
+[ext_resource type="PackedScene" uid="uid://cxywm6titpfsh" path="res://assets/nodes/ui/hud/elements/tools/button_watering.tscn" id="3_pcrdf"]
+[ext_resource type="PackedScene" uid="uid://bhm44gsh6va6j" path="res://assets/nodes/ui/hud/elements/tools/button_harvesting.tscn" id="4_oct41"]
+[ext_resource type="PackedScene" uid="uid://l6ae7lhb78yw" path="res://assets/nodes/ui/hud/elements/tools/button_construction.tscn" id="5_3gxmu"]
+
+[node name="Tool" type="Control"]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -418.0
+offset_top = -84.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="ButtonDestroyMenu" parent="MarginContainer/MarginContainer/HBoxContainer" instance=ExtResource("1_osllv")]
+layout_mode = 2
+
+[node name="Farming" parent="MarginContainer/MarginContainer/HBoxContainer" instance=ExtResource("2_72rmh")]
+layout_mode = 2
+
+[node name="Watering" parent="MarginContainer/MarginContainer/HBoxContainer" instance=ExtResource("3_pcrdf")]
+layout_mode = 2
+
+[node name="Harvesting" parent="MarginContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_oct41")]
+layout_mode = 2
+
+[node name="Construction" parent="MarginContainer/MarginContainer/HBoxContainer" instance=ExtResource("5_3gxmu")]
+layout_mode = 2

@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://dioui6ad7xdkd"]
+
+[ext_resource type="Script" path="res://assets/button_trash.gd" id="1_6m0dj"]
+
+[node name="ButtonTrash" type="Control"]
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 64.0
+offset_bottom = 64.0
+script = ExtResource("1_6m0dj")
+
+[node name="Main" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="Main"]
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="Main"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Icon" type="TextureRect" parent="Main/Margin"]
+layout_mode = 2
+mouse_filter = 2
+
+[connection signal="pressed" from="Main/Button" to="." method="_on_button_pressed"]

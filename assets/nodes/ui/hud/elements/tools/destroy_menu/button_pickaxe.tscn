@@ -1,14 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://i5wr18nbfkhb"]
+[gd_scene load_steps=2 format=3 uid="uid://8yb0kfe6oh6x"]
 
-[ext_resource type="Script" path="res://assets/scripts/ui/hud/tools/button_destroy.gd" id="1_hvj2q"]
+[ext_resource type="Script" path="res://assets/button_pickaxe.gd" id="1_h12r3"]
 
-[node name="Destroy" type="Control"]
+[node name="ButtonPickaxe" type="Control"]
 custom_minimum_size = Vector2(74, 74)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 64.0
 offset_bottom = 64.0
-script = ExtResource("1_hvj2q")
+script = ExtResource("1_h12r3")
 
 [node name="Main" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(64, 64)
