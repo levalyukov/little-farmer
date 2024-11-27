@@ -4,6 +4,7 @@ extends Node2D
 @onready var data:Node = get_node("/root/"+main)
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var nature:Node2D = get_node("/root/"+main+"/Nature")
+@onready var destroy_menu:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/DestroyMenuMargin/DestroyMenu")
 @onready var tools:HBoxContainer = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools")
 @onready var notifications:Control = get_node("/root/"+main+"/UI/Feedback/Notifications")
 @onready var hud:Control = get_node("/root/"+main+"/UI/HUD/GameHud")
@@ -53,6 +54,8 @@ func _process(_delta):
 	if visible\
 	&& !blur.state\
 	&& mode != modes.NOTHING:
+		if destroy_menu.opened:
+			destroy_menu.close()
 		var mouse_pos:Vector2 = get_global_mouse_position()
 		var tile_mouse_pos = tilemap.local_to_map(mouse_pos)
 		var ground_tile_position = []

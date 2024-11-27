@@ -3,6 +3,7 @@ extends Control
 @onready var main = str(get_tree().root.get_child(1).name)
 @onready var ui:CanvasLayer = get_node("/root/"+main+"/UI")
 @onready var hud:Control = get_node("/root/"+main+"/UI/HUD/GameHud")
+@onready var destroy_menu:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/DestroyMenuMargin/DestroyMenu")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var options:Control = get_node("/root/"+main+"/UI/Interactive/Options")
 @onready var blackout:Control = get_node("/root/"+main+"/UI/Decorative/Blackout")
@@ -54,7 +55,8 @@ func open() -> void:
 	version.text = "v"+str(ProjectSettings.get_setting("application/config/version"))
 	if has_node("/root/"+main+"/ConstructionManager/Grid"):
 		grid.visible = false
-
+	if destroy_menu.opened:
+		destroy_menu.close()
 func close() -> void:
 	paused = false
 	anim.play("close")
