@@ -6,35 +6,76 @@ extends Node2D
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
 @onready var shadows:Node = get_node("/root/"+main+"/ShadowManager")
 @onready var tree_node = preload("res://assets/nodes/world/tree.tscn")
+@onready var stone_node = preload("res://assets/nodes/world/stone.tscn")
+@onready var weed_node = preload("res://assets/nodes/world/weed.tscn")
 
-const func_calls:int = 75
-var func_called:int = 0
-
-const tree_sprite_max:int = 6
-const tree_sprite_min:int = 1 
-var trees:Array[CompressedTexture2D] = []
-var trees_shadow:Array[CompressedTexture2D] = []
-var tree_sprite_value:int = 0
 var all_vectors:Array[Vector2i] = []
 var occuped_cells:Array[Vector2i] = []
 var occuped_cells_removed:bool = false
 
+var trees:Array[CompressedTexture2D] = []
+var stones:Array[CompressedTexture2D] = []
+var weeds:Array[CompressedTexture2D] = []
+var trees_shadow:Array[CompressedTexture2D] = []
+var stones_shadow:Array[CompressedTexture2D] = []
+
+const tree_func_calls:int = 200
+const stone_func_calls:int = 25
+const weed_func_calls:int = 50
+
+const tree_sprite_max:int = 6
+const stone_sprite_max:int = 4
+const weed_sprite_max:int = 4
+
+const tree_sprite_min:int = 1 
+const stone_sprite_min:int = 1 
+const weed_sprite_min:int = 1 
+
+var tree_func_called:int = 0
+var stone_func_called:int = 0
+var weed_func_called:int = 0
+
+var tree_sprite_value:int = 0
+var stone_sprite_value:int = 0
+var weed_sprite_value:int = 0
+
 func _ready():
 	self.z_index = 3
 	all_vectors = tilemap.get_used_cells(0)
-	get_aviabled_vectors()
+	check_aviabled_vectors()
 	while trees.size() < tree_sprite_max:
 		tree_sprite_value += 1
 		trees.append(load("res://assets/resources/world/trees/tree_"+str(tree_sprite_value)+".png"))
 		trees_shadow.append(load("res://assets/resources/world/trees/shadows/shadow_"+str(tree_sprite_value)+".png"))
-	await get_tree().create_timer(0.15).timeout
-	while func_called < func_calls:
-		func_called+=1
-		create_tree()
 
-func create_tree() -> void:
-	var random = randi_range(tree_sprite_min, tree_sprite_max)
-	var node = tree_node.instantiate()
+	while stones.size() < stone_sprite_max:
+		stone_sprite_value += 1
+		stones.append(load("res://assets/resources/world/stones/stone_"+str(stone_sprite_value)+".png"))
+		stones_shadow.append(load("res://assets/resources/world/stones/shadows/shadow_"+str(stone_sprite_value)+".png"))
+
+	while weeds.size() < weed_sprite_max:
+		weed_sprite_value += 1
+		weeds.append(load("res://assets/resources/world/weeds/weed_"+str(weed_sprite_value)+".png"))
+		#trees_shadow.append(load("res://assets/resources/world/trees/shadows/shadow_"+str(tree_sprite_value)+".png"))
+	await get_tree().create_timer(0.15).timeout
+
+	while tree_func_called < tree_func_calls:
+		tree_func_called+=1
+		create_natural_obj(tree_node, "tree", trees, trees_shadow)
+
+	check_aviabled_vectors()
+	while stone_func_called < stone_func_calls:
+		stone_func_called+=1
+		create_natural_obj(stone_node, "stone", stones, stones_shadow)
+
+	check_aviabled_vectors()
+	while weed_func_called < weed_func_calls:
+		weed_func_called+=1
+		create_natural_obj(weed_node, "weed", weeds, [])
+
+func create_natural_obj(node:PackedScene, node_name:String, sprites_array:Array[CompressedTexture2D], shadows_array:Array[CompressedTexture2D]) -> void:
+	var random = randi_range(weed_sprite_min, weed_sprite_max)
+	var target_node = node.instantiate()
 	var target_position = set_random_position()
 	
 	if node == null:
@@ -47,26 +88,27 @@ func create_tree() -> void:
 		data.debug("Tilemap is null.", "error")
 		return
 
-	add_child(node)
-	node.name = "tree_1"
-	if not node.is_inside_tree():
+	add_child(target_node)
+	target_node.name = node_name + "_1"
+	if not target_node.is_inside_tree():
 		data.debug("Node not added to the tree.", "error")
 		return
 	
 	if !collision.check_cell(target_position, collision.road_layer)\
 	&& !collision.check_cell(target_position, collision.nature_layer)\
 	&& !collision.check_cell(target_position, collision.building_layer):
-		var random_sprite = randi() % trees.size()
-		node.set_texture(trees[random_sprite])
-		node.set_position(tilemap.map_to_local(target_position))
+		var random_sprite = randi() % weeds.size()
+		target_node.set_texture(sprites_array[random_sprite])
+		target_node.set_position(tilemap.map_to_local(target_position))
 		tilemap.set_cell(collision.nature_layer, target_position, 0, Vector2i(0, 3))
 		if shadows:
-			shadows.create_shadow("tree_shadow_" + str(random), trees_shadow[random_sprite], target_position)
+			if shadows_array != []:
+				shadows.create_shadow(str(node_name) + "_shadow_" + str(random), shadows_array[random_sprite], target_position)
 		else:
 			data.debug("Shadows manager is null.", "error")
 			return
 	else:
-		create_tree()
+		create_natural_obj(node, node_name, sprites_array, shadows_array)
 
 func set_random_position() -> Vector2i:
 	if all_vectors.size() == 0:
@@ -76,16 +118,16 @@ func set_random_position() -> Vector2i:
 	all_vectors.remove_at(random_index) 
 	return target_position
 
-func get_aviabled_vectors():
+func check_aviabled_vectors():
 	if tilemap:
-		if not occuped_cells_removed:
-			var all_occuped_cells:Array[Vector2i] = tilemap.get_used_cells(collision.road_layer)
-			all_occuped_cells += tilemap.get_used_cells(collision.nature_layer)
-			if all_occuped_cells.size() > 0:
-				for cell in all_occuped_cells:
-					if all_vectors.has(cell):
-						all_vectors.erase(cell)
-						occuped_cells_removed = true
+		occuped_cells_removed = false
+		var all_occuped_cells:Array[Vector2i] = tilemap.get_used_cells(collision.road_layer)
+		all_occuped_cells += tilemap.get_used_cells(collision.nature_layer)
+		if all_occuped_cells.size() > 0:
+			for cell in all_occuped_cells:
+				if all_vectors.has(cell):
+					all_vectors.erase(cell)
+					occuped_cells_removed = true
 	else:
 		data.debug("TileMap was not loaded at the time.", "error")
 		return
