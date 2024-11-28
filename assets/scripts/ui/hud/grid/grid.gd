@@ -21,6 +21,7 @@ var items = Items.new()
 var crops = Crops.new()
 var blueprints = Blueprints.new()
 var materials = BuildingMaterials.new()
+var natural_resources = NaturalResources.new()
 
 const grid_size:Vector2 = Vector2(16, 16)
 var grid_dimensions:Vector2i = Vector2i(1,1)
@@ -105,10 +106,18 @@ func _process(_delta):
 							6:
 								for i in collision.get_children():
 									var grid_position = tilemap.local_to_map(i.get_global_position())
+									var natural_node_name = data.remove_suffix(collision.get_nature(grid_position).name)
+									if natural_resources.content.has(natural_node_name):
+										if natural_resources.content[natural_node_name].has("item_id")\
+										&& natural_resources.content[natural_node_name].has("item_count"):
+											var item_amount = natural_resources.content[natural_node_name]["item_count"]
+											inventory.add_item(
+												natural_resources.content[natural_node_name]["item_id"], 
+												randi_range(item_amount[0], item_amount[1])
+												)
 									nature.remove_child(collision.get_nature(grid_position))
 									shadows.remove_child(collision.get_shadow(tilemap.map_to_local(grid_position)))
 									tilemap.erase_cell(collision.nature_layer, grid_position)
-									inventory.add_item(1, randi_range(3,10))
 				check = false
 				
 			modes.FARMING:
