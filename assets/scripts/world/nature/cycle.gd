@@ -40,7 +40,6 @@ func cycle() -> void:
             else:
                 value = (1.0 - sin(value * PI)) / 2.0
             color = gradient_texture.gradient.sample(value)
-            print("Time: ", clock.hour, ":", clock.minute, "0 | ", "Gradient value: ", str(value).left(14), " | Time passed: ", str(time_passed).left(6))
             
 func set_cycle_value(cycle_value:float, passed:float) -> void:
     value = cycle_value
