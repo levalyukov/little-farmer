@@ -27,13 +27,16 @@ func change_clouds_value(value:int = 5) -> void:
 		clouds_value = value
 
 func create_shadow(shadow_name:String, shadow_texture:CompressedTexture2D, shadow_position:Vector2i) -> void:
-	if shadow_name == "":
-		shadow_name = "shadow"
-	var shadow:Sprite2D = Sprite2D.new()
-	shadow.name = shadow_name
-	shadow.texture = shadow_texture
-	shadow.set_position(tilemap.map_to_local(shadow_position))
-	canvas.add_child(shadow)
+	if shadow_texture is CompressedTexture2D:
+		if shadow_name == "":
+			shadow_name = "shadow"
+		var shadow:Sprite2D = Sprite2D.new()
+		shadow.name = shadow_name
+		shadow.texture = shadow_texture
+		shadow.set_position(tilemap.map_to_local(shadow_position))
+		canvas.add_child(shadow)
+	else:
+		return
 
 func create_shadow_node(shadow_name:String, shadow_node:PackedScene, shadow_position:Vector2i) -> void:
 	if shadow_node != null:
