@@ -23,10 +23,11 @@ var blueprints = Blueprints.new()
 var materials = BuildingMaterials.new()
 var natural_resources = NaturalResources.new()
 
-const grid_size:Vector2 = Vector2(16, 16)
+const SIZE:Vector2 = Vector2(16, 16)
 var grid_dimensions:Vector2i = Vector2i(1,1)
 var check:bool = false
 var mode:int = modes.NOTHING
+var destroy_mode:int = destroy.NOTHING
 enum modes {
 	NOTHING, 
 	DESTROY, 
@@ -38,6 +39,14 @@ enum modes {
 	TERRAIN_SET, 
 	UPGRADE
 }
+enum destroy {
+	NOTHING,
+	TRASH,
+	AXE,
+	PICKAXE,
+	BUILDING
+}
+
 
 # plant config
 var plantID
@@ -65,7 +74,7 @@ func _process(_delta):
 		var building_tile_position = []
 		match mode:
 			modes.DESTROY:
-				collision.destroy_collision_check()
+				#collision.destroy_collision_check()
 				if check:
 					if collision.collisions_check():
 						match collision.destroy_collision_check():
@@ -261,5 +270,5 @@ func generate_grid():
 		for y in range(grid_dimensions.y):
 			var sprite = Sprite2D.new()
 			sprite.texture = preload("res://assets/resources/ui/interactive/hud/grid/default.png")
-			sprite.position = Vector2(x * grid_size.x, y * grid_size.y)
+			sprite.position = Vector2(x * SIZE.x, y * SIZE.y)
 			collision.add_child(sprite)
