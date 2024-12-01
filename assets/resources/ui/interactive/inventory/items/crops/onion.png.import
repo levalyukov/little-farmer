@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2tes6suck2tr"
-path="res://.godot/imported/weed_1.png-6be5f11255046b53cd80720626e1e7fa.ctex"
+uid="uid://6d1jr8u20me3"
+path="res://.godot/imported/onion.png-cbb418647b711601a1c45fd552c2f77a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/resources/world/weeds/weed_1.png"
-dest_files=["res://.godot/imported/weed_1.png-6be5f11255046b53cd80720626e1e7fa.ctex"]
+source_file="res://assets/resources/ui/interactive/inventory/items/crops/onion.png"
+dest_files=["res://.godot/imported/onion.png-cbb418647b711601a1c45fd552c2f77a.ctex"]
 
 [params]
 

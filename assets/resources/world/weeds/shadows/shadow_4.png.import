@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2tes6suck2tr"
-path="res://.godot/imported/weed_1.png-6be5f11255046b53cd80720626e1e7fa.ctex"
+uid="uid://ekbpabkjo4w"
+path="res://.godot/imported/shadow_4.png-91b0a49eed4b8a1557a8067ca7c7473b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/resources/world/weeds/weed_1.png"
-dest_files=["res://.godot/imported/weed_1.png-6be5f11255046b53cd80720626e1e7fa.ctex"]
+source_file="res://assets/resources/world/weeds/shadows/shadow_4.png"
+dest_files=["res://.godot/imported/shadow_4.png-91b0a49eed4b8a1557a8067ca7c7473b.ctex"]
 
 [params]
 
