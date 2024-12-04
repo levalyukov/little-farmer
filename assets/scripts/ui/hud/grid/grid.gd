@@ -47,7 +47,6 @@ enum destroy {
 	BUILDING
 }
 
-
 # plant config
 var plantID
 var crop_growed:bool
@@ -74,59 +73,32 @@ func _process(_delta):
 		var building_tile_position = []
 		match mode:
 			modes.DESTROY:
-				#collision.destroy_collision_check()
-				if check:
-					if collision.collisions_check():
-						match collision.destroy_collision_check():
-							0:
-								var remove_terrain = []
-								for i in collision.get_children():
-									var grid_position = tilemap.local_to_map(i.get_global_position())
-									remove_terrain.append(grid_position)
-								tilemap.set_cells_terrain_connect(collision.road_layer,remove_terrain,collision.ground_terrain_set,-1)
-							1:
-								var remove_terrain = []
-								for i in collision.get_children():
-									var grid_position = tilemap.local_to_map(i.get_global_position())
-									remove_terrain.append(grid_position)
-								tilemap.set_cells_terrain_connect(collision.farmland_layer,remove_terrain,collision.farming_terrain_set,-1)
-							2:
-								var remove_terrain = []
-								for i in collision.get_children():
-									var grid_position = tilemap.local_to_map(i.get_global_position())
-									remove_terrain.append(grid_position)
-								tilemap.set_cells_terrain_connect(collision.watering_layer,remove_terrain,collision.watering_terrain_set,-1)
-							3:
-								for i in collision.get_children():
-									var grid_position = tilemap.local_to_map(i.get_global_position())
-									tilemap.erase_cell(collision.crops_layer,grid_position)
-									farming.plant_destroy(tilemap.map_to_local(grid_position))
-							4:
-								for i in collision.get_children():
-									var grid_position = tilemap.local_to_map(i.get_global_position())
-									tilemap.erase_cell(collision.crops_layer,grid_position)
-									farming.plant_destroy(tilemap.map_to_local(grid_position))
-							5:
-								for i in collision.get_children():
-									var grid_position = tilemap.local_to_map(i.get_global_position())
-								#building.remove_child(collision.get_building(tilemap.map_to_local(tile_mouse_pos)))
-								#shadows.remove_child(collision.get_shadow(tilemap.map_to_local(tile_mouse_pos)))
-								#tilemap.erase_cell(collision.building_layer, tile_mouse_pos)
-							6:
-								for i in collision.get_children():
-									var grid_position = tilemap.local_to_map(i.get_global_position())
-									var natural_node_name = data.remove_suffix(collision.get_nature(grid_position).name)
-									if natural_resources.content.has(natural_node_name):
-										if natural_resources.content[natural_node_name].has("item_id")\
-										&& natural_resources.content[natural_node_name].has("item_count"):
-											var item_amount = natural_resources.content[natural_node_name]["item_count"]
-											inventory.add_item(
-												natural_resources.content[natural_node_name]["item_id"], 
-												randi_range(item_amount[0], item_amount[1])
-												)
-									nature.remove_child(collision.get_nature(grid_position))
-									shadows.remove_child(collision.get_shadow(tilemap.map_to_local(grid_position)))
-									tilemap.erase_cell(collision.nature_layer, grid_position)
+				collision.destroy_collision_check(destroy_mode)
+				if destroy_mode == destroy.TRASH\
+				|| destroy_mode == destroy.AXE\
+				|| destroy_mode == destroy.PICKAXE:
+					for i in collision.get_children():
+						var grid_position = tilemap.local_to_map(i.get_global_position())
+						var natural_node = collision.get_nature(grid_position)
+						var natural_node_name = data.remove_suffix(collision.get_nature_name(grid_position))
+						if natural_node != null:
+							if natural_node.health > 0:
+								if check:
+									if collision.collisions_check():
+										natural_node.health -= 1
+							else:
+								if natural_resources.content.has(natural_node_name):
+									if natural_resources.content[natural_node_name].has("item_id")\
+									&& natural_resources.content[natural_node_name].has("item_count"):
+										var item_amount = natural_resources.content[natural_node_name]["item_count"]
+										inventory.add_item(
+											natural_resources.content[natural_node_name]["item_id"], 
+											randi_range(item_amount[0], item_amount[1])
+											)
+								nature.remove_child(collision.get_nature(grid_position))
+								shadows.remove_child(collision.get_shadow(tilemap.map_to_local(grid_position)))
+								tilemap.erase_cell(collision.nature_layer, grid_position)		
+							
 				check = false
 				
 			modes.FARMING:
@@ -143,10 +115,14 @@ func _process(_delta):
 				collision.watering_collision_check()
 				if check:
 					if collision.collisions_check():
-						for i in collision.get_children():
-							var grid_position = tilemap.local_to_map(i.get_global_position())
-							watering_tile_position.append(grid_position)
-						tilemap.set_cells_terrain_connect(collision.watering_layer,watering_tile_position,collision.watering_terrain_set,collision.terrain)
+						if tools.water_can > 0:
+							tools.water_can -= 5
+							for i in collision.get_children():
+								var grid_position = tilemap.local_to_map(i.get_global_position())
+								watering_tile_position.append(grid_position)
+							tilemap.set_cells_terrain_connect(collision.watering_layer,watering_tile_position,collision.watering_terrain_set,collision.terrain)
+						else:
+							tools.water_can = 0
 				check = false
 				
 			modes.PLANTING:
@@ -188,7 +164,7 @@ func _process(_delta):
 								else:
 									notifications.create_notice("error")
 							else:
-								data.debug("Index ", plant_id, " does not exist in the main 'crops' dictionary", "error")
+								data.debug("Index " + str(plant_id) + " does not exist in the main 'crops' dictionary", "error")
 				check = false
 
 			modes.BUILD:
@@ -249,8 +225,7 @@ func _input(event):
 		if event is InputEventMouseButton\
 		&& event.button_index == MOUSE_BUTTON_LEFT\
 		&& event.is_pressed():
-			if collision.collisions_check():
-				check = true
+			check = true
 
 	if event is InputEventMouseButton\
 	&& event.button_index == MOUSE_BUTTON_RIGHT\
@@ -261,6 +236,7 @@ func _input(event):
 		mode = modes.NOTHING
 		visible = false
 		check = false
+		destroy_mode = destroy.NOTHING
 
 func generate_grid():
 	for child in collision.get_children():
