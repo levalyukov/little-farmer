@@ -8,7 +8,7 @@
 shader = ExtResource("2_rlc4j")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i2ecp"]
-size = Vector2(420.633, 484.527)
+size = Vector2(412.646, 479.202)
 
 [node name="AnimalStall" type="Node2D"]
 script = ExtResource("1_6f341")
@@ -18,7 +18,7 @@ z_as_relative = false
 material = SubResource("ShaderMaterial_sihvr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
-position = Vector2(8, 15)
+position = Vector2(15.625, -1.5)
 scale = Vector2(0.0939061, 0.0939061)
 shape = SubResource("RectangleShape2D_i2ecp")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
