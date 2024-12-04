@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://bynrpq8bqkokr"]
 
-[ext_resource type="Script" path="res://assets/destroy_menu.gd" id="1_0el1c"]
+[ext_resource type="Script" path="res://assets/scripts/ui/hud/tools/destroy_menu/destroy_menu.gd" id="1_0el1c"]
 [ext_resource type="PackedScene" uid="uid://dioui6ad7xdkd" path="res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_trash.tscn" id="1_v1rcw"]
 [ext_resource type="PackedScene" uid="uid://c8ag0gf3jieeo" path="res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_axe.tscn" id="2_pqk25"]
 [ext_resource type="PackedScene" uid="uid://8yb0kfe6oh6x" path="res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_pickaxe.tscn" id="3_5530s"]
@@ -89,19 +89,19 @@ _data = {
 }
 
 [node name="DestroyMenu" type="Control"]
-custom_minimum_size = Vector2(528, 84)
+custom_minimum_size = Vector2(534, 0)
 layout_mode = 3
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -318.0
-offset_top = -84.0
+offset_left = -534.0
+offset_top = -90.0
 grow_horizontal = 0
 grow_vertical = 0
-size_flags_horizontal = 10
-size_flags_vertical = 10
+size_flags_horizontal = 8
+size_flags_vertical = 8
 script = ExtResource("1_0el1c")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
