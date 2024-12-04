@@ -5,6 +5,9 @@ extends Control
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
 
+
+var water_can_max:int = 100
+var water_can:int = 100
 # farming
 var hoe:int = 1 # for plowing the cells
 var watering_can:int = 1 # for watering the cells
