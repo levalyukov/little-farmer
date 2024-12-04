@@ -18,14 +18,15 @@ var stones:Array[CompressedTexture2D] = []
 var weeds:Array[CompressedTexture2D] = []
 var trees_shadow:Array[CompressedTexture2D] = []
 var stones_shadow:Array[CompressedTexture2D] = []
+var weeds_shadow:Array[CompressedTexture2D] = []
 
-const tree_func_calls:int = 200
-const stone_func_calls:int = 25
-const weed_func_calls:int = 50
+const tree_func_calls:int = 150
+const stone_func_calls:int = 100
+const weed_func_calls:int = 275
 
 const tree_sprite_max:int = 6
-const stone_sprite_max:int = 4
-const weed_sprite_max:int = 4
+const stone_sprite_max:int = 8
+const weed_sprite_max:int = 8
 
 const tree_sprite_min:int = 1 
 const stone_sprite_min:int = 1 
@@ -56,25 +57,25 @@ func _ready():
 	while weeds.size() < weed_sprite_max:
 		weed_sprite_value += 1
 		weeds.append(load("res://assets/resources/world/weeds/weed_"+str(weed_sprite_value)+".png"))
-		#trees_shadow.append(load("res://assets/resources/world/trees/shadows/shadow_"+str(tree_sprite_value)+".png"))
+		weeds_shadow.append(load("res://assets/resources/world/weeds/shadows/shadow_"+str(weed_sprite_value)+".png"))
 	await get_tree().create_timer(0.15).timeout
 
-	while tree_func_called < tree_func_calls:
-		tree_func_called+=1
-		create_natural_obj(tree_node, "tree", trees, trees_shadow)
+	while weed_func_called < weed_func_calls:
+		weed_func_called+=1
+		create_natural_obj(weed_node, "weed", weeds, weed_sprite_max, weeds_shadow)
 
 	check_aviabled_vectors()
 	while stone_func_called < stone_func_calls:
 		stone_func_called+=1
-		create_natural_obj(stone_node, "stone", stones, stones_shadow)
+		create_natural_obj(stone_node, "stone", stones, stone_sprite_max, stones_shadow)
 
 	check_aviabled_vectors()
-	while weed_func_called < weed_func_calls:
-		weed_func_called+=1
-		create_natural_obj(weed_node, "weed", weeds, [])
+	while tree_func_called < tree_func_calls:
+		tree_func_called+=1
+		create_natural_obj(tree_node, "tree", trees, tree_sprite_max, trees_shadow)
 
-func create_natural_obj(node:PackedScene, node_name:String, sprites_array:Array[CompressedTexture2D], shadows_array:Array[CompressedTexture2D]) -> void:
-	var random = randi_range(weed_sprite_min, weed_sprite_max)
+func create_natural_obj(node:PackedScene, node_name:String, sprites_array:Array[CompressedTexture2D], sprite_max:int, shadows_array:Array[CompressedTexture2D]) -> void:
+	var random = randi_range(1, sprite_max)
 	var target_node = node.instantiate()
 	var target_position = set_random_position()
 	
@@ -87,17 +88,16 @@ func create_natural_obj(node:PackedScene, node_name:String, sprites_array:Array[
 	if tilemap == null:
 		data.debug("Tilemap is null.", "error")
 		return
-
-	add_child(target_node)
-	target_node.name = node_name + "_1"
-	if not target_node.is_inside_tree():
-		data.debug("Node not added to the tree.", "error")
-		return
 	
 	if !collision.check_cell(target_position, collision.road_layer)\
 	&& !collision.check_cell(target_position, collision.nature_layer)\
 	&& !collision.check_cell(target_position, collision.building_layer):
-		var random_sprite = randi() % weeds.size()
+		add_child(target_node)
+		target_node.name = node_name + "_1"
+		if not target_node.is_inside_tree():
+			data.debug("Node not added to the tree.", "error")
+			return
+		var random_sprite = randi() % sprites_array.size()
 		target_node.set_texture(sprites_array[random_sprite])
 		target_node.set_position(tilemap.map_to_local(target_position))
 		tilemap.set_cell(collision.nature_layer, target_position, 0, Vector2i(0, 3))
@@ -107,8 +107,6 @@ func create_natural_obj(node:PackedScene, node_name:String, sprites_array:Array[
 		else:
 			data.debug("Shadows manager is null.", "error")
 			return
-	else:
-		create_natural_obj(node, node_name, sprites_array, shadows_array)
 
 func set_random_position() -> Vector2i:
 	if all_vectors.size() == 0:
