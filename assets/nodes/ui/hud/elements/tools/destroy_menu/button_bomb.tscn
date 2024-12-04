@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://5l4506nneg48"]
 
-[ext_resource type="Script" path="res://assets/button_bomb.gd" id="1_iubc7"]
+[ext_resource type="Script" path="res://assets/scripts/ui/hud/tools/destroy_menu/button_bomb.gd" id="1_iubc7"]
 
 [node name="ButtonDestroyBomb" type="Control"]
 custom_minimum_size = Vector2(74, 74)

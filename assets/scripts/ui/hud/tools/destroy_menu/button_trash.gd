@@ -18,6 +18,7 @@ func _on_button_pressed() -> void:
 			if !blur.state:
 				grid.grid_dimensions = tools.features["destroy"][tools.destroy]["grid_dimensions"]
 				grid.mode = grid.modes.DESTROY
+				grid.destroy_mode = grid.destroy.TRASH
 				grid.visible = true
 				grid.generate_grid()
 

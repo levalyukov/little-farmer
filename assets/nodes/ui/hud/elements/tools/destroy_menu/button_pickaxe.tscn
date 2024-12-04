@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://8yb0kfe6oh6x"]
 
-[ext_resource type="Script" path="res://assets/button_pickaxe.gd" id="1_h12r3"]
+[ext_resource type="Script" path="res://assets/scripts/ui/hud/tools/destroy_menu/button_pickaxe.gd" id="1_h12r3"]
 
 [node name="ButtonPickaxe" type="Control"]
 custom_minimum_size = Vector2(74, 74)

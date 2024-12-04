@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c8ag0gf3jieeo"]
 
-[ext_resource type="Script" path="res://assets/button_axe.gd" id="1_ve17u"]
+[ext_resource type="Script" path="res://assets/scripts/ui/hud/tools/destroy_menu/button_axe.gd" id="1_ve17u"]
 
 [node name="ButtonAxe" type="Control"]
 custom_minimum_size = Vector2(74, 74)

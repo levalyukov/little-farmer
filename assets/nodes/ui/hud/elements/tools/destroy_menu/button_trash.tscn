@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dioui6ad7xdkd"]
 
-[ext_resource type="Script" path="res://assets/button_trash.gd" id="1_6m0dj"]
+[ext_resource type="Script" path="res://assets/scripts/ui/hud/tools/destroy_menu/button_trash.gd" id="1_6m0dj"]
 
 [node name="ButtonTrash" type="Control"]
 custom_minimum_size = Vector2(74, 74)
