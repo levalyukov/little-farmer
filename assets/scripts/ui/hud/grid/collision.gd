@@ -115,19 +115,16 @@ func planting_collision_check() -> void:
 		else:
 			grids.texture = error
 		
-func harvesting_collision_check() -> void:
-	pass
-	#var mouse_pos:Vector2 = get_global_mouse_position()
-	#var tile_mouse_pos = tilemap.local_to_map(mouse_pos)
-	#if check_cell(tile_mouse_pos, crops_layer)\
-	#&& get_plant(tile_mouse_pos):
-	#	grid.change_sprite(false)
-	#	return true
-	#else:
-	#	grid.change_sprite(true)
-	#	return false
+func harvest_check() -> void:
+	for grids in get_children():
+		var grid_position = tilemap.local_to_map(grids.get_global_position())
+		if check_cell(grid_position, crops_layer)\
+		&& get_harvest(grid_position):
+			grids.texture = default
+		else:
+			grids.texture = error
 
-func terrain_collision_check(terrain_layer) -> void:
+func terrain_collision_check(terrain_layer:int) -> void:
 	for grids in get_children():
 		var grid_position = tilemap.local_to_map(grids.get_global_position())
 		if !check_cell(grid_position, terrain_layer):
@@ -146,54 +143,54 @@ func building_collision_check() -> void:
 		else:
 			grids.texture = error
 
-func get_nature(target_position:Vector2i):
+func get_nature(vector:Vector2i):
 	for node in nature.get_children():
-		if target_position == tilemap.local_to_map(node.position):
+		if vector == tilemap.local_to_map(node.position):
 			if node != null:
 				return node
 	return
 
-func get_nature_name(target_position:Vector2i) -> String:
+func get_nature_name(vector:Vector2i) -> String:
 	for node in nature.get_children():
-		if target_position == tilemap.local_to_map(node.position):
+		if vector == tilemap.local_to_map(node.position):
 			if node != null:
 				return node.name
 	return ""
 
-func get_building(target_position:Vector2i):
+func get_building(vector:Vector2i):
 	for node in buildings.get_children():
 		#if data.remove_suffix(node.name) in buildings.all_buildings:
 		print(data.remove_suffix(node.name))
-		if tilemap.local_to_map(target_position) == tilemap.local_to_map(node.position)\
+		if tilemap.local_to_map(vector) == tilemap.local_to_map(node.position)\
 		&& node.name != grid.name:
 			return node
 
-func get_shadow(mouse_position:Vector2i):
+func get_shadow(vector:Vector2i):
 	for shadow in shadows.get_children():
-		if tilemap.local_to_map(mouse_position) == tilemap.local_to_map(shadow.position):
+		if tilemap.local_to_map(vector) == tilemap.local_to_map(shadow.position):
 			return shadow
 
-func get_plant(mouse_position:Vector2i) -> bool:
+func get_harvest(vector:Vector2i) -> bool:
 	for plant in farming.get_children():
-		if mouse_position == tilemap.local_to_map(plant.position):
+		if vector == tilemap.local_to_map(plant.position):
 			if plant.condition == plant.phases.GROWED:
 				return true
 	return false
 
-func get_plant_id(mouse_position:Vector2i) -> int:
+func get_harvest_id(vector:Vector2i) -> int:
 	for plant in farming.get_children():
-		if tilemap.local_to_map(mouse_position) == tilemap.local_to_map(plant.position):
+		if tilemap.local_to_map(vector) == tilemap.local_to_map(plant.position):
 			return plant.plantID
 	return 0
 
-func check_custom_data(tile_mouse:Vector2, custom_data_layer:String, layer:int) -> bool:
-	var tiledata = tilemap.get_cell_tile_data(layer, tile_mouse)
+func check_custom_data(vector:Vector2, custom_data_layer:String, layer:int) -> bool:
+	var tiledata = tilemap.get_cell_tile_data(layer, vector)
 	if tiledata:
 		return tiledata.get_custom_data(custom_data_layer)
 	return false
 
-func check_cell(mouse:Vector2, current_tile:int) -> bool:
-	if tilemap.get_cell_source_id(current_tile, mouse) == -1:
+func check_cell(vector:Vector2, current_tile:int) -> bool:
+	if tilemap.get_cell_source_id(current_tile, vector) == -1:
 		return false
 	return true
 
