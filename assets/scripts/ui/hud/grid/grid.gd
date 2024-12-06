@@ -148,23 +148,23 @@ func _process(_delta):
 				check = false
 
 			modes.HARVESTING:
-				collision.harvesting_collision_check()
+				collision.harvest_check()
 				if check:
-					if collision.collisions_check():
-						for i in collision.get_children(): 
-							var plant_id = collision.get_plant_id(tilemap.map_to_local(tile_mouse_pos))
-							if crops.crops.has(plant_id):
-								if storage.object[storage.level]["slots"] - inventory.get_all_items() != 0:
-									var crop_item:int = crops.crops[plant_id]["item"]
-									var crop_productivity:Array = crops.crops[plant_id]["productivity"]
-									var target_productivity:int = randi_range(crop_productivity[0], crop_productivity[1])
-									tilemap.erase_cell(collision.crops_layer, tile_mouse_pos)
-									farming.plant_destroy(tilemap.map_to_local(tile_mouse_pos))
-									inventory.add_item(crop_item, target_productivity)
-								else:
-									notifications.create_notice("error")
+					for i in collision.get_children(): 
+						var grid_position = tilemap.local_to_map(i.get_global_position())
+						var harvest = collision.get_harvest_id(grid_position)
+						if crops.crops.has(harvest):
+							if storage.object[storage.level]["slots"] - inventory.get_all_items() != 0:
+								var crop_item:int = crops.crops[harvest]["item"]
+								var crop_productivity:Array = crops.crops[harvest]["productivity"]
+								var target_productivity:int = randi_range(crop_productivity[0], crop_productivity[1])
+								tilemap.erase_cell(collision.crops_layer, grid_position)
+								farming.plant_destroy(grid_position)
+								inventory.add_item(crop_item, target_productivity)
 							else:
-								data.debug("Index " + str(plant_id) + " does not exist in the main 'crops' dictionary", "error")
+								notifications.create_notice(tr("full_inventory.error"))
+						else:
+							data.debug("Index " + str(harvest) + " does not exist in the main 'crops' dictionary", "error")
 				check = false
 
 			modes.BUILD:
