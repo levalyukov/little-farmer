@@ -5,6 +5,7 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_ijn06"]
 font_size = 20
+outline_size = 1
 
 [sub_resource type="Animation" id="Animation_bi1g3"]
 length = 0.001
@@ -186,6 +187,17 @@ text = "trader.window_header"
 label_settings = SubResource("LabelSettings_ijn06")
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="DescriptionContainer" type="MarginContainer" parent="Content/TradeWindow/TradeWindow/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Description" type="Label" parent="Content/TradeWindow/TradeWindow/VBoxContainer/DescriptionContainer"]
+custom_minimum_size = Vector2(270, 0)
+layout_mode = 2
+text = "trade_menu.description"
 autowrap_mode = 3
 
 [node name="ItemsContainer" type="MarginContainer" parent="Content/TradeWindow/TradeWindow/VBoxContainer"]

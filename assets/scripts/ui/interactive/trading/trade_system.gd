@@ -9,6 +9,9 @@ extends Control
 @onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
 @onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/storage")
 
+@onready var header:Label = $Content/TradeWindow/TradeWindow/VBoxContainer/HeaderContainer/Header
+@onready var description_container:MarginContainer = $Content/TradeWindow/TradeWindow/VBoxContainer/DescriptionContainer
+@onready var description:Label = $Content/TradeWindow/TradeWindow/VBoxContainer/DescriptionContainer/Description
 @onready var player_inventory_main:GridContainer = $Content/PlayerInventory/PlayerContainer/VBoxContainer/MarginContainer/GridContainer
 @onready var trade_window_items:GridContainer =  $Content/TradeWindow/TradeWindow/VBoxContainer/ItemsContainer/GridMarginContainer/GridContainer
 @onready var trade_window_items_container:MarginContainer = $Content/TradeWindow/TradeWindow/VBoxContainer/ItemsContainer
@@ -229,6 +232,7 @@ func update_button_trade_window() -> void:
 		match initiator:
 			initiators.TRADER:
 				trade_window_button.visible = true
+				description_container.visible = false
 				if storage.object[storage.level]["slots"] - inventory.get_all_items() >= get_all_items_array():
 					if balance.money >= get_target_price():
 						trade_window_button.text = tr("trader.button_purchase")
@@ -243,9 +247,13 @@ func update_button_trade_window() -> void:
 				trade_window_button.text = tr("trader.button_sell")
 				trade_window_button.visible = true
 				trade_window_button.disabled = false
+				description_container.visible = false
 	else:
 		trade_window_button.visible = false
 		initiator = initiators.NONE
+		description_container.visible = true
+		description.text = tr("trade_menu.description")
+		
 
 func get_trader_inventory() -> void:
 	if traders.content.has(trader_id):
