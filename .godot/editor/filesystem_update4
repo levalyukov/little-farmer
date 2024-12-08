@@ -1,7 +1,6 @@
-res://assets/scripts/ui/interactive/trading/trade_system.gd
 res://levels/farm.tscn
 res://assets/shaders/pixel.gdshader
 res://assets/shaders/blur.gdshader
 res://assets/resources/world/day-night.tres
 res://assets/nodes/ui/trade_menu.tscn
-res://assets/scripts/ui/canvas_group.gd
+res://assets/data/gamedata.gd
