@@ -14,8 +14,8 @@ var content: Dictionary = {
 		},
 	},
 	2: {
-		"caption" = "Деревянный знак",	# Деревянный знак Позволяет разместить изображение любого предмета
-		"description" = "Позволяет разместить изображение любого предмета.", #	Деревянные дорожки для сада добавляют уют и красоту вашему пространству
+		"caption" = "Деревянный знак",
+		"description" = "Позволяет разместить изображение любого предмета.",
 		"resource" = {
 			"plank" = 5,
 			"stone" = 5,
@@ -28,20 +28,7 @@ var content: Dictionary = {
 				"source" = load("res://assets/nodes/buildings/sign.tscn"),
 				"shadow" = load("res://assets/resources/buildings/sign/shadow.png"),
 				"name" = "sign",
-			},
-		},
-	},
-	3: {
-		"caption" = "Деревянный дом",
-		"description" = "Улучшение для дома.",
-		"time" = 1,
-		"icon" = load("res://assets/resources/buildings/house/level_2/object_0.png"),
-		"resource" = {
-			"plank" = 75,
-			},
-		"type" = {
-			"upgrade" = {
-				"level.up" = 2,
+				"grid_dimensions" = Vector2i(1,1)
 			},
 		},
 	},

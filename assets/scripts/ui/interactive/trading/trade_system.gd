@@ -42,6 +42,13 @@ var all_items:Object = Items.new()
 func _ready():
 	_update_window_visible()
 
+func _input(_event):
+	if Input.is_action_just_pressed("test"):
+		if !visible:
+			open_trade_menu()
+		else:
+			close_trade_menu()
+
 func open_trade_menu() -> void:
 	menu = true
 	pause.other_menu = true
@@ -186,7 +193,7 @@ func get_target_price():
 			for item in trade_content:
 				if storage.object[storage.level]["slots"] - inventory.get_all_items() >= get_all_items_array():
 					if all_items.content.has(int(item)):
-						var sale_price = all_items.content[int(item)].get("sale", null)
+						var sale_price = all_items.content[int(item)].get("purchase", null)
 						if sale_price != null:
 							var amount = trade_content[item].get("amount", 1)
 							target_price += sale_price * amount

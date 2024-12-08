@@ -7,6 +7,7 @@
 size = Vector2(9, 17.375)
 
 [node name="Mailbox" type="Node2D"]
+y_sort_enabled = true
 position = Vector2(-8, -19)
 script = ExtResource("1_oykw7")
 

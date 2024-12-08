@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dhiifehp4845g" path="res://assets/nodes/grid.tscn" id="2_s3k81"]
 
 [node name="ConstructionManager" type="Node2D"]
+z_index = 3
 y_sort_enabled = true
 script = ExtResource("1_8rh46")
 

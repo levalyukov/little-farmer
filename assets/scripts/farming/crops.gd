@@ -50,4 +50,15 @@ var crops:Dictionary = {
 		"X" = 0, "Y" = 96,
 		"item" = 20,
 	},
+	5: {
+		"caption" = tr("cabbage.caption"),
+		"type" = "vegetable", 
+		"season" = "spring",
+		"growth_rate" = 1,
+		"growth_level" = 5, 
+		"mortality" = 5,
+		"productivity" = [5,10], 
+		"X" = 0, "Y" = 128,
+		"item" = 22,
+	},
 }

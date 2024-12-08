@@ -40,6 +40,7 @@ func start_building(index) -> void:
 			else:
 				data.debug("The key element is missing - 'terrain_set'", "error")
 				reset_grid_data(target_array[0])
+				return
 
 		"node":
 			if blueprints.content[index]["type"]["node"].has("source"):
@@ -58,13 +59,16 @@ func start_building(index) -> void:
 				else:
 					data.debug("The key element is missing - 'shadow'", "error")
 					reset_grid_data(target_array[0])
+					return
 			else:
 				data.debug("The key element is missing - 'source'", "error")
-				reset_grid_data(target_array[0])		
+				reset_grid_data(target_array[0])
+				return		
 
 		_:
 			data.debug("Invalid type - "+str(target_array[0]), "error")
 			reset_grid_data(target_array[0])
+			return
 
 
 func reset_grid_data(index) -> void:

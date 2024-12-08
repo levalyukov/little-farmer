@@ -6,7 +6,7 @@ extends Node
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridCollision")
 @onready var canvas:CanvasGroup = get_node("/root/"+main+"/ShadowManager/CanvasGroup")
-@onready var cloud_canvas:CanvasGroup = get_node("/root/"+main+"/ShadowManager/CloudGroup")
+@onready var cloud_canvas:CanvasGroup = get_node("/root/"+main+"/ShadowManager/CanvasGroup")
 
 const max_widht_map:int = 39
 const min_widht_map:int = -8

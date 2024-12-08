@@ -7,19 +7,23 @@ var content:Dictionary = {
             13:{
                 "max": 25,
                 "amount": 25,
-                },
+            },
             14:{
                 "max": 25,
                 "amount": 25,
-                },
+            },
             15:{
                 "max": 25,
                 "amount": 25,
-                },
+            },
             16:{
                 "max": 25,
                 "amount": 25,
-                },
+            },
+            17:{
+                "max": 25,
+                "amount": 25,
+            },
         }
     }
 }

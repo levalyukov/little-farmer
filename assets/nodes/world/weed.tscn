@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bm2n0uwh1pg04"]
 
 [ext_resource type="Script" path="res://assets/scripts/world/nature/nature_obj.gd" id="1_63wgg"]
-[ext_resource type="Texture2D" uid="uid://cbj8kgouajxty" path="res://assets/resources/world/weeds/weed_1.png" id="1_u217s"]
+[ext_resource type="Texture2D" uid="uid://b2tes6suck2tr" path="res://assets/resources/world/weeds/weed_1.png" id="1_u217s"]
 
 [node name="Weed" type="Node2D"]
 script = ExtResource("1_63wgg")

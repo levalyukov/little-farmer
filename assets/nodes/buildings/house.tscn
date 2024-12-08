@@ -15,6 +15,7 @@ shader = ExtResource("1_hinp5")
 size = Vector2(372.713, 479.202)
 
 [node name="House" type="Node2D"]
+y_sort_enabled = true
 material = SubResource("ShaderMaterial_dobrp")
 script = ExtResource("2_71141")
 

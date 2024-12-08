@@ -19,8 +19,7 @@ func create_plant(id:int, pos:Vector2i) -> void:
 		plant.plant(id)
 		plant.check(id,pos)
 
-func plant_destroy(target_position: Vector2) -> void:
+func plant_destroy(vector:Vector2i) -> void:
 	for child in get_children():
-		if child.position == target_position:
+		if vector == tilemap.local_to_map(child.position):
 			remove_child(child)
-			child.queue_free()

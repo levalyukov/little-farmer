@@ -97,7 +97,7 @@ var content:Dictionary = {
 		"type": "building_materials.type",
 		"purchase": 1,
 		"sale": 5,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/nail.png"),
+		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/aluminum_ingot.png"),
 	},
 	13: {
 		"caption": tr("carrot_packet.caption"),
@@ -156,6 +156,15 @@ var content:Dictionary = {
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_4.png"),
 	},
 	17: {
+		"caption": tr("onion_packet.caption"),
+		"description": tr("onion_packet.description"),
+		"type": "seeds",
+		"purchase": 1,
+		"sale": 100,
+		"crop": 5,
+		"icon": load("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_5.png"),
+	},
+	18: {
 		"caption": tr("carrot_crop.caption"),
 		"description": tr("carrot_crop.description"),
 		"type": "crop",
@@ -163,7 +172,7 @@ var content:Dictionary = {
 		"sale": 25,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/crops/carrot.png"),
 	},
-	18: {
+	19: {
 		"caption": tr("potato_crop.caption"),
 		"description": tr("potato_crop.description"),
 		"type": "crop",
@@ -171,7 +180,7 @@ var content:Dictionary = {
 		"sale": 75,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/crops/potato.png"),
 	},
-	19: {
+	20: {
 		"caption": tr("radish_crop.caption"),
 		"description": tr("radish_crop.description"),
 		"type": "crop",
@@ -179,12 +188,20 @@ var content:Dictionary = {
 		"sale": 50,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/crops/radish.png"),
 	},
-	20: {
+	21: {
 		"caption": tr("cabbage_crop.caption"),
 		"description": tr("cabbage_crop.description"),
 		"type": "crop",
 		"purchase": 1,
 		"sale": 100,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/crops/cabbage.png"),
+	},
+	22: {
+		"caption": tr("onion_crop.caption"),
+		"description": tr("onion_crop.description"),
+		"type": "crop",
+		"purchase": 1,
+		"sale": 100,
+		"icon": load("res://assets/resources/ui/interactive/inventory/items/crops/onion.png"),
 	},
 }
