@@ -57,7 +57,20 @@ func destroy_collision_check(mode:int):
 							else:
 								grids.texture = error
 					else:
-						grids.texture = error
+						if check_cell(grid_position, farmland_layer)\
+						&& !check_cell(grid_position, watering_layer)\
+						&& !check_cell(grid_position, crops_layer):
+							grids.texture = default
+						if check_cell(grid_position, farmland_layer)\
+						&& check_cell(grid_position, watering_layer)\
+						&& !check_cell(grid_position, crops_layer):
+							grids.texture = default
+						if check_cell(grid_position, farmland_layer)\
+						&& check_cell(grid_position, watering_layer)\
+						&& check_cell(grid_position, crops_layer):
+							grids.texture = default
+						else:
+							grids.texture = error
 			2:
 				for node in nature.get_children():
 					if check_cell(grid_position, nature_layer):
@@ -177,11 +190,10 @@ func get_harvest(vector:Vector2i) -> bool:
 				return true
 	return false
 
-func get_harvest_id(vector:Vector2i) -> int:
+func get_harvest_id(vector:Vector2i):
 	for plant in farming.get_children():
-		if tilemap.local_to_map(vector) == tilemap.local_to_map(plant.position):
+		if vector == tilemap.local_to_map(plant.position):
 			return plant.plantID
-	return 0
 
 func check_custom_data(vector:Vector2, custom_data_layer:String, layer:int) -> bool:
 	var tiledata = tilemap.get_cell_tile_data(layer, vector)
