@@ -98,31 +98,36 @@ func _process(_delta):
 								nature.remove_child(collision.get_nature(grid_position))
 								shadows.remove_child(collision.get_shadow(tilemap.map_to_local(grid_position)))
 								tilemap.erase_cell(collision.nature_layer, grid_position)		
+						if collision.check_cell(grid_position, collision.crops_layer):
+							if check:
+								print("test")
 							
 				check = false
 				
 			modes.FARMING:
 				collision.farming_collision_check()
 				if check:
-					if collision.collisions_check():
-						for i in collision.get_children():
-							var grid_position = tilemap.local_to_map(i.get_global_position())
+					for i in collision.get_children():
+						var grid_position = tilemap.local_to_map(i.get_global_position())
+						if collision.check_cell(grid_position, collision.road_layer)\
+						&& collision.check_custom_data(grid_position, collision.can_place_dirt_custom_data, collision.road_layer):
 							farming_tile_position.append(grid_position)
-						tilemap.set_cells_terrain_connect(collision.farmland_layer,farming_tile_position,collision.farming_terrain_set,collision.terrain)
+					tilemap.set_cells_terrain_connect(collision.farmland_layer,farming_tile_position,collision.farming_terrain_set,collision.terrain)
 				check = false
 				
 			modes.WATERING:
 				collision.watering_collision_check()
 				if check:
-					if collision.collisions_check():
-						if tools.water_can > 0:
-							tools.water_can -= 5
-							for i in collision.get_children():
-								var grid_position = tilemap.local_to_map(i.get_global_position())
+					if tools.water_can > 0:
+						tools.water_can -= 5
+						for i in collision.get_children():
+							var grid_position = tilemap.local_to_map(i.get_global_position())
+							if collision.check_cell(grid_position, collision.farmland_layer)\
+							&& collision.check_custom_data(grid_position, collision.can_place_watering_custom_data, collision.farmland_layer):
 								watering_tile_position.append(grid_position)
-							tilemap.set_cells_terrain_connect(collision.watering_layer,watering_tile_position,collision.watering_terrain_set,collision.terrain)
-						else:
-							tools.water_can = 0
+						tilemap.set_cells_terrain_connect(collision.watering_layer,watering_tile_position,collision.watering_terrain_set,collision.terrain)
+					else:
+						tools.water_can = 0
 				check = false
 				
 			modes.PLANTING:
@@ -132,12 +137,14 @@ func _process(_delta):
 						for i in collision.get_children():
 							var grid_position = tilemap.local_to_map(i.get_global_position())
 							if check:
-								if collision.collisions_check():
-									if crops.crops.has(plantID):
+								if crops.crops.has(plantID):
+									if collision.check_cell(grid_position, collision.farmland_layer)\
+									&& collision.check_custom_data(grid_position, collision.can_place_seed_custom_data, collision.farmland_layer)\
+									&& collision.collisions_check():
 										inventory.subject_item(inventory_item, 1)
 										farming.create_plant(plantID, grid_position)
-									else:
-										data.debug("The numerical ID (" + str(plantID) + ") of this crop is missing in the main file crops.gd", "error")
+								else:
+									data.debug("The numerical ID (" + str(plantID) + ") of this crop is missing in the main file crops.gd", "error")
 					else:
 						grid_dimensions = Vector2i(1,1)
 						generate_grid()
@@ -153,18 +160,20 @@ func _process(_delta):
 					for i in collision.get_children(): 
 						var grid_position = tilemap.local_to_map(i.get_global_position())
 						var harvest = collision.get_harvest_id(grid_position)
-						if crops.crops.has(harvest):
+						if crops.crops.has(harvest) && harvest != 0:
 							if storage.object[storage.level]["slots"] - inventory.get_all_items() != 0:
-								var crop_item:int = crops.crops[harvest]["item"]
-								var crop_productivity:Array = crops.crops[harvest]["productivity"]
-								var target_productivity:int = randi_range(crop_productivity[0], crop_productivity[1])
-								tilemap.erase_cell(collision.crops_layer, grid_position)
-								farming.plant_destroy(grid_position)
-								inventory.add_item(crop_item, target_productivity)
+								if collision.get_harvest(grid_position):
+									var crop_item:int = crops.crops[harvest]["item"]
+									var crop_productivity:Array = crops.crops[harvest]["productivity"]
+									var target_productivity:int = randi_range(crop_productivity[0], crop_productivity[1])
+									tilemap.erase_cell(collision.crops_layer, grid_position)
+									farming.plant_destroy(grid_position)
+									inventory.add_item(crop_item, target_productivity)
 							else:
 								notifications.create_notice(tr("full_inventory.error"))
 						else:
-							data.debug("Index " + str(harvest) + " does not exist in the main 'crops' dictionary", "error")
+							if harvest != null:
+								data.debug("Index " + str(harvest) + " does not exist in the main 'crops' dictionary", "error")
 				check = false
 
 			modes.BUILD:
