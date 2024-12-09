@@ -28,6 +28,7 @@ const building_layer:int = 6
 const farming_terrain_set:int = 0
 const watering_terrain_set:int = 1
 const ground_terrain_set:int = 2
+const water_terrain_set:int = 3
 const terrain:int = 0
 
 func collisions_detect(collision_layer:int) -> void:
