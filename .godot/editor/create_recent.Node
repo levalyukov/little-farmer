@@ -1,3 +1,4 @@
+CanvasGroup
 AnimationPlayer
 HBoxContainer
 MarginContainer
@@ -5,11 +6,9 @@ Panel
 Button
 Sprite2D
 Node2D
-CanvasGroup
 ScrollContainer
 TextureRect
 Label
 VBoxContainer
 GridContainer
 Container
-Node

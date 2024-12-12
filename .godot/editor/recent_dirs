@@ -1,3 +1,4 @@
+res://assets/resources/world/landscape
 D:/Microsoft VS Code
 res://assets
 res://assets/nodes/ui/hud/elements/tools
@@ -16,8 +17,6 @@ res://assets/resources/ui/interactive/construct
 res://assets/resources/ui/interactive/hud/tools
 res://assets/resources/ui/interactive/hud
 res://assets/nodes/world
-res://assets/resources/world/landscape
 res://levels
-res://assets/fonts
 res://assets/shaders
 res://assets/nodes/ui/_main_menu
