@@ -41,7 +41,7 @@ var stone_sprite_value:int = 0
 var weed_sprite_value:int = 0
 
 func _ready():
-	self.z_index = 3
+	self.z_index = 2
 	all_vectors = tilemap.get_used_cells(0)
 	check_aviabled_vectors()
 	while trees.size() < tree_sprite_max:
