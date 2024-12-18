@@ -23,3 +23,11 @@ func plant_destroy(vector:Vector2i) -> void:
 	for child in get_children():
 		if vector == tilemap.local_to_map(child.position):
 			remove_child(child)
+
+func get_all_plants() -> Dictionary:
+	var data_dict = {}
+	for plant in get_children():
+		if plant.has_method("get_data"):
+			var child_data = plant.get_data()
+			data_dict[plant.name] = child_data
+	return data_dict
