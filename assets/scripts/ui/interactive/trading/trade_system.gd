@@ -46,10 +46,8 @@ func _ready():
 	_update_window_visible()
 
 func _input(_event):
-	if Input.is_action_just_pressed("test"):
-		if !visible:
-			open_trade_menu()
-		else:
+	if Input.is_action_just_pressed("pause"):
+		if blur.state:
 			close_trade_menu()
 
 func open_trade_menu() -> void:
