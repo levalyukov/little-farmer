@@ -5,6 +5,7 @@ extends Control
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
 
+const max_grid_dimensions:int = 32
 
 var water_can_max:int = 100
 var water_can:int = 100
