@@ -20,16 +20,19 @@ const can_place_watering_custom_data:String = "can_watering_dirt"
 const ground_layer:int = 0
 const road_layer:int = 1
 const nature_layer:int = 2
-const farmland_layer:int = 3
-const watering_layer:int = 4
-const crops_layer:int = 5
-const building_layer:int = 6
+const coast_layer:int = 3
+const aquatic_layer:int = 4
+const water_layer:int = 5
+const farmland_layer:int = 6
+const watering_layer:int = 7
+const crops_layer:int = 8
+const building_layer:int = 9
 
 const farming_terrain_set:int = 0
 const watering_terrain_set:int = 1
-const ground_terrain_set:int = 2
+const roads_terrain_set:int = 2
 const coast_terrain_set:int = 3
-const terrain:int = 0
+const water_terrain_set:int = 4
 
 func collisions_detect(collision_layer:int) -> void:
 	for grids in get_children():
@@ -209,3 +212,11 @@ func check_cell(vector:Vector2, current_tile:int) -> bool:
 
 func get_used_cells(layer:int) -> Array:
 	return tilemap.get_used_cells(layer)
+
+func get_position_children(parent:Node2D) -> Array:
+	var children = parent.get_children()
+	var coordinates = []
+	for child in children:
+		if child is Node2D:
+			coordinates.append(tilemap.local_to_map(child.global_position))
+	return coordinates
