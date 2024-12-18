@@ -207,11 +207,16 @@ func blueprints_clear() -> void:
 	access.clear()
 
 func _start_info() -> void:
-	var start_caption = tr("startinfo_header.craft")
-	var start_description = tr("startinfo_description.craft")
+	var start_caption = tr("craft.start_info_header")
+	var start_description = tr("craft.start_info_description")
+	var start_description_empty = tr("craft.start_info_description_empty")
 
-	caption.text = start_caption
-	description.text = start_description
+	if access != []:
+		caption.text = start_caption
+		description.text = start_description
+	else:
+		caption.text = start_caption
+		description.text = start_description_empty
 	resources.text = ""
 	time_create.text = ""
 	icon.visible = false
