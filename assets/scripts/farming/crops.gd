@@ -15,7 +15,7 @@ var crops:Dictionary = {
 		"mortality" = 5,
 		"productivity" = [1,5],
 		"X" = 0, "Y" = 0,
-		"item" = 17,
+		"item" = 18,
 	},
 	2: {
 		"caption" = tr("potato.caption"),
@@ -26,7 +26,7 @@ var crops:Dictionary = {
 		"mortality" = 5,
 		"productivity" = [5,10], 
 		"X" = 0, "Y" = 32,
-		"item" = 18,
+		"item" = 19,
 	},
 	3: {
 		"caption" = tr("radish.caption"),
@@ -37,7 +37,7 @@ var crops:Dictionary = {
 		"mortality" = 5,
 		"productivity" = [5,10], 
 		"X" = 0, "Y" = 64,
-		"item" = 19,
+		"item" = 20,
 	},
 	4: {
 		"caption" = tr("cabbage.caption"),
@@ -48,7 +48,7 @@ var crops:Dictionary = {
 		"mortality" = 5,
 		"productivity" = [5,10], 
 		"X" = 0, "Y" = 96,
-		"item" = 20,
+		"item" = 21,
 	},
 	5: {
 		"caption" = tr("cabbage.caption"),

@@ -57,6 +57,7 @@ func open() -> void:
 		grid.visible = false
 	if destroy_menu.opened:
 		destroy_menu.close()
+		
 func close() -> void:
 	paused = false
 	anim.play("close")
