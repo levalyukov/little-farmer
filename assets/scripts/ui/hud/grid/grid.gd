@@ -113,21 +113,23 @@ func _process(_delta):
 						&& collision.check_custom_data(grid_position, collision.can_place_dirt_custom_data, collision.road_layer):
 							farming_tile_position.append(grid_position)
 					tilemap.set_cells_terrain_connect(collision.farmland_layer,farming_tile_position,collision.farming_terrain_set,collision.terrain)
+					#tilemap.set_cells_terrain_connect(collision.farmland_layer,farming_tile_position,collision.coast_terrain_set,collision.terrain)
 				check = false
 				
 			modes.WATERING:
 				collision.watering_collision_check()
 				if check:
-					if tools.water_can > 0:
-						tools.water_can -= 5
-						for i in collision.get_children():
-							var grid_position = tilemap.local_to_map(i.get_global_position())
-							if collision.check_cell(grid_position, collision.farmland_layer)\
-							&& collision.check_custom_data(grid_position, collision.can_place_watering_custom_data, collision.farmland_layer):
+					for i in collision.get_children():
+						var grid_position = tilemap.local_to_map(i.get_global_position())
+						if collision.check_cell(grid_position, collision.farmland_layer)\
+						&& !collision.check_cell(grid_position, collision.watering_layer)\
+						&& collision.check_custom_data(grid_position, collision.can_place_watering_custom_data, collision.farmland_layer):
+							if tools.water_can > 0:
 								watering_tile_position.append(grid_position)
-						tilemap.set_cells_terrain_connect(collision.watering_layer,watering_tile_position,collision.watering_terrain_set,collision.terrain)
-					else:
-						tools.water_can = 0
+								tools.water_can -= 1
+							else:
+								tools.water_can = 0
+					tilemap.set_cells_terrain_connect(collision.watering_layer,watering_tile_position,collision.watering_terrain_set,collision.terrain)
 				check = false
 				
 			modes.PLANTING:
@@ -139,8 +141,8 @@ func _process(_delta):
 							if check:
 								if crops.crops.has(plantID):
 									if collision.check_cell(grid_position, collision.farmland_layer)\
-									&& collision.check_custom_data(grid_position, collision.can_place_seed_custom_data, collision.farmland_layer)\
-									&& collision.collisions_check():
+									&& !collision.check_cell(grid_position, collision.crops_layer)\
+									&& collision.check_custom_data(grid_position, collision.can_place_seed_custom_data, collision.farmland_layer):
 										inventory.subject_item(inventory_item, 1)
 										farming.create_plant(plantID, grid_position)
 								else:
@@ -248,12 +250,17 @@ func _input(event):
 		destroy_mode = destroy.NOTHING
 
 func generate_grid():
-	for child in collision.get_children():
-		child.queue_free()
-
-	for x in range(grid_dimensions.x):
-		for y in range(grid_dimensions.y):
-			var sprite = Sprite2D.new()
-			sprite.texture = preload("res://assets/resources/ui/interactive/hud/grid/default.png")
-			sprite.position = Vector2(x * SIZE.x, y * SIZE.y)
-			collision.add_child(sprite)
+	if grid_dimensions.x <= tools.max_grid_dimensions\
+	&& grid_dimensions.y <= tools.max_grid_dimensions:
+		for child in collision.get_children():
+			child.queue_free()
+	
+		for x in range(grid_dimensions.x):
+			for y in range(grid_dimensions.y):
+				var sprite = Sprite2D.new()
+				sprite.texture = preload("res://assets/resources/ui/interactive/hud/grid/default.png")
+				sprite.position = Vector2(x * SIZE.x, y * SIZE.y)
+				collision.add_child(sprite)
+	else:
+		grid_dimensions = Vector2i(tools.max_grid_dimensions,tools.max_grid_dimensions)
+		generate_grid()
