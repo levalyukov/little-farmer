@@ -95,7 +95,6 @@ func _process(_delta):
 											natural_resources.content[natural_node_name]["item_id"], 
 											randi_range(item_amount[0], item_amount[1])
 											)
-								print(collision.get_nature_name(grid_position))	
 								nature.remove_child(collision.get_nature(grid_position))
 								shadows.remove_child(collision.get_shadow(tilemap.map_to_local(grid_position)))
 								tilemap.erase_cell(collision.nature_layer, grid_position)	

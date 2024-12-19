@@ -13,3 +13,4 @@ res://assets/nodes/farming/farming_manager.tscn
 res://assets/nodes/ui/hud/elements/tools/tools.tscn
 res://assets/scripts/world/nature/nature_obj.gd
 res://assets/scripts/world/nature/nature.gd
+res://assets/scripts/ui/hud/grid/grid.gd
