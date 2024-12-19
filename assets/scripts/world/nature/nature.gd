@@ -9,6 +9,10 @@ extends Node2D
 @onready var stone_node = preload("res://assets/nodes/world/stone.tscn")
 @onready var weed_node = preload("res://assets/nodes/world/weed.tscn")
 
+const tree_func_calls:int = 150
+const stone_func_calls:int = 100
+const weed_func_calls:int = 275
+
 var all_vectors:Array[Vector2i] = []
 var occuped_cells:Array[Vector2i] = []
 var occuped_cells_removed:bool = false
@@ -19,10 +23,6 @@ var weeds:Array[CompressedTexture2D] = []
 var trees_shadow:Array[CompressedTexture2D] = []
 var stones_shadow:Array[CompressedTexture2D] = []
 var weeds_shadow:Array[CompressedTexture2D] = []
-
-const tree_func_calls:int = 150
-const stone_func_calls:int = 100
-const weed_func_calls:int = 275
 
 const tree_sprite_max:int = 6
 const stone_sprite_max:int = 8
@@ -42,8 +42,6 @@ var weed_sprite_value:int = 0
 
 func _ready():
 	self.z_index = 2
-	all_vectors = tilemap.get_used_cells(0)
-	check_aviabled_vectors()
 	while trees.size() < tree_sprite_max:
 		tree_sprite_value += 1
 		trees.append(load("res://assets/resources/world/trees/tree_"+str(tree_sprite_value)+".png"))
@@ -58,8 +56,10 @@ func _ready():
 		weed_sprite_value += 1
 		weeds.append(load("res://assets/resources/world/weeds/weed_"+str(weed_sprite_value)+".png"))
 		weeds_shadow.append(load("res://assets/resources/world/weeds/shadows/shadow_"+str(weed_sprite_value)+".png"))
-	await get_tree().create_timer(0.15).timeout
 
+func create_start_nature():
+	all_vectors = tilemap.get_used_cells(0)
+	check_aviabled_vectors()
 	while weed_func_called < weed_func_calls:
 		weed_func_called+=1
 		create_natural_obj(weed_node, "weed", weeds, weed_sprite_max, weeds_shadow)
@@ -98,12 +98,44 @@ func create_natural_obj(node:PackedScene, node_name:String, sprites_array:Array[
 			data.debug("Node not added to the tree.", "error")
 			return
 		var random_sprite = randi() % sprites_array.size()
-		target_node.set_texture(sprites_array[random_sprite])
+		target_node.set_texture(sprites_array[random_sprite], random_sprite)
 		target_node.set_position(tilemap.map_to_local(target_position))
 		tilemap.set_cell(collision.nature_layer, target_position, 0, Vector2i(0, 3))
 		if shadows:
 			if shadows_array != []:
 				shadows.create_shadow(str(node_name) + "_shadow_" + str(random), shadows_array[random_sprite], target_position)
+		else:
+			data.debug("Shadows manager is null.", "error")
+			return
+
+func load_natural_obj(node:PackedScene, node_name:String, sprite:CompressedTexture2D, index:int, target_position:Vector2i, health:int, shadow:CompressedTexture2D = null,) -> void:
+	var target_node = node.instantiate()
+	
+	if node == null:
+		data.debug("Node instantiation failed.", "error")
+		return
+	if target_position == null:
+		data.debug("Target position is invalid.", "error")
+		return
+	if tilemap == null:
+		data.debug("Tilemap is null.", "error")
+		return
+	
+	if !collision.check_cell(target_position, collision.road_layer)\
+	&& !collision.check_cell(target_position, collision.nature_layer)\
+	&& !collision.check_cell(target_position, collision.building_layer):
+		add_child(target_node)
+		target_node.name = node_name
+		if not target_node.is_inside_tree():
+			data.debug("Node not added to the tree.", "error")
+			return
+		target_node.set_texture(sprite)
+		target_node.set_position(tilemap.map_to_local(target_position))
+		tilemap.set_cell(collision.nature_layer, target_position, 0, Vector2i(0, 3))
+		target_node.health = health
+		if shadows:
+			if shadow != null:
+				shadows.create_shadow(str(node_name) + "_shadow_" + str(index), shadow, target_position)
 		else:
 			data.debug("Shadows manager is null.", "error")
 			return
@@ -129,3 +161,11 @@ func check_aviabled_vectors():
 	else:
 		data.debug("TileMap was not loaded at the time.", "error")
 		return
+
+func get_all_nature() -> Dictionary:
+	var data_dict = {}
+	for nature in get_children():
+		if nature.has_method("get_data"):
+			var child_data = nature.get_data()
+			data_dict[nature.name] = child_data
+	return data_dict
