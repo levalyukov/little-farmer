@@ -1,13 +1,13 @@
 extends Node2D
 
-@onready var main_scene = str(get_tree().root.get_child(1).name)
-@onready var data = get_node("/root/" + main_scene)
-@onready var pause:Control = get_node("/root/" + main_scene + "/UI/Interactive/Pause")
-@onready var blur:Control = get_node("/root/" + main_scene + "/UI/Decorative/Blur")
-@onready var tip:Control = get_node("/root/" + main_scene + "/UI/Feedback/Tooltip")
-@onready var tilemap:TileMap = get_node("/root/" + main_scene + "/Tilemap")
-@onready var grid:Node2D = get_node("/root/" + main_scene + "/ConstructionManager/Grid")
-@onready var collision:Node2D = get_node("/root/" + main_scene + "/ConstructionManager/Grid/GridParent")
+@onready var main:String = str(get_tree().root.get_child(1).name)
+@onready var data = get_node("/root/"+main)
+@onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
+@onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
+@onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
+@onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
+@onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
+@onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
 @onready var sprite:Sprite2D = $Sprite2D
 @onready var timer:Timer = $Timer
 
