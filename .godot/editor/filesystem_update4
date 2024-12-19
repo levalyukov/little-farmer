@@ -1,3 +1,4 @@
+res://assets/data/gamedata.gd
 res://levels/farm.tscn
 res://assets/shaders/pixel.gdshader
 res://assets/shaders/blur.gdshader
@@ -10,7 +11,5 @@ res://assets/nodes/ui/ui.tscn
 res://assets/nodes/ui/interactive/pause/pause.tscn
 res://assets/nodes/farming/farming_manager.tscn
 res://assets/nodes/ui/hud/elements/tools/tools.tscn
-res://assets/data/gamedata.gd
 res://assets/scripts/world/nature/nature_obj.gd
 res://assets/scripts/world/nature/nature.gd
-res://assets/data/gameloader.gd
