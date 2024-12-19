@@ -95,9 +95,10 @@ func _process(_delta):
 											natural_resources.content[natural_node_name]["item_id"], 
 											randi_range(item_amount[0], item_amount[1])
 											)
+								print(collision.get_nature_name(grid_position))	
 								nature.remove_child(collision.get_nature(grid_position))
 								shadows.remove_child(collision.get_shadow(tilemap.map_to_local(grid_position)))
-								tilemap.erase_cell(collision.nature_layer, grid_position)		
+								tilemap.erase_cell(collision.nature_layer, grid_position)	
 						if collision.check_cell(grid_position, collision.crops_layer):
 							if check:
 								print("test")
@@ -112,7 +113,7 @@ func _process(_delta):
 						if collision.check_cell(grid_position, collision.road_layer)\
 						&& collision.check_custom_data(grid_position, collision.can_place_dirt_custom_data, collision.road_layer):
 							farming_tile_position.append(grid_position)
-					tilemap.set_cells_terrain_connect(collision.farmland_layer,farming_tile_position,collision.farming_terrain_set,collision.terrain)
+					tilemap.set_cells_terrain_connect(collision.farmland_layer,farming_tile_position,collision.farming_terrain_set, 0)
 					#tilemap.set_cells_terrain_connect(collision.farmland_layer,farming_tile_position,collision.coast_terrain_set,collision.terrain)
 				check = false
 				
