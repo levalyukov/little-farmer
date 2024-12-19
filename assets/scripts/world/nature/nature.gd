@@ -56,7 +56,7 @@ func _ready():
 		weed_sprite_value += 1
 		weeds.append(load("res://assets/resources/world/weeds/weed_"+str(weed_sprite_value)+".png"))
 		weeds_shadow.append(load("res://assets/resources/world/weeds/shadows/shadow_"+str(weed_sprite_value)+".png"))
-
+	
 func create_start_nature():
 	all_vectors = tilemap.get_used_cells(0)
 	check_aviabled_vectors()
@@ -108,7 +108,15 @@ func create_natural_obj(node:PackedScene, node_name:String, sprites_array:Array[
 			data.debug("Shadows manager is null.", "error")
 			return
 
-func load_natural_obj(node:PackedScene, node_name:String, sprite:CompressedTexture2D, index:int, target_position:Vector2i, health:int, shadow:CompressedTexture2D = null,) -> void:
+func load_natural_obj(
+	node:PackedScene, 
+	node_name:String, 
+	sprite:CompressedTexture2D, 
+	index:int, 
+	target_position:Vector2i, 
+	health:int, 
+	shadow:CompressedTexture2D = null,
+	) -> void:
 	var target_node = node.instantiate()
 	
 	if node == null:
@@ -129,7 +137,7 @@ func load_natural_obj(node:PackedScene, node_name:String, sprite:CompressedTextu
 		if not target_node.is_inside_tree():
 			data.debug("Node not added to the tree.", "error")
 			return
-		target_node.set_texture(sprite)
+		target_node.set_texture(sprite, index)
 		target_node.set_position(tilemap.map_to_local(target_position))
 		tilemap.set_cell(collision.nature_layer, target_position, 0, Vector2i(0, 3))
 		target_node.health = health
