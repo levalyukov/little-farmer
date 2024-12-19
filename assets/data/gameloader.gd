@@ -1,8 +1,10 @@
 extends Node
 
-@onready var main_scene = str(get_tree().root.get_child(1).name)
-
+var start:bool = false
 var mode:bool
 
 func loading(transfer_data:bool) -> void:
-	self.mode = transfer_data
+	mode = transfer_data
+
+func gamestart(transfer_data:bool) -> void:
+	start = transfer_data
