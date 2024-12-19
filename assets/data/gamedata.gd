@@ -190,65 +190,59 @@ func load_nature_nodes():
 		for i in natures:
 			match natures[i]["type"]:
 				"stone":
-					if natures[i].has("sprite_index")\
-					&& natures[i].has("position"):
-						nature.load_natural_obj(
-							nature.stone_node, 
-							str(i), 
-							nature.stones[natures[i]["sprite_index"]], 
-							nature.stone_sprite_max,
-							string_to_vector(natures[i]["position"]),
-							natures[i]["health"],
-							nature.stones_shadow[natures[i]["sprite_index"]],
-						)
-						tilemap.set_cell(
-							collision.nature_layer, 
-							string_to_vector(
-								natures[i]["position"]
-								), 
-							0, 
-							Vector2i(0, 3)
-						)
+					nature.load_natural_obj(
+						nature.stone_node, 
+						str(i), 
+						nature.stones[natures[i]["sprite_index"]], 
+						nature.stone_sprite_max,
+						string_to_vector(natures[i]["position"]),
+						natures[i]["health"],
+						nature.stones_shadow[natures[i]["sprite_index"]],
+					)
+					tilemap.set_cell(
+						collision.nature_layer, 
+						string_to_vector(
+							natures[i]["position"]
+							), 
+						0, 
+						Vector2i(0, 3)
+					)
 				"tree":
-					if natures[i].has("sprite_index")\
-					&& natures[i].has("position"):
-						nature.load_natural_obj(
-							nature.tree_node, 
-							str(i), 
-							nature.trees[natures[i]["sprite_index"]], 
-							natures[i]["sprite_index"],
-							string_to_vector(natures[i]["position"]),
-							natures[i]["health"],
-							nature.trees_shadow[natures[i]["sprite_index"]],
-						)
-						tilemap.set_cell(
-							collision.nature_layer, 
-							string_to_vector(
-								natures[i]["position"]
-								), 
-							0, 
-							Vector2i(0, 3)
-						)
+					nature.load_natural_obj(
+						nature.tree_node, 
+						str(i), 
+						nature.trees[natures[i]["sprite_index"]], 
+						natures[i]["sprite_index"],
+						string_to_vector(natures[i]["position"]),
+						natures[i]["health"],
+						nature.trees_shadow[natures[i]["sprite_index"]],
+					)
+					tilemap.set_cell(
+						collision.nature_layer, 
+						string_to_vector(
+							natures[i]["position"]
+							), 
+						0, 
+						Vector2i(0, 3)
+					)
 				"weed":
-					if natures[i].has("sprite_index")\
-					&& natures[i].has("position"):
-						nature.load_natural_obj(
-							nature.weed_node, 
-							str(i), 
-							nature.weeds[natures[i]["sprite_index"]], 
-							nature.weed_sprite_max,
-							string_to_vector(natures[i]["position"]),
-							natures[i]["health"],
-							nature.weeds_shadow[natures[i]["sprite_index"]],
-						)
-						tilemap.set_cell(
-							collision.nature_layer, 
-							string_to_vector(
-								natures[i]["position"]
-								), 
-							0, 
-							Vector2i(0, 3)
-						)
+					nature.load_natural_obj(
+						nature.weed_node, 
+						str(i), 
+						nature.weeds[natures[i]["sprite_index"]], 
+						nature.weed_sprite_max,
+						string_to_vector(natures[i]["position"]),
+						natures[i]["health"],
+						nature.weeds_shadow[natures[i]["sprite_index"]],
+					)
+					tilemap.set_cell(
+						collision.nature_layer, 
+						string_to_vector(
+							natures[i]["position"]
+							), 
+						0, 
+						Vector2i(0, 3)
+					)
 				_:
 					pass
 
