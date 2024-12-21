@@ -116,24 +116,35 @@ offset_bottom = 212.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="NavMenu" type="HBoxContainer" parent="Main"]
-layout_mode = 2
-offset_left = -0.5
-offset_top = -52.5
-offset_right = 333.5
-offset_bottom = -12.5
+[node name="ScrollContainer" type="ScrollContainer" parent="Main"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.5
+offset_top = -46.5
+offset_right = 0.5
+offset_bottom = -46.5
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="ButtonLandscape" type="Button" parent="Main/NavMenu"]
+[node name="NavMenu" type="HBoxContainer" parent="Main/ScrollContainer"]
+layout_mode = 2
+
+[node name="ButtonLandscape" type="Button" parent="Main/ScrollContainer/NavMenu"]
 layout_mode = 2
 text = "construct.button_landscape"
+alignment = 0
 
-[node name="ButtonBuildings" type="Button" parent="Main/NavMenu"]
+[node name="ButtonBuildings" type="Button" parent="Main/ScrollContainer/NavMenu"]
 layout_mode = 2
 text = "construct.button_buildings"
+alignment = 0
 
-[node name="ButtonUpgrades" type="Button" parent="Main/NavMenu"]
+[node name="ButtonUpgrades" type="Button" parent="Main/ScrollContainer/NavMenu"]
 layout_mode = 2
 text = "construct.button_upgrades"
+alignment = 0
 
 [node name="MainContent" type="HBoxContainer" parent="Main"]
 layout_mode = 1
@@ -267,8 +278,8 @@ libraries = {
 "": SubResource("AnimationLibrary_k6ua4")
 }
 
-[connection signal="pressed" from="Main/NavMenu/ButtonLandscape" to="." method="_on_button_landscape_pressed"]
-[connection signal="pressed" from="Main/NavMenu/ButtonBuildings" to="." method="_on_button_buildings_pressed"]
-[connection signal="pressed" from="Main/NavMenu/ButtonUpgrades" to="." method="_on_button_upgrades_pressed"]
+[connection signal="pressed" from="Main/ScrollContainer/NavMenu/ButtonLandscape" to="." method="_on_button_landscape_pressed"]
+[connection signal="pressed" from="Main/ScrollContainer/NavMenu/ButtonBuildings" to="." method="_on_button_buildings_pressed"]
+[connection signal="pressed" from="Main/ScrollContainer/NavMenu/ButtonUpgrades" to="." method="_on_button_upgrades_pressed"]
 [connection signal="pressed" from="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button" to="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button" method="_on_pressed"]
 [connection signal="pressed" from="Close" to="." method="_on_close_pressed"]

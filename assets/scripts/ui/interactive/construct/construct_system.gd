@@ -18,10 +18,10 @@ extends Control
 @onready var time_create:Label = $Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/TimeContainer/Time
 @onready var button:Button = $Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button
 
-@onready var navmenu:HBoxContainer = $Main/NavMenu
-@onready var navmenu_button_landscapes:Button = $Main/NavMenu/ButtonLandscape
-@onready var navmenu_button_nodes:Button = $Main/NavMenu/ButtonBuildings
-@onready var navmenu_button_upgrades:Button = $Main/NavMenu/ButtonUpgrades
+@onready var navmenu:HBoxContainer = $Main/ScrollContainer/NavMenu
+@onready var navmenu_button_landscapes:Button = $Main/ScrollContainer/NavMenu/ButtonLandscape
+@onready var navmenu_button_nodes:Button = $Main/ScrollContainer/NavMenu/ButtonBuildings
+@onready var navmenu_button_upgrades:Button = $Main/ScrollContainer/NavMenu/ButtonUpgrades
 
 @onready var button_script = get_node("/root/"+main+"/UI/Interactive/ConstructMenu/Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button")
 @onready var anim:AnimationPlayer = $AnimationPlayer
@@ -98,7 +98,16 @@ func get_data(group:String, id:int) -> void:
 		pass
 
 func update_button_state() -> void:
-	pass
+	match section:
+		"landscape":
+			navmenu_button_landscapes.modulate = Color(1, 1, 1)
+			navmenu_button_nodes.modulate = Color(1, 1, 1, 0.784)
+			navmenu_button_upgrades.modulate = Color(1, 1, 1, 0.784)
+		"buildings":
+			navmenu_button_landscapes.modulate = Color(1, 1, 1, 0.784)
+			navmenu_button_nodes.modulate = Color(1, 1, 1)
+			navmenu_button_upgrades.modulate = Color(1, 1, 1, 0.784)
+
 
 func get_all_required_items(group:String, id:int) -> void:
 	if blueprints.content[group][id]["config"]["resources"] != {}:
@@ -242,6 +251,7 @@ func _on_button_landscape_pressed():
 	resources.visible = false
 	time_create.visible = false
 	button.visible = false
+	update_button_state()
 	remove_all_blueprints()
 	create_all_blueprints()
 
@@ -261,6 +271,7 @@ func _on_button_buildings_pressed():
 	resources.visible = false
 	time_create.visible = false
 	button.visible = false
+	update_button_state()
 	remove_all_blueprints()
 	create_all_blueprints()
 
@@ -280,5 +291,6 @@ func _on_button_upgrades_pressed():
 	resources.visible = false
 	time_create.visible = false
 	button.visible = false
+	update_button_state()
 	remove_all_blueprints()
 	create_all_blueprints()
