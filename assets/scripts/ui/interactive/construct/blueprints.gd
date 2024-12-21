@@ -1,69 +1,44 @@
 extends Node
 
 class_name Blueprints
-var content: Dictionary = {
-	1: {
-		"caption" = "Тропинка",
-		"description" = "",
-		"time" = 1,
-		"icon" = load("res://assets/resources/ui/interactive/hud/grid/default.png"),
-		"type" = {
-			"terrain" = {
-				"terrain_set" = 2,
-			},
+var content:Dictionary = {
+	"terrains": {
+		1: {
+			"caption" = "Тропинки",
+			"description" = "",
+			"icon" = null,#preload(""),
+			"config" = {
+				"terrain_set" = 1,
+				"required_layer" = 0,
+			}
 		},
+		2: {
+			"caption" = "Вода",
+			"description" = "",
+			"icon" = null,#preload(""),
+			"config" = {
+				"terrain_set" = 1,
+				"required_layer" = 0,
+			}
+		}
 	},
-	2: {
-		"caption" = "Деревянный знак",
-		"description" = "Позволяет разместить изображение любого предмета.",
-		"resource" = {
-			"plank" = 5,
-			"stone" = 5,
-			"log" = 5,
-			},
-		"time" = 5,
-		"icon" = load("res://assets/resources/buildings/sign/sign_0.png"),
-		"type" = {
-			"node" = {
-				"source" = load("res://assets/nodes/buildings/sign.tscn"),
-				"shadow" = load("res://assets/resources/buildings/sign/shadow.png"),
-				"name" = "sign",
-				"grid_dimensions" = Vector2i(1,1)
-			},
-		},
+	
+	"nodes": {
+		1: {
+			"caption" = "Колодец",
+			"description" = "Колодец...",
+			"icon" = preload("res://assets/resources/buildings/well/icon.png"),
+			"config" = {
+				"name" = "well",
+				"node" = preload("res://assets/nodes/buildings/well/well.tscn"),
+				"shadow" = preload("res://assets/nodes/buildings/well/well_shadow.tscn"),
+				"area" = Vector2i(2,2),
+				"resources" = {
+					1:{"amount":25}
+				}
+			}
+		}
 	},
-	#4: {
-	#	"caption" = "Компостер",
-	#	"description" = "Простой и недорогой компостер для разложения органического материала.",
-	#	"resource" = {
-	#		"plank" = 25,
-	#		},
-	#	"time" = 15,
-	#	"icon" = null,#load("res://assets/resources/UI/building menu/sprite_0.png"),
-	#	"content" = {
-	#		"object.name" = "",
-	#		"node" = load(""),
-	#	},
-	#},
-	#5: {
-	#	"caption" = "Бочка",
-	#	"description" = "Ёмкость для сбора и хранения дождевой воды для полива растений, мытья автомобилей или других задач.",
-	#	"resource" = {
-	#		"plank" = 75,
-	#		},
-	#	"time" = 60,
-	#	"icon" = null,#load("res://assets/resources/UI/building menu/sprite_0.png"),
-	#	"content" = null,#load(""),
-	#},
-	#6: {
-	#	"caption" = "Колодец",
-	#	"description" = "Глубокая яма с каменной обшивкой, используемая для доступа к подземным источникам воды.",
-	#	"resource" = {
-	#		"plank" = 100,
-	#		"stone" = 250,
-	#		},
-	#	"time" = 12,
-	#	"icon" = null,#load("res://assets/resources/UI/building menu/sprite_0.png"),
-	#	"content" = null,#load(""),
-	#},
+	
+	"upgrades": {}
 }
