@@ -1,9 +1,9 @@
+ScrollContainer
 CollisionShape2D
 Area2D
 MarginContainer
 Button
 HBoxContainer
-ScrollContainer
 VBoxContainer
 CanvasGroup
 AnimationPlayer
@@ -12,4 +12,3 @@ Sprite2D
 Node2D
 TextureRect
 Label
-GridContainer
