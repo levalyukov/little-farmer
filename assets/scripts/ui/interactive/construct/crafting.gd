@@ -36,18 +36,6 @@ func building_process() -> void:
 				grid.generate_grid()
 				craft.close()
 				hud.state(true, "all")
-				print(
-					grid.node_id,
-					" | ",
-					grid.building_group,
-					" | ",
-					grid.node_source,
-					" | ",
-					grid.node_shadow,
-					" | ",
-					grid.grid_dimensions,
-					" | ",
-				)
 			else:
 				data.debug("The key element is missing - 'node'", "error")
 				reset_grid_data()
