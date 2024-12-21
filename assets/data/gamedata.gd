@@ -54,10 +54,10 @@ func _ready():
 		if GameLoader.start:
 			nature.create_start_nature()
 	else:
-		time_load()
-		balance_load()
-		inventory_load()
-		buildings_load()
+		load_time()
+		load_balance()
+		load_inventory()
+		load_buildings()
 
 func gamesave() -> void:
 	file_save([path.main], file.config, get_dictionary_content("config"))
@@ -83,15 +83,14 @@ func gameload() -> void:
 	terrains_remove()
 	plant_load()
 	vectors_load()
-
 	load_nature_nodes()
-
-	#time_load()
-	#balance_load()
-	#buildings_load()
-	#inventory_load()
-	#craft_load()
-	#mailbox_load()
+	# Player
+	load_time()
+	load_balance()
+	load_buildings()
+	load_inventory()
+	load_craft()
+	load_mailbox()
 	
 func file_save(_path:Array[String], _file:String, _content:Dictionary) -> void:
 	if _path != []:
@@ -301,7 +300,7 @@ func terrains_remove() -> void:
 			-1
 		)
 
-func time_load() -> void:
+func load_time() -> void:
 	clock.set_clock_value(
 		get_key(file.world, "year", "time"),
 		get_key(file.world, "month", "time"),
@@ -312,22 +311,23 @@ func time_load() -> void:
 	)
 	cycle.set_cycle_value(get_key(file.world, ".cycle", "time"), get_key(file.world, ".passed", "time"))
 
-func balance_load() -> void:
+func load_balance() -> void:
 	balance.money = get_key(file.player, "balance")
 	balance.update_balance()
 
-func inventory_load() -> void:
+func load_inventory() -> void:
 	inventory.load_content(file_load(file.inventory))
 
-func craft_load() -> void:
-	craft.blueprints_clear()
-	for i in get_key(file.crafting, "blueprints"):
-		craft.blueprints_load(int(i))
+func load_craft() -> void:
+	pass
+	#craft.blueprints_clear()
+	#for i in get_key(file.crafting, "blueprints"):
+	#	craft.blueprints_load(int(i))
 
-func mailbox_load() -> void:
+func load_mailbox() -> void:
 	mailbox.letters_load(file_load(file.mailbox))
 
-func buildings_load() -> void:
+func load_buildings() -> void:
 	if file_load(file.buildings) != {}:
 		for content in file_load(file.buildings):
 			if buildings.all_buildings.has(remove_suffix(content)):
