@@ -26,44 +26,30 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_1drgd"]
 resource_name = "close"
 length = 0.1
-tracks/0/type = "method"
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".")
+tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"check_window"
-}]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0.1),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
-"method": &"reset_data"
+"method": &"check_window"
 }]
 }
 
@@ -130,37 +116,57 @@ offset_bottom = 212.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Main"]
+[node name="NavMenu" type="HBoxContainer" parent="Main"]
+layout_mode = 2
+offset_left = -0.5
+offset_top = -52.5
+offset_right = 333.5
+offset_bottom = -12.5
+
+[node name="Button" type="Button" parent="Main/NavMenu"]
+layout_mode = 2
+text = "Ландшафт"
+
+[node name="Button2" type="Button" parent="Main/NavMenu"]
+layout_mode = 2
+text = "Строительство"
+
+[node name="Button3" type="Button" parent="Main/NavMenu"]
+layout_mode = 2
+text = "Улучшения"
+
+[node name="MainContent" type="HBoxContainer" parent="Main"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -350.0
+offset_left = -352.0
 offset_top = -200.0
-offset_right = 350.0
+offset_right = 352.0
 offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_vertical = 3
 alignment = 1
 
-[node name="BlueprintsContent" type="VBoxContainer" parent="Main/HBoxContainer"]
+[node name="BlueprintsContent" type="VBoxContainer" parent="Main/MainContent"]
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Main/HBoxContainer/BlueprintsContent"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Main/MainContent/BlueprintsContent"]
 custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="Main/HBoxContainer/BlueprintsContent/ScrollContainer"]
+[node name="GridContainer" type="GridContainer" parent="Main/MainContent/BlueprintsContent/ScrollContainer"]
 layout_mode = 2
 
-[node name="InfoContent" type="Panel" parent="Main/HBoxContainer"]
+[node name="InfoContent" type="Panel" parent="Main/MainContent"]
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Main/HBoxContainer/InfoContent"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Main/MainContent/InfoContent"]
 custom_minimum_size = Vector2(0, 400)
 layout_mode = 1
 anchors_preset = 15
@@ -169,17 +175,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Main/HBoxContainer/InfoContent/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/MainContent/InfoContent/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="IconContainer" type="MarginContainer" parent="Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer"]
+[node name="IconContainer" type="MarginContainer" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_bottom = 15
 
-[node name="TextureRect" type="TextureRect" parent="Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/IconContainer"]
+[node name="TextureRect" type="TextureRect" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/IconContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -187,62 +193,62 @@ texture = ExtResource("3_m1ubu")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="HeaderContainer" type="MarginContainer" parent="Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer"]
+[node name="HeaderContainer" type="MarginContainer" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 25
 theme_override_constants/margin_right = 25
 
-[node name="Header" type="Label" parent="Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/HeaderContainer"]
+[node name="Header" type="Label" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/HeaderContainer"]
 layout_mode = 2
 text = "blueprint.header"
 label_settings = SubResource("LabelSettings_1x12y")
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="DescriptionContainer" type="MarginContainer" parent="Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer"]
+[node name="DescriptionContainer" type="MarginContainer" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 25
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 0
 
-[node name="Description" type="Label" parent="Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/DescriptionContainer"]
+[node name="Description" type="Label" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/DescriptionContainer"]
 layout_mode = 2
 text = "blueprint.description
 
 blueprint.resources:"
 autowrap_mode = 3
 
-[node name="ResourcesContainer" type="MarginContainer" parent="Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer"]
+[node name="ResourcesContainer" type="MarginContainer" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_right = 25
 
-[node name="Resources" type="Label" parent="Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/ResourcesContainer"]
+[node name="Resources" type="Label" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ResourcesContainer"]
 layout_mode = 2
 text = "• content.name (100/500)"
 autowrap_mode = 3
 
-[node name="TimeContainer" type="MarginContainer" parent="Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer"]
+[node name="TimeContainer" type="MarginContainer" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 25
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 25
 
-[node name="Time" type="Label" parent="Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/TimeContainer"]
+[node name="Time" type="Label" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/TimeContainer"]
 layout_mode = 2
 text = "blueprint.time_create
 "
 autowrap_mode = 3
 
-[node name="ButtonContainer" type="MarginContainer" parent="Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer"]
+[node name="ButtonContainer" type="MarginContainer" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 25
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
-[node name="Button" type="Button" parent="Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer"]
+[node name="Button" type="Button" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 text = "blueprint.craft"
@@ -261,5 +267,5 @@ libraries = {
 "": SubResource("AnimationLibrary_k6ua4")
 }
 
-[connection signal="pressed" from="Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button" to="Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button" method="_on_pressed"]
+[connection signal="pressed" from="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button" to="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button" method="_on_pressed"]
 [connection signal="pressed" from="Close" to="." method="_on_close_pressed"]
