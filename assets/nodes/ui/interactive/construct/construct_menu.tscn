@@ -123,17 +123,17 @@ offset_top = -52.5
 offset_right = 333.5
 offset_bottom = -12.5
 
-[node name="Button" type="Button" parent="Main/NavMenu"]
+[node name="ButtonLandscape" type="Button" parent="Main/NavMenu"]
 layout_mode = 2
-text = "Ландшафт"
+text = "construct.button_landscape"
 
-[node name="Button2" type="Button" parent="Main/NavMenu"]
+[node name="ButtonBuildings" type="Button" parent="Main/NavMenu"]
 layout_mode = 2
-text = "Строительство"
+text = "construct.button_buildings"
 
-[node name="Button3" type="Button" parent="Main/NavMenu"]
+[node name="ButtonUpgrades" type="Button" parent="Main/NavMenu"]
 layout_mode = 2
-text = "Улучшения"
+text = "construct.button_upgrades"
 
 [node name="MainContent" type="HBoxContainer" parent="Main"]
 layout_mode = 1
@@ -267,5 +267,8 @@ libraries = {
 "": SubResource("AnimationLibrary_k6ua4")
 }
 
+[connection signal="pressed" from="Main/NavMenu/ButtonLandscape" to="." method="_on_button_landscape_pressed"]
+[connection signal="pressed" from="Main/NavMenu/ButtonBuildings" to="." method="_on_button_buildings_pressed"]
+[connection signal="pressed" from="Main/NavMenu/ButtonUpgrades" to="." method="_on_button_upgrades_pressed"]
 [connection signal="pressed" from="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button" to="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button" method="_on_pressed"]
 [connection signal="pressed" from="Close" to="." method="_on_close_pressed"]
