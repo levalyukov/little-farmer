@@ -9,8 +9,8 @@ extends Control
 @onready var mailbox:Control = get_node("/root/"+main+"/UI/Interactive/Mailbox")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
 @onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/storage")
-@onready var node:PackedScene = load("res://assets/nodes/ui/interactive/inventory/slot.tscn")
 @onready var anim:AnimationPlayer = $Animation
+@onready var node:PackedScene = load("res://assets/nodes/ui/interactive/inventory/slot.tscn")
 
 @onready var info:BoxContainer = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer
 @onready var scroll_info:ScrollContainer = $Main/HBoxContainer/ItemContent/ScrollContainer
@@ -234,13 +234,12 @@ func subject_item(id, item_amount:int = 1) -> void:
 						check_amount(id)
 
 	if id is Dictionary:
-		var materials = BuildingMaterials.new()
 		var resources_id = []
 		var amounts = []
 		for item in id:
 			if id[item].has("amount"):
 				if id[item]["amount"] > 0:
-					resources_id.append(materials.resources[item])
+					resources_id.append(item)
 					amounts.append(id[item]["amount"])
 
 		for idx in range(resources_id.size()):
@@ -255,8 +254,12 @@ func subject_item(id, item_amount:int = 1) -> void:
 
 func remove_item(id) -> void:
 	for key in inventory_items:
-		if id == key:
-			inventory_items.erase(key)
+		if key is String:
+			if str(id) == key:
+				inventory_items.erase(key)
+		if key is int:
+			if int(id) == key:
+				inventory_items.erase(key)
 
 func get_item_amount(item_id) -> int:
 	if inventory_items.has(int(item_id)):
