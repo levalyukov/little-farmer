@@ -15,71 +15,51 @@ var blueprints:Object = Blueprints.new()
 var materials:Object = BuildingMaterials.new()
 
 var disable:bool
+var group:String
 var id:int
 
 func _on_pressed():
 	if visible:
-		build(id)
+		building_process()
 
-func build(index:int) -> void:
-	start_building(index)
-
-func start_building(index) -> void:
-	var target_array = blueprints.content[index]["type"].keys() 
-	match target_array[0]:
-		"terrain":
-			if blueprints.content[index]["type"]["terrain"].has("terrain_set"):
-				grid.grid_dimensions = Vector2i(1,1)
-				grid.terrain_set = blueprints.content[index]["type"]["terrain"]["terrain_set"]
-				grid.mode = grid.modes.TERRAIN_SET
+func building_process() -> void:
+	if blueprints.content.has(group):
+		if blueprints.content[group].has(id):
+			if blueprints.content[group][id]["config"].has("node"):
+				grid.node_id = id
+				grid.building_group = group
+				grid.node_source = blueprints.content[group][id]["config"]["node"]
+				grid.node_shadow = blueprints.content[group][id]["config"]["shadow"]
+				grid.grid_dimensions = blueprints.content[group][id]["config"]["area"]
+				grid.mode = grid.modes.BUILD
 				grid.visible = true
 				grid.generate_grid()
-				
 				craft.close()
 				hud.state(true, "all")
+				print(
+					grid.node_id,
+					" | ",
+					grid.building_group,
+					" | ",
+					grid.node_source,
+					" | ",
+					grid.node_shadow,
+					" | ",
+					grid.grid_dimensions,
+					" | ",
+				)
 			else:
-				data.debug("The key element is missing - 'terrain_set'", "error")
-				reset_grid_data(target_array[0])
+				data.debug("The key element is missing - 'node'", "error")
+				reset_grid_data()
 				return
-
-		"node":
-			if blueprints.content[index]["type"]["node"].has("source"):
-				if blueprints.content[index]["type"]["node"].has("shadow"):
-					if blueprints.content[index]["type"]["node"].has("grid_dimensions"):
-						grid.node_id = index
-						grid.node_source = blueprints.content[index]["type"]["node"]["source"]
-						grid.node_shadow = blueprints.content[index]["type"]["node"]["shadow"]
-						grid.grid_dimensions = blueprints.content[index]["type"]["node"]["grid_dimensions"]
-						grid.mode = grid.modes.BUILD
-						grid.visible = true
-						grid.generate_grid()
-
-						craft.close()
-						hud.state(true, "all")
-				else:
-					data.debug("The key element is missing - 'shadow'", "error")
-					reset_grid_data(target_array[0])
-					return
-			else:
-				data.debug("The key element is missing - 'source'", "error")
-				reset_grid_data(target_array[0])
-				return		
-
-		_:
-			data.debug("Invalid type - "+str(target_array[0]), "error")
-			reset_grid_data(target_array[0])
+		else:
+			data.debug("Invalid blueprint ID: " + str(id), "error")
 			return
+	else:
+		data.debug("Invalid blueprint group: " + str(group), "error")
+		return
 
-
-func reset_grid_data(index) -> void:
-	match index:
-		"terrain":
-			grid.terrain_set = 0
-			grid.mode = grid.modes.NOTHING
-			grid.visible = false
-		"node":
-			grid.building_node = null
-			grid.mode = grid.modes.NOTHING
-			grid.visible = false
-		_:
-			pass
+func reset_grid_data() -> void:
+	grid.building_node = null
+	grid.mode = grid.modes.NOTHING
+	grid.visible = false
