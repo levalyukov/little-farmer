@@ -54,6 +54,7 @@ var inventory_item
 
 # construct config
 var node_id:int
+var building_group:String
 var node_source:PackedScene
 var node_shadow
 var terrain_set:int
@@ -113,7 +114,7 @@ func _process(_delta):
 						&& collision.check_custom_data(grid_position, collision.can_place_dirt_custom_data, collision.road_layer):
 							farming_tile_position.append(grid_position)
 					tilemap.set_cells_terrain_connect(collision.farmland_layer,farming_tile_position,collision.farming_terrain_set, 0)
-					#tilemap.set_cells_terrain_connect(collision.farmland_layer,farming_tile_position,collision.coast_terrain_set,collision.terrain)
+					#tilemap.set_cells_terrain_connect(collision.farmland_layer,farming_tile_position,collision.coast_terrain_set,0)
 				check = false
 				
 			modes.WATERING:
@@ -129,7 +130,7 @@ func _process(_delta):
 								tools.water_can -= 1
 							else:
 								tools.water_can = 0
-					tilemap.set_cells_terrain_connect(collision.watering_layer,watering_tile_position,collision.watering_terrain_set,collision.terrain)
+					tilemap.set_cells_terrain_connect(collision.watering_layer,watering_tile_position,collision.watering_terrain_set,0)
 				check = false
 				
 			modes.PLANTING:
@@ -181,14 +182,14 @@ func _process(_delta):
 			modes.BUILD:
 				var data_resources = {}
 				collision.building_collision_check()
-				if blueprints.content[node_id].has("resource"):
-					for resource in blueprints.content[node_id]["resource"]:
-						var required_amount = blueprints.content[node_id]["resource"][resource]
-						var available_amount = inventory.get_item_amount(materials.resources[resource])
+				if blueprints.content[building_group][node_id]["config"].has("resources"):
+					for resource in blueprints.content[building_group][node_id]["config"]["resources"]:
+						var required_amount = blueprints.content[building_group][node_id]["config"]["resources"][resource]["amount"]
+						var available_amount = inventory.get_item_amount(resource)
 						if available_amount >= required_amount:
-								building_tile_position.append(tile_mouse_pos)
-								data_resources[resource] = {}
-								data_resources[resource]["amount"] = blueprints.content[node_id]["resource"][resource]
+							building_tile_position.append(tile_mouse_pos)
+							data_resources[resource] = {}
+							data_resources[resource]["amount"] = blueprints.content[building_group][node_id]["config"]["resources"][resource]["amount"]
 						else:
 							hud.state(false, "all")
 							mode = modes.NOTHING
@@ -196,17 +197,17 @@ func _process(_delta):
 							check = false
 				if check:
 					if collision.collisions_check():
-						if blueprints.content.has(node_id):
-							var node_name:String = "build"
-							if blueprints.content[node_id].has("type")\
-							&& blueprints.content[node_id]["type"].has("node")\
-							&& blueprints.content[node_id]["type"]["node"].has("name")\
-							&& blueprints.content[node_id]["type"]["node"]["name"] is String:
-								node_name = blueprints.content[node_id]["type"]["node"]["name"]
-							building.construct(node_name, node_source, node_shadow, tile_mouse_pos)
-
-						if blueprints.content[node_id].has("resource"):
-							inventory.subject_item(data_resources)
+						if blueprints.content.has(building_group):
+							if blueprints.content[building_group].has(node_id):
+								var node_name:String = "build"
+								if blueprints.content[building_group][node_id].has("config")\
+								&& blueprints.content[building_group][node_id]["config"].has("node")\
+								&& blueprints.content[building_group][node_id]["config"].has("name")\
+								&& blueprints.content[building_group][node_id]["config"]["name"] is String:
+									node_name = blueprints.content[building_group][node_id]["config"]["name"]
+								building.construct(node_name, node_source, node_shadow, tile_mouse_pos)
+							if blueprints.content[building_group][node_id]["config"].has("resources"):
+								inventory.subject_item(data_resources)
 				check = false
 
 			modes.TERRAIN_SET:
@@ -217,10 +218,10 @@ func _process(_delta):
 							for i in collision.get_children():
 								var grid_position = tilemap.local_to_map(i.get_global_position())
 								ground_tile_position.append(grid_position)
-							tilemap.set_cells_terrain_connect(collision.road_layer,ground_tile_position,terrain_set,collision.terrain)
+							tilemap.set_cells_terrain_connect(collision.road_layer,ground_tile_position,terrain_set,0)
 						else:
 							ground_tile_position.append(tile_mouse_pos)
-							tilemap.set_cells_terrain_connect(collision.road_layer,ground_tile_position,terrain_set,collision.terrain)	
+							tilemap.set_cells_terrain_connect(collision.road_layer,ground_tile_position,terrain_set,0)	
 				check = false
 
 			modes.UPGRADE:
