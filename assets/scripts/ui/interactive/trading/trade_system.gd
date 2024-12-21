@@ -50,6 +50,12 @@ func _input(_event):
 		if blur.state:
 			close_trade_menu()
 
+	if Input.is_action_just_pressed("test"):
+		if !visible:
+			open_trade_menu()
+		else:
+			close_trade_menu()
+
 func open_trade_menu() -> void:
 	menu = true
 	pause.other_menu = true
@@ -125,10 +131,10 @@ func set_item_trade_window(item_id, slot_arg, amount:int = 1) -> void:
 					trade_content[item_id]["amount"] = amount
 			else:
 				if trade_content[item_id]["amount"] >= 1:
-					if trade_content[item_id]["amount"] + amount < trader_inventory[item_id]["max"]:
+					if trade_content[item_id]["amount"] + amount < trader_inventory[item_id]["amount"]:
 						trade_content[item_id]["amount"] += amount
 					else:
-						trade_content[item_id]["amount"] = trader_inventory[item_id]["max"]
+						trade_content[item_id]["amount"] = trader_inventory[item_id]["amount"]
 			clear_trade_window()
 			get_items_trade_window()
 	update_button_trade_window()
@@ -157,7 +163,7 @@ func add_item_trade_window(item_id, slot_arg, amount:int = 1) -> void:
 					trade_content[item_id]["amount"] = amount
 			else:
 				if trade_content[item_id]["amount"] >= 1:
-					if trade_content[item_id]["amount"] < trader_inventory[item_id]["max"]:
+					if trade_content[item_id]["amount"] < trader_inventory[item_id]["amount"]:
 						trade_content[item_id]["amount"] += amount
 			clear_trade_window()
 			get_items_trade_window()
