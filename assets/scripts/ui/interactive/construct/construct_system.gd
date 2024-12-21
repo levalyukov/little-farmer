@@ -7,22 +7,32 @@ extends Control
 @onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 
-@onready var blueprint:PackedScene = load("res://assets/nodes/ui/interactive/construct/blueprint.tscn")
-@onready var scroll_container_info:ScrollContainer = $Main/HBoxContainer/InfoContent/ScrollContainer
-@onready var container:GridContainer = $Main/HBoxContainer/BlueprintsContent/ScrollContainer/GridContainer
-@onready var icon:TextureRect = $Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/IconContainer/TextureRect
-@onready var caption:Label = $Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/HeaderContainer/Header
-@onready var description:Label = $Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/DescriptionContainer/Description
-@onready var resources:Label = $Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/ResourcesContainer/Resources
-@onready var time_create:Label = $Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/TimeContainer/Time
-@onready var button:Button = $Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button
-@onready var button_script = get_node("/root/"+main+"/UI/Interactive/ConstructMenu/Main/HBoxContainer/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button")
+@onready var node:PackedScene = load("res://assets/nodes/ui/interactive/construct/blueprint.tscn")
+@onready var scroll_container_info:ScrollContainer = $Main/MainContent/InfoContent/ScrollContainer
+@onready var container:GridContainer = $Main/MainContent/BlueprintsContent/ScrollContainer/GridContainer
+
+@onready var icon:TextureRect = $Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/IconContainer/TextureRect
+@onready var caption:Label = $Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/HeaderContainer/Header
+@onready var description:Label = $Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/DescriptionContainer/Description
+@onready var resources:Label = $Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ResourcesContainer/Resources
+@onready var time_create:Label = $Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/TimeContainer/Time
+@onready var button:Button = $Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button
+
+@onready var navmenu:HBoxContainer = $Main/NavMenu
+@onready var navmenu_button_landscapes:Button = $Main/NavMenu/ButtonLandscape
+@onready var navmenu_button_nodes:Button = $Main/NavMenu/ButtonBuildings
+@onready var navmenu_button_upgrades:Button = $Main/NavMenu/ButtonUpgrades
+
+@onready var button_script = get_node("/root/"+main+"/UI/Interactive/ConstructMenu/Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button")
 @onready var anim:AnimationPlayer = $AnimationPlayer
 
 var index:int
+var section:String
 var menu:bool = false
-var access:Array[int] = []
 var all_items:bool
+var terrains_blueprints:Array[int] = [1,2,3]
+var node_blueprints:Array[int] = [1,2,3]
+var upgrade_blueprints:Array[int] = []
 
 var items:Object = Items.new()
 var blueprints:Object = Blueprints.new()
@@ -30,216 +40,245 @@ var materials:Object = BuildingMaterials.new()
 
 func _ready():
 	check_window()
-	_reset_data()
-	_remove_invalid_blueprints()
 
-func _remove_invalid_blueprints() -> void:
-	var items_to_remove = []
-	for i in access:
-		if !blueprints.content.has(i):
-			items_to_remove.append(i)
-	if items_to_remove != []:
-		for item in items_to_remove:
-			access.erase(item)
-		data.debug("Unknown blueprints have been deleted: " + str(items_to_remove), "info")
-	
-func _process(_delta):
-	if !pause.paused\
-	and !inventory.menu:
-		if Input.is_action_just_pressed("pause") and menu:
-			close()
-
-func window() -> void:
-	if menu:
-		close()
-	else:
-		open()
-
-func open() -> void:
-	menu = true
-	pause.other_menu = true
-	blur.blur(true)
-	anim.play("open")
-	_start_info()
-	_delete_all_blueprints()
-	check_blueprints()
-	inventory.update_inventory_content()
-	
-func close() -> void:
-	menu = false
-	pause.other_menu = false
-	blur.blur(false)
-	anim.play("close")
-	_delete_all_blueprints()
-
-func check_blueprints() -> void:
-	if menu:
-		for id in access:
-			_create_item(id)
-
-func _create_item(id) -> void:
-	var item = blueprint.instantiate()
-	if item.check_node(id):
-		container.add_child(item)
-		item.set_data(id)
-	else:
-		data.debug("Cannot load node. Invalid index: " + str(id), "error")
-
-func _delete_all_blueprints() -> void:
-	if container.get_children() != []:
-		for child in container.get_children():
-			container.remove_child(child)
-			child.queue_free()
-
-func get_data(id):
-	index = id
-	button_script.id = id
-	scroll_container_info.scroll_vertical = 0
-	if blueprints.content.has(int(index)):
-		if blueprints.content[int(index)].has("icon"):
-			icon.visible = true
-			icon.texture = blueprints.content[int(index)]["icon"]
-		else:
-			data.debug("The object does not have the 'icon' key.", "error")
-			icon.visible = false
-		if blueprints.content[int(index)].has("caption"):
-			if blueprints.content[int(index)]["caption"] is String:
-				caption.text = str(blueprints.content[int(index)]["caption"])
-				caption.visible = true
-			else:
-				caption.text = ""
-				caption.visible = false
-				data.debug("The 'caption' key has a non-string type. Variant.type: " + str(typeof(blueprints.content[index]["caption"]), "error"))
-		else:
-			data.debug("The object does not have the 'caption' key.", "error")
-			description.visible = false
-			
-		if blueprints.content[id].has("description"):
-			if blueprints.content[id]["description"] is String:
-				description.text = blueprints.content[id]["description"] + "\n"
-				description.visible = true
-			else:
-				data.debug("The 'description' key has a non-string type. Variant.type: " + str(typeof(blueprints.content[index]["description"])), "error")
-				description.visible = false
-		else:
-			data.debug("The object does not have the 'description' key.", "error")
-			description.visible = false
-		
-		if blueprints.content[id].has("resource"):
-			var resources_label = tr("necessary_resources.craft")
-			resources.visible = true
-			description.text = description.text + "\n" + resources_label + ":"
-			get_all_required_items(id)
-			check_all_required_items(id)
-			if all_items:
-				button.disabled = false
-			else:
-				button.disabled = true
-		else:
-			resources.visible = false
-			button.disabled = false
-
-		if blueprints.content[id].has("time"):
-			if blueprints.content[id]["time"] is int:
-				if blueprints.content[id]["time"] > 0:
-					var creation_time_label = tr("creation_time.craft")
-					var creation_time_seconds = tr("time.craft")
-					time_create.text = creation_time_label + ": " + str(blueprints.content[id]["time"]) +  creation_time_seconds
-					time_create.visible = true
+func get_data(group:String, id:int) -> void:
+	if blueprints.content.has(group):
+		if blueprints.content[group].has(id):
+			if blueprints.content[group][id].has("config"):
+				index = id
+				section = group
+				reset_data()
+				if blueprints.content[group][id].has("icon"):
+					if blueprints.content[group][id]["icon"] is CompressedTexture2D:
+						icon.texture = blueprints.content[group][id]["icon"]
+						icon.visible = true
+					else:
+						icon.visible = false
 				else:
-					time_create.visible = false
+					icon.visible = false
+
+				if blueprints.content[group][id].has("caption"):
+					if blueprints.content[group][id]["caption"] is String:
+						caption.text = blueprints.content[group][id]["caption"]
+						caption.visible = true
+					else:
+						caption.visible = false
+				else:
+					caption.visible = false
+
+				if blueprints.content[group][id].has("description"):
+					if blueprints.content[group][id]["description"] is String:
+						description.text = blueprints.content[group][id]["description"]
+						description.visible = true
+					else:
+						description.visible = false
+				else:
+					description.visible = false
+				
+				match group:
+					"nodes":
+						if blueprints.content[group][id]["config"].has("node"):
+							button.visible = true
+							update_button_state()		
+							if blueprints.content[group][id]["config"].has("resources"):
+								get_all_required_items(group, id)
+								resources.visible = true
+								check_all_required_items(group, id)
+								if all_items:
+									button.disabled = false
+									button.id = id
+									button.group = group
+								else:
+									button.disabled = true
 			else:
-				data.debug("The 'time' key has a non-integer type. Variant.type: " + str(typeof(blueprints.content[id]["time"])), "error")
-				time_create.visible = false
+				pass
 		else:
-			data.debug("The object does not have the 'time' key.", "error")
-			time_create.visible = false
-		button.text = check_blueprint_type(id)
-		button.visible = true
+			pass
 	else:
-		button.visible = false
+		pass
 
-func check_blueprint_type(id) -> String:
-	if blueprints.content.has(id):
-		if blueprints.content[id].has("type"):
-			var type_array = blueprints.content[index]["type"].keys() 
-			match type_array[0]:
-				"node":
-					return tr("node.button_craft")
-				"upgrade":
-					return tr("upgrade.button_craft")
-				"terrain":
-					return tr("terrain.button_craft")
-				_:
-					return ""
-	return "???"
+func update_button_state() -> void:
+	pass
 
-func _get_resources(key) -> Variant:
-	if key in materials.resources:
-		if items.content[materials.resources[key]].has("caption"):
-			return items.content[materials.resources[key]]["caption"]
-	return null
+func get_all_required_items(group:String, id:int) -> void:
+	if blueprints.content[group][id]["config"]["resources"] != {}:
+		for i in blueprints.content[group][id]["config"]["resources"]:
+			var resource_name = items.content[i]["caption"]
+			var required_amount = blueprints.content[group][id]["config"]["resources"][i]["amount"]
+			var available_amount = inventory.get_item_amount(i)
+			resources.text += "• " + str(resource_name) + " (" + str(available_amount) + "/" + str(required_amount) + ")"
 
-func check_all_required_items(id) -> void:
+func check_all_required_items(group:String, id:int) -> void:
 	all_items = true
-	for resource in blueprints.content[id]["resource"]:
-		var required_amount = blueprints.content[id]["resource"][resource]
-		var available_amount = inventory.get_item_amount(materials.resources[resource])
+	for resource in blueprints.content[group][id]["config"]["resources"]:
+		var required_amount = blueprints.content[group][id]["config"]["resources"][resource]["amount"]
+		var available_amount = inventory.get_item_amount(resource)
 		if available_amount < required_amount:
 			all_items = false
 			break
 
-func get_all_required_items(id) -> void:
-	resources.text = ""
-	for resource in blueprints.content[id]["resource"]:
-		var required_amount = blueprints.content[id]["resource"][resource]
-		var available_amount = inventory.get_item_amount(materials.resources[resource])
-		var resource_caption = items.content[materials.resources[resource]]["caption"]
-		resources.text += "• " + str(resource_caption) + " (" + str(available_amount) + "/" + str(required_amount) + ")\n"
+func create_all_blueprints() -> void:
+	match section:
+		"landscape":
+			if terrains_blueprints != []:
+				for i in terrains_blueprints:
+					if blueprints.content.has("terrains"):
+						if blueprints.content["terrains"].has(i):
+							var blueprint = node.instantiate()
+							container.add_child(blueprint)
+							blueprint.set_data("terrains", i)
+						else:
+							pass
+					else:
+						pass
 
-func get_blueprints() -> Array:
-	return access
+		"buildings":
+			if node_blueprints != []:
+				for i in node_blueprints:
+					if blueprints.content.has("nodes"):
+						if blueprints.content["nodes"].has(i):
+							var blueprint = node.instantiate()
+							container.add_child(blueprint)
+							blueprint.set_data("nodes", i)
+						else:
+							pass
+					else:
+						pass
 
-func blueprints_load(content:int) -> void:
-	access.append(content)
+func remove_all_blueprints() -> void:
+	for i in container.get_children():
+		container.remove_child(i)
 
-func blueprints_clear() -> void:
-	access.clear()
+func open() -> void:
+	anim.play("open")
+	blur.blur(true)
+	pause.other_menu = true
+	menu = true
 
-func _start_info() -> void:
-	var start_caption = tr("craft.start_info_header")
-	var start_description = tr("craft.start_info_description")
-	var start_description_empty = tr("craft.start_info_description_empty")
+	set_start_info()
+	update_navmenu()
+	remove_all_blueprints()
+	create_all_blueprints()
 
-	if access != []:
-		caption.text = start_caption
-		description.text = start_description
+func close() -> void:
+	anim.play("close")
+	blur.blur(false)
+	pause.other_menu = false
+	menu = false
+
+func update_navmenu() -> void:
+	if terrains_blueprints != []:
+		navmenu_button_landscapes.visible = true
+		navmenu_button_landscapes.text = tr("construct.button_landscape")
 	else:
-		caption.text = start_caption
-		description.text = start_description_empty
-	resources.text = ""
-	time_create.text = ""
-	icon.visible = false
+		navmenu_button_landscapes.visible = false
+
+	if node_blueprints != []:
+		navmenu_button_nodes.visible = true
+		navmenu_button_nodes.text = tr("construct.button_nodes")
+	else:
+		navmenu_button_nodes.visible = false
+
+	if upgrade_blueprints != []:
+		navmenu_button_upgrades.visible = true
+		navmenu_button_upgrades.text = tr("construct.button_upgrades")
+	else:
+		navmenu_button_upgrades.visible = false
+
+func set_start_info() -> void:
+	caption.text = "construct.header"
+	if terrains_blueprints == []\
+	&& node_blueprints == []\
+	&& upgrade_blueprints == []:
+		description.text = "construct.description_empty"
+	else:
+		description.text = "construct.description"
+
 	caption.visible = true
 	description.visible = true
-	resources.visible = true
-	time_create.visible = true
+	icon.visible = false
+	resources.visible = false
+	time_create.visible = false
 	button.visible = false
 
-func _reset_data() -> void:
+	resources.text = ""
+	time_create.text = ""
+	section = ""
+
+func reset_data() -> void:
+	caption.visible = false
+	description.visible = false
+	icon.visible = false
+	resources.visible = false
+	time_create.visible = false
+	button.visible = false
+
 	caption.text = ""
 	description.text = ""
 	resources.text = ""
 	time_create.text = ""
-	icon.visible = false
-	caption.visible = false
-	description.visible = false
-	resources.visible = false
-	time_create.visible = false
-	button.visible = false
+	section = ""
 
 func check_window() -> void:
 	visible = menu
 
 func _on_close_pressed() -> void:
-	window()
+	close()
+
+# navmenu
+func _on_button_landscape_pressed():
+	section = "landscape"
+	caption.text = "construct.header"
+	if terrains_blueprints == []\
+	&& node_blueprints == []\
+	&& upgrade_blueprints == []:
+		description.text = "construct.description_empty"
+	else:
+		description.text = "construct.description"
+
+	caption.visible = true
+	description.visible = true
+	icon.visible = false
+	resources.visible = false
+	time_create.visible = false
+	button.visible = false
+	remove_all_blueprints()
+	create_all_blueprints()
+
+func _on_button_buildings_pressed():
+	section = "buildings"
+	caption.text = "construct.header"
+	if terrains_blueprints == []\
+	&& node_blueprints == []\
+	&& upgrade_blueprints == []:
+		description.text = "construct.description_empty"
+	else:
+		description.text = "construct.description"
+
+	caption.visible = true
+	description.visible = true
+	icon.visible = false
+	resources.visible = false
+	time_create.visible = false
+	button.visible = false
+	remove_all_blueprints()
+	create_all_blueprints()
+
+func _on_button_upgrades_pressed():
+	section = "upgrades"
+	caption.text = "construct.header"
+	if terrains_blueprints == []\
+	&& node_blueprints == []\
+	&& upgrade_blueprints == []:
+		description.text = "construct.description_empty"
+	else:
+		description.text = "construct.description"
+
+	caption.visible = true
+	description.visible = true
+	icon.visible = false
+	resources.visible = false
+	time_create.visible = false
+	button.visible = false
+	remove_all_blueprints()
+	create_all_blueprints()
