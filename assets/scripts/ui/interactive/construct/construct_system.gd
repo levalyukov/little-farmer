@@ -90,6 +90,12 @@ func get_data(group:String, id:int) -> void:
 									button.group = group
 								else:
 									button.disabled = true
+					"terrains":
+						if blueprints.content[group][id]["config"].has("terrain"):
+							button.visible = true
+							button.disabled = false
+							button.id = id
+							button.group = group
 			else:
 				pass
 		else:
@@ -99,11 +105,11 @@ func get_data(group:String, id:int) -> void:
 
 func update_button_state() -> void:
 	match section:
-		"landscape":
+		"terrains":
 			navmenu_button_landscapes.modulate = Color(1, 1, 1)
 			navmenu_button_nodes.modulate = Color(1, 1, 1, 0.784)
 			navmenu_button_upgrades.modulate = Color(1, 1, 1, 0.784)
-		"buildings":
+		"nodes":
 			navmenu_button_landscapes.modulate = Color(1, 1, 1, 0.784)
 			navmenu_button_nodes.modulate = Color(1, 1, 1)
 			navmenu_button_upgrades.modulate = Color(1, 1, 1, 0.784)
@@ -128,7 +134,7 @@ func check_all_required_items(group:String, id:int) -> void:
 
 func create_all_blueprints() -> void:
 	match section:
-		"landscape":
+		"terrains":
 			if terrains_blueprints != []:
 				for i in terrains_blueprints:
 					if blueprints.content.has("terrains"):
@@ -141,7 +147,7 @@ func create_all_blueprints() -> void:
 					else:
 						pass
 
-		"buildings":
+		"nodes":
 			if node_blueprints != []:
 				for i in node_blueprints:
 					if blueprints.content.has("nodes"):
@@ -236,7 +242,7 @@ func _on_close_pressed() -> void:
 
 # navmenu
 func _on_button_landscape_pressed():
-	section = "landscape"
+	section = "terrains"
 	caption.text = "construct.header"
 	if terrains_blueprints == []\
 	&& node_blueprints == []\
@@ -256,7 +262,7 @@ func _on_button_landscape_pressed():
 	create_all_blueprints()
 
 func _on_button_buildings_pressed():
-	section = "buildings"
+	section = "nodes"
 	caption.text = "construct.header"
 	if terrains_blueprints == []\
 	&& node_blueprints == []\
