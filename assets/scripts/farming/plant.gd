@@ -10,6 +10,7 @@ extends Node2D
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
 @onready var sprite:Sprite2D = $Sprite2D
 @onready var timer:Timer = $Timer
+@onready var check_water_timer:Timer = $CheckWaterTimer
 
 var crops:Object = Crops.new()
 var plantID:int
@@ -29,6 +30,8 @@ func _process(_delta):
 func plant(id:int) -> void:
 	plantID = id
 	sprite.rect(id)
+	check_water_timer.wait_time = crops.crops["check_watering"]
+	check_water_timer.start()
 	
 func set_fertilizer(type:int) -> void:
 	match type:
@@ -41,25 +44,24 @@ func set_fertilizer(type:int) -> void:
 		3:
 			fertilizer = fertilizers.MANURE
 			
-func check(id:int,pos:Vector2i) -> void:
+func check(vector:Vector2i) -> void:
 	if !pause.paused:
-		if collision.check_cell(pos, collision.farmland_layer)\
-		&& !collision.check_cell(pos, collision.watering_layer)\
+		if collision.check_cell(vector, collision.farmland_layer)\
+		&& !collision.check_cell(vector, collision.watering_layer)\
 		&& condition != phases.DEAD:
 			condition = phases.PLANTED
-			await get_tree().create_timer(crops.crops["check_watering"]).timeout
 			if degree < crops.crops[plantID]["mortality"]:
 				degree += 1
 			else:
 				condition = phases.DEAD
-			check(id,pos)
 
-		elif collision.check_cell(pos, collision.farmland_layer)\
-		&& collision.check_cell(pos, collision.watering_layer)\
+		elif collision.check_cell(vector, collision.farmland_layer)\
+		&& collision.check_cell(vector, collision.watering_layer)\
 		&& condition != phases.DEAD:
 			condition = phases.GROWING
 			set_fertilizer(randi_range(0,3))
 			growth()
+			check_water_timer.stop()
 
 func growth() -> void:
 	if condition == phases.GROWING:
@@ -109,7 +111,7 @@ func set_data(id:int, conditionID:int, degreeID:int, fertilizerID:int, region_re
 	sprite.region_rect.position.y = region_rect_y
 	sprite.level = level
 	growth()
-	check(plantID, pos)
+	check(pos)
 
 func get_condition(condition_type:int) -> String:
 	match condition_type:
@@ -167,3 +169,6 @@ func _on_collision_mouse_exited() -> void:
 
 func check_node() -> bool:
 	return true
+
+func _on_check_water_timer_timeout():
+	check(tilemap.local_to_map(position))
