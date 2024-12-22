@@ -37,7 +37,7 @@ func construct(node_name:String, node_scene:PackedScene, node_shadow, node_posit
 		for i in collision.get_children():
 			var grid_position = tilemap.local_to_map(i.get_global_position())
 			tilemap.set_cell(collision.building_layer, grid_position, 0, Vector2i(0,3))
-			tilemap.set_cell(collision.ground_layer, grid_position, 0, Vector2i(1,1))
+			#tilemap.set_cell(collision.ground_layer, grid_position, 0, Vector2i(1,1))
 
 func construct_load(node_name:String, node_scene:PackedScene, node_position:Vector2i, collisions:Array[Vector2i]) -> void:
 	var building = node_scene.instantiate()

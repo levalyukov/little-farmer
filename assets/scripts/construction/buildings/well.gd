@@ -13,7 +13,7 @@ var clicked:bool = false
 var level:int = 1
 var sprites:Dictionary = {
 	"name": tr("Колодец"),
-	"description": tr("Позвоялет наполнить лейку"),
+	"description": tr("Позволяет наполнить лейку"),
 	1: {
 		"default" = load("res://assets/resources/buildings/well/well.png"),
 		"hover" = load("res://assets/resources/buildings/well/well_hover.png")
