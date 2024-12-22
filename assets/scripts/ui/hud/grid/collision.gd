@@ -65,8 +65,6 @@ func destroy_collision_check(mode: int):
 					3:
 						if node_type == "stone":
 							texture = default
-
-        # Дополнительные условия для режима 1
 		if mode == 1 and texture == error:
 			if check_cell(grid_position, farmland_layer):
 				if !check_cell(grid_position, watering_layer) and !check_cell(grid_position, crops_layer):
@@ -75,9 +73,7 @@ func destroy_collision_check(mode: int):
 					texture = default
 				elif check_cell(grid_position, watering_layer) and check_cell(grid_position, crops_layer):
 					texture = default
-		grid.texture = texture
-
-    # Обработка режима 4
+		i.texture = texture
 	if mode == 4:
 		print("BUILDING")
 		
