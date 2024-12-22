@@ -48,63 +48,44 @@ func collisions_check() -> bool:
 			return false
 	return true
 
-func destroy_collision_check(mode:int):
-	for grids in get_children():
-		var grid_position = tilemap.local_to_map(grids.get_global_position())
-		match mode:
-			1:
-				for node in nature.get_children():
-					if check_cell(grid_position, nature_layer):
-						if grid_position == tilemap.local_to_map(node.position):
-							if data.remove_suffix(node.name) == "weed":
-								grids.texture = default
-							else:
-								grids.texture = error
-					else:
-						if check_cell(grid_position, farmland_layer)\
-						&& !check_cell(grid_position, watering_layer)\
-						&& !check_cell(grid_position, crops_layer):
-							grids.texture = default
-						if check_cell(grid_position, farmland_layer)\
-						&& check_cell(grid_position, watering_layer)\
-						&& !check_cell(grid_position, crops_layer):
-							grids.texture = default
-						if check_cell(grid_position, farmland_layer)\
-						&& check_cell(grid_position, watering_layer)\
-						&& check_cell(grid_position, crops_layer):
-							grids.texture = default
-						else:
-							grids.texture = error
-			2:
-				for node in nature.get_children():
-					if check_cell(grid_position, nature_layer):
-						if grid_position == tilemap.local_to_map(node.position):
-							if data.remove_suffix(node.name) == "tree":
-								grids.texture = default
-							else:
-								grids.texture = error
-					else:
-						grids.texture = error
-			3:
-				for node in nature.get_children():
-					if check_cell(grid_position, nature_layer):
-						if grid_position == tilemap.local_to_map(node.position):
-							if data.remove_suffix(node.name) == "stone":
-								grids.texture = default
-							else:
-								grids.texture = error
-					else:
-						grids.texture = error
-			4:
-				print("BUILDING")
-			_:
-				pass
+func destroy_collision_check(mode: int):
+	for i in get_children():
+		var grid_position = tilemap.local_to_map(i.get_global_position())
+		var texture = error
+		for node in nature.get_children():
+			if check_cell(grid_position, nature_layer) and grid_position == tilemap.local_to_map(node.position):
+				var node_type = data.remove_suffix(node.name)
+				match mode:
+					1:
+						if node_type == "weed":
+							texture = default
+					2:
+						if node_type == "tree":
+							texture = default
+					3:
+						if node_type == "stone":
+							texture = default
+
+        # Дополнительные условия для режима 1
+		if mode == 1 and texture == error:
+			if check_cell(grid_position, farmland_layer):
+				if !check_cell(grid_position, watering_layer) and !check_cell(grid_position, crops_layer):
+					texture = default
+				elif check_cell(grid_position, watering_layer) and !check_cell(grid_position, crops_layer):
+					texture = default
+				elif check_cell(grid_position, watering_layer) and check_cell(grid_position, crops_layer):
+					texture = default
+		grid.texture = texture
+
+    # Обработка режима 4
+	if mode == 4:
+		print("BUILDING")
 		
 func farming_collision_check() -> void:
 	for grids in get_children():
 		var grid_position = tilemap.local_to_map(grids.get_global_position())
 		if check_custom_data(grid_position, can_place_dirt_custom_data, road_layer)\
-		and !check_cell(grid_position, farmland_layer):
+		&& !check_cell(grid_position, farmland_layer):
 			grids.texture = default
 		else:
 			grids.texture = error
@@ -113,7 +94,7 @@ func watering_collision_check() -> void:
 	for grids in get_children():
 		var grid_position = tilemap.local_to_map(grids.get_global_position())
 		if check_custom_data(grid_position, can_place_seed_custom_data, farmland_layer)\
-		and !check_cell(grid_position, watering_layer):
+		&& !check_cell(grid_position, watering_layer):
 			grids.texture = default
 		else:
 			grids.texture = error
@@ -122,12 +103,12 @@ func planting_collision_check() -> void:
 	for grids in get_children():
 		var grid_position = tilemap.local_to_map(grids.get_global_position())
 		if check_cell(grid_position, farmland_layer)\
-		and !check_cell(grid_position, watering_layer)\
-		and !check_cell(grid_position, crops_layer):
+		&& !check_cell(grid_position, watering_layer)\
+		&& !check_cell(grid_position, crops_layer):
 			grids.texture = default
 		elif check_cell(grid_position, farmland_layer)\
-		and check_cell(grid_position, watering_layer)\
-		and !check_cell(grid_position, crops_layer):
+		&& check_cell(grid_position, watering_layer)\
+		&& !check_cell(grid_position, crops_layer):
 			grids.texture = default
 		else:
 			grids.texture = error
@@ -141,13 +122,19 @@ func harvest_check() -> void:
 		else:
 			grids.texture = error
 
-func terrain_collision_check(terrain_layer:int) -> void:
+func terrain_collision_check(terrain_layer:Array) -> void:
 	for grids in get_children():
-		var grid_position = tilemap.local_to_map(grids.get_global_position())
-		if !check_cell(grid_position, terrain_layer):
-				grids.texture = default
-		else:
+		var local_position = tilemap.to_local(grids.get_global_position())
+		var grid_position = tilemap.local_to_map(local_position)
+		var collision_found = false
+		for i in terrain_layer:
+			if check_cell(grid_position, i):
+				collision_found = true
+				break
+		if collision_found:
 			grids.texture = error
+		else:
+			grids.texture = default
 
 func building_collision_check() -> void:
 	for grids in get_children():
