@@ -6,7 +6,6 @@ extends Node2D
 @onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var canvas:Node = get_node("/root/"+main+"/ShadowManager")
-@onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridCollision")
 @onready var building:Node2D = get_node("/root/"+main+"/ConstructionManager")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid") 
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
