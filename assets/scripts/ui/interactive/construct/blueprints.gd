@@ -1,6 +1,8 @@
 extends Node
 
 class_name Blueprints
+@onready var main = str(get_tree().root.get_child(1).name)
+@onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
 var content:Dictionary = {
 	"terrains": {
 		1: {
@@ -8,8 +10,9 @@ var content:Dictionary = {
 			"description" = "",
 			"icon" = null,#preload(""),
 			"config" = {
-				"terrain_set" = 1,
-				"required_layer" = 0,
+				"terrain" = [2],
+				"required_layer" = [1],
+				"blocking_layer" = [2],
 			}
 		},
 		2: {
@@ -17,10 +20,11 @@ var content:Dictionary = {
 			"description" = "",
 			"icon" = null,#preload(""),
 			"config" = {
-				"terrain_set" = 1,
-				"required_layer" = 0,
+				"terrain" = [3,4],
+				"required_layer" = [1,2],
+				"blocking_layer" = [1,2,3,9],
 			}
-		}
+		},
 	},
 	
 	"nodes": {
