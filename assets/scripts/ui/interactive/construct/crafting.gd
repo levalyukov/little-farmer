@@ -20,34 +20,59 @@ var id:int
 
 func _on_pressed():
 	if visible:
-		building_process()
-
-func building_process() -> void:
-	if blueprints.content.has(group):
-		if blueprints.content[group].has(id):
-			if blueprints.content[group][id]["config"].has("node"):
-				grid.node_id = id
-				grid.building_group = group
-				grid.node_source = blueprints.content[group][id]["config"]["node"]
-				grid.node_shadow = blueprints.content[group][id]["config"]["shadow"]
-				grid.grid_dimensions = blueprints.content[group][id]["config"]["area"]
-				grid.mode = grid.modes.BUILD
-				grid.visible = true
-				grid.generate_grid()
-				craft.close()
-				hud.state(true, "all")
-			else:
-				data.debug("The key element is missing - 'node'", "error")
-				reset_grid_data()
-				return
+		if blueprints.content.has(group):
+			match group:
+				"nodes":
+					if blueprints.content[group].has(id):
+						if blueprints.content[group][id]["config"].has("node"):
+							grid.group = group
+							grid.id = id
+							grid.node_source = blueprints.content[group][id]["config"]["node"]
+							grid.node_shadow = blueprints.content[group][id]["config"]["shadow"]
+							grid.grid_dimensions = blueprints.content[group][id]["config"]["area"]
+							grid.mode = grid.modes.BUILD
+							grid.visible = true
+							grid.generate_grid()
+							craft.close()
+							hud.state(true, "all")
+						else:
+							data.debug("The key element is missing - 'node'", "error")
+							reset_grid_data()
+							return
+					else:
+						data.debug("Invalid blueprint ID: " + str(id), "error")
+						return
+				"terrains":
+					if blueprints.content[group].has(id):
+						if blueprints.content[group][id]["config"].has("terrain"):
+							grid.group = group
+							grid.id = id
+							grid.terrain_set = blueprints.content[group][id]["config"]["terrain"]
+							grid.terrain_required_layer = blueprints.content[group][id]["config"]["required_layer"]
+							grid.terrain_blocking_layer = blueprints.content[group][id]["config"]["blocking_layer"]
+							grid.mode = grid.modes.TERRAIN_SET
+							grid.visible = true
+							grid.grid_dimensions = Vector2i(1,1)
+							grid.generate_grid()
+							craft.close()
+							hud.state(true, "all")
+						else:
+							data.debug("The key element is missing - 'terrain'", "error")
+							reset_grid_data()
+							return
+					else:
+						data.debug("Invalid blueprint ID: " + str(id), "error")
+						return
 		else:
-			data.debug("Invalid blueprint ID: " + str(id), "error")
+			data.debug("Invalid blueprint group: " + str(group), "error")
 			return
-	else:
-		data.debug("Invalid blueprint group: " + str(group), "error")
-		return
 
 func reset_grid_data() -> void:
-	grid.building_node = null
+	grid.node_id = 0
 	grid.mode = grid.modes.NOTHING
+	grid.building_group = ""
+	grid.node_source = null
+	grid.node_shadow = null
+	grid.terrain_set = 0
+	grid.node_upgrade = null
 	grid.visible = false
