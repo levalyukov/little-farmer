@@ -53,12 +53,14 @@ var crop_growed:bool
 var inventory_item
 
 # construct config
-var node_id:int
-var building_group:String
+var id:int
+var group:String
 var node_source:PackedScene
-var node_shadow
-var terrain_set:int
-var node_upgrade
+var node_shadow:PackedScene
+var terrain_set:Array = []
+var terrain_required_layer:Array = []
+var terrain_blocking_layer:Array = []
+#var node_upgrade
 
 func _process(_delta):
 	if visible\
@@ -68,46 +70,44 @@ func _process(_delta):
 			destroy_menu.close()
 		var mouse_pos:Vector2 = get_global_mouse_position()
 		var tile_mouse_pos = tilemap.local_to_map(mouse_pos)
-		var ground_tile_position = []
-		var farming_tile_position = []
-		var watering_tile_position = []
-		var building_tile_position = []
 		match mode:
 			modes.DESTROY:
 				collision.destroy_collision_check(destroy_mode)
 				if destroy_mode == destroy.TRASH\
 				|| destroy_mode == destroy.AXE\
 				|| destroy_mode == destroy.PICKAXE:
+					grid_dimensions = Vector2i(1,1)
 					for i in collision.get_children():
 						var grid_position = tilemap.local_to_map(i.get_global_position())
 						var natural_node = collision.get_nature(grid_position)
 						var natural_node_name = data.remove_suffix(collision.get_nature_name(grid_position))
-						if natural_node != null:
-							if natural_node.health > 0:
-								if check:
-									if collision.collisions_check():
+						if i.texture != collision.error:
+							if natural_node != null:
+								if natural_node.health > 0:
+									if check:
 										natural_node.health -= 1
-							else:
-								if natural_resources.content.has(natural_node_name):
-									if natural_resources.content[natural_node_name].has("item_id")\
-									&& natural_resources.content[natural_node_name].has("item_count"):
-										var item_amount = natural_resources.content[natural_node_name]["item_count"]
-										inventory.add_item(
-											natural_resources.content[natural_node_name]["item_id"], 
-											randi_range(item_amount[0], item_amount[1])
-											)
-								nature.remove_child(collision.get_nature(grid_position))
-								shadows.remove_child(collision.get_shadow(tilemap.map_to_local(grid_position)))
-								tilemap.erase_cell(collision.nature_layer, grid_position)	
-						if collision.check_cell(grid_position, collision.crops_layer):
-							if check:
-								print("test")
-							
+								else:
+									if natural_resources.content.has(natural_node_name):
+										if natural_resources.content[natural_node_name].has("item_id")\
+										&& natural_resources.content[natural_node_name].has("item_count"):
+											var item_amount = natural_resources.content[natural_node_name]["item_count"]
+											inventory.add_item(
+												natural_resources.content[natural_node_name]["item_id"], 
+												randi_range(item_amount[0], item_amount[1])
+												)
+									nature.remove_child(collision.get_nature(grid_position))
+									shadows.remove_child(collision.get_shadow(tilemap.map_to_local(grid_position)))
+									tilemap.erase_cell(collision.nature_layer, grid_position)	
+							if collision.check_cell(grid_position, collision.crops_layer):
+								if check:
+									tilemap.erase_cell(collision.crops_layer, grid_position)
+									farming.plant_destroy(grid_position)
 				check = false
 				
 			modes.FARMING:
 				collision.farming_collision_check()
 				if check:
+					var farming_tile_position = []
 					for i in collision.get_children():
 						var grid_position = tilemap.local_to_map(i.get_global_position())
 						if collision.check_cell(grid_position, collision.road_layer)\
@@ -126,11 +126,10 @@ func _process(_delta):
 						&& !collision.check_cell(grid_position, collision.watering_layer)\
 						&& collision.check_custom_data(grid_position, collision.can_place_watering_custom_data, collision.farmland_layer):
 							if tools.water_can > 0:
-								watering_tile_position.append(grid_position)
 								tools.water_can -= 1
 							else:
 								tools.water_can = 0
-					tilemap.set_cells_terrain_connect(collision.watering_layer,watering_tile_position,collision.watering_terrain_set,0)
+						tilemap.set_cells_terrain_connect(collision.watering_layer,[grid_position],collision.watering_terrain_set,0)
 				check = false
 				
 			modes.PLANTING:
@@ -182,14 +181,13 @@ func _process(_delta):
 			modes.BUILD:
 				var data_resources = {}
 				collision.building_collision_check()
-				if blueprints.content[building_group][node_id]["config"].has("resources"):
-					for resource in blueprints.content[building_group][node_id]["config"]["resources"]:
-						var required_amount = blueprints.content[building_group][node_id]["config"]["resources"][resource]["amount"]
+				if blueprints.content[group][id]["config"].has("resources"):
+					for resource in blueprints.content[group][id]["config"]["resources"]:
+						var required_amount = blueprints.content[group][id]["config"]["resources"][resource]["amount"]
 						var available_amount = inventory.get_item_amount(resource)
 						if available_amount >= required_amount:
-							building_tile_position.append(tile_mouse_pos)
 							data_resources[resource] = {}
-							data_resources[resource]["amount"] = blueprints.content[building_group][node_id]["config"]["resources"][resource]["amount"]
+							data_resources[resource]["amount"] = blueprints.content[group][id]["config"]["resources"][resource]["amount"]
 						else:
 							hud.state(false, "all")
 							mode = modes.NOTHING
@@ -197,32 +195,35 @@ func _process(_delta):
 							check = false
 				if check:
 					if collision.collisions_check():
-						if blueprints.content.has(building_group):
-							if blueprints.content[building_group].has(node_id):
+						if blueprints.content.has(group):
+							if blueprints.content[group].has(id):
 								var node_name:String = "build"
-								if blueprints.content[building_group][node_id].has("config")\
-								&& blueprints.content[building_group][node_id]["config"].has("node")\
-								&& blueprints.content[building_group][node_id]["config"].has("name")\
-								&& blueprints.content[building_group][node_id]["config"]["name"] is String:
-									node_name = blueprints.content[building_group][node_id]["config"]["name"]
+								if blueprints.content[group][id].has("config")\
+								&& blueprints.content[group][id]["config"].has("node")\
+								&& blueprints.content[group][id]["config"].has("name")\
+								&& blueprints.content[group][id]["config"]["name"] is String:
+									node_name = blueprints.content[group][id]["config"]["name"]
 								building.construct(node_name, node_source, node_shadow, tile_mouse_pos)
-							if blueprints.content[building_group][node_id]["config"].has("resources"):
+							if blueprints.content[group][id]["config"].has("resources"):
 								inventory.subject_item(data_resources)
 				check = false
 
 			modes.TERRAIN_SET:
-				collision.terrain_collision_check(collision.road_layer)
+				collision.terrain_collision_check(terrain_blocking_layer)
 				if check:
-					if collision.collisions_check():
-						if collision.get_children().size() > 1:
-							for i in collision.get_children():
-								var grid_position = tilemap.local_to_map(i.get_global_position())
-								ground_tile_position.append(grid_position)
-							tilemap.set_cells_terrain_connect(collision.road_layer,ground_tile_position,terrain_set,0)
-						else:
-							ground_tile_position.append(tile_mouse_pos)
-							tilemap.set_cells_terrain_connect(collision.road_layer,ground_tile_position,terrain_set,0)	
-				check = false
+					var positions = []
+					for i in collision.get_children():
+						var local_position = tilemap.to_local(i.get_global_position())
+						var grid_position = tilemap.local_to_map(local_position)
+						if i.texture != collision.error:
+							positions.append(grid_position)
+					for index in range(len(terrain_required_layer)):
+						if index < terrain_set.size():
+							if positions != []:
+								var layer = terrain_required_layer[index]
+								var terrain = terrain_set[index]
+								tilemap.set_cells_terrain_connect(layer, positions, terrain, 0)
+					check = false
 
 			modes.UPGRADE:
 				check = false
