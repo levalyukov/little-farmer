@@ -25,6 +25,9 @@ z_as_relative = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
 shape = SubResource("RectangleShape2D_0gu1o")
 
+[node name="CheckWaterTimer" type="Timer" parent="."]
+
 [connection signal="timeout" from="Timer" to="Sprite2D" method="_on_timer_timeout"]
 [connection signal="mouse_entered" from="Collision" to="." method="_on_collision_mouse_entered"]
 [connection signal="mouse_exited" from="Collision" to="." method="_on_collision_mouse_exited"]
+[connection signal="timeout" from="CheckWaterTimer" to="." method="_on_check_water_timer_timeout"]
