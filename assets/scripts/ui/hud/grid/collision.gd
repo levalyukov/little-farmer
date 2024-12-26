@@ -53,7 +53,8 @@ func destroy_collision_check(mode: int):
 		var grid_position = tilemap.local_to_map(i.get_global_position())
 		var texture = error
 		for node in nature.get_children():
-			if check_cell(grid_position, nature_layer) and grid_position == tilemap.local_to_map(node.position):
+			if check_cell(grid_position, nature_layer)\
+			&& grid_position == tilemap.local_to_map(node.position):
 				var node_type = data.remove_suffix(node.name)
 				match mode:
 					1:
@@ -65,17 +66,26 @@ func destroy_collision_check(mode: int):
 					3:
 						if node_type == "stone":
 							texture = default
-		if mode == 1 and texture == error:
+		if mode == 1\
+		&& texture == error:
 			if check_cell(grid_position, farmland_layer):
-				if !check_cell(grid_position, watering_layer) and !check_cell(grid_position, crops_layer):
+				if !check_cell(grid_position, watering_layer)\
+				&& !check_cell(grid_position, crops_layer):
 					texture = default
-				elif check_cell(grid_position, watering_layer) and !check_cell(grid_position, crops_layer):
+				elif check_cell(grid_position, watering_layer)\
+				&& !check_cell(grid_position, crops_layer):
 					texture = default
-				elif check_cell(grid_position, watering_layer) and check_cell(grid_position, crops_layer):
+				elif check_cell(grid_position, watering_layer)\
+				&& check_cell(grid_position, crops_layer):
 					texture = default
 		i.texture = texture
-	if mode == 4:
-		print("BUILDING")
+		if mode == 4:
+			if check_cell(grid_position, road_layer):
+				texture = default
+			elif check_cell(grid_position, water_layer)\
+			&& check_cell(grid_position, coast_layer):
+				texture = default
+			i.texture = texture
 		
 func farming_collision_check() -> void:
 	for grids in get_children():
@@ -135,10 +145,13 @@ func terrain_collision_check(terrain_layer:Array) -> void:
 func building_collision_check() -> void:
 	for grids in get_children():
 		var grid_position = tilemap.local_to_map(grids.get_global_position())
+		var texture = error
 		if !check_cell(grid_position, building_layer)\
 		&& !check_cell(grid_position, nature_layer)\
 		&& !check_cell(grid_position, farmland_layer)\
-		&& !check_cell(grid_position, watering_layer) :
+		&& !check_cell(grid_position, watering_layer)\
+		&& !check_cell(grid_position, coast_layer)\
+		&& !check_cell(grid_position, water_layer):
 			grids.texture = default
 		else:
 			grids.texture = error
