@@ -19,14 +19,14 @@ func set_data(group:String, id:int) -> void:
 				if blueprints.content[group][id]["icon"] is CompressedTexture2D:
 					icon.texture = blueprints.content[group][id]["icon"]
 				else:
-					data.debug("The key stores a non-Compressed 2D Texture.", "error")
+					data.debug("The key stores a non-Compressed 2D Texture.", "warning")
 			else:
-				data.debug("The object does not have the 'icon' key.", "error")
+				data.debug("The object does not have the 'icon' key.", "warning")
 
 			if blueprints.content[group][id].has("caption"):
 				caption.text = str(blueprints.content[group][id]["caption"])
 			else:
-				data.debug("The 'caption' key has a non-string type.", "error")
+				data.debug("The 'caption' key has a non-string type.", "warning")
 
 func _on_button_pressed() -> void:
 	construct.get_data(section, index)
