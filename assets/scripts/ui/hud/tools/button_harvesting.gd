@@ -12,7 +12,7 @@ func _ready() -> void:
 	icon.texture = sprite
 
 func _on_button_pressed() -> void:
-	if !pause.lock:
+	if !pause.paused:
 		if has_node("/root/"+main+"/ConstructionManager")\
 		&& has_node("/root/"+main+"/ConstructionManager/Grid"):
 			if !blur.state:
