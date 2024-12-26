@@ -28,24 +28,8 @@ var grid_dimensions:Vector2i = Vector2i(1,1)
 var check:bool = false
 var mode:int = modes.NOTHING
 var destroy_mode:int = destroy.NOTHING
-enum modes {
-	NOTHING, 
-	DESTROY, 
-	FARMING, 
-	PLANTING, 
-	WATERING, 
-	HARVESTING, 
-	BUILD, 
-	TERRAIN_SET, 
-	UPGRADE
-}
-enum destroy {
-	NOTHING,
-	TRASH,
-	AXE,
-	PICKAXE,
-	BUILDING
-}
+enum modes {NOTHING, DESTROY, FARMING, PLANTING, WATERING, HARVESTING, BUILD, TERRAIN_SET, UPGRADE}
+enum destroy {NOTHING, TRASH, AXE, PICKAXE, BOMB}
 
 # plant config
 var plantID
@@ -60,7 +44,6 @@ var node_shadow:PackedScene
 var terrain_set:Array = []
 var terrain_required_layer:Array = []
 var terrain_blocking_layer:Array = []
-#var node_upgrade
 
 func _process(_delta):
 	if visible\
@@ -102,6 +85,19 @@ func _process(_delta):
 								if check:
 									tilemap.erase_cell(collision.crops_layer, grid_position)
 									farming.plant_destroy(grid_position)
+				else:
+					match destroy_mode:
+						destroy.BOMB:
+							for i in collision.get_children():
+								var grid_position = tilemap.local_to_map(i.get_global_position())
+								if i.texture != collision.error:
+									if check:
+										if collision.check_cell(grid_position, collision.road_layer):
+											tilemap.set_cells_terrain_connect(collision.road_layer, [grid_position], collision.roads_terrain_set, -1)
+										if collision.check_cell(grid_position, collision.water_layer)\
+										&& collision.check_cell(grid_position, collision.coast_layer):
+											tilemap.set_cells_terrain_connect(collision.water_layer, [grid_position], collision.water_terrain_set, -1)
+											tilemap.set_cells_terrain_connect(collision.coast_layer, [grid_position], collision.coast_terrain_set, -1)
 				check = false
 				
 			modes.FARMING:
