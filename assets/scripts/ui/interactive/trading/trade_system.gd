@@ -23,7 +23,7 @@ extends Control
 @onready var anim:AnimationPlayer = $Animation
 
 var window_visible:bool = false
-var menu:bool = false
+var opened:bool = false
 
 enum transactions {NONE, PURCHASE, SELL}
 enum initiators {NONE, PLAYER, TRADER}
@@ -46,19 +46,13 @@ func _ready():
 	_update_window_visible()
 
 func _input(_event):
-	if Input.is_action_just_pressed("pause"):
-		if blur.state:
-			close_trade_menu()
-
-	if Input.is_action_just_pressed("test"):
-		if !visible:
-			open_trade_menu()
-		else:
-			close_trade_menu()
+	if Input.is_action_just_pressed("pause")\
+	&& blur.state\
+	&& opened:
+		close_trade_menu()
 
 func open_trade_menu() -> void:
-	menu = true
-	pause.other_menu = true
+	opened = true
 	window_visible = true
 	blur.blur(true)
 	anim.play("open_menu")
@@ -66,8 +60,7 @@ func open_trade_menu() -> void:
 	clear_all_trade_menu()
 
 func close_trade_menu() -> void:
-	menu = false
-	pause.other_menu = false
+	opened = false
 	window_visible = false
 	blur.blur(false)
 	anim.play("close_menu")
@@ -357,6 +350,8 @@ func clear_all_trade_menu() -> void:
 
 func _update_window_visible() -> void:
 	visible = window_visible
+	if pause:
+		pause.other_menu = window_visible
 
 func _on_button_pressed():
 	match initiator:
