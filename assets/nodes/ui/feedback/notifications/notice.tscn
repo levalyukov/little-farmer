@@ -73,11 +73,13 @@ _data = {
 
 [node name="notice" type="Control"]
 modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(65, 75)
+custom_minimum_size = Vector2(0, 74)
 layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
+offset_top = -85.0
+offset_right = 168.0
 grow_vertical = 0
 script = ExtResource("1_h616u")
 
@@ -86,8 +88,8 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -65.0
-offset_right = 94.0
+offset_top = -79.0
+offset_right = 222.0
 offset_bottom = -5.0
 grow_vertical = 0
 
@@ -106,22 +108,25 @@ layout_mode = 2
 
 [node name="MarginIcon" type="MarginContainer" parent="Main/Content/HBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 15
 theme_override_constants/margin_right = 5
 
 [node name="Icon" type="TextureRect" parent="Main/Content/HBoxContainer/MarginIcon"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("2_oe23o")
-expand_mode = 2
-stretch_mode = 5
+expand_mode = 1
+stretch_mode = 4
 
 [node name="MarginLabel" type="MarginContainer" parent="Main/Content/HBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_right = 5
+theme_override_constants/margin_right = 15
 
 [node name="Label" type="Label" parent="Main/Content/HBoxContainer/MarginLabel"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
+text = "notice.content"
 vertical_alignment = 1
 
 [node name="Timer" type="Timer" parent="."]
