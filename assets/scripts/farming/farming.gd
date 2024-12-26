@@ -5,19 +5,19 @@ extends Node2D
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
 @onready var node:PackedScene = load("res://assets/nodes/farming/plant.tscn")
 
-func create_plant(id:int, pos:Vector2i) -> void:
+func create_plant(id:int, vector:Vector2i) -> void:
 	var plant = node.instantiate()
 	var atlas_coords = Vector2i(0,3)
 	var source_id = 0
 	
-	if collision.check_cell(pos, collision.farmland_layer):
-		tilemap.set_cell(collision.crops_layer,pos,source_id,atlas_coords)
-		plant.set_position(tilemap.map_to_local(pos))
+	if collision.check_cell(vector, collision.farmland_layer):
+		tilemap.set_cell(collision.crops_layer,vector,source_id,atlas_coords)
+		plant.set_position(tilemap.map_to_local(vector))
 		add_child(plant)
 		plant.z_index = 8
 		plant.name = "plant_1"
 		plant.plant(id)
-		plant.check(id,pos)
+		plant.check(id)
 
 func plant_destroy(vector:Vector2i) -> void:
 	for child in get_children():

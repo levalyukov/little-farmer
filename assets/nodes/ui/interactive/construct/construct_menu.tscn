@@ -1,8 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://bpmceytvqnc7d"]
+[gd_scene load_steps=11 format=3 uid="uid://bpmceytvqnc7d"]
 
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/construct/construct_system.gd" id="1_qwoah"]
 [ext_resource type="Texture2D" uid="uid://cnfvwixmidxmo" path="res://assets/resources/buildings/sign/sign_0.png" id="3_m1ubu"]
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/construct/crafting.gd" id="3_s0fee"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rp300"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u1dor"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1x12y"]
 font_size = 22
@@ -133,16 +137,19 @@ layout_mode = 2
 
 [node name="ButtonLandscape" type="Button" parent="Main/ScrollContainer/NavMenu"]
 layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rp300")
 text = "construct.button_landscape"
 alignment = 0
 
 [node name="ButtonBuildings" type="Button" parent="Main/ScrollContainer/NavMenu"]
 layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u1dor")
 text = "construct.button_buildings"
 alignment = 0
 
 [node name="ButtonUpgrades" type="Button" parent="Main/ScrollContainer/NavMenu"]
 layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u1dor")
 text = "construct.button_upgrades"
 alignment = 0
 
