@@ -233,6 +233,23 @@ func reset_data() -> void:
 	resources.text = ""
 	time_create.text = ""
 
+func get_blueprints() -> Dictionary:
+	return {
+		"terrains_blueprints": terrains_blueprints,
+		"node_blueprints": node_blueprints,
+		"upgrade_blueprints": upgrade_blueprints,
+	}
+
+func load_blueprints(terrains:Array[int], nodes:Array[int], upgrades:Array[int]) -> void:
+	terrains_blueprints = terrains
+	node_blueprints = nodes
+	upgrade_blueprints = upgrades
+
+func clear_blueprints() -> void:
+	terrains_blueprints.clear()
+	node_blueprints.clear()
+	upgrade_blueprints.clear()
+
 func check_window() -> void:
 	visible = opened
 	if pause:
