@@ -319,10 +319,17 @@ func load_inventory() -> void:
 	inventory.load_content(file_load(file.inventory))
 
 func load_craft() -> void:
-	pass
-	#craft.blueprints_clear()
-	#for i in get_key(file.crafting, "blueprints"):
-	#	craft.blueprints_load(int(i))
+	craft.clear_blueprints()
+	var terrains_blueprints:Array[int] = []
+	var node_blueprints:Array[int] = []
+	var upgrade_blueprints:Array[int] = []
+	for i in get_key(file.crafting, "terrains_blueprints"):
+		terrains_blueprints.append(int(i))
+	for i in get_key(file.crafting, "node_blueprints"):
+		node_blueprints.append(int(i))
+	for i in get_key(file.crafting, "upgrade_blueprints"):
+		upgrade_blueprints.append(int(i))
+	craft.load_blueprints(terrains_blueprints, node_blueprints, upgrade_blueprints)
 
 func load_mailbox() -> void:
 	mailbox.letters_load(file_load(file.mailbox))
@@ -425,9 +432,7 @@ func get_dictionary_content(content:String, group:String = "") -> Dictionary:
 			return inventory.get_items()
 
 		"craft":
-			return {
-				"blueprints": craft.get_blueprints()
-			}
+			return craft.get_blueprints()
 			
 		"mailbox":
 			return mailbox.get_letters()
