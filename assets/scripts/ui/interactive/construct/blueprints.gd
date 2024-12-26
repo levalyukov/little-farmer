@@ -12,7 +12,7 @@ var content:Dictionary = {
 			"config" = {
 				"terrain" = [2],
 				"required_layer" = [1],
-				"blocking_layer" = [2],
+				"blocking_layer" = [1,2,3,5],
 			}
 		},
 		2: {
@@ -21,7 +21,7 @@ var content:Dictionary = {
 			"icon" = null,#preload(""),
 			"config" = {
 				"terrain" = [3,4],
-				"required_layer" = [1,2],
+				"required_layer" = [3,5],
 				"blocking_layer" = [1,2,3,9],
 			}
 		},
