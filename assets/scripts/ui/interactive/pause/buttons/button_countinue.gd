@@ -8,5 +8,5 @@ extends Button
 func _on_pressed() -> void:
 	if blur.state:
 		if pause.paused:
-			pause.pause()
+			pause.close()
 			player.check_switch()

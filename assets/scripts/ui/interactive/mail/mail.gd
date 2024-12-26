@@ -30,15 +30,16 @@ extends Control
 @onready var mails_remove_button:Button = $Panel/DeleteAllReadedLetters
 
 var item:Object = Items.new()
-var menu:bool = false
+var opened:bool = false
  
 var index
 var letter_name
 var letters:Dictionary = {}
 
-func _process(_delta):
+func _input(_event):
 	if Input.is_action_just_pressed("pause")\
-	and menu:
+	&& blur.state\
+	&& opened:
 		close()
 
 func _ready():
@@ -277,7 +278,7 @@ func reset_data() -> void:
 	change_state_mail_remove_button(false)
 
 func open() -> void:
-	menu = true
+	opened = true
 	pause.other_menu = true
 	blur.blur(true)
 	anim.play("open")
@@ -288,7 +289,7 @@ func open() -> void:
 	update_state_mail_manipulation_button()
 	
 func close() -> void:
-	menu = false
+	opened = false
 	pause.other_menu = false
 	self.index = 0
 	blur.blur(false)
@@ -296,7 +297,9 @@ func close() -> void:
 	delete_letters()
 
 func check_window() -> void:
-	visible = menu
+	visible = opened
+	if pause:
+		pause.other_menu = opened
 
 func _on_get_items_pressed() -> void:
 	if !button_script.button:

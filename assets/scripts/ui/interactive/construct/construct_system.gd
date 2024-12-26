@@ -28,7 +28,7 @@ extends Control
 
 var index:int
 var section:String
-var menu:bool = false
+var opened:bool = false
 var all_items:bool
 var terrains_blueprints:Array[int] = [1,2,3]
 var node_blueprints:Array[int] = [1,2,3]
@@ -40,6 +40,12 @@ var materials:Object = BuildingMaterials.new()
 
 func _ready():
 	check_window()
+
+func _input(_event):
+	if Input.is_action_just_pressed("pause")\
+	&& blur.state\
+	&& opened:
+		close()
 
 func get_data(group:String, id:int) -> void:
 	if blueprints.content.has(group):
@@ -114,7 +120,6 @@ func update_button_state() -> void:
 			navmenu_button_nodes.modulate = Color(1, 1, 1)
 			navmenu_button_upgrades.modulate = Color(1, 1, 1, 0.784)
 
-
 func get_all_required_items(group:String, id:int) -> void:
 	if blueprints.content[group][id]["config"]["resources"] != {}:
 		for i in blueprints.content[group][id]["config"]["resources"]:
@@ -167,8 +172,7 @@ func remove_all_blueprints() -> void:
 func open() -> void:
 	anim.play("open")
 	blur.blur(true)
-	pause.other_menu = true
-	menu = true
+	opened = true
 
 	set_start_info()
 	update_navmenu()
@@ -178,8 +182,7 @@ func open() -> void:
 func close() -> void:
 	anim.play("close")
 	blur.blur(false)
-	pause.other_menu = false
-	menu = false
+	opened = false
 
 func update_navmenu() -> void:
 	if terrains_blueprints != []:
@@ -215,11 +218,9 @@ func set_start_info() -> void:
 	resources.visible = false
 	time_create.visible = false
 	button.visible = false
-
 	resources.text = ""
 	time_create.text = ""
-	section = ""
-
+	
 func reset_data() -> void:
 	caption.visible = false
 	description.visible = false
@@ -227,15 +228,15 @@ func reset_data() -> void:
 	resources.visible = false
 	time_create.visible = false
 	button.visible = false
-
 	caption.text = ""
 	description.text = ""
 	resources.text = ""
 	time_create.text = ""
-	section = ""
 
 func check_window() -> void:
-	visible = menu
+	visible = opened
+	if pause:
+		pause.other_menu = opened
 
 func _on_close_pressed() -> void:
 	close()

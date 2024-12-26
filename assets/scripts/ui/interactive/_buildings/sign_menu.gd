@@ -10,7 +10,7 @@ extends Control
 @onready var anim:AnimationPlayer = $AnimationPlayer
 
 var sign_name
-var menu:bool = false
+var opened:bool = false
 var items = Items.new()
 
 func _ready():
@@ -21,7 +21,7 @@ func _open(node_name) -> void:
 	_create_all_items()
 	anim.play("open")
 	blur.blur(true)
-	menu = true
+	opened = true
 	pause.other_menu = true
 	sign_name = node_name
 
@@ -30,7 +30,7 @@ func _close() -> void:
 	anim.play("close")
 	blur.blur(false)
 	pause.other_menu = false
-	menu = false
+	opened = false
 
 func _set_header() -> void:
 	var header_:String = tr("signmenu.header")
@@ -49,7 +49,7 @@ func _remove_all_items() -> void:
 		container.remove_child(item)
 
 func _check_window() -> void:
-	visible = menu	
+	visible = opened	
 
 func _on_exit_button_pressed():
 	_close()

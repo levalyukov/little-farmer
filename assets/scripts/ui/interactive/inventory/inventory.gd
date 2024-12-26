@@ -25,7 +25,7 @@ extends Control
 @onready var button:Button = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/ButtonContainer/Button
 @onready var list:Label = $Main/HBoxContainer/InventoryContent/Label
 
-var menu:bool = false
+var opened:bool = false
 var item_index
 var button_index:int
 enum item_type {NOTHING, SEEDS}
@@ -34,6 +34,19 @@ var inventory_items:Dictionary = {}
 func _ready():
 	check_window()
 	reset_data()
+
+func _input(_event):
+	if Input.is_action_just_pressed("pause")\
+	&& blur.state\
+	&& opened:
+		close()
+
+	if Input.is_action_just_pressed("inventory"):
+		if !blur.state\
+		&& !opened:
+			open()
+		else:
+			close()
 
 func inventory_update():
 	var remove_items = []
@@ -54,19 +67,11 @@ func check_inventory():
 				break
 				data.debug("Due to inventory overflow, an item with the following ID was destroyed: " + str(item), "info")
 
-func _process(_delta):
-	if !blur.state:
-		if Input.is_action_just_pressed("inventory"):
-			window()
-	else:
-		if (Input.is_action_just_pressed("pause") && menu) or (Input.is_action_just_pressed("inventory") && menu):
-			close()
-
 func load_content(content:Dictionary) -> void:
 	inventory_items = content
 
 func open() -> void:
-	menu = true
+	opened = true
 	pause.other_menu = true
 	blur.blur(true)
 	anim.play("open")
@@ -76,14 +81,13 @@ func open() -> void:
 	check_inventory()
 
 func close() -> void:
-	menu = false
-	pause.other_menu = false
+	opened = false
 	blur.blur(false)
 	anim.play("close")
 	remove_inventory_slots()
 
 func get_data(index) -> void:
-	if menu:
+	if opened:
 		var item = Items.new()
 		self.item_index = index
 		scroll_info.scroll_vertical = 0
@@ -348,15 +352,11 @@ func _on_button_pressed():
 		_:
 			pass
 
-func window() -> void:
-	if menu:
-		close()
-	else:
-		open()
-
 func check_window() -> void:
-	visible = menu
+	visible = opened
+	if pause:
+		pause.other_menu = opened
 
 func _on_close_pressed():
-	if menu:
+	if opened:
 		close()

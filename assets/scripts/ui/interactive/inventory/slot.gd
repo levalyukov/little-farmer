@@ -3,6 +3,7 @@ extends Control
 @onready var main = str(get_tree().root.get_child(1).name)
 @onready var data = get_node("/root/"+main)
 @onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
+@onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/storage")
 @onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
 @onready var mailbox:Control = get_node("/root/"+main+"/UI/Interactive/Mailbox")
 @onready var signmenu:Control = get_node("/root/"+main+"/UI/Interactive/BuildingsMenu/SignMenu")
@@ -11,8 +12,6 @@ extends Control
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var icon:TextureRect = $Button/Icon
 @onready var amount_label:Label = $Button/Amount
-
-@onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/storage")
 
 var id
 var amount:int
@@ -52,7 +51,7 @@ func set_data(index, item_amount) -> void:
 func _on_button_mouse_entered():
 	if has_node("/root/"+main+"/UI/Interactive/Mailbox"):
 		if mailbox:
-			if mailbox.menu:
+			if mailbox.opened:
 				if item.content.has(int(id)):
 					if item.content[int(id)].has("caption"):
 						var item_amount:String = tr("x")
@@ -65,7 +64,7 @@ func _on_button_mouse_entered():
 					data.debug("Invalid item ID: " + str(id))
 
 	if has_node("/root/"+main+"/UI/Interactive/BuildingsMenu/SignMenu"):
-		if signmenu.menu:
+		if signmenu.opened:
 			if item.content.has(int(id)):
 				if item.content[int(id)].has("caption"):
 					tip.tooltip(
@@ -94,9 +93,9 @@ func _on_button_mouse_exited():
 	if has_node("/root/"+main+"/UI/Interactive/Mailbox")\
 	|| has_node("/root/"+main+"/UI/Interactive/BuildingsMenu/SignMenu")\
 	|| has_node("/root/"+main+"/UI/Interactive/TradeMenu"):
-		if mailbox.menu\
-		|| signmenu.menu\
-		|| trade_menu.menu:
+		if mailbox.opened\
+		|| signmenu.opened\
+		|| trade_menu.opened:
 			tip.tooltip("")
 
 func _on_button_pressed():
