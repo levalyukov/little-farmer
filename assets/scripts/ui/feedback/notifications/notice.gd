@@ -2,6 +2,7 @@ extends Control
 
 @onready var main = str(get_tree().root.get_child(1).name)
 @onready var data = get_node("/root/"+main)
+@onready var margin:MarginContainer = $Main
 @onready var icon:TextureRect = $Main/Content/HBoxContainer/MarginIcon/Icon
 @onready var label:Label = $Main/Content/HBoxContainer/MarginLabel/Label
 @onready var anim:AnimationPlayer = $AnimationPlayer
@@ -15,6 +16,8 @@ func notice(text:String, type = "") -> void:
 	set_text(text)
 	set_icon(type)
 	anim.play("create")
+	await get_tree().create_timer(0.01).timeout
+	custom_minimum_size.y = margin.size.y
 
 func set_text(text:String) -> void:
 	visible = true

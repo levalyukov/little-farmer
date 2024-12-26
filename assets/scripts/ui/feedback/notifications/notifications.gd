@@ -5,15 +5,9 @@ extends Control
 
 const maximum:int = 99
 
-func create_notice(text:String, type:CompressedTexture2D) -> void:
+func create_notice(text:String, type = "") -> void:
 	var notice = node.instantiate()
-	if all_notices(container) < maximum:
+	if container.get_children().size() < maximum:
 		if text != "":
 			container.add_child(notice)
 			notice.notice(text, type)
-
-func all_notices(parent) -> int:
-	var items:int = 0
-	for i in parent.get_children():
-		items+=1
-	return items
