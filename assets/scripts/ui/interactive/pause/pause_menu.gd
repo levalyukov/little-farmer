@@ -16,7 +16,6 @@ extends Control
 
 var paused:bool
 var other_menu:bool
-var lock:bool = true
 
 func _ready():
 	player.switch = true
@@ -30,21 +29,15 @@ func _ready():
 	hud.state(false, "all")
 	player.switch = false
 	player.check_switch()
-	lock = false
 	clock.clock_update()
 
-func _process(_delta):
-	if Input.is_action_just_pressed("pause")\
-	and !other_menu\
-	and !options.visible:
-		pause()
-
-func pause():
-	if !paused\
-	and !other_menu:
-		open()
-	else:
-		close()
+func _input(_event):
+	if Input.is_action_just_pressed("pause"):
+		if !other_menu:
+			if !paused:
+				open()
+			else:
+				close()
 	
 func open() -> void:
 	paused = true
