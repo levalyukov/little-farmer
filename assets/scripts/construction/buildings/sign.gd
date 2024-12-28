@@ -49,15 +49,15 @@ func _shadow_create() -> void:
 					data.debug("It is not possible to create a game shadow of an object because the sprite is not of the 'CompressedTexture2D' type.", "error")
 
 func set_sign_sprite(item_id):
-	print(item_id)
 	sprite_id = item_id
-	if items.content.has(int(item_id)):
-		if items.content[int(item_id)].has("icon"):
-			icon.texture = items.content[int(item_id)]["icon"]
+	if icon:
+		if items.content.has(int(item_id)):
+			if items.content[int(item_id)].has("icon"):
+				icon.texture = items.content[int(item_id)]["icon"]
+			else:
+				data.debug("The object does not have the 'description' key", "error")
 		else:
-			data.debug("The object does not have the 'description' key", "error")
-	else:
-		data.debug("Invalid index: " + str(item_id), "error")
+			data.debug("Invalid index: " + str(item_id), "error")
 
 func _input(event):
 	if event is InputEventMouseButton\
