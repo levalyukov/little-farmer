@@ -3,14 +3,16 @@ extends Node2D
 @onready var main:String = str(get_tree().root.get_child(1).name)
 @onready var data:Node2D = get_node("/root/"+main)
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
-@onready var pause:Control = get_node("/root/"+main+"/UI/Inveractive/Pause")
+@onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
 @onready var building:Node2D = get_node("/root/"+main+"/ConstructionManager")
+@onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid") 
 @onready var sprite:Sprite2D = $Sprite2D
 
 var level:int = 1
+var blueprint_id:int = 0
 var object:Dictionary = {
 	1: {
 		"caption" = tr("animalstall.caption"),
@@ -63,9 +65,14 @@ func _check_sprite(key:String):
 	else:
 		data.debug("Index " + str(level) + " is not in the dictionary.", "error")
 
-func get_data():
+func get_data() -> Dictionary:
 	if object.has(level):
-		return {"level": level}
+		return {
+			"id": blueprint_id,
+			"position": tilemap.local_to_map(position),
+			"level": level
+		}
+	return {}
 
 func load_data(obj_level:int) -> void:
 	self.level = obj_level

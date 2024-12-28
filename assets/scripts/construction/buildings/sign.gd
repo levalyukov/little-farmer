@@ -14,7 +14,8 @@ extends Node2D
 @onready var sprite:Sprite2D = $Sprite2D
 
 var items = Items.new()
-var id:int = 0
+var sprite_id:int = 0
+var blueprint_id:int = 0
 var max_distance:int = 250
 var open_menu:bool = false
 var object:Dictionary = {
@@ -48,7 +49,7 @@ func _shadow_create() -> void:
 					data.debug("It is not possible to create a game shadow of an object because the sprite is not of the 'CompressedTexture2D' type.", "error")
 
 func set_sign_sprite(item_id):
-	id = item_id
+	sprite_id = item_id
 	if items.content.has(item_id):
 		if items.content[item_id].has("icon"):
 			icon.texture = items.content[item_id]["icon"]
@@ -86,13 +87,15 @@ func _check_sprite(key:String) -> void:
 		data.debug("The specified key is missing.", "error")
 
 func get_data() -> Dictionary:
-	if id != 0 && items.content.has(id):
+	if sprite_id != 0 && items.content.has(sprite_id):
 		return {
-			"TextureRect_sprite": id,
+			"sprite_id": sprite_id,
+			"id": blueprint_id,
 			"position": tilemap.local_to_map(position),
 			}
 	else:
 		return {
+			"id": blueprint_id,
 			"position": tilemap.local_to_map(position),
 			}
 

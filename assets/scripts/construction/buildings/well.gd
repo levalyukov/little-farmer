@@ -5,13 +5,15 @@ extends Node2D
 @onready var hud:Control = get_node("/root/"+main+"/UI/HUD/GameHud")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
 @onready var tools:HBoxContainer = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools")
+@onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
 
 @onready var sprite:Sprite2D = $Sprite2D
 
 var clicked:bool = false
 var level:int = 1
-var sprites:Dictionary = {
+var blueprint_id:int = 0
+var object:Dictionary = {
 	"name": tr("Колодец"),
 	"description": tr("Позволяет наполнить лейку"),
 	1: {
@@ -29,34 +31,43 @@ func _input(event):
 
 func _process(_delta):
 	if clicked:
-		if sprites != {}:
-			if sprites.has(level):
-				if sprites[level].has("hover"):
-					if sprites[level]["hover"] is CompressedTexture2D:
-						if sprite.texture == sprites[level]["hover"]:
+		if object != {}:
+			if object.has(level):
+				if object[level].has("hover"):
+					if object[level]["hover"] is CompressedTexture2D:
+						if sprite.texture == object[level]["hover"]:
 							tools.water_can = tools.water_can_max
 	clicked = false
 
 func _on_area_2d_mouse_entered():
 	if grid.mode == grid.modes.NOTHING:
-		if sprites != {}:
-			if sprites.has(level):
-				if sprites[level].has("hover"):
-					if sprites[level]["hover"] is CompressedTexture2D:
-						sprite.texture = sprites[level]["hover"]
+		if object != {}:
+			if object.has(level):
+				if object[level].has("hover"):
+					if object[level]["hover"] is CompressedTexture2D:
+						sprite.texture = object[level]["hover"]
 		if tip:
-			if sprites.has("name")\
-			&& sprites.has("description"):
-				if sprites["name"] is String\
-				&& sprites["description"] is String:
-						tip.tooltip(sprites["name"] + "\n" + sprites["description"])
+			if object.has("name")\
+			&& object.has("description"):
+				if object["name"] is String\
+				&& object["description"] is String:
+						tip.tooltip(object["name"] + "\n" + object["description"])
 
 func _on_area_2d_mouse_exited():
 	if grid.mode == grid.modes.NOTHING:
-		if sprites != {}:
-			if sprites.has(level):
-				if sprites[level].has("default"):
-					if sprites[level]["default"] is CompressedTexture2D:
-						sprite.texture = sprites[level]["default"]
+		if object != {}:
+			if object.has(level):
+				if object[level].has("default"):
+					if object[level]["default"] is CompressedTexture2D:
+						sprite.texture = object[level]["default"]
 		if tip:
 			tip.tooltip()
+
+func get_data() -> Dictionary:
+	if object.has(level):
+		return {
+			"id": blueprint_id,
+			"position": tilemap.local_to_map(position),
+			"level": level
+		}
+	return {}

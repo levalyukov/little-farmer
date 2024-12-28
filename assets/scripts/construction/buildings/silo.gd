@@ -4,6 +4,7 @@ extends Node2D
 @onready var data:Node2D = get_node("/root/"+main)
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
+@onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var pause:Control = get_node("/root/"+main+"/UI/Inveractive/Pause")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid") 
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
@@ -11,6 +12,7 @@ extends Node2D
 
 var max_distance:int = 250
 var level:int = 1
+var collision_dimensions:Vector2i
 var object:Dictionary = {
 	1: {
 		"caption" = tr("silo.caption"),
@@ -63,9 +65,14 @@ func _check_sprite(key:String):
 	else:
 		data.debug("Index " + str(level) + " is not in the dictionary.", "error")
 
-func get_data():
+func get_data() -> Dictionary:
 	if object.has(level):
-		return {"level": level}
+		return {
+			"collision_dimensions": collision_dimensions,
+			"position": tilemap.local_to_map(position),
+			"level": level
+		}
+	return {}
 
 func load_data(obj_level:int) -> void:
 	self.level = obj_level
