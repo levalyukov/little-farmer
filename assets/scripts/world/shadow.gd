@@ -4,7 +4,7 @@ extends Node
 @onready var data:Node2D = get_node("/root/"+main)
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
-@onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridCollision")
+@onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
 @onready var canvas:CanvasGroup = get_node("/root/"+main+"/ShadowManager/CanvasGroup")
 @onready var cloud_canvas:CanvasGroup = get_node("/root/"+main+"/ShadowManager/CloudGroup")
 
