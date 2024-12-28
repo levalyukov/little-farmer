@@ -176,6 +176,7 @@ func open() -> void:
 
 	set_start_info()
 	update_navmenu()
+	update_button_state()
 	remove_all_blueprints()
 	create_all_blueprints()
 
@@ -235,12 +236,14 @@ func reset_data() -> void:
 
 func get_blueprints() -> Dictionary:
 	return {
+		".section": section,
 		"terrains_blueprints": terrains_blueprints,
 		"node_blueprints": node_blueprints,
 		"upgrade_blueprints": upgrade_blueprints,
 	}
 
-func load_blueprints(terrains:Array[int], nodes:Array[int], upgrades:Array[int]) -> void:
+func load_blueprints(group:String, terrains:Array[int], nodes:Array[int], upgrades:Array[int]) -> void:
+	section = group
 	terrains_blueprints = terrains
 	node_blueprints = nodes
 	upgrade_blueprints = upgrades
