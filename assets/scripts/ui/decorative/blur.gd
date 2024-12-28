@@ -44,10 +44,11 @@ func blur(bluring:bool, hud_state = "all") -> void:
 	if has_node("/root/"+main+"/Player/Camera2D"):
 		zoom.change_zoom = !bluring
 
-	if bluring\
-	&& !pause.paused:
-		if has_node("/root/"+main+"/ConstructionManager/"):
-			for nodes in get_node("/root/"+main+"/ConstructionManager/").get_children():
-				if nodes.has_method("_change_sprite"):
-					if nodes:
-						nodes._change_sprite(false)
+	if pause:
+		if bluring\
+		&& !pause.paused:
+			if has_node("/root/"+main+"/ConstructionManager/"):
+				for nodes in get_node("/root/"+main+"/ConstructionManager/").get_children():
+					if nodes.has_method("_change_sprite"):
+						if nodes:
+							nodes._change_sprite(false)
