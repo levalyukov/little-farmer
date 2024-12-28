@@ -48,12 +48,13 @@ const file:Dictionary = {
 }
 
 func _ready():
-	gameload()
 	if main == "Farm":
-		if GameLoader.mode:
+		if GameLoader.mode\
+		&& !GameLoader.start:
 			gameload()
-			GameLoader.loading(false)
-		if GameLoader.start:
+			GameLoader.mode = false
+		if !GameLoader.mode\
+		&& GameLoader.start:
 			nature.create_start_nature()
 	else:
 		load_time()
@@ -180,7 +181,7 @@ func load_plant():
 			file_load(file.farm)[i]["region_rect.y"],
 			file_load(file.farm)[i]["growth_level"],
 			string_to_vector(file_load(file.farm)[i]["position"]),
-			collision.crops_layer,
+			2,
 			i
 		)
 
@@ -330,18 +331,15 @@ func load_buildings() -> void:
 					string_to_vector(file_load(file.buildings)[i]["position"]),
 					i
 				)
-				
 				if file_load(file.buildings)[i].has("level"):
 					for node in buildings.get_children():
 						if i == node.name:
 							node.level = file_load(file.buildings)[i]["level"]
-
 				if file_load(file.buildings)[i].has("sprite_id"):
 					for node in buildings.get_children():
 						if i == node.name:
-							node.set_sign_sprite(
-								file_load(file.buildings)[i]["sprite_id"]
-							)
+							var sprite_id = file_load(file.buildings)[i]["sprite_id"]
+							node.set_sign_sprite(int(sprite_id))
 	else:
 		debug("load_buildings(): Empty dictionary.", "error")
 
