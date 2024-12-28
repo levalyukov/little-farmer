@@ -10,10 +10,6 @@ extends Node2D
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
 const max_distance:int = 250
 
-var all_buildings:Dictionary = {
-	"sign": load("res://assets/nodes/buildings/sign.tscn"),
-}
-
 func get_buildings() -> Dictionary:
 	var data_dict = {}
 	for building in buildings.get_children():
@@ -21,33 +17,59 @@ func get_buildings() -> Dictionary:
 			data_dict[building.name] = building.get_data()
 	return data_dict
 
-func construct(node_name:String, node_scene:PackedScene, node_shadow, node_position:Vector2i) -> void:
-	if node_scene != null:
-		var building = node_scene.instantiate()
-		var building_name = node_name + "_1"
+func create_node(id:int, vector:Vector2i, caption:String = "") -> void:
+	var blueprints = Blueprints.new()
+	if blueprints.content.has("nodes"):
+		if blueprints.content["nodes"].has(id):
+			if blueprints.content["nodes"][id].has("config"):
+				if blueprints.content["nodes"][id]["config"].has("name"):
+					if blueprints.content["nodes"][id]["config"].has("node"):
+						if blueprints.content["nodes"][id]["config"].has("area"):
+							var node = blueprints.content["nodes"][id]["config"]["node"].instantiate()
+							add_child(node)
+							node.set_position(tilemap.map_to_local(vector))
+							if caption != "":
+								node.name = caption
+							else:
+								if blueprints.content["nodes"][id]["config"].has("name"):
+									node.name = blueprints.content["nodes"][id]["config"]["name"] + "_1"
+								else:
+									node.name = "node" + "_1"
 
-		add_child(building)
-		building.set_position(tilemap.map_to_local(node_position))
-		building.name = building_name
-		if node_shadow is PackedScene:
-			shadows.create_shadow_node(building_name, node_shadow, node_position)
-		if node_shadow is CompressedTexture2D:
-			shadows.create_shadow(building_name, node_shadow, node_position)
+							node.blueprint_id = id
+							if blueprints.content["nodes"][id]["config"].has("shadow"):
+								if blueprints.content["nodes"][id]["config"]["shadow"] is PackedScene:
+									shadows.create_shadow_node(
+										blueprints.content["nodes"][id]["config"]["name"],
+										blueprints.content["nodes"][id]["config"]["shadow"],
+										vector
+									)
 
-		for i in collision.get_children():
-			var grid_position = tilemap.local_to_map(i.get_global_position())
-			tilemap.set_cell(collision.building_layer, grid_position, 0, Vector2i(0,3))
-			#tilemap.set_cell(collision.ground_layer, grid_position, 0, Vector2i(1,1))
-
-func construct_load(node_name:String, node_scene:PackedScene, node_position:Vector2i, collisions:Array[Vector2i]) -> void:
-	var building = node_scene.instantiate()
-	add_child(building)
-	building.set_position(tilemap.map_to_local(node_position))
-	building.name = node_name
-	building._shadow_create()
-	for i in collisions:
-		var target_position = tilemap.local_to_map(i)
-		tilemap.set_cell(collision.building_layer, target_position, 0, Vector2i(0,3))
+							if collision.get_children().size() > 0:
+								for i in collision.get_children():
+									tilemap.set_cell(
+										collision.building_layer, 
+										tilemap.local_to_map(
+											i.get_global_position()
+										), 
+										0, 
+										Vector2i(0,3)
+									)
+									
+							else:
+								for x in range(blueprints.content["nodes"][id]["config"]["area"].x):
+									for y in range(blueprints.content["nodes"][id]["config"]["area"].y):
+										tilemap.set_cell(
+											collision.building_layer, 
+											tilemap.local_to_map(
+												Vector2i(
+													(vector.x + x) * grid.SIZE.x, 
+													(vector.y + y) * grid.SIZE.y
+												)
+											),
+											0, 
+											Vector2i(0,3)
+										)
 
 func construct_load_sprites(name_node:String, sprite_id:int) -> void:
 	for build in buildings.get_children():
