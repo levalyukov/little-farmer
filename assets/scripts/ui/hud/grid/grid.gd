@@ -39,8 +39,6 @@ var inventory_item
 # construct config
 var id:int
 var group:String
-var node_source:PackedScene
-var node_shadow:PackedScene
 var terrain_set:Array = []
 var terrain_required_layer:Array = []
 var terrain_blocking_layer:Array = []
@@ -193,15 +191,9 @@ func _process(_delta):
 					if collision.collisions_check():
 						if blueprints.content.has(group):
 							if blueprints.content[group].has(id):
-								var node_name:String = "build"
-								if blueprints.content[group][id].has("config")\
-								&& blueprints.content[group][id]["config"].has("node")\
-								&& blueprints.content[group][id]["config"].has("name")\
-								&& blueprints.content[group][id]["config"]["name"] is String:
-									node_name = blueprints.content[group][id]["config"]["name"]
-								building.construct(node_name, node_source, node_shadow, tile_mouse_pos)
-							if blueprints.content[group][id]["config"].has("resources"):
-								inventory.subject_item(data_resources)
+								building.create_node(id, tile_mouse_pos)
+								if data_resources != {}:
+									inventory.subject_item(data_resources)
 				check = false
 
 			modes.TERRAIN_SET:
@@ -243,9 +235,10 @@ func _input(event):
 	&& mode != modes.NOTHING:
 		hud.state(false, "all")
 		mode = modes.NOTHING
-		visible = false
 		check = false
 		destroy_mode = destroy.NOTHING
+		for child in collision.get_children():
+			child.queue_free()
 
 func generate_grid():
 	if grid_dimensions.x <= tools.max_grid_dimensions\
