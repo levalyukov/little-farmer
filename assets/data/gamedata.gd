@@ -3,8 +3,10 @@ extends Node
 @onready var main:String = str(get_tree().root.get_child(1).name)
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var cycle:Node2D = get_node("/root/"+main+"/Day-Night Cycle")
+@onready var notice:Control = get_node("/root/"+main+"/UI/Feedback/Notifications")
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var player:Node2D = get_node("/root/"+main+"/Player")
+@onready var tools:HBoxContainer = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools")
 @onready var balance:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Balance")
 @onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
 @onready var craft:Control = get_node("/root/"+main+"/UI/Interactive/ConstructMenu")
@@ -14,7 +16,7 @@ extends Node
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
 @onready var farming:Node2D = get_node("/root/"+main+"/FarmingManager")
 @onready var nature:Node2D = get_node("/root/"+main+"/Nature")
-@onready var language:Control = get_node("/root/"+main+"/UI/Interactive/Options/Panel/Main/HBoxContainer/VBoxContainer/VBoxContainer/Language")
+@onready var language:Control = get_node("/root/"+main+"/UI/Interactive/Options/Menu/Main/MainContainer/Sections/Footer/ChangeLanguageButton")
 @onready var plant:PackedScene = load("res://assets/nodes/farming/plant.tscn")
 
 var object_count:int
@@ -80,7 +82,7 @@ func gamesave() -> void:
 
 func gameload() -> void:
 	remove_all_child(farming)
-	terrains_remove()
+	remove_all_terrains()
 	plant_load()
 	vectors_load()
 	load_nature_nodes()
@@ -89,7 +91,7 @@ func gameload() -> void:
 	load_balance()
 	load_buildings()
 	load_inventory()
-	load_craft()
+	load_blueprints()
 	load_mailbox()
 	
 func file_save(_path:Array[String], _file:String, _content:Dictionary) -> void:
@@ -149,24 +151,6 @@ func string_to_vector(vector_string:String) -> Vector2i:
 	var y = components[1].to_int()
 	return Vector2i(x, y)
 
-func create_nodes(parent:Node2D, node:PackedScene, positions:Array[Vector2i]) -> void:
-	if positions != null:
-		for position in positions:
-			var object = node.instantiate()
-			if position is Vector2i:
-				object_count +=1
-				object.name = "plant_" + str(object_count)
-				var object_name = "plant_" + str(object_count)
-				object.global_position = tilemap.map_to_local(position)
-				object.z_index = 6
-				if object.has_method("check_node"):
-					parent.add_child(object)
-					farm_load(object, object_name, position)
-				else:
-					debug("Cannot load node.", "error")
-			else:
-				debug("Variable position is not of type Vector2.", "error")
-
 func remove_all_child(parent: Node):
 	erase_cells(collision.crops_layer)
 	for child in parent.get_children():
@@ -180,8 +164,25 @@ func erase_cells(layer: int) -> void:
 		tilemap.erase_cell(layer, cell)
 
 func plant_load():
-	#create_terrains(collision.road_layer, get_vector_array(file.vctr_roads, "roads"), collision.roads_terrain_set, 0)
-	pass
+	create_cell(get_vector_array(file.vctr_plants, "plants"))
+	load_plant()
+
+func load_plant():
+	for i in file_load(file.farm):
+		var node = plant.instantiate()
+		farming.add_child(node)
+		node.set_data(
+			file_load(file.farm)[i]["plantID"],
+			file_load(file.farm)[i]["condition"],
+			file_load(file.farm)[i]["degree"],
+			file_load(file.farm)[i]["fertilizer"],
+			file_load(file.farm)[i]["region_rect.x"],
+			file_load(file.farm)[i]["region_rect.y"],
+			file_load(file.farm)[i]["growth_level"],
+			string_to_vector(file_load(file.farm)[i]["position"]),
+			collision.crops_layer,
+			i
+		)
 
 func load_nature_nodes():
 	var natures = file_load(file.nature)
@@ -255,27 +256,11 @@ func vectors_load():
 func create_terrains(layer:int, vectors:Array[Vector2i], terrain_set:int, terrain:int):
 	tilemap.set_cells_terrain_connect(layer, vectors, terrain_set, terrain)
 
-func farm_load(object:Node2D, object_name:String, position:Vector2i):
-	var id = get_key(file.farm, "plantID", object_name)
-	var condition = get_key(file.farm, "condition", object_name)
-	var degree = get_key(file.farm, "degree", object_name)
-	var fertilizer = get_key(file.farm, "fertilizer", object_name)
-	var rect_x = get_key(file.farm, "region_rect.x", object_name)
-	var rect_y = get_key(file.farm, "region_rect.y", object_name)
-	var growth_level = get_key(file.farm, "growth_level", object_name)
+func create_cell(vectors:Array[Vector2i]):
+	for i in vectors:
+		tilemap.set_cell(collision.crops_layer, i, 0,Vector2i(0,3))
 
-	if id != null\
-	&& condition != null\
-	&& degree != null\
-	&& fertilizer != null\
-	&& rect_x != null\
-	&& rect_y != null\
-	&& growth_level != null:
-		object.set_data(id, condition, degree, fertilizer, rect_x, rect_y, growth_level, position)
-	else:
-		debug("Data missing for node: " + str(object_name), "error")
-
-func terrains_remove() -> void:
+func remove_all_terrains() -> void:
 	if collision.get_used_cells(collision.road_layer) != []:
 		tilemap.set_cells_terrain_connect(
 			collision.road_layer,
@@ -309,7 +294,8 @@ func load_time() -> void:
 		get_key(file.world, "hour", "time"),
 		get_key(file.world, "minute", "time")
 	)
-	cycle.set_cycle_value(get_key(file.world, ".cycle", "time"), get_key(file.world, ".passed", "time"))
+	cycle.set_cycle_value(get_key(file.world, "hour", "time"))
+	#cycle.set_cycle_value(get_key(file.world, ".cycle", "time"), get_key(file.world, ".passed", "time"))
 
 func load_balance() -> void:
 	balance.money = get_key(file.player, "balance")
@@ -318,7 +304,7 @@ func load_balance() -> void:
 func load_inventory() -> void:
 	inventory.load_content(file_load(file.inventory))
 
-func load_craft() -> void:
+func load_blueprints() -> void:
 	craft.clear_blueprints()
 	var group:String = get_key(file.blueprints, ".section")
 	var terrains_blueprints:Array[int] = []
@@ -344,14 +330,18 @@ func load_buildings() -> void:
 					string_to_vector(file_load(file.buildings)[i]["position"]),
 					i
 				)
+				
 				if file_load(file.buildings)[i].has("level"):
 					for node in buildings.get_children():
 						if i == node.name:
 							node.level = file_load(file.buildings)[i]["level"]
+
 				if file_load(file.buildings)[i].has("sprite_id"):
 					for node in buildings.get_children():
 						if i == node.name:
-							node.sprite_id = file_load(file.buildings)[i]["sprite_id"]
+							node.set_sign_sprite(
+								file_load(file.buildings)[i]["sprite_id"]
+							)
 	else:
 		debug("load_buildings(): Empty dictionary.", "error")
 
@@ -384,6 +374,17 @@ func get_dictionary_content(content:String, group:String = "") -> Dictionary:
 		"player":
 			return {
 				"balance": balance.money,
+				"tools_level": {
+					"water_can_max": tools.water_can_max,
+					"water_can": tools.water_can,
+					"hoe": tools.hoe,
+					"watering_can": tools.watering_can,
+					"sickle": tools.sickle,
+					"planting": tools.planting,
+					"axe": tools.axe,
+					"pickaxe": tools.pickaxe,
+					"destroy": tools.destroy,
+				}
 			}
 			
 		"nature":
@@ -449,3 +450,28 @@ func get_dictionary_content(content:String, group:String = "") -> Dictionary:
 
 		_:
 			return {}
+
+func _input(_event):
+	if Input.is_action_just_pressed("screenshot"):
+		take_screenshot()
+
+func take_screenshot():
+	var viewport = get_viewport()
+	var texture = viewport.get_texture()
+	var image = texture.get_image()
+	var main_directory = DirAccess.open("user://.game")
+	var target_directory = DirAccess.open("user://.game/.screenshots")
+	var file_name = "user://.game/.screenshots/screenshot-" + str(Time.get_date_string_from_system()) + "-" + str(Time.get_ticks_msec()) + ".png".format(Time.get_ticks_msec())
+	if main_directory:
+		if target_directory:
+			if image.save_png(file_name) == OK:
+				debug("Screenshot saved: " + str(file_name), "info")
+				notice.create_notice(tr("screenshot.saved") + ": " + "screenshot-" + str(Time.get_date_string_from_system()) + "-" + str(Time.get_ticks_msec()) + ".png", "photo")
+			else:
+				debug("Couldn't save screenshot", "error")
+		else:
+			FileSystem.new().Funcs.create_directory("user://.game/.screenshots")
+			take_screenshot()
+	else:
+		FileSystem.new().Funcs.create_directory("user://.game")
+		take_screenshot()
