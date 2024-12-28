@@ -24,11 +24,9 @@ func _on_pressed():
 			match group:
 				"nodes":
 					if blueprints.content[group].has(id):
-						if blueprints.content[group][id]["config"].has("node"):
+						if blueprints.content[group][id]["config"].has("area"):
 							grid.group = group
 							grid.id = id
-							grid.node_source = blueprints.content[group][id]["config"]["node"]
-							grid.node_shadow = blueprints.content[group][id]["config"]["shadow"]
 							grid.grid_dimensions = blueprints.content[group][id]["config"]["area"]
 							grid.mode = grid.modes.BUILD
 							grid.visible = true
@@ -36,7 +34,7 @@ func _on_pressed():
 							craft.close()
 							hud.state(true, "all")
 						else:
-							data.debug("The key element is missing - 'node'", "error")
+							data.debug("The key element is missing - 'area'", "error")
 							reset_grid_data()
 							return
 					else:
