@@ -28,6 +28,7 @@ func create_node(id:int, vector:Vector2i, caption:String = "") -> void:
 							var node = blueprints.content["nodes"][id]["config"]["node"].instantiate()
 							add_child(node)
 							node.set_position(tilemap.map_to_local(vector))
+							
 							if caption != "":
 								node.name = caption
 							else:
@@ -70,8 +71,3 @@ func create_node(id:int, vector:Vector2i, caption:String = "") -> void:
 											0, 
 											Vector2i(0,3)
 										)
-
-func construct_load_sprites(name_node:String, sprite_id:int) -> void:
-	for build in buildings.get_children():
-		if build.name == name_node:
-			build.set_sign_sprite(sprite_id)

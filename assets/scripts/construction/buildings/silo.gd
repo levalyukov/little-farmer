@@ -12,7 +12,7 @@ extends Node2D
 
 var max_distance:int = 250
 var level:int = 1
-var collision_dimensions:Vector2i
+var blueprint_id:int
 var object:Dictionary = {
 	1: {
 		"caption" = tr("silo.caption"),
@@ -68,7 +68,7 @@ func _check_sprite(key:String):
 func get_data() -> Dictionary:
 	if object.has(level):
 		return {
-			"collision_dimensions": collision_dimensions,
+			"id": blueprint_id,
 			"position": tilemap.local_to_map(position),
 			"level": level
 		}

@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://assets/scripts/ui/hud/grid/collision.gd" id="2_lhwui"]
 
 [node name="Grid" type="Node2D"]
-z_index = 5
+z_index = 9
 script = ExtResource("1_nff1s")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

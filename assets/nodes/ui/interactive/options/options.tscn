@@ -1,11 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://bhadiamik4ev0"]
+[gd_scene load_steps=8 format=3 uid="uid://bhadiamik4ev0"]
 
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/pause/options/options.gd" id="1_cadvs"]
-[ext_resource type="PackedScene" uid="uid://dybd07h5qsf68" path="res://assets/nodes/ui/interactive/options/button_language.tscn" id="2_602an"]
-[ext_resource type="PackedScene" uid="uid://chy8mp78juife" path="res://assets/nodes/ui/interactive/options/sections/button_sound.tscn" id="2_k6ubo"]
-[ext_resource type="PackedScene" uid="uid://bgd5qkw1nr3g5" path="res://assets/nodes/ui/interactive/options/button_back.tscn" id="2_l1i8k"]
-[ext_resource type="PackedScene" uid="uid://cpuncssqc5l2m" path="res://assets/nodes/ui/interactive/options/sections/button_graphic.tscn" id="3_60aow"]
-[ext_resource type="PackedScene" uid="uid://ddfcb2whryuw4" path="res://assets/nodes/ui/interactive/options/sections/button_control.tscn" id="4_40bg4"]
+[ext_resource type="Script" path="res://assets/scripts/ui/interactive/pause/options/buttons/language_system.gd" id="2_jy3fa"]
+[ext_resource type="Script" path="res://assets/nodes/ui/interactive/options/button_back.gd" id="3_681iq"]
 
 [sub_resource type="Animation" id="Animation_sgo1o"]
 length = 0.001
@@ -102,7 +99,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_cadvs")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Menu" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -116,7 +113,7 @@ offset_bottom = 192.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Main" type="MarginContainer" parent="Panel"]
+[node name="Main" type="MarginContainer" parent="Menu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -128,56 +125,173 @@ theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/Main"]
+[node name="MainContainer" type="HBoxContainer" parent="Menu/Main"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Main/HBoxContainer"]
+[node name="Sections" type="VBoxContainer" parent="Menu/Main/MainContainer"]
 layout_mode = 2
 
-[node name="Buttons" type="ScrollContainer" parent="Panel/Main/HBoxContainer/VBoxContainer"]
+[node name="Buttons" type="ScrollContainer" parent="Menu/Main/MainContainer/Sections"]
 custom_minimum_size = Vector2(285, 232)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Main/HBoxContainer/VBoxContainer/Buttons"]
+[node name="Sections" type="VBoxContainer" parent="Menu/Main/MainContainer/Sections/Buttons"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 3
 
-[node name="SoundButton" parent="Panel/Main/HBoxContainer/VBoxContainer/Buttons/VBoxContainer" instance=ExtResource("2_k6ubo")]
-layout_mode = 2
-
-[node name="GraphicButton" parent="Panel/Main/HBoxContainer/VBoxContainer/Buttons/VBoxContainer" instance=ExtResource("3_60aow")]
+[node name="Graphic" type="Control" parent="Menu/Main/MainContainer/Sections/Buttons/Sections"]
+custom_minimum_size = Vector2(0, 54)
 layout_mode = 2
 
-[node name="ControlButton" parent="Panel/Main/HBoxContainer/VBoxContainer/Buttons/VBoxContainer" instance=ExtResource("4_40bg4")]
+[node name="Button" type="Button" parent="Menu/Main/MainContainer/Sections/Buttons/Sections/Graphic"]
+custom_minimum_size = Vector2(285, 54)
+layout_mode = 0
+offset_right = 285.0
+offset_bottom = 54.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/MainContainer/Sections/Buttons/Sections/Graphic"]
+layout_mode = 0
+offset_right = 285.0
+offset_bottom = 54.0
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Label" type="Label" parent="Menu/Main/MainContainer/Sections/Buttons/Sections/Graphic/MarginContainer"]
+layout_mode = 2
+text = "options.section.graphic"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sounds" type="Control" parent="Menu/Main/MainContainer/Sections/Buttons/Sections"]
+custom_minimum_size = Vector2(0, 54)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Main/HBoxContainer/VBoxContainer"]
+[node name="Button" type="Button" parent="Menu/Main/MainContainer/Sections/Buttons/Sections/Sounds"]
+custom_minimum_size = Vector2(285, 54)
+layout_mode = 0
+offset_right = 285.0
+offset_bottom = 54.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/MainContainer/Sections/Buttons/Sections/Sounds"]
+layout_mode = 0
+offset_right = 285.0
+offset_bottom = 54.0
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Label" type="Label" parent="Menu/Main/MainContainer/Sections/Buttons/Sections/Sounds/MarginContainer"]
+layout_mode = 2
+text = "options.section.sounds"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="Menu/Main/MainContainer/Sections/Buttons/Sections"]
+custom_minimum_size = Vector2(0, 54)
 layout_mode = 2
 
-[node name="Language" parent="Panel/Main/HBoxContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_602an")]
+[node name="Button" type="Button" parent="Menu/Main/MainContainer/Sections/Buttons/Sections/Control"]
+custom_minimum_size = Vector2(285, 54)
+layout_mode = 0
+offset_right = 285.0
+offset_bottom = 54.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/MainContainer/Sections/Buttons/Sections/Control"]
+layout_mode = 0
+offset_right = 285.0
+offset_bottom = 54.0
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Label" type="Label" parent="Menu/Main/MainContainer/Sections/Buttons/Sections/Control/MarginContainer"]
+layout_mode = 2
+text = "options.section.control"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Footer" type="VBoxContainer" parent="Menu/Main/MainContainer/Sections"]
 layout_mode = 2
 
-[node name="Back" parent="Panel/Main/HBoxContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_l1i8k")]
+[node name="ChangeLanguageButton" type="Control" parent="Menu/Main/MainContainer/Sections/Footer"]
+custom_minimum_size = Vector2(0, 54)
 layout_mode = 2
+script = ExtResource("2_jy3fa")
 
-[node name="Pages" type="ScrollContainer" parent="Panel/Main/HBoxContainer"]
+[node name="Button" type="Button" parent="Menu/Main/MainContainer/Sections/Footer/ChangeLanguageButton"]
+custom_minimum_size = Vector2(285, 54)
+layout_mode = 0
+offset_right = 285.0
+offset_bottom = 54.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/MainContainer/Sections/Footer/ChangeLanguageButton"]
+layout_mode = 0
+offset_right = 285.0
+offset_bottom = 54.0
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Label" type="Label" parent="Menu/Main/MainContainer/Sections/Footer/ChangeLanguageButton/MarginContainer"]
+layout_mode = 2
+text = "options.change_language"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackButton" type="Control" parent="Menu/Main/MainContainer/Sections/Footer"]
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+script = ExtResource("3_681iq")
+
+[node name="Button" type="Button" parent="Menu/Main/MainContainer/Sections/Footer/BackButton"]
+custom_minimum_size = Vector2(285, 54)
+layout_mode = 0
+offset_right = 285.0
+offset_bottom = 54.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/MainContainer/Sections/Footer/BackButton"]
+layout_mode = 0
+offset_right = 285.0
+offset_bottom = 54.0
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Label" type="Label" parent="Menu/Main/MainContainer/Sections/Footer/BackButton/MarginContainer"]
+layout_mode = 2
+text = "options.back"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Pages" type="ScrollContainer" parent="Menu/Main/MainContainer"]
 z_index = 1
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Main/HBoxContainer/Pages"]
+[node name="Container" type="VBoxContainer" parent="Menu/Main/MainContainer/Pages"]
 layout_mode = 2
 
-[node name="page" type="Panel" parent="."]
-layout_mode = 2
+[node name="PageBackground" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 offset_left = 5.0
 offset_top = -177.0
 offset_right = 305.0
 offset_bottom = 177.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_bw4sn")
 }
+
+[connection signal="pressed" from="Menu/Main/MainContainer/Sections/Footer/ChangeLanguageButton/Button" to="Menu/Main/MainContainer/Sections/Footer/ChangeLanguageButton" method="_on_button_pressed"]
+[connection signal="pressed" from="Menu/Main/MainContainer/Sections/Footer/BackButton/Button" to="Menu/Main/MainContainer/Sections/Footer/BackButton" method="_on_button_pressed"]

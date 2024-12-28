@@ -12,7 +12,7 @@ shader = ExtResource("1_hinp5")
 shader = ExtResource("1_hinp5")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lj4nn"]
-size = Vector2(372.713, 479.202)
+size = Vector2(508.487, 519.136)
 
 [node name="House" type="Node2D"]
 y_sort_enabled = true
@@ -25,7 +25,7 @@ material = SubResource("ShaderMaterial_dnuuj")
 position = Vector2(0, 7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(3.55271e-15, -8)
+position = Vector2(0.124996, -6.375)
 scale = Vector2(0.0939061, 0.0939061)
 shape = SubResource("RectangleShape2D_lj4nn")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)

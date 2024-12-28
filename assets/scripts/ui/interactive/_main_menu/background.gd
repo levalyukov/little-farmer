@@ -14,10 +14,10 @@ func _ready():
 func background() -> void:
 	if range(morning, evening).has(int(get_time().left(2))):
 		color = light
-		version.modulate = dark
+		#version.modulate = dark
 	else:
 		color = dark
-		version.modulate = light
+		#version.modulate = light
 
 func get_time() -> String:
 	return Time.get_time_string_from_system(false)

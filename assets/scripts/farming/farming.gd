@@ -17,7 +17,7 @@ func create_plant(id:int, vector:Vector2i) -> void:
 		plant.z_index = 8
 		plant.name = "plant_1"
 		plant.plant(id)
-		plant.check(id)
+		plant.check(vector)
 
 func plant_destroy(vector:Vector2i) -> void:
 	for child in get_children():

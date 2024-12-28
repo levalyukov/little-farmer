@@ -51,10 +51,10 @@ var crops:Dictionary = {
 		"item" = 21,
 	},
 	5: {
-		"caption" = tr("cabbage.caption"),
+		"caption" = tr("onion.caption"),
 		"type" = "vegetable", 
 		"season" = "spring",
-		"growth_rate" = 1,
+		"growth_rate" = 15,
 		"growth_level" = 5, 
 		"mortality" = 5,
 		"productivity" = [5,10], 
