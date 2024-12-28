@@ -8,34 +8,27 @@ extends Control
 @onready var exit_button:Control = $Panel/Main/HBoxContainer/VBoxContainer/VBoxContainer/Exit/MarginContainer/Label
 @onready var anim:AnimationPlayer = $AnimationPlayer
 
-var menu:bool
+var opened:bool = false
 
 func _ready():
-	visible = false
-
-func page(scene:PackedScene) -> void:
-	remove_pages()
-	if pages_container.get_children() == []:
-		var content = scene.instantiate()
-		pages_container.add_child(content)
-
-func remove_pages() -> void:
-	if pages_container.get_children() != []:
-		for child in pages_container.get_children():
-			pages_container.remove_child(child)
-			child.queue_free()
+	window()
 
 func open() -> void:
 	anim.play("open")
-	menu = true
+	opened = true
+	if main == "MainMenu":
+		var options = get_node("/root/"+main)
+		if options:
+			options.clicked = true
 
 func close() -> void:
 	anim.play("close")
-	remove_pages()
-	menu = false
+	opened = false
 	if main == "MainMenu":
-		var mainmenu:Node2D = get_node("/root/"+main)
-		mainmenu.change_button_state(false)
-
+		var options = get_node("/root/"+main)
+		if options:
+			options.clicked = false
+	
 func window():
-	visible = menu
+	visible = opened
+	
