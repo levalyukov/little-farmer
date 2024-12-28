@@ -67,22 +67,22 @@ func growth() -> void:
 	if condition == phases.GROWING:
 		match fertilizer:
 			fertilizers.NOTHING:
-				timer.wait_time = randi_range(
+				timer.wait_time = randf_range(
 					crops.crops[plantID]["growth_rate"] * 0.849,
 					crops.crops[plantID]["growth_rate"]
 				)
 			fertilizers.COMPOST:
-				timer.wait_time = randi_range(
+				timer.wait_time = randf_range(
 					crops.crops[plantID]["growth_rate"] * 0.621,
 					crops.crops[plantID]["growth_rate"] * 0.995
 				)
 			fertilizers.HUMUS:
-				timer.wait_time = randi_range(
+				timer.wait_time = randf_range(
 					crops.crops[plantID]["growth_rate"] * 0.431,
 					crops.crops[plantID]["growth_rate"] * 0.894
 				)
 			fertilizers.MANURE:
-				timer.wait_time = randi_range(
+				timer.wait_time = randf_range(
 					crops.crops[plantID]["growth_rate"] * 0.332,
 					crops.crops[plantID]["growth_rate"] * 0.792
 				)
@@ -102,7 +102,18 @@ func get_data() -> Dictionary:
 		"position": tilemap.local_to_map(global_position),
 	}
 
-func set_data(id:int, conditionID:int, degreeID:int, fertilizerID:int, region_rect_x:int, region_rect_y:int, level:int, pos:Vector2i) -> void:
+func set_data(
+	id:int, 
+	conditionID:int, 
+	degreeID:int, 
+	fertilizerID:int, 
+	region_rect_x:int, 
+	region_rect_y:int, 
+	level:int, 
+	vector:Vector2i,
+	indexZ:int,
+	caption:String,
+	) -> void:
 	plantID = id
 	condition = conditionID
 	degree = degreeID
@@ -110,8 +121,11 @@ func set_data(id:int, conditionID:int, degreeID:int, fertilizerID:int, region_re
 	sprite.region_rect.position.x = region_rect_x
 	sprite.region_rect.position.y = region_rect_y
 	sprite.level = level
+	self.z_index = indexZ
+	self.name = caption
+	set_position(tilemap.map_to_local(vector))
 	growth()
-	check(pos)
+	check(vector)
 
 func get_condition(condition_type:int) -> String:
 	match condition_type:
@@ -166,9 +180,6 @@ func _on_collision_mouse_entered() -> void:
 func _on_collision_mouse_exited() -> void:
 	if !blur.state:
 		tip.tooltip()
-
-func check_node() -> bool:
-	return true
 
 func _on_check_water_timer_timeout():
 	check(tilemap.local_to_map(position))
