@@ -21,11 +21,11 @@ func teleport() -> void:
 		"Farm":
 			var path:String = "res://levels/village.tscn"
 			data.gamesave()
-			GameLoader.loading(false)
+			GameLoader.mode = false
 			blackout.change_scene(path)
 		"Village":
 			var path:String = "res://levels/farm.tscn"
-			GameLoader.loading(true)
+			GameLoader.mode = true
 			data.file_save(data.paths.world, "nature")
 			data.file_save(data.paths.player, "player")
 			data.file_save(data.paths.inventory, "inventory")
