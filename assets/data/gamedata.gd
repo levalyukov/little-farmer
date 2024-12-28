@@ -31,11 +31,11 @@ const file:Dictionary = {
 	farm = "user://.game/data/farm/farm.json",
 	world = "user://.game/data/world.json",
 	nature = "user://.game/data/nature.json",
+	buildings = "user://.game/data/farm/buildings.json",
 	player = "user://.game/data/player/player.json",
-	buildings = "user://.game/data/player/buildings.json",
-	crafting = "user://.game/data/player/crafting.json",
+	blueprints = "user://.game/data/player/blueprints.json",
 	inventory = "user://.game/data/player/inventory.json",
-	mailbox = "user://.game/data/player/letters.json",
+	mailbox = "user://.game/data/player/mailbox.json",
 	# vectors
 	vctr_roads = "user://.game/data/farm/vectors/roads.json",
 	vctr_farmlands = "user://.game/data/farm/vectors/farmlands.json",
@@ -65,8 +65,8 @@ func gamesave() -> void:
 	file_save([path.data], file.world, get_dictionary_content("world"))
 	file_save([path.data], file.nature, get_dictionary_content("nature"))
 	file_save([path.player], file.player, get_dictionary_content("player"))
-	file_save([path.player], file.buildings, get_dictionary_content("buildings"))
-	file_save([path.player], file.crafting, get_dictionary_content("craft"))
+	file_save([path.farm], file.buildings, get_dictionary_content("buildings"))
+	file_save([path.player], file.blueprints, get_dictionary_content("blueprints"))
 	file_save([path.player], file.inventory, get_dictionary_content("inventory"))
 	file_save([path.player], file.mailbox, get_dictionary_content("mailbox"))
 	# vectors
@@ -247,10 +247,10 @@ func load_nature_nodes():
 
 func vectors_load():
 	create_terrains(collision.road_layer, get_vector_array(file.vctr_roads, "roads"), collision.roads_terrain_set, 0)
-	create_terrains(collision.farmland_layer, get_vector_array(file.vctr_roads, "farmlands"), collision.farming_terrain_set, 0)
-	create_terrains(collision.watering_layer, get_vector_array(file.vctr_roads, "watering"), collision.watering_terrain_set, 0)
-	create_terrains(collision.coast_layer, get_vector_array(file.vctr_roads, "coast"), collision.coast_terrain_set, 0)
-	create_terrains(collision.water_layer, get_vector_array(file.vctr_roads, "water"), collision.water_terrain_set, 0)
+	create_terrains(collision.farmland_layer, get_vector_array(file.vctr_farmlands, "farmlands"), collision.farming_terrain_set, 0)
+	create_terrains(collision.watering_layer, get_vector_array(file.vctr_waterings, "waterings"), collision.watering_terrain_set, 0)
+	create_terrains(collision.coast_layer, get_vector_array(file.vctr_coast, "coast"), collision.coast_terrain_set, 0)
+	create_terrains(collision.water_layer, get_vector_array(file.vctr_water, "water"), collision.water_terrain_set, 0)
 
 func create_terrains(layer:int, vectors:Array[Vector2i], terrain_set:int, terrain:int):
 	tilemap.set_cells_terrain_connect(layer, vectors, terrain_set, terrain)
@@ -320,30 +320,40 @@ func load_inventory() -> void:
 
 func load_craft() -> void:
 	craft.clear_blueprints()
+	var group:String = get_key(file.blueprints, ".section")
 	var terrains_blueprints:Array[int] = []
 	var node_blueprints:Array[int] = []
 	var upgrade_blueprints:Array[int] = []
-	for i in get_key(file.crafting, "terrains_blueprints"):
+	for i in get_key(file.blueprints, "terrains_blueprints"):
 		terrains_blueprints.append(int(i))
-	for i in get_key(file.crafting, "node_blueprints"):
+	for i in get_key(file.blueprints, "node_blueprints"):
 		node_blueprints.append(int(i))
-	for i in get_key(file.crafting, "upgrade_blueprints"):
+	for i in get_key(file.blueprints, "upgrade_blueprints"):
 		upgrade_blueprints.append(int(i))
-	craft.load_blueprints(terrains_blueprints, node_blueprints, upgrade_blueprints)
+	craft.load_blueprints(group, terrains_blueprints, node_blueprints, upgrade_blueprints)
 
 func load_mailbox() -> void:
 	mailbox.letters_load(file_load(file.mailbox))
 
 func load_buildings() -> void:
 	if file_load(file.buildings) != {}:
-		for content in file_load(file.buildings):
-			if buildings.all_buildings.has(remove_suffix(content)):
-				if file_load(file.buildings)[content].has("position"):
-					buildings.construct_load(content, buildings.all_buildings[remove_suffix(content)], string_to_vector(file_load(file.buildings)[content]["position"]))
-				if file_load(file.buildings)[content].has("TextureRect_sprite"):
-					buildings.construct_load_sprites(content, file_load(file.buildings)[content]["TextureRect_sprite"])
+		for i in file_load(file.buildings):
+			if file_load(file.buildings)[i].has("id"):
+				buildings.create_node(
+					file_load(file.buildings)[i]["id"], 
+					string_to_vector(file_load(file.buildings)[i]["position"]),
+					i
+				)
+				if file_load(file.buildings)[i].has("level"):
+					for node in buildings.get_children():
+						if i == node.name:
+							node.level = file_load(file.buildings)[i]["level"]
+				if file_load(file.buildings)[i].has("sprite_id"):
+					for node in buildings.get_children():
+						if i == node.name:
+							node.sprite_id = file_load(file.buildings)[i]["sprite_id"]
 	else:
-		debug("building_load(): Empty dictionary.", "error")
+		debug("load_buildings(): Empty dictionary.", "error")
 
 func remove_suffix(input:String) -> String:
 	var regex = RegEx.new()
@@ -431,7 +441,7 @@ func get_dictionary_content(content:String, group:String = "") -> Dictionary:
 		"inventory":
 			return inventory.get_items()
 
-		"craft":
+		"blueprints":
 			return craft.get_blueprints()
 			
 		"mailbox":
