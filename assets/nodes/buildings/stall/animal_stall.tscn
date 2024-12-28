@@ -10,7 +10,7 @@ shader = ExtResource("2_rlc4j")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i2ecp"]
 size = Vector2(412.646, 479.202)
 
-[node name="AnimalStall" type="Node2D"]
+[node name="animal_stall" type="Node2D"]
 script = ExtResource("1_6f341")
 
 [node name="Collision" type="Area2D" parent="."]
