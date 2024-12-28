@@ -29,6 +29,20 @@ var content:Dictionary = {
 	
 	"nodes": {
 		1: {
+			"caption" = "Деревянный знак",
+			"description" = "Деревянный знак...",
+			"icon" = preload("res://assets/resources/buildings/sign/sign_0.png"),
+			"config" = {
+				"name" = "sign",
+				"node" = preload("res://assets/nodes/buildings/sign.tscn"),
+				"shadow" = preload("res://assets/nodes/buildings/sign_shadow.tscn"),
+				"area" = Vector2i(1,1),
+				"resources" = {
+					1:{"amount":25}
+				}
+			}
+		},
+		2: {
 			"caption" = "Колодец",
 			"description" = "Колодец...",
 			"icon" = preload("res://assets/resources/buildings/well/icon.png"),
@@ -41,7 +55,35 @@ var content:Dictionary = {
 					1:{"amount":25}
 				}
 			}
-		}
+		},
+		3: {
+			"caption" = "Хлев",
+			"description" = "Хлев...",
+			"icon" = preload("res://assets/resources/buildings/stall/object_0.png"),
+			"config" = {
+				"name" = "animal_stall",
+				"node" = preload("res://assets/nodes/buildings/stall/animal_stall.tscn"),
+				"shadow" = preload("res://assets/nodes/buildings/stall/animal_stall_shadow.tscn"),
+				"area" = Vector2i(3,2),
+				"resources" = {
+					1:{"amount":25}
+				}
+			}
+		},
+		4: {
+			"caption" = "Силосная башня",
+			"description" = "Силосная башня...",
+			"icon" = preload("res://assets/resources/buildings/silo/level_1/object_0.png"),
+			"config" = {
+				"name" = "silo",
+				"node" = preload("res://assets/nodes/buildings/silo/silo.tscn"),
+				"shadow" = preload("res://assets/nodes/buildings/silo/silo_shadow.tscn"),
+				"area" = Vector2i(2,2),
+				"resources" = {
+					1:{"amount":25}
+				}
+			}
+		},
 	},
 	
 	"upgrades": {}
