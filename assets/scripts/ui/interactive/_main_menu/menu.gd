@@ -16,17 +16,17 @@ func _on_continue_button_pressed():
 	if !clicked:
 		if !blur.state:
 			blackout.blackout(true)
-			blackout.change_scene("res://levels/farm.tscn")
 			GameLoader.mode = true
 			GameLoader.start = false
+			blackout.change_scene("res://levels/farm.tscn")
 
 func _on_new_game_button_pressed():
 	if !clicked:
 		if !blur.state:
 			blackout.blackout(true)
-			blackout.change_scene("res://levels/farm.tscn")
 			GameLoader.mode = false
 			GameLoader.start = true
+			blackout.change_scene("res://levels/farm.tscn")
 
 func _on_options_button_pressed():
 	if !clicked:

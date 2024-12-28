@@ -30,8 +30,8 @@ var index:int
 var section:String
 var opened:bool = false
 var all_items:bool
-var terrains_blueprints:Array[int] = [1,2,3]
-var node_blueprints:Array[int] = [1,2,3]
+var terrains_blueprints:Array[int] = []
+var node_blueprints:Array[int] = []
 var upgrade_blueprints:Array[int] = []
 
 var items:Object = Items.new()

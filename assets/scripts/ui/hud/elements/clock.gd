@@ -17,7 +17,7 @@ var year:int = 1
 var month:int = 1
 var week:int = 1
 var day:int = 1
-var hour:int = 2
+var hour:int = 6
 var minute:int = 0
 
 var weeks:Array[String] = [

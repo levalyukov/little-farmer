@@ -28,6 +28,7 @@
 [node name="Cursor" parent="HUD" instance=ExtResource("7_6eima")]
 
 [node name="GameHud" parent="HUD" instance=ExtResource("10_046e5")]
+visible = false
 z_index = 1
 mouse_filter = 2
 
