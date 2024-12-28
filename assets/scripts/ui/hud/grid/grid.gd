@@ -123,7 +123,7 @@ func _process(_delta):
 								tools.water_can -= 1
 							else:
 								tools.water_can = 0
-						tilemap.set_cells_terrain_connect(collision.watering_layer,[grid_position],collision.watering_terrain_set,0)
+							tilemap.set_cells_terrain_connect(collision.watering_layer,[grid_position],collision.watering_terrain_set,0)
 				check = false
 				
 			modes.PLANTING:
