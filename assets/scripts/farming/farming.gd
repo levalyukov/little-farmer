@@ -14,7 +14,7 @@ func create_plant(id:int, vector:Vector2i) -> void:
 		tilemap.set_cell(collision.crops_layer,vector,source_id,atlas_coords)
 		plant.set_position(tilemap.map_to_local(vector))
 		add_child(plant)
-		plant.z_index = 8
+		plant.z_index = 2
 		plant.name = "plant_1"
 		plant.plant(id)
 		plant.check(vector)
