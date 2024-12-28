@@ -41,9 +41,9 @@ func cycle() -> void:
                 value = (1.0 - sin(value * PI)) / 2.0
             color = gradient_texture.gradient.sample(value)
             
-func set_cycle_value(cycle_value:float, passed:float) -> void:
-    value = cycle_value
-    time_passed = passed
+func set_cycle_value(passed:float) -> void:
+    #value = cycle_value
+    time_passed = passed * 60.0
 
 func get_cycle_value() -> float:
     return value
