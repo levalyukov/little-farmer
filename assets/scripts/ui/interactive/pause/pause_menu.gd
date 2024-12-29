@@ -27,7 +27,7 @@ func _ready():
 	zoom.change_zoom = true
 	blackout.blackout(false)
 	await get_tree().create_timer(0.25).timeout
-	hud.state(false, "all")
+	hud.hud_all_show()
 	player.switch = false
 	player.check_switch()
 	clock.clock_update()
