@@ -9,28 +9,17 @@ extends Control
 @onready var anim:AnimationPlayer = $AnimationHud
 
 var hud:bool	
+var state:bool = true
 
-func state(hud_state:bool, context:String) -> void:
-	if hud_state:
-		match context:
-			"all":
+func _input(_event):
+	if !pause.paused:
+		if Input.is_action_just_pressed("hud hide - show"):
+			if state:
 				hud_all_hide()
-			"tools":
-				tools_hide()
-			"balance":
-				balance_hide()
-			"clocks":
-				clock_hide()
-	else:
-		match context:
-			"all":
+				state = false
+			else:
 				hud_all_show()
-			"tools":
-				tools_show()
-			"balance":
-				balance_show()
-			"clocks":
-				clock_show()
+				state = true
 
 func hud_all_hide() -> void:
 	anim.play("hide_all")
@@ -39,30 +28,6 @@ func hud_all_hide() -> void:
 func hud_all_show() -> void:
 	anim.play("show_all")
 	hud = true
-
-func tools_hide() -> void:
-	if !hud:
-		pass
-
-func tools_show() -> void:
-	if !hud:
-		pass
-
-func balance_hide() -> void:
-	if !hud:
-		pass
-
-func balance_show() -> void:
-	if !hud:
-		pass
-
-func clock_hide() -> void:
-	if !hud:
-		pass
-
-func clock_show() -> void:
-	if !hud:
-		pass
 
 func window() -> void:
 	visible = hud
