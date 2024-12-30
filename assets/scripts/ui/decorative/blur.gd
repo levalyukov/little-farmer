@@ -25,25 +25,21 @@ func _process(_delta):
 			value = value - speed
 	background.material.set_shader_parameter("lod", value)
 
-func blur(bluring:bool, hud_state = "all") -> void:
+func blur(bluring:bool) -> void:
 	state = bluring
 	if has_node("/root/"+main+"/UI/HUD/GameHud"):
-		if hud_state != "":
-			hud.state(bluring, hud_state)
+		if state:
+			hud.hud_all_hide()
 		else:
-			hud_state = "all"
-			data.debug("the string (hud_state) cannot be empty.", "error")
-			hud.state(bluring, hud_state)
+			hud.hud_all_show()
 
 	if has_node("/root/"+main+"/UI/Feedback/Tooltip"):
 		tooltip.tooltip()
-
 	if has_node("/root/"+main+"/Player"):
 		camera.switch = bluring
-
 	if has_node("/root/"+main+"/Player/Camera2D"):
 		zoom.change_zoom = !bluring
-
+		
 	if pause:
 		if bluring\
 		&& !pause.paused:
