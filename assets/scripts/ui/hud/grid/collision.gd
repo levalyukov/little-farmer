@@ -134,7 +134,8 @@ func terrain_collision_check(terrain_layer:Array) -> void:
 		var grid_position = tilemap.local_to_map(local_position)
 		var collision_found = false
 		for i in terrain_layer:
-			if check_cell(grid_position, i):
+			if check_cell(grid_position, i)\
+			|| !check_cell(grid_position, ground_layer):
 				collision_found = true
 				break
 		if collision_found:
@@ -146,7 +147,8 @@ func building_collision_check() -> void:
 	for grids in get_children():
 		var grid_position = tilemap.local_to_map(grids.get_global_position())
 		var texture = error
-		if !check_cell(grid_position, building_layer)\
+		if check_cell(grid_position, ground_layer)\
+		&& !check_cell(grid_position, building_layer)\
 		&& !check_cell(grid_position, nature_layer)\
 		&& !check_cell(grid_position, farmland_layer)\
 		&& !check_cell(grid_position, watering_layer)\
