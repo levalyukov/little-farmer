@@ -38,11 +38,10 @@ func check_balance(balance) -> void:
 		self.money = maximum
 		update_balance()
 
-func format(number:int) -> String:
+func format(number:int, separator:String = ",") -> String:
 	if number > minimum:
 		if number <= maximum:
 			var num_str = str(number)
-			var separator = ","
 			var result = ""
 			var count = 0
 			
