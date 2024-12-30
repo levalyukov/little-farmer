@@ -91,6 +91,8 @@ func create_natural_obj(node:PackedScene, node_name:String, sprites_array:Array[
 	
 	if !collision.check_cell(target_position, collision.road_layer)\
 	&& !collision.check_cell(target_position, collision.nature_layer)\
+	&& !collision.check_cell(target_position, collision.coast_layer)\
+	&& !collision.check_cell(target_position, collision.water_layer)\
 	&& !collision.check_cell(target_position, collision.building_layer):
 		add_child(target_node)
 		target_node.name = node_name + "_1"
@@ -118,7 +120,6 @@ func load_natural_obj(
 	shadow:CompressedTexture2D = null,
 	) -> void:
 	var target_node = node.instantiate()
-	
 	if node == null:
 		data.debug("Node instantiation failed.", "error")
 		return
