@@ -33,7 +33,7 @@ func _ready():
 	clock.clock_update()
 
 func _input(_event):
-	if Input.is_action_just_pressed("pause"):
+	if Input.is_action_just_pressed("esc"):
 		if !other_menu:
 			if !paused:
 				open()
@@ -44,7 +44,7 @@ func open() -> void:
 	paused = true
 	anim.play("open")
 	blur.blur(true)
-	hud.state(true, "all")
+	hud.hud_all_hide()
 	player.check_switch()
 	version.text = "v"+str(ProjectSettings.get_setting("application/config/version"))
 	if has_node("/root/"+main+"/ConstructionManager/Grid"):
@@ -56,7 +56,7 @@ func close() -> void:
 	paused = false
 	anim.play("close")
 	blur.blur(false)
-	hud.state(false, "all")
+	hud.hud_all_show()
 	player.check_switch()
 
 func _check_window() -> void:
