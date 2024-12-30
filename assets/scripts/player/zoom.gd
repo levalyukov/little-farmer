@@ -20,11 +20,11 @@ func _process(delta):
 	if !pause.paused:
 		if !zooming:
 			if !pause.other_menu:
-				if Input.is_action_just_released("zoom_in"):
+				if Input.is_action_just_released("mouse wheel up"):
 					if current < zoom_max:
 						target = min(current + increment, zoom_max)
 						change_zoom = true
-				if Input.is_action_just_released("zoom_out"):
+				if Input.is_action_just_released("mouse wheel down"):
 					if current > zoom_min:
 						target = max(current - increment, zoom_min)
 						change_zoom = true			

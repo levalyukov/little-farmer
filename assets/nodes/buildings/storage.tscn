@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dqrqmtbev426d" path="res://assets/resources/buildings/storage/level_1/object_0.png" id="2_iq1k6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k60yw"]
-size = Vector2(16, 27.375)
+size = Vector2(16, 32)
 
 [node name="Storage" type="Node2D"]
 y_sort_enabled = true
@@ -14,7 +14,6 @@ script = ExtResource("1_3air3")
 z_as_relative = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -0.3125)
 shape = SubResource("RectangleShape2D_k60yw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

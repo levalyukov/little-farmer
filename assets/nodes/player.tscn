@@ -15,14 +15,11 @@ material = SubResource("ShaderMaterial_pktnx")
 position = Vector2(494, 255)
 script = ExtResource("1_6ghsa")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_chqfy")
+
 [node name="Camera2D" type="Camera2D" parent="."]
-ignore_rotation = false
 zoom = Vector2(3, 3)
 limit_smoothed = true
 position_smoothing_enabled = true
 script = ExtResource("3_kqeun")
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_chqfy")

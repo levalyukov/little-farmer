@@ -450,7 +450,7 @@ func get_dictionary_content(content:String, group:String = "") -> Dictionary:
 			return {}
 
 func _input(_event):
-	if Input.is_action_just_pressed("screenshot"):
+	if Input.is_action_just_pressed("f2"):
 		take_screenshot()
 
 func take_screenshot():

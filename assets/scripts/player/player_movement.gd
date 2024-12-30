@@ -1,13 +1,14 @@
 extends CharacterBody2D
 
+const camera_speed:int = 5
+const speed:int = 150
 var direction:Vector2 = Vector2.ZERO
-var camera_speed:int = 5
-var speed:int = 150
 var switch:bool = true
 
 func _process(_delta):
-	direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	if direction != Vector2.ZERO && !switch:
+	direction = Input.get_vector("a", "d", "w", "s")
+	if direction != Vector2.ZERO\
+	&& !switch:
 		$Camera2D.position_smoothing_speed = camera_speed
 	
 func check_switch() -> void:
