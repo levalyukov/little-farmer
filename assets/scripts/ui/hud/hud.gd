@@ -12,8 +12,10 @@ var hud:bool
 var state:bool = true
 
 func _input(_event):
-	if !pause.paused:
-		if Input.is_action_just_pressed("hud hide - show"):
+	if !pause.paused\
+	&& !blur.state\
+	&& grid.mode == grid.modes.NOTHING:
+		if Input.is_action_just_pressed("f1"):
 			if state:
 				hud_all_hide()
 				state = false

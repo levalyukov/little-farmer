@@ -37,7 +37,7 @@ var letter_name
 var letters:Dictionary = {}
 
 func _input(_event):
-	if Input.is_action_just_pressed("pause")\
+	if Input.is_action_just_pressed("esc")\
 	&& blur.state\
 	&& opened:
 		close()

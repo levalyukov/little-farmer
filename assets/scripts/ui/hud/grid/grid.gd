@@ -222,7 +222,7 @@ func _process(_delta):
 func _input(event):
 	if visible\
 	&& mode != modes.NOTHING:
-		hud.state(true, "all")
+		hud.hud_all_hide()
 		if event is InputEventMouseButton\
 		&& event.button_index == MOUSE_BUTTON_LEFT\
 		&& event.is_pressed():
@@ -233,7 +233,7 @@ func _input(event):
 	&& event.is_pressed()\
 	&& visible\
 	&& mode != modes.NOTHING:
-		hud.state(false, "all")
+		hud.hud_all_show()
 		mode = modes.NOTHING
 		check = false
 		destroy_mode = destroy.NOTHING

@@ -5,12 +5,11 @@ extends Control
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var tools:HBoxContainer = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
-@onready var build:Control = get_node("/root/"+main+"/UI/Interactive/Crafting")
-@onready var mailbox:Control = get_node("/root/"+main+"/UI/Interactive/Mailbox")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
 @onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/storage")
-@onready var anim:AnimationPlayer = $Animation
+@onready var balance:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Balance")
 @onready var node:PackedScene = load("res://assets/nodes/ui/interactive/inventory/slot.tscn")
+@onready var anim:AnimationPlayer = $Animation
 
 @onready var info:BoxContainer = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer
 @onready var scroll_info:ScrollContainer = $Main/HBoxContainer/ItemContent/ScrollContainer
@@ -29,19 +28,21 @@ var opened:bool = false
 var item_index
 var button_index:int
 enum item_type {NOTHING, SEEDS}
-var inventory_items:Dictionary = {}
+var inventory_items:Dictionary = {
+	1:{"amount": 3154888}
+}
 
 func _ready():
 	check_window()
 	reset_data()
 
 func _input(_event):
-	if Input.is_action_just_pressed("pause")\
+	if Input.is_action_just_pressed("esc")\
 	&& blur.state\
 	&& opened:
 		close()
 
-	if Input.is_action_just_pressed("inventory"):
+	if Input.is_action_just_pressed("tab"):
 		if !blur.state\
 		&& !opened:
 			open()
@@ -143,6 +144,11 @@ func get_data(index) -> void:
 					type.visible = true
 					type.text = "\n" + type_text + ": " + item.content[int(index)]["type"] + "\n"
 					check_item_type(item.content[int(index)]["type"])
+					if inventory_items[index]["amount"] > item.maximum:
+						var total_amount = tr("inventory.total_item_amount")
+						type.text += "\n" + total_amount + ": " + str(
+							balance.format(inventory_items[index]["amount"])
+						)
 				else:
 					type.visible = false
 					data.debug("[ID: "+str(index)+"] The 'type' key has a non-string type.", "error")
@@ -287,11 +293,8 @@ func check_item_amount(id) -> bool:
 	return false
 
 func check_amount(index) -> void:
-	var items = Items.new()
 	if inventory_items.has(index):
 		if inventory_items[index].has("amount"):
-			if inventory_items[index]["amount"] > items.maximum:
-				inventory_items[index]["amount"] = items.maximum
 			if inventory_items[index]["amount"] <= 0:
 				remove_item(index)
 		else:

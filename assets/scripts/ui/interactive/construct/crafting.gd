@@ -32,7 +32,7 @@ func _on_pressed():
 							grid.visible = true
 							grid.generate_grid()
 							craft.close()
-							hud.state(true, "all")
+							hud.hud_all_hide()
 						else:
 							data.debug("The key element is missing - 'area'", "error")
 							reset_grid_data()
@@ -53,7 +53,7 @@ func _on_pressed():
 							grid.grid_dimensions = Vector2i(1,1)
 							grid.generate_grid()
 							craft.close()
-							hud.state(true, "all")
+							hud.hud_all_hide()
 						else:
 							data.debug("The key element is missing - 'terrain'", "error")
 							reset_grid_data()
