@@ -84,6 +84,20 @@ var content:Dictionary = {
 				}
 			}
 		},
+		5: {
+			"caption" = "Новогодняя ёлка",
+			"description" = "С Новым Годом!",
+			"icon" = preload("res://assets/resources/buildings/christmass_tree/icon.png"),
+			"config" = {
+				"name" = "christmas_tree",
+				"node" = preload("res://assets/nodes/buildings/christmas_tree/christmas_tree.tscn"),
+				"shadow" = preload("res://assets/nodes/buildings/christmas_tree/christmas_tree_shadow.tscn"),
+				"area" = Vector2i(1,1),
+				"resources" = {
+					
+				}
+			}
+		},
 	},
 	
 	"upgrades": {}
