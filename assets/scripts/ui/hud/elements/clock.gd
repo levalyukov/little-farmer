@@ -6,6 +6,7 @@ extends Control
 @onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
 @onready var cycle:CanvasModulate = get_node("/root/"+main+"/Cycle")
 @onready var shadow:Node = get_node("/root/"+main+"/ShadowManager")
+@onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var sprite:CompressedTexture2D = load("res://assets/resources/ui/interactive/hud/clock.png")
 @onready var icon:TextureRect = $Main/Margin/HBoxContainer/Icon/TextureRect
 @onready var label:Label = $Main/Margin/HBoxContainer/Label/Label
@@ -13,17 +14,19 @@ extends Control
 
 const speed:float = 8
 
+const seasons:Array[String] = ["spring", "summer", "autumn", "winter"]
+var season:int = 0
 var year:int = 1
 var month:int = 1
 var week:int = 1
 var day:int = 1
-var hour:int = 6
+var hour:int = 7
 var minute:int = 0
 
 var weeks:Array[String] = [
-	tr("mon.clock"), tr("tue.clock"), tr("wed.clock"), 
-	tr("thu.clock"), tr("fri.clock"), tr("sat.clock"), 
-	tr("sun.clock")
+		tr("mon.clock"), tr("tue.clock"), tr("wed.clock"), 
+		tr("thu.clock"), tr("fri.clock"), tr("sat.clock"), 
+		tr("sun.clock")
 	]
 
 func _ready():
@@ -32,41 +35,16 @@ func _ready():
 	timer.set_paused(false)
 	timer.start()
 	
+func _input(_event):
+	if Input.is_action_just_pressed("space"):
+		update_season()
+
 func clock_update() -> void:
 	var time = str(hour) + ":" + str(minute) + "0"
 	label.text = str(weeks[day]) + " " + str(time)
 
-func _week_update():
-	if day < weeks.size() - 1:
-		day += 1
-	else:
-		day = 0
-	
-func _on_timer_timeout():
-	if !pause.paused:
-		if minute >= 0:
-			minute += 1
-		if minute > 5:
-			minute = 0
-			hour = hour + 1
-		if hour > 23:
-			hour = 0
-			_week_update()
-			shadow.remove_all_clouds()
-			await get_tree().create_timer(2.5).timeout
-			shadow.change_state_position_for_clouds(randi_range(0,2),randi_range(0,2))
-		clock_update()
-
-
-func time_paused(status:bool) -> void:
-	timer.set_paused(status)
-
-func time_state(status:bool) -> void:
-	match status:
-		true:
-			timer.stop()
-		false:
-			timer.start()
+func get_season() -> String:
+	return seasons[season]
 
 func set_clock_value(
 	year_value:int,
@@ -82,3 +60,46 @@ func set_clock_value(
 	day = day_value
 	hour = hour_value
 	minute = minute_value
+
+func time_paused(status:bool) -> void:
+	timer.set_paused(status)
+
+func time_state(status:bool) -> void:
+	match status:
+		true:
+			timer.stop()
+		false:
+			timer.start()
+
+func week_update() -> void:
+	if day < weeks.size() - 1:
+		day += 1
+	else:
+		day = 1
+
+func update_season() -> void:
+	if season < 3:
+		season += 1
+	else:
+		season = 0
+	tilemap.update_atlas(seasons[season])
+
+func set_season(target_season:int) -> void:
+	if seasons.has(target_season):
+		tilemap.update_atlas(seasons[target_season])
+	
+func _on_timer_timeout() -> void:
+	if !pause.paused:
+		if minute >= 0:
+			minute += 1
+		if minute > 5:
+			minute = 0
+			hour = hour + 1
+		if hour > 23:
+			hour = 0
+			week_update()
+			shadow.remove_all_clouds()
+		if day > 28:
+			day = 1
+			update_season()
+		clock_update()
