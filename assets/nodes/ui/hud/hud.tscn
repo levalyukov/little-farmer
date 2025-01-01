@@ -213,9 +213,11 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="Balance" parent="Main/Bars" instance=ExtResource("3_1mhl6")]
+custom_minimum_size = Vector2(241, 0)
 layout_mode = 2
 
 [node name="Clock" parent="Main/Bars" instance=ExtResource("4_cpqpu")]
+custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
 
 [node name="AnimationBars" type="AnimationPlayer" parent="Main/Bars"]
