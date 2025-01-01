@@ -27,12 +27,14 @@ const farmland_layer:int = 6
 const watering_layer:int = 7
 const crops_layer:int = 8
 const building_layer:int = 9
+const collision_scene:int = 10
 
-const farming_terrain_set:int = 0
-const watering_terrain_set:int = 1
-const roads_terrain_set:int = 2
-const coast_terrain_set:int = 3
-const water_terrain_set:int = 4
+const terrain_set:int = 0
+const roads_terrain:int = 0
+const farming_terrain:int = 1
+const watering_terrain:int = 2
+const coast_terrain:int = 3
+const water_terrain:int = 4
 
 func collisions_detect(collision_layer:int) -> void:
 	for grids in get_children():
