@@ -29,7 +29,8 @@ var item_index
 var button_index:int
 enum item_type {NOTHING, SEEDS}
 var inventory_items:Dictionary = {
-	1:{"amount": 3154888}
+	1:{"amount": 3154888},
+	13:{"amount": 3154888}
 }
 
 func _ready():
@@ -39,11 +40,13 @@ func _ready():
 func _input(_event):
 	if Input.is_action_just_pressed("esc")\
 	&& blur.state\
+	&& !pause.paused\
 	&& opened:
 		close()
 
 	if Input.is_action_just_pressed("tab"):
 		if !blur.state\
+		&& !pause.paused\
 		&& !opened:
 			open()
 		else:
