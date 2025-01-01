@@ -3,6 +3,8 @@ extends Node
 @onready var main:String = str(get_tree().root.get_child(1).name)
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var cycle:Node2D = get_node("/root/"+main+"/Day-Night Cycle")
+@onready var hud:Control = get_node("/root/"+main+"/UI/HUD/GameHud")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 @onready var notice:Control = get_node("/root/"+main+"/UI/Feedback/Notifications")
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var player:Node2D = get_node("/root/"+main+"/Player")
@@ -248,11 +250,36 @@ func load_nature_nodes():
 					pass
 
 func vectors_load():
-	create_terrains(collision.road_layer, get_vector_array(file.vctr_roads, "roads"), collision.roads_terrain_set, 0)
-	create_terrains(collision.farmland_layer, get_vector_array(file.vctr_farmlands, "farmlands"), collision.farming_terrain_set, 0)
-	create_terrains(collision.watering_layer, get_vector_array(file.vctr_waterings, "waterings"), collision.watering_terrain_set, 0)
-	create_terrains(collision.coast_layer, get_vector_array(file.vctr_coast, "coast"), collision.coast_terrain_set, 0)
-	create_terrains(collision.water_layer, get_vector_array(file.vctr_water, "water"), collision.water_terrain_set, 0)
+	create_terrains(
+		collision.road_layer, 
+		get_vector_array(file.vctr_roads, "roads"), 
+		collision.terrain_set, 
+		collision.roads_terrain
+	)
+	create_terrains(
+		collision.farmland_layer, 
+		get_vector_array(file.vctr_farmlands, "farmlands"), 
+		collision.terrain_set, 
+		collision.farming_terrain
+	)
+	create_terrains(
+		collision.watering_layer, 
+		get_vector_array(file.vctr_waterings, "waterings"), 
+		collision.terrain_set, 
+		collision.watering_terrain
+	)
+	create_terrains(
+		collision.coast_layer, 
+		get_vector_array(file.vctr_coast, "coast"), 
+		collision.terrain_set, 
+		collision.coast_terrain
+	)
+	create_terrains(
+		collision.water_layer, 
+		get_vector_array(file.vctr_water, "water"), 
+		collision.terrain_set, 
+		collision.water_terrain
+	)
 
 func create_terrains(layer:int, vectors:Array[Vector2i], terrain_set:int, terrain:int):
 	tilemap.set_cells_terrain_connect(layer, vectors, terrain_set, terrain)
@@ -296,7 +323,6 @@ func load_time() -> void:
 		get_key(file.world, "minute", "time")
 	)
 	cycle.set_cycle_value(get_key(file.world, "hour", "time"))
-	#cycle.set_cycle_value(get_key(file.world, ".cycle", "time"), get_key(file.world, ".passed", "time"))
 
 func load_balance() -> void:
 	balance.money = get_key(file.player, "balance")
@@ -391,6 +417,7 @@ func get_dictionary_content(content:String, group:String = "") -> Dictionary:
 		"world":
 			return {
 				"time": {
+					"season": clock.season,
 					"year": clock.year,
 					"month": clock.month,
 					"week": clock.week,

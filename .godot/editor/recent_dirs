@@ -1,3 +1,8 @@
+res://assets/resources/world/landscape/summer
+res://assets/resources/buildings/house/summer/level_1
+res://assets/scripts/construction/buildings
+res://assets/resources/buildings/christmass_tree
+res://assets/resources/world
 res://
 res://assets/resources/buildings/sign
 res://assets/resources/world/landscape
@@ -10,13 +15,8 @@ res://assets/scripts/ui/hud/tools
 res://assets/resources/buildings/stall
 res://assets/resources/buildings/well
 res://assets/nodes/ui/interactive/construct
-res://assets/resources/world
 res://assets/nodes/ui
 res://assets/nodes/ui/decorative
 res://assets/scripts/ui
 res://assets/resources/ui/interactive/construct
 res://assets/resources/ui/interactive/hud/tools
-res://assets/resources/ui/interactive/hud
-res://assets/nodes/world
-res://levels
-res://assets/shaders

@@ -1,3 +1,6 @@
+Sprite2D
+PointLight2D
+TileMap
 ColorRect
 TextureRect
 Control
@@ -7,8 +10,5 @@ MarginContainer
 CanvasLayer
 Node2D
 VBoxContainer
-Sprite2D
 Timer
 ScrollContainer
-CollisionShape2D
-Area2D

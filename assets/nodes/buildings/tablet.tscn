@@ -1,17 +1,17 @@
 [gd_scene load_steps=4 format=3 uid="uid://dcgfhx6lnhmtf"]
 
 [ext_resource type="Script" path="res://assets/scripts/construction/buildings/tablet.gd" id="1_d1lem"]
-[ext_resource type="Texture2D" uid="uid://cqmdie0wyl26l" path="res://assets/resources/buildings/tablet/tablet_0.png" id="2_x80i6"]
+[ext_resource type="Texture2D" uid="uid://cqmdie0wyl26l" path="res://assets/resources/buildings/tablet/summer/object_0.png" id="2_uabr3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pcbq7"]
 size = Vector2(16, 16)
 
-[node name="Tablet" type="Node2D"]
+[node name="tablet" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_d1lem")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_x80i6")
+texture = ExtResource("2_uabr3")
 
 [node name="Area2D" type="Area2D" parent="."]
 

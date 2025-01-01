@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dkff5xvqcxcdu"]
+[gd_scene load_steps=7 format=3 uid="uid://dkff5xvqcxcdu"]
 
 [ext_resource type="Shader" path="res://assets/shaders/pixel.gdshader" id="1_hinp5"]
 [ext_resource type="Script" path="res://assets/scripts/construction/buildings/house.gd" id="2_71141"]
-[ext_resource type="Texture2D" uid="uid://exdd2rlucmpx" path="res://assets/resources/buildings/house/level_1/object_0.png" id="3_g5uuc"]
-[ext_resource type="Texture2D" uid="uid://cepxwjna6bihx" path="res://assets/resources/buildings/house/level_2/ext_0.png" id="4_8kqi4"]
+[ext_resource type="Texture2D" uid="uid://exdd2rlucmpx" path="res://assets/resources/buildings/house/summer/level_1/object_0.png" id="3_28liv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dobrp"]
 shader = ExtResource("1_hinp5")
@@ -14,7 +13,7 @@ shader = ExtResource("1_hinp5")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lj4nn"]
 size = Vector2(508.487, 519.136)
 
-[node name="House" type="Node2D"]
+[node name="house" type="Node2D"]
 y_sort_enabled = true
 material = SubResource("ShaderMaterial_dobrp")
 script = ExtResource("2_71141")
@@ -31,15 +30,7 @@ shape = SubResource("RectangleShape2D_lj4nn")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -8)
-texture = ExtResource("3_g5uuc")
-
-[node name="Sprite2D_2" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(32, -21)
-texture = ExtResource("4_8kqi4")
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+texture = ExtResource("3_28liv")
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
