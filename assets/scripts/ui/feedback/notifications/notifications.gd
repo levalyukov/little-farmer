@@ -3,7 +3,7 @@ extends Control
 @onready var container:VBoxContainer = $MarginContainer/VBoxContainer
 @onready var node:PackedScene = load("res://assets/nodes/ui/feedback/notifications/notice.tscn")
 
-const maximum:int = 99
+const maximum:int = 32
 
 func create_notice(text:String, type = "") -> void:
 	var notice = node.instantiate()
