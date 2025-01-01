@@ -8,8 +8,10 @@ extends Control
 @onready var anim:AnimationPlayer = $AnimationPlayer
 @onready var time:Timer = $Timer
 
+const symbols:int = 30
 var icons:Dictionary = {
-	"error" = load("res://assets/resources/ui/feedback/notifications/icons/error.png")
+	"error" = load("res://assets/resources/ui/feedback/notifications/icons/error.png"),
+	#"photo" = load(),
 }
 
 func notice(text:String, type = "") -> void:
