@@ -15,6 +15,9 @@ func set_texture(target_sprite:CompressedTexture2D, texture_index:int = 0) -> vo
 	type = data.remove_suffix(self.name)
 	set_health()
 
+func change_texture(target_sprite:CompressedTexture2D) -> void:
+	sprite.texture = target_sprite
+
 func set_health():
 	match data.remove_suffix(self.name):
 		"weed":
