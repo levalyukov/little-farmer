@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var main:String = str(get_tree().root.get_child(1).name)
 @onready var data:Node = get_node("/root/"+main)
+@onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var hud:Control = get_node("/root/"+main+"/UI/HUD/GameHud")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
 @onready var tools:HBoxContainer = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools")
@@ -40,7 +41,8 @@ func _process(_delta):
 	clicked = false
 
 func _on_area_2d_mouse_entered():
-	if grid.mode == grid.modes.NOTHING:
+	if !blur.state\
+	&& grid.mode == grid.modes.NOTHING:
 		if object != {}:
 			if object.has(level):
 				if object[level].has("hover"):
