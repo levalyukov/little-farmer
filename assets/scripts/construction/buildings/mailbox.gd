@@ -1,100 +1,115 @@
 extends Node2D
 
-@onready var main = str(get_tree().root.get_child(1).name)
-@onready var data = get_node("/root/" + main)
-@onready var canvas:Node = get_node("/root/"+main+"/ShadowManager")
+@onready var main:String = str(get_tree().root.get_child(1).name)
+@onready var data:Node2D = get_node("/root/"+main)
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
-@onready var mailbox:Control = get_node("/root/"+main+"/UI/Interactive/Mailbox")
-@onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
+@onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
+@onready var canvas:Node = get_node("/root/"+main+"/ShadowManager")
 @onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
+@onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
+@onready var mailbox:Control = get_node("/root/"+main+"/UI/Interactive/Mailbox")
 @onready var building:Node2D = get_node("/root/"+main+"/ConstructionManager")
+@onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid") 
+@onready var buildings:Node2D = get_node("/root/"+main+"/ConstructionManager")
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
-@onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
+@onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var sprite:Sprite2D = $Sprite2D
 
-const name_:String = "Mailbox"
-var open_menu:bool = false
+var menu:bool = false
 var object:Dictionary = {
-	"caption" = tr("mailbox.caption"),
-	"description" = tr("mailbox.description"),
-	"default" = load("res://assets/resources/buildings/mailbox/object_0.png"),
-	"hover" = load("res://assets/resources/buildings/mailbox/object_1.png"),
-	"shadow" = load("res://assets/resources/buildings/mailbox/shadow.png")
+	"caption" = tr("storage.caption"),
+	"description" = tr("storage.description"),
+	"shadow" = load("res://assets/resources/buildings/mailbox/shadow.png"),
+	"seasons" = {
+		"spring" = {
+			"default" = load(""),
+			"hovered" = load(""),
+		},
+		"summer" = {
+			"default" = load("res://assets/resources/buildings/mailbox/summer/object_0.png"),
+			"hovered" = load("res://assets/resources/buildings/mailbox/summer/object_1.png"),
+		},
+		"autumn" = {
+			"default" = load(""),
+			"hovered" = load(""),
+		},
+		"winter" = {
+			"default" = load("res://assets/resources/buildings/mailbox/winter/object_0.png"),
+			"hovered" = load("res://assets/resources/buildings/mailbox/winter/object_1.png"),
+		},
+	}
 }
-
-func _ready():
-	update()
-	_shadow_create()
 
 func _input(event):
 	if event is InputEventMouseButton\
-	and event.button_index == MOUSE_BUTTON_LEFT\
-	and event.is_pressed()\
-	and !blur.state\
-	and open_menu:
+	&& event.button_index == MOUSE_BUTTON_LEFT\
+	&& event.is_pressed()\
+	&& !blur.state\
+	&& menu:
 		mailbox.open()
 
-func update() -> void:
-	if object.has("default"):
-		if typeof(object["default"]) == TYPE_OBJECT and sprite.texture is CompressedTexture2D:
-			sprite.texture = object["default"]
-		else:
-			data.debug("The specified sprite cannot be installed.", "error")
-	else:
-		data.debug("The specified key is missing.", "error")
+func _ready():
+	update()
 
-func _shadow_create() -> void:
+func update():
+	if clock:
+		if object.has("seasons"):
+			var season = clock.get_season()
+			if object["seasons"].has(season):
+				if object["seasons"][season].has("default"):
+					if object["seasons"][season]["default"] is CompressedTexture2D:
+						sprite.texture = object["seasons"][season]["default"]
+						self.set_position(tilemap.map_to_local(Vector2i(15,2)))
+						shadow_create()
+					else:
+						data.debug("'default' is not a CompressedTexture2D.", "error")
+			else:
+				data.debug("There is no '" + str(season) + "' key in the 'seasons' group.", "error")
+		else:
+			data.debug("There is no 'seasons' group.", "error")
+
+func shadow_create() -> void:
 	if visible:
 		if object.has("shadow"):
 			if object["shadow"] is CompressedTexture2D:
 				var vector2i_position = tilemap.local_to_map(position)
-				canvas.create_shadow(
-					"mailbox_shadow", 
-					object["shadow"], 
-					Vector2i(
-						vector2i_position.x, 
-						vector2i_position.y+1
-					)
-				)
+				var target_position = Vector2i(vector2i_position.x, vector2i_position.y+1)
+				canvas.create_shadow("house_shadow", object["shadow"], target_position)
 			else:
 				data.debug("It is not possible to create a game shadow of an object because the sprite is not of the 'CompressedTexture2D' type.", "error")
-		else:
-			data.debug("The 'shadow' element is missing", "error")
 
 func _change_sprite(type:bool) -> void:
 	if type:
 		var distance = round(global_position.distance_to(player.global_position))
 		if grid.mode == grid.modes.NOTHING and distance < building.max_distance:
-			_check_sprite("hover")
-			if object.has("caption")\
-			and object.has("description"):
+			if object.has("seasons"):
+				var season = clock.get_season()
+				if object["seasons"].has(season):
+					if object["seasons"][season].has("hovered"):
+						if object["seasons"][season]["hovered"] is CompressedTexture2D:
+							sprite.texture = object["seasons"][season]["hovered"]
+			if tip:
 				tip.tooltip(
-					object["caption"]+"\n"
-					+object["description"]
-				)
-				open_menu = true
-			else:
-				data.debug("Check the 'caption', 'description' elements", "error")
+						str(object["caption"]) + "\n" +
+						str(object["description"]) + "\n"
+					)
 	else:
-		_check_sprite("default")
-		open_menu = false
+		if object.has("seasons"):
+			var season = clock.get_season()
+			if object["seasons"].has(season):
+				if object["seasons"][season].has("default"):
+					if object["seasons"][season]["default"] is CompressedTexture2D:
+						sprite.texture = object["seasons"][season]["default"]
 		if tip:
 			tip.tooltip("")
-	
-func _check_sprite(key:String) -> void:
-	if object.has(key):
-		if object[key] is CompressedTexture2D:
-			if sprite:
-				sprite.texture = object[key]
-		else:
-			data.debug("The specified sprite cannot be installed", "error")
-	else:
-		data.debug("The specified key is missing", "error")
 
 func _on_area_2d_mouse_entered() -> void:
-	if !blur.state:
+	if !blur.state\
+	&& grid.mode == grid.modes.NOTHING:
 		_change_sprite(true)
+		menu = true
 
 func _on_area_2d_mouse_exited() -> void:
 	_change_sprite(false)
+	menu = false

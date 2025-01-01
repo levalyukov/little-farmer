@@ -101,7 +101,8 @@ func get_data() -> Dictionary:
 			}
 
 func _on_area_2d_mouse_entered() -> void:
-	if !blur.state:
+	if !blur.state\
+	&& grid.mode == grid.modes.NOTHING:
 		_change_sprite(true)
 
 func _on_area_2d_mouse_exited() -> void:

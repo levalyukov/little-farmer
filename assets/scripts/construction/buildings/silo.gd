@@ -79,7 +79,8 @@ func load_data(obj_level:int) -> void:
 	update()
 
 func _on_collision_mouse_entered():
-	if !blur.state:
+	if !blur.state\
+	&& grid.mode == grid.modes.NOTHING:
 		_change_sprite(true)
 
 func _on_collision_mouse_exited():
