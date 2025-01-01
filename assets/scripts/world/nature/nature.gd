@@ -4,6 +4,7 @@ extends Node2D
 @onready var data:Node2D = get_node("/root/"+main)
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
+@onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var shadows:Node = get_node("/root/"+main+"/ShadowManager")
 @onready var tree_node = preload("res://assets/nodes/world/tree.tscn")
 @onready var stone_node = preload("res://assets/nodes/world/stone.tscn")
@@ -42,10 +43,13 @@ var weed_sprite_value:int = 0
 
 func _ready():
 	self.z_index = 2
+	new_texture()
+
+func new_texture() -> void:
 	while trees.size() < tree_sprite_max:
 		tree_sprite_value += 1
-		trees.append(load("res://assets/resources/world/trees/tree_"+str(tree_sprite_value)+".png"))
-		trees_shadow.append(load("res://assets/resources/world/trees/shadows/shadow_"+str(tree_sprite_value)+".png"))
+		trees.append(load("res://assets/resources/world/trees/"+ str(clock.get_season()) + "/tree_"+str(tree_sprite_value)+".png"))
+		trees_shadow.append(load("res://assets/resources/world/trees/shadow_"+str(tree_sprite_value)+".png"))
 
 	while stones.size() < stone_sprite_max:
 		stone_sprite_value += 1
@@ -54,12 +58,26 @@ func _ready():
 
 	while weeds.size() < weed_sprite_max:
 		weed_sprite_value += 1
-		weeds.append(load("res://assets/resources/world/weeds/weed_"+str(weed_sprite_value)+".png"))
-		weeds_shadow.append(load("res://assets/resources/world/weeds/shadows/shadow_"+str(weed_sprite_value)+".png"))
-	
+		weeds.append(load("res://assets/resources/world/weeds/"+ str(clock.get_season()) + "/weed_"+str(weed_sprite_value)+".png"))
+		weeds_shadow.append(load("res://assets/resources/world/weeds/"+ str(clock.get_season()) + "/shadow_"+str(weed_sprite_value)+".png"))
+
+func clear_all_arrays() -> void:
+	trees.clear()
+	trees_shadow.clear()
+	stones.clear()
+	stones_shadow.clear()
+	weeds.clear()
+	weeds_shadow.clear()
+	tree_sprite_value = 0
+	stone_sprite_value = 0
+	weed_sprite_value = 0
+
 func create_start_nature():
 	all_vectors = tilemap.get_used_cells(0)
 	check_aviabled_vectors()
+	print(weeds)
+	print(stones)
+	print(trees)
 	while weed_func_called < weed_func_calls:
 		weed_func_called+=1
 		create_natural_obj(weed_node, "weed", weeds, weed_sprite_max, weeds_shadow)
@@ -93,7 +111,8 @@ func create_natural_obj(node:PackedScene, node_name:String, sprites_array:Array[
 	&& !collision.check_cell(target_position, collision.nature_layer)\
 	&& !collision.check_cell(target_position, collision.coast_layer)\
 	&& !collision.check_cell(target_position, collision.water_layer)\
-	&& !collision.check_cell(target_position, collision.building_layer):
+	&& !collision.check_cell(target_position, collision.building_layer)\
+	&& !collision.check_cell(target_position, collision.collision_scene):
 		add_child(target_node)
 		target_node.name = node_name + "_1"
 		if not target_node.is_inside_tree():
