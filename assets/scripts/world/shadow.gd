@@ -65,27 +65,6 @@ func create_cloud(shadow_texture:CompressedTexture2D) -> void:
 		cloud.change_animation(true)
 		clouds_value += 1
 
-func change_state_position_for_clouds(x_bool:int, y_bool:int) -> void:
-	match x_bool:
-		0: # 0
-			vector_x = vector_x * 0
-		1: # +1
-			if vector_x < 0:
-				vector_x = vector_x * (-1)
-		2: # -1
-			if vector_x > 0:
-				vector_x = vector_x * (-1)
-
-	match y_bool:
-		0: # 0
-			vector_y = vector_y * 0
-		1: # +1
-			if vector_x < 0:
-				vector_y = vector_y * (-1)
-		2: # -1
-			if vector_x > 0:
-				vector_y = vector_y * (-1)
-
 func remove_all_clouds() -> void:
 	for clouds in canvas.get_children():
 		if clouds.has_method("change_animation"):
