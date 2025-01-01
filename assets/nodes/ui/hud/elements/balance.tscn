@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://assets/scripts/ui/hud/elements/balance.gd" id="1_p6s4c"]
 
 [node name="Balance" type="Control"]
-custom_minimum_size = Vector2(226, 0)
+custom_minimum_size = Vector2(225, 0)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,12 +14,12 @@ script = ExtResource("1_p6s4c")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 2
-offset_right = 226.0
+offset_right = 225.0
 offset_bottom = 74.0
 
 [node name="Margin" type="MarginContainer" parent="."]
 layout_mode = 2
-offset_right = 226.0
+offset_right = 225.0
 offset_bottom = 74.0
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 5
