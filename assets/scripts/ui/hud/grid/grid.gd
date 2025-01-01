@@ -91,11 +91,26 @@ func _process(_delta):
 								if i.texture != collision.error:
 									if check:
 										if collision.check_cell(grid_position, collision.road_layer):
-											tilemap.set_cells_terrain_connect(collision.road_layer, [grid_position], collision.roads_terrain_set, -1)
+											tilemap.set_cells_terrain_connect(
+												collision.road_layer, 
+												[grid_position], 
+												collision.terrain_set, 
+												-1
+											)
 										if collision.check_cell(grid_position, collision.water_layer)\
 										&& collision.check_cell(grid_position, collision.coast_layer):
-											tilemap.set_cells_terrain_connect(collision.water_layer, [grid_position], collision.water_terrain_set, -1)
-											tilemap.set_cells_terrain_connect(collision.coast_layer, [grid_position], collision.coast_terrain_set, -1)
+											tilemap.set_cells_terrain_connect(
+												collision.water_layer, 
+												[grid_position], 
+												collision.terrain_set, 
+												-1
+											)
+											tilemap.set_cells_terrain_connect(
+												collision.coast_layer, 
+												[grid_position], 
+												collision.terrain_set, 
+												-1
+											)
 				check = false
 				
 			modes.FARMING:
@@ -107,7 +122,12 @@ func _process(_delta):
 						if collision.check_cell(grid_position, collision.road_layer)\
 						&& collision.check_custom_data(grid_position, collision.can_place_dirt_custom_data, collision.road_layer):
 							farming_tile_position.append(grid_position)
-					tilemap.set_cells_terrain_connect(collision.farmland_layer,farming_tile_position,collision.farming_terrain_set, 0)
+					tilemap.set_cells_terrain_connect(
+						collision.farmland_layer,
+						farming_tile_position,
+						collision.terrain_set, 
+						collision.farming_terrain
+					)
 					#tilemap.set_cells_terrain_connect(collision.farmland_layer,farming_tile_position,collision.coast_terrain_set,0)
 				check = false
 				
@@ -118,16 +138,27 @@ func _process(_delta):
 						var grid_position = tilemap.local_to_map(i.get_global_position())
 						if collision.check_cell(grid_position, collision.farmland_layer)\
 						&& !collision.check_cell(grid_position, collision.watering_layer)\
-						&& collision.check_custom_data(grid_position, collision.can_place_watering_custom_data, collision.farmland_layer):
+						&& collision.check_custom_data(
+							grid_position, 
+							collision.can_place_watering_custom_data, 
+							collision.farmland_layer
+						):
 							if tools.water_can > 0:
 								tools.water_can -= 1
 							else:
 								tools.water_can = 0
-							tilemap.set_cells_terrain_connect(collision.watering_layer,[grid_position],collision.watering_terrain_set,0)
+							tilemap.set_cells_terrain_connect(
+								collision.watering_layer,
+								[grid_position],
+								collision.terrain_set,
+								collision.watering_terrain
+							)
 				check = false
 				
 			modes.PLANTING:
 				collision.planting_collision_check()
+				# 	var season_error = tr("plant.season_error")
+				# 	notice.create_notice(season_error, "error")
 				if inventory.check_item_amount(inventory_item):
 					if inventory.get_item_amount(inventory_item) >= collision.get_children().size():
 						for i in collision.get_children():
@@ -136,7 +167,11 @@ func _process(_delta):
 								if crops.crops.has(plantID):
 									if collision.check_cell(grid_position, collision.farmland_layer)\
 									&& !collision.check_cell(grid_position, collision.crops_layer)\
-									&& collision.check_custom_data(grid_position, collision.can_place_seed_custom_data, collision.farmland_layer):
+									&& collision.check_custom_data(
+										grid_position, 
+										collision.can_place_seed_custom_data, 
+										collision.farmland_layer
+									):
 										inventory.subject_item(inventory_item, 1)
 										farming.create_plant(plantID, grid_position)
 								else:
