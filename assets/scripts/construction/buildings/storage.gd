@@ -8,29 +8,40 @@ extends Node2D
 @onready var canvas:Node = get_node("/root/"+main+"/ShadowManager")
 @onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
+@onready var building:Node2D = get_node("/root/"+main+"/ConstructionManager")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid") 
 @onready var buildings:Node2D = get_node("/root/"+main+"/ConstructionManager")
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
+@onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var sprite:Sprite2D = $Sprite2D
 
 var menu:bool = false
 var level:int = 1
 var object:Dictionary = {
 	1: {
-		"caption" = tr("storage_lvl1.caption"),
-		"description" = tr("storage_lvl1.description"),
+		"caption" = tr("storage.caption"),
+		"description" = tr("storage.description"),
 		"slots" = 12,
-		"default" = load("res://assets/resources/buildings/storage/level_1/object_0.png"),
-		"hover" = load("res://assets/resources/buildings/storage/level_1/object_1.png"),
-		"shadow" = load("res://assets/resources/buildings/storage/level_1/shadow.png"),
-	},
-	2: {
-		"caption" = tr("storage_lvl2.caption"),
-		"description" = tr("storage_lvl2.description"),
-		"slots" = 24,
-		"default" = load("res://assets/resources/buildings/storage/level_2/object_0.png"),
-		"hover" = load("res://assets/resources/buildings/storage/level_2/object_1.png"),
-		"shadow" = load("res://assets/resources/buildings/storage/level_2/shadow.png"),
+		"seasons" = {
+			"spring" = {
+				"default" = load(""),
+				"hovered" = load(""),
+			},
+			"summer" = {
+				"default" = load("res://assets/resources/buildings/storage/summer/level_1/object_0.png"),
+				"hovered" = load("res://assets/resources/buildings/storage/summer/level_1/object_1.png"),
+				"shadow" = load("res://assets/resources/buildings/storage/summer/level_1/shadow.png"),
+			},
+			"autumn" = {
+				"default" = load(""),
+				"hovered" = load(""),
+			},
+			"winter" = {
+				"default" = load("res://assets/resources/buildings/storage/winter/level_1/object_0.png"),
+				"hovered" = load("res://assets/resources/buildings/storage/winter/level_1/object_1.png"),
+				"shadow" = load("res://assets/resources/buildings/storage/winter/level_1/shadow.png"),
+			},
+		}
 	},
 }
 
@@ -43,75 +54,96 @@ func _input(event):
 
 func _ready():
 	update()
-	_shadow_create()
 
-func update() -> void:
-	if object.has(level):
-		if object[level].has("default"):
-			if object[level]["default"] is CompressedTexture2D:
-				sprite.texture = object[level]["default"]
+func update():
+	if clock:
+		if object.has(level):
+			if object[level].has("seasons"):
+				var season = clock.get_season()
+				if object[level]["seasons"].has(season):
+					if object[level]["seasons"][season].has("default"):
+						if object[level]["seasons"][season]["default"] is CompressedTexture2D:
+							sprite.texture = object[level]["seasons"][season]["default"]
+							self.set_position(tilemap.map_to_local(Vector2i(22,2)))
+							shadow_create()
+						else:
+							data.debug("'default' is not a CompressedTexture2D.", "error")
+					else:
+						data.debug("There is no key at index " + str(level), "error")
+				else:
+					data.debug("There is no '" + str(season) + "' key in the 'seasons' group.", "error")
 			else:
-				data.debug("The specified sprite cannot be installed.", "error")
+				data.debug("There is no 'seasons' group.", "error")
 		else:
-			data.debug("The specified key is missing.", "error")
+			data.debug("Index " + str(level) + " is not in the dictionary.", "error")
 
-func _shadow_create() -> void:
+func shadow_create() -> void:
 	if visible:
 		if object.has(level):
-			if object[level].has("shadow"):
-				if object[level]["shadow"] is CompressedTexture2D:
-					var vector2i_position = tilemap.local_to_map(position)
-					var target_position = Vector2i(vector2i_position.x, vector2i_position.y)
-					canvas.create_shadow("storage_shadow", object[level]["shadow"], target_position)
+			if object[level].has("seasons"):
+				var season = clock.get_season()
+				if object[level]["seasons"].has(season):
+					if object[level]["seasons"][season].has("shadow"):
+						if object[level]["seasons"][season]["shadow"] is CompressedTexture2D:
+							var vector2i_position = tilemap.local_to_map(position)
+							var target_position = Vector2i(vector2i_position.x, vector2i_position.y+1)
+							canvas.create_shadow("house_shadow", object[level]["seasons"][season]["shadow"], target_position)
+						else:
+							data.debug("It is not possible to create a game shadow of an object because the sprite is not of the 'CompressedTexture2D' type.", "error")
+					else:
+						data.debug("The 'shadow' key with index level "+str(level)+" is missing.", "error")
 				else:
-					data.debug("It is not possible to create a game shadow of an object because the sprite is not of the 'CompressedTexture2D' type.", "error")
+					pass
 			else:
-				data.debug("The 'shadow' key with index level "+str(level)+" is missing.", "error")
+				pass
 		else:
 			data.debug("Invalid level index: "+str(level), "error")
 
-func _change_sprite(type:bool):
+func _change_sprite(type:bool) -> void:
 	if type:
 		var distance = round(global_position.distance_to(player.global_position))
-		if grid.mode == grid.modes.NOTHING and distance < buildings.max_distance:
-			_check_sprite("hover")
+		if grid.mode == grid.modes.NOTHING and distance < building.max_distance:
 			var level_text = tr("object.level")
 			tip.tooltip(
-				str(object[level]["caption"]) + "\n" +
-				str(object[level]["description"]) + "\n" +
-				str(level_text) + str(level)
+					str(object[level]["caption"]) + "\n" +
+					str(object[level]["description"]) + "\n" +
+					str(level_text) + str(level)
 				)
-			menu = true
 	else:
-		_check_sprite("default")
-		menu = false
 		if tip:
 			tip.tooltip("")
 
-func _check_sprite(key:String):
+func get_data() -> Dictionary:
 	if object.has(level):
-		if object[level].has(key):
-			if object[level][key] is CompressedTexture2D:
-				if sprite:
-					sprite.texture = object[level][key]
-			else:
-				data.debug("The specified sprite cannot be installed.", "error")
-		else:
-			data.debug("There is no key at index " + str(level), "error")
-	else:
-		data.debug("Index " + str(level) + " is not in the dictionary.", "error")
+		return {
+			"level": level
+			}
+	return {}
 
-func get_data():
-	if object.has(level):
-		return {"level": level}
-
-func load_data(obj_level:int) -> void:
-	self.level = obj_level
+func set_level_obj(obj_level:int) -> void:
+	level = obj_level
 	update()
 
-func _on_area_2d_mouse_entered():
-	if !blur.state:
+func _on_area_2d_mouse_entered() -> void:
+	if !blur.state\
+	&& grid.mode == grid.modes.NOTHING:
 		_change_sprite(true)
+		if object.has(level):
+			if object[level].has("seasons"):
+				var season = clock.get_season()
+				if object[level]["seasons"].has(season):
+					if object[level]["seasons"][season].has("hovered"):
+						if object[level]["seasons"][season]["hovered"] is CompressedTexture2D:
+							sprite.texture = object[level]["seasons"][season]["hovered"]
+		menu = true
 
-func _on_area_2d_mouse_exited():
+func _on_area_2d_mouse_exited() -> void:
 	_change_sprite(false)
+	if object.has(level):
+		if object[level].has("seasons"):
+			var season = clock.get_season()
+			if object[level]["seasons"].has(season):
+				if object[level]["seasons"][season].has("default"):
+					if object[level]["seasons"][season]["default"] is CompressedTexture2D:
+						sprite.texture = object[level]["seasons"][season]["default"]
+	menu = false
