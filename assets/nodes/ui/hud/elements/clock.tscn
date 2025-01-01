@@ -14,8 +14,8 @@ script = ExtResource("1_kunbj")
 
 [node name="Main" type="MarginContainer" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 225.0
+offset_bottom = 74.0
 
 [node name="Panel" type="Panel" parent="Main"]
 layout_mode = 2
@@ -25,7 +25,7 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 25
+theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Main/Margin"]
@@ -46,8 +46,10 @@ stretch_mode = 5
 
 [node name="Label" type="MarginContainer" parent="Main/Margin/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 10
 mouse_filter = 2
 theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
 
 [node name="Label" type="Label" parent="Main/Margin/HBoxContainer/Label"]
 layout_mode = 2
