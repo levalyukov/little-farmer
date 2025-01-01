@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://1cerbmfbqid"]
 
 [ext_resource type="Script" path="res://assets/scripts/world/nature/nature_obj.gd" id="1_r40df"]
-[ext_resource type="Texture2D" uid="uid://biaoqgl1773hf" path="res://assets/resources/world/trees/tree_1.png" id="1_tm38x"]
+[ext_resource type="Texture2D" uid="uid://biaoqgl1773hf" path="res://assets/resources/world/trees/winter/tree_1.png" id="1_tm38x"]
 
 [node name="Tree" type="Node2D"]
 script = ExtResource("1_r40df")
