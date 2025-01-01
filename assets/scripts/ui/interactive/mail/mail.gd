@@ -39,6 +39,7 @@ var letters:Dictionary = {}
 func _input(_event):
 	if Input.is_action_just_pressed("esc")\
 	&& blur.state\
+	&& !pause.paused\
 	&& opened:
 		close()
 
@@ -234,7 +235,6 @@ func update_letter_icon(object, letter_icon, status:String) -> void:
 
 func delete_letters() -> void:
 	for child in letters_container.get_children():
-		letters_container.remove_child(child)
 		child.queue_free()
 
 func get_letter_items() -> int:
@@ -283,6 +283,7 @@ func open() -> void:
 	blur.blur(true)
 	anim.play("open")
 	reset_data()
+	delete_letters()
 	create_letters()
 	change_state_mail_remove_button(false)
 	update_mail_manipulation_button()
@@ -294,7 +295,6 @@ func close() -> void:
 	self.index = 0
 	blur.blur(false)
 	anim.play("close")
-	delete_letters()
 
 func check_window() -> void:
 	visible = opened
