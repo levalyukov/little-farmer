@@ -102,7 +102,8 @@ func shadow_create() -> void:
 func _change_sprite(type:bool) -> void:
 	if type:
 		var distance = round(global_position.distance_to(player.global_position))
-		if grid.mode == grid.modes.NOTHING and distance < building.max_distance:
+		if grid.mode == grid.modes.NOTHING\
+		&& distance < building.max_distance:
 			var level_text = tr("object.level")
 			tip.tooltip(
 					str(object[level]["caption"]) + "\n" +
@@ -135,7 +136,7 @@ func _on_area_2d_mouse_entered() -> void:
 					if object[level]["seasons"][season].has("hovered"):
 						if object[level]["seasons"][season]["hovered"] is CompressedTexture2D:
 							sprite.texture = object[level]["seasons"][season]["hovered"]
-		menu = true
+	menu = true
 
 func _on_area_2d_mouse_exited() -> void:
 	_change_sprite(false)
