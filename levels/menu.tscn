@@ -56,7 +56,7 @@ layout_mode = 2
 mouse_filter = 0
 
 [node name="Content" type="VBoxContainer" parent="MarginContainer/MainContainer"]
-custom_minimum_size = Vector2(250, 0)
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
 [node name="Logo" type="TextureRect" parent="MarginContainer/MainContainer/Content"]
