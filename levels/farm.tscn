@@ -2376,8 +2376,6 @@ y_sort_enabled = true
 material = SubResource("ShaderMaterial_h27nr")
 script = ExtResource("2_880lm")
 
-[node name="UI" parent="." instance=ExtResource("3_08vb8")]
-
 [node name="Player" parent="." instance=ExtResource("10_cdmdm")]
 z_index = 1
 z_as_relative = false
@@ -2460,6 +2458,8 @@ position = Vector2(752, 88)
 shape = SubResource("RectangleShape2D_hhb1c")
 
 [node name="Day-Night Cycle" parent="." instance=ExtResource("19_mbw1w")]
+
+[node name="UI" parent="." instance=ExtResource("3_08vb8")]
 
 [connection signal="mouse_entered" from="Teleports/Village/Area2D" to="Teleports/Village" method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Teleports/Village/Area2D" to="Teleports/Village" method="_on_area_2d_mouse_exited"]
