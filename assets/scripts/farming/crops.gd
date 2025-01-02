@@ -9,7 +9,7 @@ var crops:Dictionary = {
 	1: {
 		"caption" = tr("carrot.caption"),
 		"type" = "vegetable", 
-		"season" = "spring",
+		"season" = ["spring"],
 		"environment" = "soil",
 		"growth_rate" = 25,
 		"growth_level" = 5,
@@ -21,7 +21,7 @@ var crops:Dictionary = {
 	2: {
 		"caption" = tr("potato.caption"),
 		"type" = "vegetable", 
-		"season" = "spring",
+		"season" = ["spring"],
 		"environment" = "soil",
 		"growth_rate" = 50,
 		"growth_level" = 6, 
@@ -33,7 +33,7 @@ var crops:Dictionary = {
 	3: {
 		"caption" = tr("radish.caption"),
 		"type" = "vegetable", 
-		"season" = "spring",
+		"season" = ["spring"],
 		"environment" = "soil",
 		"growth_rate" = 35,
 		"growth_level" = 4, 
@@ -45,7 +45,7 @@ var crops:Dictionary = {
 	4: {
 		"caption" = tr("cabbage.caption"),
 		"type" = "vegetable", 
-		"season" = "spring",
+		"season" = ["spring"],
 		"environment" = "soil",
 		"growth_rate" = 75,
 		"growth_level" = 4, 
@@ -57,7 +57,7 @@ var crops:Dictionary = {
 	5: {
 		"caption" = tr("onion.caption"),
 		"type" = "vegetable", 
-		"season" = "spring",
+		"season" = ["spring"],
 		"environment" = "soil",
 		"growth_rate" = 15,
 		"growth_level" = 5, 
