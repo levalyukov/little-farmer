@@ -12,7 +12,7 @@ extends Control
 @onready var label:Label = $Main/Margin/HBoxContainer/Label/Label
 @onready var timer:Timer = $Timer
 
-const speed:float = 2
+const speed:float = 8
 
 const seasons:Array[String] = ["spring", "summer", "autumn", "winter"]
 var season:int = 0
