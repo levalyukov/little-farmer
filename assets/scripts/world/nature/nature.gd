@@ -43,7 +43,9 @@ var weed_sprite_value:int = 0
 
 func _ready():
 	self.z_index = 2
-	new_texture()
+	if !GameLoader.mode:
+		new_texture()
+		tilemap.set_atlas(clock.get_season())
 
 func new_texture() -> void:
 	while trees.size() < tree_sprite_max:
@@ -77,19 +79,19 @@ func create_start_nature():
 	check_aviabled_vectors()
 	while weed_func_called < weed_func_calls:
 		weed_func_called+=1
-		create_natural_obj(weed_node, "weed", weeds, weed_sprite_max, weeds_shadow)
+		create_natural_obj(weed_node, "weed", weeds, weeds_shadow)
 
 	check_aviabled_vectors()
 	while stone_func_called < stone_func_calls:
 		stone_func_called+=1
-		create_natural_obj(stone_node, "stone", stones, stone_sprite_max, stones_shadow)
+		create_natural_obj(stone_node, "stone", stones, stones_shadow)
 
 	check_aviabled_vectors()
 	while tree_func_called < tree_func_calls:
 		tree_func_called+=1
-		create_natural_obj(tree_node, "tree", trees, tree_sprite_max, trees_shadow)
+		create_natural_obj(tree_node, "tree", trees, trees_shadow)
 
-func create_natural_obj(node:PackedScene, node_name:String, sprites_array:Array[CompressedTexture2D], sprite_max:int, shadows_array:Array[CompressedTexture2D]) -> void:
+func create_natural_obj(node:PackedScene, node_name:String, sprites_array:Array[CompressedTexture2D], shadows_array:Array[CompressedTexture2D]) -> void:
 	var target_node = node.instantiate()
 	var target_position = set_random_position()
 	
@@ -159,7 +161,13 @@ func load_natural_obj(
 		target_node.health = health
 		if shadows:
 			if shadow != null:
-				shadows.create_shadow_nature(str(node_name) + "_shadow", shadow, target_position, index, node_name)
+				shadows.create_shadow_nature(
+					str(node_name) + "_shadow", 
+					shadow, 
+					target_position, 
+					index, 
+					data.remove_suffix(node_name)
+				)
 		else:
 			data.debug("Shadows manager is null.", "error")
 			return
