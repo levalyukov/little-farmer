@@ -9,7 +9,7 @@ var crops:Dictionary = {
 	1: {
 		"caption" = tr("carrot.caption"),
 		"type" = "vegetable", 
-		"season" = ["spring"],
+		"season" = ["spring", "summer"],
 		"environment" = "soil",
 		"growth_rate" = 25,
 		"growth_level" = 5,
