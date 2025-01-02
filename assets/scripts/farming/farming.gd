@@ -8,6 +8,7 @@ extends Node2D
 @onready var node:PackedScene = load("res://assets/nodes/farming/plant.tscn")
 
 var crops:Object = Crops.new()
+var season:bool = false
 
 func create_plant(id:int, vector:Vector2i) -> void:
 	var plant = node.instantiate()
@@ -27,6 +28,14 @@ func plant_destroy(vector:Vector2i) -> void:
 	for child in get_children():
 		if vector == tilemap.local_to_map(child.position):
 			remove_child(child)
+
+func check_season(id:int) -> bool:
+	var crop_season = crops.crops[id]["season"]
+	for i in crop_season:
+		if i == clock.get_season():
+			print(i, " = ", clock.get_season())
+			return true
+	return false
 
 func get_all_plants() -> Dictionary:
 	var data_dict = {}
