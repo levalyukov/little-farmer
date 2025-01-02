@@ -5,6 +5,7 @@ extends TileMap
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var buildings:Node = get_node("/root/"+main+"/ConstructionManager")
 @onready var nature:Node2D = get_node("/root/"+main+"/Nature")
+@onready var canvas:CanvasGroup = get_node("/root/"+main+"/ShadowManager/CanvasGroup")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
 
@@ -43,12 +44,6 @@ var SEASON_ATLAS = {
 	},
 }
 
-func _ready():
-	if clock:
-		update_atlas(
-			clock.seasons[clock.season]
-		)
-
 func _process(_delta):
 	if !blur.state:
 		if has_node("/root/"+main+"/ConstructionManager"):
@@ -60,7 +55,7 @@ func grid_movement() -> void:
 	var movement:Vector2 = local_to_map(get_global_mouse_position())
 	grid.set_position(map_to_local(movement))
 
-func update_atlas(season:String) -> void:
+func set_atlas(season:String) -> void:
 	if SEASON_ATLAS.has(season):
 		tile_set.get_source(0).texture = SEASON_ATLAS[season]["ground"]
 		tile_set.get_source(1).texture = SEASON_ATLAS[season]["roads"]
@@ -76,21 +71,22 @@ func update_atlas(season:String) -> void:
 		#	tile_set.get_source(3).texture = SEASON_ATLAS[season]["waterings"]
 		#	tile_set.get_source(4).texture = SEASON_ATLAS[season]["coasts"]
 		#	tile_set.get_source(5).texture = SEASON_ATLAS[season]["water"]
-		for node in buildings.get_children():
-			if node.has_method("get_data"):
-				if node.object.has(node.level):
-					if node.object[node.level].has("seasons"):
-						if node.object[node.level]["seasons"].has(season):
-							if node.object[node.level]["seasons"][season].has("default")\
-							&& node.object[node.level]["seasons"][season].has("hovered"):
-								node.update()
-			else:
-				if node.has_method("update"):
-					if node.object.has("seasons"):
-						if node.object["seasons"].has(season):
-							if node.object["seasons"][season].has("default")\
-							&& node.object["seasons"][season].has("hovered"):
-								node.update()
+		if buildings.get_children() != []:
+			for node in buildings.get_children():
+				if node.has_method("get_data"):
+					if node.object.has(node.level):
+						if node.object[node.level].has("seasons"):
+							if node.object[node.level]["seasons"].has(season):
+								if node.object[node.level]["seasons"][season].has("default")\
+								&& node.object[node.level]["seasons"][season].has("hovered"):
+									node.update()
+				else:
+					if node.has_method("update"):
+						if node.object.has("seasons"):
+							if node.object["seasons"].has(season):
+								if node.object["seasons"][season].has("default")\
+								&& node.object["seasons"][season].has("hovered"):
+									node.update()
 
 		if nature.get_children() != []:
 			nature.clear_all_arrays()
@@ -102,4 +98,14 @@ func update_atlas(season:String) -> void:
 					node.change_texture(nature.stones[node.index])
 				if data.remove_suffix(node.name) == "weed":
 					node.change_texture(nature.weeds[node.index])
+
+		if canvas.get_children() != []:
+			for i in canvas.get_children():
+				if i.has_method("is_nature_shadow"):
+					if i.type == "tree":
+						i.change_sprite(nature.trees_shadow[i.index])
+					if i.type == "stone":
+						i.change_sprite(nature.stones_shadow[i.index])
+					if i.type == "weed":
+						i.change_sprite(nature.weeds_shadow[i.index])
 
