@@ -27,14 +27,20 @@ func change_clouds_value(value:int = 5) -> void:
 	if value >= 0:
 		clouds_value = value
 
-func create_shadow_nature(shadow_name:String, shadow_texture:CompressedTexture2D, shadow_position:Vector2i, index:int, type:String) -> void:
+func create_shadow_nature(
+		shadow_name:String, 
+		shadow_texture:CompressedTexture2D, 
+		shadow_position:Vector2i, 
+		index:int, 
+		type:String
+	) -> void:
 	if shadow_texture is CompressedTexture2D:
 		if shadow_name == "":
 			shadow_name = "shadow"
 		var shadow = shadow_node.instantiate()
 		shadow.set_position(tilemap.map_to_local(shadow_position))
 		canvas.add_child(shadow)
-		shadow.set_sprite(shadow_texture, index,type)
+		shadow.set_sprite(shadow_texture, index, type)
 	else:
 		data.debug("shadow error", "error")
 		return
