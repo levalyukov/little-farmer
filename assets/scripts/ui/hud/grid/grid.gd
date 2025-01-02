@@ -12,6 +12,7 @@ extends Node2D
 @onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var building:Node2D = get_node("/root/"+main+"/ConstructionManager")
+@onready var notice:Control = get_node("/root/"+main+"/UI/Feedback/Notifications")
 @onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/storage")
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var farming:Node2D = get_node("/root/"+main+"/FarmingManager")
@@ -157,25 +158,32 @@ func _process(_delta):
 				
 			modes.PLANTING:
 				collision.planting_collision_check()
-				# 	var season_error = tr("plant.season_error")
-				# 	notice.create_notice(season_error, "error")
 				if inventory.check_item_amount(inventory_item):
 					if inventory.get_item_amount(inventory_item) >= collision.get_children().size():
 						for i in collision.get_children():
 							var grid_position = tilemap.local_to_map(i.get_global_position())
 							if check:
-								if crops.crops.has(plantID):
-									if collision.check_cell(grid_position, collision.farmland_layer)\
-									&& !collision.check_cell(grid_position, collision.crops_layer)\
-									&& collision.check_custom_data(
-										grid_position, 
-										collision.can_place_seed_custom_data, 
-										collision.farmland_layer
-									):
-										inventory.subject_item(inventory_item, 1)
-										farming.create_plant(plantID, grid_position)
+								if farming.check_season(plantID):
+									if crops.crops.has(plantID):
+										if collision.check_cell(grid_position, collision.farmland_layer)\
+										&& !collision.check_cell(grid_position, collision.crops_layer)\
+										&& collision.check_custom_data(
+											grid_position, 
+											collision.can_place_seed_custom_data, 
+											collision.farmland_layer
+										):
+											inventory.subject_item(inventory_item, 1)
+											farming.create_plant(plantID, grid_position)
+									else:
+										data.debug(
+											"The numerical ID ("+ 
+											str(plantID) 
+											+") of this crop is missing in the main file crops.gd", 
+											"error"
+										)
 								else:
-									data.debug("The numerical ID (" + str(plantID) + ") of this crop is missing in the main file crops.gd", "error")
+									var season_error = tr("plant.season_error")
+									notice.create_notice(season_error, "error")
 					else:
 						grid_dimensions = Vector2i(1,1)
 						generate_grid()
