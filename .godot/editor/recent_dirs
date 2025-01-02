@@ -1,3 +1,4 @@
+res://assets/resources/world/trees
 res://assets/resources/world/landscape/summer
 res://assets/resources/buildings/house/summer/level_1
 res://assets/scripts/construction/buildings
@@ -19,4 +20,3 @@ res://assets/nodes/ui
 res://assets/nodes/ui/decorative
 res://assets/scripts/ui
 res://assets/resources/ui/interactive/construct
-res://assets/resources/ui/interactive/hud/tools
