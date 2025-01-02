@@ -75,9 +75,6 @@ func clear_all_arrays() -> void:
 func create_start_nature():
 	all_vectors = tilemap.get_used_cells(0)
 	check_aviabled_vectors()
-	print(weeds)
-	print(stones)
-	print(trees)
 	while weed_func_called < weed_func_calls:
 		weed_func_called+=1
 		create_natural_obj(weed_node, "weed", weeds, weed_sprite_max, weeds_shadow)
@@ -93,7 +90,6 @@ func create_start_nature():
 		create_natural_obj(tree_node, "tree", trees, tree_sprite_max, trees_shadow)
 
 func create_natural_obj(node:PackedScene, node_name:String, sprites_array:Array[CompressedTexture2D], sprite_max:int, shadows_array:Array[CompressedTexture2D]) -> void:
-	var random = randi_range(1, sprite_max)
 	var target_node = node.instantiate()
 	var target_position = set_random_position()
 	
@@ -124,7 +120,7 @@ func create_natural_obj(node:PackedScene, node_name:String, sprites_array:Array[
 		tilemap.set_cell(collision.nature_layer, target_position, 0, Vector2i(0, 3))
 		if shadows:
 			if shadows_array != []:
-				shadows.create_shadow(str(node_name) + "_shadow_" + str(random), shadows_array[random_sprite], target_position)
+				shadows.create_shadow_nature(str(node_name) + "_shadow", shadows_array[random_sprite], target_position, random_sprite, node_name)
 		else:
 			data.debug("Shadows manager is null.", "error")
 			return
@@ -163,7 +159,7 @@ func load_natural_obj(
 		target_node.health = health
 		if shadows:
 			if shadow != null:
-				shadows.create_shadow(str(node_name) + "_shadow_" + str(index), shadow, target_position)
+				shadows.create_shadow_nature(str(node_name) + "_shadow", shadow, target_position, index, node_name)
 		else:
 			data.debug("Shadows manager is null.", "error")
 			return
