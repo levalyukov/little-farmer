@@ -7,6 +7,7 @@ extends Node
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
 @onready var canvas:CanvasGroup = get_node("/root/"+main+"/ShadowManager/CanvasGroup")
 @onready var cloud_canvas:CanvasGroup = get_node("/root/"+main+"/ShadowManager/CloudGroup")
+@onready var shadow_node:PackedScene = load("res://assets/nodes/world/nature_obj_shadow.tscn")
 
 const max_widht_map:int = 39
 const min_widht_map:int = -8
@@ -26,23 +27,35 @@ func change_clouds_value(value:int = 5) -> void:
 	if value >= 0:
 		clouds_value = value
 
+func create_shadow_nature(shadow_name:String, shadow_texture:CompressedTexture2D, shadow_position:Vector2i, index:int, type:String) -> void:
+	if shadow_texture is CompressedTexture2D:
+		if shadow_name == "":
+			shadow_name = "shadow"
+		var shadow = shadow_node.instantiate()
+		shadow.set_position(tilemap.map_to_local(shadow_position))
+		canvas.add_child(shadow)
+		shadow.set_sprite(shadow_texture, index,type)
+	else:
+		data.debug("shadow error", "error")
+		return
+
 func create_shadow(shadow_name:String, shadow_texture:CompressedTexture2D, shadow_position:Vector2i) -> void:
 	if shadow_texture is CompressedTexture2D:
 		if shadow_name == "":
 			shadow_name = "shadow"
-		var shadow:Sprite2D = Sprite2D.new()
-		shadow.name = shadow_name
+		var shadow = Sprite2D.new()
 		shadow.texture = shadow_texture
 		shadow.set_position(tilemap.map_to_local(shadow_position))
 		canvas.add_child(shadow)
 	else:
+		data.debug("shadow error", "error")
 		return
 
-func create_shadow_node(shadow_name:String, shadow_node:PackedScene, shadow_position:Vector2i) -> void:
+func create_shadow_node(shadow_name:String, _node:PackedScene, shadow_position:Vector2i) -> void:
 	if shadow_node != null:
 		if shadow_name == "":
 			shadow_name = "shadow"
-		var target_node = shadow_node.instantiate()
+		var target_node = _node.instantiate()
 		canvas.add_child(target_node)
 		target_node.name = shadow_name
 		target_node.set_position(tilemap.map_to_local(shadow_position))
