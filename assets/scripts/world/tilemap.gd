@@ -99,13 +99,13 @@ func set_atlas(season:String) -> void:
 				if data.remove_suffix(node.name) == "weed":
 					node.change_texture(nature.weeds[node.index])
 
-		if canvas.get_children() != []:
-			for i in canvas.get_children():
-				if i.has_method("is_nature_shadow"):
-					if i.type == "tree":
-						i.change_sprite(nature.trees_shadow[i.index])
-					if i.type == "stone":
-						i.change_sprite(nature.stones_shadow[i.index])
-					if i.type == "weed":
-						i.change_sprite(nature.weeds_shadow[i.index])
+			if canvas.get_children() != []:
+				for i in canvas.get_children():
+					if i.has_method("is_nature_shadow"):
+						if i.type == "tree":
+							i.change_sprite(nature.trees_shadow[i.index])
+						if i.type == "stone":
+							i.change_sprite(nature.stones_shadow[i.index])
+						if i.type == "weed":
+							i.change_sprite(nature.weeds_shadow[i.index])
 
