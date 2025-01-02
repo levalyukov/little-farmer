@@ -33,7 +33,6 @@ func check_season(id:int) -> bool:
 	var crop_season = crops.crops[id]["season"]
 	for i in crop_season:
 		if i == clock.get_season():
-			print(i, " = ", clock.get_season())
 			return true
 	return false
 
