@@ -77,9 +77,10 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="ContinueButton" type="Button" parent="MarginContainer/MainContainer/Content/Buttons/ContinueMargin"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 26
-text = "Continue"
+text = "main_menu.counitnue"
 alignment = 0
 
 [node name="NewGameMargin" type="MarginContainer" parent="MarginContainer/MainContainer/Content/Buttons"]
@@ -88,9 +89,10 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="NewGameButton" type="Button" parent="MarginContainer/MainContainer/Content/Buttons/NewGameMargin"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 26
-text = "New Game"
+text = "main_menu.newgame"
 alignment = 0
 
 [node name="OptionsMargin" type="MarginContainer" parent="MarginContainer/MainContainer/Content/Buttons"]
@@ -99,9 +101,10 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="OptionsButton" type="Button" parent="MarginContainer/MainContainer/Content/Buttons/OptionsMargin"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 26
-text = "Options"
+text = "main_menu.options"
 alignment = 0
 
 [node name="ExitMargin" type="MarginContainer" parent="MarginContainer/MainContainer/Content/Buttons"]
@@ -110,9 +113,10 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="ExitButton" type="Button" parent="MarginContainer/MainContainer/Content/Buttons/ExitMargin"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 26
-text = "Exit"
+text = "main_menu.exit"
 alignment = 0
 
 [node name="Credits" type="Label" parent="MarginContainer/MainContainer/Content"]
