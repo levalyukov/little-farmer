@@ -84,11 +84,6 @@ func gamesave() -> void:
 	file_save([path.vectors], file.vctr_water, get_dictionary_content("vectors", "water"))
 
 func gameload() -> void:
-	remove_all_child(farming)
-	remove_all_terrains()
-	plant_load()
-	vectors_load()
-	load_nature_nodes()
 	# Player
 	load_time()
 	load_balance()
@@ -96,6 +91,12 @@ func gameload() -> void:
 	load_inventory()
 	load_blueprints()
 	load_mailbox()
+	# Scene
+	remove_all_child(farming)
+	remove_all_terrains()
+	plant_load()
+	vectors_load()
+	load_nature_nodes()
 	
 func file_save(_path:Array[String], _file:String, _content:Dictionary) -> void:
 	if _path != []:
@@ -188,6 +189,8 @@ func load_plant():
 		)
 
 func load_nature_nodes():
+	nature.clear_all_arrays()
+	nature.new_texture()
 	var natures = file_load(file.nature)
 	if natures != {}:
 		for i in natures:
