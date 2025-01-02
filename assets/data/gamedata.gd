@@ -293,7 +293,7 @@ func remove_all_terrains() -> void:
 		tilemap.set_cells_terrain_connect(
 			collision.road_layer,
 			collision.get_used_cells(collision.road_layer),
-			collision.roads_terrain_set,
+			collision.terrain_set,
 			-1
 		)
 		
@@ -301,7 +301,7 @@ func remove_all_terrains() -> void:
 		tilemap.set_cells_terrain_connect(
 			collision.farmland_layer,
 			collision.get_used_cells(collision.farmland_layer),
-			collision.farming_terrain_set,
+			collision.terrain_set,
 			-1
 		)
 		
@@ -309,14 +309,14 @@ func remove_all_terrains() -> void:
 		tilemap.set_cells_terrain_connect(
 			collision.watering_layer,
 			collision.get_used_cells(collision.watering_layer),
-			collision.watering_terrain_set,
+			collision.terrain_set,
 			-1
 		)
 
 func load_time() -> void:
 	clock.set_clock_value(
+		get_key(file.world, "season_id", "time"),
 		get_key(file.world, "year", "time"),
-		get_key(file.world, "month", "time"),
 		get_key(file.world, "week", "time"),
 		get_key(file.world, "day", "time"),
 		get_key(file.world, "hour", "time"),
@@ -417,15 +417,12 @@ func get_dictionary_content(content:String, group:String = "") -> Dictionary:
 		"world":
 			return {
 				"time": {
-					"season": clock.season,
+					"season_id": clock.season,
 					"year": clock.year,
-					"month": clock.month,
 					"week": clock.week,
 					"day": clock.day,
 					"hour": clock.hour,
 					"minute": clock.minute,
-					".cycle": cycle.get_cycle_value(),
-					".passed": cycle.time_passed
 				}
 			}
 			
