@@ -12,16 +12,15 @@ extends Control
 @onready var label:Label = $Main/Margin/HBoxContainer/Label/Label
 @onready var timer:Timer = $Timer
 
-const speed:float = 8
+const speed:float = 2
 
 const seasons:Array[String] = ["spring", "summer", "autumn", "winter"]
 var season:int = 0
 var year:int = 1
-var month:int = 1
 var week:int = 1
 var day:int = 1
-var hour:int = 7
-var minute:int = 0
+var hour:int = 8
+var minute:int = 1
 
 var weeks:Array[String] = [
 		tr("mon.clock"), tr("tue.clock"), tr("wed.clock"), 
@@ -47,19 +46,20 @@ func get_season() -> String:
 	return seasons[season]
 
 func set_clock_value(
+	season_value:int,
 	year_value:int,
-	month_value:int,
 	week_value:int,
 	day_value:int,
 	hour_value:int,
 	minute_value:int
 	) -> void:
 	year = year_value
-	month = month_value
 	week = week_value
 	day = day_value
 	hour = hour_value
 	minute = minute_value
+	season = season_value
+	set_season(season_value)
 
 func time_paused(status:bool) -> void:
 	timer.set_paused(status)
@@ -72,9 +72,10 @@ func time_state(status:bool) -> void:
 			timer.start()
 
 func week_update() -> void:
-	if day < weeks.size() - 1:
+	if day < weeks.size()-1:
 		day += 1
 	else:
+		week += 1
 		day = 1
 
 func update_season() -> void:
@@ -82,24 +83,33 @@ func update_season() -> void:
 		season += 1
 	else:
 		season = 0
-	tilemap.update_atlas(seasons[season])
+		year += 1
+	tilemap.set_atlas(seasons[season])
 
 func set_season(target_season:int) -> void:
-	if seasons.has(target_season):
-		tilemap.update_atlas(seasons[target_season])
+	tilemap.set_atlas(seasons[target_season])
 	
+func check_minute() -> void:
+	if minute >= 0:
+		minute += 1
+	if minute > 5:
+		minute = 0
+		hour = hour + 1
+
+func check_hour() -> void:
+	if hour > 23:
+		hour = 0
+		week_update()
+		shadow.remove_all_clouds()
+
+func check_week() -> void:
+	if week > 4:
+		week = 1
+		update_season()
+
 func _on_timer_timeout() -> void:
 	if !pause.paused:
-		if minute >= 0:
-			minute += 1
-		if minute > 5:
-			minute = 0
-			hour = hour + 1
-		if hour > 23:
-			hour = 0
-			week_update()
-			shadow.remove_all_clouds()
-		if day > 28:
-			day = 1
-			update_season()
+		check_minute()
+		check_hour()
+		check_week()
 		clock_update()
