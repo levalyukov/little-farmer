@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvw4vbklgj45l"
-path="res://.godot/imported/shadow.png-ab8f89e2dc1bafa72a4a7b4ed23f81ed.ctex"
+uid="uid://bkpwrelo8p761"
+path="res://.godot/imported/shadow.png-0878775af2063084ac803a14222e8d84.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/resources/buildings/tablet/shadow.png"
-dest_files=["res://.godot/imported/shadow.png-ab8f89e2dc1bafa72a4a7b4ed23f81ed.ctex"]
+source_file="res://assets/resources/buildings/tablet/autumn/shadow.png"
+dest_files=["res://.godot/imported/shadow.png-0878775af2063084ac803a14222e8d84.ctex"]
 
 [params]
 
