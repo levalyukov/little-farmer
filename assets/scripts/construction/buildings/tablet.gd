@@ -12,6 +12,7 @@ extends Node2D
 @onready var building:Node2D = get_node("/root/"+main+"/ConstructionManager")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid") 
 @onready var buildings:Node2D = get_node("/root/"+main+"/ConstructionManager")
+@onready var canvas_group:CanvasGroup = get_node("/root/"+main+"/ShadowManager/CanvasGroup")
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var sprite:Sprite2D = $Sprite2D
@@ -19,23 +20,26 @@ extends Node2D
 var object:Dictionary = {
 	"caption" = tr("tablet.caption"),
 	"description" = tr("tablet.description"),
-	"shadow" = load("res://assets/resources/buildings/tablet/shadow.png"),
 	"seasons" = {
 		"spring" = {
 			"default" = load("res://assets/resources/buildings/tablet/spring/object_0.png"),
 			"hovered" = load("res://assets/resources/buildings/tablet/spring/object_1.png"),
+			"shadow" = load("res://assets/resources/buildings/tablet/spring/shadow.png"),
 		},
 		"summer" = {
 			"default" = load("res://assets/resources/buildings/tablet/summer/object_0.png"),
 			"hovered" = load("res://assets/resources/buildings/tablet/summer/object_1.png"),
+			"shadow" = load("res://assets/resources/buildings/tablet/summer/shadow.png"),
 		},
 		"autumn" = {
 			"default" = load("res://assets/resources/buildings/tablet/autumn/object_0.png"),
 			"hovered" = load("res://assets/resources/buildings/tablet/autumn/object_1.png"),
+			"shadow" = load("res://assets/resources/buildings/tablet/autumn/shadow.png"),
 		},
 		"winter" = {
 			"default" = load("res://assets/resources/buildings/tablet/winter/object_0.png"),
 			"hovered" = load("res://assets/resources/buildings/tablet/winter/object_1.png"),
+			"shadow" = load("res://assets/resources/buildings/tablet/winter/shadow.png"),
 		},
 	}
 }
@@ -52,23 +56,32 @@ func update():
 					if object["seasons"][season]["default"] is CompressedTexture2D:
 						sprite.texture = object["seasons"][season]["default"]
 						self.set_position(tilemap.map_to_local(Vector2i(46,5)))
-						shadow_create()
+						update_shadow()
 					else:
-						data.debug("'default' is not a CompressedTexture2D.", "error")
+						data.debug("'"+str(self.name) + "': 'default' is not a CompressedTexture2D.", "error")
 			else:
-				data.debug("There is no '" + str(season) + "' key in the 'seasons' group.", "error")
+				data.debug("'"+str(self.name) + "': There is no '" + str(season) + "' key in the 'seasons' group.", "error")
 		else:
-			data.debug("There is no 'seasons' group.", "error")
+			data.debug("'"+str(self.name) + "': There is no 'seasons' group.", "error")
 
-func shadow_create() -> void:
+func update_shadow() -> void:
+	remove_shadow()
 	if visible:
-		if object.has("shadow"):
-			if object["shadow"] is CompressedTexture2D:
-				var vector2i_position = tilemap.local_to_map(position)
-				var target_position = Vector2i(vector2i_position.x, vector2i_position.y)
-				canvas.create_shadow("house_shadow", object["shadow"], target_position)
-			else:
-				data.debug("It is not possible to create a game shadow of an object because the sprite is not of the 'CompressedTexture2D' type.", "error")
+		if object.has("seasons"):
+			var season = clock.get_season()
+			if object["seasons"].has(season):
+				if object["seasons"][season].has("shadow"):
+					if object["seasons"][season]["shadow"] is CompressedTexture2D:
+						var vector2i_position = tilemap.local_to_map(position)
+						var target_position = Vector2i(vector2i_position.x, vector2i_position.y)
+						canvas.create_shadow("tablet_shadow" + "_1", object["seasons"][season]["shadow"], target_position)
+					else:
+						data.debug("'"+str(self.name) + "': It is not possible to create a game shadow of an object because the sprite is not of the 'CompressedTexture2D' type.", "error")
+
+func remove_shadow():
+	for i in canvas_group.get_children():
+		if data.remove_suffix(i.name) == "tablet_shadow":
+			canvas_group.remove_child(i)
 
 func _change_sprite(type:bool) -> void:
 	if type:
