@@ -253,7 +253,7 @@ func _process(_delta):
 							if positions != []:
 								var layer = terrain_required_layer[index]
 								var terrain = terrain_set[index]
-								tilemap.set_cells_terrain_connect(layer, positions, terrain, 0)
+								tilemap.set_cells_terrain_connect(layer, positions, 0, terrain)
 					check = false
 
 			modes.UPGRADE:
