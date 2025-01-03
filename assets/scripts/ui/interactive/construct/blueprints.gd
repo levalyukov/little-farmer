@@ -10,7 +10,7 @@ var content:Dictionary = {
 			"description" = "",
 			"icon" = null,#preload(""),
 			"config" = {
-				"terrain" = [2],
+				"terrain" = [0],
 				"required_layer" = [1],
 				"blocking_layer" = [1,2,3,5],
 			}
