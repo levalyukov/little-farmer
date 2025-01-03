@@ -24,8 +24,9 @@ var object:Dictionary = {
 		"slots" = 12,
 		"seasons" = {
 			"spring" = {
-				"default" = load(""),
-				"hovered" = load(""),
+				"default" = load("res://assets/resources/buildings/storage/spring/level_1/object_0.png"),
+				"hovered" = load("res://assets/resources/buildings/storage/spring/level_1/object_1.png"),
+				"shadow" = load("res://assets/resources/buildings/storage/spring/level_1/shadow.png"),
 			},
 			"summer" = {
 				"default" = load("res://assets/resources/buildings/storage/summer/level_1/object_0.png"),
@@ -33,8 +34,9 @@ var object:Dictionary = {
 				"shadow" = load("res://assets/resources/buildings/storage/summer/level_1/shadow.png"),
 			},
 			"autumn" = {
-				"default" = load(""),
-				"hovered" = load(""),
+				"default" = load("res://assets/resources/buildings/storage/autumn/level_1/object_0.png"),
+				"hovered" = load("res://assets/resources/buildings/storage/autumn/level_1/object_1.png"),
+				"shadow" = load("res://assets/resources/buildings/storage/autumn/level_1/shadow.png"),
 			},
 			"winter" = {
 				"default" = load("res://assets/resources/buildings/storage/winter/level_1/object_0.png"),
@@ -104,6 +106,13 @@ func _change_sprite(type:bool) -> void:
 		var distance = round(global_position.distance_to(player.global_position))
 		if grid.mode == grid.modes.NOTHING\
 		&& distance < building.max_distance:
+			if object.has(level):
+				if object[level].has("seasons"):
+					var season = clock.get_season()
+					if object[level]["seasons"].has(season):
+						if object[level]["seasons"][season].has("hovered"):
+							if object[level]["seasons"][season]["hovered"] is CompressedTexture2D:
+								sprite.texture = object[level]["seasons"][season]["hovered"]
 			var level_text = tr("object.level")
 			tip.tooltip(
 					str(object[level]["caption"]) + "\n" +
@@ -111,6 +120,13 @@ func _change_sprite(type:bool) -> void:
 					str(level_text) + str(level)
 				)
 	else:
+		if object.has(level):
+			if object[level].has("seasons"):
+				var season = clock.get_season()
+				if object[level]["seasons"].has(season):
+					if object[level]["seasons"][season].has("default"):
+						if object[level]["seasons"][season]["default"] is CompressedTexture2D:
+							sprite.texture = object[level]["seasons"][season]["default"]
 		if tip:
 			tip.tooltip("")
 
@@ -129,22 +145,8 @@ func _on_area_2d_mouse_entered() -> void:
 	if !blur.state\
 	&& grid.mode == grid.modes.NOTHING:
 		_change_sprite(true)
-		if object.has(level):
-			if object[level].has("seasons"):
-				var season = clock.get_season()
-				if object[level]["seasons"].has(season):
-					if object[level]["seasons"][season].has("hovered"):
-						if object[level]["seasons"][season]["hovered"] is CompressedTexture2D:
-							sprite.texture = object[level]["seasons"][season]["hovered"]
 	menu = true
 
 func _on_area_2d_mouse_exited() -> void:
 	_change_sprite(false)
-	if object.has(level):
-		if object[level].has("seasons"):
-			var season = clock.get_season()
-			if object[level]["seasons"].has(season):
-				if object[level]["seasons"][season].has("default"):
-					if object[level]["seasons"][season]["default"] is CompressedTexture2D:
-						sprite.texture = object[level]["seasons"][season]["default"]
 	menu = false
