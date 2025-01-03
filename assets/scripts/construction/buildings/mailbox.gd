@@ -51,6 +51,7 @@ func _input(event):
 
 func _ready():
 	update()
+	update_shadow()
 
 func update():
 	if clock:
@@ -61,23 +62,22 @@ func update():
 					if object["seasons"][season]["default"] is CompressedTexture2D:
 						sprite.texture = object["seasons"][season]["default"]
 						self.set_position(tilemap.map_to_local(Vector2i(15,2)))
-						shadow_create()
 					else:
-						data.debug("'default' is not a CompressedTexture2D.", "error")
+						data.debug("'"+str(self.name) + "': 'default' is not a CompressedTexture2D.", "error")
 			else:
-				data.debug("There is no '" + str(season) + "' key in the 'seasons' group.", "error")
+				data.debug("'"+str(self.name) + "': There is no '" + str(season) + "' key in the 'seasons' group.", "error")
 		else:
-			data.debug("There is no 'seasons' group.", "error")
+			data.debug("'"+str(self.name) + "': There is no 'seasons' group.", "error")
 
-func shadow_create() -> void:
+func update_shadow() -> void:
 	if visible:
 		if object.has("shadow"):
 			if object["shadow"] is CompressedTexture2D:
 				var vector2i_position = tilemap.local_to_map(position)
 				var target_position = Vector2i(vector2i_position.x, vector2i_position.y+1)
-				canvas.create_shadow("house_shadow", object["shadow"], target_position)
+				canvas.create_shadow("mailbox_shadow", object["shadow"], target_position)
 			else:
-				data.debug("It is not possible to create a game shadow of an object because the sprite is not of the 'CompressedTexture2D' type.", "error")
+				data.debug("'"+str(self.name) + "': It is not possible to create a game shadow of an object because the sprite is not of the 'CompressedTexture2D' type.", "error")
 
 func _change_sprite(type:bool) -> void:
 	if type:
