@@ -50,6 +50,7 @@ func create_shadow(shadow_name:String, shadow_texture:CompressedTexture2D, shado
 		if shadow_name == "":
 			shadow_name = "shadow"
 		var shadow = Sprite2D.new()
+		shadow.name = shadow_name
 		shadow.texture = shadow_texture
 		shadow.set_position(tilemap.map_to_local(shadow_position))
 		canvas.add_child(shadow)
