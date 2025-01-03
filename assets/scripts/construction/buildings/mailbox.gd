@@ -23,16 +23,16 @@ var object:Dictionary = {
 	"shadow" = load("res://assets/resources/buildings/mailbox/shadow.png"),
 	"seasons" = {
 		"spring" = {
-			"default" = load(""),
-			"hovered" = load(""),
+			"default" = load("res://assets/resources/buildings/mailbox/spring/object_0.png"),
+			"hovered" = load("res://assets/resources/buildings/mailbox/spring/object_1.png"),
 		},
 		"summer" = {
 			"default" = load("res://assets/resources/buildings/mailbox/summer/object_0.png"),
 			"hovered" = load("res://assets/resources/buildings/mailbox/summer/object_1.png"),
 		},
 		"autumn" = {
-			"default" = load(""),
-			"hovered" = load(""),
+			"default" = load("res://assets/resources/buildings/mailbox/autumn/object_0.png"),
+			"hovered" = load("res://assets/resources/buildings/mailbox/autumn/object_1.png"),
 		},
 		"winter" = {
 			"default" = load("res://assets/resources/buildings/mailbox/winter/object_0.png"),
