@@ -64,7 +64,14 @@ func update():
 				else:
 					data.debug("'"+str(self.name) + "': There is no '" + str(season) + "' key in the 'seasons' group.", "error")
 			else:
-				data.debug("'"+str(self.name) + "': There is no 'seasons' group.", "error")
+				if object[level].has("default"):
+					if object[level]["default"] is CompressedTexture2D:
+						sprite.texture = object[level]["default"]
+						self.set_position(tilemap.map_to_local(Vector2i(18,2)))
+					else:
+						data.debug("'"+str(self.name) + "': 'default' is not a CompressedTexture2D.", "error")
+				else:
+					data.debug("'"+str(self.name) + "': There is no 'default' key.", "error")
 		else:
 			data.debug("'"+str(self.name) + "': Index " + str(level) + " is not in the dictionary.", "error")
 
@@ -94,6 +101,20 @@ func _change_sprite(type:bool) -> void:
 						if object[level]["seasons"][season].has("hovered"):
 							if object[level]["seasons"][season]["hovered"] is CompressedTexture2D:
 								sprite.texture = object[level]["seasons"][season]["hovered"]
+							else:
+								data.debug()
+						else:
+							data.debug()
+					else:
+						data.debug()
+				else:
+					if object[level].has("hovered"):
+						if object[level]["hovered"] is CompressedTexture2D:
+							sprite.texture = object[level]["hovered"]
+						else:
+							data.debug("'"+str(self.name) + "': 'hovered' is not a CompressedTexture2D.", "error")
+					else:
+						data.debug("'"+str(self.name) + "': There is no 'hovered' key.", "error")
 			var level_text = tr("object.level")
 			tip.tooltip(
 					str(object[level]["caption"]) + "\n" +
