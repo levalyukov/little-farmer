@@ -4,15 +4,19 @@ extends Node2D
 @onready var data:Node = get_node("/root/"+main)
 @onready var blackout:Control = get_node("/root/"+main+"/UI/Decorative/Blackout")
 @onready var grid:Node2D = get_node("/root/"+main+ "/ConstructionManager/Grid")
-
+@onready var building:Node2D = get_node("/root/"+main+"/ConstructionManager")
+@onready var tablet:Node2D = get_node("/root/"+main+"/ConstructionManager/tablet")
+@onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 var teleporting:bool
 
 func _input(event) -> void:
+	var distance = round(tablet.global_position.distance_to(player.global_position))
 	if event is InputEventMouseButton\
 	&& event.button_index == MOUSE_BUTTON_LEFT\
 	&& event.is_pressed()\
 	&& teleporting\
-	&& grid.mode == grid.modes.NOTHING:
+	&& grid.mode == grid.modes.NOTHING\
+	&& distance < 100:
 		teleport()
 
 func teleport() -> void:
