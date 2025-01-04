@@ -59,7 +59,7 @@ var content:Dictionary = {
 		3: {
 			"caption" = "Хлев",
 			"description" = "Хлев...",
-			"icon" = preload("res://assets/resources/buildings/stall/object_0.png"),
+			"icon" = preload("res://assets/resources/buildings/stall/level_1/summer/object_0.png"),
 			"config" = {
 				"name" = "animal_stall",
 				"node" = preload("res://assets/nodes/buildings/stall/animal_stall.tscn"),
@@ -73,7 +73,7 @@ var content:Dictionary = {
 		4: {
 			"caption" = "Силосная башня",
 			"description" = "Силосная башня...",
-			"icon" = preload("res://assets/resources/buildings/silo/level_1/object_0.png"),
+			"icon" = preload("res://assets/resources/buildings/silo/level_1/summer/object_0.png"),
 			"config" = {
 				"name" = "silo",
 				"node" = preload("res://assets/nodes/buildings/silo/silo.tscn"),
