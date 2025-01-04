@@ -15,6 +15,7 @@ extends Node2D
 var max_distance:int = 250
 var level:int = 1
 var blueprint_id:int
+var vector:Vector2i
 var object:Dictionary = {
 	1: {
 		"caption" = tr("christmas_tree.caption"),
