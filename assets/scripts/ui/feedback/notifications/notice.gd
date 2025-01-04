@@ -11,7 +11,7 @@ extends Control
 const symbols:int = 30
 var icons:Dictionary = {
 	"error" = load("res://assets/resources/ui/feedback/notifications/icons/error.png"),
-	#"photo" = load(),
+	"photo" = load("res://assets/resources/ui/feedback/notifications/icons/photo.png"),
 }
 
 func notice(text:String, type = "") -> void:
