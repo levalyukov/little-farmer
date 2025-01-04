@@ -28,10 +28,7 @@ var opened:bool = false
 var item_index
 var button_index:int
 enum item_type {NOTHING, SEEDS}
-var inventory_items:Dictionary = {
-	1:{"amount": 3154888},
-	13:{"amount": 3154888}
-}
+var inventory_items:Dictionary = {}
 
 func _ready():
 	check_window()
