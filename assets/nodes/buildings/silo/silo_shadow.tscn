@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://qfktaby7ay6k" path="res://assets/resources/buildings/silo/level_1/shadow.png" id="1_2mrvu"]
 
+
 [node name="SiloShadow" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
