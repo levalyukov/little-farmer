@@ -86,7 +86,8 @@ func remove_shadow():
 func _change_sprite(type:bool) -> void:
 	if type:
 		var distance = round(global_position.distance_to(player.global_position))
-		if grid.mode == grid.modes.NOTHING and distance < building.max_distance:
+		if grid.mode == grid.modes.NOTHING\
+		&& distance < building.max_distance:
 			if object.has("seasons"):
 				var season = clock.get_season()
 				if object["seasons"].has(season):
