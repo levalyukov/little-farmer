@@ -1,6 +1,7 @@
 extends Control
 
 @onready var main = str(get_tree().root.get_child(1).name)
+@onready var data:Node = get_node("/root/"+main)
 @export var languages:Array[String] = ["ru", "en"]
 var lang:int = 1
 
@@ -10,7 +11,12 @@ func _ready():
 func change_language() -> void:
 	lang = (lang + 1) % languages.size()
 	TranslationServer.set_locale(languages[lang])
-	print("Game language changed: ", languages[lang])
+	if data.has_method("debug"):
+		data.debug(
+			"Game language changed: " + languages[lang],
+		)
+	else:
+		print("Game language changed: ", languages[lang])
 
 func _on_button_pressed() -> void:
 	if main == "MainMenu":
