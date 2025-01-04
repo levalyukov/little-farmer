@@ -49,8 +49,9 @@ var object:Dictionary = {
 
 func _input(event):
 	if event is InputEventMouseButton\
-	and event.button_index == MOUSE_BUTTON_LEFT\
-	and menu:
+	&& event.button_index == MOUSE_BUTTON_LEFT\
+	&& grid.mode == grid.modes.NOTHING\
+	&& menu:
 		inventory.open()
 		menu = false
 
