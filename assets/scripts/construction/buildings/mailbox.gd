@@ -46,6 +46,7 @@ func _input(event):
 	&& event.button_index == MOUSE_BUTTON_LEFT\
 	&& event.is_pressed()\
 	&& !blur.state\
+	&& grid.mode == grid.modes.NOTHING\
 	&& menu:
 		mailbox.open()
 
