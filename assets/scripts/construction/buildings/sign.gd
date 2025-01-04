@@ -9,44 +9,53 @@ extends Node2D
 @onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
+@onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var icon:TextureRect = $TextureRect
 @onready var sprite:Sprite2D = $Sprite2D
+
+const level:int = 0
 
 var items = Items.new()
 var sprite_id:int = 0
 var blueprint_id:int = 0
 var max_distance:int = 250
 var open_menu:bool = false
+var vector:Vector2i
 var object:Dictionary = {
-	"description" = tr("sign.description"),
-	"default" = load("res://assets/resources/buildings/sign/sign_0.png"),
-	"hover" = load("res://assets/resources/buildings/sign/sign_1.png"),
-	"shadow" = load("res://assets/resources/buildings/sign/shadow.png"),
+	0: {
+		"seasons" = {
+			"spring" = {
+				"default" = load("res://assets/resources/buildings/sign/spring/object_0.png"),
+				"hovered" = load("res://assets/resources/buildings/sign/spring/object_1.png"),
+			},
+			"summer" = {
+				"default" = load("res://assets/resources/buildings/sign/summer/object_0.png"),
+				"hovered" = load("res://assets/resources/buildings/sign/summer/object_1.png"),
+			},
+			"autumn" = {
+				"default" = load("res://assets/resources/buildings/sign/autumn/object_0.png"),
+				"hovered" = load("res://assets/resources/buildings/sign/autumn/object_1.png"),
+			},
+			"winter" = {
+				"default" = load("res://assets/resources/buildings/sign/winter/object_0.png"),
+				"hovered" = load("res://assets/resources/buildings/sign/winter/object_1.png"),
+			},
+		}
+	}
 }
 
 func _ready():
 	update()
 
 func update() -> void:
-	if object.has("default"):
-		if typeof(object["default"]) == TYPE_OBJECT and sprite.texture is CompressedTexture2D:
-			sprite.texture = object["default"]
-		else:
-			data.debug("The specified sprite cannot be installed.", "error")
-	else:
-		data.debug("The specified key is missing.", "error")
-
-func _shadow_create() -> void:
-	if visible:
-		if object:
-			if object.has("shadow"):
-				if object["shadow"] is CompressedTexture2D:
-					var vector2i_position = tilemap.local_to_map(position)
-					var target_position = Vector2i(vector2i_position.x, vector2i_position.y)
-					canvas.create_shadow("sign_shadow", object["shadow"], target_position)
-				else:
-					data.debug("It is not possible to create a game shadow of an object because the sprite is not of the 'CompressedTexture2D' type.", "error")
+	if clock:
+		if object[level].has("seasons"):
+			var season = clock.get_season()
+			if object[level]["seasons"].has(season):
+				if object[level]["seasons"][season].has("default"):
+					if object[level]["seasons"][season]["default"] is CompressedTexture2D:
+						sprite.texture = object[level]["seasons"][season]["default"]
 
 func set_sign_sprite(item_id):
 	sprite_id = item_id
@@ -71,21 +80,24 @@ func _change_sprite(type:bool) -> void:
 	if type:
 		var distance = round(global_position.distance_to(player.global_position))
 		if grid.mode == grid.modes.NOTHING and distance < max_distance:
-			_check_sprite("hover")
+			if clock:
+				if object[level].has("seasons"):
+					var season = clock.get_season()
+					if object[level]["seasons"].has(season):
+						if object[level]["seasons"][season].has("hovered"):
+							if object[level]["seasons"][season]["hovered"] is CompressedTexture2D:
+								sprite.texture = object[level]["seasons"][season]["hovered"]
 			open_menu = true
 	else:
-		_check_sprite("default")
+		if clock:
+			if object[level].has("seasons"):
+				var season = clock.get_season()
+				if object[level]["seasons"].has(season):
+					if object[level]["seasons"][season].has("default"):
+						if object[level]["seasons"][season]["default"] is CompressedTexture2D:
+							sprite.texture = object[level]["seasons"][season]["default"]
 		tip.tooltip("")
 		open_menu = false
-	
-func _check_sprite(key:String) -> void:
-	if object.has(key):
-		if typeof(object[key]) == TYPE_OBJECT and sprite.texture is CompressedTexture2D:
-			sprite.texture = object[key]
-		else:
-			data.debug("The specified sprite cannot be installed.", "error")
-	else:
-		data.debug("The specified key is missing.", "error")
 
 func get_data() -> Dictionary:
 	if sprite_id != 0 && items.content.has(sprite_id):
