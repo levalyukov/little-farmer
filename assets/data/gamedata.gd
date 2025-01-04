@@ -372,24 +372,6 @@ func load_buildings() -> void:
 	else:
 		debug("load_buildings(): Empty dictionary.", "error")
 
-func remove_suffix(input:String) -> String:
-	var regex = RegEx.new()
-	regex.compile("_[0-9]+$")
-	return regex.sub(input, "")
-
-func debug(content:String, type:String = "info") -> void:
-	var system_datetime = Time.get_datetime_dict_from_system()
-	var datetime:String = "["+str(system_datetime["year"])+"-"+str(system_datetime["month"])+"-"+str(system_datetime["day"])+" "+str(system_datetime["hour"])+":"+str(system_datetime["minute"])+":"+str(system_datetime["second"])+"]"
-	match type.to_lower():
-		"info":
-			print(str(datetime) + " INFO: " + str(content))
-		"error":
-			print(str(datetime) + " ERROR: " + str(content))
-		"warning":
-			print(str(datetime) + " WARNING: " + str(content))
-		_:
-			print(str(datetime) + " " + str(content))
-
 func get_dictionary_content(content:String, group:String = "") -> Dictionary:
 	match content:
 		"config": 
@@ -500,3 +482,25 @@ func take_screenshot():
 	else:
 		FileSystem.new().Funcs.create_directory("user://.game")
 		take_screenshot()
+
+func remove_suffix(input:String) -> String:
+	var regex = RegEx.new()
+	regex.compile("_[0-9]+$")
+	return regex.sub(input, "")
+
+func debug(content:String = "", type:String = "info") -> void:
+	if content != "":
+		var system_datetime = Time.get_datetime_dict_from_system()
+		var datetime:String = "["+str(system_datetime["year"])+"-"+str(system_datetime["month"])+"-"+str(system_datetime["day"])+" "+str(system_datetime["hour"])+":"+str(system_datetime["minute"])+":"+str(system_datetime["second"])+"]"
+		match type.to_lower():
+			"info":
+				print(str(datetime) + " INFO: " + str(content))
+			"warning":
+				print(str(datetime) + " WARNING: " + str(content))
+			"error":
+				print(str(datetime) + " ERROR: " + str(content))
+			"fatal":
+				print(str(datetime) + " FATAL ERROR: " + str(content))
+				get_tree().quit()
+			_:
+				print(str(datetime) + " " + str(content))
