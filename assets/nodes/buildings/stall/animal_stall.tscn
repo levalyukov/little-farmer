@@ -1,31 +1,31 @@
 [gd_scene load_steps=6 format=3 uid="uid://c06vvkgkvvlfq"]
 
 [ext_resource type="Script" path="res://assets/scripts/construction/buildings/stall.gd" id="1_6f341"]
+[ext_resource type="Texture2D" uid="uid://b7k3huqxn54t5" path="res://assets/resources/buildings/stall/level_1/summer/object_0.png" id="2_iipeb"]
 [ext_resource type="Shader" path="res://assets/shaders/pixel.gdshader" id="2_rlc4j"]
-[ext_resource type="Texture2D" uid="uid://dwbqo6itkhbxi" path="res://assets/resources/buildings/stall/object_0.png" id="3_4qkpb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sihvr"]
 shader = ExtResource("2_rlc4j")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i2ecp"]
-size = Vector2(412.646, 479.202)
+size = Vector2(508.487, 511.149)
 
 [node name="animal_stall" type="Node2D"]
 script = ExtResource("1_6f341")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(16, -2)
+texture = ExtResource("2_iipeb")
 
 [node name="Collision" type="Area2D" parent="."]
 z_as_relative = false
 material = SubResource("ShaderMaterial_sihvr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
-position = Vector2(15.625, -1.5)
+position = Vector2(16.125, -2)
 scale = Vector2(0.0939061, 0.0939061)
 shape = SubResource("RectangleShape2D_i2ecp")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(16, -8)
-texture = ExtResource("3_4qkpb")
 
 [connection signal="mouse_entered" from="Collision" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Collision" to="." method="_on_area_2d_mouse_exited"]
