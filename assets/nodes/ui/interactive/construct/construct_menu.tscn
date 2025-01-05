@@ -1,7 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://bpmceytvqnc7d"]
+[gd_scene load_steps=10 format=3 uid="uid://bpmceytvqnc7d"]
 
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/construct/construct_system.gd" id="1_qwoah"]
-[ext_resource type="Texture2D" uid="uid://cnfvwixmidxmo" path="res://assets/resources/buildings/sign/sign_0.png" id="3_m1ubu"]
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/construct/crafting.gd" id="3_s0fee"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rp300"]
@@ -207,7 +206,6 @@ theme_override_constants/margin_bottom = 15
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 size_flags_horizontal = 4
-texture = ExtResource("3_m1ubu")
 expand_mode = 2
 stretch_mode = 5
 
