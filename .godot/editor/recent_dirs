@@ -1,3 +1,4 @@
+res://assets/resources/buildings/sign/summer
 res://assets/resources/buildings/stall/level_1
 res://assets/resources/world/trees
 res://assets/resources/world/landscape/summer
@@ -19,4 +20,3 @@ res://assets/resources/buildings/well
 res://assets/nodes/ui/interactive/construct
 res://assets/nodes/ui
 res://assets/nodes/ui/decorative
-res://assets/scripts/ui
