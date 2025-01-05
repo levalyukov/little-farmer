@@ -1,8 +1,10 @@
+CollisionShape2D
+Area2D
+TextureRect
 Sprite2D
 PointLight2D
 TileMap
 ColorRect
-TextureRect
 Control
 Button
 Label
@@ -11,4 +13,3 @@ CanvasLayer
 Node2D
 VBoxContainer
 Timer
-ScrollContainer
