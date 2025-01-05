@@ -31,7 +31,7 @@ var content:Dictionary = {
 		1: {
 			"caption" = "Деревянный знак",
 			"description" = "Деревянный знак...",
-			"icon" = preload("res://assets/resources/buildings/sign/sign_0.png"),
+			"icon" = preload("res://assets/resources/buildings/sign/summer/object_0.png"),
 			"config" = {
 				"name" = "sign",
 				"node" = preload("res://assets/nodes/buildings/sign.tscn"),
