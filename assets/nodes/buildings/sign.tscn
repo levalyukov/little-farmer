@@ -1,31 +1,32 @@
-[gd_scene load_steps=4 format=3 uid="uid://0kdnm5aauxvw"]
+[gd_scene load_steps=5 format=3 uid="uid://ccvnh8pm7feu"]
 
 [ext_resource type="Script" path="res://assets/scripts/construction/buildings/sign.gd" id="1_c3eto"]
-[ext_resource type="Texture2D" uid="uid://cnfvwixmidxmo" path="res://assets/resources/buildings/sign/sign_0.png" id="2_rec4r"]
+[ext_resource type="Texture2D" uid="uid://dhpdcvxkx5317" path="res://assets/resources/buildings/sign/summer/object_0.png" id="2_rtoh4"]
+[ext_resource type="Texture2D" uid="uid://cvpy060nwjh6w" path="res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_4.png" id="3_44jqg"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2rpyc"]
-size = Vector2(12, 18)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_laeg4"]
+size = Vector2(16, 24)
 
 [node name="sign" type="Node2D"]
 script = ExtResource("1_c3eto")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -8)
-texture = ExtResource("2_rec4r")
+texture = ExtResource("2_rtoh4")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -8.0
+offset_top = -16.0
+offset_right = 8.0
+texture = ExtResource("3_44jqg")
+expand_mode = 4
+stretch_mode = 4
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -6)
-shape = SubResource("RectangleShape2D_2rpyc")
-
-[node name="TextureRect" type="TextureRect" parent="."]
-offset_left = -7.0
-offset_top = -13.0
-offset_right = 7.0
-offset_bottom = 1.0
-expand_mode = 4
-stretch_mode = 5
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_laeg4")
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
