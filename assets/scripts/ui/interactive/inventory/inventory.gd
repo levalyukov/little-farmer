@@ -76,10 +76,11 @@ func open() -> void:
 	pause.other_menu = true
 	blur.blur(true)
 	anim.play("open")
-	create_all_items()
-	update_string_capacity()
 	inventory_update()
 	check_inventory()
+
+	create_all_items()
+	update_string_capacity()
 
 func close() -> void:
 	opened = false
@@ -144,10 +145,10 @@ func get_data(index) -> void:
 					type.visible = true
 					type.text = "\n" + type_text + ": " + item.content[int(index)]["type"] + "\n"
 					check_item_type(item.content[int(index)]["type"])
-					if inventory_items[index]["amount"] > item.maximum:
+					if inventory_items[int(index)]["amount"] > item.maximum:
 						var total_amount = tr("inventory.total_item_amount")
 						type.text += "\n" + total_amount + ": " + str(
-							balance.format(inventory_items[index]["amount"])
+							balance.format(inventory_items[int(index)]["amount"])
 						)
 				else:
 					type.visible = false
