@@ -28,6 +28,7 @@ const watering_layer:int = 7
 const crops_layer:int = 8
 const building_layer:int = 9
 const collision_scene:int = 10
+const border_collisions:int = 11
 
 const terrain_set:int = 0
 const roads_terrain:int = 0
@@ -55,7 +56,7 @@ func destroy_collision_check(mode: int):
 		var grid_position = tilemap.local_to_map(i.get_global_position())
 		var texture = error
 		for node in nature.get_children():
-			if check_cell(grid_position, nature_layer)\
+			if check_cell(grid_position, nature_layer) && !check_cell(grid_position, border_collisions)\
 			&& grid_position == tilemap.local_to_map(node.position):
 				var node_type = data.remove_suffix(node.name)
 				match mode:
@@ -155,7 +156,8 @@ func building_collision_check() -> void:
 		&& !check_cell(grid_position, farmland_layer)\
 		&& !check_cell(grid_position, watering_layer)\
 		&& !check_cell(grid_position, coast_layer)\
-		&& !check_cell(grid_position, water_layer):
+		&& !check_cell(grid_position, water_layer)\
+		&& !check_cell(grid_position, collision_scene):
 			grids.texture = default
 		else:
 			grids.texture = error
