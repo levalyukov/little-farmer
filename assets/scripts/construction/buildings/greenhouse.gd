@@ -20,9 +20,9 @@ var level:int = 1
 var blueprint_id:int = 0
 var object:Dictionary = {
 	1: {
-		"caption" = tr("house.caption"),
-		"description" = tr("house.description"),
-		"shadow" = load("res://assets/resources/buildings/house/shadow.png"),
+		"caption" = tr("greenhouse.caption"),
+		"description" = tr("greenhouse.description"),
+		"shadow" = load("res://assets/resources/buildings/greenhouse/level_1/shadow.png"),
 		"seasons" = {
 			"spring" = {
 				"default" = load("res://assets/resources/buildings/greenhouse/level_1/spring/object_0.png"),
@@ -46,7 +46,6 @@ var object:Dictionary = {
 
 func _ready():
 	update()
-	update_shadow()
 
 func update():
 	if clock:
@@ -57,7 +56,6 @@ func update():
 					if object[level]["seasons"][season].has("default"):
 						if object[level]["seasons"][season]["default"] is CompressedTexture2D:
 							sprite.texture = object[level]["seasons"][season]["default"]
-							self.set_position(tilemap.map_to_local(Vector2i(18,2)))
 						else:
 							data.debug("'"+str(self.name) + "': 'default' is not a CompressedTexture2D.", "error")
 					else:
@@ -68,28 +66,12 @@ func update():
 				if object[level].has("default"):
 					if object[level]["default"] is CompressedTexture2D:
 						sprite.texture = object[level]["default"]
-						self.set_position(tilemap.map_to_local(Vector2i(18,2)))
 					else:
 						data.debug("'"+str(self.name) + "': 'default' is not a CompressedTexture2D.", "error")
 				else:
 					data.debug("'"+str(self.name) + "': There is no 'default' key.", "error")
 		else:
 			data.debug("'"+str(self.name) + "': Index " + str(level) + " is not in the dictionary.", "error")
-
-func update_shadow() -> void:
-	if visible:
-		if object.has(level):
-			if object[level].has("shadow"):
-				if object[level]["shadow"] is CompressedTexture2D:
-					var vector2i_position = tilemap.local_to_map(position)
-					var target_position = Vector2i(vector2i_position.x, vector2i_position.y+1)
-					canvas.create_shadow("house_shadow", object[level]["shadow"], target_position)
-				else:
-					data.debug("'"+str(self.name) + "': It is not possible to create a game shadow of an object because the sprite is not of the 'CompressedTexture2D' type.", "error")
-			else:
-				data.debug("'"+str(self.name) + "': The 'shadow' key with index level "+str(level)+" is missing.", "error")
-		else:
-			data.debug("'"+str(self.name) + "': Invalid level index: "+str(level), "error")
 
 func _change_sprite(type:bool) -> void:
 	if type:
