@@ -3,6 +3,7 @@ extends TileMap
 @onready var main = str(get_tree().root.get_child(1).name)
 @onready var data = get_node("/root/"+main)
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
+@onready var farming:Node2D = get_node("/root/"+main+"/FarmingManager")
 @onready var buildings:Node = get_node("/root/"+main+"/ConstructionManager")
 @onready var nature:Node2D = get_node("/root/"+main+"/Nature")
 @onready var canvas:CanvasGroup = get_node("/root/"+main+"/ShadowManager/CanvasGroup")
@@ -112,6 +113,11 @@ func set_atlas(season:String) -> void:
 									i.change_sprite(nature.stones_shadow[i.index])
 								if i.type == "weed":
 									i.change_sprite(nature.weeds_shadow[i.index])
+
+				if farming.get_children() != []:
+					for i in farming.get_children():
+						if i.has_method("check_plant_season"):
+							i.check_plant_season()
 			else:
 				data.debug(
 					"", 
