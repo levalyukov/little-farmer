@@ -16,7 +16,7 @@ func _ready():
 		else:
 			data.debug("Atlas is not a CompressedTexture2D.", "error")
 	else:
-		data.debug("No atlas of crops.", "error")
+		data.debug("No atlas of crops.", "fatal")
 
 func _process(_delta):
 	if plant.plantID != 0:
@@ -28,13 +28,17 @@ func _process(_delta):
 		remove_child(plant)
 		queue_free()
 		
-func rect(id):
+func rect(id) -> void:
 	if crops.crops[id].has("X")\
 	and crops.crops[id].has("Y"):
 		region_rect.position.x = crops.crops[id]['X']
 		region_rect.position.y = crops.crops[id]['Y']
 	else:
 		data.debug("The X and Y coordinates cannot be determined.", "error")
+
+func set_rect(x:int, y:int) -> void:
+	region_rect.position.x = x
+	region_rect.position.y = y
 
 func _on_timer_timeout() -> void:
 	if level < crops.crops[plant.plantID]["growth_level"]:
