@@ -3,4 +3,5 @@
 [ext_resource type="Script" path="res://assets/scripts/farming/farming.gd" id="1_yumjf"]
 
 [node name="FarmingManager" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_yumjf")
