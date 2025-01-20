@@ -36,7 +36,6 @@ var upgrade_blueprints:Array[int] = []
 
 var items:Object = Items.new()
 var blueprints:Object = Blueprints.new()
-var materials:Object = BuildingMaterials.new()
 
 func _ready():
 	check_window()
