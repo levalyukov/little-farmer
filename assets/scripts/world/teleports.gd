@@ -10,14 +10,15 @@ extends Node2D
 var teleporting:bool
 
 func _input(event) -> void:
-	var distance = round(tablet.global_position.distance_to(player.global_position))
-	if event is InputEventMouseButton\
-	&& event.button_index == MOUSE_BUTTON_LEFT\
-	&& event.is_pressed()\
-	&& teleporting\
-	&& grid.mode == grid.modes.NOTHING\
-	&& distance < 100:
-		teleport()
+	if tablet:
+		var distance = round(tablet.global_position.distance_to(player.global_position))
+		if event is InputEventMouseButton\
+		&& event.button_index == MOUSE_BUTTON_LEFT\
+		&& event.is_pressed()\
+		&& teleporting\
+		&& grid.mode == grid.modes.NOTHING\
+		&& distance < 100:
+			teleport()
 
 func teleport() -> void:
 	blackout.blackout(true)
