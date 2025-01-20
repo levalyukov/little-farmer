@@ -51,6 +51,7 @@ func _input(event):
 	if event is InputEventMouseButton\
 	&& event.button_index == MOUSE_BUTTON_LEFT\
 	&& grid.mode == grid.modes.NOTHING\
+	&& !blur.state\
 	&& menu:
 		inventory.open()
 		menu = false
