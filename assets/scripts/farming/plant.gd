@@ -8,6 +8,7 @@ extends Node2D
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
+@onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var sprite:Sprite2D = $Sprite2D
 @onready var timer:Timer = $Timer
 @onready var check_water_timer:Timer = $CheckWaterTimer
@@ -150,6 +151,12 @@ func get_fertilizer(fertilizer_type:int) -> String:
 			return tr("fertilizer.manure")
 		_:
 			return ""
+
+func check_plant_season() -> void:
+	for i in crops.crops[plantID]["season"]:
+		if i != clock.get_season():
+				condition = phases.DEAD
+				sprite.set_rect(0, 160)
 
 func _on_collision_mouse_entered() -> void:
 	if !blur.state\
