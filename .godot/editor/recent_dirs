@@ -1,3 +1,5 @@
+res://assets/scripts/ui
+res://assets/nodes/ui
 res://assets/resources/buildings/greenhouse/level_1
 res://assets/scripts/construction/buildings
 res://assets/resources/buildings/sign/summer
@@ -18,5 +20,3 @@ res://assets/scripts/world/nature
 res://assets/scripts/ui/hud/tools
 res://assets/resources/buildings/stall
 res://assets/resources/buildings/well
-res://assets/nodes/ui/interactive/construct
-res://assets/nodes/ui
