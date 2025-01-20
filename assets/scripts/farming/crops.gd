@@ -133,7 +133,7 @@ var crops:Dictionary = {
 	11: {
 		"caption" = tr("parships.caption"),
 		"type" = "vegetable", 
-		"season" = ["summer"],
+		"season" = ["autumn"],
 		"environment" = "soil",
 		"growth_rate" = 8,
 		"growth_level" = 4, 
@@ -145,7 +145,7 @@ var crops:Dictionary = {
 	12: {
 		"caption" = tr("garlic.caption"),
 		"type" = "vegetable", 
-		"season" = ["summer"],
+		"season" = ["autumn"],
 		"environment" = "soil",
 		"growth_rate" = 8,
 		"growth_level" = 5, 
@@ -157,7 +157,7 @@ var crops:Dictionary = {
 	13: {
 		"caption" = tr("beet.caption"),
 		"type" = "vegetable", 
-		"season" = ["summer"],
+		"season" = ["autumn"],
 		"environment" = "soil",
 		"growth_rate" = 8,
 		"growth_level" = 6, 
