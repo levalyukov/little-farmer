@@ -21,7 +21,6 @@ extends Node2D
 var items = Items.new()
 var crops = Crops.new()
 var blueprints = Blueprints.new()
-var materials = BuildingMaterials.new()
 var natural_resources = NaturalResources.new()
 
 const SIZE:Vector2 = Vector2(16, 16)
