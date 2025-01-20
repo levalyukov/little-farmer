@@ -99,6 +99,7 @@ var content:Dictionary = {
 		"sale": 5,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/aluminum_ingot.png"),
 	},
+	# seeds packets
 	13: {
 		"caption": tr("carrot_packet.caption"),
 		"description": tr("carrot_packet.description"), # Маленькие семена для выращивания моркови. Посадите их на плодородной земле, поливайте и ждите урожая.
@@ -236,6 +237,7 @@ var content:Dictionary = {
 		"crop": 13,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_13.png"),
 	},
+	# crops
 	26: {
 		"caption": tr("carrot_crop.caption"),
 		"description": tr("carrot_crop.description"),
