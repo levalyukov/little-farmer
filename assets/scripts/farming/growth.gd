@@ -3,7 +3,7 @@ extends Sprite2D
 @onready var main:String = str(get_tree().root.get_child(1).name)
 @onready var data:Node2D = get_node("/root/"+main)
 @onready var plant = $".."
-@onready var timer = $"../Timer"
+@onready var timer:Timer = $"../Timer"
 
 var crops:Object = Crops.new()
 var level:int
@@ -36,9 +36,12 @@ func rect(id) -> void:
 	else:
 		data.debug("The X and Y coordinates cannot be determined.", "error")
 
-func set_rect(x:int, y:int) -> void:
+func set_rect(x:int, y:int, timerIsStopped:bool = false) -> void:
 	region_rect.position.x = x
 	region_rect.position.y = y
+	if timerIsStopped\
+	&& !timer.is_stopped():
+		timer.stop()
 
 func _on_timer_timeout() -> void:
 	if level < crops.crops[plant.plantID]["growth_level"]:
