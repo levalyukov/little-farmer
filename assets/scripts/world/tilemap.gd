@@ -76,48 +76,56 @@ func set_atlas(season:String) -> void:
 				tile_set.get_source(3).texture = SEASON_ATLAS[season]["waterings"]
 				tile_set.get_source(4).texture = SEASON_ATLAS[season]["coasts"]
 				tile_set.get_source(5).texture = SEASON_ATLAS[season]["water"]
-				if buildings.get_children() != []:
-					for node in buildings.get_children():
-						if node.has_method("get_data"):
-							if node.object.has(node.level):
-								if node.object[node.level].has("seasons"):
-									if node.object[node.level]["seasons"].has(season):
-										if node.object[node.level]["seasons"][season].has("default")\
-										&& node.object[node.level]["seasons"][season].has("hovered"):
-											node.update()
-						else:
-							if node.has_method("update"):
-								if node.object.has("seasons"):
-									if node.object["seasons"].has(season):
-										if node.object["seasons"][season].has("default")\
-										&& node.object["seasons"][season].has("hovered"):
-											node.update()
+				if buildings:
+					if buildings.get_children() != []:
+						for node in buildings.get_children():
+							if node:
+								if node.has_method("get_data"):
+									if node.object.has(node.level):
+										if node.object[node.level].has("seasons"):
+											if node.object[node.level]["seasons"].has(season):
+												if node.object[node.level]["seasons"][season].has("default")\
+												&& node.object[node.level]["seasons"][season].has("hovered"):
+													node.update()
+								else:
+									if node.has_method("update"):
+										if node.object.has("seasons"):
+											if node.object["seasons"].has(season):
+												if node.object["seasons"][season].has("default")\
+												&& node.object["seasons"][season].has("hovered"):
+													node.update()
 
-				if nature.get_children() != []:
-					nature.clear_all_arrays()
-					nature.new_texture()
-					for node in nature.get_children(): 
-						if data.remove_suffix(node.name) == "tree":
-							node.change_texture(nature.trees[node.index])
-						if data.remove_suffix(node.name) == "stone":
-							node.change_texture(nature.stones[node.index])
-						if data.remove_suffix(node.name) == "weed":
-							node.change_texture(nature.weeds[node.index])
+				if nature:
+					if nature.get_children() != []:
+						nature.clear_all_arrays()
+						nature.new_texture()
+						for node in nature.get_children(): 
+							if node:
+								if data.remove_suffix(node.name) == "tree":
+									node.change_texture(nature.trees[node.index])
+								if data.remove_suffix(node.name) == "stone":
+									node.change_texture(nature.stones[node.index])
+								if data.remove_suffix(node.name) == "weed":
+									node.change_texture(nature.weeds[node.index])
 
+				if canvas:
 					if canvas.get_children() != []:
 						for i in canvas.get_children():
-							if i.has_method("is_nature_shadow"):
-								if i.type == "tree":
-									i.change_sprite(nature.trees_shadow[i.index])
-								if i.type == "stone":
-									i.change_sprite(nature.stones_shadow[i.index])
-								if i.type == "weed":
-									i.change_sprite(nature.weeds_shadow[i.index])
+							if i:
+								if i.has_method("is_nature_shadow"):
+									if i.type == "tree":
+										i.change_sprite(nature.trees_shadow[i.index])
+									if i.type == "stone":
+										i.change_sprite(nature.stones_shadow[i.index])
+									if i.type == "weed":
+										i.change_sprite(nature.weeds_shadow[i.index])
 
-				if farming.get_children() != []:
-					for i in farming.get_children():
-						if i.has_method("check_plant_season"):
-							i.check_plant_season()
+				if farming:
+					if farming.get_children() != []:
+						for i in farming.get_children():
+							if i:
+								if i.has_method("check_plant_season"):
+									i.check_plant_season()
 			else:
 				data.debug(
 					"", 
