@@ -49,6 +49,19 @@ const file:Dictionary = {
 	vctr_water = "user://.game/data/farm/vectors/water.json",
 }
 
+const sceneConfig = {
+	'Farm': {
+		'farming': true,
+		'build': true,
+		'changingLandscape': true,
+	},
+	'Village': {
+		'farming': false,
+		'build': false,
+		'changingLandscape': false,
+	},
+}
+
 func _ready():
 	if main == "Farm":
 		if GameLoader.mode\
