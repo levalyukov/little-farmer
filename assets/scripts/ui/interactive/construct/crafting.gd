@@ -12,7 +12,6 @@ extends Button
 
 var items:Object = Items.new()
 var blueprints:Object = Blueprints.new()
-var materials:Object = BuildingMaterials.new()
 
 var disable:bool
 var group:String
