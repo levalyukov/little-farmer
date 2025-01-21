@@ -9,6 +9,8 @@ extends Control
 @onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
 @onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/storage")
 
+@onready var playerInventoryCaption:Label = $Content/PlayerInventory/PlayerContainer/VBoxContainer/LabelMargin/Label
+@onready var tradeInventoryCaption:Label = $Content/TraderInventory/TraderContainer/VBoxContainer/LabelMargin/Label
 @onready var header:Label = $Content/TradeWindow/TradeWindow/VBoxContainer/HeaderContainer/Header
 @onready var description_container:MarginContainer = $Content/TradeWindow/TradeWindow/VBoxContainer/DescriptionContainer
 @onready var description:Label = $Content/TradeWindow/TradeWindow/VBoxContainer/DescriptionContainer/Description
@@ -29,7 +31,7 @@ enum transactions {NONE, PURCHASE, SELL}
 enum initiators {NONE, PLAYER, TRADER}
 
 var trader_id:int = 1
-var target_price:float = 0.0
+var target_price:int = 0.0
 var transaction:int = transactions.NONE
 var initiator:int = initiators.NONE
 
@@ -39,6 +41,7 @@ var trader_inventory:Dictionary = {}
 var new_items_in_inventory = []
 var simillar_items = []
 
+var npc:Object = NPC.new()
 var traders:Object = Traders.new()
 var all_items:Object = Items.new()
 
@@ -54,10 +57,11 @@ func _input(_event):
 func open_trade_menu() -> void:
 	opened = true
 	window_visible = true
-	blur.blur(true)
 	anim.play("open_menu")
 	update_inventories_trade_menu()
 	clear_all_trade_menu()
+	if !blur.state:
+		blur.blur(true)
 
 func close_trade_menu() -> void:
 	opened = false
@@ -188,7 +192,7 @@ func get_target_price():
 	if trade_content != {}:
 		trade_window_target_price.visible = true
 		var target_price_label = tr("target_price_label")
-		target_price = 0.0
+		target_price = 0
 		if initiator == initiators.TRADER:
 			for item in trade_content:
 				if storage.object[storage.level]["slots"] - inventory.get_all_items() >= get_all_items_array():
@@ -196,7 +200,7 @@ func get_target_price():
 						var sale_price = all_items.content[int(item)].get("purchase", null)
 						if sale_price != null:
 							var amount = trade_content[item].get("amount", 1)
-							target_price += sale_price * amount
+							target_price += round(sale_price * amount)
 						else:
 							data.debug("the 'sale' parameter is missing","error")
 					else:
@@ -207,12 +211,12 @@ func get_target_price():
 					var sale_price = all_items.content[int(item)].get("sale", null)
 					if sale_price != null:
 						var amount = trade_content[item].get("amount", 1)
-						target_price += sale_price * amount
+						target_price += round(sale_price * amount)
 					else:
 						data.debug("the 'sale' parameter is missing","error")
 				else:
 					data.debug("Invalid item ID: " + str(item), "error")
-		trade_window_target_price.text = target_price_label + ": " + str(target_price)
+		trade_window_target_price.text = target_price_label + ": " + str(balance.format(target_price))
 	else:
 		trade_window_target_price.visible = false
 	
@@ -250,7 +254,9 @@ func update_button_trade_window() -> void:
 		initiator = initiators.NONE
 		description_container.visible = true
 		description.text = tr("trade_menu.description")
-		
+		playerInventoryCaption.text = tr('trade_menu.player_inventory')
+		if npc.content.has(trader_id):
+			tradeInventoryCaption.text = npc.content[trader_id]['name']
 
 func get_trader_inventory() -> void:
 	if traders.content.has(trader_id):
