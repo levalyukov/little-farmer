@@ -1,14 +1,14 @@
-Label
 MarginContainer
+Panel
+Timer
+Label
 AnimationPlayer
 Button
 VBoxContainer
 HBoxContainer
 ScrollContainer
-Panel
 TileMap
 Sprite2D
 CollisionShape2D
 Area2D
 TextureRect
-PointLight2D
