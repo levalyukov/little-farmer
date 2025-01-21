@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://boitxnv4ptxu6"]
+[gd_scene load_steps=16 format=3 uid="uid://boitxnv4ptxu6"]
 
 [ext_resource type="PackedScene" uid="uid://cyl6jw0huwvk6" path="res://assets/nodes/ui/interactive/pause/pause.tscn" id="1_i05ju"]
 [ext_resource type="PackedScene" uid="uid://bhadiamik4ev0" path="res://assets/nodes/ui/interactive/options/options.tscn" id="2_o0hgi"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://c50737uagx074" path="res://assets/nodes/ui/hud/hud.tscn" id="10_046e5"]
 [ext_resource type="PackedScene" uid="uid://b51o72a5t51k6" path="res://assets/nodes/ui/modal.tscn" id="10_a5quq"]
 [ext_resource type="PackedScene" uid="uid://dkmgvs1mpa0pi" path="res://assets/nodes/ui/trade_menu.tscn" id="10_tqfvj"]
+[ext_resource type="PackedScene" uid="uid://dqq3yhv1irugg" path="res://assets/nodes/ui/dialog_window.tscn" id="11_egk03"]
 [ext_resource type="PackedScene" uid="uid://dmrj3nbdfyut" path="res://assets/nodes/ui/feedback/tooltip.tscn" id="11_r363a"]
 [ext_resource type="PackedScene" uid="uid://cipgdxgpuslcv" path="res://assets/nodes/ui/feedback/notifications/notifications.tscn" id="12_3qrnm"]
 
@@ -52,6 +53,8 @@ size_flags_vertical = 4
 [node name="Mailbox" parent="Interactive" instance=ExtResource("5_2qvs7")]
 
 [node name="TradeMenu" parent="Interactive" instance=ExtResource("10_tqfvj")]
+
+[node name="DialogWindow" parent="Interactive" instance=ExtResource("11_egk03")]
 
 [node name="BuildingsMenu" type="Node" parent="Interactive"]
 
