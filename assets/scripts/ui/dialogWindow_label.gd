@@ -1,16 +1,16 @@
 extends Label
 
 @onready var main:String = str(get_tree().root.get_child(1).name)
-@onready var npcHeader:Label = get_node('/root/'+main+'/MarginContainer/Panel/VBoxContainer/MarginContainer/Label')
-@onready var buttonContainer:VBoxContainer = get_node('/root/'+main+'/MarginContainer/Panel/VBoxContainer/Answers/MarginContainer/HBoxContainer')
+@onready var npcHeader:Label = get_node('/root/'+main+'/UI/Interactive/DialogWindow/MarginContainer/Panel/VBoxContainer/MarginContainer/Label')
+@onready var buttonContainer:VBoxContainer = get_node('/root/'+main+'/UI/Interactive/DialogWindow/MarginContainer/Panel/VBoxContainer/MarginContainer2/Answers/MarginContainer/HBoxContainer')
 @onready var specialButton:PackedScene = load('res://assets/nodes/ui/dialog_window_button.tscn')
+@onready var timer:Timer = get_node('/root/'+main+'/UI/Interactive/DialogWindow/Timer')
 
 var mainStringContent:Array[String]
 var buttonCaptionsContent:Dictionary
 var buttonTypeContent:Dictionary
 var text_to_print:String
 var print_speed:float = 0.01
-var timer:Timer
 var current_char_index:int = 0
 var char_index:int = 0
 
@@ -30,7 +30,6 @@ func setDialogText(npcCaption:String, content:Array[String], buttonsCaption:Dict
 			button.text = captions[i]
 			button.type = funcs[i]
 			buttonContainer.add_child(button)
-	timer = Timer.new()
 	add_child(timer)
 	timer.wait_time = print_speed
 	timer.one_shot = false
@@ -42,15 +41,6 @@ func nextCaption() -> void:
 		char_index += 1
 		text_to_print = mainStringContent[char_index]
 		updateButtons()
-		if !timer:
-			timer = Timer.new()
-			add_child(timer)
-			timer.wait_time = print_speed
-			timer.one_shot = false
-			timer.timeout.connect(_on_timer_timeout)
-		else:
-			timer.stop()
-		timer.start()
 		start_printing()
 
 func updateButtons() -> void:
