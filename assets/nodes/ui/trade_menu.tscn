@@ -1,7 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dkmgvs1mpa0pi"]
+[gd_scene load_steps=9 format=3 uid="uid://dkmgvs1mpa0pi"]
 
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/trading/trade_system.gd" id="1_dpoco"]
 [ext_resource type="PackedScene" uid="uid://do4e681e4p00n" path="res://assets/nodes/ui/interactive/inventory/slot.tscn" id="1_oyftu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nkxs0"]
+font_size = 18
 
 [sub_resource type="LabelSettings" id="LabelSettings_ijn06"]
 font_size = 20
@@ -145,6 +148,17 @@ custom_minimum_size = Vector2(305, 425)
 layout_mode = 2
 size_flags_horizontal = 2
 
+[node name="LabelMargin" type="MarginContainer" parent="Content/PlayerInventory/PlayerContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+
+[node name="Label" type="Label" parent="Content/PlayerInventory/PlayerContainer/VBoxContainer/LabelMargin"]
+layout_mode = 2
+text = "Player Inventory"
+label_settings = SubResource("LabelSettings_nkxs0")
+
 [node name="MarginContainer" type="MarginContainer" parent="Content/PlayerInventory/PlayerContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 15
@@ -270,6 +284,18 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="Content/TraderInventory/TraderContainer"]
 custom_minimum_size = Vector2(305, 425)
 layout_mode = 2
+
+[node name="LabelMargin" type="MarginContainer" parent="Content/TraderInventory/TraderContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+
+[node name="Label" type="Label" parent="Content/TraderInventory/TraderContainer/VBoxContainer/LabelMargin"]
+layout_mode = 2
+text = "Trader Inventory"
+label_settings = SubResource("LabelSettings_nkxs0")
+horizontal_alignment = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Content/TraderInventory/TraderContainer/VBoxContainer"]
 layout_mode = 2
