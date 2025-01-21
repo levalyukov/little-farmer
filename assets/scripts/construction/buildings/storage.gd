@@ -21,7 +21,7 @@ var object:Dictionary = {
 	1: {
 		"caption" = tr("storage.caption"),
 		"description" = tr("storage.description"),
-		"slots" = 12,
+		"slots" = 55,
 		"seasons" = {
 			"spring" = {
 				"default" = load("res://assets/resources/buildings/storage/spring/level_1/object_0.png"),
