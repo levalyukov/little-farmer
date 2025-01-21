@@ -29,8 +29,9 @@ func set_data(index, item_amount) -> void:
 
 		if item.content[int(index)].has("icon"):
 			if item.content[int(index)]["icon"] is CompressedTexture2D:
-				icon.texture = item.content[int(index)]["icon"]
-				icon.visible = true
+				if icon:
+					icon.texture = item.content[int(index)]["icon"]
+					icon.visible = true
 			else:
 				icon.visible = false
 				data.debug("[ID: "+str(index)+"] The key stores a non-Compressed 2D Texture.", "error")
@@ -39,8 +40,9 @@ func set_data(index, item_amount) -> void:
 			data.debug("[ID: "+str(index)+"] The object does not have the 'icon' key.", "error")
 		
 		if amount > 1:
-			amount_label.visible = true
-			amount_label.text = "x"+str(amount)
+			if amount_label:
+				amount_label.visible = true
+				amount_label.text = "x"+str(amount)
 		else:
 			amount_label.visible = false
 
