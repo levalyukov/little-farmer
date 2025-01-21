@@ -34,9 +34,9 @@ func _ready():
 	timer.set_paused(false)
 	timer.start()
 	
-func _input(_event):
-	if Input.is_action_just_pressed("space"):
-		update_season()
+#	func _input(_event):
+#		if Input.is_action_just_pressed("space"):
+#			update_season()
 
 func clock_update() -> void:
 	var day_string = tr("clock.day_lived")
