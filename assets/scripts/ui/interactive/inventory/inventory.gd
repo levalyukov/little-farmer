@@ -9,8 +9,8 @@ extends Control
 @onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/storage")
 @onready var balance:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Balance")
 @onready var node:PackedScene = load("res://assets/nodes/ui/interactive/inventory/slot.tscn")
-@onready var anim:AnimationPlayer = $Animation
 
+@onready var anim:AnimationPlayer = $Animation
 @onready var info:BoxContainer = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer
 @onready var scroll_info:ScrollContainer = $Main/HBoxContainer/ItemContent/ScrollContainer
 @onready var slots:GridContainer = $Main/HBoxContainer/InventoryContent/ScrollContainer/GridContainer
