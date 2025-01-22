@@ -8,7 +8,7 @@ extends Control
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 
-var opened:bool = false
+var opened:bool = true
 var visibled:bool = false
 
 func _ready():
