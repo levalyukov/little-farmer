@@ -63,19 +63,20 @@ const sceneConfig = {
 }
 
 func _ready():
-	if main == "Farm":
-		if GameLoader.mode\
-		&& !GameLoader.start:
-			gameload()
-			GameLoader.mode = false
-		if !GameLoader.mode\
-		&& GameLoader.start:
-			nature.create_start_nature()
-	else:
-		load_time()
-		load_balance()
-		load_inventory()
-		load_buildings()
+	pass
+	#if main == "Farm":
+	#	if GameLoader.mode\
+	#	&& !GameLoader.start:
+	#		gameload()
+	#		GameLoader.mode = false
+	#	if !GameLoader.mode\
+	#	&& GameLoader.start:
+	#		nature.create_start_nature()
+	#else:
+	#	load_time()
+	#	load_balance()
+	#	load_inventory()
+	#	load_buildings()
 
 func gamesave() -> void:
 	file_save([path.main], file.config, get_dictionary_content("config"))
