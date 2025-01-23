@@ -1,3 +1,9 @@
+CollisionShape2D
+Area2D
+Sprite2D
+Node2D
+Node
+TileMap
 MarginContainer
 Panel
 Timer
@@ -7,8 +13,3 @@ Button
 VBoxContainer
 HBoxContainer
 ScrollContainer
-TileMap
-Sprite2D
-CollisionShape2D
-Area2D
-TextureRect
