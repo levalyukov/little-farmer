@@ -14,12 +14,15 @@ extends Control
 
 const speed:float = 8
 
-const seasons:Array[String] = ["spring", "summer", "autumn", "winter"]
+const seasons:Array[String] = [
+	"spring", "summer", 
+	"autumn", "winter"
+]
 var season:int = 1
 var year:int = 1
 var week:int = 1
 var day:int = 0
-var hour:int = 8
+var hour:int = 6
 var minute:int = 1
 
 var weeks:Array[String] = [
