@@ -1,14 +1,15 @@
+res://assets/scripts/construction/buildings
+res://assets/resources/buildings/graves/grave_1
+res://assets/resources/world
 res://assets/scripts/ui
 res://assets/nodes/ui
 res://assets/resources/buildings/greenhouse/level_1
-res://assets/scripts/construction/buildings
 res://assets/resources/buildings/sign/summer
 res://assets/resources/buildings/stall/level_1
 res://assets/resources/world/trees
 res://assets/resources/world/landscape/summer
 res://assets/resources/buildings/house/summer/level_1
 res://assets/resources/buildings/christmass_tree
-res://assets/resources/world
 res://
 res://assets/resources/buildings/sign
 res://assets/resources/world/landscape
@@ -19,4 +20,3 @@ res://assets/nodes/ui/hud/elements/tools/destroy_menu
 res://assets/scripts/world/nature
 res://assets/scripts/ui/hud/tools
 res://assets/resources/buildings/stall
-res://assets/resources/buildings/well
