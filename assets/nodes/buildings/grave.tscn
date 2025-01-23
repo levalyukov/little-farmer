@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://n2dym6wl47jq"]
+
+[ext_resource type="Script" path="res://assets/scripts/construction/buildings/grave.gd" id="1_71pyx"]
+[ext_resource type="Texture2D" uid="uid://b12j8houaqa60" path="res://assets/resources/buildings/graves/grave_1/object_0.png" id="2_xffq6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vth6j"]
+size = Vector2(16, 32)
+
+[node name="Grave" type="Node2D"]
+script = ExtResource("1_71pyx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_xffq6")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_vth6j")
