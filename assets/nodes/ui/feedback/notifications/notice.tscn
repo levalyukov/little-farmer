@@ -117,12 +117,13 @@ stretch_mode = 4
 [node name="MarginLabel" type="MarginContainer" parent="Main/Content/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
 
 [node name="Label" type="Label" parent="Main/Content/HBoxContainer/MarginLabel"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
-vertical_alignment = 1
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 5.0
