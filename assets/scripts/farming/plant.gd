@@ -131,24 +131,24 @@ func set_data(
 func get_condition(condition_type:int) -> String:
 	match condition_type:
 		0:
-			return tr("condition.planted")
+			return tr("Посажено")
 		1:
-			return tr("condition.thriving")
+			return tr("Процветает")
 		2:
-			return tr("condition.grown")
+			return tr("Выросло")
 		3:
-			return tr("condition.died")
+			return tr("Погибло")
 		_:
 			return ""
 
 func get_fertilizer(fertilizer_type:int) -> String:
 	match fertilizer_type:
 		1:
-			return tr("fertilizer.compost")
+			return tr("Компост")
 		2:
-			return tr("fertilizer.humus")
+			return tr("Перегной")
 		3:
-			return tr("fertilizer.manure")
+			return tr("Навоз")
 		_:
 			return ""
 
@@ -164,9 +164,9 @@ func _on_collision_mouse_entered() -> void:
 		if crops.crops.has(plantID):
 			if crops.crops[plantID].has("caption"):
 				if typeof(crops.crops[plantID]["caption"]) == TYPE_STRING:
-					var plant_status = tr("plant_status")
+					var plant_status = tr("Состояние")
 					if fertilizer != fertilizers.NOTHING:
-						var fertilized_plant = tr("fertilizer")
+						var fertilized_plant = tr("Удобрено")
 						tip.tooltip(
 							crops.crops[plantID]["caption"] +"\n"+
 							str(plant_status) + ": " + str(get_condition(condition)) +"\n"+
