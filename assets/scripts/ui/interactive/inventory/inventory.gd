@@ -141,12 +141,12 @@ func get_data(index) -> void:
 
 			if item.content[int(index)].has("type"):
 				if typeof(item.content[int(index)]["type"]) == TYPE_STRING:
-					var type_text = tr("inventory.item_type")
+					var type_text = tr("Тип предмета")
 					type.visible = true
 					type.text = "\n" + type_text + ": " + item.content[int(index)]["type"] + "\n"
 					check_item_type(item.content[int(index)]["type"])
 					if inventory_items[int(index)]["amount"] > item.maximum:
-						var total_amount = tr("inventory.total_item_amount")
+						var total_amount = tr("Всего")
 						type.text += "\n" + total_amount + ": " + str(
 							balance.format(inventory_items[int(index)]["amount"])
 						)
@@ -199,8 +199,8 @@ func update_string_capacity() -> void:
 	if has_node("/root/"+main+"/ConstructionManager"):
 		if has_node("/root/"+main+"/ConstructionManager/storage"):
 			if storage.object[storage.level].has("slots"):
-				var text = tr("inventory.storage_slots")
-				list.text = text + " " + str(get_all_items()) + "/" + str(storage.object[storage.level]["slots"])
+				var text = tr("Доступно слотов")
+				list.text = text + ": " + str(get_all_items()) + "/" + str(storage.object[storage.level]["slots"])
 				list.visible = true
 			else:
 				data.debug("The 'slots' element does not exist.", "error")
@@ -316,11 +316,11 @@ func update_inventory_content() -> void:
 func get_tip(tip:String) -> String:
 	match tip:
 		"growth":
-			return tr("inventory.crop_growthtime")
+			return tr("Время роста")
 		"productivity":
-			return tr("inventory.crop_productivity")
+			return tr("Урожайность")
 		"conditions":
-			return tr("inventory.crop_conditions")
+			return tr("Условия")
 		_:
 			return ""
 
@@ -328,7 +328,7 @@ func check_item_type(i_type:String) -> void:
 	if main == "Farm":
 		match i_type:
 			"seeds":
-				var plant_text = tr("inventory_button.plant_seeds")
+				var plant_text = tr("Посадить семена")
 				button_index = item_type.SEEDS
 				button.text = plant_text
 				button.visible = true
