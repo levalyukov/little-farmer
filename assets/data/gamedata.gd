@@ -501,6 +501,13 @@ func remove_suffix(input:String) -> String:
 	regex.compile("_[0-9]+$")
 	return regex.sub(input, "")
 
+func check_probability(percent:float) -> bool:
+	var probability = percent / 100.0
+	var random_value = randf() 
+	if random_value < probability:
+		return true
+	return false
+
 func debug(content:String = "", type:String = "info") -> void:
 	if content != "":
 		var system_datetime = Time.get_datetime_dict_from_system()
