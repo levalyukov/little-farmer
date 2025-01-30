@@ -6,6 +6,7 @@ var crops:Dictionary = {
 	"width": 16,
 	"height": 32,
 	"check_watering": 10,
+	"probability_spoilage": 5,
 	# spring crops
 	1: {
 		"caption" = tr("Морковь"),
@@ -17,7 +18,8 @@ var crops:Dictionary = {
 		"mortality" = 5,
 		"productivity" = [1,5],
 		"X" = 0, "Y" = 0,
-		"item" = 18,
+		"item" = 28,
+		"spoilage" = 43,
 	},
 	2: {
 		"caption" = tr("Картофель"),
@@ -29,7 +31,8 @@ var crops:Dictionary = {
 		"mortality" = 5,
 		"productivity" = [5,10], 
 		"X" = 0, "Y" = 32,
-		"item" = 19,
+		"item" = 29,
+		"spoilage" = 44,
 	},
 	3: {
 		"caption" = tr("Редис"),
@@ -41,7 +44,8 @@ var crops:Dictionary = {
 		"mortality" = 5,
 		"productivity" = [5,10], 
 		"X" = 0, "Y" = 64,
-		"item" = 20,
+		"item" = 30,
+		"spoilage" = 45,
 	},
 	4: {
 		"caption" = tr("Капуста"),
@@ -53,7 +57,8 @@ var crops:Dictionary = {
 		"mortality" = 5,
 		"productivity" = [5,10], 
 		"X" = 0, "Y" = 96,
-		"item" = 21,
+		"item" = 31,
+		"spoilage" = 46,
 	},
 	5: {
 		"caption" = tr("Репчатый лук"),
@@ -65,7 +70,8 @@ var crops:Dictionary = {
 		"mortality" = 5,
 		"productivity" = [5,10], 
 		"X" = 0, "Y" = 128,
-		"item" = 22,
+		"item" = 32,
+		"spoilage" = 47,
 	},
 	# summer crops
 	6: {
@@ -78,7 +84,8 @@ var crops:Dictionary = {
 		"mortality" = 5,
 		"productivity" = [2,4], 
 		"X" = 112, "Y" = 0,
-		"item" = 31,
+		"item" = 33,
+		"spoilage" = 48,
 	},
 	7: {
 		"caption" = tr("Томат"),
@@ -90,7 +97,8 @@ var crops:Dictionary = {
 		"mortality" = 5,
 		"productivity" = [2,4], 
 		"X" = 112, "Y" = 32,
-		"item" = 32,
+		"item" = 34,
+		"spoilage" = 49,
 	},
 	8: {
 		"caption" = tr("Баклажан"),
@@ -102,7 +110,8 @@ var crops:Dictionary = {
 		"mortality" = 5,
 		"productivity" = [2,4], 
 		"X" = 112, "Y" = 64,
-		"item" = 33,
+		"item" = 35,
+		"spoilage" = 50,
 	},
 	9: {
 		"caption" = tr("Перец"),
@@ -114,7 +123,8 @@ var crops:Dictionary = {
 		"mortality" = 5,
 		"productivity" = [2,4], 
 		"X" = 112, "Y" = 96,
-		"item" = 34,
+		"item" = 36,
+		"spoilage" = 51,
 	},
 	10: {
 		"caption" = tr("Кукуруза"),
@@ -126,7 +136,8 @@ var crops:Dictionary = {
 		"mortality" = 5,
 		"productivity" = [2,4], 
 		"X" = 112, "Y" = 128,
-		"item" = 35,
+		"item" = 37,
+		"spoilage" = 52,
 	},
 
 	# autumn crops
@@ -140,7 +151,8 @@ var crops:Dictionary = {
 		"mortality" = 5,
 		"productivity" = [2,4], 
 		"X" = 224, "Y" = 0,
-		"item" = 36,
+		"item" = 38,
+		"spoilage" = 53,
 	},
 	12: {
 		"caption" = tr("Чеснок"),
@@ -152,7 +164,8 @@ var crops:Dictionary = {
 		"mortality" = 5,
 		"productivity" = [2,4], 
 		"X" = 224, "Y" = 32,
-		"item" = 37,
+		"item" = 39,
+		"spoilage" = 54,
 	},
 	13: {
 		"caption" = tr("Свёкла"),
@@ -164,6 +177,33 @@ var crops:Dictionary = {
 		"mortality" = 5,
 		"productivity" = [2,4], 
 		"X" = 224, "Y" = 64,
-		"item" = 38,
+		"item" = 40,
+		"spoilage" = 55,
+	},
+	14: {
+		"caption" = tr("Репа"),
+		"type" = "vegetable", 
+		"season" = ["autumn"],
+		"environment" = "soil",
+		"growth_rate" = 15,
+		"growth_level" = 4, 
+		"mortality" = 5,
+		"productivity" = [2,4], 
+		"X" = 224, "Y" = 96,
+		"item" = 41,
+		"spoilage" = 56,
+	},
+	15: {
+		"caption" = tr("Фасоль"),
+		"type" = "vegetable", 
+		"season" = ["autumn"],
+		"environment" = "soil",
+		"growth_rate" = 15,
+		"growth_level" = 4, 
+		"mortality" = 5,
+		"productivity" = [2,4], 
+		"X" = 224, "Y" = 128,
+		"item" = 42,
+		"spoilage" = 57,
 	},
 }
