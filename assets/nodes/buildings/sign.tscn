@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://ccvnh8pm7feu"]
+[gd_scene load_steps=4 format=3 uid="uid://ccvnh8pm7feu"]
 
 [ext_resource type="Script" path="res://assets/scripts/construction/buildings/sign.gd" id="1_c3eto"]
 [ext_resource type="Texture2D" uid="uid://dhpdcvxkx5317" path="res://assets/resources/buildings/sign/summer/object_0.png" id="2_rtoh4"]
-[ext_resource type="Texture2D" uid="uid://cvpy060nwjh6w" path="res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_4.png" id="3_44jqg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_laeg4"]
 size = Vector2(16, 24)
@@ -18,7 +17,6 @@ texture = ExtResource("2_rtoh4")
 offset_left = -8.0
 offset_top = -16.0
 offset_right = 8.0
-texture = ExtResource("3_44jqg")
 expand_mode = 4
 stretch_mode = 4
 
