@@ -1,3 +1,4 @@
+res://assets/nodes/buildings
 res://assets/resources/world
 res://assets/scripts/construction/buildings
 res://assets/resources/buildings/graves/grave_1
@@ -19,4 +20,3 @@ res://assets/nodes/ui/hud/elements/tools
 res://assets/nodes/ui/hud/elements/tools/destroy_menu
 res://assets/scripts/world/nature
 res://assets/scripts/ui/hud/tools
-res://assets/resources/buildings/stall
