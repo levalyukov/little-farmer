@@ -24,6 +24,8 @@ extends Control
 @onready var button:Button = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/ButtonContainer/Button
 @onready var list:Label = $Main/HBoxContainer/InventoryContent/Label
 
+var current_slot_index: int = 0
+var slots_to_create: Array = []
 var opened:bool = false
 var item_index
 var button_index:int
@@ -171,13 +173,25 @@ func get_items() -> Dictionary:
 	return inventory_items
 
 func create_all_items() -> void:
+	remove_inventory_slots()
+	slots_to_create = []
 	var items = Items.new()
 	for item in inventory_items:
 		if items.content.has(int(item)):
 			if inventory_items[item].has("amount"):
 				if inventory_items[item]["amount"] > 0:
-					item_create(item)
-	inventory_update()
+					slots_to_create.append(item)
+	current_slot_index = 0
+
+func _process(_delta) -> void:
+	if visible:
+		if slots_to_create.size() > 0 and current_slot_index < slots_to_create.size():
+			for i in range(1):
+				if current_slot_index < slots_to_create.size():
+					item_create(slots_to_create[current_slot_index])
+					current_slot_index += 1
+				else:
+					break
 
 func remove_inventory_slots() -> void:
 	for item in slots.get_children():
@@ -185,6 +199,10 @@ func remove_inventory_slots() -> void:
 		item.queue_free()
 
 func item_create(id) -> void:
+	if slots.get_child_count() >= storage.object[storage.level]["slots"]:
+		data.debug("Inventory is full. Cannot add more items.", "warning")
+		return
+
 	var slot = node.instantiate()
 	check_amount(id)
 	if inventory_items.has(id):
@@ -198,7 +216,7 @@ func item_create(id) -> void:
 func update_string_capacity() -> void:
 	if has_node("/root/"+main+"/ConstructionManager"):
 		if has_node("/root/"+main+"/ConstructionManager/storage"):
-			if storage.object[storage.level].has("slots"):
+			if storage.object.has(storage.level) && storage.object[storage.level].has("slots"):
 				var text = tr("Доступно слотов")
 				list.text = text + ": " + str(get_all_items()) + "/" + str(storage.object[storage.level]["slots"])
 				list.visible = true
@@ -264,13 +282,10 @@ func subject_item(id, item_amount:int = 1) -> void:
 				inventory_items[str(ids)]["amount"] -= amount
 
 func remove_item(id) -> void:
-	for key in inventory_items:
-		if key is String:
-			if str(id) == key:
-				inventory_items.erase(key)
-		if key is int:
-			if int(id) == key:
-				inventory_items.erase(key)
+	if inventory_items.has(int(id)):
+		inventory_items.erase(int(id))
+	elif inventory_items.has(str(id)):
+		inventory_items.erase(str(id))
 
 func get_item_amount(item_id) -> int:
 	if inventory_items.has(int(item_id)):
