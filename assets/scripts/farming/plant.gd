@@ -141,17 +141,6 @@ func get_condition(condition_type:int) -> String:
 		_:
 			return ""
 
-func get_fertilizer(fertilizer_type:int) -> String:
-	match fertilizer_type:
-		1:
-			return tr("Компост")
-		2:
-			return tr("Перегной")
-		3:
-			return tr("Навоз")
-		_:
-			return ""
-
 func check_plant_season() -> void:
 	for i in crops.crops[plantID]["season"]:
 		if i != clock.get_season():
@@ -170,7 +159,7 @@ func _on_collision_mouse_entered() -> void:
 						tip.tooltip(
 							crops.crops[plantID]["caption"] +"\n"+
 							str(plant_status) + ": " + str(get_condition(condition)) +"\n"+
-							str(fertilized_plant) + ": " + str(get_fertilizer(fertilizer))
+							str(fertilized_plant)
 						)
 					else:
 						tip.tooltip(
