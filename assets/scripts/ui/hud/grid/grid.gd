@@ -201,12 +201,20 @@ func _process(_delta):
 						if crops.crops.has(harvest) && harvest != 0:
 							if storage.object[storage.level]["slots"] - inventory.get_all_items() != 0:
 								if collision.get_harvest(grid_position):
-									var crop_item:int = crops.crops[harvest]["item"]
-									var crop_productivity:Array = crops.crops[harvest]["productivity"]
-									var target_productivity:int = randi_range(crop_productivity[0], crop_productivity[1])
-									tilemap.erase_cell(collision.crops_layer, grid_position)
-									farming.plant_destroy(grid_position)
-									inventory.add_item(crop_item, target_productivity)
+									if data.check_probability(5):
+										var crop_spoilage = crops.crops[harvest]["spoilage"]
+										var crop_productivity:Array = crops.crops[harvest]["productivity"]
+										var target_productivity:int = randi_range(crop_productivity[0], crop_productivity[1])
+										tilemap.erase_cell(collision.crops_layer, grid_position)
+										farming.plant_destroy(grid_position)
+										inventory.add_item(crop_spoilage, target_productivity)
+									else:
+										var crop_item:int = crops.crops[harvest]["item"]
+										var crop_productivity:Array = crops.crops[harvest]["productivity"]
+										var target_productivity:int = randi_range(crop_productivity[0], crop_productivity[1])
+										tilemap.erase_cell(collision.crops_layer, grid_position)
+										farming.plant_destroy(grid_position)
+										inventory.add_item(crop_item, target_productivity)
 							else:
 								notifications.create_notice(tr("full_inventory.error"))
 						else:
