@@ -380,7 +380,7 @@ var content:Dictionary = {
 	43: {
 		"caption": tr("Испорченная морковь"),
 		"description": tr("Морковь, потерявшая свою свежесть."),
-		"type": "Порченый урожай",
+		"type": "Отходы",
 		"purchase": 1,
 		"sale": 100,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_1.png"),
@@ -388,7 +388,7 @@ var content:Dictionary = {
 	44: {
 		"caption": tr("Испорченный картофель"),
 		"description": tr("Клубень, поражённый гнилью."),
-		"type": "Порченый урожай",
+		"type": "Отходы",
 		"purchase": 1,
 		"sale": 100,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_2.png"),
@@ -396,7 +396,7 @@ var content:Dictionary = {
 	45: {
 		"caption": tr("Испорченный редис"),
 		"description": tr("Корнеплод, покрытый пятнами гнили."),
-		"type": "Порченый урожай",
+		"type": "Отходы",
 		"purchase": 1,
 		"sale": 100,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_3.png"),
@@ -404,7 +404,7 @@ var content:Dictionary = {
 	46: {
 		"caption": tr("Испорченный кочан капусты"),
 		"description": tr("Капуста, начавшая разлагаться."),
-		"type": "Порченый урожай",
+		"type": "Отходы",
 		"purchase": 1,
 		"sale": 100,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_4.png"),
@@ -412,7 +412,7 @@ var content:Dictionary = {
 	47: {
 		"caption": tr("Испорченный репчатый лук"),
 		"description": tr("Лук, потерявший свой аромат."),
-		"type": "Порченый урожай",
+		"type": "Отходы",
 		"purchase": 1,
 		"sale": 100,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_5.png"),
@@ -420,7 +420,7 @@ var content:Dictionary = {
 	48: {
 		"caption": tr("Испорченный огурец"),
 		"description": tr("Огурец, утративший хрусткость и свежесть."),
-		"type": "Порченый урожай",
+		"type": "Отходы",
 		"purchase": 1,
 		"sale": 100,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_6.png"),
@@ -428,7 +428,7 @@ var content:Dictionary = {
 	49: {
 		"caption": tr("Испорченный помидор"),
 		"description": tr("Томат, покрытый плесенью и гнилью."),
-		"type": "Порченый урожай",
+		"type": "Отходы",
 		"purchase": 1,
 		"sale": 100,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_7.png"),
@@ -436,7 +436,7 @@ var content:Dictionary = {
 	50: {
 		"caption": tr("Испорченный баклажан"),
 		"description": tr("Плод, покрытый темными пятнами и гнилью."),
-		"type": "Порченый урожай",
+		"type": "Отходы",
 		"purchase": 1,
 		"sale": 100,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_8.png"),
@@ -444,7 +444,7 @@ var content:Dictionary = {
 	51: {
 		"caption": tr("Испорченный перец"),
 		"description": tr("Перец, начало которого уже разложилось."),
-		"type": "Порченый урожай",
+		"type": "Отходы",
 		"purchase": 1,
 		"sale": 100,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_9.png"),
@@ -452,7 +452,7 @@ var content:Dictionary = {
 	52: {
 		"caption": tr("Испорченный початок кукурузы"),
 		"description": tr("Кукуруза, поражённая грибком и гнилью"),
-		"type": "Порченый урожай",
+		"type": "Отходы",
 		"purchase": 1,
 		"sale": 100,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_10.png"),
@@ -460,7 +460,7 @@ var content:Dictionary = {
 	53: {
 		"caption": tr("Испорченный пастернак"),
 		"description": tr("Корнеплод, начавший разлагаться"),
-		"type": "Порченый урожай",
+		"type": "Отходы",
 		"purchase": 1,
 		"sale": 100,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_11.png"),
@@ -468,7 +468,7 @@ var content:Dictionary = {
 	54: {
 		"caption": tr("Испорченный чеснок"),
 		"description": tr("Чеснок, утративший свои полезные свойства"),
-		"type": "Порченый урожай",
+		"type": "Отходы",
 		"purchase": 1,
 		"sale": 100,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_12.png"),
@@ -476,7 +476,7 @@ var content:Dictionary = {
 	55: {
 		"caption": tr("Испорченная свёкла"),
 		"description": tr("Свёкла, покрытая пятнами гнили"),
-		"type": "Порченый урожай",
+		"type": "Отходы",
 		"purchase": 1,
 		"sale": 100,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_13.png"),
@@ -484,7 +484,7 @@ var content:Dictionary = {
 	56: {
 		"caption": tr("Испорченная репа"),
 		"description": tr("Корнеплод, поражённый гнилью"),
-		"type": "Порченый урожай",
+		"type": "Отходы",
 		"purchase": 1,
 		"sale": 100,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_14.png"),
@@ -492,7 +492,7 @@ var content:Dictionary = {
 	57: {
 		"caption": tr("Испорченная фасоль"),
 		"description": tr("Потемневшие и размягченные бобы, непригодные для еды."),
-		"type": "Порченый урожай",
+		"type": "Отходы",
 		"purchase": 1,
 		"sale": 100,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_15.png"),
