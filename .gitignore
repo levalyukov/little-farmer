@@ -15,3 +15,6 @@ assets/localizations/ru.mo
 assets/localizations/en.mo
 *.md5
 *.tmp
+*.ctex
+*.scn
+*.cfg
