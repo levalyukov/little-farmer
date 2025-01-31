@@ -6,13 +6,32 @@ extends CanvasModulate
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @export var gradient_texture:GradientTexture1D
 
+@onready var time_passed:float = clock.hour * 60.0
 const real_seconds_per_game_minute:float = 8.0 / 10.0
 const game_day_duration:float = 1440.0
 const day_start:float = 300.0
 const day_end:float = 1080.0
-
-@onready var time_passed:float = clock.hour * 60.0
 var value:float
+#   const gradients:Dictionary = {
+#   	"spring": preload('res://assets/resources/world/gradients/summer.tres'),
+#   	"summer": preload('res://assets/resources/world/gradients/summer.tres'),
+#   	"autumn": preload('res://assets/resources/world/gradients/summer.tres'),
+#   	"winter": preload('res://assets/resources/world/gradients/summer.tres'),
+#   }
+#   
+#   
+#   func _ready():
+#       match clock.get_season():
+#           "spring":
+#               gradient_texture = gradients["spring"]
+#           "summer":
+#               gradient_texture = gradients["summer"]
+#           "autumn":
+#               gradient_texture = gradients["autumn"]
+#           "winter":
+#               gradient_texture = gradients["winter"]
+#           _:
+#               return
 
 func _process(delta):
     if !pause.paused:
@@ -40,11 +59,9 @@ func cycle() -> void:
             else:
                 value = (1.0 - sin(value * PI)) / 2.0
             color = gradient_texture.gradient.sample(value)
-            
+			
 func set_cycle_value(passed:float) -> void:
-    #value = cycle_value
     time_passed = passed * 60.0
 
 func get_cycle_value() -> float:
     return value
-    
