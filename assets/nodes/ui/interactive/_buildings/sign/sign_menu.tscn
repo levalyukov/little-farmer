@@ -73,6 +73,7 @@ _data = {
 }
 
 [node name="SignMenu" type="Control"]
+visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 3
 anchors_preset = 8
@@ -110,12 +111,12 @@ layout_mode = 2
 [node name="Header" type="MarginContainer" parent="Main/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 15
-theme_override_constants/margin_bottom = 10
 
 [node name="Label" type="Label" parent="Main/VBoxContainer/Header"]
 layout_mode = 2
 text = "Выберите иконку:"
 horizontal_alignment = 1
+vertical_alignment = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Main/VBoxContainer"]
 layout_mode = 2
@@ -139,9 +140,9 @@ columns = 4
 [node name="ExitButton" type="Button" parent="."]
 layout_mode = 1
 offset_left = 128.0
-offset_top = -120.0
+offset_top = -160.0
 offset_right = 160.0
-offset_bottom = -88.0
+offset_bottom = -128.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
