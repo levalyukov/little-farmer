@@ -1,11 +1,13 @@
+res://assets/scripts/construction/buildings
+res://assets/nodes/buildings
+res://assets/resources/buildings/lamp_post
+res://assets/resources/world
+res://assets/resources/buildings/composter
 E:/Games
 E:/Games/LittleFarmer
 res://
 res://assets/scripts/ui
 res://assets/nodes/ui
-res://assets/scripts/construction/buildings
-res://assets/nodes/buildings
-res://assets/resources/world
 res://assets/resources/buildings/graves/grave_1
 res://assets/resources/buildings/greenhouse/level_1
 res://assets/resources/buildings/sign/summer
@@ -18,7 +20,3 @@ res://assets/resources/buildings/sign
 res://assets/resources/world/landscape
 D:/Microsoft VS Code
 res://assets
-res://assets/nodes/ui/hud/elements/tools
-res://assets/nodes/ui/hud/elements/tools/destroy_menu
-res://assets/scripts/world/nature
-res://assets/scripts/ui/hud/tools
