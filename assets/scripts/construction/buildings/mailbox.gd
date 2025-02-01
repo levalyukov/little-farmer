@@ -18,8 +18,7 @@ extends Node2D
 
 var menu:bool = false
 var object:Dictionary = {
-	"caption" = tr("storage.caption"),
-	"description" = tr("storage.description"),
+	"caption" = tr("Почтовый ящик"),
 	"shadow" = load("res://assets/resources/buildings/mailbox/shadow.png"),
 	"seasons" = {
 		"spring" = {
@@ -80,10 +79,11 @@ func update_shadow() -> void:
 			else:
 				data.debug("'"+str(self.name) + "': It is not possible to create a game shadow of an object because the sprite is not of the 'CompressedTexture2D' type.", "error")
 
-func _change_sprite(type:bool) -> void:
-	if type:
+func _on_area_2d_mouse_entered() -> void:
+	if !blur.state\
+	&& grid.mode == grid.modes.NOTHING:
 		var distance = round(global_position.distance_to(player.global_position))
-		if grid.mode == grid.modes.NOTHING and distance < building.max_distance:
+		if distance < building.max_distance:
 			if object.has("seasons"):
 				var season = clock.get_season()
 				if object["seasons"].has(season):
@@ -92,25 +92,17 @@ func _change_sprite(type:bool) -> void:
 							sprite.texture = object["seasons"][season]["hovered"]
 			if tip:
 				tip.tooltip(
-						str(object["caption"]) + "\n" +
-						str(object["description"]) + "\n"
+						str(object["caption"])
 					)
-	else:
-		if object.has("seasons"):
-			var season = clock.get_season()
-			if object["seasons"].has(season):
-				if object["seasons"][season].has("default"):
-					if object["seasons"][season]["default"] is CompressedTexture2D:
-						sprite.texture = object["seasons"][season]["default"]
-		if tip:
-			tip.tooltip("")
-
-func _on_area_2d_mouse_entered() -> void:
-	if !blur.state\
-	&& grid.mode == grid.modes.NOTHING:
-		_change_sprite(true)
 		menu = true
 
 func _on_area_2d_mouse_exited() -> void:
-	_change_sprite(false)
+	if object.has("seasons"):
+		var season = clock.get_season()
+		if object["seasons"].has(season):
+			if object["seasons"][season].has("default"):
+				if object["seasons"][season]["default"] is CompressedTexture2D:
+					sprite.texture = object["seasons"][season]["default"]
+	if tip:
+		tip.tooltip("")
 	menu = false
