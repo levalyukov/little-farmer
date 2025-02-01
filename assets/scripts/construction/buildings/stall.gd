@@ -17,8 +17,8 @@ var level:int = 1
 var blueprint_id:int = 0
 var object:Dictionary = {
 	1: {
-		"caption" = tr("animalstall.caption"),
-		"description" = tr("animalstall.description"),
+		"caption" = tr("Хлев"),
+		"description" = tr("Помещение для скота."),
 		"shadow" = load("res://assets/resources/buildings/stall/level_1/shadow.png"),
 		"seasons" = {
 			"spring" = {
@@ -85,12 +85,12 @@ func _change_sprite(type:bool):
 						data.debug("There is no key at index " + str(level) + ".", "error")
 				else:
 					data.debug("Index " + str(level) + " is not in the dictionary.", "error")
-				var level_text = tr("object.level")
-				tip.tooltip(
+			var level_text = tr("Уровень")
+			tip.tooltip(
 					str(object[level]["caption"]) + "\n" +
 					str(object[level]["description"]) + "\n" +
-					str(level_text) + str(level)
-					)
+					str(level_text) + ": " + str(level)
+				)
 	else:
 		if object.has(level):
 			if object[level].has("seasons"):
