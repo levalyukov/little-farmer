@@ -187,7 +187,7 @@ func _process(_delta):
 						grid_dimensions = Vector2i(1,1)
 						generate_grid()
 				else:
-					hud.state(false, "all")
+					hud.hud_all_show()
 					mode = modes.NOTHING
 					visible = false
 				check = false
@@ -233,7 +233,7 @@ func _process(_delta):
 							data_resources[resource] = {}
 							data_resources[resource]["amount"] = blueprints.content[group][id]["config"]["resources"][resource]["amount"]
 						else:
-							hud.state(false, "all")
+							hud.hud_all_show()
 							mode = modes.NOTHING
 							visible = false
 							check = false
