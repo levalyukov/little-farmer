@@ -18,12 +18,12 @@ const seasons:Array[String] = [
 	"spring", "summer", 
 	"autumn", "winter"
 ]
-var season:int = 1
+var season:int = 2
 var year:int = 1
 var week:int = 1
 var day:int = 0
-var hour:int = 6
-var minute:int = 1
+var hour:int = 0
+var minute:int = 4
 
 var weeks:Array[String] = [
 		tr("mon.clock"), tr("tue.clock"), tr("wed.clock"), 
@@ -37,9 +37,9 @@ func _ready():
 	timer.set_paused(false)
 	timer.start()
 	
-#	func _input(_event):
-#		if Input.is_action_just_pressed("space"):
-#			update_season()
+#func _input(_event):
+#	if Input.is_action_just_pressed("space"):
+#		update_season()
 
 func clock_update() -> void:
 	var day_string = tr("clock.day_lived")
@@ -48,6 +48,9 @@ func clock_update() -> void:
 
 func get_season() -> String:
 	return seasons[season]
+
+func get_hour() -> int:
+	return hour
 
 func set_clock_value(
 	season_value:int,
