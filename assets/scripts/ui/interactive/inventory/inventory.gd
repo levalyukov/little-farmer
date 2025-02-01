@@ -146,7 +146,7 @@ func get_data(index) -> void:
 					var type_text = tr("Тип предмета")
 					type.visible = true
 					type.text = "\n" + type_text + ": " + item.content[int(index)]["type"] + "\n"
-					check_item_type(item.content[int(index)]["type"])
+					check_item_type(item.content[int(index)]["item_type"])
 					if inventory_items[int(index)]["amount"] > item.maximum:
 						var total_amount = tr("Всего")
 						type.text += "\n" + total_amount + ": " + str(
