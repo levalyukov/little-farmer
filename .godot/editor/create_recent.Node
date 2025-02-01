@@ -1,5 +1,7 @@
-AnimationPlayer
+Sprite2D
+PointLight2D
 Timer
+AnimationPlayer
 ScrollContainer
 MarginContainer
 Button
@@ -9,7 +11,4 @@ Panel
 Label
 CollisionShape2D
 Area2D
-Sprite2D
 Node2D
-Node
-TileMap
