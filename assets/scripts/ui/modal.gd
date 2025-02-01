@@ -12,8 +12,6 @@ extends Control
 @onready var anim:AnimationPlayer = $Animation
 
 var state:bool = false
-var header_string:String = tr("modal.header")
-
 func _ready():
 	_check_window()
 
@@ -33,7 +31,7 @@ func modal_create(header_value:String, content_value:String, button_confirm_valu
 			button_cancel.text = button_cancel_value
 
 		if (button_confirm_value == "") && (button_cancel_value == ""):
-			button_confirm_value = tr("modal.confirm")
+			button_confirm_value = tr("Продолжить")
 			button_confirm_container.visible = true
 			button_confirm.text = button_confirm_value
 
