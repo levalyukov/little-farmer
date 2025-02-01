@@ -263,16 +263,16 @@ func get_letters() -> Dictionary:
 	return letters
 
 func reset_data() -> void:
-	var string_header_mail:String = tr("mail.header")
+	var string_header_mail:String = tr("Почта")
 	if letters != {}:
 		header_label.text = string_header_mail
 		if get_all_unreaded_letters() > 0:
-			description_label.text = tr("mail.description_check_your_mail:") + " " + str(get_all_unreaded_letters())
+			description_label.text = tr("Есть непрочитанные письма") + ": " + str(get_all_unreaded_letters())
 		else:
-			description_label.text = tr("mail.default_description")
+			description_label.text = tr("Здесь хранятся письма.")
 	else:
 		header_label.text = string_header_mail
-		description_label.text = tr("mail.description_no_letters")
+		description_label.text = tr("Почтовый ящик пуст.")
 	author_label.text = ""
 	items_hbox.visible = false
 	change_state_mail_remove_button(false)
@@ -327,7 +327,7 @@ func change_state_mail_remove_button(state:bool) -> void:
 func mail_remove(letter_id) -> void:
 	letters.erase(letter_id)
 	mail_update()
-	modal.modal_create(modal.header_string, "mail.it_was_deleted")
+	modal.modal_create(tr('Уведомление'), tr('Письмо было удалено.'))
 
 func remove_all_readed_letters() -> void:
 	var ids_remove:Array[int] = []
@@ -348,9 +348,9 @@ func remove_all_readed_letters() -> void:
 			deleted+=1
 			letters.erase(id)
 		mail_update()
-		modal.modal_create(modal.header_string, "mail.it_was_deleted: " + str(deleted))
+		modal.modal_create(tr('Уведомление'), tr("Было удалено") + ": " + str(deleted))
 	else:
-		modal.modal_create(modal.header_string, "Letters with unassembled items were not deleted")
+		modal.modal_create(tr('Уведомление'), tr('Письма с неполученными посылками не были удалены.'))
 
 func get_all_unreaded_letters() -> int:
 	var count_unreaded:int = 0
