@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cy54v7c8e6sg7"]
+
+[ext_resource type="Texture2D" uid="uid://chc57c6he5jtd" path="res://assets/resources/buildings/path_of_large_stones/shadow.png" id="1_scv8l"]
+
+[node name="path_of_large_stones_shadow" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_scv8l")
