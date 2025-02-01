@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://boitxnv4ptxu6"]
+[gd_scene load_steps=17 format=3 uid="uid://boitxnv4ptxu6"]
 
 [ext_resource type="PackedScene" uid="uid://cyl6jw0huwvk6" path="res://assets/nodes/ui/interactive/pause/pause.tscn" id="1_i05ju"]
 [ext_resource type="PackedScene" uid="uid://bhadiamik4ev0" path="res://assets/nodes/ui/interactive/options/options.tscn" id="2_o0hgi"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://dqq3yhv1irugg" path="res://assets/nodes/ui/dialog_window.tscn" id="11_egk03"]
 [ext_resource type="PackedScene" uid="uid://dmrj3nbdfyut" path="res://assets/nodes/ui/feedback/tooltip.tscn" id="11_r363a"]
 [ext_resource type="PackedScene" uid="uid://cipgdxgpuslcv" path="res://assets/nodes/ui/feedback/notifications/notifications.tscn" id="12_3qrnm"]
+[ext_resource type="PackedScene" uid="uid://b02tx1nhggapw" path="res://assets/nodes/ui/composter_menu.tscn" id="12_q63jo"]
 
 [node name="UI" type="CanvasLayer"]
 
@@ -55,6 +56,8 @@ size_flags_vertical = 4
 [node name="TradeMenu" parent="Interactive" instance=ExtResource("10_tqfvj")]
 
 [node name="DialogWindow" parent="Interactive" instance=ExtResource("11_egk03")]
+
+[node name="ComposterMenu" parent="Interactive" instance=ExtResource("12_q63jo")]
 
 [node name="BuildingsMenu" type="Node" parent="Interactive"]
 
