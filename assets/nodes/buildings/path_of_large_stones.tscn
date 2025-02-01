@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bflinr0wnq3id"]
+
+[ext_resource type="Texture2D" uid="uid://diyx7oc2cmr7c" path="res://assets/resources/buildings/path_of_large_stones/object_0.png" id="1_ikgjy"]
+[ext_resource type="Script" path="res://assets/scripts/construction/buildings/path_of_large_stones.gd" id="1_jhk6t"]
+
+[node name="path_of_large_stones" type="Node2D"]
+script = ExtResource("1_jhk6t")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ikgjy")
