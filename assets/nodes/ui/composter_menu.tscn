@@ -1,0 +1,250 @@
+[gd_scene load_steps=7 format=3 uid="uid://b02tx1nhggapw"]
+
+[ext_resource type="Script" path="res://assets/scripts/ui/composter_menu.gd" id="1_mfits"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qqi7s"]
+font_size = 20
+outline_size = 1
+
+[sub_resource type="Animation" id="Animation_l4p3q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_36tar"]
+resource_name = "close"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_check_window"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_1uxb2"]
+resource_name = "open"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_check_window"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i0ryb"]
+_data = {
+"RESET": SubResource("Animation_l4p3q"),
+"close": SubResource("Animation_36tar"),
+"open": SubResource("Animation_1uxb2")
+}
+
+[node name="ComposterMenu" type="Control"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mfits")
+
+[node name="MainContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -50.0
+offset_right = 160.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="MainContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer"]
+layout_mode = 2
+
+[node name="HeaderMargin" type="MarginContainer" parent="MainContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Header" type="Label" parent="MainContainer/VBoxContainer/HeaderMargin"]
+layout_mode = 2
+text = "Компостер"
+label_settings = SubResource("LabelSettings_qqi7s")
+horizontal_alignment = 1
+
+[node name="ProgressMargin" type="MarginContainer" parent="MainContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_bottom = 15
+
+[node name="Header" type="Label" parent="MainContainer/VBoxContainer/ProgressMargin"]
+layout_mode = 2
+text = "Компостирование (14.88%)"
+horizontal_alignment = 1
+
+[node name="ItemsForCompostMargin" type="MarginContainer" parent="MainContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="Panel" parent="MainContainer/VBoxContainer/ItemsForCompostMargin"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/VBoxContainer/ItemsForCompostMargin"]
+custom_minimum_size = Vector2(0, 175)
+layout_mode = 2
+
+[node name="ItemContainer" type="MarginContainer" parent="MainContainer/VBoxContainer/ItemsForCompostMargin/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/VBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="MainContainer/VBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer"]
+layout_mode = 2
+columns = 4
+
+[node name="ButtonMargin" type="MarginContainer" parent="MainContainer/VBoxContainer/ItemsForCompostMargin/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="TurnButton" type="Button" parent="MainContainer/VBoxContainer/ItemsForCompostMargin/VBoxContainer/ButtonMargin"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Превратить в компост"
+
+[node name="SelectItemsMargin" type="MarginContainer" parent="MainContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 0
+
+[node name="SelectItemsLabel" type="Label" parent="MainContainer/VBoxContainer/SelectItemsMargin"]
+layout_mode = 2
+text = "Выберите отходы для компоста:"
+autowrap_mode = 3
+
+[node name="PlayerInventory" type="MarginContainer" parent="MainContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="Panel" parent="MainContainer/VBoxContainer/PlayerInventory"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/VBoxContainer/PlayerInventory"]
+layout_mode = 2
+
+[node name="ItemContainer" type="MarginContainer" parent="MainContainer/VBoxContainer/PlayerInventory/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/VBoxContainer/PlayerInventory/VBoxContainer/ItemContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="MainContainer/VBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+columns = 4
+
+[node name="GetCompostMargin" type="MarginContainer" parent="MainContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 5
+
+[node name="GetCompostButton" type="Button" parent="MainContainer/VBoxContainer/GetCompostMargin"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Собрать компост"
+
+[node name="CloseMenuMargin" type="MarginContainer" parent="MainContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 10
+
+[node name="CloseMenuButton" type="Button" parent="MainContainer/VBoxContainer/CloseMenuMargin"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Закрыть"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_i0ryb")
+}
+
+[connection signal="pressed" from="MainContainer/VBoxContainer/ItemsForCompostMargin/VBoxContainer/ButtonMargin/TurnButton" to="." method="_on_turn_button_pressed"]
+[connection signal="pressed" from="MainContainer/VBoxContainer/GetCompostMargin/GetCompostButton" to="." method="_on_get_compost_button_pressed"]
+[connection signal="pressed" from="MainContainer/VBoxContainer/CloseMenuMargin/CloseMenuButton" to="." method="_on_close_menu_button_pressed"]
