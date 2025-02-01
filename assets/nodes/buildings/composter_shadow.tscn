@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ceujqbaw68nps"]
+
+[ext_resource type="Texture2D" uid="uid://40q2mblt2dtf" path="res://assets/resources/buildings/composter/shadow.png" id="1_ukwcf"]
+
+[node name="ComposterShadow" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ukwcf")
