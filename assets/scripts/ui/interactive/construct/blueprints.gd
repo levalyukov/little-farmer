@@ -43,6 +43,20 @@ var content:Dictionary = {
 			}
 		},
 		2: {
+			"caption" = "Компостер",
+			"description" = "",
+			"icon" = preload("res://assets/resources/buildings/composter/idle_0.png"),
+			"config" = {
+				"name" = "composter",
+				"node" = preload("res://assets/nodes/buildings/composter.tscn"),
+				"shadow" = preload("res://assets/nodes/buildings/composter_shadow.tscn"),
+				"area" = Vector2i(1,1),
+				"resources" = {
+					1:{"amount":1}
+				}
+			}
+		},
+		3: {
 			"caption" = "Колодец",
 			"description" = "Колодец...",
 			"icon" = preload("res://assets/resources/buildings/well/icon.png"),
@@ -56,7 +70,7 @@ var content:Dictionary = {
 				}
 			}
 		},
-		3: {
+		4: {
 			"caption" = "Хлев",
 			"description" = "Хлев...",
 			"icon" = preload("res://assets/resources/buildings/stall/level_1/summer/object_0.png"),
@@ -70,7 +84,7 @@ var content:Dictionary = {
 				}
 			}
 		},
-		4: {
+		5: {
 			"caption" = "Силосная башня",
 			"description" = "Силосная башня...",
 			"icon" = preload("res://assets/resources/buildings/silo/level_1/summer/object_0.png"),
@@ -84,7 +98,7 @@ var content:Dictionary = {
 				}
 			}
 		},
-		5: {
+		6: {
 			"caption" = "Теплица",
 			"description" = "",
 			"icon" = preload("res://assets/resources/buildings/greenhouse/level_1/summer/object_0.png"),
@@ -94,6 +108,34 @@ var content:Dictionary = {
 				"shadow" = preload("res://assets/nodes/buildings/greenhouse/greenhouse_shadow.tscn"),
 				"area" = Vector2i(3,3),
 				"resources" = {}
+			}
+		},
+		7: {
+			"caption" = "Фонарный столб",
+			"description" = "",
+			"icon" = preload("res://assets/resources/buildings/lamp_post/object_1.png"),
+			"config" = {
+				"name" = "lamp_post",
+				"node" = preload("res://assets/nodes/buildings/lamp_post.tscn"),
+				"shadow" = preload("res://assets/nodes/buildings/lamp_post_shadow.tscn"),
+				"area" = Vector2i(1,1),
+				"resources" = {
+					1:{"amount":1}
+				}
+			}
+		},
+		8: {
+			"caption" = "Дорожка из больших камней",
+			"description" = "",
+			"icon" = preload("res://assets/resources/buildings/path_of_large_stones/object_0.png"),
+			"config" = {
+				"name" = "lamp_post",
+				"node" = preload("res://assets/nodes/buildings/path_of_large_stones.tscn"),
+				"shadow" = preload("res://assets/nodes/buildings/path_of_large_stones_shadow.tscn"),
+				"area" = Vector2i(1,1),
+				"resources" = {
+					1:{"amount":1}
+				}
 			}
 		},
 		#	6: {
