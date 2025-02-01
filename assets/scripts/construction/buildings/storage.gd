@@ -19,9 +19,9 @@ var menu:bool = false
 var level:int = 1
 var object:Dictionary = {
 	1: {
-		"caption" = tr("storage.caption"),
-		"description" = tr("storage.description"),
-		"slots" = 55,
+		"caption" = tr("Склад"),
+		"description" = tr("Место для хранения предметов."),
+		"slots" = 100,
 		"seasons" = {
 			"spring" = {
 				"default" = load("res://assets/resources/buildings/storage/spring/level_1/object_0.png"),
@@ -115,11 +115,11 @@ func _change_sprite(type:bool) -> void:
 						if object[level]["seasons"][season].has("hovered"):
 							if object[level]["seasons"][season]["hovered"] is CompressedTexture2D:
 								sprite.texture = object[level]["seasons"][season]["hovered"]
-			var level_text = tr("object.level")
+			var level_text = tr("Уровень")
 			tip.tooltip(
 					str(object[level]["caption"]) + "\n" +
 					str(object[level]["description"]) + "\n" +
-					str(level_text) + str(level)
+					str(level_text) + ": " + str(level)
 				)
 	else:
 		if object.has(level):
