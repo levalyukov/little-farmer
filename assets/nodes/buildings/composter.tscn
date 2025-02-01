@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://o48krsgrgicp"]
+
+[ext_resource type="Script" path="res://assets/scripts/construction/buildings/composter.gd" id="1_kww48"]
+[ext_resource type="Texture2D" uid="uid://b7xx6a6b5np2j" path="res://assets/resources/buildings/composter/idle_0.png" id="2_trsbq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_56b4r"]
+size = Vector2(16, 16)
+
+[node name="Composter" type="Node2D"]
+script = ExtResource("1_kww48")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_trsbq")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_56b4r")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
