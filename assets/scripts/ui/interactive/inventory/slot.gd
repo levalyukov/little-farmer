@@ -9,6 +9,7 @@ extends Control
 @onready var signmenu:Control = get_node("/root/"+main+"/UI/Interactive/BuildingsMenu/SignMenu")
 @onready var trade_menu:Control = get_node("/root/"+main+"/UI/Interactive/TradeMenu")
 @onready var buildings:Node = get_node("/root/"+main+"/ConstructionManager")
+@onready var composterMenu:Control = get_node("/root/"+main+"/UI/Interactive/ComposterMenu")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var icon:TextureRect = $Button/Icon
 @onready var amount_label:Label = $Button/Amount
@@ -19,7 +20,9 @@ var item:Object = Items.new()
 enum tr_initator {NONE, PLAYER, TRADER}
 var tr_arg:int = 0
 
-func set_data(index, item_amount) -> void:
+var cmpst_type:int = 0
+
+func set_data(index, item_amount:int = 1) -> void:
 	id = index
 	if item.content.has(int(index)):
 		amount = item_amount
@@ -91,13 +94,29 @@ func _on_button_mouse_entered():
 					else:
 						data.debug("Invalid item ID: " + str(id), "warning")
 
+	if has_node("/root/"+main+"/UI/Interactive/ComposterMenu"):
+		if composterMenu.visible:
+			if blur.state:
+				if id:
+					if item.content.has(int(id)):
+						if item.content[int(id)].has("caption"):
+							tip.tooltip(
+								item.content[int(id)]["caption"]
+								)
+						else:
+							data.debug("The 'caption' key is missing.", "error")
+					else:
+						data.debug("Invalid item ID: " + str(id), "warning")
+
 func _on_button_mouse_exited():
 	if has_node("/root/"+main+"/UI/Interactive/Mailbox")\
 	|| has_node("/root/"+main+"/UI/Interactive/BuildingsMenu/SignMenu")\
-	|| has_node("/root/"+main+"/UI/Interactive/TradeMenu"):
+	|| has_node("/root/"+main+"/UI/Interactive/TradeMenu")\
+	|| has_node("/root/"+main+"/UI/Interactive/ComposterMenu"):
 		if mailbox.opened\
 		|| signmenu.opened\
-		|| trade_menu.opened:
+		|| trade_menu.opened\
+		|| composterMenu.opened:
 			tip.tooltip("")
 
 func _on_button_pressed():
@@ -165,3 +184,23 @@ func _on_button_pressed():
 								trade_menu.updates_arrays()
 							trade_menu.update_button_trade_window()
 							trade_menu.get_target_price()
+
+	if has_node("/root/"+main+"/UI/Interactive/ComposterMenu"):
+		if cmpst_type == 0:
+			if !Input.is_action_pressed("shift"):
+				composterMenu.add_item_compost(id, 1)
+				composterMenu.check_state_container()
+			else:
+				composterMenu.add_item_compost(id, round(amount/4))
+				composterMenu.check_state_container()
+		else:
+			if !Input.is_action_pressed("shift"):
+				composterMenu.remove_item_compost(id, 1)
+				composterMenu.check_state_container()
+			else:
+				composterMenu.remove_item_compost(id, round(amount/4))
+				composterMenu.check_state_container()
+		
+		
+		
+
