@@ -14,8 +14,8 @@ var visibled:bool = false
 func _ready():
 	dialogWindowClose()
 
-func _input(event):
-	if Input.is_action_just_pressed('space'):
+#	func _input(event):
+#		if Input.is_action_just_pressed('space'):
 		#dialogWindow(
 		#	"Разбитая могила",
 		#	[
@@ -31,24 +31,24 @@ func _input(event):
 		#		1:[0],
 		#	}
 		#	)
-		dialogWindow(
-			'Добрыня',
-			[
-				'Добрый день, юный садовод! Меня зовут Добрыня — местный торговец и садовод по совместительству.\n\nУ меня ты можешь приобрести семена на сезон, а также полезные вещи для сада.', 
-			], 
-			{
-				0:['Интересно узнать твой ассортимент [Торговля]','Всего доброго! [Закрыть]'],
-			},
-			{
-				0:[2,0],
-			}
-			)
-
-	if Input.is_action_just_pressed("esc")\
-	&& blur.state\
-	&& !pause.paused\
-	&& opened:
-		dialogWindowClose()
+#		dialogWindow(
+#			'Добрыня',
+#			[
+#				'Добрый день, юный садовод! Меня зовут Добрыня — местный торговец и садовод по совместительству.\n\nУ меня ты можешь приобрести семена на сезон, а также полезные вещи для сада.', 
+#			], 
+#			{
+#				0:['Интересно узнать твой ассортимент [Торговля]','Всего доброго! [Закрыть]'],
+#			},
+#			{
+#				0:[2,0],
+#			}
+#			)
+#
+#	if Input.is_action_just_pressed("esc")\
+#	&& blur.state\
+#	&& !pause.paused\
+#	&& opened:
+#		dialogWindowClose()
 
 func dialogWindow(npcCaption:String, mainContent:Array[String], buttonsCaption:Dictionary, buttonFunc:Dictionary) -> void:
 	if !opened:
