@@ -23,8 +23,8 @@ func _ready():
 	player.check_switch()
 	await get_tree().create_timer(0.75).timeout
 	player.switch = true
-	zoom.zooming = false
-	zoom.change_zoom = true
+	zoom.is_zooming = false
+	zoom.is_changing_zoom = true
 	blackout.blackout(false)
 	await get_tree().create_timer(0.25).timeout
 	hud.hud_all_show()
