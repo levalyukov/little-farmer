@@ -59,7 +59,7 @@ func _on_button_mouse_entered():
 			if mailbox.opened:
 				if item.content.has(int(id)):
 					if item.content[int(id)].has("caption"):
-						var item_amount:String = tr("x")
+						var item_amount:String = "x"
 						tip.tooltip(
 							item.content[int(id)]["caption"] + " [" + item_amount + str(amount) + "]"
 							)
