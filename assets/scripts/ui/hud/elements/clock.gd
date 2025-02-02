@@ -22,7 +22,7 @@ var season:int = 2
 var year:int = 1
 var week:int = 1
 var day:int = 0
-var hour:int = 0
+var hour:int = 5
 var minute:int = 4
 
 var weeks:Array[String] = [
