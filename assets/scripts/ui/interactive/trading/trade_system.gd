@@ -30,16 +30,20 @@ var opened:bool = false
 enum transactions {NONE, PURCHASE, SELL}
 enum initiators {NONE, PLAYER, TRADER}
 
-var trader_id:int = 1
-var target_price:int = 0.0
+var trader_id:int = 0
+var target_price:int = 0
 var transaction:int = transactions.NONE
 var initiator:int = initiators.NONE
 
-var player_inventory:Dictionary = {}
 var trade_content:Dictionary = {}
 var trader_inventory:Dictionary = {}
 var new_items_in_inventory = []
 var simillar_items = []
+
+var slots_inventory_to_create:Array = []
+var slots_trader_to_create:Array = []
+var current_inventory_slot_index:int
+var current_trader_slot_index:int
 
 var npc:Object = NPC.new()
 var traders:Object = Traders.new()
@@ -47,6 +51,92 @@ var all_items:Object = Items.new()
 
 func _ready():
 	_update_window_visible()
+	header.text = tr("Торговля")
+
+func _process(_delta) -> void:
+	if visible:
+		if slots_inventory_to_create.size() > 0 && current_inventory_slot_index < slots_inventory_to_create.size():
+			for i in range(1):
+				if current_inventory_slot_index < slots_inventory_to_create.size():
+					item_create(initiators.PLAYER, inventory.inventory_items, player_inventory_main, slots_inventory_to_create[current_inventory_slot_index])
+					current_inventory_slot_index += 1
+				else:
+					break
+
+		if slots_trader_to_create.size() > 0 && current_trader_slot_index < slots_trader_to_create.size():
+			for i in range(1):
+				if current_trader_slot_index < slots_trader_to_create.size():
+					item_create(initiators.TRADER, traders.content[trader_id]["inventory"], trader_inventory_main, slots_trader_to_create[current_trader_slot_index])
+					current_trader_slot_index += 1
+				else:
+					break
+
+func create_all_items(type:String = "all") -> void:
+	match type:
+		"all":
+			remove_player_inventory()
+			remove_trader_inventory()
+			slots_inventory_to_create = []
+			slots_trader_to_create = []
+			current_inventory_slot_index = 0
+			current_trader_slot_index = 0
+			var items = Items.new()
+			for item in inventory.inventory_items:
+				if items.content.has(int(item)):
+					if inventory.inventory_items[item].has("amount"):
+						if inventory.inventory_items[item]["amount"] > 0:
+							slots_inventory_to_create.append(item)
+
+			for item in traders.content[trader_id]['inventory']:
+				if items.content.has(int(item)):
+					if traders.content[trader_id]['inventory'][item].has("amount"):
+						if traders.content[trader_id]['inventory'][item]["amount"] > 0:
+							slots_trader_to_create.append(item)
+
+			if slots_trader_to_create.size() > 0:
+				trader_inventory_container.visible = true
+		"player":
+			remove_player_inventory()
+			slots_inventory_to_create = []
+			current_inventory_slot_index = 0
+			var items = Items.new()
+			for item in inventory.inventory_items:
+				if items.content.has(int(item)):
+					if inventory.inventory_items[item].has("amount"):
+						if inventory.inventory_items[item]["amount"] > 0:
+							slots_inventory_to_create.append(item)
+		"trader":
+			remove_player_inventory()
+			slots_trader_to_create = []
+			current_trader_slot_index = 0
+			var items = Items.new()
+			for item in traders.content[trader_id]['inventory']:
+				if items.content.has(int(item)):
+					if traders.content[trader_id]['inventory'][item].has("amount"):
+						if traders.content[trader_id]['inventory'][item]["amount"] > 0:
+							slots_trader_to_create.append(item)
+
+			if slots_trader_to_create.size() > 0:
+				trader_inventory_container.visible = true
+		_:
+			return
+
+func item_create(slot_arg:int, items:Dictionary, container:GridContainer, id) -> void:
+	var slot = inventory.node.instantiate()
+	if items.has(id):
+		if items[id]["amount"] > 0:
+			container.add_child(slot)
+			slot.set_data(id, items[id]["amount"])
+			slot.tr_arg = slot_arg
+		else:
+			remove_item(items,id)
+			data.debug("Invalid item index: " + str(id), "error")
+
+func remove_item(inventory_container:Dictionary, id) -> void:
+	if inventory_container.has(int(id)):
+		inventory_container.erase(int(id))
+	elif inventory_container.has(str(id)):
+		inventory_container.erase(str(id))
 
 func _input(_event):
 	if Input.is_action_just_pressed("esc")\
@@ -54,7 +144,8 @@ func _input(_event):
 	&& opened:
 		close_trade_menu()
 
-func open_trade_menu() -> void:
+func open_trade_menu(traderID:int) -> void:
+	trader_id = traderID
 	opened = true
 	window_visible = true
 	anim.play("open_menu")
@@ -68,29 +159,12 @@ func close_trade_menu() -> void:
 	window_visible = false
 	blur.blur(false)
 	anim.play("close_menu")
+	trader_id = 0
 
 func remove_player_inventory() -> void:
 	for i in player_inventory_main.get_children():
 		player_inventory_main.remove_child(i)
 		i.queue_free()
-
-func get_player_inventory() -> void:
-	var ids_to_remove = []
-	if inventory:
-		inventory.update_inventory_content()
-		player_inventory = inventory.inventory_items
-		if player_inventory != {}:
-			for id in player_inventory:
-				if player_inventory[id]["amount"] > 0:
-					var node = inventory.node
-					var slot = node.instantiate()
-					player_inventory_main.add_child(slot)
-					slot.set_data(id, player_inventory[id]["amount"])
-					slot.tr_arg = slot.tr_initator.PLAYER
-				else:
-					ids_to_remove.append(id)
-		for id in ids_to_remove:
-			player_inventory.erase(id)
 
 func get_items_trade_window() -> void:
 	if trade_content != {}:
@@ -113,11 +187,11 @@ func set_item_trade_window(item_id, slot_arg, amount:int = 1) -> void:
 				if !trade_content[item_id].has("amount"):
 					trade_content[item_id]["amount"] = amount
 			else:
-				if player_inventory.has(item_id):
-					if trade_content[item_id]["amount"] + amount < player_inventory[item_id]["amount"]:
+				if inventory.inventory_items.has(item_id):
+					if trade_content[item_id]["amount"] + amount < inventory.inventory_items[item_id]["amount"]:
 						trade_content[item_id]["amount"] += amount
 					else:
-						trade_content[item_id]["amount"] = player_inventory[item_id]["amount"]
+						trade_content[item_id]["amount"] = inventory.inventory_items[item_id]["amount"]
 			clear_trade_window()
 			get_items_trade_window()
 		slot.tr_initator.TRADER:
@@ -147,8 +221,8 @@ func add_item_trade_window(item_id, slot_arg, amount:int = 1) -> void:
 				if !trade_content[item_id].has("amount"):
 					trade_content[item_id]["amount"] = amount
 			else:
-				if player_inventory.has(item_id):
-					if trade_content[item_id]["amount"] < player_inventory[item_id]["amount"]:
+				if inventory.inventory_items.has(item_id):
+					if trade_content[item_id]["amount"] < inventory.inventory_items[item_id]["amount"]:
 						trade_content[item_id]["amount"] += amount
 			clear_trade_window()
 			get_items_trade_window()
@@ -191,7 +265,7 @@ func clear_trade_window() -> void:
 func get_target_price():
 	if trade_content != {}:
 		trade_window_target_price.visible = true
-		var target_price_label = tr("target_price_label")
+		var target_price_label = tr("Итого")
 		target_price = 0
 		if initiator == initiators.TRADER:
 			for item in trade_content:
@@ -236,16 +310,16 @@ func update_button_trade_window() -> void:
 				description_container.visible = false
 				if storage.object[storage.level]["slots"] - inventory.get_all_items() >= get_all_items_array():
 					if balance.money >= get_target_price():
-						trade_window_button.text = tr("trader.button_purchase")
+						trade_window_button.text = tr("Купить")
 						trade_window_button.disabled = false
 					else:
-						trade_window_button.text = tr("trader.insufficient_funds")
+						trade_window_button.text = tr("Недостаточно средств.")
 						trade_window_button.disabled = true
 				else:
-					trade_window_button.text = tr("trader.error_full_inventory")
+					trade_window_button.text = tr("Склад полон")
 					trade_window_button.disabled = true
 			initiators.PLAYER:
-				trade_window_button.text = tr("trader.button_sell")
+				trade_window_button.text = tr("Продать")
 				trade_window_button.visible = true
 				trade_window_button.disabled = false
 				description_container.visible = false
@@ -253,27 +327,10 @@ func update_button_trade_window() -> void:
 		trade_window_button.visible = false
 		initiator = initiators.NONE
 		description_container.visible = true
-		description.text = tr("trade_menu.description")
-		playerInventoryCaption.text = tr('trade_menu.player_inventory')
+		description.text = tr("Для начала торговли выберите предмет из вашего инвентаря или инвентаря торговца.")
+		playerInventoryCaption.text = tr("Ваш инвентарь:")
 		if npc.content.has(trader_id):
 			tradeInventoryCaption.text = npc.content[trader_id]['name']
-
-func get_trader_inventory() -> void:
-	if traders.content.has(trader_id):
-		if traders.content[trader_id].has("inventory"):
-			if traders.content[trader_id]["inventory"] is Dictionary:
-				trader_inventory = traders.content[trader_id]["inventory"]
-				trader_inventory_container.visible = true
-				for products in traders.content[trader_id]["inventory"]:
-					var node = inventory.node
-					var slot = node.instantiate()
-					trader_inventory_main.add_child(slot)
-					slot.set_data(products, traders.content[trader_id]["inventory"][products]["amount"])
-					slot.tr_arg = slot.tr_initator.TRADER
-		else:
-			data.debug("")
-	else:
-		data.debug("Invalid trader ID", "error")
 
 func remove_trader_inventory() -> void:
 	if trader_inventory_main.get_children() != []:
@@ -290,7 +347,7 @@ func updates_arrays():
 			initiators.TRADER:
 				for id in trade_content.keys():
 					var found = false
-					for item in player_inventory:
+					for item in inventory.inventory_items:
 						if int(item) == id:
 							simillar_items.append(id)
 							found = true
@@ -302,20 +359,20 @@ func get_trade_result():
 		match initiator:
 			initiators.PLAYER:
 				for id in trade_content:
-					if player_inventory[id]["amount"] == 1:
-						player_inventory.erase(id)
+					if inventory.inventory_items[id]["amount"] == 1:
+						inventory.inventory_items.erase(id)
 					else:
-						player_inventory[id]["amount"] -= trade_content[id]["amount"]
+						inventory.inventory_items[id]["amount"] -= trade_content[id]["amount"]
 			initiators.TRADER:
 				for id in trade_content:
-					if player_inventory.has(id):
-						player_inventory[id]["amount"] += trade_content[id]["amount"]
+					if inventory.inventory_items.has(id):
+						inventory.inventory_items[id]["amount"] += trade_content[id]["amount"]
 
 				if storage.object[storage.level]["slots"] - inventory.get_all_items() >= get_all_items_array():
 					for items_id in new_items_in_inventory:
-						if !player_inventory.has(items_id):
-							player_inventory[items_id] = {}
-							player_inventory[items_id]["amount"] = trade_content[items_id]["amount"]
+						if !inventory.inventory_items.has(items_id):
+							inventory.inventory_items[items_id] = {}
+							inventory.inventory_items[items_id]["amount"] = trade_content[items_id]["amount"]
 
 	if self.visible:
 		match initiator:
@@ -323,14 +380,15 @@ func get_trade_result():
 				balance.add_money(target_price)
 				clear_all_trade_menu()
 				remove_player_inventory()
-				get_player_inventory()
+				create_all_items("player")
 				trade_window_button.disabled = true
 			initiators.TRADER:
 				if balance.money >= target_price:
 					balance.remove_money(target_price)
 					clear_all_trade_menu()
 					remove_player_inventory()
-					get_player_inventory()
+					remove_trader_inventory()
+					create_all_items()
 					trade_window_button.disabled = false
 				else:
 					trade_window_button.disabled = true
@@ -344,9 +402,8 @@ func get_all_items_in_trade_window() -> int:
 
 func update_inventories_trade_menu() -> void:
 	remove_player_inventory()
-	get_player_inventory()
 	remove_trader_inventory()
-	get_trader_inventory()
+	create_all_items()
 
 func clear_all_trade_menu() -> void:
 	trade_content.clear()
