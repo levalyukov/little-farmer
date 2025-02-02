@@ -30,9 +30,9 @@ func get_name_target_scene() -> String:
 		"Farm":
 			return tr("farm.scene")
 		"Village":
-			return tr("village.scene")
+			return tr("г. Заречье")
 		"Cemetery":
-			return tr("cemetery.scene")
+			return tr("Кладбище")
 		_:
 			return ""
 
