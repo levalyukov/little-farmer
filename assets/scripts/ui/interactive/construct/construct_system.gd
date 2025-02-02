@@ -187,30 +187,30 @@ func close() -> void:
 func update_navmenu() -> void:
 	if terrains_blueprints != []:
 		navmenu_button_landscapes.visible = true
-		navmenu_button_landscapes.text = tr("construct.button_landscape")
+		navmenu_button_landscapes.text = tr("Чертежи ландшафта")
 	else:
 		navmenu_button_landscapes.visible = false
 
 	if node_blueprints != []:
 		navmenu_button_nodes.visible = true
-		navmenu_button_nodes.text = tr("construct.button_nodes")
+		navmenu_button_nodes.text = tr("Чертежи построек")
 	else:
 		navmenu_button_nodes.visible = false
 
 	if upgrade_blueprints != []:
 		navmenu_button_upgrades.visible = true
-		navmenu_button_upgrades.text = tr("construct.button_upgrades")
+		navmenu_button_upgrades.text = tr("Чертежи улучшений")
 	else:
 		navmenu_button_upgrades.visible = false
 
 func set_start_info() -> void:
-	caption.text = "construct.header"
+	caption.text = "Меню строительства"
 	if terrains_blueprints == []\
 	&& node_blueprints == []\
 	&& upgrade_blueprints == []:
-		description.text = "construct.description_empty"
+		description.text = "Нет чертежей для строительства"
 	else:
-		description.text = "construct.description"
+		description.text = "Чтобы приступить к строительству - выберите вверху категорию"
 
 	caption.visible = true
 	description.visible = true
