@@ -2434,7 +2434,6 @@ script = ExtResource("16_jqh5x")
 [node name="Nature" parent="." instance=ExtResource("13_l2wp6")]
 
 [node name="ConstructionManager" parent="." instance=ExtResource("12_33ekf")]
-z_index = 2
 
 [node name="house" parent="ConstructionManager" instance=ExtResource("13_df4nv")]
 position = Vector2(296, 42)
