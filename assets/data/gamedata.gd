@@ -486,7 +486,7 @@ func take_screenshot():
 		if target_directory:
 			if image.save_png(file_name) == OK:
 				debug("Screenshot saved: " + str(file_name), "info")
-				notice.create_notice(tr("screenshot.saved") + ": " + "screenshot-" + str(Time.get_date_string_from_system()) + "-" + str(Time.get_ticks_msec()) + ".png", "photo")
+				notice.create_notice(tr("Скриншот сохранен") + ": " + "screenshot-" + str(Time.get_date_string_from_system()) + "-" + str(Time.get_ticks_msec()) + ".png", "photo")
 			else:
 				debug("Couldn't save screenshot", "error")
 		else:
