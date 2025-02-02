@@ -36,7 +36,6 @@ var transaction:int = transactions.NONE
 var initiator:int = initiators.NONE
 
 var trade_content:Dictionary = {}
-var trader_inventory:Dictionary = {}
 var new_items_in_inventory = []
 var simillar_items = []
 
@@ -202,10 +201,10 @@ func set_item_trade_window(item_id, slot_arg, amount:int = 1) -> void:
 					trade_content[item_id]["amount"] = amount
 			else:
 				if trade_content[item_id]["amount"] >= 1:
-					if trade_content[item_id]["amount"] + amount < trader_inventory[item_id]["amount"]:
+					if trade_content[item_id]["amount"] + amount < traders.content[trader_id]["inventory"][item_id]["amount"]:
 						trade_content[item_id]["amount"] += amount
 					else:
-						trade_content[item_id]["amount"] = trader_inventory[item_id]["amount"]
+						trade_content[item_id]["amount"] = traders.content[trader_id]["inventory"][item_id]["amount"]
 			clear_trade_window()
 			get_items_trade_window()
 	update_button_trade_window()
@@ -234,7 +233,7 @@ func add_item_trade_window(item_id, slot_arg, amount:int = 1) -> void:
 					trade_content[item_id]["amount"] = amount
 			else:
 				if trade_content[item_id]["amount"] >= 1:
-					if trade_content[item_id]["amount"] < trader_inventory[item_id]["amount"]:
+					if trade_content[item_id]["amount"] < traders.content[trader_id]["inventory"][item_id]["amount"]:
 						trade_content[item_id]["amount"] += amount
 			clear_trade_window()
 			get_items_trade_window()
