@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dadhvvybayi14"]
+[gd_scene load_steps=27 format=3 uid="uid://dadhvvybayi14"]
 
 [ext_resource type="Script" path="res://assets/data/gamedata.gd" id="1_3hdqu"]
 [ext_resource type="PackedScene" uid="uid://b8eteio2464wo" path="res://assets/nodes/player.tscn" id="1_b6saw"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://ccr3ke5gtg4s8" path="res://assets/resources/world/landscape/summer/coasts.png" id="13_ubjvi"]
 [ext_resource type="Texture2D" uid="uid://in05cj5j74yi" path="res://assets/resources/world/landscape/summer/water.png" id="14_8edk3"]
 [ext_resource type="Script" path="res://assets/scripts/world/tilemap.gd" id="16_bka13"]
+[ext_resource type="PackedScene" uid="uid://mxlnibev3plj" path="res://assets/nodes/buildings/traderHouse.tscn" id="18_m1pwi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hoxua"]
 size = Vector2(32, 48)
@@ -1701,6 +1702,9 @@ position = Vector2(296, 88)
 
 [node name="ConstructionManager" parent="." instance=ExtResource("4_frwo2")]
 z_index = 2
+
+[node name="trader_house" parent="ConstructionManager" instance=ExtResource("18_m1pwi")]
+position = Vector2(200, 24)
 
 [node name="storage" parent="ConstructionManager" instance=ExtResource("6_ceck1")]
 visible = false
