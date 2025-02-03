@@ -1,4 +1,7 @@
 Sprite2D
+CPUParticles2D
+CollisionShape2D
+Area2D
 PointLight2D
 Timer
 AnimationPlayer
@@ -9,6 +12,3 @@ GridContainer
 VBoxContainer
 Panel
 Label
-CollisionShape2D
-Area2D
-Node2D
