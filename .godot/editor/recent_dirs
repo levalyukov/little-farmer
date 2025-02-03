@@ -1,5 +1,6 @@
 res://assets/scripts/construction/buildings
 res://assets/nodes/buildings
+res://assets/scripts/construction
 res://assets/resources/buildings/lamp_post
 res://assets/resources/world
 res://assets/resources/buildings/composter
@@ -19,4 +20,3 @@ res://assets/resources/buildings/christmass_tree
 res://assets/resources/buildings/sign
 res://assets/resources/world/landscape
 D:/Microsoft VS Code
-res://assets
