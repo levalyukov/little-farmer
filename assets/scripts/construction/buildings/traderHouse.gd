@@ -37,6 +37,7 @@ func _input(event):
 	&& grid.mode == grid.modes.NOTHING\
 	&& openedTradeMenu:
 		tradeMenu.open_trade_menu(1)
+		update()
 
 func update():
 	if clock:
