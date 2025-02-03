@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5f6u0kttq7ox"]
+
+[ext_resource type="Script" path="res://assets/scripts/construction/buildings/barrel_of_water.gd" id="1_6nfar"]
+[ext_resource type="Texture2D" uid="uid://dk5213v1pq4el" path="res://assets/resources/buildings/barrel_of_water/object_0.png" id="1_gyhhb"]
+
+[node name="barrel_of_water" type="Node2D"]
+script = ExtResource("1_6nfar")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("1_gyhhb")
