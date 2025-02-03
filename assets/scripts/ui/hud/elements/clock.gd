@@ -18,17 +18,17 @@ const seasons:Array[String] = [
 	"spring", "summer", 
 	"autumn", "winter"
 ]
-var season:int = 2
+var season:int = 1
 var year:int = 1
 var week:int = 1
 var day:int = 0
-var hour:int = 5
+var hour:int = 6
 var minute:int = 4
 
 var weeks:Array[String] = [
-		tr("mon.clock"), tr("tue.clock"), tr("wed.clock"), 
-		tr("thu.clock"), tr("fri.clock"), tr("sat.clock"), 
-		tr("sun.clock")
+		tr("Пн."), tr("Вт."), tr("Ср."), 
+		tr("Чт."), tr("Пт."), tr("Сб."), 
+		tr("Вс.")
 	]
 
 func _ready():
@@ -42,8 +42,8 @@ func _ready():
 #		update_season()
 
 func clock_update() -> void:
-	var day_string = tr("clock.day_lived")
-	var time = str(hour) + ":" + str(minute) + "0 " + day_string + ": " + str(day+1)
+	var day_string = tr("День")
+	var time = str(hour) + ":" + str(minute) + "0; " + day_string + ": " + str(day+1)
 	label.text = str(weeks[day]) + " " + str(time)
 
 func get_season() -> String:
