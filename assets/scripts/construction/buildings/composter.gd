@@ -54,6 +54,7 @@ func _input(event):
 	&& !blur.state\
 	&& menuAccess:
 		compostMenu.open(self)
+		update()
 
 func update():
 	if clock:
