@@ -24,7 +24,7 @@ var is_changing_zoom:bool = false
 func _process(delta) -> void:
 	if !pause.paused:
 		handle_zoom(delta)
-		handle_mouse_look(delta)
+		#	handle_mouse_look(delta)
 
 func handle_zoom(delta) -> void:
 	if !is_zooming && !pause.other_menu:
