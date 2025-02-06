@@ -186,21 +186,19 @@ func _on_button_pressed():
 							trade_menu.get_target_price()
 
 	if has_node("/root/"+main+"/UI/Interactive/ComposterMenu"):
-		if cmpst_type == 0:
-			if !Input.is_action_pressed("shift"):
-				composterMenu.add_item_compost(id, 1)
-				composterMenu.check_state_container()
-			else:
-				composterMenu.add_item_compost(id, round(amount/4))
-				composterMenu.check_state_container()
-		else:
-			if !Input.is_action_pressed("shift"):
-				composterMenu.remove_item_compost(id, 1)
-				composterMenu.check_state_container()
-			else:
-				composterMenu.remove_item_compost(id, round(amount/4))
-				composterMenu.check_state_container()
-		
-		
-		
-
+		if composterMenu.current_node:
+			if !composterMenu.current_node.composting:
+				if cmpst_type == 0:
+					if !Input.is_action_pressed("shift"):
+						composterMenu.add_item_compost(id, 1)
+						composterMenu.check_state_button()
+					else:
+						composterMenu.add_item_compost(id, round(amount/4))
+						composterMenu.check_state_button()
+				else:
+					if !Input.is_action_pressed("shift"):
+						composterMenu.remove_item_compost(id, 1)
+						composterMenu.check_state_button()
+					else:
+						composterMenu.remove_item_compost(id, round(amount/4))
+						composterMenu.check_state_button()
