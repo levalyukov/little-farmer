@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://b02tx1nhggapw"]
+[gd_scene load_steps=8 format=3 uid="uid://b02tx1nhggapw"]
 
 [ext_resource type="Script" path="res://assets/scripts/ui/composter_menu.gd" id="1_mfits"]
+[ext_resource type="PackedScene" uid="uid://do4e681e4p00n" path="res://assets/nodes/ui/interactive/inventory/slot.tscn" id="2_3ejxm"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_qqi7s"]
 font_size = 20
@@ -18,7 +19,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_36tar"]
@@ -89,7 +90,6 @@ _data = {
 }
 
 [node name="ComposterMenu" type="Control"]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -98,153 +98,259 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_mfits")
 
-[node name="MainContainer" type="MarginContainer" parent="."]
+[node name="Panel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -160.0
-offset_top = -50.0
-offset_right = 160.0
-offset_bottom = 50.0
+offset_left = -384.0
+offset_top = -232.0
+offset_right = 384.0
+offset_bottom = 232.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="MainContainer"]
-layout_mode = 2
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -368.0
+offset_top = -216.0
+offset_right = 368.0
+offset_bottom = 216.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer"]
+[node name="HeaderMargin" type="MarginContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
-
-[node name="HeaderMargin" type="MarginContainer" parent="MainContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_top = 15
+theme_override_constants/margin_top = 0
 theme_override_constants/margin_bottom = 15
 
-[node name="Header" type="Label" parent="MainContainer/VBoxContainer/HeaderMargin"]
+[node name="Header" type="Label" parent="Panel/VBoxContainer/HeaderMargin"]
 layout_mode = 2
 text = "Компостер"
 label_settings = SubResource("LabelSettings_qqi7s")
 horizontal_alignment = 1
 
-[node name="ProgressMargin" type="MarginContainer" parent="MainContainer/VBoxContainer"]
-visible = false
+[node name="SelectItemsMargin" type="MarginContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_bottom = 15
-
-[node name="Header" type="Label" parent="MainContainer/VBoxContainer/ProgressMargin"]
-layout_mode = 2
-text = "Компостирование (14.88%)"
-horizontal_alignment = 1
-
-[node name="ItemsForCompostMargin" type="MarginContainer" parent="MainContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 5
-
-[node name="Panel" type="Panel" parent="MainContainer/VBoxContainer/ItemsForCompostMargin"]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/VBoxContainer/ItemsForCompostMargin"]
-custom_minimum_size = Vector2(0, 175)
-layout_mode = 2
-
-[node name="ItemContainer" type="MarginContainer" parent="MainContainer/VBoxContainer/ItemsForCompostMargin/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-
-[node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/VBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer"]
-custom_minimum_size = Vector2(0, 150)
-layout_mode = 2
-
-[node name="GridContainer" type="GridContainer" parent="MainContainer/VBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer"]
-layout_mode = 2
-columns = 4
-
-[node name="ButtonMargin" type="MarginContainer" parent="MainContainer/VBoxContainer/ItemsForCompostMargin/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="TurnButton" type="Button" parent="MainContainer/VBoxContainer/ItemsForCompostMargin/VBoxContainer/ButtonMargin"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-text = "Превратить в компост"
-
-[node name="SelectItemsMargin" type="MarginContainer" parent="MainContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_right = 15
+theme_override_constants/margin_left = 5
 theme_override_constants/margin_bottom = 0
 
-[node name="SelectItemsLabel" type="Label" parent="MainContainer/VBoxContainer/SelectItemsMargin"]
+[node name="SelectItemsLabel" type="Label" parent="Panel/VBoxContainer/SelectItemsMargin"]
 layout_mode = 2
-text = "Выберите отходы для компоста:"
+text = "Отходы для компоста:"
 autowrap_mode = 3
 
-[node name="PlayerInventory" type="MarginContainer" parent="MainContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 5
+size_flags_vertical = 3
+alignment = 1
 
-[node name="Panel" type="Panel" parent="MainContainer/VBoxContainer/PlayerInventory"]
+[node name="PlayerInventory" type="MarginContainer" parent="Panel/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/VBoxContainer/PlayerInventory"]
+[node name="Panel" type="Panel" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory"]
 layout_mode = 2
 
-[node name="ItemContainer" type="MarginContainer" parent="MainContainer/VBoxContainer/PlayerInventory/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory"]
+custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
+
+[node name="ItemContainer" type="MarginContainer" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/VBoxContainer/PlayerInventory/VBoxContainer/ItemContainer"]
-custom_minimum_size = Vector2(0, 150)
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer"]
 layout_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="MainContainer/VBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer"]
+[node name="GridContainer" type="GridContainer" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
-columns = 4
+size_flags_vertical = 3
+columns = 3
 
-[node name="GetCompostMargin" type="MarginContainer" parent="MainContainer/VBoxContainer"]
-visible = false
+[node name="Slot" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="Slot4" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="Slot5" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="Slot6" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="Slot2" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="Slot3" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="Slot7" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="Slot8" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="Slot9" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="Slot10" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="Slot11" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="Slot12" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="Slot13" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="Slot14" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="Slot15" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="Slot16" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="ProgressMargin" type="MarginContainer" parent="Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 5
 
-[node name="GetCompostButton" type="Button" parent="MainContainer/VBoxContainer/GetCompostMargin"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/ProgressMargin"]
+layout_mode = 2
+alignment = 1
+
+[node name="LabelMargin" type="MarginContainer" parent="Panel/VBoxContainer/HBoxContainer/ProgressMargin/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 100
+
+[node name="Header" type="Label" parent="Panel/VBoxContainer/HBoxContainer/ProgressMargin/VBoxContainer/LabelMargin"]
+layout_mode = 2
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="GetCompostMargin" type="MarginContainer" parent="Panel/VBoxContainer/HBoxContainer/ProgressMargin/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="GetCompostButton" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ProgressMargin/VBoxContainer/GetCompostMargin"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Собрать компост"
 
-[node name="CloseMenuMargin" type="MarginContainer" parent="MainContainer/VBoxContainer"]
+[node name="ItemsForCompostMargin" type="MarginContainer" parent="Panel/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_right = 15
+
+[node name="Panel" type="Panel" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+
+[node name="ItemContainer" type="MarginContainer" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 3
+
+[node name="Slot2" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="Slot3" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="Slot4" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="Slot11" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="Slot12" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="Slot13" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="Slot14" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="Slot5" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="Slot6" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="Slot7" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="Slot8" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="Slot9" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="Slot10" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("2_3ejxm")]
+layout_mode = 2
+
+[node name="ButtonMargin" type="MarginContainer" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="CloseMenuButton" type="Button" parent="MainContainer/VBoxContainer/CloseMenuMargin"]
+[node name="TurnButton" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ButtonMargin"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-text = "Закрыть"
+text = "Превратить в компост"
+
+[node name="ButtonExit" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 368.0
+offset_top = -248.0
+offset_right = 400.0
+offset_bottom = -216.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "x"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_i0ryb")
 }
 
-[connection signal="pressed" from="MainContainer/VBoxContainer/ItemsForCompostMargin/VBoxContainer/ButtonMargin/TurnButton" to="." method="_on_turn_button_pressed"]
-[connection signal="pressed" from="MainContainer/VBoxContainer/GetCompostMargin/GetCompostButton" to="." method="_on_get_compost_button_pressed"]
-[connection signal="pressed" from="MainContainer/VBoxContainer/CloseMenuMargin/CloseMenuButton" to="." method="_on_close_menu_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/ProgressMargin/VBoxContainer/GetCompostMargin/GetCompostButton" to="." method="_on_get_compost_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ButtonMargin/TurnButton" to="." method="_on_turn_button_pressed"]
+[connection signal="pressed" from="ButtonExit" to="." method="_on_button_exit_pressed"]
