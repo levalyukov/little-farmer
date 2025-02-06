@@ -160,7 +160,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ehicp")
-text = "countinue.game"
+text = "Продолжить"
 icon_alignment = 1
 script = ExtResource("3_ipf4w")
 
@@ -171,7 +171,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ehicp")
-text = "options.game"
+text = "Настройки"
 icon_alignment = 1
 script = ExtResource("4_t8cec")
 
@@ -182,7 +182,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_xop70")
-text = "exit.game"
+text = "Выйти и сохранить"
 icon_alignment = 1
 script = ExtResource("6_wegtm")
 
