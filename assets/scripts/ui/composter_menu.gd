@@ -6,15 +6,16 @@ extends Control
 @onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 
-@onready var itemsForCompostMargin:MarginContainer = $MainContainer/VBoxContainer/ItemsForCompostMargin
-@onready var itemsForCompostContainer:GridContainer = $MainContainer/VBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer
-@onready var compostingProcessMargin:MarginContainer = $MainContainer/VBoxContainer/ProgressMargin
-@onready var compostingProcessLabel:Label = $MainContainer/VBoxContainer/ProgressMargin/Header
-@onready var selectItemsLabel:MarginContainer = $MainContainer/VBoxContainer/SelectItemsMargin
-@onready var playerInventoryMargin:MarginContainer = $MainContainer/VBoxContainer/PlayerInventory
-@onready var playerInventoryItemsContainer:GridContainer = $MainContainer/VBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer
+@onready var itemsForCompostMargin:MarginContainer = $Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin
+@onready var itemsForCompostContainer:GridContainer = $Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer
+@onready var compostingProcessMargin:MarginContainer = $Panel/VBoxContainer/HBoxContainer/ProgressMargin
+@onready var compostingProcessLabel:Label = $Panel/VBoxContainer/HBoxContainer/ProgressMargin/VBoxContainer/LabelMargin/Header
+@onready var selectItemsLabel:MarginContainer = $Panel/VBoxContainer/SelectItemsMargin
+@onready var playerInventoryMargin:MarginContainer = $Panel/VBoxContainer/HBoxContainer/PlayerInventory
+@onready var playerInventoryItemsContainer:GridContainer = $Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer
 
-@onready var getCompostButton:MarginContainer = $MainContainer/VBoxContainer/GetCompostMargin
+@onready var startComposting:Button = $Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ButtonMargin/TurnButton
+@onready var getCompostButton:Button = $Panel/VBoxContainer/HBoxContainer/ProgressMargin/VBoxContainer/GetCompostMargin/GetCompostButton
 @onready var anim:AnimationPlayer = $AnimationPlayer
 
 var current_slot_index: int = 0
@@ -26,6 +27,13 @@ var opened:bool = false
 
 func _ready():
 	close()
+
+func _input(_event):
+	if Input.is_action_just_pressed("esc")\
+	&& blur.state\
+	&& !pause.paused\
+	&& opened:
+		close()
 
 func _process(_delta) -> void:
 	if visible:
@@ -40,9 +48,11 @@ func _process(_delta) -> void:
 			if current_node.composting:
 				if current_node.composting_value < 100.0:
 					var formatted_value = "%.2f" % current_node.composting_value
-					compostingProcessLabel.text = "Компостирование (%s%%)" % formatted_value
+					compostingProcessLabel.text = "Компостирование\n(%s%%)" % formatted_value
 					if getCompostButton.visible:
 						getCompostButton.visible = false
+					if startComposting.visible:
+						startComposting.visible = false
 				if current_node.composting_value > 100.0:
 					current_node.stop_compost()
 					current_node.composting_value = 100.0
@@ -77,12 +87,6 @@ func remove_item_compost(id, amount:int = 1) -> void:
 								current_node.compost_items[id]["amount"] -= 1
 					update_compost_items()
 
-func check_state_container() -> void:
-	if itemsForCompostContainer.get_children().size() > 0:
-		itemsForCompostMargin.visible = true
-	else:
-		itemsForCompostMargin.visible = false
-
 func clear_compost_items() -> void:
 	for i in itemsForCompostContainer.get_children():
 		itemsForCompostContainer.remove_child(i)
@@ -108,16 +112,18 @@ func item_create(id) -> void:
 func get_compost_state() -> void:
 	if getCompostButton.visible && current_node.composting_value != 100.0:
 		getCompostButton.visible = false
-
-	if !current_node.composting:
-		compostingProcessMargin.visible = false
-		selectItemsLabel.visible = true
-		playerInventoryMargin.visible = true
-	else:
-		compostingProcessMargin.visible = true
-		selectItemsLabel.visible = !true
-		playerInventoryMargin.visible = !true
 	
+func check_state_button() -> void:
+	if current_node:
+		if !current_node.composting:
+			if current_node.composting_value != 100.0:
+				if !startComposting.visible:
+					startComposting.visible = true
+				if itemsForCompostContainer.get_children().size() > 0:
+					startComposting.disabled = false
+				else:
+					startComposting.disabled = true
+
 func get_compost_items() -> void:
 	remove_all_inventory_items()
 	slots_to_create = []
@@ -143,7 +149,8 @@ func open(node:Node2D) -> void:
 	get_compost_state()
 	get_compost_items()
 	clear_compost_items()
-	check_state_container()
+	check_state_button()
+	compostingProcessLabel.text = "Выберите отходы для начала компостирования."
 
 func close() -> void:
 	opened = false
@@ -163,21 +170,26 @@ func _on_get_compost_button_pressed() -> void:
 		inventory.add_item(61, randi_range(1,5))
 	if getCompostButton.visible:
 		getCompostButton.visible = false
+	if !startComposting.visible:
+		startComposting.visible = !false
 	get_compost_state()
 	get_compost_items()
 	clear_compost_items()
-	check_state_container()
-
-func _on_close_menu_button_pressed() -> void:
-	close()
+	check_state_button()
+	compostingProcessLabel.text = "Выберите отходы для начала процесса компостирования."
 
 func _on_turn_button_pressed():
-	for i in current_node.compost_items:
-		inventory.subject_item(i, current_node.compost_items[i]["amount"])
-	current_node.composting = true
-	current_node.compost_items = {}
-	current_node.composting_value = 0.0
-	current_node.start_compost(2.5)
-	clear_compost_items()
-	check_state_container()
-	get_compost_state()
+	if itemsForCompostContainer.get_children().size() > 0:
+		for i in current_node.compost_items:
+			inventory.subject_item(i, current_node.compost_items[i]["amount"])
+		current_node.composting = true
+		current_node.compost_items = {}
+		current_node.composting_value = 0.0
+		current_node.start_compost(2.5)
+		get_compost_state()
+		get_compost_items()
+		clear_compost_items()
+		check_state_button()
+
+func _on_button_exit_pressed() -> void:
+	close()
