@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://ckxab8nws3e43"]
+
+[ext_resource type="Script" path="res://assets/scripts/construction/buildings/blacksmith_house.gd" id="1_ugy3h"]
+[ext_resource type="Texture2D" uid="uid://cvyd0ghjaanh6" path="res://assets/resources/buildings/blacksmith_house/obj_0.png" id="1_vofub"]
+[ext_resource type="Texture2D" uid="uid://1r8kos7xjwxc" path="res://assets/resources/buildings/house/smoke.png" id="3_thqsh"]
+
+[sub_resource type="Curve" id="Curve_heacx"]
+max_value = 200.0
+_data = [Vector2(0.00816326, 200), 0.0, 0.0, 0, 0, Vector2(0.946939, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_gbdp1"]
+_data = [Vector2(0.0489796, 1), 0.0, 0.0, 0, 0, Vector2(0.906122, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="blacksmith_house" type="Node2D"]
+script = ExtResource("1_ugy3h")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -32)
+texture = ExtResource("1_vofub")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(3, -56)
+amount = 5
+lifetime = 2.5
+speed_scale = 0.5
+lifetime_randomness = 0.05
+texture = ExtResource("3_thqsh")
+gravity = Vector2(-5, -25)
+angular_velocity_min = -8.8
+angular_velocity_max = 9.6
+tangential_accel_min = 1.65
+tangential_accel_max = 11.15
+scale_amount_min = 0.25
+anim_speed_max = 19.37
+anim_speed_curve = SubResource("Curve_heacx")
+anim_offset_max = 0.3025
+anim_offset_curve = SubResource("Curve_gbdp1")
