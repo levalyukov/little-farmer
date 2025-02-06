@@ -46,10 +46,12 @@ func _input(_event):
 	if Input.is_action_just_pressed("tab"):
 		if !blur.state\
 		&& !pause.paused\
+		&& !pause.other_menu\
 		&& !opened:
 			open()
 		else:
-			close()
+			if opened:
+				close()
 
 func inventory_update():
 	var remove_items = []
