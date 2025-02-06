@@ -1,5 +1,7 @@
-res://assets/scripts/construction/buildings
 res://assets/nodes/buildings
+res://assets/scripts/construction/buildings
+res://assets/scripts/world/nature
+res://assets/nodes/world
 res://assets/scripts/construction
 res://assets/resources/buildings/lamp_post
 res://assets/resources/world
@@ -18,5 +20,4 @@ res://assets/resources/world/landscape/summer
 res://assets/resources/buildings/house/summer/level_1
 res://assets/resources/buildings/christmass_tree
 res://assets/resources/buildings/sign
-res://assets/resources/world/landscape
 D:/Microsoft VS Code
