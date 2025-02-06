@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://dws5y3cpemj45"]
+
+[ext_resource type="Texture2D" uid="uid://csh2lwf6e8ypx" path="res://assets/resources/buildings/farmer_house/obj_0.png" id="1_0jw1l"]
+[ext_resource type="Script" path="res://assets/scripts/construction/buildings/farmer_house.gd" id="1_32hld"]
+[ext_resource type="Texture2D" uid="uid://1r8kos7xjwxc" path="res://assets/resources/buildings/house/smoke.png" id="2_666hg"]
+
+[sub_resource type="Curve" id="Curve_qsy5x"]
+max_value = 200.0
+_data = [Vector2(0.00816326, 200), 0.0, 0.0, 0, 0, Vector2(0.946939, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_iagtp"]
+_data = [Vector2(0.0489796, 1), 0.0, 0.0, 0, 0, Vector2(0.906122, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="farmer_house" type="Node2D"]
+script = ExtResource("1_32hld")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("1_0jw1l")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(12, -33)
+amount = 5
+lifetime = 2.5
+speed_scale = 0.5
+lifetime_randomness = 0.05
+texture = ExtResource("2_666hg")
+gravity = Vector2(-5, -25)
+angular_velocity_min = -8.8
+angular_velocity_max = 9.6
+tangential_accel_min = 1.65
+tangential_accel_max = 11.15
+scale_amount_min = 0.25
+anim_speed_max = 19.37
+anim_speed_curve = SubResource("Curve_qsy5x")
+anim_offset_max = 0.3025
+anim_offset_curve = SubResource("Curve_iagtp")
