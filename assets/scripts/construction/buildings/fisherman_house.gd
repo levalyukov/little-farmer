@@ -14,6 +14,7 @@ extends Node2D
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var tradeMenu:Control = get_node("/root/"+main+"/UI/Interactive/TradeMenu")
+@onready var chimney:CPUParticles2D = $CPUParticles2D
 @onready var sprite:Sprite2D = $Sprite2D
 
 #	var openedTradeMenu:bool = false
@@ -71,6 +72,14 @@ func update_shadow() -> void:
 				canvas.create_shadow("house_shadow", object["shadow"], target_position)
 			else:
 				data.debug("'"+str(self.name) + "': It is not possible to create a game shadow of an object because the sprite is not of the 'CompressedTexture2D' type.", "error")
+
+func _process(_delta):
+	if pause.paused:
+		if chimney.speed_scale > 0:
+			chimney.speed_scale = 0
+	else:
+		if chimney.speed_scale == 0:
+			chimney.speed_scale = 0.5
 
 func _on_area_2d_mouse_entered() -> void:
 	#	openedTradeMenu = true
