@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dklx3x4akclam"]
+[gd_scene load_steps=8 format=3 uid="uid://dklx3x4akclam"]
 
 [ext_resource type="Script" path="res://assets/scripts/construction/buildings/fisherman_house.gd" id="1_ased3"]
 [ext_resource type="Texture2D" uid="uid://bso4ot8b04acw" path="res://assets/resources/buildings/fisherman_house/object_0.png" id="2_tnkoh"]
+[ext_resource type="Texture2D" uid="uid://bmm3sn5q3j181" path="res://assets/resources/world/light.webp" id="3_wn0ue"]
 [ext_resource type="Texture2D" uid="uid://1r8kos7xjwxc" path="res://assets/resources/buildings/house/smoke.png" id="3_x8e8r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_prp11"]
@@ -24,16 +25,26 @@ position = Vector2(0, -16)
 texture = ExtResource("2_tnkoh")
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, -16)
 shape = SubResource("RectangleShape2D_prp11")
 
+[node name="Light" type="PointLight2D" parent="."]
+visible = false
+position = Vector2(8, -3)
+scale = Vector2(0.320312, 0.3125)
+color = Color(0.992157, 0.952941, 0.737255, 1)
+energy = 0.5
+texture = ExtResource("3_wn0ue")
+
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 position = Vector2(-17, -45)
 amount = 5
 lifetime = 2.5
-speed_scale = 0.52
+speed_scale = 0.5
+lifetime_randomness = 0.05
 local_coords = true
 texture = ExtResource("3_x8e8r")
 gravity = Vector2(-5, -25)
