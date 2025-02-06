@@ -22,8 +22,8 @@ var season:int = 1
 var year:int = 1
 var week:int = 1
 var day:int = 0
-var hour:int = 6
-var minute:int = 4
+var hour:int = 8
+var minute:int = 5
 
 var weeks:Array[String] = [
 		tr("Пн."), tr("Вт."), tr("Ср."), 
