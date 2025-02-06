@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dlanguey3cubk"]
+
+[ext_resource type="Script" path="res://assets/scripts/construction/buildings/mailbox_for_house_0.gd" id="1_rk6s5"]
+[ext_resource type="Texture2D" uid="uid://bs7jea43km1k1" path="res://assets/resources/buildings/mailbox_for_villages/house_0/obj_0.png" id="2_wkeum"]
+
+[node name="mailbox_for_house_0" type="Node2D"]
+script = ExtResource("1_rk6s5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("2_wkeum")
