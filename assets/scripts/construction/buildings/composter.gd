@@ -22,13 +22,13 @@ var level:int = 1
 var blueprint_id:int = 0
 var menuAccess:bool = false
 var composting:bool = false
-var composting_value:float = 99.0
+var composting_value:float = 0.0
 var compost_items:Dictionary = {}
 
 enum objectState {idle, inProcess, done}
 var object:Dictionary = {
 	1: {
-		"caption" = tr("composter.caption"),
+		"caption" = tr("Компостер"),
 		"description" = tr("composter.description"),
 		"shadow" = load("res://assets/resources/buildings/composter/shadow.png"),
 		"state" = {
@@ -88,7 +88,8 @@ func get_data() -> Dictionary:
 	if object.has(level):
 		return {
 			"level": level,
-			'value': composting_value
+			'value': composting_value,
+			"position": tilemap.local_to_map(position),
 			}
 	return {}
 
