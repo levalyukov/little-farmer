@@ -55,7 +55,7 @@ func update_shadow() -> void:
 	if visible:
 		if object.has("shadow"):
 			if object["shadow"] is CompressedTexture2D:
-				canvas.create_shadow("house_shadow", object["shadow"], tilemap.local_to_map(position))
+				canvas.create_shadow("lamp_post_modern_shadow", object["shadow"], tilemap.local_to_map(position))
 			else:
 				data.debug("'"+str(self.name) + "': It is not possible to create a game shadow of an object because the sprite is not of the 'CompressedTexture2D' type.", "error")
 
