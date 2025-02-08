@@ -1,8 +1,8 @@
+Sprite2D
 Button
 MarginContainer
 VBoxContainer
 HBoxContainer
-Sprite2D
 CPUParticles2D
 CollisionShape2D
 Area2D
