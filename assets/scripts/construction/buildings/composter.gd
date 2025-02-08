@@ -54,7 +54,33 @@ func _input(event):
 	&& !blur.state\
 	&& menuAccess:
 		compostMenu.open(self)
-		update()
+		menuAccess = false
+		if object.has(level):
+			if object[level].has("state"):
+				if composting:
+					if object[level]["state"].has("work"):
+						if object[level]["state"]['work'].has("default"):
+							if object[level]["state"]['work']["default"] is CompressedTexture2D:
+								sprite.texture = object[level]["state"]['work']["default"]
+							else:
+								data.debug("'"+str(self.name) + "': 'default' is not a CompressedTexture2D.", "error")
+						else:
+							data.debug("'"+str(self.name) + "': There is no 'default' key.", "error")
+					else:
+						data.debug("'"+str(self.name) + "': There is no 'work' key.", "error")
+				else:
+					if object[level]["state"].has("idle"):
+						if object[level]["state"]['idle'].has("default"):
+							if object[level]["state"]['idle']["default"] is CompressedTexture2D:
+								sprite.texture = object[level]["state"]['idle']["default"]
+							else:
+								data.debug("'"+str(self.name) + "': 'default' is not a CompressedTexture2D.", "error")
+						else:
+							data.debug("'"+str(self.name) + "': There is no 'default' key.", "error")
+					else:
+						data.debug("'"+str(self.name) + "': There is no 'work' key.", "error")
+		if tip:
+			tip.tooltip()
 
 func update():
 	if clock:
