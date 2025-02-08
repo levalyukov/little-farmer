@@ -186,6 +186,7 @@ func _on_turn_button_pressed():
 		current_node.compost_items = {}
 		current_node.composting_value = 0.0
 		current_node.start_compost(2.5)
+		current_node.update()
 		get_compost_state()
 		get_compost_items()
 		clear_compost_items()
