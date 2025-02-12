@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://vjkfxly0tpes"]
+
+[ext_resource type="Script" path="res://assets/scripts/world/nature/ready_tree.gd" id="1_dbud7"]
+[ext_resource type="Texture2D" uid="uid://bkqw211lmg20b" path="res://assets/resources/world/trees/summer/tree_1.png" id="2_244ju"]
+
+[node name="tree" type="Node2D"]
+script = ExtResource("1_dbud7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -16)
+texture = ExtResource("2_244ju")
