@@ -21,18 +21,18 @@ offset_right = 11.0
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Container"]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="Label" type="Label" parent="Container/MarginContainer"]
-z_index = 1
-layout_mode = 2
-
 [node name="Panel" type="Panel" parent="Container"]
 layout_mode = 2
 mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Container"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="Container/MarginContainer"]
+layout_mode = 2
+text = "Content"
