@@ -22,6 +22,7 @@ texture = ExtResource("1_vofub")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 position = Vector2(3, -56)
+emitting = false
 amount = 5
 lifetime = 2.5
 speed_scale = 0.5
