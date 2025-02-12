@@ -22,7 +22,7 @@ var season:int = 1
 var year:int = 1
 var week:int = 1
 var day:int = 0
-var hour:int = 8
+var hour:int = 15
 var minute:int = 5
 
 var weeks:Array[String] = [
@@ -37,9 +37,10 @@ func _ready():
 	timer.set_paused(false)
 	timer.start()
 	
-#func _input(_event):
-#	if Input.is_action_just_pressed("space"):
-#		update_season()
+func _input(_event):
+	if Input.is_action_just_pressed("space"):
+		#update_season()
+		hour+=1
 
 func clock_update() -> void:
 	var day_string = tr("День")
