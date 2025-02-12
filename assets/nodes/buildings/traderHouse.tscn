@@ -31,6 +31,7 @@ shape = SubResource("RectangleShape2D_eldij")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 position = Vector2(-13, -43)
+emitting = false
 amount = 5
 lifetime = 2.5
 speed_scale = 0.5
