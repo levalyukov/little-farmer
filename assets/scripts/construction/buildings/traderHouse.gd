@@ -17,6 +17,10 @@ extends Node2D
 @onready var chimney:CPUParticles2D = $CPUParticles2D
 @onready var sprite:Sprite2D = $Sprite2D
 
+const bakeMorningOn:int = 5
+const bakeMorningOff:int = 8
+const bakeEveninggOn:int = 19
+const bakeEveninggOff:int = 22
 var openedTradeMenu:bool = false
 var object:Dictionary = {
 	"caption" = tr("Дом Торговца"),
@@ -78,8 +82,15 @@ func _process(_delta):
 		if chimney.speed_scale > 0:
 			chimney.speed_scale = 0
 	else:
-		if chimney.speed_scale == 0:
-			chimney.speed_scale = 0.5
+		var tt = clock.get_hour() # target_time
+		if (tt >= bakeMorningOn && tt < bakeMorningOff) || (tt >= bakeEveninggOn && tt < bakeEveninggOff):
+			chimney.emitting = true
+		else:
+			chimney.emitting = false
+
+		if chimney.emitting:
+			if chimney.speed_scale == 0:
+				chimney.speed_scale = 0.5
 
 func _on_area_2d_mouse_entered() -> void:
 	openedTradeMenu = true
