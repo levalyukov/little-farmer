@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://cyl6jw0huwvk6"]
 
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/pause/pause.gd" id="1_i0wdk"]
-[ext_resource type="Texture2D" uid="uid://blip53ufv0jwb" path="res://icon.png" id="2_0oiu2"]
+[ext_resource type="Texture2D" uid="uid://i688xoy07asj" path="res://logo.png" id="2_ae37u"]
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/pause/buttons/button_countinue.gd" id="3_ipf4w"]
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/pause/buttons/button_options.gd" id="4_t8cec"]
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/pause/buttons/button_exit.gd" id="6_wegtm"]
@@ -144,14 +144,15 @@ layout_mode = 2
 
 [node name="logo" type="MarginContainer" parent="MarginContainer/MarginContainer/container"]
 layout_mode = 2
-theme_override_constants/margin_left = 25
-theme_override_constants/margin_right = 25
-theme_override_constants/margin_bottom = 25
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
 
 [node name="logo" type="TextureRect" parent="MarginContainer/MarginContainer/container/logo"]
+custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
-texture = ExtResource("2_0oiu2")
-expand_mode = 4
+texture = ExtResource("2_ae37u")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="countinue" type="MarginContainer" parent="MarginContainer/MarginContainer/container"]
 layout_mode = 2
