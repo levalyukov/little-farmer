@@ -264,9 +264,10 @@ func clear_trade_window() -> void:
 func get_target_price():
 	if trade_content != {}:
 		trade_window_target_price.visible = true
-		var target_price_label = tr("Итого")
+		var target_price_label:String
 		target_price = 0
 		if initiator == initiators.TRADER:
+			target_price_label = tr("К оплате")
 			for item in trade_content:
 				if storage.object[storage.level]["slots"] - inventory.get_all_items() >= get_all_items_array():
 					if all_items.content.has(int(item)):
@@ -279,6 +280,7 @@ func get_target_price():
 					else:
 						data.debug("Invalid item ID: " + str(item), "error")
 		else:
+			target_price_label = tr("Итог")
 			for item in trade_content:
 				if all_items.content.has(int(item)):
 					var sale_price = all_items.content[int(item)].get("sale", null)
