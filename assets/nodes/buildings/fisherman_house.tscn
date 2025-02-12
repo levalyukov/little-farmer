@@ -41,6 +41,7 @@ texture = ExtResource("3_wn0ue")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 position = Vector2(-17, -45)
+emitting = false
 amount = 5
 lifetime = 2.5
 speed_scale = 0.5
