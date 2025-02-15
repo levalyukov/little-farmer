@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bhadiamik4ev0"]
+[gd_scene load_steps=7 format=3 uid="uid://bhadiamik4ev0"]
 
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/pause/options/options.gd" id="1_cadvs"]
-[ext_resource type="Script" path="res://assets/scripts/ui/interactive/pause/options/buttons/language_system.gd" id="2_jy3fa"]
-[ext_resource type="Script" path="res://assets/nodes/ui/interactive/options/button_back.gd" id="3_681iq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_opmpa"]
+font_size = 20
+outline_size = 1
 
 [sub_resource type="Animation" id="Animation_sgo1o"]
 length = 0.001
@@ -125,173 +127,336 @@ theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
-[node name="MainContainer" type="HBoxContainer" parent="Menu/Main"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main"]
 layout_mode = 2
 
-[node name="Sections" type="VBoxContainer" parent="Menu/Main/MainContainer"]
+[node name="Panel" type="MarginContainer" parent="Menu/Main/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
-[node name="Buttons" type="ScrollContainer" parent="Menu/Main/MainContainer/Sections"]
-custom_minimum_size = Vector2(285, 232)
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Main/HBoxContainer/Panel"]
 layout_mode = 2
 
-[node name="Sections" type="VBoxContainer" parent="Menu/Main/MainContainer/Sections/Buttons"]
+[node name="MainContent" type="ScrollContainer" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SectionsButtons" type="VBoxContainer" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="GraphicButton" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/SectionsButtons"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_vertical = 3
+text = "Графика"
+
+[node name="SoundButton" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/SectionsButtons"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_vertical = 3
+text = "Звук"
+
+[node name="Control" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/SectionsButtons"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_vertical = 3
+text = "Управление"
+
+[node name="MenuButtons" type="VBoxContainer" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+alignment = 2
+
+[node name="SaveChangesButton" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MenuButtons"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_vertical = 3
+text = "Сохранить изменения"
+
+[node name="PageBackground" type="Panel" parent="Menu/Main/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+mouse_filter = 2
+
+[node name="GraphicSection" type="ScrollContainer" parent="Menu/Main/HBoxContainer/PageBackground"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Container" type="VBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+
+[node name="HeaderMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container/HeaderMargin"]
+layout_mode = 2
+text = "Графика"
+label_settings = SubResource("LabelSettings_opmpa")
+autowrap_mode = 3
+
+[node name="VSyncMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="VSyncButton" type="CheckButton" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container/VSyncMargin"]
+layout_mode = 2
+text = "Верт. синхронизация"
+
+[node name="FullScreenMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="FullScreenButton" type="CheckButton" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container/FullScreenMargin"]
+layout_mode = 2
+text = "Полноэкранный режим"
+
+[node name="FPSLimitMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="FPSLimitButton" type="CheckButton" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container/FPSLimitMargin"]
+layout_mode = 2
+text = "Ограничение FPS"
+
+[node name="SoundVolumeSection" type="ScrollContainer" parent="Menu/Main/HBoxContainer/PageBackground"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Container" type="VBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+
+[node name="HeaderMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/HeaderMargin"]
+layout_mode = 2
+text = "Звук"
+label_settings = SubResource("LabelSettings_opmpa")
+autowrap_mode = 3
+
+[node name="GeneralVolumeMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/GeneralVolumeMargin"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/GeneralVolumeMargin/HBoxContainer"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/GeneralVolumeMargin/HBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "Общая: "
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/GeneralVolumeMargin/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Graphic" type="Control" parent="Menu/Main/MainContainer/Sections/Buttons/Sections"]
-custom_minimum_size = Vector2(0, 54)
+[node name="GeneralVolumeLabel" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/GeneralVolumeMargin/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "0%"
+horizontal_alignment = 1
+
+[node name="GeneralVolumeSlider" type="HSlider" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/GeneralVolumeMargin/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="Menu/Main/MainContainer/Sections/Buttons/Sections/Graphic"]
-custom_minimum_size = Vector2(285, 54)
-layout_mode = 0
-offset_right = 285.0
-offset_bottom = 54.0
+[node name="MusicVolumeMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 5
 
-[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/MainContainer/Sections/Buttons/Sections/Graphic"]
-layout_mode = 0
-offset_right = 285.0
-offset_bottom = 54.0
-mouse_filter = 2
-theme_override_constants/margin_left = 10
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/MusicVolumeMargin"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/MusicVolumeMargin/HBoxContainer"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
 theme_override_constants/margin_right = 10
 
-[node name="Label" type="Label" parent="Menu/Main/MainContainer/Sections/Buttons/Sections/Graphic/MarginContainer"]
+[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/MusicVolumeMargin/HBoxContainer/MarginContainer"]
 layout_mode = 2
-text = "options.section.graphic"
+text = "Музыка:"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/MusicVolumeMargin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MusicVolumeLabel" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/MusicVolumeMargin/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "0%"
 horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="Sounds" type="Control" parent="Menu/Main/MainContainer/Sections/Buttons/Sections"]
-custom_minimum_size = Vector2(0, 54)
+[node name="MusicVolumeSlider" type="HSlider" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/MusicVolumeMargin/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NatureVolumeMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/NatureVolumeMargin"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="Menu/Main/MainContainer/Sections/Buttons/Sections/Sounds"]
-custom_minimum_size = Vector2(285, 54)
-layout_mode = 0
-offset_right = 285.0
-offset_bottom = 54.0
-
-[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/MainContainer/Sections/Buttons/Sections/Sounds"]
-layout_mode = 0
-offset_right = 285.0
-offset_bottom = 54.0
-mouse_filter = 2
-theme_override_constants/margin_left = 10
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/NatureVolumeMargin/HBoxContainer"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
 theme_override_constants/margin_right = 10
 
-[node name="Label" type="Label" parent="Menu/Main/MainContainer/Sections/Buttons/Sections/Sounds/MarginContainer"]
+[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/NatureVolumeMargin/HBoxContainer/MarginContainer"]
 layout_mode = 2
-text = "options.section.sounds"
+text = "Природа:"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/NatureVolumeMargin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NatureVolumeLabel" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/NatureVolumeMargin/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "0%"
 horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="Control" type="Control" parent="Menu/Main/MainContainer/Sections/Buttons/Sections"]
-custom_minimum_size = Vector2(0, 54)
+[node name="NatureVolumeSlider" type="HSlider" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/NatureVolumeMargin/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="Menu/Main/MainContainer/Sections/Buttons/Sections/Control"]
-custom_minimum_size = Vector2(285, 54)
-layout_mode = 0
-offset_right = 285.0
-offset_bottom = 54.0
-
-[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/MainContainer/Sections/Buttons/Sections/Control"]
-layout_mode = 0
-offset_right = 285.0
-offset_bottom = 54.0
-mouse_filter = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-
-[node name="Label" type="Label" parent="Menu/Main/MainContainer/Sections/Buttons/Sections/Control/MarginContainer"]
-layout_mode = 2
-text = "options.section.control"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Footer" type="VBoxContainer" parent="Menu/Main/MainContainer/Sections"]
-layout_mode = 2
-
-[node name="ChangeLanguageButton" type="Control" parent="Menu/Main/MainContainer/Sections/Footer"]
-custom_minimum_size = Vector2(0, 54)
-layout_mode = 2
-script = ExtResource("2_jy3fa")
-
-[node name="Button" type="Button" parent="Menu/Main/MainContainer/Sections/Footer/ChangeLanguageButton"]
-custom_minimum_size = Vector2(285, 54)
-layout_mode = 0
-offset_right = 285.0
-offset_bottom = 54.0
-
-[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/MainContainer/Sections/Footer/ChangeLanguageButton"]
-layout_mode = 0
-offset_right = 285.0
-offset_bottom = 54.0
-mouse_filter = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-
-[node name="Label" type="Label" parent="Menu/Main/MainContainer/Sections/Footer/ChangeLanguageButton/MarginContainer"]
-layout_mode = 2
-text = "options.change_language"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="BackButton" type="Control" parent="Menu/Main/MainContainer/Sections/Footer"]
-custom_minimum_size = Vector2(0, 54)
-layout_mode = 2
-script = ExtResource("3_681iq")
-
-[node name="Button" type="Button" parent="Menu/Main/MainContainer/Sections/Footer/BackButton"]
-custom_minimum_size = Vector2(285, 54)
-layout_mode = 0
-offset_right = 285.0
-offset_bottom = 54.0
-
-[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/MainContainer/Sections/Footer/BackButton"]
-layout_mode = 0
-offset_right = 285.0
-offset_bottom = 54.0
-mouse_filter = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-
-[node name="Label" type="Label" parent="Menu/Main/MainContainer/Sections/Footer/BackButton/MarginContainer"]
-layout_mode = 2
-text = "options.back"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Pages" type="ScrollContainer" parent="Menu/Main/MainContainer"]
-z_index = 1
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-size_flags_horizontal = 10
-
-[node name="Container" type="VBoxContainer" parent="Menu/Main/MainContainer/Pages"]
-layout_mode = 2
-
-[node name="PageBackground" type="Panel" parent="."]
+[node name="ControlSection" type="ScrollContainer" parent="Menu/Main/HBoxContainer/PageBackground"]
+visible = false
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 5.0
-offset_top = -177.0
-offset_right = 305.0
-offset_bottom = 177.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+
+[node name="Container" type="VBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+
+[node name="HeaderMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container/HeaderMargin"]
+layout_mode = 2
+text = "Управление"
+label_settings = SubResource("LabelSettings_opmpa")
+autowrap_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container/MarginContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "Передвижение [WASD]"
+
+[node name="MarginContainer2" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container/MarginContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container/MarginContainer2/HBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "Взаимодействие [ЛКМ]"
+
+[node name="MarginContainer3" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container/MarginContainer3"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container/MarginContainer3/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container/MarginContainer3/HBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "Инвентарь [E/У]"
+
+[node name="MarginContainer4" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container/MarginContainer4"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container/MarginContainer4/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container/MarginContainer4/HBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "Меню паузы [Esc]"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_bw4sn")
 }
 
-[connection signal="pressed" from="Menu/Main/MainContainer/Sections/Footer/ChangeLanguageButton/Button" to="Menu/Main/MainContainer/Sections/Footer/ChangeLanguageButton" method="_on_button_pressed"]
-[connection signal="pressed" from="Menu/Main/MainContainer/Sections/Footer/BackButton/Button" to="Menu/Main/MainContainer/Sections/Footer/BackButton" method="_on_button_pressed"]
+[connection signal="toggled" from="Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container/VSyncMargin/VSyncButton" to="." method="_on_v_sync_button_toggled"]
