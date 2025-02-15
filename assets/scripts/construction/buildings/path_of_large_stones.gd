@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var main:String = str(get_tree().root.get_child(1).name)
+@onready var main:String = GameData.main
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var canvas:Node = get_node("/root/"+main+"/ShadowManager")
 var blueprint_id:int = 0
