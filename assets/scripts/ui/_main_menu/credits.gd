@@ -1,6 +1,6 @@
 extends Control
 
-@onready var main:String = str(get_tree().root.get_child(1).name)
+@onready var main:String = GameData.main
 @onready var menu:Node2D = get_node("/root/"+main)
 @onready var blur:Control = get_node("/root/"+main+"/Canvas/Options/Blur")
 @onready var scroll:ScrollContainer = $Panel/Main/ScrollContainer
