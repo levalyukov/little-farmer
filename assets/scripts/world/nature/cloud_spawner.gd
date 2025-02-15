@@ -1,7 +1,7 @@
 extends Timer
 
-@onready var main:String = str(get_tree().root.get_child(1).name)
-@onready var data:Node2D = get_node("/root/"+main)
+@onready var main:String = GameData.main
+@onready var data = get_node("/root/"+main)
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var canvas:Node = get_node("/root/"+main+"/ShadowManager")
 const sprite_max:int = 20
@@ -13,15 +13,17 @@ var spawn_clouds_time_max:float = 25
 var spawn_clouds_time_min:float = 6.25
 
 func _ready() -> void:
-	while clouds.size() < sprite_max:
-		sprite_value += 1
-		clouds.append(load("res://assets/resources/world/clouds/cloud_"+str(sprite_value)+".png"))
+	if data is Node2D:
+		while clouds.size() < sprite_max:
+			sprite_value += 1
+			clouds.append(load("res://assets/resources/world/clouds/cloud_"+str(sprite_value)+".png"))
 
 func _on_timeout():
-	if clouds != []:
-		if has_node("/root/"+main+"/ShadowManager/CloudGroup"):
-			var random_sprite = randi() % clouds.size()
-			canvas.create_cloud(clouds[random_sprite])
-			wait_time = randi_range(spawn_clouds_time_min*clock.speed, spawn_clouds_time_max*clock.speed)
-		else:
-			data.debug("The 'CanvasGroup' node is missing.", "error")
+	if data is Node2D:
+		if clouds != []:
+			if has_node("/root/"+main+"/ShadowManager/CloudGroup"):
+				var random_sprite = randi() % clouds.size()
+				canvas.create_cloud(clouds[random_sprite])
+				wait_time = randi_range(spawn_clouds_time_min*clock.speed, spawn_clouds_time_max*clock.speed)
+			else:
+				data.debug("The 'CanvasGroup' node is missing.", "error")
