@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var main = str(get_tree().root.get_child(1).name)
+@onready var main = GameData.main
 @onready var data = get_node("/root/"+main)
 @onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
 @onready var buildings:Node = get_node("/root/"+main+"/ConstructionManager")
