@@ -1,7 +1,7 @@
 extends Node2D
 
-@onready var main:String = str(get_tree().root.get_child(1).name)
-@onready var data:Node2D = get_node("/root/"+main)
+@onready var main = GameData.main
+@onready var data = get_node("/root/"+main)
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
