@@ -1,6 +1,6 @@
 extends TileMap
 
-@onready var main = str(get_tree().root.get_child(1).name)
+@onready var main = GameData.main
 @onready var data = get_node("/root/"+main)
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var farming:Node2D = get_node("/root/"+main+"/FarmingManager")
