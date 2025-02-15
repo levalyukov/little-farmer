@@ -1,6 +1,6 @@
 extends CanvasGroup
 
-@onready var main:String = str(get_tree().root.get_child(1).name)
+@onready var main:String = GameData.main
 @onready var collision = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
 @onready var cloud_canvas:CanvasGroup = get_node("/root/"+main+"/ShadowManager/CloudGroup")
 
