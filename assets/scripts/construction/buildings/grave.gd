@@ -20,6 +20,6 @@ var graves:Dictionary = {
 	},
 }
 
-func create_gameobj(id:int, vector_position:Vector2i, mainText:String) -> void:
-	if graves.has(id):
-		pass
+#	func create_gameobj(id:int, vector_position:Vector2i, mainText:String) -> void:
+#		if graves.has(id):
+#			pass
