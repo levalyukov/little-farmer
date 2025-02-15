@@ -2,7 +2,6 @@
 
 [ext_resource type="Shader" path="res://assets/shaders/pixel.gdshader" id="1_ieipv"]
 [ext_resource type="Script" path="res://assets/data/gamedata.gd" id="2_880lm"]
-[ext_resource type="PackedScene" uid="uid://boitxnv4ptxu6" path="res://assets/nodes/ui/ui.tscn" id="3_08vb8"]
 [ext_resource type="Texture2D" uid="uid://yp3bniyf8okh" path="res://assets/resources/world/landscape/summer/ground.png" id="5_c4v1k"]
 [ext_resource type="Texture2D" uid="uid://t43bkganfwc2" path="res://assets/resources/world/landscape/summer/roads.png" id="6_ad63b"]
 [ext_resource type="Texture2D" uid="uid://ct8q5yky1trjp" path="res://assets/resources/world/landscape/summer/farmlands.png" id="7_43u56"]
@@ -20,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://dcgfhx6lnhmtf" path="res://assets/nodes/buildings/tablet.tscn" id="16_4vo5f"]
 [ext_resource type="Script" path="res://assets/scripts/world/tilemap.gd" id="16_jqh5x"]
 [ext_resource type="PackedScene" uid="uid://cjxf5fki0vra2" path="res://assets/nodes/world/day-night.tscn" id="19_mbw1w"]
+[ext_resource type="PackedScene" uid="uid://boitxnv4ptxu6" path="res://assets/nodes/ui/ui.tscn" id="21_bfx7a"]
 [ext_resource type="Script" path="res://assets/scripts/world/teleports.gd" id="43_511qs"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h27nr"]
@@ -2464,7 +2464,7 @@ shape = SubResource("RectangleShape2D_hhb1c")
 
 [node name="Day-Night Cycle" parent="." instance=ExtResource("19_mbw1w")]
 
-[node name="UI" parent="." instance=ExtResource("3_08vb8")]
+[node name="UI" parent="." instance=ExtResource("21_bfx7a")]
 
 [connection signal="mouse_entered" from="Teleports/Village/Area2D" to="Teleports/Village" method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Teleports/Village/Area2D" to="Teleports/Village" method="_on_area_2d_mouse_exited"]
