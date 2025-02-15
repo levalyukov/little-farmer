@@ -1,6 +1,6 @@
 extends Label
 
-@onready var main:String = str(get_tree().root.get_child(1).name)
+@onready var main:String = GameData.main
 @onready var npcHeader:Label = get_node('/root/'+main+'/UI/Interactive/DialogWindow/MarginContainer/Panel/VBoxContainer/MarginContainer/Label')
 @onready var buttonContainer:VBoxContainer = get_node('/root/'+main+'/UI/Interactive/DialogWindow/MarginContainer/Panel/VBoxContainer/MarginContainer2/Answers/MarginContainer/HBoxContainer')
 @onready var specialButton:PackedScene = load('res://assets/nodes/ui/dialog_window_button.tscn')
