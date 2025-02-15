@@ -1,11 +1,12 @@
 extends Node
 
-@onready var main:String = str(get_tree().root.get_child(1).name)
+@onready var main:String = str(get_tree().root.get_child(3).name)
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var cycle:Node2D = get_node("/root/"+main+"/Day-Night Cycle")
 @onready var hud:Control = get_node("/root/"+main+"/UI/HUD/GameHud")
 @onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 @onready var notice:Control = get_node("/root/"+main+"/UI/Feedback/Notifications")
+@onready var options:Control = get_node("/root/"+main+"/UI/Interactive/Options")
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var player:Node2D = get_node("/root/"+main+"/Player")
 @onready var tools:HBoxContainer = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools")
@@ -18,7 +19,7 @@ extends Node
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
 @onready var farming:Node2D = get_node("/root/"+main+"/FarmingManager")
 @onready var nature:Node2D = get_node("/root/"+main+"/Nature")
-@onready var language:Control = get_node("/root/"+main+"/UI/Interactive/Options/Menu/Main/MainContainer/Sections/Footer/ChangeLanguageButton")
+#	@onready var language:Control = get_node("/root/"+main+"/UI/Interactive/Options/Menu/Main/MainContainer/Sections/Footer/ChangeLanguageButton")
 @onready var plant:PackedScene = load("res://assets/nodes/farming/plant.tscn")
 
 var object_count:int
@@ -31,6 +32,7 @@ const path:Dictionary = {
 }
 
 const file:Dictionary = {
+	# files
 	config = "user://.game/config.json",
 	farm = "user://.game/data/farm/farm.json",
 	world = "user://.game/data/world.json",
@@ -63,7 +65,7 @@ const sceneConfig = {
 }
 
 func _ready():
-	pass
+	print("tesT")
 	#	if main == "Farm":
 	#		if GameLoader.mode\
 	#		&& !GameLoader.start:
@@ -79,7 +81,6 @@ func _ready():
 	#		load_buildings()
 
 func gamesave() -> void:
-	file_save([path.main], file.config, get_dictionary_content("config"))
 	# main data
 	file_save([path.data], file.world, get_dictionary_content("world"))
 	file_save([path.data], file.nature, get_dictionary_content("nature"))
@@ -388,12 +389,6 @@ func load_buildings() -> void:
 
 func get_dictionary_content(content:String, group:String = "") -> Dictionary:
 	match content:
-		"config": 
-			return {
-				"version": ProjectSettings.get_setting("application/config/version"),
-				"language": language.lang,
-			}
-
 		"player":
 			return {
 				"balance": balance.money,
@@ -525,3 +520,40 @@ func debug(content:String = "", type:String = "info") -> void:
 				get_tree().quit()
 			_:
 				print(str(datetime) + " " + str(content))
+
+
+# Game Settings
+func config_save() -> void:
+	var target_path = DirAccess.open(path.main)
+	if target_path:
+		var config = {
+			"graphic": {
+				"v-sync": false,
+				"fullscreen": true,
+				"fps_limit": true
+			},
+			"sounds": {
+				"general": options.get_general_sound(),
+				"music": options.get_music_sound(),
+				"nature": options.get_nature_sound(),
+			},
+		}
+		file_save([path.main], file.config, config)
+	else:
+		var config = {
+			"graphic": {
+				"v-sync": GameConfig.vsync,
+				"fullscreen": GameConfig.fullscreen,
+				"fps_limit": GameConfig.fps_limit
+			},
+			"sounds": {
+				"general": GameConfig.general,
+				"music": GameConfig.music,
+				"nature": GameConfig.nature,
+			},
+		}
+		FileSystem.new().Funcs.create_directory(path.main)
+		file_save([path.main], file.config, config)
+
+func config_load() -> void:
+	print(file_load(file.config))
