@@ -1,16 +1,17 @@
 extends MarginContainer
 
-@onready var main = str(get_tree().root.get_child(1).name)
+@onready var main = GameData.main
 @onready var options:Control = $Menu/Options
 @onready var blackout:Control = $Blackout
 @onready var blur:Control = $Blur
 
-@onready var credits:Label = $MarginContainer/MainContainer/Content/Credits
+@onready var credits:Label = $MenuContent/VContainer/FooterMargin/Credits
 var clicked:bool = false
 
 func _ready():
 	blackout.blackout(false)
 	credits.text = "v" + ProjectSettings.get_setting("application/config/version") + "\n(C) Studio Miroro"
+	#	GameData.config_load()
 
 func _on_continue_button_pressed():
 	if !clicked:
@@ -35,6 +36,4 @@ func _on_options_button_pressed():
 
 func _on_exit_button_pressed():
 	if !clicked:
-		blackout.blackout(true)
-		await get_tree().create_timer(1).timeout
 		get_tree().quit()
