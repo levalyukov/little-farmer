@@ -1,6 +1,6 @@
 extends MarginContainer
 
-@onready var main = str(get_tree().root.get_child(1).name)
+@onready var main = GameData.main
 @onready var data = get_node("/root/"+main)
 @onready var anim:AnimationPlayer = $AnimationPlayer
 @onready var label:Label = $Label
