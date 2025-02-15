@@ -1,6 +1,6 @@
 extends Sprite2D
 
-@onready var main:String = str(get_tree().root.get_child(1).name)
+@onready var main:String = GameData.main
 @onready var data:Node2D = get_node("/root/"+main)
 @onready var plant = $".."
 @onready var timer:Timer = $"../Timer"
