@@ -1,6 +1,6 @@
 extends Button
 
-@onready var main = str(get_tree().root.get_child(1).name)
+@onready var main = GameData.main
 @onready var data = get_node("/root/"+main)
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var notice:Control = get_node("/root/"+main+"/UI/Feedback/Notifications")
