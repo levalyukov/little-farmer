@@ -1,7 +1,7 @@
 extends Node
 
 class_name Blueprints
-@onready var main = str(get_tree().root.get_child(1).name)
+@onready var main = GameData.main
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
 var content:Dictionary = {
 	"terrains": {
