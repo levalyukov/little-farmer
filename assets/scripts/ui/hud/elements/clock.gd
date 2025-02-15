@@ -1,6 +1,6 @@
 extends Control
 
-@onready var main:String = str(get_tree().root.get_child(1).name)
+@onready var main:String = GameData.main
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var hud:Control = get_node("/root/"+main+"/UI/Decorative/Hud")
 @onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
