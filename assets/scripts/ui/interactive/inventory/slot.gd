@@ -1,6 +1,6 @@
 extends Control
 
-@onready var main = str(get_tree().root.get_child(1).name)
+@onready var main = GameData.main
 @onready var data = get_node("/root/"+main)
 @onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
 @onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/storage")
