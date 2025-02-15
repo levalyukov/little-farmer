@@ -1,6 +1,6 @@
 extends Sprite2D
 
-@onready var main:String = str(get_tree().root.get_child(1).name)
+@onready var main:String = GameData.main
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
