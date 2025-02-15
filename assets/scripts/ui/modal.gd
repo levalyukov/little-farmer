@@ -1,6 +1,6 @@
 extends Control
 
-@onready var main:String = str(get_tree().root.get_child(1).name)
+@onready var main:String = GameData.main
 @onready var mail:Control = get_node("/root/"+main+"/UI/Interactive/Mailbox")
 @onready var container:MarginContainer = $MainContainer
 @onready var header:Label = $MainContainer/VBox/HeaderContainer/Header
