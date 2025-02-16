@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var main:String = GameData.main
+@onready var main:String = str(get_tree().root.get_child(2).name)
 @onready var data = get_node("/root/"+main)
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
