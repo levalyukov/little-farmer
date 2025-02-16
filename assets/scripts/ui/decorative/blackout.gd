@@ -1,6 +1,6 @@
 extends Control
 
-@onready var main = GameData.main
+@onready var main = str(get_tree().root.get_child(2).name)
 @onready var data = get_node("/root/"+main)
 @onready var background:ColorRect = $ColorRect
 @onready var anim:AnimationPlayer = $Animation
