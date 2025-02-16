@@ -2439,9 +2439,6 @@ index = 2
 [node name="tree9" parent="Nature" instance=ExtResource("43_bwam0")]
 position = Vector2(72, 168)
 
-[node name="tree10" parent="Nature" instance=ExtResource("43_bwam0")]
-position = Vector2(24, 184)
-
 [node name="tree14" parent="Nature" instance=ExtResource("43_bwam0")]
 position = Vector2(-72, 248)
 
@@ -2465,16 +2462,9 @@ index = 5
 position = Vector2(376, 344)
 index = 5
 
-[node name="tree18" parent="Nature" instance=ExtResource("43_bwam0")]
-position = Vector2(72, 264)
-index = 3
-
 [node name="tree19" parent="Nature" instance=ExtResource("43_bwam0")]
 position = Vector2(-88, 280)
 index = 6
-
-[node name="tree20" parent="Nature" instance=ExtResource("43_bwam0")]
-position = Vector2(-56, 200)
 
 [node name="tree295" parent="Nature" instance=ExtResource("43_bwam0")]
 position = Vector2(232, 168)
@@ -2498,10 +2488,6 @@ index = 4
 [node name="tree23" parent="Nature" instance=ExtResource("43_bwam0")]
 position = Vector2(-88, 336)
 index = 5
-
-[node name="tree24" parent="Nature" instance=ExtResource("43_bwam0")]
-position = Vector2(136, 280)
-index = 3
 
 [node name="tree33" parent="Nature" instance=ExtResource("43_bwam0")]
 position = Vector2(-120, 312)
@@ -2795,9 +2781,6 @@ index = 2
 [node name="tree32" parent="Nature" instance=ExtResource("43_bwam0")]
 position = Vector2(-56, 88)
 index = 2
-
-[node name="tree13" parent="Nature" instance=ExtResource("43_bwam0")]
-position = Vector2(-8, 136)
 
 [node name="tree306" parent="Nature" instance=ExtResource("43_bwam0")]
 position = Vector2(472, 168)
