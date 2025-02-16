@@ -1,7 +1,7 @@
 extends Node2D
 
-@onready var main = GameData.main
-@onready var data = get_node("/root/"+main)
+@onready var main:String = str(get_tree().root.get_child(2).name)
+@onready var data:Node2D = get_node("/root/"+main)
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
@@ -43,9 +43,10 @@ var weed_sprite_value:int = 0
 
 func _ready():
 	self.z_index = 2
-	if !GameLoader.mode:
-		new_texture()
-		tilemap.set_atlas(clock.get_season())
+	if main == "Farm":
+		if !GameLoader.mode:
+			new_texture()
+			tilemap.set_atlas(clock.get_season())
 
 func new_texture() -> void:
 	while trees.size() < tree_sprite_max:
