@@ -543,7 +543,6 @@ func config_new() -> void:
 		},
 	}
 	if target_path:
-		print("Test")
 		file_save([path.main], file.config, config)
 	else:
 		FileSystem.new().Funcs.create_directory(path.main)
