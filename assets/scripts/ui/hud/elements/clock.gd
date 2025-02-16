@@ -1,6 +1,6 @@
 extends Control
 
-@onready var main:String = GameData.main
+@onready var main:String = str(get_tree().root.get_child(2).name)
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var hud:Control = get_node("/root/"+main+"/UI/Decorative/Hud")
 @onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
@@ -18,12 +18,12 @@ const seasons:Array[String] = [
 	"spring", "summer", 
 	"autumn", "winter"
 ]
-var season:int = 1
+var season:int = 0
 var year:int = 1
 var week:int = 1
 var day:int = 0
-var hour:int = 15
-var minute:int = 5
+var hour:int = 7
+var minute:int = 0
 
 var weeks:Array[String] = [
 		tr("Пн."), tr("Вт."), tr("Ср."), 
