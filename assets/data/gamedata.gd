@@ -1,12 +1,11 @@
 extends Node
 
-@onready var main:String = str(get_tree().root.get_child(3).name)
+@onready var main:String = str(get_tree().root.get_child(2).name)
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var cycle:Node2D = get_node("/root/"+main+"/Day-Night Cycle")
 @onready var hud:Control = get_node("/root/"+main+"/UI/HUD/GameHud")
 @onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 @onready var notice:Control = get_node("/root/"+main+"/UI/Feedback/Notifications")
-@onready var options:Control = get_node("/root/"+main+"/UI/Interactive/Options")
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var player:Node2D = get_node("/root/"+main+"/Player")
 @onready var tools:HBoxContainer = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools")
@@ -19,7 +18,6 @@ extends Node
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
 @onready var farming:Node2D = get_node("/root/"+main+"/FarmingManager")
 @onready var nature:Node2D = get_node("/root/"+main+"/Nature")
-#	@onready var language:Control = get_node("/root/"+main+"/UI/Interactive/Options/Menu/Main/MainContainer/Sections/Footer/ChangeLanguageButton")
 @onready var plant:PackedScene = load("res://assets/nodes/farming/plant.tscn")
 
 var object_count:int
@@ -65,20 +63,23 @@ const sceneConfig = {
 }
 
 func _ready():
-	print("tesT")
-	#	if main == "Farm":
-	#		if GameLoader.mode\
-	#		&& !GameLoader.start:
-	#			gameload()
-	#			GameLoader.mode = false
-	#		if !GameLoader.mode\
-	#		&& GameLoader.start:
-	#			nature.create_start_nature()
-	#	else:
-	#		load_time()
-	#		load_balance()
-	#		load_inventory()
-	#		load_buildings()
+	if main == "Farm":
+		if GameLoader.mode\
+		&& !GameLoader.start:
+			gameload()
+			GameLoader.mode = false
+		if !GameLoader.mode\
+		&& GameLoader.start:
+			nature.create_start_nature()
+			config_new()
+			config_load()
+	else:
+		if main != "MainMenu":
+			load_time()
+			load_balance()
+			load_inventory()
+			load_buildings()
+			config_load()
 
 func gamesave() -> void:
 	# main data
@@ -97,6 +98,8 @@ func gamesave() -> void:
 	file_save([path.vectors], file.vctr_plants, get_dictionary_content("vectors", "plants"))
 	file_save([path.vectors], file.vctr_coast, get_dictionary_content("vectors", "coast"))
 	file_save([path.vectors], file.vctr_water, get_dictionary_content("vectors", "water"))
+	# config
+	config_save()
 
 func gameload() -> void:
 	# Player
@@ -112,6 +115,8 @@ func gameload() -> void:
 	plant_load()
 	vectors_load()
 	load_nature_nodes()
+	# Config
+	config_load()
 	
 func file_save(_path:Array[String], _file:String, _content:Dictionary) -> void:
 	if _path != []:
@@ -523,23 +528,30 @@ func debug(content:String = "", type:String = "info") -> void:
 
 
 # Game Settings
+func config_new() -> void:
+	var target_path = DirAccess.open(path.main)
+	var config = {
+		"graphic": {
+			"v-sync": false,
+			"fullscreen": true,
+			"fps_limit": true
+		},
+		"sounds": {
+			"general": 100,
+			"music": 25,
+			"nature": 50,
+		},
+	}
+	if target_path:
+		print("Test")
+		file_save([path.main], file.config, config)
+	else:
+		FileSystem.new().Funcs.create_directory(path.main)
+		file_save([path.main], file.config, config)
+
 func config_save() -> void:
 	var target_path = DirAccess.open(path.main)
 	if target_path:
-		var config = {
-			"graphic": {
-				"v-sync": false,
-				"fullscreen": true,
-				"fps_limit": true
-			},
-			"sounds": {
-				"general": options.get_general_sound(),
-				"music": options.get_music_sound(),
-				"nature": options.get_nature_sound(),
-			},
-		}
-		file_save([path.main], file.config, config)
-	else:
 		var config = {
 			"graphic": {
 				"v-sync": GameConfig.vsync,
@@ -552,8 +564,27 @@ func config_save() -> void:
 				"nature": GameConfig.nature,
 			},
 		}
+		file_save([path.main], file.config, config)
+	else:
+		var config = {
+			"graphic": {
+				"v-sync": false,
+				"fullscreen": true,
+				"fps_limit": true
+			},
+			"sounds": {
+				"general": 100,
+				"music": 25,
+				"nature": 50,
+			},
+		}
 		FileSystem.new().Funcs.create_directory(path.main)
 		file_save([path.main], file.config, config)
 
 func config_load() -> void:
-	print(file_load(file.config))
+	var options_game = get_node("/root/"+main+"/UI/Interactive/Options")
+	var options_menu = get_node("/root/"+main+"/Menu/Options")
+	if options_game:
+		options_game.set_values(file_load(file.config))
+	if options_menu:
+		options_menu.set_values(file_load(file.config))
