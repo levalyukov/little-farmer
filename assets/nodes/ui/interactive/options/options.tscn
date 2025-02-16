@@ -170,6 +170,12 @@ layout_mode = 2
 size_flags_vertical = 10
 alignment = 2
 
+[node name="ChangeLanguageButton" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MenuButtons"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_vertical = 3
+text = "Язык: Русский"
+
 [node name="SaveChangesButton" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MenuButtons"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
@@ -183,7 +189,6 @@ size_flags_horizontal = 8
 mouse_filter = 2
 
 [node name="GraphicSection" type="ScrollContainer" parent="Menu/Main/HBoxContainer/PageBackground"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -459,4 +464,7 @@ libraries = {
 "": SubResource("AnimationLibrary_bw4sn")
 }
 
-[connection signal="toggled" from="Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container/VSyncMargin/VSyncButton" to="." method="_on_v_sync_button_toggled"]
+[connection signal="pressed" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/SectionsButtons/GraphicButton" to="." method="_on_graphic_button_pressed"]
+[connection signal="pressed" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/SectionsButtons/SoundButton" to="." method="_on_sound_button_pressed"]
+[connection signal="pressed" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/SectionsButtons/Control" to="." method="_on_control_pressed"]
+[connection signal="pressed" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MenuButtons/SaveChangesButton" to="." method="_on_save_changes_button_pressed"]
