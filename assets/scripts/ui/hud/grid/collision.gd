@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var main = GameData.main
+@onready var main = str(get_tree().root.get_child(2).name)
 @onready var data = get_node("/root/"+main)
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var nature:Node2D = get_node("/root/"+main+"/Nature")
