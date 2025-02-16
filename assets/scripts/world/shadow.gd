@@ -1,6 +1,6 @@
 extends Node
 
-@onready var main:String = GameData.main
+@onready var main:String = str(get_tree().root.get_child(2).name)
 @onready var data:Node2D = get_node("/root/"+main)
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
