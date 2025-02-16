@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cfg7cs8a8gogo"]
+[gd_scene load_steps=9 format=3 uid="uid://cfg7cs8a8gogo"]
 
 [ext_resource type="PackedScene" uid="uid://3w6lj8hrhrxx" path="res://assets/nodes/ui/decorative/blackout.tscn" id="1_3ae63"]
 [ext_resource type="PackedScene" uid="uid://ddp2h6ryjofvt" path="res://assets/nodes/ui/hud/cursor.tscn" id="1_omrn7"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c16oacn0qg214" path="res://assets/nodes/ui/decorative/blur.tscn" id="2_jinr7"]
 [ext_resource type="PackedScene" uid="uid://bhadiamik4ev0" path="res://assets/nodes/ui/interactive/options/options.tscn" id="2_m3gij"]
 [ext_resource type="Texture2D" uid="uid://i688xoy07asj" path="res://logo.png" id="5_k5cee"]
+[ext_resource type="Script" path="res://assets/data/gamedata.gd" id="7_7q651"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_eema0"]
 shadow_size = 2
@@ -137,6 +138,9 @@ horizontal_alignment = 1
 
 [node name="Blur" parent="." instance=ExtResource("2_jinr7")]
 layout_mode = 2
+
+[node name="GameData" type="Node2D" parent="."]
+script = ExtResource("7_7q651")
 
 [connection signal="pressed" from="MenuContent/VContainer/ButtonsMargin/Buttons/ContinueMargin/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="MenuContent/VContainer/ButtonsMargin/Buttons/NewGameMargin/NewGameButton" to="." method="_on_new_game_button_pressed"]
