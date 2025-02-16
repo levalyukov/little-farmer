@@ -1,6 +1,6 @@
 extends Control
 
-@onready var main_scene = GameData.main
+@onready var main_scene = str(get_tree().root.get_child(2).name)
 @onready var data:Node2D = get_node("/root/" + main_scene)
 @onready var construct:Control = get_node("/root/" + main_scene + "/UI/Interactive/ConstructMenu")
 @onready var icon:TextureRect = $Button/HBoxContainer/MarginContainer/Icon
