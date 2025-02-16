@@ -1,6 +1,6 @@
 extends TileMap
 
-@onready var main = GameData.main
+@onready var main = str(get_tree().root.get_child(2).name)
 @onready var data = get_node("/root/"+main)
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var farming:Node2D = get_node("/root/"+main+"/FarmingManager")
@@ -101,12 +101,13 @@ func set_atlas(season:String) -> void:
 						nature.new_texture()
 						for node in nature.get_children(): 
 							if node:
-								if data.remove_suffix(node.name) == "tree":
-									node.change_texture(nature.trees[node.index])
-								if data.remove_suffix(node.name) == "stone":
-									node.change_texture(nature.stones[node.index])
-								if data.remove_suffix(node.name) == "weed":
-									node.change_texture(nature.weeds[node.index])
+								if node.has_method('change_texture'):
+									if data.remove_suffix(node.name) == "tree":
+										node.change_texture(nature.trees[node.index])
+									if data.remove_suffix(node.name) == "stone":
+										node.change_texture(nature.stones[node.index])
+									if data.remove_suffix(node.name) == "weed":
+										node.change_texture(nature.weeds[node.index])
 
 				if canvas:
 					if canvas.get_children() != []:
