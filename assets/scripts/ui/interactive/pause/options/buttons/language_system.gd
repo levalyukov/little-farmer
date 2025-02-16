@@ -1,6 +1,6 @@
 extends Control
 
-@onready var main = GameData.main
+@onready var main = str(get_tree().root.get_child(2).name)
 @onready var data:Node = get_node("/root/"+main)
 @export var languages:Array[String] = ["ru", "en"]
 var lang:int = 1
