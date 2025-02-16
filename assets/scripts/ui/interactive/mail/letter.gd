@@ -1,6 +1,6 @@
 extends Control
 
-@onready var main = GameData.main
+@onready var main = str(get_tree().root.get_child(2).name)
 @onready var data = get_node("/root/"+main)
 @onready var mail:Control = get_node("/root/"+main+"/UI/Interactive/Mailbox")
 @onready var icon:TextureRect = $Button/HBoxContainer/MarginContainer/TextureRect
