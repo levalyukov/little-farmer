@@ -1,6 +1,6 @@
 extends MarginContainer
 
-@onready var main = GameData.main
+@onready var main = str(get_tree().root.get_child(2).name)
 @onready var options:Control = $Menu/Options
 @onready var blackout:Control = $Blackout
 @onready var blur:Control = $Blur
@@ -11,7 +11,11 @@ var clicked:bool = false
 func _ready():
 	blackout.blackout(false)
 	credits.text = "v" + ProjectSettings.get_setting("application/config/version") + "\n(C) Studio Miroro"
-	#	GameData.config_load()
+
+	var data_menu = get_node("/root/"+main+"/GameData")
+	if data_menu:
+		if data_menu.has_method('config_load'):
+			data_menu.config_load()
 
 func _on_continue_button_pressed():
 	if !clicked:
