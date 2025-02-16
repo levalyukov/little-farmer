@@ -1,7 +1,8 @@
 extends Control
 
-@onready var main:String = str(get_tree().root.get_child(1).name)
-@onready var change_language = get_node("/root/"+main+"/User Interface/Windows/Options/Panel/Main/HBoxContainer/VBoxContainer/VBoxContainer/Language")
+@onready var main:String = str(get_tree().root.get_child(2).name)
+@onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
+@onready var change_language = get_node("/root/"+main+"/UI/Windows/Options/Panel/Main/HBoxContainer/VBoxContainer/VBoxContainer/Language")
 @onready var button_container:VBoxContainer = $Panel/Main/HBoxContainer/VBoxContainer/Buttons/VBoxContainer
 @onready var pages_container:VBoxContainer = $Panel/Main/HBoxContainer/Pages/VBoxContainer
 @onready var language_button:Control = $Panel/Main/HBoxContainer/VBoxContainer/VBoxContainer/Language/MarginContainer/Label
@@ -31,6 +32,13 @@ func _ready():
 func open() -> void:
 	anim.play("open")
 	opened = true
+	if !check_path():
+		var data_menu = get_node("/root/"+main+"/GameData")
+		if data_menu:
+			if data_menu.has_method('config_new'):
+				data_menu.config_new()
+				data_menu.config_load()
+
 	if main == "MainMenu":
 		var options = get_node("/root/"+main)
 		if options:
@@ -46,27 +54,88 @@ func close() -> void:
 	
 func window():
 	visible = opened
-	
 
-# 
-func get_vsync() -> bool:
-	return vsync.button_pressed
+func _process(_delta):
+	if visible:
+		if sounds_section.visible:
+			general_sound_label.text = str(general_sound_slider.value)+"%"
+			music_sound_label.text = str(music_sound_slider.value)+"%"
+			nature_sound_label.text = str(nature_sound_slider.value)+"%"
 
-func get_fullscreen() -> bool:
-	return fullscreen.button_pressed
+func set_values(content:Dictionary) -> void:
+	if content != {}:
+		# Graphic
+		if content.has("graphic"):
+			if content['graphic'].has("fps_limit"):
+				GameConfig.fps_limit = content['graphic']['fps_limit']
+				fps_limit.button_pressed = content['graphic']['fps_limit']
+			if content['graphic'].has("fullscreen"):
+				GameConfig.fullscreen = content['graphic']['fullscreen']
+				fullscreen.button_pressed = content['graphic']['fullscreen']
+			if content['graphic'].has("v-sync"):
+				GameConfig.vsync = content['graphic']['v-sync']
+				vsync.button_pressed = content['graphic']['v-sync']
+		# Sound
+		if content.has("sounds"):
+			if content['sounds'].has("general"):
+				GameConfig.general = content['sounds']['general']
+				general_sound_slider.value = content['sounds']['general']
+			if content['sounds'].has("music"):
+				GameConfig.music = content['sounds']['music']
+				music_sound_slider.value = content['sounds']['music']
+			if content['sounds'].has("nature"):
+				GameConfig.nature = content['sounds']['nature']
+				nature_sound_slider.value = content['sounds']['nature']
 
-func get_fps_limit() -> bool:
-	return fps_limit.button_pressed
+func _saving() -> void:
+	# Graphic
+	GameConfig.fps_limit = fps_limit.button_pressed
+	GameConfig.fullscreen = fullscreen.button_pressed
+	GameConfig.vsync = vsync.button_pressed
+	# Music
+	GameConfig.general = int(general_sound_slider.value)
+	GameConfig.music = int(music_sound_slider.value)
+	GameConfig.nature = int(nature_sound_slider.value)
 
-func get_general_sound() -> int:
-	return round(general_sound_slider.value)
+# -- -- --
+# Buttons
+# -- -- --
+func _on_graphic_button_pressed():
+	graphic_section.visible = true
+	sounds_section.visible = false
+	control_section.visible = false
 
-func get_music_sound() -> int:
-	return round(music_sound_slider.value)
+func _on_sound_button_pressed():
+	graphic_section.visible = false
+	sounds_section.visible = true
+	control_section.visible = false
 
-func get_nature_sound() -> int:
-	return round(nature_sound_slider.value)
+func _on_control_pressed():
+	graphic_section.visible = false
+	sounds_section.visible = false
+	control_section.visible = true
+# -- -- --
 
-#
-#	func _on_v_sync_button_toggled(toggled_on:bool):
-#		pass#print(toggled_on)
+func _on_save_changes_button_pressed():
+	var data_game = get_node("/root/"+main)
+	var data_menu = get_node("/root/"+main+"/GameData")
+	var blur_menu = get_node("/root/"+main+"/Blur")
+	_saving()
+	close()
+	if blur_menu:
+		blur_menu.blur(false)
+	if data_game:
+		if data_game.has_method('config_save'):
+			data_game.config_save()
+			pause.open()
+	if data_menu:
+		if data_menu.has_method('config_save'):
+			data_menu.config_save()
+
+func check_path() -> bool:
+	var path = DirAccess.open('user://.game')
+	var file = FileAccess.open('user://.game/config.json', FileAccess.READ)
+	if path:
+		if file:
+			return true
+	return false
