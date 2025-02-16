@@ -1,6 +1,6 @@
 extends Button
 
-@onready var main_scene = GameData.main
+@onready var main_scene = str(get_tree().root.get_child(2).name)
 @onready var blur:Control = get_node("/root/" + main_scene + "/UI/Decorative/Blur")
 @onready var pause:Control = get_node("/root/" + main_scene + "/UI/Interactive/Pause")
 @onready var options:Control = get_node("/root/" + main_scene + "/UI/Interactive/Options")
