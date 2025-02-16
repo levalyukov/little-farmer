@@ -1,6 +1,6 @@
 extends Control
 
-@onready var main = GameData.main
+@onready var main = str(get_tree().root.get_child(2).name)
 @onready var data:Node2D = get_node("/root/"+main)
 @onready var ui:CanvasLayer = get_node("/root/"+main+"/UI")
 @onready var hud:Control = get_node("/root/"+main+"/UI/HUD/GameHud")
