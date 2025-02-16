@@ -1,6 +1,6 @@
 extends Control
 
-@onready var main_scene = GameData.main
+@onready var main_scene = str(get_tree().root.get_child(2).name)
 @onready var options:Control = get_node("/root/" + main_scene + "/UI/Interactive/Options")
 @onready var label:Label = $MarginContainer/Label
 @onready var page:PackedScene = load("res://assets/nodes/ui/pause/options/sections/pages/graphic.tscn")
