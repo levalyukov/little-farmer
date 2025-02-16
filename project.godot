@@ -21,7 +21,6 @@ config/icon="res://icon.png"
 [autoload]
 
 GameConfig="*res://assets/data/gameconfig.gd"
-GameData="*res://assets/data/gamedata.gd"
 GameLoader="*res://assets/data/gameloader.gd"
 
 [debug]
