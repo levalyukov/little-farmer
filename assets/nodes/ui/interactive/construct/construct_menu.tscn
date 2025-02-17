@@ -134,22 +134,24 @@ grow_vertical = 2
 [node name="NavMenu" type="HBoxContainer" parent="Main/ScrollContainer"]
 layout_mode = 2
 
+[node name="ButtonAllBlueprints" type="Button" parent="Main/ScrollContainer/NavMenu"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rp300")
+alignment = 0
+
 [node name="ButtonLandscape" type="Button" parent="Main/ScrollContainer/NavMenu"]
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_rp300")
-text = "construct.button_landscape"
 alignment = 0
 
 [node name="ButtonBuildings" type="Button" parent="Main/ScrollContainer/NavMenu"]
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_u1dor")
-text = "construct.button_buildings"
 alignment = 0
 
 [node name="ButtonUpgrades" type="Button" parent="Main/ScrollContainer/NavMenu"]
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_u1dor")
-text = "construct.button_upgrades"
 alignment = 0
 
 [node name="MainContent" type="HBoxContainer" parent="Main"]
@@ -216,7 +218,6 @@ theme_override_constants/margin_right = 25
 
 [node name="Header" type="Label" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/HeaderContainer"]
 layout_mode = 2
-text = "blueprint.header"
 label_settings = SubResource("LabelSettings_1x12y")
 horizontal_alignment = 1
 autowrap_mode = 3
@@ -230,9 +231,6 @@ theme_override_constants/margin_bottom = 0
 
 [node name="Description" type="Label" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/DescriptionContainer"]
 layout_mode = 2
-text = "blueprint.description
-
-blueprint.resources:"
 autowrap_mode = 3
 
 [node name="ResourcesContainer" type="MarginContainer" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer"]
@@ -242,7 +240,6 @@ theme_override_constants/margin_right = 25
 
 [node name="Resources" type="Label" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ResourcesContainer"]
 layout_mode = 2
-text = "• content.name (100/500)"
 autowrap_mode = 3
 
 [node name="TimeContainer" type="MarginContainer" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer"]
@@ -253,8 +250,6 @@ theme_override_constants/margin_right = 25
 
 [node name="Time" type="Label" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/TimeContainer"]
 layout_mode = 2
-text = "blueprint.time_create
-"
 autowrap_mode = 3
 
 [node name="ButtonContainer" type="MarginContainer" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer"]
@@ -267,7 +262,6 @@ theme_override_constants/margin_bottom = 25
 [node name="Button" type="Button" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-text = "blueprint.craft"
 script = ExtResource("3_s0fee")
 
 [node name="Close" type="Button" parent="."]
@@ -283,6 +277,7 @@ libraries = {
 "": SubResource("AnimationLibrary_k6ua4")
 }
 
+[connection signal="pressed" from="Main/ScrollContainer/NavMenu/ButtonAllBlueprints" to="." method="_on_button_all_blueprints_pressed"]
 [connection signal="pressed" from="Main/ScrollContainer/NavMenu/ButtonLandscape" to="." method="_on_button_landscape_pressed"]
 [connection signal="pressed" from="Main/ScrollContainer/NavMenu/ButtonBuildings" to="." method="_on_button_buildings_pressed"]
 [connection signal="pressed" from="Main/ScrollContainer/NavMenu/ButtonUpgrades" to="." method="_on_button_upgrades_pressed"]
