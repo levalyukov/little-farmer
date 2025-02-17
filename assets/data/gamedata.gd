@@ -534,7 +534,7 @@ func config_new() -> void:
 		"graphic": {
 			"v-sync": false,
 			"fullscreen": true,
-			"fps_limit": true
+			"fps_limit": 1
 		},
 		"sounds": {
 			"general": 100,
@@ -569,7 +569,7 @@ func config_save() -> void:
 			"graphic": {
 				"v-sync": false,
 				"fullscreen": true,
-				"fps_limit": true
+				"fps_limit": 1
 			},
 			"sounds": {
 				"general": 100,
