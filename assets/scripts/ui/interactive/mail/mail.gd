@@ -48,6 +48,22 @@ func _ready():
 	reset_data()
 	delete_letters()
 
+	letter(
+		"Test #1",
+		"Descirption",
+		"Developer",
+		10_000_000,
+		{
+			1:{"amount": 100},
+			2:{"amount": 100},
+			3:{"amount": 100},
+			4:{"amount": 100},
+			5:{"amount": 100},
+			6:{"amount": 100},
+			7:{"amount": 100},
+		}
+		)
+
 func letter(header:String, description:String = "", author:String = "", money:int = 0, items:Dictionary = {}) -> void:
 	var key = letters.size() + 1
 	if header != "":
@@ -114,7 +130,7 @@ func get_data(letterID) -> void:
 			items_hbox.visible = true
 
 			if (letters[index]["items"] != {} || letters[index]["money"] != 0):
-				button.text = tr("get_all_items.mail")
+				button.text = tr("Получить")
 				if letters[index]["items"] != {}:
 					items_block.visible = true
 					for i in letters[index]["items"]:
@@ -148,14 +164,14 @@ func get_data(letterID) -> void:
 					button.visible = false
 
 			if letters[index]["money"] > 0:
-				var nested = tr("letter.nested")
-				var money = tr("letter.money")
+				var nested = tr("Вложение")
+				var money = tr("монет")
 				if letters[index]["money"] > balance.maximum:
 					letters[index]["money"] = balance.maximum
 				attached_items_label.text = nested + ": " + str(balance.format(letters[index]["money"])) + " " + money
 				attached_items_label.visible = true
 			else:
-				var attached_items = tr("letter.attached_items")
+				var attached_items = tr("Прикрепленные предметы")
 				attached_items_label.text = attached_items + ":"
 				attached_items_label.visible = true
 		else:
@@ -306,7 +322,7 @@ func _on_get_items_pressed() -> void:
 		if button.visible:
 			get_all_items(index, letters)
 	else:
-		var full_inventory_error = tr("full_inventory.error")
+		var full_inventory_error = tr("Нет места на складе.")
 		notice.create_notice(full_inventory_error, "error")
 
 func _on_close_pressed() -> void:
