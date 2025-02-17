@@ -12,7 +12,7 @@ extends Control
 @onready var graphic_section:ScrollContainer = $Menu/Main/HBoxContainer/PageBackground/GraphicSection
 @onready var vsync:CheckButton = $Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container/VSyncMargin/VSyncButton
 @onready var fullscreen:CheckButton = $Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container/FullScreenMargin/FullScreenButton
-@onready var fps_limit:CheckButton = $Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container/FPSLimitMargin/FPSLimitButton
+@onready var fps_limit:OptionButton = $Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container/FPSLimitMargin/HBoxContainer/MarginContainer/OptionButton
 
 @onready var sounds_section:ScrollContainer = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection 
 @onready var general_sound_label:Label = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/GeneralVolumeMargin/HBoxContainer/VBoxContainer/GeneralVolumeLabel
@@ -68,7 +68,7 @@ func set_values(content:Dictionary) -> void:
 		if content.has("graphic"):
 			if content['graphic'].has("fps_limit"):
 				GameConfig.fps_limit = content['graphic']['fps_limit']
-				fps_limit.button_pressed = content['graphic']['fps_limit']
+				fps_limit.selected = content['graphic']['fps_limit']
 			if content['graphic'].has("fullscreen"):
 				GameConfig.fullscreen = content['graphic']['fullscreen']
 				fullscreen.button_pressed = content['graphic']['fullscreen']
@@ -89,7 +89,7 @@ func set_values(content:Dictionary) -> void:
 
 func _saving() -> void:
 	# Graphic
-	GameConfig.fps_limit = fps_limit.button_pressed
+	GameConfig.fps_limit = fps_limit.selected
 	GameConfig.fullscreen = fullscreen.button_pressed
 	GameConfig.vsync = vsync.button_pressed
 	# Music
@@ -128,9 +128,11 @@ func _on_save_changes_button_pressed():
 		if data_game.has_method('config_save'):
 			data_game.config_save()
 			pause.open()
+			GameConfig.apply()
 	if data_menu:
 		if data_menu.has_method('config_save'):
 			data_menu.config_save()
+			GameConfig.apply()
 
 func check_path() -> bool:
 	var path = DirAccess.open('user://.game')
