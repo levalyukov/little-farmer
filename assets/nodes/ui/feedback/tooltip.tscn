@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dmrj3nbdfyut"]
+[gd_scene load_steps=4 format=3 uid="uid://dmrj3nbdfyut"]
 
 [ext_resource type="Script" path="res://assets/scripts/ui/feedback/tooltip.gd" id="1_qndc6"]
+[ext_resource type="Texture2D" uid="uid://bpk56obbjg0f8" path="res://assets/resources/ui/feedback/tooltip/sprite.png" id="2_x84pq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8q7il"]
+font_color = Color(0.972549, 0.941176, 0.921569, 1)
 
 [node name="Tooltip" type="Control"]
 layout_mode = 3
@@ -16,14 +20,18 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -33.0
-offset_right = 11.0
+offset_top = -43.0
+offset_right = 21.0
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="Panel" type="Panel" parent="Container"]
+[node name="Panel" type="NinePatchRect" parent="Container"]
 layout_mode = 2
-mouse_filter = 2
+texture = ExtResource("2_x84pq")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
 
 [node name="MarginContainer" type="MarginContainer" parent="Container"]
 layout_mode = 2
@@ -35,4 +43,4 @@ theme_override_constants/margin_bottom = 10
 
 [node name="Label" type="Label" parent="Container/MarginContainer"]
 layout_mode = 2
-text = "Content"
+label_settings = SubResource("LabelSettings_8q7il")
