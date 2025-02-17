@@ -23,19 +23,40 @@ extends Control
 @onready var navmenu_button_nodes:Button = $Main/ScrollContainer/NavMenu/ButtonBuildings
 @onready var navmenu_button_upgrades:Button = $Main/ScrollContainer/NavMenu/ButtonUpgrades
 
+@onready var navmenu_button_all:Button = $Main/ScrollContainer/NavMenu/ButtonAllBlueprints
+
 @onready var button_script = get_node("/root/"+main+"/UI/Interactive/ConstructMenu/Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button")
 @onready var anim:AnimationPlayer = $AnimationPlayer
 
+var construct_menu_header:String = tr("Меню строительства")
+var construct_menu_description:String = tr("Нет чертежей. Чтобы получить новые чертежи — проходите квесты или приобретайте у специальный торговцев.")
+var construct_menu_description_empty:String = tr("Выбор чертежей происходит в левом окне. \n\nВерхние вкладки служат для группировки чертежей по их типам.")
+
+var construct_menu_selected_nodes_header:String = tr("Постройки")
+var construct_menu_selected_landscapes_header:String = tr("Ландшафт")
+var construct_menu_selected_upgrades_header:String = tr("Улучшения")
+
+var construct_menu_selected_nodes:String = tr("Чертежи данного типа дают возможность возводить фермерские постройки и декорации для фермы.")
+var construct_menu_selected_landscapes:String = tr("Эти чертежи позволяют преобразовывать ландшафт фермы.")
+var construct_menu_selected_upgrades:String = tr("Чертежи этого типа используются для модернизации конкретных зданий. После улучшения здания становятся доступны новые функции или контент, связанные с ними.")
+
+
 var index:int
-var section:String
+var section:String = "all"
 var opened:bool = false
 var all_items:bool
-var terrains_blueprints:Array[int] = [1,2,3,4,5,6,7,8,9,10]
-var node_blueprints:Array[int] = [1,2,3,4,5,6,7,8,9,10]
+var terrains_blueprints:Array[int] = []
+var node_blueprints:Array[int] = []
 var upgrade_blueprints:Array[int] = []
 
 var items:Object = Items.new()
 var blueprints:Object = Blueprints.new()
+var slots_to_create_terrains = []
+var slots_to_create_nodes = []
+var slots_to_create_upgrade = []
+var current_slot_index_terrains = 0
+var current_slot_index_nodes = 0
+var current_slot_index_upgrade = 0
 
 func _ready():
 	check_window()
@@ -45,6 +66,39 @@ func _input(_event):
 	&& blur.state\
 	&& opened:
 		close()
+
+func _process(_delta) -> void:
+	if visible:
+		# nodes
+		if slots_to_create_nodes.size() > 0 && current_slot_index_nodes < slots_to_create_nodes.size():
+			for i in range(1):
+				if current_slot_index_nodes < slots_to_create_nodes.size():
+					var blueprint = node.instantiate()
+					container.add_child(blueprint)
+					blueprint.set_data("nodes", slots_to_create_nodes[current_slot_index_nodes])
+					current_slot_index_nodes += 1
+				else:
+					break
+		# terrains
+		if slots_to_create_terrains.size() > 0 && current_slot_index_terrains < slots_to_create_terrains.size():
+			for i in range(1):
+				if current_slot_index_terrains < slots_to_create_terrains.size():
+					var blueprint = node.instantiate()
+					container.add_child(blueprint)
+					blueprint.set_data("terrains", slots_to_create_terrains[current_slot_index_terrains])
+					current_slot_index_terrains += 1
+				else:
+					break
+		# upgrades
+		if slots_to_create_upgrade.size() > 0 && current_slot_index_upgrade < slots_to_create_upgrade.size():
+			for i in range(1):
+				if current_slot_index_upgrade < slots_to_create_upgrade.size():
+					var blueprint = node.instantiate()
+					container.add_child(blueprint)
+					blueprint.set_data("ugprades", slots_to_create_upgrade[current_slot_index_upgrade])
+					current_slot_index_upgrade += 1
+				else:
+					break
 
 func get_data(group:String, id:int) -> void:
 	if blueprints.content.has(group):
@@ -114,10 +168,17 @@ func update_button_state() -> void:
 			navmenu_button_landscapes.modulate = Color(1, 1, 1)
 			navmenu_button_nodes.modulate = Color(1, 1, 1, 0.784)
 			navmenu_button_upgrades.modulate = Color(1, 1, 1, 0.784)
+			navmenu_button_all.modulate = Color(1, 1, 1, 0.784)
 		"nodes":
 			navmenu_button_landscapes.modulate = Color(1, 1, 1, 0.784)
 			navmenu_button_nodes.modulate = Color(1, 1, 1)
 			navmenu_button_upgrades.modulate = Color(1, 1, 1, 0.784)
+			navmenu_button_all.modulate = Color(1, 1, 1, 0.784)
+		"all":
+			navmenu_button_landscapes.modulate = Color(1, 1, 1, 0.784)
+			navmenu_button_nodes.modulate = Color(1, 1, 1, 0.784)
+			navmenu_button_upgrades.modulate = Color(1, 1, 1, 0.784)
+			navmenu_button_all.modulate = Color(1, 1, 1)
 
 func get_all_required_items(group:String, id:int) -> void:
 	if blueprints.content[group][id]["config"]["resources"] != {}:
@@ -143,9 +204,7 @@ func create_all_blueprints() -> void:
 				for i in terrains_blueprints:
 					if blueprints.content.has("terrains"):
 						if blueprints.content["terrains"].has(i):
-							var blueprint = node.instantiate()
-							container.add_child(blueprint)
-							blueprint.set_data("terrains", i)
+							slots_to_create_terrains.append(i)
 						else:
 							pass
 					else:
@@ -156,13 +215,31 @@ func create_all_blueprints() -> void:
 				for i in node_blueprints:
 					if blueprints.content.has("nodes"):
 						if blueprints.content["nodes"].has(i):
-							var blueprint = node.instantiate()
-							container.add_child(blueprint)
-							blueprint.set_data("nodes", i)
+							slots_to_create_nodes.append(i)
 						else:
 							pass
 					else:
 						pass
+
+		"all": 
+			slots_to_create_terrains = []
+			slots_to_create_nodes = []
+			slots_to_create_upgrade = []
+			current_slot_index_terrains = 0
+			current_slot_index_nodes = 0
+			current_slot_index_upgrade = 0
+			if terrains_blueprints != []:
+				for i in terrains_blueprints:
+					if blueprints.content['terrains'].has(i):
+						slots_to_create_terrains.append(i)
+			if node_blueprints != []:
+				for i in node_blueprints:
+					if blueprints.content['nodes'].has(i):
+						slots_to_create_nodes.append(i)
+			if upgrade_blueprints != []:
+				for i in upgrade_blueprints:
+					if blueprints.content['nodes'].has(i):
+						slots_to_create_upgrade.append(i)
 
 func remove_all_blueprints() -> void:
 	for i in container.get_children():
@@ -172,6 +249,7 @@ func open() -> void:
 	anim.play("open")
 	blur.blur(true)
 	opened = true
+	section = "all"
 
 	set_start_info()
 	update_navmenu()
@@ -185,6 +263,8 @@ func close() -> void:
 	opened = false
 
 func update_navmenu() -> void:
+	navmenu_button_all.visible = true
+	navmenu_button_all.text = tr("Все чертежи")
 	if terrains_blueprints != []:
 		navmenu_button_landscapes.visible = true
 		navmenu_button_landscapes.text = tr("Чертежи ландшафта")
@@ -204,13 +284,13 @@ func update_navmenu() -> void:
 		navmenu_button_upgrades.visible = false
 
 func set_start_info() -> void:
-	caption.text = "Меню строительства"
+	caption.text = construct_menu_header
 	if terrains_blueprints == []\
 	&& node_blueprints == []\
 	&& upgrade_blueprints == []:
-		description.text = "Нет чертежей для строительства"
+		description.text = construct_menu_description
 	else:
-		description.text = "Чтобы приступить к строительству - выберите вверху категорию"
+		description.text = construct_menu_description_empty
 
 	caption.visible = true
 	description.visible = true
@@ -263,13 +343,13 @@ func _on_close_pressed() -> void:
 # navmenu
 func _on_button_landscape_pressed():
 	section = "terrains"
-	caption.text = "construct.header"
+	caption.text = construct_menu_selected_landscapes_header
 	if terrains_blueprints == []\
 	&& node_blueprints == []\
 	&& upgrade_blueprints == []:
-		description.text = "construct.description_empty"
+		description.text = ""
 	else:
-		description.text = "construct.description"
+		description.text = construct_menu_selected_landscapes
 
 	caption.visible = true
 	description.visible = true
@@ -283,13 +363,13 @@ func _on_button_landscape_pressed():
 
 func _on_button_buildings_pressed():
 	section = "nodes"
-	caption.text = "construct.header"
+	caption.text = construct_menu_selected_nodes_header
 	if terrains_blueprints == []\
 	&& node_blueprints == []\
 	&& upgrade_blueprints == []:
-		description.text = "construct.description_empty"
+		description.text = ""
 	else:
-		description.text = "construct.description"
+		description.text = construct_menu_selected_nodes
 
 	caption.visible = true
 	description.visible = true
@@ -303,13 +383,13 @@ func _on_button_buildings_pressed():
 
 func _on_button_upgrades_pressed():
 	section = "upgrades"
-	caption.text = "construct.header"
+	caption.text = construct_menu_selected_upgrades_header
 	if terrains_blueprints == []\
 	&& node_blueprints == []\
 	&& upgrade_blueprints == []:
-		description.text = "construct.description_empty"
+		description.text = ""
 	else:
-		description.text = "construct.description"
+		description.text = construct_menu_selected_upgrades
 
 	caption.visible = true
 	description.visible = true
@@ -317,6 +397,15 @@ func _on_button_upgrades_pressed():
 	resources.visible = false
 	time_create.visible = false
 	button.visible = false
+	update_button_state()
+	remove_all_blueprints()
+	create_all_blueprints()
+
+
+func _on_button_all_blueprints_pressed():
+	section = "all"
+	set_start_info()
+	update_navmenu()
 	update_button_state()
 	remove_all_blueprints()
 	create_all_blueprints()
