@@ -16,6 +16,7 @@ func _ready():
 	if data_menu:
 		if data_menu.has_method('config_load'):
 			data_menu.config_load()
+			GameConfig.apply()
 
 func _on_continue_button_pressed():
 	if !clicked:
