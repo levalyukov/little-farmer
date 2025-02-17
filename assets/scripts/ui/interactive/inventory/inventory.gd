@@ -13,12 +13,13 @@ extends Control
 @onready var anim:AnimationPlayer = $Animation
 @onready var info:BoxContainer = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer
 @onready var scroll_info:ScrollContainer = $Main/HBoxContainer/ItemContent/ScrollContainer
-@onready var slots:GridContainer = $Main/HBoxContainer/InventoryContent/ScrollContainer/GridContainer
+@onready var slots:GridContainer = $Main/HBoxContainer/InventoryContent/Panel/MarginContainer/ScrollContainer/MarginContainer/GridContainer
 @onready var scroll_slots:ScrollContainer = $Main/HBoxContainer/InventoryContent/ScrollContainer
 
 @onready var icon:TextureRect = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/ItemIconContainer/TextureRect
 @onready var caption:Label = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/HeaderContainer/Header
 @onready var description:Label = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/ContentContainer/Content
+@onready var specifications_margin:MarginContainer = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/Specifications
 @onready var specifications:Label = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/Specifications/Specifications
 @onready var type:Label = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/Type/Type
 @onready var button:Button = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/ButtonContainer/Button
@@ -92,7 +93,6 @@ var inventory_items:Dictionary = {
 	59:{"amount":100},
 	60:{"amount":100},
 }
-
 func _ready():
 	check_window()
 	reset_data()
@@ -194,15 +194,15 @@ func get_data(index) -> void:
 
 			if item.content[int(index)].has("specifications"):
 				if item.content[int(index)].get("specifications") != {}:
-					specifications.visible = true
+					specifications_margin.visible = true
 					specifications.text = ""
 					for i in item.content[int(index)]["specifications"]:
 						get_specifications(int(index), i)
 				else:
-					specifications.visible = false
+					specifications_margin.visible = false
 					data.debug("[ID: "+str(index)+"] The 'specifications' key is empty.", "error")
 			else:
-				specifications.visible = false
+				specifications_margin.visible = false
 
 			if item.content[int(index)].has("type"):
 				if typeof(item.content[int(index)]["type"]) == TYPE_STRING:
