@@ -1,8 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://cwtsqme5qki8s"]
+[gd_scene load_steps=8 format=3 uid="uid://cwtsqme5qki8s"]
 
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/mail/mail.gd" id="1_nrqxv"]
-[ext_resource type="PackedScene" uid="uid://15vmrkth71wi" path="res://assets/nodes/ui/interactive/mail/letter.tscn" id="1_uakyx"]
-[ext_resource type="PackedScene" uid="uid://do4e681e4p00n" path="res://assets/nodes/ui/interactive/inventory/slot.tscn" id="3_2hh12"]
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/mail/receiving_button.gd" id="3_j40v4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_y2ytc"]
@@ -158,21 +156,6 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Letter" parent="Panel/HBoxContainer/LettersContainer/ScrollContainer/GridContainer" instance=ExtResource("1_uakyx")]
-layout_mode = 2
-
-[node name="Letter2" parent="Panel/HBoxContainer/LettersContainer/ScrollContainer/GridContainer" instance=ExtResource("1_uakyx")]
-layout_mode = 2
-
-[node name="Letter3" parent="Panel/HBoxContainer/LettersContainer/ScrollContainer/GridContainer" instance=ExtResource("1_uakyx")]
-layout_mode = 2
-
-[node name="Letter4" parent="Panel/HBoxContainer/LettersContainer/ScrollContainer/GridContainer" instance=ExtResource("1_uakyx")]
-layout_mode = 2
-
-[node name="Letter5" parent="Panel/HBoxContainer/LettersContainer/ScrollContainer/GridContainer" instance=ExtResource("1_uakyx")]
-layout_mode = 2
-
 [node name="LetterContent" type="Panel" parent="Panel/HBoxContainer"]
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
@@ -199,7 +182,6 @@ theme_override_constants/margin_bottom = 15
 
 [node name="Header" type="Label" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/LetterHeader"]
 layout_mode = 2
-text = "lettter.header"
 label_settings = SubResource("LabelSettings_y2ytc")
 horizontal_alignment = 1
 autowrap_mode = 3
@@ -211,7 +193,6 @@ theme_override_constants/margin_right = 25
 
 [node name="Content" type="Label" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/LetterContent"]
 layout_mode = 2
-text = "lettter.content"
 autowrap_mode = 3
 
 [node name="LetterAuthor" type="MarginContainer" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer"]
@@ -223,7 +204,6 @@ theme_override_constants/margin_bottom = 10
 
 [node name="Author" type="Label" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/LetterAuthor"]
 layout_mode = 2
-text = "lettter.author"
 
 [node name="ItemsContainer" type="MarginContainer" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -246,7 +226,6 @@ theme_override_constants/margin_bottom = 10
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/MoneyContainer"]
 layout_mode = 2
-text = "letter.money"
 
 [node name="ItemContainer" type="MarginContainer" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer"]
 layout_mode = 2
@@ -261,18 +240,6 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 columns = 4
 
-[node name="Slot2" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/ItemContainer/GridContainer" instance=ExtResource("3_2hh12")]
-layout_mode = 2
-
-[node name="Slot5" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/ItemContainer/GridContainer" instance=ExtResource("3_2hh12")]
-layout_mode = 2
-
-[node name="Slot7" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/ItemContainer/GridContainer" instance=ExtResource("3_2hh12")]
-layout_mode = 2
-
-[node name="Slot6" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/ItemContainer/GridContainer" instance=ExtResource("3_2hh12")]
-layout_mode = 2
-
 [node name="ButtonContainer" type="MarginContainer" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
@@ -283,7 +250,7 @@ theme_override_constants/margin_bottom = 10
 [node name="GetItems" type="Button" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/ButtonContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-text = "letter.get_all_items"
+text = "Получить"
 script = ExtResource("3_j40v4")
 
 [node name="ManipulationButtons" type="MarginContainer" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer"]
@@ -295,7 +262,7 @@ theme_override_constants/margin_bottom = 25
 [node name="MailRemove" type="Button" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ManipulationButtons"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-text = "letter.remove"
+text = "Удалить письмо"
 
 [node name="DeleteAllReadedLetters" type="Button" parent="Panel"]
 custom_minimum_size = Vector2(50, 50)
@@ -311,7 +278,7 @@ offset_right = 363.5
 offset_bottom = 274.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "mail_remove_readed_letters"
+text = "Удалить прочитанные"
 text_overrun_behavior = 3
 
 [node name="Close" type="Button" parent="."]
