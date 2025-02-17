@@ -1,11 +1,27 @@
-[gd_scene load_steps=8 format=3 uid="uid://cjkwsdkyksvs3"]
+[gd_scene load_steps=17 format=3 uid="uid://cjkwsdkyksvs3"]
 
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/inventory/inventory.gd" id="1_oq0ls"]
+[ext_resource type="Texture2D" uid="uid://belyhiespc6hj" path="res://assets/resources/ui/interactive/inventory/slots_panel.png" id="2_dkp81"]
+[ext_resource type="Texture2D" uid="uid://tvyq45vpr8h8" path="res://assets/resources/ui/interactive/inventory/panel.png" id="2_jyhef"]
 [ext_resource type="Texture2D" uid="uid://blip53ufv0jwb" path="res://icon.png" id="2_veyy4"]
+[ext_resource type="Texture2D" uid="uid://d14qsl277riaw" path="res://assets/resources/ui/interactive/inventory/close_default.png" id="3_2q8v2"]
+[ext_resource type="Texture2D" uid="uid://bmpwh4f12wnhi" path="res://assets/resources/ui/interactive/inventory/close_hover.png" id="4_bxmnd"]
+[ext_resource type="Theme" uid="uid://brg1q2oyapn05" path="res://assets/resources/scrollbar.tres" id="4_ubt4d"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jj68h"]
 font_size = 22
 outline_size = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7qmvm"]
+texture = ExtResource("3_2q8v2")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lhdi3"]
+texture = ExtResource("4_bxmnd")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yswh7"]
+texture = ExtResource("4_bxmnd")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ciwqe"]
 
 [sub_resource type="Animation" id="Animation_ciguq"]
 length = 0.001
@@ -19,7 +35,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_8fihm"]
@@ -104,7 +120,6 @@ _data = {
 }
 
 [node name="Inventory" type="Control"]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -115,19 +130,24 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_oq0ls")
 
-[node name="Main" type="Panel" parent="."]
+[node name="Main" type="NinePatchRect" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -350.0
-offset_top = -212.5
-offset_right = 375.0
-offset_bottom = 212.5
+offset_left = -360.0
+offset_top = -218.0
+offset_right = 360.0
+offset_bottom = 218.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("2_jyhef")
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Main"]
 layout_mode = 1
@@ -136,47 +156,90 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -350.0
-offset_top = -201.0
-offset_right = 350.0
-offset_bottom = 201.0
+offset_left = -344.0
+offset_top = -202.0
+offset_right = 344.0
+offset_bottom = 202.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
 [node name="InventoryContent" type="VBoxContainer" parent="Main/HBoxContainer"]
-custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Main/HBoxContainer/InventoryContent"]
-custom_minimum_size = Vector2(0, 375)
+[node name="Panel" type="NinePatchRect" parent="Main/HBoxContainer/InventoryContent"]
+custom_minimum_size = Vector2(0, 377)
 layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_dkp81")
+region_rect = Rect2(0, 0, 128, 64)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
 
-[node name="GridContainer" type="GridContainer" parent="Main/HBoxContainer/InventoryContent/ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Main/HBoxContainer/InventoryContent/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Main/HBoxContainer/InventoryContent/Panel/MarginContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("4_ubt4d")
+
+[node name="MarginContainer" type="MarginContainer" parent="Main/HBoxContainer/InventoryContent/Panel/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+
+[node name="GridContainer" type="GridContainer" parent="Main/HBoxContainer/InventoryContent/Panel/MarginContainer/ScrollContainer/MarginContainer"]
+custom_minimum_size = Vector2(325, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
 columns = 5
 
 [node name="Label" type="Label" parent="Main/HBoxContainer/InventoryContent"]
 layout_mode = 2
+size_flags_vertical = 2
 text = "storage.slots"
 text_overrun_behavior = 3
 
-[node name="ItemContent" type="Panel" parent="Main/HBoxContainer"]
-custom_minimum_size = Vector2(350, 0)
+[node name="ItemContent" type="NinePatchRect" parent="Main/HBoxContainer"]
+custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+texture = ExtResource("2_dkp81")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Main/HBoxContainer/ItemContent"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("4_ubt4d")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Main/HBoxContainer/ItemContent/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 2
+size_flags_vertical = 3
 alignment = 1
 
 [node name="ItemIconContainer" type="MarginContainer" parent="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer"]
@@ -259,12 +322,16 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 346.5
-offset_top = -232.5
-offset_right = 379.5
-offset_bottom = -199.5
+offset_left = 344.0
+offset_top = -240.0
+offset_right = 376.0
+offset_bottom = -208.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_7qmvm")
+theme_override_styles/hover = SubResource("StyleBoxTexture_lhdi3")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_yswh7")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ciwqe")
 
 [node name="Animation" type="AnimationPlayer" parent="."]
 libraries = {
