@@ -1,7 +1,6 @@
 shader_type canvas_item;
 
-vec4 texturePointSmooth(sampler2D smp, vec2 uv, vec2 pixel_size)
-{
+vec4 texturePointSmooth(sampler2D smp, vec2 uv, vec2 pixel_size) {
 	vec2 ddx = dFdx(uv);
 	vec2 ddy = dFdy(uv);
 	vec2 lxy = sqrt(ddx * ddx + ddy * ddy);
