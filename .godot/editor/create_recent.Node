@@ -1,12 +1,12 @@
-NinePatchRect
 MarginContainer
+NinePatchRect
+VBoxContainer
 Panel
 HBoxContainer
 OptionButton
 Label
 Node2D
 Node
-VBoxContainer
 HSlider
 CodeEdit
 CheckButton
