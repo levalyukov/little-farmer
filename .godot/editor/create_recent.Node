@@ -1,3 +1,5 @@
+TextureRect
+ColorRect
 NinePatchRect
 MarginContainer
 VBoxContainer
@@ -11,4 +13,3 @@ HSlider
 CodeEdit
 CheckButton
 ScrollContainer
-Container
