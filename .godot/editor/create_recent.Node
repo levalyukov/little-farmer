@@ -1,6 +1,6 @@
+NinePatchRect
 TextureRect
 ColorRect
-NinePatchRect
 MarginContainer
 VBoxContainer
 Panel
@@ -12,4 +12,3 @@ Node
 HSlider
 CodeEdit
 CheckButton
-ScrollContainer
