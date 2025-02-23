@@ -64,23 +64,26 @@ const sceneConfig = {
 
 func _ready():
 	if main == "Farm":
+		# Game Load
+		print(GameLoader.mode, ":", GameLoader.start)
 		if GameLoader.mode\
 		&& !GameLoader.start:
 			gameload()
 			GameLoader.mode = false
+		# New Game
 		if !GameLoader.mode\
 		&& GameLoader.start:
-			nature.create_start_nature()
-			config_new()
-			config_load()
+			start_newgame()
+			GameLoader.start = false
 	else:
 		if main != "MainMenu":
 			load_time()
 			load_balance()
 			load_inventory()
-			load_buildings()
 			config_load()
-
+			if main == "Farm":
+				load_buildings()
+				
 func gamesave() -> void:
 	# main data
 	file_save([path.data], file.world, get_dictionary_content("world"))
@@ -118,7 +121,7 @@ func gameload() -> void:
 	# Config
 	config_load()
 	
-func file_save(_path:Array[String], _file:String, _content:Dictionary) -> void:
+func file_save(_path:Array, _file:String, _content:Dictionary) -> void:
 	if _path != []:
 		for i in _path:
 			var target_path = DirAccess.open(i)
@@ -356,7 +359,6 @@ func load_inventory() -> void:
 
 func load_blueprints() -> void:
 	craft.clear_blueprints()
-	var group:String = get_key(file.blueprints, ".section")
 	var terrains_blueprints:Array[int] = []
 	var node_blueprints:Array[int] = []
 	var upgrade_blueprints:Array[int] = []
@@ -366,7 +368,7 @@ func load_blueprints() -> void:
 		node_blueprints.append(int(i))
 	for i in get_key(file.blueprints, "upgrade_blueprints"):
 		upgrade_blueprints.append(int(i))
-	craft.load_blueprints(group, terrains_blueprints, node_blueprints, upgrade_blueprints)
+	craft.load_blueprints(terrains_blueprints, node_blueprints, upgrade_blueprints)
 
 func load_mailbox() -> void:
 	mailbox.letters_load(file_load(file.mailbox))
@@ -509,6 +511,15 @@ func check_probability(percent:float) -> bool:
 		return true
 	return false
 
+func open_url(url:String) -> void:
+	var target_url = ""
+	if !url.begins_with("https://"):
+		target_url = "https://" + url
+	else:
+		target_url = url
+	OS.shell_open(target_url)
+	debug("Redirection to a website: "+target_url)
+
 func debug(content:String = "", type:String = "info") -> void:
 	if content != "":
 		var system_datetime = Time.get_datetime_dict_from_system()
@@ -530,6 +541,7 @@ func debug(content:String = "", type:String = "info") -> void:
 # Game Settings
 func config_new() -> void:
 	var target_path = DirAccess.open(path.main)
+	var target_file = FileAccess.open(file.config, FileAccess.READ)
 	var config = {
 		"graphic": {
 			"v-sync": false,
@@ -543,7 +555,8 @@ func config_new() -> void:
 		},
 	}
 	if target_path:
-		file_save([path.main], file.config, config)
+		if !target_file:
+			file_save([path.main], file.config, config)
 	else:
 		FileSystem.new().Funcs.create_directory(path.main)
 		file_save([path.main], file.config, config)
@@ -587,3 +600,22 @@ func config_load() -> void:
 		options_game.set_values(file_load(file.config))
 	if options_menu:
 		options_menu.set_values(file_load(file.config))
+
+func start_newgame() -> void:
+	nature.create_start_nature()
+	config_new()
+	config_load()
+	mailbox.letter(
+		# 	Header
+		"",
+		# 	Description
+		"",	
+		# 	Author
+		"",
+		#	Money
+		1_000,
+		#	Items
+		{
+			1:{"amount":100},
+		}
+	)
