@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://bynrpq8bqkokr"]
+[gd_scene load_steps=11 format=3 uid="uid://bynrpq8bqkokr"]
 
 [ext_resource type="Script" path="res://assets/scripts/ui/hud/tools/destroy_menu/destroy_menu.gd" id="1_0el1c"]
 [ext_resource type="PackedScene" uid="uid://dioui6ad7xdkd" path="res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_trash.tscn" id="1_v1rcw"]
+[ext_resource type="Texture2D" uid="uid://c3yf44sxb8a8o" path="res://assets/resources/ui/menu_background_middle.png" id="2_i2s4e"]
 [ext_resource type="PackedScene" uid="uid://c8ag0gf3jieeo" path="res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_axe.tscn" id="2_pqk25"]
 [ext_resource type="PackedScene" uid="uid://8yb0kfe6oh6x" path="res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_pickaxe.tscn" id="3_5530s"]
 [ext_resource type="PackedScene" uid="uid://5l4506nneg48" path="res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_bomb.tscn" id="4_0yop0"]
@@ -104,38 +105,41 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 script = ExtResource("1_0el1c")
 
+[node name="Panel" type="NinePatchRect" parent="."]
+layout_mode = 2
+offset_top = -4.0
+offset_right = 294.0
+offset_bottom = 84.0
+texture = ExtResource("2_i2s4e")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+offset_left = 11.0
+offset_top = 6.0
+offset_right = 282.0
+offset_bottom = 85.0
 mouse_filter = 2
+theme_override_constants/margin_top = 2
 
-[node name="Panel" type="Panel" parent="MarginContainer"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 mouse_filter = 2
+alignment = 1
 
-[node name="ButtonTrash" parent="MarginContainer/MarginContainer/HBoxContainer" instance=ExtResource("1_v1rcw")]
+[node name="ButtonTrash" parent="MarginContainer/HBoxContainer" instance=ExtResource("1_v1rcw")]
 layout_mode = 2
 
-[node name="ButtonAxe" parent="MarginContainer/MarginContainer/HBoxContainer" instance=ExtResource("2_pqk25")]
+[node name="ButtonAxe" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_pqk25")]
 layout_mode = 2
 
-[node name="ButtonPickaxe" parent="MarginContainer/MarginContainer/HBoxContainer" instance=ExtResource("3_5530s")]
+[node name="ButtonPickaxe" parent="MarginContainer/HBoxContainer" instance=ExtResource("3_5530s")]
 layout_mode = 2
 
-[node name="ButtonDestroyBomb" parent="MarginContainer/MarginContainer/HBoxContainer" instance=ExtResource("4_0yop0")]
+[node name="ButtonDestroyBomb" parent="MarginContainer/HBoxContainer" instance=ExtResource("4_0yop0")]
 layout_mode = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
