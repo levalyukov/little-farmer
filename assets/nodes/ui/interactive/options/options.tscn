@@ -1,6 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bhadiamik4ev0"]
+[gd_scene load_steps=10 format=3 uid="uid://bhadiamik4ev0"]
 
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/pause/options/options.gd" id="1_cadvs"]
+[ext_resource type="Theme" uid="uid://btsx1m2p0i620" path="res://assets/resources/theme.tres" id="1_nnyn0"]
+[ext_resource type="Texture2D" uid="uid://dtkym5bhfhpb" path="res://assets/resources/ui/menu_background.png" id="2_l7a0s"]
+[ext_resource type="Texture2D" uid="uid://c3yf44sxb8a8o" path="res://assets/resources/ui/menu_background_middle.png" id="4_tqjim"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_opmpa"]
 font_size = 20
@@ -99,9 +102,10 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = ExtResource("1_nnyn0")
 script = ExtResource("1_cadvs")
 
-[node name="Menu" type="Panel" parent="."]
+[node name="Menu" type="NinePatchRect" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -114,79 +118,106 @@ offset_right = 320.0
 offset_bottom = 192.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("2_l7a0s")
+region_rect = Rect2(0, 0, 128, 64)
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
 
 [node name="Main" type="MarginContainer" parent="Menu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 15
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main"]
 layout_mode = 2
 
 [node name="Panel" type="MarginContainer" parent="Menu/Main/HBoxContainer"]
-custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Menu/Main/HBoxContainer/Panel"]
 layout_mode = 2
 
 [node name="MainContent" type="ScrollContainer" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="SectionsButtons" type="VBoxContainer" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent"]
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_right = 4
+
+[node name="SectionsButtons" type="VBoxContainer" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="GraphicButton" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/SectionsButtons"]
-custom_minimum_size = Vector2(50, 50)
+[node name="GraphicButton" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons"]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 16
 text = "Графика"
 
-[node name="SoundButton" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/SectionsButtons"]
-custom_minimum_size = Vector2(50, 50)
+[node name="SoundButton" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons"]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 16
 text = "Звук"
 
-[node name="Control" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/SectionsButtons"]
-custom_minimum_size = Vector2(50, 50)
+[node name="Control" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons"]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 16
 text = "Управление"
 
-[node name="MenuButtons" type="VBoxContainer" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_right = 4
+
+[node name="MenuButtons" type="VBoxContainer" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 10
 alignment = 2
 
-[node name="ChangeLanguageButton" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MenuButtons"]
-custom_minimum_size = Vector2(50, 50)
+[node name="ChangeLanguageButton" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons"]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 16
 text = "Язык: Русский"
 
-[node name="SaveChangesButton" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MenuButtons"]
-custom_minimum_size = Vector2(50, 50)
+[node name="SaveChangesButton" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons"]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 16
 text = "Сохранить изменения"
 
-[node name="PageBackground" type="Panel" parent="Menu/Main/HBoxContainer"]
+[node name="PageBackground" type="NinePatchRect" parent="Menu/Main/HBoxContainer"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-size_flags_horizontal = 8
-mouse_filter = 2
+size_flags_horizontal = 10
+texture = ExtResource("4_tqjim")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
 
 [node name="GraphicSection" type="ScrollContainer" parent="Menu/Main/HBoxContainer/PageBackground"]
 layout_mode = 1
@@ -205,10 +236,10 @@ size_flags_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 15
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
 
 [node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container/HeaderMargin"]
 layout_mode = 2
@@ -218,29 +249,31 @@ autowrap_mode = 3
 
 [node name="VSyncMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container"]
 layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 4
 
 [node name="VSyncButton" type="CheckButton" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container/VSyncMargin"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 text = "Верт. синхронизация"
 
 [node name="FullScreenMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container"]
 layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 4
 
 [node name="FullScreenButton" type="CheckButton" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container/FullScreenMargin"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 text = "Полноэкранный режим"
 
 [node name="FPSLimitMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container"]
 layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container/FPSLimitMargin"]
 layout_mode = 2
@@ -254,11 +287,13 @@ theme_override_constants/margin_right = 5
 
 [node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container/FPSLimitMargin/HBoxContainer/MarginContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 text = "Ограничение FPS"
 
 [node name="OptionButton" type="OptionButton" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container/FPSLimitMargin/HBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 16
 item_count = 3
 selected = 2
 popup/item_0/text = "30"
@@ -286,10 +321,10 @@ size_flags_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 15
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
 
 [node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/HeaderMargin"]
 layout_mode = 2
@@ -299,9 +334,9 @@ autowrap_mode = 3
 
 [node name="GeneralVolumeMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container"]
 layout_mode = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/GeneralVolumeMargin"]
 layout_mode = 2
@@ -312,6 +347,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/GeneralVolumeMargin/HBoxContainer/MarginContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 text = "Общая: "
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/GeneralVolumeMargin/HBoxContainer"]
@@ -320,6 +356,7 @@ size_flags_horizontal = 3
 
 [node name="GeneralVolumeLabel" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/GeneralVolumeMargin/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 text = "0%"
 horizontal_alignment = 1
 
@@ -328,9 +365,9 @@ layout_mode = 2
 
 [node name="MusicVolumeMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container"]
 layout_mode = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/MusicVolumeMargin"]
 layout_mode = 2
@@ -342,6 +379,7 @@ theme_override_constants/margin_right = 10
 
 [node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/MusicVolumeMargin/HBoxContainer/MarginContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 text = "Музыка:"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/MusicVolumeMargin/HBoxContainer"]
@@ -350,6 +388,7 @@ size_flags_horizontal = 3
 
 [node name="MusicVolumeLabel" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/MusicVolumeMargin/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 text = "0%"
 horizontal_alignment = 1
 
@@ -359,9 +398,9 @@ size_flags_horizontal = 3
 
 [node name="NatureVolumeMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container"]
 layout_mode = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/NatureVolumeMargin"]
 layout_mode = 2
@@ -373,6 +412,7 @@ theme_override_constants/margin_right = 10
 
 [node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/NatureVolumeMargin/HBoxContainer/MarginContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 text = "Природа:"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/NatureVolumeMargin/HBoxContainer"]
@@ -381,6 +421,7 @@ size_flags_horizontal = 3
 
 [node name="NatureVolumeLabel" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/NatureVolumeMargin/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 text = "0%"
 horizontal_alignment = 1
 
@@ -406,10 +447,10 @@ size_flags_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 15
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
 
 [node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container/HeaderMargin"]
 layout_mode = 2
@@ -419,7 +460,7 @@ autowrap_mode = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container"]
 layout_mode = 2
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_bottom = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container/MarginContainer"]
 layout_mode = 2
@@ -431,11 +472,12 @@ theme_override_constants/margin_right = 15
 
 [node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container/MarginContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 text = "Передвижение [WASD]"
 
 [node name="MarginContainer2" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container"]
 layout_mode = 2
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_bottom = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container/MarginContainer2"]
 layout_mode = 2
@@ -447,11 +489,12 @@ theme_override_constants/margin_right = 15
 
 [node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container/MarginContainer2/HBoxContainer/MarginContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 text = "Взаимодействие [ЛКМ]"
 
 [node name="MarginContainer3" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container"]
 layout_mode = 2
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_bottom = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container/MarginContainer3"]
 layout_mode = 2
@@ -463,11 +506,12 @@ theme_override_constants/margin_right = 15
 
 [node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container/MarginContainer3/HBoxContainer/MarginContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 text = "Инвентарь [E/У]"
 
 [node name="MarginContainer4" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container"]
 layout_mode = 2
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_bottom = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container/MarginContainer4"]
 layout_mode = 2
@@ -479,6 +523,7 @@ theme_override_constants/margin_right = 15
 
 [node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container/MarginContainer4/HBoxContainer/MarginContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 text = "Меню паузы [Esc]"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -486,8 +531,8 @@ libraries = {
 "": SubResource("AnimationLibrary_bw4sn")
 }
 
-[connection signal="pressed" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/SectionsButtons/GraphicButton" to="." method="_on_graphic_button_pressed"]
-[connection signal="pressed" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/SectionsButtons/SoundButton" to="." method="_on_sound_button_pressed"]
-[connection signal="pressed" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/SectionsButtons/Control" to="." method="_on_control_pressed"]
-[connection signal="pressed" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MenuButtons/SaveChangesButton" to="." method="_on_save_changes_button_pressed"]
+[connection signal="pressed" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons/GraphicButton" to="." method="_on_graphic_button_pressed"]
+[connection signal="pressed" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons/SoundButton" to="." method="_on_sound_button_pressed"]
+[connection signal="pressed" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons/Control" to="." method="_on_control_pressed"]
+[connection signal="pressed" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons/SaveChangesButton" to="." method="_on_save_changes_button_pressed"]
 [connection signal="item_selected" from="Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container/FPSLimitMargin/HBoxContainer/MarginContainer/OptionButton" to="." method="_on_option_button_item_selected"]
