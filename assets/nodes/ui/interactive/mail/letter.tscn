@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://15vmrkth71wi"]
+[gd_scene load_steps=4 format=3 uid="uid://15vmrkth71wi"]
 
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/mail/letter.gd" id="1_objys"]
 [ext_resource type="Texture2D" uid="uid://bkiksla513wrs" path="res://assets/resources/ui/interactive/mail/icons/readed.png" id="2_aeolx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_c11mo"]
+font_size = 18
 
 [node name="Letter" type="Control"]
 custom_minimum_size = Vector2(340, 64)
@@ -16,14 +19,14 @@ script = ExtResource("1_objys")
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
 offset_right = 340.0
-offset_bottom = 64.0
+offset_bottom = 60.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Button"]
 layout_mode = 0
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 270.0
-offset_bottom = 56.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 328.0
+offset_bottom = 48.0
 
 [node name="MarginContainer" type="MarginContainer" parent="Button/HBoxContainer"]
 layout_mode = 2
@@ -39,9 +42,9 @@ expand_mode = 2
 stretch_mode = 6
 
 [node name="Label" type="Label" parent="Button/HBoxContainer"]
-custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 text = "letter.header"
+label_settings = SubResource("LabelSettings_c11mo")
 vertical_alignment = 1
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
