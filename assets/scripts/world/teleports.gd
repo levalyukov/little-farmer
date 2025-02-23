@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var main:String = str(get_tree().root.get_child(2).name)
 @onready var data:Node = get_node("/root/"+main)
+@onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var blackout:Control = get_node("/root/"+main+"/UI/Decorative/Blackout")
 @onready var grid:Node2D = get_node("/root/"+main+ "/ConstructionManager/Grid")
 @onready var building:Node2D = get_node("/root/"+main+"/ConstructionManager")
@@ -24,22 +25,24 @@ func teleport() -> void:
 	blackout.blackout(true)
 	match main:
 		"Farm":
-			var path:String = "res://levels/village.tscn"
+			var scene:String = "res://levels/village.tscn"
 			data.gamesave()
 			GameLoader.mode = false
-			blackout.change_scene(path)
+			blackout.change_scene(scene)
 		"Village":
-			var path:String = "res://levels/farm.tscn"
+			var scene:String = "res://levels/farm.tscn"
 			GameLoader.mode = true
-			data.file_save(data.paths.world, "nature")
-			data.file_save(data.paths.player, "player")
-			data.file_save(data.paths.inventory, "inventory")
-			blackout.change_scene(path)
+			data.file_save([data.path.data], data.file.world, data.get_dictionary_content("world"))
+			data.file_save([data.path.player], data.file.player, data.get_dictionary_content("player"))
+			data.file_save([data.path.player], data.file.inventory, data.get_dictionary_content("inventory"))
+			blackout.change_scene(scene)
 		_:
 			data.debug("Unknown name of the game scene: "+str(main), "error")
 
 func _on_area_2d_mouse_entered():
-	teleporting = true
+	if !blur.state:
+		teleporting = true
 
 func _on_area_2d_mouse_exited():
-	teleporting = false
+	if !blur.state:
+		teleporting = false
