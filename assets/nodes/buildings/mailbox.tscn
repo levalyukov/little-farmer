@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b6yctk4o25kkc"]
+[gd_scene load_steps=6 format=3 uid="uid://b6yctk4o25kkc"]
 
 [ext_resource type="Script" path="res://assets/scripts/construction/buildings/mailbox.gd" id="1_oykw7"]
 [ext_resource type="Texture2D" uid="uid://lss3l88wn07f" path="res://assets/resources/buildings/mailbox/summer/object_0.png" id="2_5f1x6"]
+[ext_resource type="Texture2D" uid="uid://cqk33wqdap1tv" path="res://assets/resources/buildings/mailbox/not.png" id="3_wiona"]
+[ext_resource type="Texture2D" uid="uid://egwnt0me6324" path="res://assets/resources/buildings/mailbox/icn.png" id="4_co8da"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_djas3"]
 size = Vector2(16, 32)
@@ -21,6 +23,22 @@ shape = SubResource("RectangleShape2D_djas3")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, 11)
 texture = ExtResource("2_5f1x6")
+
+[node name="Not" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -6)
+texture = ExtResource("3_wiona")
+
+[node name="TextureRect" type="TextureRect" parent="Not"]
+offset_left = -7.0
+offset_top = -8.0
+offset_right = 7.0
+offset_bottom = 6.0
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("4_co8da")
+expand_mode = 2
+stretch_mode = 5
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
