@@ -4,21 +4,11 @@ class_name Traders
 var content:Dictionary = {
     1: {
         "inventory" = {
-            18:{
-                "amount": 25,
-            },
-            19:{
-                "amount": 25,
-            },
-            20:{
-                "amount": 25,
-            },
-            21:{
-                "amount": 25,
-            },
-            22:{
-                "amount": 25,
-            },
+            13:{"amount": 25},
+            14:{"amount": 25},
+            15:{"amount": 25},
+            16:{"amount": 25},
+            17:{"amount": 25},
         }
     }
 }
