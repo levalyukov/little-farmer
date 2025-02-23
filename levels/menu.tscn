@@ -1,17 +1,121 @@
-[gd_scene load_steps=9 format=3 uid="uid://cfg7cs8a8gogo"]
+[gd_scene load_steps=31 format=3 uid="uid://cfg7cs8a8gogo"]
 
 [ext_resource type="PackedScene" uid="uid://3w6lj8hrhrxx" path="res://assets/nodes/ui/decorative/blackout.tscn" id="1_3ae63"]
 [ext_resource type="PackedScene" uid="uid://ddp2h6ryjofvt" path="res://assets/nodes/ui/hud/cursor.tscn" id="1_omrn7"]
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/_main_menu/menu.gd" id="1_x8tav"]
 [ext_resource type="PackedScene" uid="uid://c16oacn0qg214" path="res://assets/nodes/ui/decorative/blur.tscn" id="2_jinr7"]
 [ext_resource type="PackedScene" uid="uid://bhadiamik4ev0" path="res://assets/nodes/ui/interactive/options/options.tscn" id="2_m3gij"]
+[ext_resource type="PackedScene" uid="uid://b51o72a5t51k6" path="res://assets/nodes/ui/modal.tscn" id="3_m8me6"]
 [ext_resource type="Texture2D" uid="uid://i688xoy07asj" path="res://logo.png" id="5_k5cee"]
+[ext_resource type="Texture2D" uid="uid://bda07tej8laob" path="res://assets/resources/ui/button_default.png" id="6_uq7gr"]
 [ext_resource type="Script" path="res://assets/data/gamedata.gd" id="7_7q651"]
+[ext_resource type="Texture2D" uid="uid://ceivy8flsv3yt" path="res://assets/resources/ui/button_hover.png" id="7_ioe06"]
+[ext_resource type="Texture2D" uid="uid://0pgt6dsr7omc" path="res://assets/resources/ui/button_pressed.png" id="8_qn8sj"]
+[ext_resource type="Texture2D" uid="uid://cnr861u0xs0qb" path="res://assets/resources/ui/button_disabled.png" id="9_er6dx"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nneai"]
+texture = ExtResource("6_uq7gr")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o3muj"]
+texture = ExtResource("7_ioe06")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xtslb"]
+texture = ExtResource("8_qn8sj")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+region_rect = Rect2(0, 0, 128, 64)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vqost"]
+texture = ExtResource("9_er6dx")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y23j3"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8657f"]
+texture = ExtResource("6_uq7gr")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qco8a"]
+texture = ExtResource("7_ioe06")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8pg3f"]
+texture = ExtResource("8_qn8sj")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+region_rect = Rect2(0, 0, 128, 64)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_63r1u"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dif7q"]
+texture = ExtResource("6_uq7gr")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_phoql"]
+texture = ExtResource("7_ioe06")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+region_rect = Rect2(0, 0, 128, 64)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_udmmo"]
+texture = ExtResource("8_qn8sj")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_embk8"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7pi30"]
+texture = ExtResource("6_uq7gr")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u7keh"]
+texture = ExtResource("7_ioe06")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dq66j"]
+texture = ExtResource("8_qn8sj")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gtq0s"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_eema0"]
-shadow_size = 2
-shadow_color = Color(0, 0, 0, 0.215686)
-shadow_offset = Vector2(0, 2)
 
 [node name="MainMenu" type="MarginContainer"]
 anchors_preset = 15
@@ -31,19 +135,16 @@ anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 
+[node name="Modal" parent="Menu" instance=ExtResource("3_m8me6")]
+
 [node name="Blackout" parent="." instance=ExtResource("1_3ae63")]
 layout_mode = 2
 
 [node name="Cursor" parent="." instance=ExtResource("1_omrn7")]
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="."]
 layout_mode = 2
-color = Color(0.317647, 0.141176, 0.121569, 1)
-
-[node name="Background" type="TextureRect" parent="."]
-layout_mode = 2
-expand_mode = 2
-stretch_mode = 6
+color = Color(0.784314, 0.623529, 0.521569, 1)
 
 [node name="MenuContent" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -69,8 +170,8 @@ stretch_mode = 5
 
 [node name="ButtonsMargin" type="MarginContainer" parent="MenuContent/VContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = 25
-theme_override_constants/margin_bottom = 25
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_bottom = 14
 
 [node name="Buttons" type="VBoxContainer" parent="MenuContent/VContainer/ButtonsMargin"]
 custom_minimum_size = Vector2(375, 0)
@@ -85,9 +186,14 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="ContinueButton" type="Button" parent="MenuContent/VContainer/ButtonsMargin/Buttons/ContinueMargin"]
-custom_minimum_size = Vector2(50, 50)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-theme_override_font_sizes/font_size = 26
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxTexture_nneai")
+theme_override_styles/hover = SubResource("StyleBoxTexture_o3muj")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_xtslb")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_vqost")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_y23j3")
 text = "Продолжить"
 
 [node name="NewGameMargin" type="MarginContainer" parent="MenuContent/VContainer/ButtonsMargin/Buttons"]
@@ -96,21 +202,29 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="NewGameButton" type="Button" parent="MenuContent/VContainer/ButtonsMargin/Buttons/NewGameMargin"]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-theme_override_font_sizes/font_size = 26
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxTexture_8657f")
+theme_override_styles/hover = SubResource("StyleBoxTexture_qco8a")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8pg3f")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_63r1u")
 text = "Новая игра"
 
-[node name="OptionsMargin" type="MarginContainer" parent="MenuContent/VContainer/ButtonsMargin/Buttons"]
+[node name="SettingsMargin" type="MarginContainer" parent="MenuContent/VContainer/ButtonsMargin/Buttons"]
 layout_mode = 2
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="OptionsButton" type="Button" parent="MenuContent/VContainer/ButtonsMargin/Buttons/OptionsMargin"]
-custom_minimum_size = Vector2(0, 50)
+[node name="SettingsButton" type="Button" parent="MenuContent/VContainer/ButtonsMargin/Buttons/SettingsMargin"]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-theme_override_font_sizes/font_size = 26
-text = "Опции"
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxTexture_dif7q")
+theme_override_styles/hover = SubResource("StyleBoxTexture_phoql")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_udmmo")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_embk8")
+text = "Настройки"
 
 [node name="ExitMargin" type="MarginContainer" parent="MenuContent/VContainer/ButtonsMargin/Buttons"]
 layout_mode = 2
@@ -118,20 +232,23 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="ExitButton" type="Button" parent="MenuContent/VContainer/ButtonsMargin/Buttons/ExitMargin"]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-theme_override_font_sizes/font_size = 26
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxTexture_7pi30")
+theme_override_styles/hover = SubResource("StyleBoxTexture_u7keh")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_dq66j")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gtq0s")
 text = "Выйти из игры"
 
 [node name="FooterMargin" type="MarginContainer" parent="MenuContent/VContainer"]
 layout_mode = 2
 size_flags_vertical = 10
-theme_override_constants/margin_top = 25
 
 [node name="Credits" type="Label" parent="MenuContent/VContainer/FooterMargin"]
 layout_mode = 2
 size_flags_vertical = 8
-text = "v1.0.0
+text = "v.1.0.0
 (C) Studio Miroro"
 label_settings = SubResource("LabelSettings_eema0")
 horizontal_alignment = 1
@@ -144,5 +261,5 @@ script = ExtResource("7_7q651")
 
 [connection signal="pressed" from="MenuContent/VContainer/ButtonsMargin/Buttons/ContinueMargin/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="MenuContent/VContainer/ButtonsMargin/Buttons/NewGameMargin/NewGameButton" to="." method="_on_new_game_button_pressed"]
-[connection signal="pressed" from="MenuContent/VContainer/ButtonsMargin/Buttons/OptionsMargin/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="MenuContent/VContainer/ButtonsMargin/Buttons/SettingsMargin/SettingsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="MenuContent/VContainer/ButtonsMargin/Buttons/ExitMargin/ExitButton" to="." method="_on_exit_button_pressed"]
