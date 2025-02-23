@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://dlpc7fxunbs1g"]
+[gd_scene load_steps=5 format=3 uid="uid://dlpc7fxunbs1g"]
 
 [ext_resource type="Script" path="res://assets/scripts/ui/hud/elements/clock.gd" id="1_kunbj"]
+[ext_resource type="Texture2D" uid="uid://dtkym5bhfhpb" path="res://assets/resources/ui/menu_background.png" id="2_55kbf"]
+[ext_resource type="Texture2D" uid="uid://bw4wloxhfp8s4" path="res://assets/resources/ui/interactive/hud/clock.png" id="3_8kllr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cmbot"]
+font_size = 18
 
 [node name="Clock" type="Control"]
 custom_minimum_size = Vector2(225, 0)
@@ -12,51 +17,50 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_kunbj")
 
-[node name="Main" type="MarginContainer" parent="."]
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Panel" type="NinePatchRect" parent="."]
 layout_mode = 0
-offset_right = 225.0
-offset_bottom = 74.0
+offset_right = 256.0
+offset_bottom = 64.0
+texture = ExtResource("2_55kbf")
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
 
-[node name="Panel" type="Panel" parent="Main"]
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 10.0
+offset_right = 244.0
+offset_bottom = 52.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin"]
 layout_mode = 2
 
-[node name="Margin" type="MarginContainer" parent="Main"]
+[node name="Icon" type="MarginContainer" parent="Margin/HBoxContainer"]
 layout_mode = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Main/Margin"]
+[node name="TextureRect" type="TextureRect" parent="Margin/HBoxContainer/Icon"]
 layout_mode = 2
-mouse_filter = 2
-
-[node name="Icon" type="MarginContainer" parent="Main/Margin/HBoxContainer"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-mouse_filter = 2
-
-[node name="TextureRect" type="TextureRect" parent="Main/Margin/HBoxContainer/Icon"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-mouse_filter = 2
+texture = ExtResource("3_8kllr")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Label" type="MarginContainer" parent="Main/Margin/HBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Margin"]
 layout_mode = 2
-size_flags_horizontal = 10
-mouse_filter = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_right = 15
+alignment = 2
 
-[node name="Label" type="Label" parent="Main/Margin/HBoxContainer/Label"]
+[node name="Label" type="MarginContainer" parent="Margin/HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_right = 4
+
+[node name="Label" type="Label" parent="Margin/HBoxContainer2/Label"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
-text = "0:00"
+text = "Пн. 7:00; День: 1"
+label_settings = SubResource("LabelSettings_cmbot")
 horizontal_alignment = 2
-
-[node name="Timer" type="Timer" parent="."]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
