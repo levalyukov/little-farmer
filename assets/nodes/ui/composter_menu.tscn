@@ -1,10 +1,27 @@
-[gd_scene load_steps=7 format=3 uid="uid://b02tx1nhggapw"]
+[gd_scene load_steps=17 format=3 uid="uid://b02tx1nhggapw"]
 
+[ext_resource type="Theme" uid="uid://btsx1m2p0i620" path="res://assets/resources/theme.tres" id="1_lwl15"]
 [ext_resource type="Script" path="res://assets/scripts/ui/composter_menu.gd" id="1_mfits"]
+[ext_resource type="Texture2D" uid="uid://dtkym5bhfhpb" path="res://assets/resources/ui/menu_background.png" id="2_f1nod"]
+[ext_resource type="Texture2D" uid="uid://cdxqxalncqobp" path="res://assets/resources/ui/menu_background_secondary.png" id="4_ie67r"]
+[ext_resource type="PackedScene" uid="uid://do4e681e4p00n" path="res://assets/nodes/ui/interactive/inventory/slot.tscn" id="5_6w8mo"]
+[ext_resource type="Texture2D" uid="uid://idrcmhx6mgfv" path="res://assets/resources/ui/button_close_default.png" id="6_kh2u4"]
+[ext_resource type="Texture2D" uid="uid://baklqd1yo23jy" path="res://assets/resources/ui/button_close_hover.png" id="7_3ky4q"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_qqi7s"]
 font_size = 20
 outline_size = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aubo6"]
+texture = ExtResource("6_kh2u4")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xbsjb"]
+texture = ExtResource("7_3ky4q")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hnqst"]
+texture = ExtResource("7_3ky4q")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0064o"]
 
 [sub_resource type="Animation" id="Animation_l4p3q"]
 length = 0.001
@@ -96,9 +113,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_lwl15")
 script = ExtResource("1_mfits")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="NinePatchRect" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -111,6 +129,11 @@ offset_right = 384.0
 offset_bottom = 232.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("2_f1nod")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 layout_mode = 1
@@ -128,8 +151,7 @@ grow_vertical = 2
 
 [node name="HeaderMargin" type="MarginContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_bottom = 15
+theme_override_constants/margin_top = 4
 
 [node name="Header" type="Label" parent="Panel/VBoxContainer/HeaderMargin"]
 layout_mode = 2
@@ -155,8 +177,13 @@ alignment = 1
 [node name="PlayerInventory" type="MarginContainer" parent="Panel/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory"]
+[node name="Panel" type="NinePatchRect" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory"]
 layout_mode = 2
+texture = ExtResource("4_ie67r")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 12
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory"]
 custom_minimum_size = Vector2(240, 0)
@@ -176,6 +203,33 @@ layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 3
 columns = 3
+
+[node name="Slot" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
+layout_mode = 2
+
+[node name="Slot2" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
+layout_mode = 2
+
+[node name="Slot3" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
+layout_mode = 2
+
+[node name="Slot4" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
+layout_mode = 2
+
+[node name="Slot5" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
+layout_mode = 2
+
+[node name="Slot6" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
+layout_mode = 2
+
+[node name="Slot7" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
+layout_mode = 2
+
+[node name="Slot8" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
+layout_mode = 2
+
+[node name="Slot9" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
+layout_mode = 2
 
 [node name="ProgressMargin" type="MarginContainer" parent="Panel/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(240, 0)
@@ -208,8 +262,14 @@ text = "Собрать компост"
 [node name="ItemsForCompostMargin" type="MarginContainer" parent="Panel/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin"]
+[node name="Panel" type="NinePatchRect" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin"]
 layout_mode = 2
+texture = ExtResource("4_ie67r")
+region_rect = Rect2(0, 0, 128, 64)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin"]
 custom_minimum_size = Vector2(240, 0)
@@ -228,9 +288,57 @@ layout_mode = 2
 
 [node name="GridContainer" type="GridContainer" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 6
 size_flags_vertical = 3
 columns = 3
+
+[node name="Slot" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
+layout_mode = 2
+
+[node name="Slot2" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
+layout_mode = 2
+
+[node name="Slot3" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
+layout_mode = 2
+
+[node name="Slot4" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
+layout_mode = 2
+
+[node name="Slot5" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
+layout_mode = 2
+
+[node name="Slot6" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
+layout_mode = 2
+
+[node name="Slot7" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
+layout_mode = 2
+
+[node name="Slot8" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
+layout_mode = 2
+
+[node name="Slot9" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
+layout_mode = 2
+
+[node name="Slot10" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
+layout_mode = 2
+
+[node name="Slot11" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
+layout_mode = 2
+
+[node name="Slot12" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
+layout_mode = 2
+
+[node name="Slot13" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
+layout_mode = 2
+
+[node name="Slot14" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
+layout_mode = 2
+
+[node name="Slot15" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
+layout_mode = 2
+
+[node name="Slot16" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
+layout_mode = 2
 
 [node name="ButtonMargin" type="MarginContainer" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer"]
 layout_mode = 2
@@ -257,7 +365,10 @@ offset_right = 400.0
 offset_bottom = -216.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "x"
+theme_override_styles/normal = SubResource("StyleBoxTexture_aubo6")
+theme_override_styles/hover = SubResource("StyleBoxTexture_xbsjb")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_hnqst")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0064o")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
