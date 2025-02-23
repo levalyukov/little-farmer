@@ -15,34 +15,32 @@ var state:bool = false
 func _ready():
 	_check_window()
 
-func modal_create(header_value:String, content_value:String, button_confirm_value:String = "", button_cancel_value:String = "") -> void:
+func modal_create(header_value:String, content_value:String) -> void:
 	if header_value != ""\
 	&& content_value != "":
 		header.text = header_value
 		content.text = content_value
-		if button_confirm_value == "":
-			button_confirm_container.visible = false
-		else:
-			button_confirm.text = button_confirm_value
-
-		if button_cancel_value == "":
-			button_cancel_container.visible = false
-		else:
-			button_cancel.text = button_cancel_value
-
-		if (button_confirm_value == "") && (button_cancel_value == ""):
-			button_confirm_value = tr("Продолжить")
-			button_confirm_container.visible = true
-			button_confirm.text = button_confirm_value
-
+		button_confirm_container.visible = true
+		button_confirm.text = tr("Продолжить")
 		anim.play("create")
 		change_all_z_index(-1)
 		state = true
+		if main == "MainMenu":
+			var menu = get_node("/root/"+main+"")
+			var blur = get_node("/root/"+main+"/Blur")
+			blur.blur(true)
+			menu.clicked = true
 
 func modal_remove() -> void:
 	anim.play("remove")
 	change_all_z_index(0)
 	state = false
+	if main == "MainMenu":
+		var menu = get_node("/root/"+main+"")
+		var blur = get_node("/root/"+main+"/Blur")
+		blur.blur(false)
+		menu.clicked = !true
+		GameLoader.modal = true
 
 func change_all_z_index(value:int) -> void:
 	if has_node("/root/"+main+"/UI/Interactive/Mailbox"):
@@ -52,11 +50,5 @@ func change_all_z_index(value:int) -> void:
 func _check_window():
 	visible = state
 
-# Modal window response:
-func _on_confirm_pressed() -> bool:
+func _on_confirm_pressed() -> void:
 	modal_remove()
-	return true
-
-func _on_cancel_pressed() -> bool:
-	modal_remove()
-	return false
