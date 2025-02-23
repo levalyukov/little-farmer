@@ -20,8 +20,8 @@ var level:int = 1
 var blueprint_id:int = 0
 var object:Dictionary = {
 	1: {
-		"caption" = tr("greenhouse.caption"),
-		"description" = tr("greenhouse.description"),
+		"caption" = tr("Теплица"),
+		"description" = tr("Тёплое помещение для разведения и выращивания растений."),
 		"shadow" = load("res://assets/resources/buildings/greenhouse/level_1/shadow.png"),
 		"seasons" = {
 			"spring" = {
