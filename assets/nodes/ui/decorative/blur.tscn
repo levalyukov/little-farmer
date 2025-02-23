@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://assets/scripts/ui/decorative/blur.gd" id="1_0cbyn"]
 [ext_resource type="Shader" path="res://assets/shaders/blur.gdshader" id="1_8lo7q"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pij5n"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_osuae"]
 shader = ExtResource("1_8lo7q")
 shader_parameter/lod = 0.0
 
@@ -55,7 +55,7 @@ mouse_filter = 2
 script = ExtResource("1_0cbyn")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_pij5n")
+material = SubResource("ShaderMaterial_osuae")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
