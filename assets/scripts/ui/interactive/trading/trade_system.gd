@@ -9,8 +9,8 @@ extends Control
 @onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
 @onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/storage")
 
-@onready var playerInventoryCaption:Label = $Content/PlayerInventory/PlayerContainer/VBoxContainer/LabelMargin/Label
-@onready var tradeInventoryCaption:Label = $Content/TraderInventory/TraderContainer/VBoxContainer/LabelMargin/Label
+@onready var playerInventoryCaption:Label = $Content/PlayerInventory/LabelMargin/Label
+@onready var tradeInventoryCaption:Label = $Content/TraderInventory/LabelMargin/Label
 @onready var header:Label = $Content/TradeWindow/TradeWindow/VBoxContainer/HeaderContainer/Header
 @onready var description_container:MarginContainer = $Content/TradeWindow/TradeWindow/VBoxContainer/DescriptionContainer
 @onready var description:Label = $Content/TradeWindow/TradeWindow/VBoxContainer/DescriptionContainer/Description
@@ -366,14 +366,15 @@ func get_trade_result():
 						inventory.inventory_items[id]["amount"] -= trade_content[id]["amount"]
 			initiators.TRADER:
 				for id in trade_content:
-					if inventory.inventory_items.has(id):
-						inventory.inventory_items[id]["amount"] += trade_content[id]["amount"]
+					if inventory.inventory_items.has(int(id)):
+						inventory.inventory_items[int(id)]["amount"] += trade_content[id]["amount"]
+					if inventory.inventory_items.has(str(id)):
+						inventory.inventory_items[str(id)]["amount"] += trade_content[id]["amount"]
 
-				if storage.object[storage.level]["slots"] - inventory.get_all_items() >= get_all_items_array():
-					for items_id in new_items_in_inventory:
-						if !inventory.inventory_items.has(items_id):
-							inventory.inventory_items[items_id] = {}
-							inventory.inventory_items[items_id]["amount"] = trade_content[items_id]["amount"]
+				for items_id in new_items_in_inventory:
+					if !inventory.inventory_items.has(int(items_id)) && !inventory.inventory_items.has(str(items_id)):
+						inventory.inventory_items[items_id] = {}
+						inventory.inventory_items[items_id]["amount"] = trade_content[items_id]["amount"]
 
 	if self.visible:
 		match initiator:
