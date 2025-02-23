@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://5ymnuvhlss3c"]
+[gd_scene load_steps=8 format=3 uid="uid://5ymnuvhlss3c"]
 
 [ext_resource type="Script" path="res://assets/scripts/ui/feedback/notifications/notice.gd" id="1_h616u"]
+[ext_resource type="Texture2D" uid="uid://dtkym5bhfhpb" path="res://assets/resources/ui/menu_background.png" id="2_2l3f1"]
 [ext_resource type="Texture2D" uid="uid://blip53ufv0jwb" path="res://icon.png" id="2_oe23o"]
 
 [sub_resource type="Animation" id="Animation_3s3em"]
@@ -88,8 +89,14 @@ offset_top = -74.0
 offset_right = 240.0
 grow_vertical = 0
 
-[node name="Panel" type="Panel" parent="Main"]
+[node name="Panel" type="NinePatchRect" parent="Main"]
 layout_mode = 2
+texture = ExtResource("2_2l3f1")
+region_rect = Rect2(0, 0, 128, 64)
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
 
 [node name="Content" type="MarginContainer" parent="Main"]
 layout_mode = 2
