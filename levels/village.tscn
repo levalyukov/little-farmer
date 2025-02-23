@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://dadhvvybayi14"]
+[gd_scene load_steps=53 format=3 uid="uid://dadhvvybayi14"]
 
 [ext_resource type="Script" path="res://assets/data/gamedata.gd" id="1_3hdqu"]
 [ext_resource type="PackedScene" uid="uid://b8eteio2464wo" path="res://assets/nodes/player.tscn" id="1_b6saw"]
@@ -42,6 +42,7 @@
 [ext_resource type="Texture2D" uid="uid://dgj044c7ac8k8" path="res://assets/resources/buildings/garden/_obj_0.png" id="41_tti21"]
 [ext_resource type="PackedScene" uid="uid://bflinr0wnq3id" path="res://assets/nodes/buildings/path_of_large_stones.tscn" id="42_1kubj"]
 [ext_resource type="PackedScene" uid="uid://vjkfxly0tpes" path="res://assets/nodes/ready_nature/tree.tscn" id="43_bwam0"]
+[ext_resource type="PackedScene" uid="uid://dcgfhx6lnhmtf" path="res://assets/nodes/buildings/tablet.tscn" id="44_3nr4s"]
 [ext_resource type="PackedScene" uid="uid://ck7ishampbkvv" path="res://assets/nodes/ready_nature/stone.tscn" id="44_jrcth"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hoxua"]
@@ -2554,7 +2555,7 @@ position = Vector2(328, 328)
 index = 3
 
 [node name="tree300" parent="Nature" instance=ExtResource("43_bwam0")]
-position = Vector2(200, 264)
+position = Vector2(56, 232)
 index = 6
 
 [node name="tree56" parent="Nature" instance=ExtResource("43_bwam0")]
@@ -2802,7 +2803,8 @@ position = Vector2(440, 184)
 index = 2
 
 [node name="tree311" parent="Nature" instance=ExtResource("43_bwam0")]
-position = Vector2(408, 152)
+y_sort_enabled = true
+position = Vector2(376, 152)
 
 [node name="tree98" parent="Nature" instance=ExtResource("43_bwam0")]
 position = Vector2(40, -152)
@@ -3190,7 +3192,7 @@ position = Vector2(56, 168)
 index = 5
 
 [node name="stone3" parent="Nature" instance=ExtResource("44_jrcth")]
-position = Vector2(136, 184)
+position = Vector2(152, 184)
 
 [node name="stone4" parent="Nature" instance=ExtResource("44_jrcth")]
 position = Vector2(248, 264)
@@ -3217,10 +3219,10 @@ position = Vector2(-376, 72)
 index = 4
 
 [node name="bigTree_0" parent="Nature" instance=ExtResource("35_00syo")]
+visible = false
 position = Vector2(152, 184)
 
 [node name="ConstructionManager" parent="." instance=ExtResource("4_frwo2")]
-z_index = 2
 
 [node name="trader_house" parent="ConstructionManager" instance=ExtResource("18_m1pwi")]
 position = Vector2(200, 24)
@@ -3316,6 +3318,8 @@ position = Vector2(408, 304)
 position = Vector2(392, 304)
 
 [node name="metal_cheap_fence4" parent="ConstructionManager" instance=ExtResource("40_s1djw")]
+z_index = 1
+y_sort_enabled = true
 position = Vector2(424, 128)
 
 [node name="metal_cheap_fence5" parent="ConstructionManager" instance=ExtResource("40_s1djw")]
@@ -3351,6 +3355,9 @@ position = Vector2(472, 88)
 z_index = -1
 position = Vector2(488, 88)
 
+[node name="tablet" parent="ConstructionManager" instance=ExtResource("44_3nr4s")]
+position = Vector2(120, 56)
+
 [node name="FarmingManager" parent="." instance=ExtResource("5_c5h46")]
 
 [node name="Teleports" type="Node" parent="."]
@@ -3363,7 +3370,7 @@ script = ExtResource("6_ovv5n")
 [node name="Area2D" type="Area2D" parent="Teleports/Village"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Teleports/Village/Area2D"]
-position = Vector2(752, 88)
+position = Vector2(112, 56)
 shape = SubResource("RectangleShape2D_hoxua")
 
 [node name="Day-Night Cycle" parent="." instance=ExtResource("7_1tuw3")]
