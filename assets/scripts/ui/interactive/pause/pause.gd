@@ -13,7 +13,7 @@ extends Control
 @onready var zoom:Camera2D = get_node("/root/"+main+"/Player/Camera2D")
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var anim:AnimationPlayer = $AnimationPlayer
-@onready var version:Label = $MarginContainer/MarginContainer/container/version/version
+@onready var version:Label = $Main/Container/GameVersionMargin/GameVersion
 
 var paused:bool
 var other_menu:bool
@@ -32,6 +32,8 @@ func _ready():
 	player.check_switch()
 	clock.clock_update()
 
+	_check_window()
+
 func _input(_event):
 	if Input.is_action_just_pressed("esc"):
 		if !other_menu:
@@ -46,7 +48,7 @@ func open() -> void:
 	blur.blur(true)
 	hud.hud_all_hide()
 	player.check_switch()
-	version.text = "v"+str(ProjectSettings.get_setting("application/config/version"))
+	version.text = ProjectSettings.get_setting("application/config/version") + "\n(C) Studio Miroro"
 	if has_node("/root/"+main+"/ConstructionManager/Grid"):
 		grid.visible = false
 	if destroy_menu.opened:
@@ -61,3 +63,9 @@ func close() -> void:
 
 func _check_window() -> void:
 	visible = paused
+
+func _on_report_bug_button_pressed():
+	if visible:
+		if data:
+			if data.has_method('open_url'):
+				data.open_url("godotengine.org")
