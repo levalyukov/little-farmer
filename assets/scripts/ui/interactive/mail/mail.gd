@@ -35,6 +35,8 @@ var opened:bool = false
 var index
 var letter_name
 var letters:Dictionary = {}
+var current_letter_index: int = 0
+var letters_to_create: Array = []
 
 func _input(_event):
 	if Input.is_action_just_pressed("esc")\
@@ -43,26 +45,25 @@ func _input(_event):
 	&& opened:
 		close()
 
+var test_index = 0
+
 func _ready():
 	check_window()
 	reset_data()
 	delete_letters()
+	while test_index < 10+1:
+		letter("Letter #"+str(test_index))
+		test_index+=1
 
-	letter(
-		"Test #1",
-		"Descirption",
-		"Developer",
-		10_000_000,
-		{
-			1:{"amount": 100},
-			2:{"amount": 100},
-			3:{"amount": 100},
-			4:{"amount": 100},
-			5:{"amount": 100},
-			6:{"amount": 100},
-			7:{"amount": 100},
-		}
-		)
+func _process(_delta) -> void:
+	if visible:
+		if letters_to_create.size() > 0 and current_letter_index < letters_to_create.size():
+			for i in range(1):
+				if current_letter_index < letters_to_create.size():
+					create_letter(letters_to_create[current_letter_index])
+					current_letter_index += 1
+				else:
+					break
 
 func letter(header:String, description:String = "", author:String = "", money:int = 0, items:Dictionary = {}) -> void:
 	var key = letters.size() + 1
@@ -126,7 +127,7 @@ func get_data(letterID) -> void:
 			author_label.visible = false
 
 		if (letters[index].has("items") or letters[index].has("money"))\
-		and (letters[index]["items"] != {} or letters[index]["money"] != 0):
+		&& (letters[index]["items"] != {} or letters[index]["money"] != 0):
 			items_hbox.visible = true
 
 			if (letters[index]["items"] != {} || letters[index]["money"] != 0):
@@ -221,24 +222,29 @@ func check_letter_item(check:int, letterID, dictionary:Dictionary):
 				else:
 					data.debug("Incorrect subject ID ("+str(key)+"): Such a subject does not exist in the main subject dictionary.", "error")
 
-func create_letters() -> void:
+func create_letter(id) -> void:
+	var object = letter_node.instantiate()
+	letters_container.add_child(object)
+	object.set_data(id, letters[id]["header"])
+	if letters[id].has("status"):
+		match letters[id]["status"]:
+			"unread":
+				var letter_icon = object.icon
+				update_letter_icon(object, letter_icon, "unread")
+			"readed":
+				var letter_icon = object.icon
+				update_letter_icon(object, letter_icon, "readed")
+			_:
+				data.debug("Invalid letter status: "+str(letters[id]["status"]), "error")
+	else:
+		letters[id]["status"] = "unread"
+		data.debug("The 'status' key was created for the letter with the index: "+str(id), "info")
+
+func create_all_letters() -> void:
+	letters_to_create = []
 	for i in letters:
-		var object = letter_node.instantiate()
-		letters_container.add_child(object)
-		object.set_data(i, letters[i]["header"])
-		if letters[i].has("status"):
-			match letters[i]["status"]:
-				"unread":
-					var letter_icon = object.icon
-					update_letter_icon(object, letter_icon, "unread")
-				"readed":
-					var letter_icon = object.icon
-					update_letter_icon(object, letter_icon, "readed")
-				_:
-					data.debug("Invalid letter status: "+str(letters[i]["status"]), "error")
-		else:
-			letters[i]["status"] = "unread"
-			data.debug("The 'status' key was created for the letter with the index: "+str(i), "info")
+		letters_to_create.append(i)
+	current_letter_index = 0
 
 func update_letter_icon(object, letter_icon, status:String) -> void:
 	match status:
@@ -300,7 +306,7 @@ func open() -> void:
 	anim.play("open")
 	reset_data()
 	delete_letters()
-	create_letters()
+	create_all_letters()
 	change_state_mail_remove_button(false)
 	update_mail_manipulation_button()
 	update_state_mail_manipulation_button()
@@ -387,7 +393,7 @@ func get_all_readed_letters() -> int:
 func mail_update() -> void:
 	reset_data()
 	delete_letters()
-	create_letters()
+	create_all_letters()
 	update_mail_manipulation_button()
 	update_state_mail_manipulation_button()
 
