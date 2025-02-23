@@ -1,6 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://b51o72a5t51k6"]
+[gd_scene load_steps=9 format=3 uid="uid://b51o72a5t51k6"]
 
 [ext_resource type="Script" path="res://assets/scripts/ui/modal.gd" id="1_vqni3"]
+[ext_resource type="Texture2D" uid="uid://dtkym5bhfhpb" path="res://assets/resources/ui/menu_background.png" id="2_rpkwp"]
+[ext_resource type="Theme" uid="uid://btsx1m2p0i620" path="res://assets/resources/theme.tres" id="3_db4un"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_plg3u"]
 font_size = 22
@@ -112,8 +114,14 @@ offset_bottom = 86.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BackgroundPanel" type="Panel" parent="MainContainer"]
+[node name="BackgroundPanel" type="NinePatchRect" parent="MainContainer"]
 layout_mode = 2
+texture = ExtResource("2_rpkwp")
+region_rect = Rect2(0, 0, 128, 64)
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
 
 [node name="VBox" type="VBoxContainer" parent="MainContainer"]
 layout_mode = 2
@@ -127,7 +135,6 @@ theme_override_constants/margin_bottom = 10
 
 [node name="Header" type="Label" parent="MainContainer/VBox/HeaderContainer"]
 layout_mode = 2
-text = "modal.header"
 label_settings = SubResource("LabelSettings_plg3u")
 horizontal_alignment = 1
 
@@ -140,7 +147,6 @@ theme_override_constants/margin_bottom = 10
 
 [node name="Content" type="Label" parent="MainContainer/VBox/ContentContainer"]
 layout_mode = 2
-text = "modal.description"
 
 [node name="ButtonsContainer" type="MarginContainer" parent="MainContainer/VBox"]
 layout_mode = 2
@@ -155,23 +161,14 @@ alignment = 1
 
 [node name="ConfirmButtonMargin" type="MarginContainer" parent="MainContainer/VBox/ButtonsContainer/HBox"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
 [node name="Confirm" type="Button" parent="MainContainer/VBox/ButtonsContainer/HBox/ConfirmButtonMargin"]
-custom_minimum_size = Vector2(50, 50)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-text = "modal.confirm"
-
-[node name="CancelButtonMargin" type="MarginContainer" parent="MainContainer/VBox/ButtonsContainer/HBox"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-
-[node name="Cancel" type="Button" parent="MainContainer/VBox/ButtonsContainer/HBox/CancelButtonMargin"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-text = "modal.cancel"
+theme = ExtResource("3_db4un")
 
 [node name="Animation" type="AnimationPlayer" parent="."]
 libraries = {
@@ -179,4 +176,3 @@ libraries = {
 }
 
 [connection signal="pressed" from="MainContainer/VBox/ButtonsContainer/HBox/ConfirmButtonMargin/Confirm" to="." method="_on_confirm_pressed"]
-[connection signal="pressed" from="MainContainer/VBox/ButtonsContainer/HBox/CancelButtonMargin/Cancel" to="." method="_on_cancel_pressed"]
