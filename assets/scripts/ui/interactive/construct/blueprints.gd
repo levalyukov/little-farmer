@@ -30,7 +30,7 @@ var content:Dictionary = {
 	"nodes": {
 		1: {
 			"caption" = "Деревянный знак",
-			"description" = "Деревянный знак...",
+			"description" = "Позволяет разместить изображение любого предмета.",
 			"icon" = preload("res://assets/resources/buildings/sign/summer/object_0.png"),
 			"config" = {
 				"name" = "sign",
@@ -58,7 +58,7 @@ var content:Dictionary = {
 		},
 		3: {
 			"caption" = "Колодец",
-			"description" = "Колодец...",
+			"description" = "Позволяет пополять лейку.",
 			"icon" = preload("res://assets/resources/buildings/well/icon.png"),
 			"config" = {
 				"name" = "well",
@@ -72,7 +72,7 @@ var content:Dictionary = {
 		},
 		4: {
 			"caption" = "Хлев",
-			"description" = "Хлев...",
+			"description" = "Место для содержания скота.",
 			"icon" = preload("res://assets/resources/buildings/stall/level_1/summer/object_0.png"),
 			"config" = {
 				"name" = "animal_stall",
@@ -86,7 +86,7 @@ var content:Dictionary = {
 		},
 		5: {
 			"caption" = "Силосная башня",
-			"description" = "Силосная башня...",
+			"description" = "Высокое и вместительное хранилище для кормов.",
 			"icon" = preload("res://assets/resources/buildings/silo/level_1/summer/object_0.png"),
 			"config" = {
 				"name" = "silo",
@@ -100,7 +100,7 @@ var content:Dictionary = {
 		},
 		6: {
 			"caption" = "Теплица",
-			"description" = "",
+			"description" = "Уютное и светлое место для выращивания разных культур круглый год.",
 			"icon" = preload("res://assets/resources/buildings/greenhouse/level_1/summer/object_0.png"),
 			"config" = {
 				"name" = "christmas_tree",
@@ -112,7 +112,7 @@ var content:Dictionary = {
 		},
 		7: {
 			"caption" = "Фонарный столб",
-			"description" = "",
+			"description" = "Источник света для вашей фермы.",
 			"icon" = preload("res://assets/resources/buildings/lamp_post/object_1.png"),
 			"config" = {
 				"name" = "lamp_post",
