@@ -25,13 +25,13 @@ offset_right = 21.0
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="Panel" type="NinePatchRect" parent="Container"]
+[node name="Background" type="NinePatchRect" parent="Container"]
 layout_mode = 2
 texture = ExtResource("2_x84pq")
-patch_margin_left = 8
-patch_margin_top = 8
-patch_margin_right = 8
-patch_margin_bottom = 8
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
 
 [node name="MarginContainer" type="MarginContainer" parent="Container"]
 layout_mode = 2
