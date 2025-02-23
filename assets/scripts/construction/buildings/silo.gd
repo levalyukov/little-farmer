@@ -19,8 +19,8 @@ var blueprint_id:int
 var vector:Vector2i
 var object:Dictionary = {
 	1: {
-		"caption" = tr("silo.caption"),
-		"description" = tr("silo.description"),
+		"caption" = tr("Силосная башня"),
+		"description" = tr("Хранилище для долгосрочного хранения зерна и кормов."),
 		"shadow" = load("res://assets/resources/buildings/silo/level_1/shadow.png"),
 		"seasons" = {
 			"spring" = {
@@ -98,7 +98,7 @@ func _change_sprite(type:bool):
 							data.debug("'"+str(self.name) + "': 'hovered' is not a CompressedTexture2D.", "error")
 					else:
 						data.debug("'"+str(self.name) + "': There is no 'hovered' key.", "error")
-				var level_text = tr("object.level")
+				var level_text = tr("Уровень")
 				tip.tooltip(
 					str(object[level]["caption"]) + "\n" +
 					str(object[level]["description"]) + "\n" +
