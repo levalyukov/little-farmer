@@ -8,6 +8,7 @@ extends Control
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
 @onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/storage")
 @onready var balance:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Balance")
+@onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var node:PackedScene = load("res://assets/nodes/ui/interactive/inventory/slot.tscn")
 
 @onready var anim:AnimationPlayer = $Animation
@@ -25,74 +26,77 @@ extends Control
 @onready var button:Button = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/ButtonContainer/Button
 @onready var list:Label = $Main/HBoxContainer/InventoryContent/Label
 
+var item = Items.new()
+var crops = Crops.new()
 var current_slot_index: int = 0
 var slots_to_create: Array = []
 var opened:bool = false
 var item_index
 var button_index:int
-enum item_type {NOTHING, SEEDS}
 var inventory_items:Dictionary = {
-	1:{"amount":100},
-	2:{"amount":100},
-	3:{"amount":100},
-	4:{"amount":100},
-	5:{"amount":100},
-	6:{"amount":100},
-	7:{"amount":100},
-	8:{"amount":100},
-	9:{"amount":100},
-	10:{"amount":100},
-	11:{"amount":100},
-	12:{"amount":100},
-	13:{"amount":100},
-	14:{"amount":100},
-	15:{"amount":100},
-	16:{"amount":100},
-	17:{"amount":100},
-	18:{"amount":100},
-	19:{"amount":100},
-	20:{"amount":100},
-	21:{"amount":100},
-	22:{"amount":100},
-	23:{"amount":100},
-	24:{"amount":100},
-	25:{"amount":100},
-	26:{"amount":100},
-	27:{"amount":100},
-	28:{"amount":100},
-	29:{"amount":100},
-	30:{"amount":100},
-	31:{"amount":100},
-	32:{"amount":100},
-	33:{"amount":100},
-	34:{"amount":100},
-	35:{"amount":100},
-	36:{"amount":100},
-	37:{"amount":100},
-	38:{"amount":100},
-	39:{"amount":100},
-	40:{"amount":100},
-	41:{"amount":100},
-	42:{"amount":100},
-	43:{"amount":100},
-	44:{"amount":100},
-	45:{"amount":100},
-	46:{"amount":100},
-	47:{"amount":100},
-	48:{"amount":100},
-	49:{"amount":100},
-	50:{"amount":100},
-	51:{"amount":100},
-	52:{"amount":100},
-	53:{"amount":100},
-	54:{"amount":100},
-	55:{"amount":100},
-	56:{"amount":100},
-	57:{"amount":100},
-	58:{"amount":100},
-	59:{"amount":100},
-	60:{"amount":100},
+	1:{"amount":1000},
+	2:{"amount":1000},
+	3:{"amount":1000},
+	4:{"amount":1000},
+	5:{"amount":1000},
+	6:{"amount":1000},
+	7:{"amount":1000},
+	8:{"amount":1000},
+	9:{"amount":1000},
+	10:{"amount":1000},
+	11:{"amount":1000},
+	12:{"amount":1000},
+	13:{"amount":1000},
+	14:{"amount":1000},
+	15:{"amount":1000},
+	16:{"amount":1000},
+	17:{"amount":1000},
+	18:{"amount":1000},
+	19:{"amount":1000},
+	20:{"amount":1000},
+	21:{"amount":1000},
+	22:{"amount":1000},
+	23:{"amount":1000},
+	24:{"amount":1000},
+	25:{"amount":1000},
+	26:{"amount":1000},
+	27:{"amount":1000},
+	28:{"amount":1000},
+	29:{"amount":1000},
+	30:{"amount":1000},
+	31:{"amount":1000},
+	32:{"amount":1000},
+	33:{"amount":1000},
+	34:{"amount":1000},
+	35:{"amount":1000},
+	36:{"amount":1000},
+	37:{"amount":1000},
+	38:{"amount":1000},
+	39:{"amount":1000},
+	40:{"amount":1000},
+	41:{"amount":1000},
+	42:{"amount":1000},
+	43:{"amount":1000},
+	44:{"amount":1000},
+	45:{"amount":1000},
+	46:{"amount":1000},
+	47:{"amount":1000},
+	48:{"amount":1000},
+	49:{"amount":1000},
+	50:{"amount":1000},
+	51:{"amount":1000},
+	52:{"amount":1000},
+	53:{"amount":1000},
+	54:{"amount":1000},
+	55:{"amount":1000},
+	56:{"amount":1000},
+	57:{"amount":1000},
+	58:{"amount":1000},
+	59:{"amount":1000},
+	60:{"amount":1000},
 }
+enum item_type {NOTHING, SEEDS}
+
 func _ready():
 	check_window()
 	reset_data()
@@ -155,7 +159,6 @@ func close() -> void:
 
 func get_data(index) -> void:
 	if opened:
-		var item = Items.new()
 		self.item_index = index
 		scroll_info.scroll_vertical = 0
 		if item.content.has(int(index)):
@@ -210,10 +213,10 @@ func get_data(index) -> void:
 					type.visible = true
 					type.text = "\n" + type_text + ": " + item.content[int(index)]["type"] + "\n"
 					check_item_type(item.content[int(index)]["item_type"])
-					if inventory_items[int(index)]["amount"] > item.maximum:
+					if inventory_items[index]["amount"] > item.maximum:
 						var total_amount = tr("Всего")
 						type.text += "\n" + total_amount + ": " + str(
-							balance.format(inventory_items[int(index)]["amount"])
+							balance.format(inventory_items[index]["amount"])
 						)
 				else:
 					type.visible = false
@@ -406,10 +409,19 @@ func check_item_type(i_type:String) -> void:
 	if main == "Farm":
 		match i_type:
 			"seeds":
-				var plant_text = tr("Посадить семена")
 				button_index = item_type.SEEDS
-				button.text = plant_text
 				button.visible = true
+				var crop = item.content[item_index]['crop']
+				var crop_season = crops.crops[crop]['season']
+				for i in crop_season:
+					if i == clock.get_season():
+						button.text = tr("Посадить семена")
+						button.disabled = false
+						break
+					else:
+						button.text = tr("Не тот сезон")
+						button.disabled = !false
+						break
 			_:
 				button_index = item_type.NOTHING
 				button.visible = false
