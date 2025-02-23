@@ -8,12 +8,13 @@ extends Control
 @onready var shadow:Node = get_node("/root/"+main+"/ShadowManager")
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var sprite:CompressedTexture2D = load("res://assets/resources/ui/interactive/hud/clock.png")
-@onready var icon:TextureRect = $Main/Margin/HBoxContainer/Icon/TextureRect
-@onready var label:Label = $Main/Margin/HBoxContainer/Label/Label
+@onready var icon:TextureRect = $Margin/HBoxContainer/Icon/TextureRect
+@onready var label:Label = $Margin/HBoxContainer2/Label/Label
 @onready var timer:Timer = $Timer
 
 const speed:float = 8
-
+const day_end:int = 23
+const season_change:int = 1
 const seasons:Array[String] = [
 	"spring", "summer", 
 	"autumn", "winter"
@@ -39,7 +40,7 @@ func _ready():
 	
 func _input(_event):
 	if Input.is_action_just_pressed("space"):
-		#update_season()
+		#	update_season()
 		hour+=1
 
 func clock_update() -> void:
@@ -105,13 +106,13 @@ func check_minute() -> void:
 		hour = hour + 1
 
 func check_hour() -> void:
-	if hour > 23:
+	if hour > day_end:
 		hour = 0
 		week_update()
 		shadow.remove_all_clouds()
 
 func check_week() -> void:
-	if week > 4:
+	if week > season_change:
 		week = 1
 		update_season()
 
