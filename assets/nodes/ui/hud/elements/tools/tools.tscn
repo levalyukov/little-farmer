@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://6og01lj08srh"]
+[gd_scene load_steps=7 format=3 uid="uid://6og01lj08srh"]
 
 [ext_resource type="PackedScene" uid="uid://i5wr18nbfkhb" path="res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_destroy.tscn" id="1_osllv"]
+[ext_resource type="Texture2D" uid="uid://dtkym5bhfhpb" path="res://assets/resources/ui/menu_background.png" id="1_ttosw"]
 [ext_resource type="PackedScene" uid="uid://d0607ns0r4vi3" path="res://assets/nodes/ui/hud/elements/tools/button_farming.tscn" id="2_72rmh"]
 [ext_resource type="PackedScene" uid="uid://cxywm6titpfsh" path="res://assets/nodes/ui/hud/elements/tools/button_watering.tscn" id="3_pcrdf"]
 [ext_resource type="PackedScene" uid="uid://bhm44gsh6va6j" path="res://assets/nodes/ui/hud/elements/tools/button_harvesting.tscn" id="4_oct41"]
@@ -16,6 +17,17 @@ anchor_bottom = 1.0
 grow_horizontal = 0
 grow_vertical = 0
 
+[node name="Panel" type="NinePatchRect" parent="."]
+layout_mode = 2
+offset_left = -392.0
+offset_top = -88.0
+texture = ExtResource("1_ttosw")
+region_rect = Rect2(0, 0, 128, 64)
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 3
@@ -23,20 +35,15 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -418.0
-offset_top = -84.0
+offset_left = -380.0
+offset_top = -76.0
+offset_right = -12.0
+offset_bottom = -12.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="Panel" type="Panel" parent="MarginContainer"]
-layout_mode = 2
-
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer"]
 layout_mode = 2
