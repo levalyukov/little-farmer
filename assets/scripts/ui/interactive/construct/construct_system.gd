@@ -45,8 +45,8 @@ var index:int
 var section:String = "all"
 var opened:bool = false
 var all_items:bool
-var terrains_blueprints:Array[int] = []
-var node_blueprints:Array[int] = []
+var terrains_blueprints:Array[int] = [1,2,3,4,5,6,7,8,9,10]
+var node_blueprints:Array[int] = [1,2,3,4,5,6,7,8,9,10]
 var upgrade_blueprints:Array[int] = []
 
 var items:Object = Items.new()
@@ -315,14 +315,12 @@ func reset_data() -> void:
 
 func get_blueprints() -> Dictionary:
 	return {
-		".section": section,
 		"terrains_blueprints": terrains_blueprints,
 		"node_blueprints": node_blueprints,
 		"upgrade_blueprints": upgrade_blueprints,
 	}
 
-func load_blueprints(group:String, terrains:Array[int], nodes:Array[int], upgrades:Array[int]) -> void:
-	section = group
+func load_blueprints(terrains:Array[int], nodes:Array[int], upgrades:Array[int]) -> void:
 	terrains_blueprints = terrains
 	node_blueprints = nodes
 	upgrade_blueprints = upgrades
