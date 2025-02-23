@@ -1,9 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://l6ae7lhb78yw"]
+[gd_scene load_steps=8 format=3 uid="uid://l6ae7lhb78yw"]
 
 [ext_resource type="Script" path="res://assets/scripts/ui/hud/tools/button_construct.gd" id="1_h0gwt"]
+[ext_resource type="Texture2D" uid="uid://hhp2wsgrn6gt" path="res://assets/resources/ui/big_button_default.png" id="2_3fd6r"]
+[ext_resource type="Texture2D" uid="uid://bmddhgo3dycej" path="res://assets/resources/ui/big_button_hover.png" id="3_hftst"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_51ufy"]
+texture = ExtResource("2_3fd6r")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_48of1"]
+texture = ExtResource("3_hftst")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hxp7j"]
+texture = ExtResource("3_hftst")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_guvt7"]
 
 [node name="Construction" type="Control"]
-custom_minimum_size = Vector2(96, 74)
+custom_minimum_size = Vector2(96, 64)
 layout_direction = 3
 layout_mode = 3
 anchors_preset = 6
@@ -25,8 +38,12 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Button" type="Button" parent="Main"]
-custom_minimum_size = Vector2(74, 74)
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_51ufy")
+theme_override_styles/hover = SubResource("StyleBoxTexture_48of1")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_hxp7j")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_guvt7")
 
 [node name="Margin" type="MarginContainer" parent="Main"]
 layout_mode = 2
