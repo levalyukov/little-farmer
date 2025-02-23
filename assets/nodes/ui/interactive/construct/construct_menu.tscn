@@ -1,7 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://bpmceytvqnc7d"]
+[gd_scene load_steps=19 format=3 uid="uid://bpmceytvqnc7d"]
 
+[ext_resource type="Theme" uid="uid://btsx1m2p0i620" path="res://assets/resources/theme.tres" id="1_60ydy"]
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/construct/construct_system.gd" id="1_qwoah"]
+[ext_resource type="Texture2D" uid="uid://dtkym5bhfhpb" path="res://assets/resources/ui/menu_background.png" id="2_soc6x"]
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/construct/crafting.gd" id="3_s0fee"]
+[ext_resource type="Texture2D" uid="uid://c3yf44sxb8a8o" path="res://assets/resources/ui/menu_background_middle.png" id="4_riphk"]
+[ext_resource type="Texture2D" uid="uid://idrcmhx6mgfv" path="res://assets/resources/ui/button_close_default.png" id="6_jstj2"]
+[ext_resource type="Texture2D" uid="uid://baklqd1yo23jy" path="res://assets/resources/ui/button_close_hover.png" id="7_fcva7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rp300"]
 
@@ -10,6 +15,17 @@
 [sub_resource type="LabelSettings" id="LabelSettings_1x12y"]
 font_size = 22
 outline_size = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b6krv"]
+texture = ExtResource("6_jstj2")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lib7x"]
+texture = ExtResource("7_fcva7")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4psms"]
+texture = ExtResource("7_fcva7")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v1u7g"]
 
 [sub_resource type="Animation" id="Animation_bduf1"]
 length = 0.001
@@ -105,29 +121,33 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qwoah")
 
-[node name="Main" type="Panel" parent="."]
+[node name="Main" type="NinePatchRect" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -362.5
-offset_top = -212.5
-offset_right = 362.5
-offset_bottom = 212.5
+offset_left = -368.0
+offset_top = -216.0
+offset_right = 368.0
+offset_bottom = 216.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_60ydy")
+texture = ExtResource("2_soc6x")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Main"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 0.5
-offset_top = -46.5
-offset_right = 0.5
-offset_bottom = -46.5
+offset_top = -55.0
+offset_bottom = -46.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -161,10 +181,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -352.0
-offset_top = -200.0
-offset_right = 352.0
-offset_bottom = 200.0
+offset_left = -356.0
+offset_top = -204.0
+offset_right = 356.0
+offset_bottom = 205.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
@@ -175,15 +195,20 @@ custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Main/MainContent/BlueprintsContent"]
-custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="GridContainer" type="GridContainer" parent="Main/MainContent/BlueprintsContent/ScrollContainer"]
 layout_mode = 2
 
-[node name="InfoContent" type="Panel" parent="Main/MainContent"]
-custom_minimum_size = Vector2(350, 0)
+[node name="InfoContent" type="NinePatchRect" parent="Main/MainContent"]
+custom_minimum_size = Vector2(358, 0)
 layout_mode = 2
+texture = ExtResource("4_riphk")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Main/MainContent/InfoContent"]
 custom_minimum_size = Vector2(0, 400)
@@ -260,7 +285,7 @@ theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
 [node name="Button" type="Button" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer"]
-custom_minimum_size = Vector2(50, 50)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 script = ExtResource("3_s0fee")
 
@@ -270,7 +295,10 @@ offset_left = 352.0
 offset_top = -232.0
 offset_right = 384.0
 offset_bottom = -200.0
-text = "X"
+theme_override_styles/normal = SubResource("StyleBoxTexture_b6krv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_lib7x")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_4psms")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_v1u7g")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
