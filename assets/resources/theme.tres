@@ -1,0 +1,206 @@
+[gd_resource type="Theme" load_steps=45 format=3 uid="uid://btsx1m2p0i620"]
+
+[ext_resource type="Texture2D" uid="uid://ceivy8flsv3yt" path="res://assets/resources/ui/button_hover.png" id="1_5wvo6"]
+[ext_resource type="Texture2D" uid="uid://cnr861u0xs0qb" path="res://assets/resources/ui/button_disabled.png" id="1_rgf51"]
+[ext_resource type="Texture2D" uid="uid://bda07tej8laob" path="res://assets/resources/ui/button_default.png" id="2_aa0m8"]
+[ext_resource type="Texture2D" uid="uid://0pgt6dsr7omc" path="res://assets/resources/ui/button_pressed.png" id="3_2iqhe"]
+[ext_resource type="Texture2D" uid="uid://b82raga4tp65k" path="res://assets/resources/ui/scrollbar_default.png" id="4_gwl2y"]
+[ext_resource type="Texture2D" uid="uid://c88owb43ljvaj" path="res://assets/resources/ui/scrollbar_hover.png" id="5_8ef33"]
+[ext_resource type="Texture2D" uid="uid://btx1y268kglle" path="res://assets/resources/ui/checkbox_on.png" id="5_k7ip0"]
+[ext_resource type="Texture2D" uid="uid://ddjmn2gi5x55d" path="res://assets/resources/ui/scrollbar_pressed.png" id="6_c2ufm"]
+[ext_resource type="Texture2D" uid="uid://b1swnwy3jlijb" path="res://assets/resources/ui/checkbox_off.png" id="6_m2l6q"]
+[ext_resource type="Texture2D" uid="uid://da8pqtjybg2bv" path="res://assets/resources/ui/scrollbar_background.png" id="7_t83rg"]
+[ext_resource type="Texture2D" uid="uid://bsqqbtob72ojg" path="res://assets/resources/ui/empty_button_default.png" id="11_1e3s7"]
+[ext_resource type="Texture2D" uid="uid://ckg8hlcfemmda" path="res://assets/resources/ui/empty_button_hover.png" id="12_t7kov"]
+[ext_resource type="Texture2D" uid="uid://b13vaexysqxtx" path="res://assets/resources/ui/arrow.png" id="13_t6nyb"]
+[ext_resource type="Texture2D" uid="uid://bmahqsfesj6h1" path="res://assets/resources/ui/radio_checked.png" id="14_cgjjc"]
+[ext_resource type="Texture2D" uid="uid://b3hq2l7ywphci" path="res://assets/resources/ui/radio_unchecked.png" id="15_gme8m"]
+[ext_resource type="Texture2D" uid="uid://dtkym5bhfhpb" path="res://assets/resources/ui/menu_background.png" id="16_n3jpg"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2oxxl"]
+texture = ExtResource("1_rgf51")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7qg2n"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_76wp4"]
+texture = ExtResource("1_5wvo6")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+region_rect = Rect2(0, 0, 128, 64)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cjkqc"]
+texture = ExtResource("2_aa0m8")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+region_rect = Rect2(0, 0, 128, 64)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lcgi5"]
+texture = ExtResource("3_2iqhe")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+region_rect = Rect2(0, 0, 128, 64)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uwbhh"]
+texture = ExtResource("1_rgf51")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+region_rect = Rect2(0, 0, 116, 52)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v4atk"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nu5l5"]
+texture = ExtResource("1_5wvo6")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+region_rect = Rect2(0, 0, 128, 64)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t5ykq"]
+texture = ExtResource("1_5wvo6")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qa77s"]
+texture = ExtResource("4_gwl2y")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5kg4y"]
+texture = ExtResource("5_8ef33")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5my3k"]
+texture = ExtResource("6_c2ufm")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fp1c6"]
+texture = ExtResource("7_t83rg")
+texture_margin_bottom = 4.0
+
+[sub_resource type="Image" id="Image_mxb8l"]
+data = {
+"data": PackedByteArray(255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 9, 255, 255, 255, 49, 255, 255, 255, 77, 255, 255, 255, 90, 255, 255, 255, 90, 255, 255, 255, 77, 255, 255, 255, 49, 255, 255, 255, 9, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 32, 255, 255, 255, 90, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 90, 255, 255, 255, 31, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 32, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 31, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 9, 255, 255, 255, 90, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 89, 255, 255, 255, 8, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 49, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 48, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 77, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 77, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 90, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 90, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 90, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 89, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 77, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 76, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 49, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 48, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 9, 255, 255, 255, 90, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 89, 255, 255, 255, 8, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 31, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 30, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 31, 255, 255, 255, 89, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 94, 255, 255, 255, 89, 255, 255, 255, 30, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 8, 255, 255, 255, 48, 255, 255, 255, 77, 255, 255, 255, 90, 255, 255, 255, 89, 255, 255, 255, 76, 255, 255, 255, 48, 255, 255, 255, 8, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0),
+"format": "RGBA8",
+"height": 16,
+"mipmaps": false,
+"width": 16
+}
+
+[sub_resource type="ImageTexture" id="ImageTexture_2esum"]
+image = SubResource("Image_mxb8l")
+
+[sub_resource type="Image" id="Image_g1mvl"]
+data = {
+"data": PackedByteArray(255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 64, 255, 255, 255, 64, 255, 255, 255, 0),
+"format": "RGBA8",
+"height": 16,
+"mipmaps": false,
+"width": 4
+}
+
+[sub_resource type="ImageTexture" id="ImageTexture_sabvk"]
+image = SubResource("Image_g1mvl")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ediu3"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.4)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eb7oh"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 6
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_arad5"]
+texture = ExtResource("7_t83rg")
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gtfit"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bf3fm"]
+texture = ExtResource("4_gwl2y")
+region_rect = Rect2(0, 0, 1, 16)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7cqpa"]
+texture = ExtResource("16_n3jpg")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h80ey"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xril1"]
+texture = ExtResource("4_gwl2y")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x5csq"]
+texture = ExtResource("5_8ef33")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_odrwr"]
+texture = ExtResource("6_c2ufm")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s2fxq"]
+texture = ExtResource("7_t83rg")
+texture_margin_right = 4.0
+
+[resource]
+Button/styles/disabled = SubResource("StyleBoxTexture_2oxxl")
+Button/styles/focus = SubResource("StyleBoxEmpty_7qg2n")
+Button/styles/hover = SubResource("StyleBoxTexture_76wp4")
+Button/styles/normal = SubResource("StyleBoxTexture_cjkqc")
+Button/styles/pressed = SubResource("StyleBoxTexture_lcgi5")
+CheckButton/icons/checked = ExtResource("5_k7ip0")
+CheckButton/icons/unchecked = ExtResource("6_m2l6q")
+CheckButton/styles/disabled = SubResource("StyleBoxTexture_uwbhh")
+CheckButton/styles/focus = SubResource("StyleBoxEmpty_v4atk")
+CheckButton/styles/hover = SubResource("StyleBoxTexture_nu5l5")
+CheckButton/styles/hover_pressed = SubResource("StyleBoxTexture_t5ykq")
+HScrollBar/styles/grabber = SubResource("StyleBoxTexture_qa77s")
+HScrollBar/styles/grabber_highlight = SubResource("StyleBoxTexture_5kg4y")
+HScrollBar/styles/grabber_pressed = SubResource("StyleBoxTexture_5my3k")
+HScrollBar/styles/scroll = SubResource("StyleBoxTexture_fp1c6")
+HSlider/constants/center_grabber = 0
+HSlider/constants/grabber_offset = 0
+HSlider/icons/grabber = ExtResource("11_1e3s7")
+HSlider/icons/grabber_disabled = SubResource("ImageTexture_2esum")
+HSlider/icons/grabber_highlight = ExtResource("12_t7kov")
+HSlider/icons/tick = SubResource("ImageTexture_sabvk")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_ediu3")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_eb7oh")
+HSlider/styles/slider = SubResource("StyleBoxTexture_arad5")
+OptionButton/icons/arrow = ExtResource("13_t6nyb")
+OptionButton/styles/focus = SubResource("StyleBoxEmpty_gtfit")
+PopupMenu/icons/radio_checked = ExtResource("14_cgjjc")
+PopupMenu/icons/radio_checked_disabled = ExtResource("14_cgjjc")
+PopupMenu/icons/radio_unchecked = ExtResource("15_gme8m")
+PopupMenu/icons/radio_unchecked_disabled = ExtResource("15_gme8m")
+PopupMenu/styles/hover = SubResource("StyleBoxTexture_bf3fm")
+PopupMenu/styles/panel = SubResource("StyleBoxTexture_7cqpa")
+PopupMenu/styles/separator = SubResource("StyleBoxEmpty_h80ey")
+VScrollBar/styles/grabber = SubResource("StyleBoxTexture_xril1")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxTexture_x5csq")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxTexture_odrwr")
+VScrollBar/styles/scroll = SubResource("StyleBoxTexture_s2fxq")
