@@ -18,8 +18,6 @@ extends Node2D
 @onready var sprite:Sprite2D = $Sprite2D
 
 var object:Dictionary = {
-	"caption" = tr("Указатель"),
-	"description" = tr("-> г. Заречье"),
 	"seasons" = {
 		"spring" = {
 			"default" = load("res://assets/resources/buildings/tablet/spring/object_0.png"),
@@ -46,6 +44,7 @@ var object:Dictionary = {
 
 func _ready():
 	update()
+	_change_sprite(false)
 
 func update():
 	if clock:
@@ -55,7 +54,7 @@ func update():
 				if object["seasons"][season].has("default"):
 					if object["seasons"][season]["default"] is CompressedTexture2D:
 						sprite.texture = object["seasons"][season]["default"]
-						self.set_position(tilemap.map_to_local(Vector2i(46,5)))
+						#	self.set_position(tilemap.map_to_local(Vector2i(46,5)))
 						update_shadow()
 					else:
 						data.debug("'"+str(self.name) + "': 'default' is not a CompressedTexture2D.", "error")
@@ -85,19 +84,24 @@ func remove_shadow():
 
 func _change_sprite(type:bool) -> void:
 	if type:
-		var distance = round(global_position.distance_to(player.global_position))
-		if grid.mode == grid.modes.NOTHING\
-		&& distance < building.max_distance:
-			if object.has("seasons"):
-				var season = clock.get_season()
-				if object["seasons"].has(season):
-					if object["seasons"][season].has("hovered"):
-						if object["seasons"][season]["hovered"] is CompressedTexture2D:
-							sprite.texture = object["seasons"][season]["hovered"]
-			if tip:
+		if object.has("seasons"):
+			var season = clock.get_season()
+			if object["seasons"].has(season):
+				if object["seasons"][season].has("hovered"):
+					if object["seasons"][season]["hovered"] is CompressedTexture2D:
+						sprite.texture = object["seasons"][season]["hovered"]
+						if main == "Village":
+							sprite.flip_h = true
+		if tip:
+			if main == "Farm":
 				tip.tooltip(
-						str(object["caption"]) + "\n" +
-						str(object["description"]) + "\n"
+						tr("Указатель") + "\n" +
+						tr("-> г. Заречье") + "\n"
+					)
+			elif main == "Village":
+				tip.tooltip(
+						tr("Указатель") + "\n" +
+						tr("<- Ферма") + "\n"
 					)
 	else:
 		if object.has("seasons"):
@@ -106,13 +110,17 @@ func _change_sprite(type:bool) -> void:
 				if object["seasons"][season].has("default"):
 					if object["seasons"][season]["default"] is CompressedTexture2D:
 						sprite.texture = object["seasons"][season]["default"]
+						if main == "Village":
+							sprite.flip_h = true
 		if tip:
 			tip.tooltip("")
 
 func _on_area_2d_mouse_entered() -> void:
 	if !blur.state\
-	&& grid.mode == grid.modes.NOTHING:
-		_change_sprite(true)
+	&&grid.mode == grid.modes.NOTHING:
+		var distance = round(global_position.distance_to(player.global_position))
+		if distance < building.max_distance:
+			_change_sprite(true)
 
 func _on_area_2d_mouse_exited() -> void:
 	_change_sprite(false)
