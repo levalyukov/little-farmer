@@ -32,6 +32,7 @@ func _on_life_cycle_timeout() -> void:
 	change_animation(false)
 
 func _life_cycle_end() -> void:
-	canvas.clouds_value -= 1
-	life.stop()
-	queue_free()
+	if !pause.paused:
+		canvas.clouds_value -= 1
+		life.stop()
+		queue_free()
