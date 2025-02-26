@@ -31,7 +31,6 @@ func _ready():
 	player.switch = false
 	player.check_switch()
 	clock.clock_update()
-
 	_check_window()
 
 func _input(_event):
