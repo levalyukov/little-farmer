@@ -12,3 +12,9 @@ func _ready():
             if shadow:
                 if shadow is CompressedTexture2D:
                     canvas.create_shadow("path_of_large_stones_shadow", shadow, tilemap.local_to_map(self.position))
+
+func get_data() -> Dictionary:
+    return {
+        "position": tilemap.local_to_map(self.position),
+        "id": blueprint_id
+    }
