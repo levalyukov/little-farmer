@@ -129,8 +129,8 @@ func get_condition(condition_type:int) -> String:
 func check_plant_season() -> void:
 	for i in crops.crops[plantID]["season"]:
 		if i != clock.get_season():
-				condition = phases.dead
-				sprite.set_rect(0, 160)
+			condition = phases.dead
+			sprite.set_rect(0, 160)
 
 func _on_collision_mouse_entered() -> void:
 	if !blur.state\
