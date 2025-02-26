@@ -171,6 +171,33 @@ func building_collision_check() -> void:
 			else:
 				grids.texture = error
 
+func check_fertilizer_grid() -> void:
+	if main == "Farm":
+		for grids in get_children():
+			var grid_position = tilemap.local_to_map(grids.get_global_position())
+			var texture = error
+			if check_cell(grid_position, farmland_layer)\
+			&& !check_fertilizer(grid_position):
+				grids.texture = default
+			else:
+				grids.texture = error
+
+func check_fertilizer(vector:Vector2i) -> bool:
+	if farming.get_children().size() > 0:
+		for i in farming.get_children():
+			if vector == tilemap.local_to_map(i.position):
+				if data.remove_suffix(i.name) == "fertilizer":
+					return true
+	return false
+
+func get_fertilizer(vector:Vector2i) -> int:
+	if farming.get_children().size() > 0:
+		for i in farming.get_children():
+			if vector == tilemap.local_to_map(i.position):
+				if data.remove_suffix(i.name) == "fertilizer":
+					return i.id
+	return 0
+
 func get_nature(vector:Vector2i) -> Node2D:
 	if main == "Farm":
 		for node in nature.get_children():
