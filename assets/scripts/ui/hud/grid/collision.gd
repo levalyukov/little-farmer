@@ -177,7 +177,8 @@ func check_fertilizer_grid() -> void:
 			var grid_position = tilemap.local_to_map(grids.get_global_position())
 			var texture = error
 			if check_cell(grid_position, farmland_layer)\
-			&& !check_fertilizer(grid_position):
+			&& !check_fertilizer(grid_position)\
+			&& !get_plant(grid_position):
 				grids.texture = default
 			else:
 				grids.texture = error
@@ -228,6 +229,12 @@ func get_shadow(vector:Vector2i) -> Node2D:
 			if tilemap.local_to_map(vector) == tilemap.local_to_map(shadow.position):
 				return shadow
 	return null
+
+func get_plant(vector:Vector2i) -> bool:
+	for plant in farming.get_children():
+		if vector == tilemap.local_to_map(plant.position):
+			return true
+	return false
 
 func get_harvest(vector:Vector2i) -> bool:
 	for plant in farming.get_children():
