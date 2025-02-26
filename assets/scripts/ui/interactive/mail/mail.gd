@@ -35,8 +35,8 @@ var opened:bool = false
 var index
 var letter_name
 var letters:Dictionary = {}
-var current_letter_index: int = 0
-var letters_to_create: Array = []
+var current_letter_index:int = 0
+var letters_to_create:Array = []
 
 func _input(_event):
 	if Input.is_action_just_pressed("esc")\
@@ -45,7 +45,7 @@ func _input(_event):
 	&& opened:
 		close()
 
-var test_index = 0
+var test_index = 1
 
 func _ready():
 	check_window()
