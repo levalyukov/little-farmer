@@ -18,13 +18,15 @@ extends Control
 @onready var getCompostButton:Button = $Panel/VBoxContainer/HBoxContainer/ProgressMargin/VBoxContainer/GetCompostMargin/GetCompostButton
 @onready var anim:AnimationPlayer = $AnimationPlayer
 
-var current_slot_index: int = 0
-var slots_to_create: Array = []
+const MIN_COMPOST_TIME:int = 60
+const MAX_COMPOST_TIME:int = 300
+const COMPOST_THRESHOLD:int = 4
 
+var current_slot_index:int = 0
+var slots_to_create:Array = []
 var current_node:Node2D
 var items:Object = Items.new()
 var opened:bool = false
-
 func _ready():
 	close()
 
@@ -48,7 +50,7 @@ func _process(_delta) -> void:
 			if current_node.composting:
 				if current_node.composting_value < 100.0:
 					var formatted_value = "%.2f" % current_node.composting_value
-					compostingProcessLabel.text = "Компостирование\n(%s%%)" % formatted_value
+					compostingProcessLabel.text = tr("Компостирование") + "\n(%s%%)" % formatted_value
 					if getCompostButton.visible:
 						getCompostButton.visible = false
 					if startComposting.visible:
@@ -56,7 +58,7 @@ func _process(_delta) -> void:
 				if current_node.composting_value > 100.0:
 					current_node.stop_compost()
 					current_node.composting_value = 100.0
-					compostingProcessLabel.text = "Компост готов"
+					compostingProcessLabel.text = tr("Компост готов")
 					if !getCompostButton.visible:
 						getCompostButton.visible = true
 
@@ -119,8 +121,10 @@ func check_state_button() -> void:
 			if current_node.composting_value != 100.0:
 				if !startComposting.visible:
 					startComposting.visible = true
-				if itemsForCompostContainer.get_children().size() > 0:
-					startComposting.disabled = false
+
+				if check_items_count():
+					if itemsForCompostContainer.get_children().size() > 0:
+						startComposting.disabled = false
 				else:
 					startComposting.disabled = true
 
@@ -150,7 +154,7 @@ func open(node:Node2D) -> void:
 	get_compost_items()
 	clear_compost_items()
 	check_state_button()
-	compostingProcessLabel.text = "Выберите отходы для начала компостирования."
+	compostingProcessLabel.text = tr("Выберите отходы для начала компостирования.")
 
 func close() -> void:
 	opened = false
@@ -167,7 +171,11 @@ func _on_get_compost_button_pressed() -> void:
 	current_node.composting = false
 	current_node.composting_value = 0.0
 	if inventory:
-		inventory.add_item(61, randi_range(1,5))
+		if current_node.highQuality:
+			inventory.add_item(62, round(current_node.total_items/4))
+			current_node.highQuality = false
+		else:
+			inventory.add_item(61, round(current_node.total_items/4))
 	if getCompostButton.visible:
 		getCompostButton.visible = false
 	if !startComposting.visible:
@@ -176,21 +184,39 @@ func _on_get_compost_button_pressed() -> void:
 	get_compost_items()
 	clear_compost_items()
 	check_state_button()
-	compostingProcessLabel.text = "Выберите отходы для начала процесса компостирования."
+	compostingProcessLabel.text = tr("Выберите отходы для начала процесса компостирования.")
 
-func _on_turn_button_pressed():
+func check_items_count() -> bool:
+	for i in current_node.compost_items:
+		if current_node.compost_items.size() >= COMPOST_THRESHOLD:
+			return true
+		else:
+			if current_node.compost_items[i]["amount"] >= COMPOST_THRESHOLD:
+				return true
+	return false
+
+func get_items_count() -> int:
+	var total_items_for_compost = 0
+	if current_node:
+		for i in current_node.compost_items:
+			total_items_for_compost += current_node.compost_items[i]["amount"]
+	return total_items_for_compost
+
+func _on_turn_button_pressed() -> void:
 	if itemsForCompostContainer.get_children().size() > 0:
 		for i in current_node.compost_items:
 			inventory.subject_item(i, current_node.compost_items[i]["amount"])
-		current_node.composting = true
-		current_node.compost_items = {}
-		current_node.composting_value = 0.0
-		current_node.start_compost(2.5)
+		if itemsForCompostContainer.get_children().size() >= 8:
+			current_node.highQuality = true
+		current_node.start_compost(get_items_count())
 		current_node.update()
 		get_compost_state()
 		get_compost_items()
 		clear_compost_items()
 		check_state_button()
+		current_node.composting = true
+		current_node.compost_items = {}
+		current_node.composting_value = 0.0
 
 func _on_button_exit_pressed() -> void:
 	close()
