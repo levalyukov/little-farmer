@@ -603,12 +603,15 @@ var content:Dictionary = {
 	# Compost
 	61: {
 		"caption": tr("Обычный компост"),
-		"description": tr(""),
+		"description": tr("Уменьшает время роста"),
 		"type": "Удобрения",
 		"item_type": "fertilizer",
 		"purchase": 1,
 		"sale": 100,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/trash/trash_2.png"),
+		"icon": load("res://assets/resources/ui/interactive/inventory/items/fertilizer.png"),
+		"func": {
+			"reducing": 5.0, # %
+		},
 	},
 	62: {
 		"caption": tr("Высококачественный компост"),
@@ -617,6 +620,9 @@ var content:Dictionary = {
 		"item_type": "fertilizer",
 		"purchase": 1,
 		"sale": 100,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/trash/trash_2.png"),
+		"icon": load("res://assets/resources/ui/interactive/inventory/items/high_fertilizer.png"),
+		"func": {
+			"reducing": 10.0, # %
+		},
 	},
 }
