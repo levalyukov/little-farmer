@@ -5,13 +5,15 @@ extends Node2D
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var notice:Control = get_node("/root/"+main+"/UI/Feedback/Notifications")
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
-@onready var node:PackedScene = load("res://assets/nodes/farming/plant.tscn")
+@onready var plant_node:PackedScene = load("res://assets/nodes/farming/plant.tscn")
+@onready var fertilizer_node:PackedScene = load("res://assets/nodes/farming/fertilizer.tscn")
 
+var items:Object = Items.new()
 var crops:Object = Crops.new()
 var season:bool = false
 
 func create_plant(id:int, vector:Vector2i) -> void:
-	var plant = node.instantiate()
+	var plant = plant_node.instantiate()
 	var atlas_coords = Vector2i(0,3)
 	var source_id = 0
 	
@@ -43,3 +45,16 @@ func get_all_plants() -> Dictionary:
 			var child_data = plant.get_data()
 			data_dict[plant.name] = child_data
 	return data_dict
+
+# fertilizer
+func create_fertilizer(id:int, vector:Vector2i) -> void:
+	if items.content.has(id):
+		if items.content[id].has('item_type'):
+			if items.content[id]['item_type'] == 'fertilizer':
+				var fertilizer = fertilizer_node.instantiate()
+				add_child(fertilizer)
+				fertilizer.name = "fertilizer_1"
+				fertilizer.z_index = 2
+				fertilizer.set_fertilizer(id)
+				fertilizer.set_position(tilemap.map_to_local(vector))
+				
