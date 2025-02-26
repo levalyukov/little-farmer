@@ -21,7 +21,7 @@ var blueprint_id:int = 0
 var object:Dictionary = {
 	1: {
 		"caption" = tr("Теплица"),
-		"description" = tr("Тёплое помещение для разведения и выращивания растений."),
+		"description" = tr("Тёплое помещение для разведения\nи выращивания растений."),
 		"shadow" = load("res://assets/resources/buildings/greenhouse/level_1/shadow.png"),
 		"seasons" = {
 			"spring" = {
@@ -98,11 +98,9 @@ func _change_sprite(type:bool) -> void:
 							data.debug("'"+str(self.name) + "': 'hovered' is not a CompressedTexture2D.", "error")
 					else:
 						data.debug("'"+str(self.name) + "': There is no 'hovered' key.", "error")
-			var level_text = tr("object.level")
 			tip.tooltip(
 					str(object[level]["caption"]) + "\n" +
-					str(object[level]["description"]) + "\n" +
-					str(level_text) + str(level)
+					str(object[level]["description"])
 				)
 	else:
 		if object.has(level):
@@ -116,15 +114,10 @@ func _change_sprite(type:bool) -> void:
 			tip.tooltip("")
 
 func get_data() -> Dictionary:
-	if object.has(level):
-		return {
-			"level": level
-			}
-	return {}
-
-func set_level_obj(obj_level:int) -> void:
-	level = obj_level
-	update()
+	return {
+		"position": tilemap.local_to_map(position),
+		"id": blueprint_id
+	}
 
 func _on_area_2d_mouse_entered() -> void:
 	if !blur.state\
