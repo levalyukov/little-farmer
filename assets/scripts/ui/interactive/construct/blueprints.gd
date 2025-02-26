@@ -44,7 +44,7 @@ var content:Dictionary = {
 		},
 		2: {
 			"caption" = "Компостер",
-			"description" = "",
+			"description" = "Ящик для приготовления удобрения.",
 			"icon" = preload("res://assets/resources/buildings/composter/idle_0.png"),
 			"config" = {
 				"name" = "composter",
@@ -100,10 +100,10 @@ var content:Dictionary = {
 		},
 		6: {
 			"caption" = "Теплица",
-			"description" = "Уютное и светлое место для выращивания разных культур круглый год.",
+			"description" = "Тёплое помещение для разведения и выращивания растений.",
 			"icon" = preload("res://assets/resources/buildings/greenhouse/level_1/summer/object_0.png"),
 			"config" = {
-				"name" = "christmas_tree",
+				"name" = "greenhouse",
 				"node" = preload("res://assets/nodes/buildings/greenhouse/greenhouse.tscn"),
 				"shadow" = preload("res://assets/nodes/buildings/greenhouse/greenhouse_shadow.tscn"),
 				"area" = Vector2i(3,3),
