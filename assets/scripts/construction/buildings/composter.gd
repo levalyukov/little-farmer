@@ -24,6 +24,8 @@ var menuAccess:bool = false
 var composting:bool = false
 var composting_value:float = 0.0
 var compost_items:Dictionary = {}
+var highQuality:bool = false
+var total_items:int = 0
 
 enum objectState {idle, inProcess, done}
 var object:Dictionary = {
@@ -114,14 +116,11 @@ func get_data() -> Dictionary:
 	if object.has(level):
 		return {
 			"level": level,
-			'value': composting_value,
+			"value": composting_value,
 			"position": tilemap.local_to_map(position),
+			"id": blueprint_id
 			}
 	return {}
-
-func set_level_obj(obj_level:int) -> void:
-	level = obj_level
-	update()
 
 func _on_area_2d_mouse_entered() -> void:
 	menuAccess = true
@@ -184,9 +183,10 @@ func _on_area_2d_mouse_exited() -> void:
 	if tip:
 		tip.tooltip()
 
-func start_compost(time_value:float) -> void:
+func start_compost(items_compost_value:int) -> void:
 	timer.start()
-	timer.wait_time = time_value
+	timer.wait_time = 2.5
+	total_items = items_compost_value
 
 func stop_compost() -> void:
 	timer.stop()
