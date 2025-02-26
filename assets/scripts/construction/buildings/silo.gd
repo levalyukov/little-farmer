@@ -20,7 +20,7 @@ var vector:Vector2i
 var object:Dictionary = {
 	1: {
 		"caption" = tr("Силосная башня"),
-		"description" = tr("Хранилище для долгосрочного хранения зерна и кормов."),
+		"description" = tr("Хранилище для долгосрочного\nхранения зерна и кормов."),
 		"shadow" = load("res://assets/resources/buildings/silo/level_1/shadow.png"),
 		"seasons" = {
 			"spring" = {
