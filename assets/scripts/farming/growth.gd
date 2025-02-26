@@ -10,8 +10,7 @@ var level:int
 
 func _ready():
 	if crops.crops.has("atlas"):
-		if typeof(crops.crops["atlas"]) == TYPE_OBJECT\
-		and texture is CompressedTexture2D:
+		if crops.crops["atlas"] is CompressedTexture2D:
 			texture = texture
 		else:
 			data.debug("Atlas is not a CompressedTexture2D.", "error")
@@ -21,7 +20,7 @@ func _ready():
 func _process(_delta):
 	if plant.plantID != 0:
 		if level == crops.crops[plant.plantID]["growth_level"]\
-		and plant.condition != plant.phases.GROWED:
+		and plant.condition != plant.phases.growed:
 			plant_increased()
 	else:
 		data.debug("Invalid variable index: " + str(plant.plantID), "error")
@@ -51,5 +50,5 @@ func _on_timer_timeout() -> void:
 		plant_increased()
 
 func plant_increased():
-	plant.condition = plant.phases.GROWED
+	plant.condition = plant.phases.growed
 	timer.stop()
