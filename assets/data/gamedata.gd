@@ -65,7 +65,6 @@ const sceneConfig = {
 func _ready():
 	if main == "Farm":
 		# Game Load
-		print(GameLoader.mode, ":", GameLoader.start)
 		if GameLoader.mode\
 		&& !GameLoader.start:
 			gameload()
@@ -391,6 +390,8 @@ func load_buildings() -> void:
 						if i == node.name:
 							var sprite_id = file_load(file.buildings)[i]["sprite_id"]
 							node.set_sign_sprite(int(sprite_id))
+				if file_load(file.buildings)[i].has("value"):
+					pass
 	else:
 		debug("load_buildings(): Empty dictionary.", "error")
 
