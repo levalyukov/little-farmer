@@ -17,7 +17,7 @@ func get_buildings() -> Dictionary:
 			data_dict[building.name] = building.get_data()
 	return data_dict
 
-func create_node(id:int, vector:Vector2i, caption:String = "") -> void:
+func create_node(id:int, vector:Vector2i, node_name:String = "") -> void:
 	var blueprints = Blueprints.new()
 	if blueprints.content.has("nodes"):
 		if blueprints.content["nodes"].has(id):
@@ -29,8 +29,8 @@ func create_node(id:int, vector:Vector2i, caption:String = "") -> void:
 							add_child(node)
 							node.set_position(tilemap.map_to_local(vector))
 							
-							if caption != "":
-								node.name = caption
+							if node_name != "":
+								node.name = node_name
 							else:
 								if blueprints.content["nodes"][id]["config"].has("name"):
 									node.name = blueprints.content["nodes"][id]["config"]["name"] + "_1"
