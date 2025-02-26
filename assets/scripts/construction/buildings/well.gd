@@ -105,11 +105,9 @@ func _change_sprite(type:bool) -> void:
 							data.debug("'"+str(self.name) + "': 'hovered' is not a CompressedTexture2D.", "error")
 					else:
 						data.debug("'"+str(self.name) + "': There is no 'hovered' key.", "error")
-			var level_text = tr("object.level")
 			tip.tooltip(
 					str(object[level]["caption"]) + "\n" +
-					str(object[level]["description"]) + "\n" +
-					str(level_text) + str(level)
+					str(object[level]["description"])
 				)
 	else:
 		if object.has(level):
