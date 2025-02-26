@@ -62,3 +62,9 @@ func _process(_delta):
 				light.visible = false
 				update()
 		
+func get_data() -> Dictionary:
+	return {
+		"value": light.visible,
+		"position": tilemap.local_to_map(position),
+		"id": blueprint_id
+		}
