@@ -13,14 +13,16 @@ extends Node2D
 @onready var timer:Timer = $Timer
 @onready var check_water_timer:Timer = $CheckWaterTimer
 
+var items:Object = Items.new()
 var crops:Object = Crops.new()
+
 var plantID:int
-var condition:int = phases.PLANTED
-var fertilizer:int = fertilizers.NOTHING
+var condition:int = phases.planted
+var fertilizer:int = fertilizers.nothing
 var degree:int
 
-enum phases {PLANTED,GROWING,GROWED,DEAD}
-enum fertilizers {NOTHING, COMPOST, HUMUS, MANURE}
+enum phases {planted, growing, growed, dead}
+enum fertilizers {nothing, regularCompost, highQualityCompost}
 
 func _process(_delta):
 	if pause.paused:
@@ -33,62 +35,45 @@ func plant(id:int) -> void:
 	sprite.rect(id)
 	check_water_timer.wait_time = crops.crops["check_watering"]
 	check_water_timer.start()
-	
-func set_fertilizer(type:int) -> void:
-	match type:
-		0:
-			fertilizer = fertilizers.NOTHING
-		1:
-			fertilizer = fertilizers.COMPOST
-		2:
-			fertilizer = fertilizers.HUMUS
-		3:
-			fertilizer = fertilizers.MANURE
 			
 func check(vector:Vector2i) -> void:
 	if !pause.paused:
 		if collision.check_cell(vector, collision.farmland_layer)\
 		&& !collision.check_cell(vector, collision.watering_layer)\
-		&& condition != phases.DEAD:
-			condition = phases.PLANTED
+		&& condition != phases.dead:
+			condition = phases.planted
 			if degree < crops.crops[plantID]["mortality"]:
 				degree += 1
 			else:
-				condition = phases.DEAD
+				condition = phases.dead
 
 		elif collision.check_cell(vector, collision.farmland_layer)\
 		&& collision.check_cell(vector, collision.watering_layer)\
-		&& condition != phases.DEAD:
-			condition = phases.GROWING
-			set_fertilizer(randi_range(0,3))
+		&& condition != phases.dead:
+			condition = phases.growing
 			growth()
 			check_water_timer.stop()
+			if collision.check_fertilizer(vector):
+				match collision.get_fertilizer(vector):
+					61:
+						fertilizer = fertilizers.regularCompost
+					62:
+						fertilizer = fertilizers.highQualityCompost
+					_:
+						pass
 
 func growth() -> void:
-	if condition == phases.GROWING:
+	if condition == phases.growing:
 		match fertilizer:
-			fertilizers.NOTHING:
-				timer.wait_time = randf_range(
-					crops.crops[plantID]["growth_rate"] * 0.849,
-					crops.crops[plantID]["growth_rate"]
-				)
-			fertilizers.COMPOST:
-				timer.wait_time = randf_range(
-					crops.crops[plantID]["growth_rate"] * 0.621,
-					crops.crops[plantID]["growth_rate"] * 0.995
-				)
-			fertilizers.HUMUS:
-				timer.wait_time = randf_range(
-					crops.crops[plantID]["growth_rate"] * 0.431,
-					crops.crops[plantID]["growth_rate"] * 0.894
-				)
-			fertilizers.MANURE:
-				timer.wait_time = randf_range(
-					crops.crops[plantID]["growth_rate"] * 0.332,
-					crops.crops[plantID]["growth_rate"] * 0.792
-				)
+			fertilizers.regularCompost:
+				timer.wait_time = crops.crops[plantID]["growth_rate"] - (items.content[61]["func"]["reducing"] / 100.0) * crops.crops[plantID]["growth_rate"]
+			fertilizers.highQualityCompost:
+				timer.wait_time = crops.crops[plantID]["growth_rate"] - (items.content[62]["func"]["reducing"] / 100.0) * crops.crops[plantID]["growth_rate"]
+			_:
+				timer.wait_time = crops.crops[plantID]["growth_rate"]
+				
 		timer.start()
-	if condition == phases.GROWED:
+	if condition == phases.growed:
 		timer.stop()
 
 func get_data() -> Dictionary:
@@ -144,7 +129,7 @@ func get_condition(condition_type:int) -> String:
 func check_plant_season() -> void:
 	for i in crops.crops[plantID]["season"]:
 		if i != clock.get_season():
-				condition = phases.DEAD
+				condition = phases.dead
 				sprite.set_rect(0, 160)
 
 func _on_collision_mouse_entered() -> void:
@@ -154,7 +139,7 @@ func _on_collision_mouse_entered() -> void:
 			if crops.crops[plantID].has("caption"):
 				if typeof(crops.crops[plantID]["caption"]) == TYPE_STRING:
 					var plant_status = tr("Состояние")
-					if fertilizer != fertilizers.NOTHING:
+					if fertilizer != fertilizers.nothing:
 						var fertilized_plant = tr("Удобрено")
 						tip.tooltip(
 							crops.crops[plantID]["caption"] +"\n"+
