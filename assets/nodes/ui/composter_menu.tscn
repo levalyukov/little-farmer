@@ -213,24 +213,6 @@ layout_mode = 2
 [node name="Slot3" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
 layout_mode = 2
 
-[node name="Slot4" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
-layout_mode = 2
-
-[node name="Slot5" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
-layout_mode = 2
-
-[node name="Slot6" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
-layout_mode = 2
-
-[node name="Slot7" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
-layout_mode = 2
-
-[node name="Slot8" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
-layout_mode = 2
-
-[node name="Slot9" parent="Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
-layout_mode = 2
-
 [node name="ProgressMargin" type="MarginContainer" parent="Panel/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
@@ -299,45 +281,6 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Slot3" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
-layout_mode = 2
-
-[node name="Slot4" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
-layout_mode = 2
-
-[node name="Slot5" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
-layout_mode = 2
-
-[node name="Slot6" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
-layout_mode = 2
-
-[node name="Slot7" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
-layout_mode = 2
-
-[node name="Slot8" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
-layout_mode = 2
-
-[node name="Slot9" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
-layout_mode = 2
-
-[node name="Slot10" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
-layout_mode = 2
-
-[node name="Slot11" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
-layout_mode = 2
-
-[node name="Slot12" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
-layout_mode = 2
-
-[node name="Slot13" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
-layout_mode = 2
-
-[node name="Slot14" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
-layout_mode = 2
-
-[node name="Slot15" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
-layout_mode = 2
-
-[node name="Slot16" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer" instance=ExtResource("5_6w8mo")]
 layout_mode = 2
 
 [node name="ButtonMargin" type="MarginContainer" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer"]
