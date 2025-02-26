@@ -28,8 +28,8 @@ extends Control
 
 var item = Items.new()
 var crops = Crops.new()
-var current_slot_index: int = 0
-var slots_to_create: Array = []
+var current_slot_index:int = 0
+var slots_to_create:Array = []
 var opened:bool = false
 var item_index
 var button_index:int
@@ -94,8 +94,10 @@ var inventory_items:Dictionary = {
 	58:{"amount":1000},
 	59:{"amount":1000},
 	60:{"amount":1000},
+	61:{"amount":1000},
+	62:{"amount":1000},
 }
-enum item_type {NOTHING, SEEDS}
+enum item_type {NOTHING, SEEDS, FERTILIZER}
 
 func _ready():
 	check_window()
@@ -120,9 +122,9 @@ func _input(_event):
 
 func inventory_update():
 	var remove_items = []
-	for item in inventory_items:
-		if inventory_items[item]["amount"] == 0:
-			remove_items.append(item)
+	for id in inventory_items:
+		if inventory_items[id]["amount"] == 0:
+			remove_items.append(id)
 	
 	if remove_items != []:
 		for i in remove_items:
@@ -132,10 +134,10 @@ func check_inventory():
 	if has_node("/root/"+main+"/ConstructionManager/storage"):
 		var max_slots = storage.object[storage.level]["slots"]
 		while inventory_items.size() > max_slots:
-			for item in inventory_items:
-				inventory_items.erase(item)
+			for id in inventory_items:
+				inventory_items.erase(id)
 				break
-				data.debug("Due to inventory overflow, an item with the following ID was destroyed: " + str(item), "info")
+				data.debug("Due to inventory overflow, an item with the following ID was destroyed: " + str(id), "info")
 
 func load_content(content:Dictionary) -> void:
 	inventory_items = content
@@ -242,11 +244,11 @@ func create_all_items() -> void:
 	remove_inventory_slots()
 	slots_to_create = []
 	var items = Items.new()
-	for item in inventory_items:
-		if items.content.has(int(item)):
-			if inventory_items[item].has("amount"):
-				if inventory_items[item]["amount"] > 0:
-					slots_to_create.append(item)
+	for id in inventory_items:
+		if items.content.has(int(id)):
+			if inventory_items[id].has("amount"):
+				if inventory_items[id]["amount"] > 0:
+					slots_to_create.append(id)
 	current_slot_index = 0
 
 func _process(_delta) -> void:
@@ -260,9 +262,9 @@ func _process(_delta) -> void:
 					break
 
 func remove_inventory_slots() -> void:
-	for item in slots.get_children():
-		slots.remove_child(item)
-		item.queue_free()
+	for items in slots.get_children():
+		slots.remove_child(items)
+		items.queue_free()
 
 func item_create(id) -> void:
 	if slots.get_child_count() >= storage.object[storage.level]["slots"]:
@@ -297,12 +299,12 @@ func update_string_capacity() -> void:
 func get_all_items() -> int:
 	var items = Items.new()
 	if slots:
-		var item:int = 0
+		var item_count:int = 0
 		if inventory_items != {}:
 			for i in inventory_items:
 				if items.content.has(int(i)):
-					item += 1
-		return item
+					item_count += 1
+		return item_count
 	else:
 		data.debug("Cannot load parent.", "error")
 		return 0
@@ -331,11 +333,11 @@ func subject_item(id, item_amount:int = 1) -> void:
 	if id is Dictionary:
 		var resources_id = []
 		var amounts = []
-		for item in id:
-			if id[item].has("amount"):
-				if id[item]["amount"] > 0:
-					resources_id.append(item)
-					amounts.append(id[item]["amount"])
+		for items in id:
+			if id[items].has("amount"):
+				if id[items]["amount"] > 0:
+					resources_id.append(items)
+					amounts.append(id[items]["amount"])
 
 		for idx in range(resources_id.size()):
 			var ids = resources_id[idx]
@@ -411,17 +413,23 @@ func check_item_type(i_type:String) -> void:
 			"seeds":
 				button_index = item_type.SEEDS
 				button.visible = true
-				var crop = item.content[item_index]['crop']
-				var crop_season = crops.crops[crop]['season']
-				for i in crop_season:
-					if i == clock.get_season():
-						button.text = tr("Посадить семена")
-						button.disabled = false
-						break
-					else:
-						button.text = tr("Не тот сезон")
-						button.disabled = !false
-						break
+				if item.content[int(item_index)].has('crop'):
+					var crop = item.content[int(item_index)]['crop']
+					var crop_season = crops.crops[crop]['season']
+					for i in crop_season:
+						if i == clock.get_season():
+							button.text = tr("Посадить семена")
+							button.disabled = false
+							break
+						else:
+							button.text = tr("Не тот сезон")
+							button.disabled = !false
+							break
+			"fertilizer":
+				button_index = item_type.FERTILIZER
+				button.visible = true
+				button.text = tr("Удобрить")
+				button.disabled = false
 			_:
 				button_index = item_type.NOTHING
 				button.visible = false
@@ -443,6 +451,13 @@ func _on_button_pressed():
 					data.debug("The 'crop' key does not exist", "error")
 			else:
 				data.debug("The numerical ID (" + item_index + ") of this crop is missing in the main file crops.gd", "error")
+		item_type.FERTILIZER:
+			close()
+			grid.generate_grid()
+			grid.grid_dimensions = tools.features["planting"][tools.planting]["grid_dimensions"]
+			grid.inventory_item = item_index
+			grid.mode = grid.modes.FERTILIZER
+			grid.visible = true
 		_:
 			pass
 
