@@ -28,7 +28,7 @@ var grid_dimensions:Vector2i = Vector2i(1,1)
 var check:bool = false
 var mode:int = modes.NOTHING
 var destroy_mode:int = destroy.NOTHING
-enum modes {NOTHING, DESTROY, FARMING, PLANTING, WATERING, HARVESTING, BUILD, TERRAIN_SET, UPGRADE}
+enum modes {NOTHING, DESTROY, FARMING, PLANTING, WATERING, HARVESTING, FERTILIZER, BUILD, TERRAIN_SET, UPGRADE}
 enum destroy {NOTHING, TRASH, AXE, PICKAXE, BOMB}
 
 # plant config
@@ -264,6 +264,17 @@ func _process(_delta):
 					check = false
 
 			modes.UPGRADE:
+				check = false
+
+			modes.FERTILIZER:
+				collision.check_fertilizer_grid()
+				if check:
+					for i in collision.get_children():
+						var local_position = tilemap.to_local(i.get_global_position())
+						var grid_position = tilemap.local_to_map(local_position)
+						if i.texture != collision.error:
+							farming.create_fertilizer(inventory_item, grid_position)
+							inventory.subject_item(inventory_item, 1)
 				check = false
 	else:
 		visible = false
