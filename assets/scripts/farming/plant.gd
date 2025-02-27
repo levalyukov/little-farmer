@@ -20,6 +20,7 @@ var plantID:int
 var condition:int = phases.planted
 var fertilizer:int = fertilizers.nothing
 var degree:int
+var check_fertilized:bool = false
 
 enum phases {planted, growing, growed, dead}
 enum fertilizers {nothing, regularCompost, highQualityCompost}
@@ -51,27 +52,21 @@ func check(vector:Vector2i) -> void:
 		&& collision.check_cell(vector, collision.watering_layer)\
 		&& condition != phases.dead:
 			condition = phases.growing
-			growth()
 			check_water_timer.stop()
 			if collision.check_fertilizer(vector):
 				match collision.get_fertilizer(vector):
 					61:
 						fertilizer = fertilizers.regularCompost
+						timer.wait_time = crops.crops[plantID]["growth_rate"] - (items.content[61]["func"]["reducing"] / 100.0) * crops.crops[plantID]["growth_rate"]
 					62:
 						fertilizer = fertilizers.highQualityCompost
-					_:
-						pass
+						timer.wait_time = crops.crops[plantID]["growth_rate"] - (items.content[62]["func"]["reducing"] / 100.0) * crops.crops[plantID]["growth_rate"]
+			else:
+				timer.wait_time = crops.crops[plantID]["growth_rate"]
+			growth()
 
 func growth() -> void:
 	if condition == phases.growing:
-		match fertilizer:
-			fertilizers.regularCompost:
-				timer.wait_time = crops.crops[plantID]["growth_rate"] - (items.content[61]["func"]["reducing"] / 100.0) * crops.crops[plantID]["growth_rate"]
-			fertilizers.highQualityCompost:
-				timer.wait_time = crops.crops[plantID]["growth_rate"] - (items.content[62]["func"]["reducing"] / 100.0) * crops.crops[plantID]["growth_rate"]
-			_:
-				timer.wait_time = crops.crops[plantID]["growth_rate"]
-				
 		timer.start()
 	if condition == phases.growed:
 		timer.stop()
