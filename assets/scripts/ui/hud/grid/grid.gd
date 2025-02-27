@@ -3,6 +3,7 @@ extends Node2D
 @onready var main:String = str(get_tree().root.get_child(2).name)
 @onready var data:Node = get_node("/root/"+main)
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
+@onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
 @onready var nature:Node2D = get_node("/root/"+main+"/Nature")
 @onready var destroy_menu:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/DestroyMenuMargin/DestroyMenu")
 @onready var tools:HBoxContainer = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools")
@@ -133,6 +134,7 @@ func _process(_delta):
 				
 			modes.WATERING:
 				collision.watering_collision_check()
+				tip.tooltip('Вода в лейке:\n' + str(tools.water_can) + "/" + str(tools.water_can_max))
 				if check:
 					for i in collision.get_children():
 						var grid_position = tilemap.local_to_map(i.get_global_position())
@@ -217,9 +219,6 @@ func _process(_delta):
 										inventory.add_item(crop_item, target_productivity)
 							else:
 								notifications.create_notice(tr("full_inventory.error"))
-						else:
-							if harvest != null:
-								data.debug("Index " + str(harvest) + " does not exist in the main 'crops' dictionary", "error")
 				check = false
 
 			modes.BUILD:
@@ -298,6 +297,7 @@ func _input(event):
 		mode = modes.NOTHING
 		check = false
 		destroy_mode = destroy.NOTHING
+		tip.tooltip()
 		for child in collision.get_children():
 			child.queue_free()
 
