@@ -149,6 +149,8 @@ func open() -> void:
 	anim.play("open")
 	inventory_update()
 	check_inventory()
+	if grid.mode != grid.modes.NOTHING:
+		grid.mode = grid.modes.NOTHING
 
 	create_all_items()
 	update_string_capacity()
