@@ -224,6 +224,7 @@ layout_mode = 2
 root_node = NodePath("../../..")
 
 [node name="DestroyMenuMargin" type="MarginContainer" parent="Main"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_bottom = 90
 
