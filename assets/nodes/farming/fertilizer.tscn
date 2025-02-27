@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cbqfljgfksr5y"]
+[gd_scene load_steps=3 format=3 uid="uid://cbqfljgfksr5y"]
 
 [ext_resource type="Script" path="res://assets/scripts/farming/fertilizer.gd" id="1_pasdk"]
 [ext_resource type="Texture2D" uid="uid://bmtdu4iog7ffd" path="res://assets/resources/farming/fertilizers.png" id="2_hsp3e"]
-[ext_resource type="Script" path="res://assets/scripts/farming/fertilizerSprite.gd" id="3_ui0kr"]
 
 [node name="Fertilizer" type="Node2D"]
 script = ExtResource("1_pasdk")
@@ -12,4 +11,3 @@ position = Vector2(0, -8)
 texture = ExtResource("2_hsp3e")
 region_enabled = true
 region_rect = Rect2(0, 0, 16, 32)
-script = ExtResource("3_ui0kr")
