@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var main:String = str(get_tree().root.get_child(2).name)
+@onready var data:Node = get_node("/root/"+main)
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var notice:Control = get_node("/root/"+main+"/UI/Feedback/Notifications")
@@ -29,7 +30,9 @@ func create_plant(id:int, vector:Vector2i) -> void:
 func plant_destroy(vector:Vector2i) -> void:
 	for child in get_children():
 		if vector == tilemap.local_to_map(child.position):
-			remove_child(child)
+			if data.remove_suffix(child.name) == "plant"\
+			|| data.remove_suffix(child.name) == "fertilizer":
+				remove_child(child)
 
 func check_season(id:int) -> bool:
 	var crop_season = crops.crops[id]["season"]
