@@ -20,7 +20,6 @@ var plantID:int
 var condition:int = phases.planted
 var fertilizer:int = fertilizers.nothing
 var degree:int
-var check_fertilized:bool = false
 
 enum phases {planted, growing, growed, dead}
 enum fertilizers {nothing, regularCompost, highQualityCompost}
