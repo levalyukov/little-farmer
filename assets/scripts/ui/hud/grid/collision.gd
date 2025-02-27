@@ -239,15 +239,17 @@ func get_plant(vector:Vector2i) -> bool:
 func get_harvest(vector:Vector2i) -> bool:
 	for plant in farming.get_children():
 		if vector == tilemap.local_to_map(plant.position):
-			if plant.condition == plant.phases.GROWED:
-				return true
+			if data.remove_suffix(plant.name) == "plant":
+				if plant.condition == plant.phases.growed:
+					return true
 	return false
 
 func get_harvest_id(vector:Vector2i) -> int:
 	if main == "Farm":
 		for plant in farming.get_children():
-			if vector == tilemap.local_to_map(plant.position):
-				return plant.plantID
+			if data.remove_suffix(plant.name) == "plant":
+				if vector == tilemap.local_to_map(plant.position):
+					return plant.plantID
 	return 0
 
 func check_custom_data(vector:Vector2, custom_data_layer:String, layer:int) -> bool:
