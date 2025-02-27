@@ -20,10 +20,11 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -43.0
-offset_right = 21.0
+offset_top = -53.0
+offset_right = 34.0
 grow_vertical = 0
 mouse_filter = 2
+theme_override_constants/margin_bottom = 4
 
 [node name="Background" type="NinePatchRect" parent="Container"]
 layout_mode = 2
