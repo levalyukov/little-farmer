@@ -38,7 +38,8 @@ const coast_terrain:int = 3
 const water_terrain:int = 4
 
 func collisions_detect(collision_layer:int) -> void:
-	if main == "Farm":
+	if main == "Farm"\
+	|| main == "Greenhouse":
 		for grids in get_children():
 			var grid_position = tilemap.local_to_map(grids.get_global_position())
 			if !check_cell(grid_position, collision_layer):
@@ -47,14 +48,16 @@ func collisions_detect(collision_layer:int) -> void:
 				grids.texture = error
 
 func collisions_check() -> bool:
-	if main == "Farm":
+	if main == "Farm"\
+	|| main == "Greenhouse":
 		for grids in get_children():
 			if grids.texture == error:
 				return false
 	return true
 
 func destroy_collision_check(mode:int):
-	if main == "Farm":
+	if main == "Farm"\
+	|| main == "Greenhouse":
 		for i in get_children():
 			var grid_position = tilemap.local_to_map(i.get_global_position())
 			var texture = error
@@ -94,7 +97,8 @@ func destroy_collision_check(mode:int):
 				i.texture = texture
 		
 func farming_collision_check() -> void:
-	if main == "Farm":
+	if main == "Farm"\
+	|| main == "Greenhouse":
 		for grids in get_children():
 			var grid_position = tilemap.local_to_map(grids.get_global_position())
 			if check_custom_data(grid_position, can_place_dirt_custom_data, road_layer)\
@@ -104,7 +108,8 @@ func farming_collision_check() -> void:
 				grids.texture = error
 		
 func watering_collision_check() -> void:
-	if main == "Farm":
+	if main == "Farm"\
+	|| main == "Greenhouse":
 		for grids in get_children():
 			var grid_position = tilemap.local_to_map(grids.get_global_position())
 			if check_custom_data(grid_position, can_place_seed_custom_data, farmland_layer)\
@@ -114,7 +119,8 @@ func watering_collision_check() -> void:
 				grids.texture = error
 
 func planting_collision_check() -> void:
-	if main == "Farm":
+	if main == "Farm"\
+	|| main == "Greenhouse":
 		for grids in get_children():
 			var grid_position = tilemap.local_to_map(grids.get_global_position())
 			if check_cell(grid_position, farmland_layer)\
@@ -129,7 +135,8 @@ func planting_collision_check() -> void:
 				grids.texture = error
 		
 func harvest_check() -> void:
-	if main == "Farm":
+	if main == "Farm"\
+	|| main == "Greenhouse":
 		for grids in get_children():
 			var grid_position = tilemap.local_to_map(grids.get_global_position())
 			if check_cell(grid_position, crops_layer)\
@@ -139,7 +146,8 @@ func harvest_check() -> void:
 				grids.texture = error
 
 func terrain_collision_check(terrain_layer:Array) -> void:
-	if main == "Farm":
+	if main == "Farm"\
+	|| main == "Greenhouse":
 		for grids in get_children():
 			var local_position = tilemap.to_local(grids.get_global_position())
 			var grid_position = tilemap.local_to_map(local_position)
@@ -155,7 +163,8 @@ func terrain_collision_check(terrain_layer:Array) -> void:
 				grids.texture = default
 
 func building_collision_check() -> void:
-	if main == "Farm":
+	if main == "Farm"\
+	|| main == "Greenhouse":
 		for grids in get_children():
 			var grid_position = tilemap.local_to_map(grids.get_global_position())
 			var texture = error
@@ -172,7 +181,8 @@ func building_collision_check() -> void:
 				grids.texture = error
 
 func check_fertilizer_grid() -> void:
-	if main == "Farm":
+	if main == "Farm"\
+	|| main == "Greenhouse":
 		for grids in get_children():
 			var grid_position = tilemap.local_to_map(grids.get_global_position())
 			var texture = error
@@ -200,7 +210,8 @@ func get_fertilizer(vector:Vector2i) -> int:
 	return 0
 
 func get_nature(vector:Vector2i) -> Node2D:
-	if main == "Farm":
+	if main == "Farm"\
+	|| main == "Greenhouse":
 		for node in nature.get_children():
 			if vector == tilemap.local_to_map(node.position):
 				if node != null:
@@ -208,7 +219,8 @@ func get_nature(vector:Vector2i) -> Node2D:
 	return null
 
 func get_nature_name(vector:Vector2i) -> String:
-	if main == "Farm":
+	if main == "Farm"\
+	|| main == "Greenhouse":
 		for node in nature.get_children():
 			if vector == tilemap.local_to_map(node.position):
 				if node != null:
@@ -224,28 +236,34 @@ func get_building(vector:Vector2i):
 			return node
 
 func get_shadow(vector:Vector2i) -> Node2D:
-	if main == "Farm":
+	if main == "Farm"\
+	|| main == "Greenhouse":
 		for shadow in shadows.get_children():
 			if tilemap.local_to_map(vector) == tilemap.local_to_map(shadow.position):
 				return shadow
 	return null
 
 func get_plant(vector:Vector2i) -> bool:
-	for plant in farming.get_children():
-		if vector == tilemap.local_to_map(plant.position):
-			return true
+	if main == "Farm"\
+	|| main == "Greenhouse":
+		for plant in farming.get_children():
+			if vector == tilemap.local_to_map(plant.position):
+				return true
 	return false
 
 func get_harvest(vector:Vector2i) -> bool:
-	for plant in farming.get_children():
-		if vector == tilemap.local_to_map(plant.position):
-			if data.remove_suffix(plant.name) == "plant":
-				if plant.condition == plant.phases.growed:
-					return true
+	if main == "Farm"\
+	|| main == "Greenhouse":
+		for plant in farming.get_children():
+			if vector == tilemap.local_to_map(plant.position):
+				if data.remove_suffix(plant.name) == "plant":
+					if plant.condition == plant.phases.growed:
+						return true
 	return false
 
 func get_harvest_id(vector:Vector2i) -> int:
-	if main == "Farm":
+	if main == "Farm"\
+	|| main == "Greenhouse":
 		for plant in farming.get_children():
 			if data.remove_suffix(plant.name) == "plant":
 				if vector == tilemap.local_to_map(plant.position):
@@ -253,25 +271,29 @@ func get_harvest_id(vector:Vector2i) -> int:
 	return 0
 
 func check_custom_data(vector:Vector2, custom_data_layer:String, layer:int) -> bool:
-	if main == "Farm":
+	if main == "Farm"\
+	|| main == "Greenhouse":
 		var tiledata = tilemap.get_cell_tile_data(layer, vector)
 		if tiledata:
 			return tiledata.get_custom_data(custom_data_layer)
 	return false
 
 func check_cell(vector:Vector2, current_tile:int) -> bool:
-	if main == "Farm":
+	if main == "Farm"\
+	|| main == "Greenhouse":
 		if tilemap.get_cell_source_id(current_tile, vector) == -1:
 			return false
 	return true
 
 func get_used_cells(layer:int) -> Array:
-	if main == "Farm":
+	if main == "Farm"\
+	|| main == "Greenhouse":
 		return tilemap.get_used_cells(layer)
 	return []
 
 func get_position_children(parent:Node2D) -> Array:
-	if main == "Farm":
+	if main == "Farm"\
+	|| main == "Greenhouse":
 		var children = parent.get_children()
 		var coordinates = []
 		for child in children:

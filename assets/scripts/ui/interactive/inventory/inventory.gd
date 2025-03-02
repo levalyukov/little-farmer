@@ -410,7 +410,8 @@ func get_tip(tip:String) -> String:
 			return ""
 
 func check_item_type(i_type:String) -> void:
-	if main == "Farm":
+	if main == "Farm"\
+	|| main == "Greenhouse":
 		match i_type:
 			"seeds":
 				button_index = item_type.SEEDS
@@ -419,14 +420,20 @@ func check_item_type(i_type:String) -> void:
 					var crop = item.content[int(item_index)]['crop']
 					var crop_season = crops.crops[crop]['season']
 					for i in crop_season:
-						if i == clock.get_season():
-							button.text = tr("Посадить семена")
-							button.disabled = false
-							break
+						if main == "Farm":
+							if i == clock.get_season():
+								button.text = tr("Посадить семена")
+								button.disabled = false
+								break
+							else:
+								button.text = tr("Не тот сезон")
+								button.disabled = !false
+								break
 						else:
-							button.text = tr("Не тот сезон")
-							button.disabled = !false
-							break
+							if main == "Greenhouse":
+								button.text = tr("Посадить семена")
+								button.disabled = false
+								break
 			"fertilizer":
 				button_index = item_type.FERTILIZER
 				button.visible = true

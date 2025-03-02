@@ -18,16 +18,18 @@ func _input(event) -> void:
 		&& event.is_pressed()\
 		&& teleporting\
 		&& grid.mode == grid.modes.NOTHING\
+		&& !blur.state\
 		&& distance < 100:
 			teleport()
 
+
 func teleport() -> void:
-	blackout.blackout(true)
 	match main:
 		"Farm":
 			var scene:String = "res://levels/village.tscn"
 			data.gamesave()
 			GameLoader.mode = false
+			blackout.blackout(true)
 			blackout.change_scene(scene)
 		"Village":
 			var scene:String = "res://levels/farm.tscn"
@@ -35,7 +37,23 @@ func teleport() -> void:
 			data.file_save([data.path.data], data.file.world, data.get_dictionary_content("world"))
 			data.file_save([data.path.player], data.file.player, data.get_dictionary_content("player"))
 			data.file_save([data.path.player], data.file.inventory, data.get_dictionary_content("inventory"))
+			blackout.blackout(true)
 			blackout.change_scene(scene)
+		"Greenhouse":
+			if GameLoader.greenhouse_caption != "":
+				var scene:String = "res://levels/farm.tscn"
+				data.file_save(
+					["user://.game/data/farm/greenhouses"],
+					"user://.game/data/farm/greenhouses/" + str(GameLoader.greenhouse_caption) + ".json",
+					data.get_greenhouse_data()
+				)
+				data.file_save([data.path.data], data.file.world, data.get_dictionary_content("world"))
+				data.file_save([data.path.player], data.file.player, data.get_dictionary_content("player"))
+				data.file_save([data.path.player], data.file.inventory, data.get_dictionary_content("inventory"))
+				blackout.blackout(true)
+				GameLoader.mode = true
+				blackout.change_scene(scene)
+				GameLoader.greenhouse_caption = ""
 		_:
 			data.debug("Unknown name of the game scene: "+str(main), "error")
 

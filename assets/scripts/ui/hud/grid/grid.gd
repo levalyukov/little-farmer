@@ -164,7 +164,26 @@ func _process(_delta):
 						for i in collision.get_children():
 							var grid_position = tilemap.local_to_map(i.get_global_position())
 							if check:
-								if farming.check_season(plantID):
+								if main == "Farm":
+									if farming.check_season(plantID):
+										if crops.crops.has(plantID):
+											if collision.check_cell(grid_position, collision.farmland_layer)\
+											&& !collision.check_cell(grid_position, collision.crops_layer)\
+											&& collision.check_custom_data(
+												grid_position, 
+												collision.can_place_seed_custom_data, 
+												collision.farmland_layer
+											):
+												inventory.subject_item(inventory_item, 1)
+												farming.create_plant(plantID, grid_position)
+										else:
+											data.debug(
+												"The numerical ID ("+ 
+												str(plantID) 
+												+") of this crop is missing in the main file crops.gd", 
+												"error"
+											)
+								else:
 									if crops.crops.has(plantID):
 										if collision.check_cell(grid_position, collision.farmland_layer)\
 										&& !collision.check_cell(grid_position, collision.crops_layer)\
@@ -182,9 +201,6 @@ func _process(_delta):
 											+") of this crop is missing in the main file crops.gd", 
 											"error"
 										)
-								else:
-									var season_error = tr("plant.season_error")
-									notice.create_notice(season_error, "error")
 					else:
 						grid_dimensions = Vector2i(1,1)
 						generate_grid()

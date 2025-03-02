@@ -96,7 +96,9 @@ func update_season() -> void:
 	tilemap.set_atlas(seasons[season])
 
 func set_season(target_season:int) -> void:
-	tilemap.set_atlas(seasons[target_season])
+	if main == "Farm"\
+	|| main == "Village":
+		tilemap.set_atlas(seasons[target_season])
 	
 func check_minute() -> void:
 	if minute >= 0:
@@ -109,7 +111,9 @@ func check_hour() -> void:
 	if hour > day_end:
 		hour = 0
 		week_update()
-		shadow.remove_all_clouds()
+		if main == "Farm"\
+		|| main == "Village":
+			shadow.remove_all_clouds()
 
 func check_week() -> void:
 	if week > season_change:

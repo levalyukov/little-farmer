@@ -33,6 +33,7 @@ var blueprints_file = FileAccess.open('user://.game/data/player/blueprints.json'
 var inventory_file = FileAccess.open('user://.game/data/player/inventory.json', FileAccess.READ)
 var mailbox_file = FileAccess.open('user://.game/data/player/mailbox.json', FileAccess.READ)
 var player_file = FileAccess.open('user://.game/data/player/player.json', FileAccess.READ)
+# --- --- ---
 
 func _ready():
 	blackout.blackout(false)
@@ -83,6 +84,8 @@ func _on_new_game_button_pressed():
 			GameLoader.mode = false
 			GameLoader.start = true
 			blackout.change_scene("res://levels/farm.tscn")
+			
+			remove_all_game_files()
 
 func _on_options_button_pressed():
 	if !clicked:
@@ -93,6 +96,8 @@ func _on_exit_button_pressed():
 	if !clicked:
 		get_tree().quit()
 
+func remove_all_game_files() -> void:
+	print("Test")
 
 func modal_create() -> void:
 	modal.modal_create(

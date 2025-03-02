@@ -6,9 +6,13 @@ extends Control
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var sprite:CompressedTexture2D = load("res://assets/resources/ui/interactive/hud/tools/hammer.png")
 @onready var icon:TextureRect = $Main/Margin/Icon
+@onready var button:Button = $Main/Button
 
 func _ready() -> void:
 	icon.texture = sprite
+	if main != "Farm":
+		button.disabled = true
+		icon.modulate = Color(1, 1, 1, 0.686)
 
 func _on_button_pressed() -> void:
 	if !pause.paused:

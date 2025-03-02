@@ -104,8 +104,17 @@ func set_data(
 	self.z_index = indexZ
 	self.name = caption
 	set_position(tilemap.map_to_local(vector))
+	if fertilizerID != 0:
+		match fertilizerID:
+			1:
+				fertilizer = fertilizers.regularCompost
+				timer.wait_time = crops.crops[plantID]["growth_rate"] - (items.content[61]["func"]["reducing"] / 100.0) * crops.crops[plantID]["growth_rate"]
+			2:
+				fertilizer = fertilizers.highQualityCompost
+				timer.wait_time = crops.crops[plantID]["growth_rate"] - (items.content[62]["func"]["reducing"] / 100.0) * crops.crops[plantID]["growth_rate"]
+	else:
+		timer.wait_time = crops.crops[plantID]["growth_rate"]
 	growth()
-	check(vector)
 
 func get_condition(condition_type:int) -> String:
 	match condition_type:
