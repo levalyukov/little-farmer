@@ -14,6 +14,7 @@ extends Node2D
 @onready var buildings:Node2D = get_node("/root/"+main+"/ConstructionManager")
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
+@onready var buttonDestroy:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
 @onready var sprite:Sprite2D = $Sprite2D
 @onready var light:PointLight2D = $Light
 
@@ -22,6 +23,8 @@ var object:Dictionary = {
 	"shadow" = load("res://assets/resources/buildings/lamp_post/shadow.png"),
 	"idle" = load("res://assets/resources/buildings/lamp_post/object_0.png"),
 	"lighting" = load("res://assets/resources/buildings/lamp_post/object_1.png"),
+	"idle_delete" = load("res://assets/resources/buildings/lamp_post/object_2.png"),
+	"lighting_delete" = load("res://assets/resources/buildings/lamp_post/object_3.png"),
 }
 
 const lightOn:int = 18
@@ -68,3 +71,29 @@ func get_data() -> Dictionary:
 		"position": tilemap.local_to_map(position),
 		"id": blueprint_id
 		}
+
+func _on_area_2d_mouse_entered():
+	if !blur.state\
+	&& grid.mode == grid.modes.NOTHING\
+	&& buttonDestroy.destroyMode:
+		if light.visible:
+			if object.has("lighting_delete"):
+				if object["lighting_delete"] is CompressedTexture2D:
+					sprite.texture = object["lighting_delete"]
+		else:
+			if object.has("idle_delete"):
+				if object["idle_delete"] is CompressedTexture2D:
+					sprite.texture = object["idle_delete"]
+
+func _on_area_2d_mouse_exited():
+	if !blur.state\
+	&& grid.mode == grid.modes.NOTHING\
+	&& buttonDestroy.destroyMode:
+		if light.visible:
+			if object.has("lighting"):
+				if object["lighting"] is CompressedTexture2D:
+					sprite.texture = object["lighting"]
+		else:
+			if object.has("idle"):
+				if object["idle"] is CompressedTexture2D:
+					sprite.texture = object["idle"]

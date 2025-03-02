@@ -55,12 +55,14 @@ func _process(_delta) -> void:
 						getCompostButton.visible = false
 					if startComposting.visible:
 						startComposting.visible = false
-				if current_node.composting_value > 100.0:
+				if current_node.composting_value >= 100.0:
 					current_node.stop_compost()
 					current_node.composting_value = 100.0
 					compostingProcessLabel.text = tr("Компост готов")
 					if !getCompostButton.visible:
 						getCompostButton.visible = true
+					if startComposting.visible:
+						startComposting.visible = false
 
 func add_item_compost(id, amount:int = 1) -> void:
 	if visible:
@@ -144,6 +146,12 @@ func remove_all_inventory_items() -> void:
 	for i in playerInventoryItemsContainer.get_children():
 		playerInventoryItemsContainer.remove_child(i)
 
+func check_all_states() -> void:
+	if !current_node.composting:
+		current_node.stop_compost()
+		current_node.total_items = 0
+		current_node.composting_value = 0
+
 func open(node:Node2D) -> void:
 	node.compost_items = {}
 	current_node = node
@@ -154,7 +162,16 @@ func open(node:Node2D) -> void:
 	get_compost_items()
 	clear_compost_items()
 	check_state_button()
+	check_all_states()
 	compostingProcessLabel.text = tr("Выберите отходы для начала компостирования.")
+	print(
+		"menuAccess: ",current_node.menuAccess, "\n",
+		"composting: ",current_node.composting, "\n",
+		"composting_value: ",current_node.composting_value, "\n",
+		"compost_items: ",current_node.compost_items, "\n",
+		"highQuality: ",current_node.highQuality, "\n",
+		"total_items: ",current_node.total_items, "\n",
+	)
 
 func close() -> void:
 	opened = false

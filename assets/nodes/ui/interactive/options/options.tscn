@@ -200,6 +200,7 @@ custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 16
+disabled = true
 text = "Язык: Русский"
 
 [node name="SaveChangesButton" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons"]

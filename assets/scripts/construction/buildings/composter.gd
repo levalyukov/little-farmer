@@ -14,6 +14,7 @@ extends Node2D
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var compostMenu:Control = get_node("/root/"+main+"/UI/Interactive/ComposterMenu")
+@onready var buttonDestroy:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
 @onready var sprite:Sprite2D = $Sprite2D
 @onready var timer:Timer = $Timer
 
@@ -35,12 +36,14 @@ var object:Dictionary = {
 		"shadow" = load("res://assets/resources/buildings/composter/shadow.png"),
 		"state" = {
 			"idle" = {
-				"default" = preload('res://assets/resources/buildings/composter/idle_0.png'),
-				"hovered" = preload('res://assets/resources/buildings/composter/idle_1.png'),
+				"default" = load('res://assets/resources/buildings/composter/idle_0.png'),
+				"hovered" = load('res://assets/resources/buildings/composter/idle_1.png'),
+				"delete" = load('res://assets/resources/buildings/composter/idle_2.png')
 			},
 			"work" = {
-				"default" = preload('res://assets/resources/buildings/composter/active_0.png'),
-				"hovered" = preload('res://assets/resources/buildings/composter/active_1.png'),
+				"default" = load('res://assets/resources/buildings/composter/active_0.png'),
+				"hovered" = load('res://assets/resources/buildings/composter/active_1.png'),
+				"delete" = load('res://assets/resources/buildings/composter/active_2.png')
 			}
 		}
 	},
@@ -54,6 +57,7 @@ func _input(event):
 	&& event.button_index == MOUSE_BUTTON_LEFT\
 	&& event.is_pressed()\
 	&& !blur.state\
+	&& !buttonDestroy.destroyMode\
 	&& menuAccess:
 		compostMenu.open(self)
 		menuAccess = false
@@ -83,19 +87,26 @@ func _input(event):
 						data.debug("'"+str(self.name) + "': There is no 'work' key.", "error")
 		if tip:
 			tip.tooltip()
+	else:
+		if event is InputEventMouseButton\
+		&& event.button_index == MOUSE_BUTTON_LEFT\
+		&& event.is_pressed()\
+		&& !blur.state\
+		&& buttonDestroy.destroyMode:
+			pass
 
 func update():
 	if clock:
 		if object.has(level):
 			if composting:
 				if object[level]["state"].has("work"):
-					if object[level]["state"]['work'].has("hovered"):
-						if object[level]["state"]['work']["hovered"] is CompressedTexture2D:
-							sprite.texture = object[level]["state"]['work']["hovered"]
+					if object[level]["state"]['work'].has("default"):
+						if object[level]["state"]['work']["default"] is CompressedTexture2D:
+							sprite.texture = object[level]["state"]['work']["default"]
 						else:
-							data.debug("'"+str(self.name) + "': 'hovered' is not a CompressedTexture2D.", "error")
+							data.debug("'"+str(self.name) + "': 'default' is not a CompressedTexture2D.", "error")
 					else:
-						data.debug("'"+str(self.name) + "': There is no 'hovered' key.", "error")
+						data.debug("'"+str(self.name) + "': There is no 'default' key.", "error")
 				else:
 					data.debug("'"+str(self.name) + "': There is no 'work' key.", "error")
 			else:
@@ -118,42 +129,72 @@ func get_data() -> Dictionary:
 			"level": level,
 			"value": composting_value,
 			"position": tilemap.local_to_map(position),
-			"id": blueprint_id
+			"id": blueprint_id,
+			"state": composting,
+			"total_items": total_items
 			}
 	return {}
 
 func _on_area_2d_mouse_entered() -> void:
-	menuAccess = true
-	if !blur.state:
-		var distance = round(global_position.distance_to(player.global_position))
-		if grid.mode == grid.modes.NOTHING and distance < building.max_distance:
-			if object.has(level):
-				if object[level].has("state"):
-					if composting:
-						if object[level]["state"].has("work"):
-							if object[level]["state"]['work'].has("hovered"):
-								if object[level]["state"]['work']["hovered"] is CompressedTexture2D:
-									sprite.texture = object[level]["state"]['work']["hovered"]
+	if !buttonDestroy.destroyMode:
+		menuAccess = true
+		if !blur.state:
+			var distance = round(global_position.distance_to(player.global_position))
+			if grid.mode == grid.modes.NOTHING and distance < building.max_distance:
+				if object.has(level):
+					if object[level].has("state"):
+						if composting:
+							if object[level]["state"].has("work"):
+								if object[level]["state"]['work'].has("hovered"):
+									if object[level]["state"]['work']["hovered"] is CompressedTexture2D:
+										sprite.texture = object[level]["state"]['work']["hovered"]
+									else:
+										data.debug("'"+str(self.name) + "': 'hovered' is not a CompressedTexture2D.", "error")
 								else:
-									data.debug("'"+str(self.name) + "': 'hovered' is not a CompressedTexture2D.", "error")
+									data.debug("'"+str(self.name) + "': There is no 'hovered' key.", "error")
 							else:
-								data.debug("'"+str(self.name) + "': There is no 'hovered' key.", "error")
+								data.debug("'"+str(self.name) + "': There is no 'work' key.", "error")
 						else:
-							data.debug("'"+str(self.name) + "': There is no 'work' key.", "error")
-					else:
-						if object[level]["state"].has("idle"):
-							if object[level]["state"]['idle'].has("hovered"):
-								if object[level]["state"]['idle']["hovered"] is CompressedTexture2D:
-									sprite.texture = object[level]["state"]['idle']["hovered"]
+							if object[level]["state"].has("idle"):
+								if object[level]["state"]['idle'].has("hovered"):
+									if object[level]["state"]['idle']["hovered"] is CompressedTexture2D:
+										sprite.texture = object[level]["state"]['idle']["hovered"]
+									else:
+										data.debug("'"+str(self.name) + "': 'hovered' is not a CompressedTexture2D.", "error")
 								else:
-									data.debug("'"+str(self.name) + "': 'hovered' is not a CompressedTexture2D.", "error")
+									data.debug("'"+str(self.name) + "': There is no 'hovered' key.", "error")
 							else:
-								data.debug("'"+str(self.name) + "': There is no 'hovered' key.", "error")
+								data.debug("'"+str(self.name) + "': There is no 'idle' key.", "error")
+				if tip:
+					tip.tooltip(str(object[level]["caption"]) + "\n" +str(object[level]["description"]))
+	if buttonDestroy.destroyMode:
+		if !blur.state:
+			var distance = round(global_position.distance_to(player.global_position))
+			if grid.mode == grid.modes.NOTHING and distance < building.max_distance:
+				if object.has(level):
+					if object[level].has("state"):
+						if composting:
+							if object[level]["state"].has("work"):
+								if object[level]["state"]['work'].has("delete"):
+									if object[level]["state"]['work']["delete"] is CompressedTexture2D:
+										sprite.texture = object[level]["state"]['work']["delete"]
+									else:
+										data.debug("'"+str(self.name) + "': 'delete' is not a CompressedTexture2D.", "error")
+								else:
+									data.debug("'"+str(self.name) + "': There is no 'delete' key.", "error")
+							else:
+								data.debug("'"+str(self.name) + "': There is no 'work' key.", "error")
 						else:
-							data.debug("'"+str(self.name) + "': There is no 'idle' key.", "error")
-			if tip:
-				tip.tooltip(str(object[level]["caption"]) + "\n" +str(object[level]["description"]))
-
+							if object[level]["state"].has("idle"):
+								if object[level]["state"]['idle'].has("delete"):
+									if object[level]["state"]['idle']["delete"] is CompressedTexture2D:
+										sprite.texture = object[level]["state"]['idle']["delete"]
+									else:
+										data.debug("'"+str(self.name) + "': 'delete' is not a CompressedTexture2D.", "error")
+								else:
+									data.debug("'"+str(self.name) + "': There is no 'delete' key.", "error")
+							else:
+								data.debug("'"+str(self.name) + "': There is no 'idle' key.", "error")
 func _on_area_2d_mouse_exited() -> void:
 	menuAccess = false
 	if object.has(level):
@@ -192,4 +233,7 @@ func stop_compost() -> void:
 	timer.stop()
 
 func _on_timer_timeout():
-	composting_value += randf_range(0.01, 5.0)
+	if composting_value >= 100:
+		timer.stop()
+	else:
+		composting_value += randf_range(0.01, 5.0)

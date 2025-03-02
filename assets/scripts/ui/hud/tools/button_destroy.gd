@@ -35,6 +35,7 @@ func _on_button_pressed() -> void:
 	if !pause.paused\
 	&& hud.visible\
 	&& !destroyMode:
+		grid.mode = grid.modes.NOTHING
 		destroyMode = true
 		hud.hud_all_hide()
 

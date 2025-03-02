@@ -430,7 +430,21 @@ func load_buildings() -> void:
 							var sprite_id = file_load(file.buildings)[i]["sprite_id"]
 							node.set_sign_sprite(int(sprite_id))
 				if file_load(file.buildings)[i].has("value"):
-					pass
+					for node in buildings.get_children():
+						if i == node.name:
+							match remove_suffix(i):
+								"composter":
+									if file_load(file.buildings)[i].has("total_items")\
+									&& file_load(file.buildings)[i].has("state"):
+										node.composting = file_load(file.buildings)[i]['state']
+										node.composting_value = file_load(file.buildings)[i]['value']
+										node.update()
+										node.start_compost(file_load(file.buildings)[i]['total_items'])
+								"lamp_post":
+									node.light.visible = file_load(file.buildings)[i]['value']
+									node.update()
+								_:
+									pass
 	else:
 		debug("load_buildings(): Empty dictionary.", "error")
 

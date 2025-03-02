@@ -12,7 +12,7 @@ extends Node2D
 @onready var buildings:Node2D = get_node("/root/"+main+"/ConstructionManager")
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
-
+@onready var buttonDestroy:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
 @onready var sprite:Sprite2D = $Sprite2D
 
 var clicked:bool = false
@@ -27,18 +27,22 @@ var object:Dictionary = {
 			"spring" = {
 				"default" = load("res://assets/resources/buildings/well/level_1/spring/object_0.png"),
 				"hovered" = load("res://assets/resources/buildings/well/level_1/spring/object_1.png"),
+				"delete" = load("res://assets/resources/buildings/well/level_1/spring/object_2.png")
 			},
 			"summer" = {
 				"default" = load("res://assets/resources/buildings/well/level_1/summer/object_0.png"),
 				"hovered" = load("res://assets/resources/buildings/well/level_1/summer/object_1.png"),
+				"delete" = load("res://assets/resources/buildings/well/level_1/summer/object_2.png")
 			},
 			"autumn" = {
 				"default" = load("res://assets/resources/buildings/well/level_1/autumn/object_0.png"),
 				"hovered" = load("res://assets/resources/buildings/well/level_1/autumn/object_1.png"),
+				"delete" = load("res://assets/resources/buildings/well/level_1/autumn/object_2.png")
 			},
 			"winter" = {
 				"default" = load("res://assets/resources/buildings/well/level_1/winter/object_0.png"),
 				"hovered" = load("res://assets/resources/buildings/well/level_1/winter/object_1.png"),
+				"delete" = load("res://assets/resources/buildings/well/level_1/winter/object_2.png")
 			},
 		}
 	}
@@ -122,8 +126,19 @@ func _change_sprite(type:bool) -> void:
 
 func _on_area_2d_mouse_entered():
 	if !blur.state\
-	&& grid.mode == grid.modes.NOTHING:
+	&& grid.mode == grid.modes.NOTHING\
+	&& !buttonDestroy.destroyMode:
 		_change_sprite(true)
+	if !blur.state\
+	&& grid.mode == grid.modes.NOTHING\
+	&& buttonDestroy.destroyMode:
+		if object.has(level):
+			if object[level].has("seasons"):
+				var season = clock.get_season()
+				if object[level]["seasons"].has(season):
+					if object[level]["seasons"][season].has("delete"):
+						if object[level]["seasons"][season]["delete"] is CompressedTexture2D:
+							sprite.texture = object[level]["seasons"][season]["delete"]
 
 func _on_area_2d_mouse_exited():
 	_change_sprite(false)

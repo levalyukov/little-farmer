@@ -1,3 +1,6 @@
+CollisionShape2D
+Area2D
+TileMap
 NinePatchRect
 TextureRect
 ColorRect
@@ -10,5 +13,3 @@ Label
 Node2D
 Node
 HSlider
-CodeEdit
-CheckButton

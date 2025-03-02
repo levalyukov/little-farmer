@@ -116,11 +116,12 @@ func _change_sprite(type:bool) -> void:
 			tip.tooltip("")
 
 func _on_area_2d_mouse_entered() -> void:
-	if !blur.state\
-	&&grid.mode == grid.modes.NOTHING:
-		var distance = round(global_position.distance_to(player.global_position))
-		if distance < building.max_distance:
-			_change_sprite(true)
+	if visible:
+		if !blur.state\
+		&& grid.mode == grid.modes.NOTHING:
+			var distance = round(global_position.distance_to(player.global_position))
+			if distance < building.max_distance:
+				_change_sprite(true)
 
 func _on_area_2d_mouse_exited() -> void:
 	_change_sprite(false)

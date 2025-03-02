@@ -14,6 +14,7 @@ extends Node2D
 @onready var buildings:Node2D = get_node("/root/"+main+"/ConstructionManager")
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
+@onready var buttonDestroy:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
 @onready var sprite:Sprite2D = $Sprite2D
 
 var menu:bool = false
@@ -81,7 +82,8 @@ func update_shadow() -> void:
 
 func _on_area_2d_mouse_entered() -> void:
 	if !blur.state\
-	&& grid.mode == grid.modes.NOTHING:
+	&& grid.mode == grid.modes.NOTHING\
+	&& !buttonDestroy.destroyMode:
 		var distance = round(global_position.distance_to(player.global_position))
 		if distance < building.max_distance:
 			if object.has("seasons"):

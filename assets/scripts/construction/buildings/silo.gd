@@ -11,6 +11,7 @@ extends Node2D
 @onready var canvas:Node = get_node("/root/"+main+"/ShadowManager")
 @onready var buildings:Node2D = get_node("/root/"+main+"/ConstructionManager")
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
+@onready var buttonDestroy:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
 @onready var sprite:Sprite2D = $Sprite2D
 
 var max_distance:int = 250
@@ -26,18 +27,22 @@ var object:Dictionary = {
 			"spring" = {
 				"default" = load("res://assets/resources/buildings/silo/level_1/spring/object_0.png"),
 				"hovered" = load("res://assets/resources/buildings/silo/level_1/spring/object_1.png"),
+				"delete" = load("res://assets/resources/buildings/silo/level_1/spring/object_2.png")
 			},
 			"summer" = {
 				"default" = load("res://assets/resources/buildings/silo/level_1/summer/object_0.png"),
 				"hovered" = load("res://assets/resources/buildings/silo/level_1/summer/object_1.png"),
+				"delete" = load("res://assets/resources/buildings/silo/level_1/summer/object_2.png")
 			},
 			"autumn" = {
 				"default" = load("res://assets/resources/buildings/silo/level_1/autumn/object_0.png"),
 				"hovered" = load("res://assets/resources/buildings/silo/level_1/autumn/object_1.png"),
+				"delete" = load("res://assets/resources/buildings/silo/level_1/autumn/object_2.png")
 			},
 			"winter" = {
 				"default" = load("res://assets/resources/buildings/silo/level_1/winter/object_0.png"),
 				"hovered" = load("res://assets/resources/buildings/silo/level_1/winter/object_1.png"),
+				"delete" = load("res://assets/resources/buildings/silo/level_1/winter/object_2.png")
 			},
 		}
 	},
@@ -102,7 +107,7 @@ func _change_sprite(type:bool):
 				tip.tooltip(
 					str(object[level]["caption"]) + "\n" +
 					str(object[level]["description"]) + "\n" +
-					str(level_text) + str(level)
+					str(level_text) + ": " + str(level)
 					)
 	else:
 		if object.has(level):
@@ -130,8 +135,19 @@ func load_data(obj_level:int) -> void:
 
 func _on_collision_mouse_entered():
 	if !blur.state\
-	&& grid.mode == grid.modes.NOTHING:
+	&& grid.mode == grid.modes.NOTHING\
+	&& !buttonDestroy.destroyMode:
 		_change_sprite(true)
+	if !blur.state\
+	&& grid.mode == grid.modes.NOTHING\
+	&& buttonDestroy.destroyMode:
+		if object.has(level):
+			if object[level].has("seasons"):
+				var season = clock.get_season()
+				if object[level]["seasons"].has(season):
+					if object[level]["seasons"][season].has("delete"):
+						if object[level]["seasons"][season]["delete"] is CompressedTexture2D:
+							sprite.texture = object[level]["seasons"][season]["delete"]
 
 func _on_collision_mouse_exited():
 	_change_sprite(false)
