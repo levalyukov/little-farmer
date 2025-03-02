@@ -13,10 +13,7 @@
 shader = ExtResource("1_8w4wf")
 
 [sub_resource type="LabelSettings" id="LabelSettings_6tlru"]
-font_size = 18
-shadow_size = 2
-shadow_color = Color(0, 0, 0, 0.196078)
-shadow_offset = Vector2(0, 2)
+font_color = Color(1, 1, 1, 0.784314)
 
 [sub_resource type="Animation" id="Animation_b10bj"]
 length = 0.001
@@ -224,7 +221,6 @@ layout_mode = 2
 root_node = NodePath("../../..")
 
 [node name="DestroyMenuMargin" type="MarginContainer" parent="Main"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_bottom = 90
 
@@ -245,23 +241,31 @@ layout_mode = 2
 [node name="AnimationTools" type="AnimationPlayer" parent="Main/Tools"]
 root_node = NodePath("../../..")
 
+[node name="Label2" type="Label" parent="Main"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Альфа-тест — Игра в разработке"
+label_settings = SubResource("LabelSettings_6tlru")
+vertical_alignment = 1
+
 [node name="AreaName" type="MarginContainer" parent="Main"]
 layout_mode = 2
 mouse_filter = 2
 script = ExtResource("9_jpol3")
 
 [node name="Label" type="Label" parent="Main/AreaName"]
+visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_vertical = 8
-text = "AREA.NAME"
+text = "Игра в разработке"
 label_settings = SubResource("LabelSettings_6tlru")
-horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Timer" type="Timer" parent="Main/AreaName"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Main/AreaName"]
+active = false
 libraries = {
 "": SubResource("AnimationLibrary_ehbeg")
 }

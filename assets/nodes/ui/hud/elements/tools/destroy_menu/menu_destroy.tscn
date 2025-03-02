@@ -1,11 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://bynrpq8bqkokr"]
+[gd_scene load_steps=10 format=3 uid="uid://bynrpq8bqkokr"]
 
 [ext_resource type="Script" path="res://assets/scripts/ui/hud/tools/destroy_menu/destroy_menu.gd" id="1_0el1c"]
 [ext_resource type="PackedScene" uid="uid://dioui6ad7xdkd" path="res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_trash.tscn" id="1_v1rcw"]
 [ext_resource type="Texture2D" uid="uid://c3yf44sxb8a8o" path="res://assets/resources/ui/menu_background_middle.png" id="2_i2s4e"]
 [ext_resource type="PackedScene" uid="uid://c8ag0gf3jieeo" path="res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_axe.tscn" id="2_pqk25"]
 [ext_resource type="PackedScene" uid="uid://8yb0kfe6oh6x" path="res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_pickaxe.tscn" id="3_5530s"]
-[ext_resource type="PackedScene" uid="uid://5l4506nneg48" path="res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_bomb.tscn" id="4_0yop0"]
 
 [sub_resource type="Animation" id="Animation_4cltc"]
 length = 0.001
@@ -107,6 +106,7 @@ script = ExtResource("1_0el1c")
 
 [node name="Panel" type="NinePatchRect" parent="."]
 layout_mode = 2
+offset_left = 74.0
 offset_top = -4.0
 offset_right = 294.0
 offset_bottom = 84.0
@@ -118,7 +118,7 @@ patch_margin_bottom = 12
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-offset_left = 11.0
+offset_left = 82.0
 offset_top = 6.0
 offset_right = 282.0
 offset_bottom = 85.0
@@ -137,9 +137,6 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="ButtonPickaxe" parent="MarginContainer/HBoxContainer" instance=ExtResource("3_5530s")]
-layout_mode = 2
-
-[node name="ButtonDestroyBomb" parent="MarginContainer/HBoxContainer" instance=ExtResource("4_0yop0")]
 layout_mode = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

@@ -15,6 +15,8 @@ extends Node2D
 @onready var buttonDestroy:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
 @onready var sprite:Sprite2D = $Sprite2D
 
+var destroyMode:bool = false
+var all_collisions:Array[Vector2i] = []
 var clicked:bool = false
 var level:int = 1
 var blueprint_id:int = 0
@@ -54,6 +56,14 @@ func _input(event):
 		&& event.button_index == MOUSE_BUTTON_LEFT\
 		&& event.is_pressed():
 			clicked = true
+
+	if event is InputEventMouseButton\
+	&& event.button_index == MOUSE_BUTTON_LEFT\
+	&& event.is_pressed()\
+	&& !blur.state\
+	&& destroyMode\
+	&& buttonDestroy.destroyMode:
+		buildings.remove_node(self, all_collisions)
 
 func _ready():
 	update()
@@ -124,6 +134,7 @@ func _change_sprite(type:bool) -> void:
 		if tip:
 			tip.tooltip("")
 
+
 func _on_area_2d_mouse_entered():
 	if !blur.state\
 	&& grid.mode == grid.modes.NOTHING\
@@ -132,6 +143,7 @@ func _on_area_2d_mouse_entered():
 	if !blur.state\
 	&& grid.mode == grid.modes.NOTHING\
 	&& buttonDestroy.destroyMode:
+		destroyMode = true
 		if object.has(level):
 			if object[level].has("seasons"):
 				var season = clock.get_season()
@@ -142,6 +154,8 @@ func _on_area_2d_mouse_entered():
 
 func _on_area_2d_mouse_exited():
 	_change_sprite(false)
+	if destroyMode:
+		destroyMode = !true
 
 func get_data() -> Dictionary:
 	if object.has(level):

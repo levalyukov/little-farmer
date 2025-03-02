@@ -9,9 +9,9 @@ extends MarginContainer
 var state:bool = false
 const time:int = 5
 
-func _ready():
-	await get_tree().create_timer(1.5).timeout
-	show_area_name()
+#	func _ready():
+#		await get_tree().create_timer(1.5).timeout
+#		show_area_name()
 
 func show_area_name():
 	state = true

@@ -11,12 +11,15 @@ extends Node2D
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
+@onready var buildings:Node2D = get_node("/root/"+main+"/ConstructionManager")
 @onready var buttonDestroy:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
 @onready var icon:TextureRect = $TextureRect
 @onready var sprite:Sprite2D = $Sprite2D
 
 const level:int = 0
 
+var destroyMode:bool = false
+var all_collisions:Array[Vector2i] = []
 var items = Items.new()
 var sprite_id:int = 0
 var blueprint_id:int = 0
@@ -81,6 +84,14 @@ func _input(event):
 	&& open_menu:
 		sign_menu._open(name)
 
+	if event is InputEventMouseButton\
+	&& event.button_index == MOUSE_BUTTON_LEFT\
+	&& event.is_pressed()\
+	&& !blur.state\
+	&& destroyMode\
+	&& buttonDestroy.destroyMode:
+		buildings.remove_node(self, all_collisions)
+
 func _change_sprite(type:bool) -> void:
 	if type:
 		var distance = round(global_position.distance_to(player.global_position))
@@ -125,6 +136,7 @@ func _on_area_2d_mouse_entered() -> void:
 	if !blur.state\
 	&& grid.mode == grid.modes.NOTHING\
 	&& buttonDestroy.destroyMode:
+		destroyMode = true
 		if object.has(level):
 			if object[level].has("seasons"):
 				var season = clock.get_season()
@@ -135,3 +147,5 @@ func _on_area_2d_mouse_entered() -> void:
 
 func _on_area_2d_mouse_exited() -> void:
 	_change_sprite(false)
+	if destroyMode:
+		destroyMode = !true

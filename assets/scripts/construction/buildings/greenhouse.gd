@@ -17,6 +17,8 @@ extends Node2D
 @onready var blackout:Control = get_node("/root/"+main+"/UI/Decorative/Blackout")
 @onready var sprite:Sprite2D = $Sprite2D
 
+var destroyMode:bool = false
+var all_collisions:Array[Vector2i] = []
 var greenhouse_open:bool = false
 var menu:bool = false
 var level:int = 1
@@ -137,6 +139,14 @@ func _input(event):
 		blackout.blackout(true)
 		blackout.change_scene("res://levels/greenhouse.tscn")
 
+	if event is InputEventMouseButton\
+	&& event.button_index == MOUSE_BUTTON_LEFT\
+	&& event.is_pressed()\
+	&& !blur.state\
+	&& destroyMode\
+	&& buttonDestroy.destroyMode:
+		buildings.remove_node(self, all_collisions)
+
 func _on_area_2d_mouse_entered() -> void:
 	if !blur.state\
 	&& grid.mode == grid.modes.NOTHING\
@@ -147,6 +157,7 @@ func _on_area_2d_mouse_entered() -> void:
 	if !blur.state\
 	&& grid.mode == grid.modes.NOTHING\
 	&& buttonDestroy.destroyMode:
+		destroyMode = true
 		if object.has(level):
 			if object[level].has("seasons"):
 				var season = clock.get_season()
@@ -159,3 +170,5 @@ func _on_area_2d_mouse_exited() -> void:
 	_change_sprite(false)
 	if greenhouse_open:
 		greenhouse_open = !true
+	if destroyMode:
+		destroyMode = !true

@@ -63,6 +63,7 @@ const sceneConfig = {
 }
 
 func _ready():
+	#open_folder_windows('C:/Users/leval/Desktop/LittleFarmer-main')
 	if main == "Farm":
 		# Game Load
 		if GameLoader.mode\
@@ -661,7 +662,7 @@ func start_newgame() -> void:
 	config_load()
 	mailbox.letter(
 		# 	Header
-		"",
+		"Test",
 		# 	Description
 		"",	
 		# 	Author
@@ -673,6 +674,20 @@ func start_newgame() -> void:
 			1:{"amount":100},
 		}
 	)
+
+	remove_game_files()
+
+func remove_game_files() -> void:
+	FileSystem.new().delete_folder("user://.game/data")
+
+#	func open_folder_windows(folder_path:String) -> void:
+#		var target_path = folder_path#ProjectSettings.globalize_path(folder_path)
+#		var dir = DirAccess.open(target_path)
+#		print(target_path)
+#		if dir:
+#			OS.execute("explorer", ['"' + target_path + '"'], [], false)
+#		else:
+#			print("Папка не существует: ", target_path)
 
 # Greenhouse
 func greenhouse_get_data(greenhouseNodeName:String) -> void:

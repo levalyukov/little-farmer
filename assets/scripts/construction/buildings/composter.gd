@@ -18,6 +18,8 @@ extends Node2D
 @onready var sprite:Sprite2D = $Sprite2D
 @onready var timer:Timer = $Timer
 
+var destroyMode:bool = false
+var all_collisions:Array[Vector2i] = []
 var menu:bool = false
 var level:int = 1
 var blueprint_id:int = 0
@@ -58,6 +60,7 @@ func _input(event):
 	&& event.is_pressed()\
 	&& !blur.state\
 	&& !buttonDestroy.destroyMode\
+	&& grid.mode == grid.modes.NOTHING\
 	&& menuAccess:
 		compostMenu.open(self)
 		menuAccess = false
@@ -92,8 +95,9 @@ func _input(event):
 		&& event.button_index == MOUSE_BUTTON_LEFT\
 		&& event.is_pressed()\
 		&& !blur.state\
+		&& destroyMode\
 		&& buttonDestroy.destroyMode:
-			pass
+			buildings.remove_node(self, all_collisions)
 
 func update():
 	if clock:
@@ -169,6 +173,7 @@ func _on_area_2d_mouse_entered() -> void:
 					tip.tooltip(str(object[level]["caption"]) + "\n" +str(object[level]["description"]))
 	if buttonDestroy.destroyMode:
 		if !blur.state:
+			destroyMode = true
 			var distance = round(global_position.distance_to(player.global_position))
 			if grid.mode == grid.modes.NOTHING and distance < building.max_distance:
 				if object.has(level):
@@ -197,6 +202,7 @@ func _on_area_2d_mouse_entered() -> void:
 								data.debug("'"+str(self.name) + "': There is no 'idle' key.", "error")
 func _on_area_2d_mouse_exited() -> void:
 	menuAccess = false
+	destroyMode = !true
 	if object.has(level):
 		if object[level].has("state"):
 			if composting:

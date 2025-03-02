@@ -30,7 +30,7 @@ var check:bool = false
 var mode:int = modes.NOTHING
 var destroy_mode:int = destroy.NOTHING
 enum modes {NOTHING, DESTROY, FARMING, PLANTING, WATERING, HARVESTING, FERTILIZER, BUILD, TERRAIN_SET, UPGRADE}
-enum destroy {NOTHING, TRASH, AXE, PICKAXE, BOMB}
+enum destroy {NOTHING, TERRAINS, NATURE}
 
 # plant config
 var plantID
@@ -54,64 +54,56 @@ func _process(_delta):
 		var tile_mouse_pos = tilemap.local_to_map(mouse_pos)
 		match mode:
 			modes.DESTROY:
-				collision.destroy_collision_check(destroy_mode)
-				if destroy_mode == destroy.TRASH\
-				|| destroy_mode == destroy.AXE\
-				|| destroy_mode == destroy.PICKAXE:
-					grid_dimensions = Vector2i(1,1)
-					for i in collision.get_children():
-						var grid_position = tilemap.local_to_map(i.get_global_position())
-						var natural_node = collision.get_nature(grid_position)
-						var natural_node_name = data.remove_suffix(collision.get_nature_name(grid_position))
-						if i.texture != collision.error:
-							if natural_node != null:
-								if natural_node.health > 0:
-									if check:
-										natural_node.health -= 1
-								else:
-									if natural_resources.content.has(natural_node_name):
-										if natural_resources.content[natural_node_name].has("item_id")\
-										&& natural_resources.content[natural_node_name].has("item_count"):
-											var item_amount = natural_resources.content[natural_node_name]["item_count"]
-											inventory.add_item(
-												natural_resources.content[natural_node_name]["item_id"], 
-												randi_range(item_amount[0], item_amount[1])
-												)
-									nature.remove_child(collision.get_nature(grid_position))
-									shadows.remove_child(collision.get_shadow(tilemap.map_to_local(grid_position)))
-									tilemap.erase_cell(collision.nature_layer, grid_position)	
-							if collision.check_cell(grid_position, collision.crops_layer):
-								if check:
-									tilemap.erase_cell(collision.crops_layer, grid_position)
-									farming.plant_destroy(grid_position)
-				else:
-					match destroy_mode:
-						destroy.BOMB:
+				match destroy_mode:
+					destroy.TERRAINS:
+						collision.terrain_check()
+						if check:
 							for i in collision.get_children():
 								var grid_position = tilemap.local_to_map(i.get_global_position())
-								if i.texture != collision.error:
-									if check:
-										if collision.check_cell(grid_position, collision.road_layer):
-											tilemap.set_cells_terrain_connect(
-												collision.road_layer, 
-												[grid_position], 
-												collision.terrain_set, 
-												-1
-											)
-										if collision.check_cell(grid_position, collision.water_layer)\
-										&& collision.check_cell(grid_position, collision.coast_layer):
-											tilemap.set_cells_terrain_connect(
-												collision.water_layer, 
-												[grid_position], 
-												collision.terrain_set, 
-												-1
-											)
-											tilemap.set_cells_terrain_connect(
-												collision.coast_layer, 
-												[grid_position], 
-												collision.terrain_set, 
-												-1
-											)
+								match collision.terrain_check():
+									0:
+										tilemap.set_cells_terrain_connect(collision.road_layer,[grid_position],0,-1)
+									1:
+										tilemap.set_cells_terrain_connect(collision.farmland_layer,[grid_position],0,-1)
+									2:
+										tilemap.set_cells_terrain_connect(collision.watering_layer,[grid_position],0,-1)
+									3:
+										tilemap.set_cells_terrain_connect(collision.coast_layer,[grid_position],0,-1)
+										tilemap.set_cells_terrain_connect(collision.water_layer,[grid_position],0,-1)
+					destroy.NATURE:
+						collision.nature_check()
+						if check:
+							for i in collision.get_children():
+								var grid_position = tilemap.local_to_map(i.get_global_position())
+								match collision.nature_check():
+									1: # tree
+										for a in nature.get_children():
+											if grid_position == tilemap.local_to_map(a.position):
+												nature.remove_child(a)
+										for b in shadows.get_children():
+											if grid_position == tilemap.local_to_map(b.position):
+												shadows.remove_child(b) 
+										inventory.add_item(1, randi_range(1,5))
+									2: # weed
+										for a in nature.get_children():
+											if grid_position == tilemap.local_to_map(a.position):
+												nature.remove_child(a)
+										for b in shadows.get_children():
+											if grid_position == tilemap.local_to_map(b.position):
+												shadows.remove_child(b) 
+									3: # stone
+										for a in nature.get_children():
+											if grid_position == tilemap.local_to_map(a.position):
+												nature.remove_child(a)
+										for b in shadows.get_children():
+											if grid_position == tilemap.local_to_map(b.position):
+												shadows.remove_child(b) 
+										inventory.add_item(3, randi_range(1,10))
+									4: # plant
+										tilemap.erase_cell(collision.crops_layer, grid_position)
+										farming.plant_destroy(grid_position)
+									_:
+										pass
 				check = false
 				
 			modes.FARMING:

@@ -51,9 +51,6 @@ func _ready():
 	check_window()
 	reset_data()
 	delete_letters()
-	while test_index < 10+1:
-		letter("Letter #"+str(test_index))
-		test_index+=1
 
 func _process(_delta) -> void:
 	if visible:

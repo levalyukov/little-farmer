@@ -164,14 +164,6 @@ func open(node:Node2D) -> void:
 	check_state_button()
 	check_all_states()
 	compostingProcessLabel.text = tr("Выберите отходы для начала компостирования.")
-	print(
-		"menuAccess: ",current_node.menuAccess, "\n",
-		"composting: ",current_node.composting, "\n",
-		"composting_value: ",current_node.composting_value, "\n",
-		"compost_items: ",current_node.compost_items, "\n",
-		"highQuality: ",current_node.highQuality, "\n",
-		"total_items: ",current_node.total_items, "\n",
-	)
 
 func close() -> void:
 	opened = false

@@ -18,6 +18,8 @@ extends Node2D
 @onready var sprite:Sprite2D = $Sprite2D
 @onready var light:PointLight2D = $Light
 
+var destroyMode:bool = false
+var all_collisions:Array[Vector2i] = []
 var blueprint_id:int = 0
 var object:Dictionary = {
 	"shadow" = load("res://assets/resources/buildings/lamp_post/shadow.png"),
@@ -32,6 +34,15 @@ const lightOff:int = 6
 
 func _ready():
 	update()
+
+func _input(event):
+	if event is InputEventMouseButton\
+	&& event.button_index == MOUSE_BUTTON_LEFT\
+	&& event.is_pressed()\
+	&& !blur.state\
+	&& destroyMode\
+	&& buttonDestroy.destroyMode:
+		buildings.remove_node(self, all_collisions)
 
 func update():
 	if clock:
@@ -76,6 +87,7 @@ func _on_area_2d_mouse_entered():
 	if !blur.state\
 	&& grid.mode == grid.modes.NOTHING\
 	&& buttonDestroy.destroyMode:
+		destroyMode = true
 		if light.visible:
 			if object.has("lighting_delete"):
 				if object["lighting_delete"] is CompressedTexture2D:
@@ -89,6 +101,7 @@ func _on_area_2d_mouse_exited():
 	if !blur.state\
 	&& grid.mode == grid.modes.NOTHING\
 	&& buttonDestroy.destroyMode:
+		destroyMode = true
 		if light.visible:
 			if object.has("lighting"):
 				if object["lighting"] is CompressedTexture2D:

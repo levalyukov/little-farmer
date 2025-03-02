@@ -5,7 +5,7 @@ extends Node2D
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
-@onready var building:Node2D = get_node("/root/"+main+"/ConstructionManager")
+@onready var buildings:Node2D = get_node("/root/"+main+"/ConstructionManager")
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid") 
@@ -14,6 +14,8 @@ extends Node2D
 @onready var buttonDestroy:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
 @onready var sprite:Sprite2D = $Sprite2D
 
+var destroyMode:bool = false
+var all_collisions:Array[Vector2i] = []
 var level:int = 1
 var blueprint_id:int = 0
 var object:Dictionary = {
@@ -74,7 +76,7 @@ func update():
 func _change_sprite(type:bool):
 	if type:
 		var distance = round(global_position.distance_to(player.global_position))
-		if grid.mode == grid.modes.NOTHING and distance < building.max_distance:
+		if grid.mode == grid.modes.NOTHING && distance < buildings.max_distance:
 			if object.has(level):
 				if object.has(level):
 					if object[level].has("seasons"):
@@ -114,6 +116,15 @@ func _change_sprite(type:bool):
 		if tip:
 			tip.tooltip("")
 
+func _input(event):
+	if event is InputEventMouseButton\
+	&& event.button_index == MOUSE_BUTTON_LEFT\
+	&& event.is_pressed()\
+	&& !blur.state\
+	&& destroyMode\
+	&& buttonDestroy.destroyMode:
+		buildings.remove_node(self, all_collisions)
+
 func get_data() -> Dictionary:
 	if object.has(level):
 		return {
@@ -135,6 +146,7 @@ func _on_area_2d_mouse_entered():
 	if !blur.state\
 	&& grid.mode == grid.modes.NOTHING\
 	&& buttonDestroy.destroyMode:
+		destroyMode = true
 		if object.has(level):
 			if object[level].has("seasons"):
 				var season = clock.get_season()
@@ -145,3 +157,5 @@ func _on_area_2d_mouse_entered():
 
 func _on_area_2d_mouse_exited():
 	_change_sprite(false)
+	if destroyMode:
+		destroyMode = !true

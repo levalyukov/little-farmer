@@ -5,6 +5,7 @@ extends Node2D
 @onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
 @onready var buildings:Node = get_node("/root/"+main+"/ConstructionManager")
 @onready var shadows:Node = get_node("/root/"+main+"/ShadowManager")
+@onready var shadows_node:Node = get_node("/root/"+main+"/ShadowManager/CanvasGroup")
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
@@ -41,12 +42,13 @@ func create_node(id:int, vector:Vector2i, node_name:String = "") -> void:
 							if blueprints.content["nodes"][id]["config"].has("shadow"):
 								if blueprints.content["nodes"][id]["config"]["shadow"] is PackedScene:
 									shadows.create_shadow_node(
-										blueprints.content["nodes"][id]["config"]["name"],
+										blueprints.content["nodes"][id]["config"]["name"]+"_1",
 										blueprints.content["nodes"][id]["config"]["shadow"],
 										vector
 									)
 
 							if collision.get_children().size() > 0:
+								var all_collisions:Array[Vector2i] = []
 								for i in collision.get_children():
 									tilemap.set_cell(
 										collision.building_layer, 
@@ -56,7 +58,8 @@ func create_node(id:int, vector:Vector2i, node_name:String = "") -> void:
 										0, 
 										Vector2i(0,3)
 									)
-									
+									all_collisions.append(tilemap.local_to_map(i.get_global_position()))
+								node.all_collisions = all_collisions
 							else:
 								for x in range(blueprints.content["nodes"][id]["config"]["area"].x):
 									for y in range(blueprints.content["nodes"][id]["config"]["area"].y):
@@ -71,3 +74,19 @@ func create_node(id:int, vector:Vector2i, node_name:String = "") -> void:
 											0, 
 											Vector2i(0,3)
 										)
+
+func remove_node(node:Node2D, vectors:Array[Vector2i]) -> void:
+	for nodes in self.get_children():
+		if nodes == node:
+			for i in vectors:
+				if i == tilemap.local_to_map(nodes.position):
+					remove_child(node)
+
+	for i in shadows_node.get_children():
+		if i.name == node.name:
+			for v in vectors:
+				if v == tilemap.local_to_map(i.position):
+					shadows_node.remove_child(i)
+
+	for i in vectors:
+		tilemap.set_cell(collision.building_layer, i, -1)

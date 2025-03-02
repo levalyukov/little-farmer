@@ -32,10 +32,11 @@ func _input(event):
 			hud.hud_all_show()
 
 func _on_button_pressed() -> void:
-	if !pause.paused\
-	&& hud.visible\
-	&& !destroyMode:
-		grid.mode = grid.modes.NOTHING
-		destroyMode = true
-		hud.hud_all_hide()
+	if has_node("/root/"+main+"/ConstructionManager")\
+	&& has_node("/root/"+main+"/ConstructionManager/Grid"):
+		if !blur.state:
+			if !destroy_menu.opened:
+				destroy_menu.open()
+			else:
+				destroy_menu.close()
 

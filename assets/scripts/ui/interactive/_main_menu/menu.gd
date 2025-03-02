@@ -97,7 +97,8 @@ func _on_exit_button_pressed():
 		get_tree().quit()
 
 func remove_all_game_files() -> void:
-	print("Test")
+	pass
+	#	print("Test")
 
 func modal_create() -> void:
 	modal.modal_create(
