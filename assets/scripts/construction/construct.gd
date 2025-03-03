@@ -42,7 +42,7 @@ func create_node(id:int, vector:Vector2i, node_name:String = "") -> void:
 							if blueprints.content["nodes"][id]["config"].has("shadow"):
 								if blueprints.content["nodes"][id]["config"]["shadow"] is PackedScene:
 									shadows.create_shadow_node(
-										blueprints.content["nodes"][id]["config"]["name"]+"_1",
+										node_name,
 										blueprints.content["nodes"][id]["config"]["shadow"],
 										vector
 									)
