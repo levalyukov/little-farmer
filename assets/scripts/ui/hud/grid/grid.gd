@@ -82,7 +82,8 @@ func _process(_delta):
 												nature.remove_child(a)
 										for b in shadows.get_children():
 											if grid_position == tilemap.local_to_map(b.position):
-												shadows.remove_child(b) 
+												shadows.remove_child(b)
+										tilemap.erase_cell(collision.nature_layer, grid_position) 
 										inventory.add_item(1, randi_range(1,5))
 									2: # weed
 										for a in nature.get_children():
@@ -90,14 +91,16 @@ func _process(_delta):
 												nature.remove_child(a)
 										for b in shadows.get_children():
 											if grid_position == tilemap.local_to_map(b.position):
-												shadows.remove_child(b) 
+												shadows.remove_child(b)
+										tilemap.erase_cell(collision.nature_layer, grid_position) 
 									3: # stone
 										for a in nature.get_children():
 											if grid_position == tilemap.local_to_map(a.position):
 												nature.remove_child(a)
 										for b in shadows.get_children():
 											if grid_position == tilemap.local_to_map(b.position):
-												shadows.remove_child(b) 
+												shadows.remove_child(b)
+										tilemap.erase_cell(collision.nature_layer, grid_position) 
 										inventory.add_item(3, randi_range(1,10))
 									4: # plant
 										tilemap.erase_cell(collision.crops_layer, grid_position)
@@ -248,7 +251,7 @@ func _process(_delta):
 					if collision.collisions_check():
 						if blueprints.content.has(group):
 							if blueprints.content[group].has(id):
-								building.create_node(id, tile_mouse_pos)
+								building.create_node(id, tile_mouse_pos, blueprints.content[group][id]['config']['name']+"_")
 								if data_resources != {}:
 									inventory.subject_item(data_resources)
 				check = false
