@@ -135,7 +135,8 @@ func get_data() -> Dictionary:
 			"position": tilemap.local_to_map(position),
 			"id": blueprint_id,
 			"state": composting,
-			"total_items": total_items
+			"total_items": total_items,
+			'all_collisions': all_collisions
 			}
 	return {}
 
