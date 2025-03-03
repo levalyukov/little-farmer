@@ -121,11 +121,13 @@ func get_data() -> Dictionary:
 			"sprite_id": sprite_id,
 			"id": blueprint_id,
 			"position": tilemap.local_to_map(position),
+			'all_collisions': all_collisions
 			}
 	else:
 		return {
 			"id": blueprint_id,
 			"position": tilemap.local_to_map(position),
+			'all_collisions': all_collisions
 			}
 
 func _on_area_2d_mouse_entered() -> void:
