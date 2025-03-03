@@ -27,7 +27,8 @@ func _ready():
 func get_data() -> Dictionary:
     return {
         "position": tilemap.local_to_map(self.position),
-        "id": blueprint_id
+        "id": blueprint_id,
+		'all_collisions': all_collisions
     }
 
 func _input(event):
