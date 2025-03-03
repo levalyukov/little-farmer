@@ -156,11 +156,11 @@ func get_data(group:String, id:int) -> void:
 							button.id = id
 							button.group = group
 			else:
-				pass
+				return
 		else:
-			pass
+			return
 	else:
-		pass
+		return
 
 func update_button_state() -> void:
 	match section:
