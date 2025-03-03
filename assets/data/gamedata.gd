@@ -421,15 +421,26 @@ func load_buildings() -> void:
 					string_to_vector(file_load(file.buildings)[i]["position"]),
 					i
 				)
+
 				if file_load(file.buildings)[i].has("level"):
 					for node in buildings.get_children():
 						if i == node.name:
 							node.level = file_load(file.buildings)[i]["level"]
+					
 				if file_load(file.buildings)[i].has("sprite_id"):
 					for node in buildings.get_children():
 						if i == node.name:
 							var sprite_id = file_load(file.buildings)[i]["sprite_id"]
 							node.set_sign_sprite(int(sprite_id))
+
+				if file_load(file.buildings)[i].has("all_collisions"):
+					for node in buildings.get_children():
+						if i == node.name:
+							var target_vectors:Array[Vector2i] = []	
+							for a in file_load(file.buildings)[i]['all_collisions']:
+								target_vectors.append(string_to_vector(a))
+							node.all_collisions = target_vectors
+
 				if file_load(file.buildings)[i].has("value"):
 					for node in buildings.get_children():
 						if i == node.name:
