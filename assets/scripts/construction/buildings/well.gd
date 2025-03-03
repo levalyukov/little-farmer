@@ -162,6 +162,7 @@ func get_data() -> Dictionary:
 		return {
 			"id": blueprint_id,
 			"position": tilemap.local_to_map(position),
-			"level": level
+			"level": level,
+			'all_collisions': all_collisions
 		}
 	return {}
