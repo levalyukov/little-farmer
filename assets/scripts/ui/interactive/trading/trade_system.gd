@@ -22,6 +22,7 @@ extends Control
 @onready var trade_window_button:Button = $Content/TradeWindow/TradeWindow/VBoxContainer/ButtonContainer/Button
 @onready var trader_inventory_main:GridContainer = $Content/TraderInventory/TraderContainer/VBoxContainer/MarginContainer/GridContainer
 @onready var trader_inventory_container:MarginContainer = $Content/TraderInventory/TraderContainer/VBoxContainer/MarginContainer
+@onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var anim:AnimationPlayer = $Animation
 
 var window_visible:bool = false
@@ -109,11 +110,19 @@ func create_all_items(type:String = "all") -> void:
 			slots_trader_to_create = []
 			current_trader_slot_index = 0
 			var items = Items.new()
-			for item in traders.content[trader_id]['inventory']:
-				if items.content.has(int(item)):
-					if traders.content[trader_id]['inventory'][item].has("amount"):
-						if traders.content[trader_id]['inventory'][item]["amount"] > 0:
-							slots_trader_to_create.append(item)
+			#for item in traders.content[trader_id]['inventory']:
+			#	if items.content.has(int(item)):
+			#		if traders.content[trader_id]['inventory'][item].has("amount"):
+			#			if traders.content[trader_id]['inventory'][item]["amount"] > 0:
+			#				slots_trader_to_create.append(item)
+			if traders.content[trader_id].has('invenotry'):
+				if traders.content[trader_id]['inventory'].has('seasons'):
+					if traders.content[trader_id]['inventory']['seasons'].has(clock.get_season()):
+						for item in traders.content[trader_id]['inventory']['seasons'][clock.get_season()]:
+							if traders.content[trader_id]['inventory']['seasons'][clock.get_season()][item].has("amount"):
+								if traders.content[trader_id]['inventory']['seasons'][clock.get_season()][item]["amount"] > 0:
+									slots_trader_to_create.append(item)
+
 
 			if slots_trader_to_create.size() > 0:
 				trader_inventory_container.visible = true
