@@ -625,4 +625,14 @@ var content:Dictionary = {
 			"reducing": 10.0, # %
 		},
 	},
+	# Blueprints
+	63: {
+		"caption": tr("Чертеж"),
+		"description": tr(""),
+		"type": "Удобрения",
+		"item_type": "fertilizer",
+		"purchase": 1,
+		"sale": 100,
+		"icon": load("res://assets/resources/ui/interactive/inventory/items/high_fertilizer.png"),
+	}
 }
