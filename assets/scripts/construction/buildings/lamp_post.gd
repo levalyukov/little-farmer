@@ -80,7 +80,8 @@ func get_data() -> Dictionary:
 	return {
 		"value": light.visible,
 		"position": tilemap.local_to_map(position),
-		"id": blueprint_id
+		"id": blueprint_id,
+		'all_collisions': all_collisions
 		}
 
 func _on_area_2d_mouse_entered():
@@ -101,7 +102,7 @@ func _on_area_2d_mouse_exited():
 	if !blur.state\
 	&& grid.mode == grid.modes.NOTHING\
 	&& buttonDestroy.destroyMode:
-		destroyMode = true
+		destroyMode = !true
 		if light.visible:
 			if object.has("lighting"):
 				if object["lighting"] is CompressedTexture2D:
