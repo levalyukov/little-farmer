@@ -6,7 +6,7 @@ extends Control
 
 const maximum:int = 999_999_999
 const minimum:int = 0
-var money:int = 1000
+var money:int = 0
 
 func _ready():
 	icon.texture = sprite
