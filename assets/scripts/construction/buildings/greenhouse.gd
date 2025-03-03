@@ -125,7 +125,8 @@ func _change_sprite(type:bool) -> void:
 func get_data() -> Dictionary:
 	return {
 		"position": tilemap.local_to_map(position),
-		"id": blueprint_id
+		"id": blueprint_id,
+		'all_collisions': all_collisions
 	}
 
 func _input(event):
