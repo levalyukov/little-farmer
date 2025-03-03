@@ -45,8 +45,8 @@ var index:int
 var section:String = "all"
 var opened:bool = false
 var all_items:bool
-var terrains_blueprints:Array[int] = [1,2,3,4,5,6,7,8,9,10]
-var node_blueprints:Array[int] = [1,2,3,4,5,6,7,8,9,10]
+var terrains_blueprints:Array[int] = [1,2,3,5]
+var node_blueprints:Array[int] = []
 var upgrade_blueprints:Array[int] = []
 
 var items:Object = Items.new()
@@ -407,3 +407,27 @@ func _on_button_all_blueprints_pressed():
 	update_button_state()
 	remove_all_blueprints()
 	create_all_blueprints()
+
+func add_blueprints(blueprintID:int, blueprintType:String) -> void:
+	if !blueprints.has(blueprintID):
+		match blueprintType.to_lower():
+			"terrain":
+				terrains_blueprints.append(blueprintID)
+			"node":
+				node_blueprints.append(blueprintID)
+			"upgrade":
+				upgrade_blueprints.append(blueprintID)
+			_:
+				return
+
+func remove_blueprints(blueprintID:int, blueprintType:String) -> void:
+	if blueprints.has(blueprintID):
+		match blueprintType.to_lower():
+			"terrain":
+				terrains_blueprints.erase(blueprintID)
+			"node":
+				node_blueprints.erase(blueprintID)
+			"upgrade":
+				upgrade_blueprints.erase(blueprintID)
+			_:
+				return
