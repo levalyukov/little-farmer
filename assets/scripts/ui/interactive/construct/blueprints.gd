@@ -6,9 +6,9 @@ class_name Blueprints
 var content:Dictionary = {
 	"terrains": {
 		1: {
-			"caption" = "Тропинки",
+			"caption" = tr("Тропинки"),
 			"description" = "",
-			"icon" = null,#preload(""),
+			"icon" = load("res://assets/resources/ui/interactive/construct/roads.png"),
 			"config" = {
 				"terrain" = [0],
 				"required_layer" = [1],
@@ -16,9 +16,9 @@ var content:Dictionary = {
 			}
 		},
 		2: {
-			"caption" = "Вода",
+			"caption" = tr("Вода"),
 			"description" = "",
-			"icon" = null,#preload(""),
+			"icon" = load("res://assets/resources/ui/interactive/construct/water.png"),
 			"config" = {
 				"terrain" = [3,4],
 				"required_layer" = [3,5],
@@ -29,8 +29,8 @@ var content:Dictionary = {
 	
 	"nodes": {
 		1: {
-			"caption" = "Деревянный знак",
-			"description" = "Позволяет разместить изображение любого предмета.",
+			"caption" = tr("Деревянный знак"),
+			"description" = tr("Позволяет разместить изображение любого предмета."),
 			"icon" = preload("res://assets/resources/buildings/sign/summer/object_0.png"),
 			"config" = {
 				"name" = "sign",
@@ -43,8 +43,8 @@ var content:Dictionary = {
 			}
 		},
 		2: {
-			"caption" = "Компостер",
-			"description" = "Ящик для приготовления удобрения.",
+			"caption" = tr("Компостер"),
+			"description" = tr("Ящик для приготовления удобрения."),
 			"icon" = preload("res://assets/resources/buildings/composter/idle_0.png"),
 			"config" = {
 				"name" = "composter",
@@ -57,8 +57,8 @@ var content:Dictionary = {
 			}
 		},
 		3: {
-			"caption" = "Колодец",
-			"description" = "Позволяет пополять лейку.",
+			"caption" = tr("Колодец"),
+			"description" = tr("Позволяет пополять лейку."),
 			"icon" = preload("res://assets/resources/buildings/well/icon.png"),
 			"config" = {
 				"name" = "well",
@@ -71,8 +71,8 @@ var content:Dictionary = {
 			}
 		},
 		4: {
-			"caption" = "Хлев",
-			"description" = "Место для содержания скота.",
+			"caption" = tr("Хлев"),
+			"description" = tr("Место для содержания скота."),
 			"icon" = preload("res://assets/resources/buildings/stall/level_1/summer/object_0.png"),
 			"config" = {
 				"name" = "animal_stall",
@@ -85,8 +85,8 @@ var content:Dictionary = {
 			}
 		},
 		5: {
-			"caption" = "Силосная башня",
-			"description" = "Высокое и вместительное хранилище для кормов.",
+			"caption" = tr("Силосная башня"),
+			"description" = tr("Высокое и вместительное хранилище для кормов."),
 			"icon" = preload("res://assets/resources/buildings/silo/level_1/summer/object_0.png"),
 			"config" = {
 				"name" = "silo",
@@ -99,8 +99,8 @@ var content:Dictionary = {
 			}
 		},
 		6: {
-			"caption" = "Теплица",
-			"description" = "Тёплое помещение для разведения и выращивания растений.",
+			"caption" = tr("Теплица"),
+			"description" = tr("Тёплое помещение для разведения и выращивания растений."),
 			"icon" = preload("res://assets/resources/buildings/greenhouse/level_1/summer/object_0.png"),
 			"config" = {
 				"name" = "greenhouse",
@@ -111,8 +111,8 @@ var content:Dictionary = {
 			}
 		},
 		7: {
-			"caption" = "Фонарный столб",
-			"description" = "Источник света для вашей фермы.",
+			"caption" = tr("Фонарный столб"),
+			"description" = tr("Источник света для вашей фермы."),
 			"icon" = preload("res://assets/resources/buildings/lamp_post/object_1.png"),
 			"config" = {
 				"name" = "lamp_post",
@@ -125,8 +125,8 @@ var content:Dictionary = {
 			}
 		},
 		8: {
-			"caption" = "Дорожка из больших камней",
-			"description" = "",
+			"caption" = tr("Дорожка из больших камней"),
+			"description" = tr(""),
 			"icon" = preload("res://assets/resources/buildings/path_of_large_stones/object_0.png"),
 			"config" = {
 				"name" = "lamp_post",
