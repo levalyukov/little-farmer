@@ -211,11 +211,14 @@ patch_margin_right = 8
 patch_margin_bottom = 8
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Main/MainContent/InfoContent"]
-custom_minimum_size = Vector2(0, 400)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -256,6 +259,14 @@ theme_override_constants/margin_bottom = 0
 
 [node name="Description" type="Label" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/DescriptionContainer"]
 layout_mode = 2
+text = "resourcesasdasda
+sd
+sadasdaa
+sd
+asd
+asd
+
+dasdad"
 autowrap_mode = 3
 
 [node name="ResourcesContainer" type="MarginContainer" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer"]
@@ -265,6 +276,7 @@ theme_override_constants/margin_right = 25
 
 [node name="Resources" type="Label" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ResourcesContainer"]
 layout_mode = 2
+text = "resources"
 autowrap_mode = 3
 
 [node name="TimeContainer" type="MarginContainer" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer"]

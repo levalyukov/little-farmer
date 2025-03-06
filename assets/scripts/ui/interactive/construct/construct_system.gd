@@ -46,7 +46,7 @@ var section:String = "all"
 var opened:bool = false
 var all_items:bool
 var terrains_blueprints:Array[int] = [1,2,3,5]
-var node_blueprints:Array[int] = []
+var node_blueprints:Array[int] = [1,2,3,4,5,6,7,8,9,10]
 var upgrade_blueprints:Array[int] = []
 
 var items:Object = Items.new()
@@ -105,7 +105,6 @@ func get_data(group:String, id:int) -> void:
 		if blueprints.content[group].has(id):
 			if blueprints.content[group][id].has("config"):
 				index = id
-				section = group
 				reset_data()
 				if blueprints.content[group][id].has("icon"):
 					if blueprints.content[group][id]["icon"] is CompressedTexture2D:
@@ -127,7 +126,14 @@ func get_data(group:String, id:int) -> void:
 
 				if blueprints.content[group][id].has("description"):
 					if blueprints.content[group][id]["description"] is String:
-						description.text = blueprints.content[group][id]["description"]
+						if blueprints.content[group][id].has('config'):
+							if blueprints.content[group][id]["config"].has("resources"):
+								if blueprints.content[group][id]["config"]["resources"] != {}:
+									description.text = blueprints.content[group][id]["description"] + tr("\n\nТребуемые ресурсы:")
+							else:
+								description.text = blueprints.content[group][id]["description"]
+						else:
+							description.text = blueprints.content[group][id]["description"]
 						description.visible = true
 					else:
 						description.visible = false
@@ -186,7 +192,7 @@ func get_all_required_items(group:String, id:int) -> void:
 			var resource_name = items.content[i]["caption"]
 			var required_amount = blueprints.content[group][id]["config"]["resources"][i]["amount"]
 			var available_amount = inventory.get_item_amount(i)
-			resources.text += "• " + str(resource_name) + " (" + str(available_amount) + "/" + str(required_amount) + ")"
+			resources.text += "• " + str(resource_name) + " (" + str(available_amount) + "/" + str(required_amount) + ")\n"
 
 func check_all_required_items(group:String, id:int) -> void:
 	all_items = true

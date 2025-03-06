@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://boitxnv4ptxu6"]
+[gd_scene load_steps=18 format=3 uid="uid://boitxnv4ptxu6"]
 
 [ext_resource type="PackedScene" uid="uid://cyl6jw0huwvk6" path="res://assets/nodes/ui/interactive/pause/pause.tscn" id="1_i05ju"]
 [ext_resource type="PackedScene" uid="uid://bhadiamik4ev0" path="res://assets/nodes/ui/interactive/options/options.tscn" id="2_o0hgi"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dmrj3nbdfyut" path="res://assets/nodes/ui/feedback/tooltip.tscn" id="11_r363a"]
 [ext_resource type="PackedScene" uid="uid://cipgdxgpuslcv" path="res://assets/nodes/ui/feedback/notifications/notifications.tscn" id="12_3qrnm"]
 [ext_resource type="PackedScene" uid="uid://b02tx1nhggapw" path="res://assets/nodes/ui/composter_menu.tscn" id="12_q63jo"]
+[ext_resource type="PackedScene" uid="uid://dd01cpmdrnrbt" path="res://assets/nodes/ui/stone_oven_menu.tscn" id="14_btd4p"]
 
 [node name="UI" type="CanvasLayer"]
 
@@ -34,6 +35,8 @@ z_index = 1
 mouse_filter = 2
 
 [node name="Interactive" type="Node" parent="."]
+
+[node name="StoneOvenMenu" parent="Interactive" instance=ExtResource("14_btd4p")]
 
 [node name="Pause" parent="Interactive" instance=ExtResource("1_i05ju")]
 z_index = 2

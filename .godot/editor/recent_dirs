@@ -1,9 +1,12 @@
+res://assets/nodes/buildings
+res://assets/scripts/ui
+res://assets/resources/ui
+res://assets/nodes/ui
+res://assets/scripts/construction/buildings
 res://assets/scripts/farming
 res://assets/resources
 res://assets/data
 res://assets/scripts/world/nature
-res://assets/nodes/buildings
-res://assets/scripts/construction/buildings
 res://assets/resources/buildings/metal_cheap_fence
 res://assets/nodes/world
 res://assets/scripts/construction
@@ -13,11 +16,8 @@ res://assets/resources/buildings/composter
 E:/Games
 E:/Games/LittleFarmer
 res://
-res://assets/scripts/ui
-res://assets/nodes/ui
 res://assets/resources/buildings/graves/grave_1
 res://assets/resources/buildings/greenhouse/level_1
 res://assets/resources/buildings/sign/summer
 res://assets/resources/buildings/stall/level_1
-res://assets/resources/world/trees
 D:/Microsoft VS Code

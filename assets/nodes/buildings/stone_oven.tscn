@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://ctp6kk825l53r"]
+
+[ext_resource type="Texture2D" uid="uid://jgh8pvlwcj88" path="res://assets/resources/buildings/stone_oven/object_0.png" id="1_713hf"]
+[ext_resource type="Script" path="res://assets/scripts/construction/buildings/stone_oven.gd" id="1_wjpgj"]
+[ext_resource type="Texture2D" uid="uid://1r8kos7xjwxc" path="res://assets/resources/buildings/house/smoke.png" id="2_2d6ty"]
+
+[sub_resource type="Curve" id="Curve_vc5du"]
+max_value = 200.0
+_data = [Vector2(0.00816326, 200), 0.0, 0.0, 0, 0, Vector2(0.946939, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_xvm6h"]
+_data = [Vector2(0.0489796, 1), 0.0, 0.0, 0, 0, Vector2(0.906122, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nu65w"]
+size = Vector2(16, 16)
+
+[node name="stone_oven" type="Node2D"]
+script = ExtResource("1_wjpgj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("1_713hf")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+visible = false
+position = Vector2(0, -24)
+amount = 5
+lifetime = 2.5
+speed_scale = 0.5
+lifetime_randomness = 0.05
+texture = ExtResource("2_2d6ty")
+gravity = Vector2(-5, -25)
+angular_velocity_min = -8.8
+angular_velocity_max = 9.6
+tangential_accel_min = 1.65
+tangential_accel_max = 11.15
+scale_amount_min = 0.25
+anim_speed_max = 19.37
+anim_speed_curve = SubResource("Curve_vc5du")
+anim_offset_max = 0.3025
+anim_offset_curve = SubResource("Curve_xvm6h")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_nu65w")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

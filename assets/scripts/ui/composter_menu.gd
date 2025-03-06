@@ -27,6 +27,7 @@ var slots_to_create:Array = []
 var current_node:Node2D
 var items:Object = Items.new()
 var opened:bool = false
+
 func _ready():
 	close()
 

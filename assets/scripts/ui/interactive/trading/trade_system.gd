@@ -58,7 +58,12 @@ func _process(_delta) -> void:
 		if slots_inventory_to_create.size() > 0 && current_inventory_slot_index < slots_inventory_to_create.size():
 			for i in range(1):
 				if current_inventory_slot_index < slots_inventory_to_create.size():
-					item_create(initiators.PLAYER, inventory.inventory_items, player_inventory_main, slots_inventory_to_create[current_inventory_slot_index])
+					item_create(
+							initiators.PLAYER, 
+							inventory.inventory_items, 
+							player_inventory_main, 
+							slots_inventory_to_create[current_inventory_slot_index]
+						)
 					current_inventory_slot_index += 1
 				else:
 					break
@@ -66,7 +71,12 @@ func _process(_delta) -> void:
 		if slots_trader_to_create.size() > 0 && current_trader_slot_index < slots_trader_to_create.size():
 			for i in range(1):
 				if current_trader_slot_index < slots_trader_to_create.size():
-					item_create(initiators.TRADER, traders.content[trader_id]["inventory"], trader_inventory_main, slots_trader_to_create[current_trader_slot_index])
+					item_create(
+							initiators.TRADER, 
+							traders.content[trader_id]["inventory"]['seasons'][clock.get_season()], 
+							trader_inventory_main, 
+							slots_trader_to_create[current_trader_slot_index]
+						)
 					current_trader_slot_index += 1
 				else:
 					break
@@ -87,11 +97,14 @@ func create_all_items(type:String = "all") -> void:
 						if inventory.inventory_items[item]["amount"] > 0:
 							slots_inventory_to_create.append(item)
 
-			for item in traders.content[trader_id]['inventory']:
-				if items.content.has(int(item)):
-					if traders.content[trader_id]['inventory'][item].has("amount"):
-						if traders.content[trader_id]['inventory'][item]["amount"] > 0:
-							slots_trader_to_create.append(item)
+			if traders.content[trader_id].has('inventory'):
+				if traders.content[trader_id]['inventory'].has('seasons'):
+					if traders.content[trader_id]['inventory']['seasons'].has(clock.get_season()):
+						for item in traders.content[trader_id]['inventory']['seasons'][clock.get_season()]:
+							if items.content.has(int(item)):
+								if traders.content[trader_id]['inventory']['seasons'][clock.get_season()][item].has("amount"):
+									if traders.content[trader_id]['inventory']['seasons'][clock.get_season()][item]["amount"] > 0:
+										slots_trader_to_create.append(item)
 
 			if slots_trader_to_create.size() > 0:
 				trader_inventory_container.visible = true
@@ -110,19 +123,14 @@ func create_all_items(type:String = "all") -> void:
 			slots_trader_to_create = []
 			current_trader_slot_index = 0
 			var items = Items.new()
-			#for item in traders.content[trader_id]['inventory']:
-			#	if items.content.has(int(item)):
-			#		if traders.content[trader_id]['inventory'][item].has("amount"):
-			#			if traders.content[trader_id]['inventory'][item]["amount"] > 0:
-			#				slots_trader_to_create.append(item)
-			if traders.content[trader_id].has('invenotry'):
+			if traders.content[trader_id].has('inventory'):
 				if traders.content[trader_id]['inventory'].has('seasons'):
 					if traders.content[trader_id]['inventory']['seasons'].has(clock.get_season()):
 						for item in traders.content[trader_id]['inventory']['seasons'][clock.get_season()]:
-							if traders.content[trader_id]['inventory']['seasons'][clock.get_season()][item].has("amount"):
-								if traders.content[trader_id]['inventory']['seasons'][clock.get_season()][item]["amount"] > 0:
-									slots_trader_to_create.append(item)
-
+							if items.content.has(int(item)):
+								if traders.content[trader_id]['inventory']['seasons'][clock.get_season()][item].has("amount"):
+									if traders.content[trader_id]['inventory']['seasons'][clock.get_season()][item]["amount"] > 0:
+										slots_trader_to_create.append(item)
 
 			if slots_trader_to_create.size() > 0:
 				trader_inventory_container.visible = true
@@ -210,10 +218,10 @@ func set_item_trade_window(item_id, slot_arg, amount:int = 1) -> void:
 					trade_content[item_id]["amount"] = amount
 			else:
 				if trade_content[item_id]["amount"] >= 1:
-					if trade_content[item_id]["amount"] + amount < traders.content[trader_id]["inventory"][item_id]["amount"]:
+					if trade_content[item_id]["amount"] + amount < traders.content[trader_id]["inventory"]['seasons'][clock.get_season()][item_id]["amount"]:
 						trade_content[item_id]["amount"] += amount
 					else:
-						trade_content[item_id]["amount"] = traders.content[trader_id]["inventory"][item_id]["amount"]
+						trade_content[item_id]["amount"] = traders.content[trader_id]["inventory"]['seasons'][clock.get_season()][item_id]["amount"]
 			clear_trade_window()
 			get_items_trade_window()
 	update_button_trade_window()
@@ -242,7 +250,7 @@ func add_item_trade_window(item_id, slot_arg, amount:int = 1) -> void:
 					trade_content[item_id]["amount"] = amount
 			else:
 				if trade_content[item_id]["amount"] >= 1:
-					if trade_content[item_id]["amount"] < traders.content[trader_id]["inventory"][item_id]["amount"]:
+					if trade_content[item_id]["amount"] < traders.content[trader_id]["inventory"]['seasons'][clock.get_season()][item_id]["amount"]:
 						trade_content[item_id]["amount"] += amount
 			clear_trade_window()
 			get_items_trade_window()

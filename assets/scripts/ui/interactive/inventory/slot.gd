@@ -11,6 +11,7 @@ extends Control
 @onready var buildings:Node = get_node("/root/"+main+"/ConstructionManager")
 @onready var composterMenu:Control = get_node("/root/"+main+"/UI/Interactive/ComposterMenu")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
+@onready var stoneMenu:Control = get_node("/root/"+main+"/UI/Interactive/StoneOvenMenu")
 @onready var icon:TextureRect = $Button/Icon
 @onready var amount_label:Label = $Button/Amount
 
@@ -107,16 +108,31 @@ func _on_button_mouse_entered():
 							data.debug("The 'caption' key is missing.", "error")
 					else:
 						data.debug("Invalid item ID: " + str(id), "warning")
+	
+	if has_node("/root/"+main+"/UI/Interactive/StoneOvenMenu"):
+		if stoneMenu.visible:
+				if id:
+					if item.content.has(int(id)):
+						if item.content[int(id)].has("caption"):
+							tip.tooltip(
+								item.content[int(id)]["caption"]
+								)
+						else:
+							data.debug("The 'caption' key is missing.", "error")
+					else:
+						data.debug("Invalid item ID: " + str(id), "warning")
 
 func _on_button_mouse_exited():
 	if has_node("/root/"+main+"/UI/Interactive/Mailbox")\
 	|| has_node("/root/"+main+"/UI/Interactive/BuildingsMenu/SignMenu")\
 	|| has_node("/root/"+main+"/UI/Interactive/TradeMenu")\
-	|| has_node("/root/"+main+"/UI/Interactive/ComposterMenu"):
+	|| has_node("/root/"+main+"/UI/Interactive/ComposterMenu")\
+	|| has_node("/root/"+main+"/UI/Interactive/StoneOvenMenu"):
 		if mailbox.opened\
 		|| signmenu.opened\
 		|| trade_menu.opened\
-		|| composterMenu.opened:
+		|| composterMenu.opened\
+		|| stoneMenu.opened:
 			tip.tooltip("")
 
 func _on_button_pressed():
@@ -202,3 +218,9 @@ func _on_button_pressed():
 					else:
 						composterMenu.remove_item_compost(id, round(amount/4))
 						composterMenu.check_state_button()
+	
+	if has_node("/root/"+main+"/UI/Interactive/StoneOvenMenu"):
+		if stoneMenu.visible:
+			if !stoneMenu.target_node.inProcessed:
+				stoneMenu.add_item(id)
+				stoneMenu.check_button_state()
