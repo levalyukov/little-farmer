@@ -10,7 +10,7 @@ extends Control
 
 @onready var header:Label = $Panel/VBox/HeaderMargin/Label
 @onready var oreIcon:TextureRect = $Panel/VBox/MarginContainer/MarginContainer/HBoxContainer/OreContainer/TextureRect
-@onready var coalIcon:TextureRect = $Panel/VBox/MarginContainer/MarginContainer/HBoxContainer/CoalContainer/TextureRect
+@onready var fuelIcon:TextureRect = $Panel/VBox/MarginContainer/MarginContainer/HBoxContainer/CoalContainer/TextureRect
 @onready var ignotIcon:TextureRect = $Panel/VBox/MarginContainer/MarginContainer/HBoxContainer/IgnorContainer/TextureRect
 @onready var labelStatus:Label = $Panel/VBox/MainInfo/VBoxContainer/MarginContainer/LabelStatus
 @onready var meltButton:Button = $Panel/VBox/MainInfo/VBoxContainer/MeltButton
@@ -46,6 +46,9 @@ var fuel_having:bool = false
 var ignot_having:bool = false
 var target_node:Node2D
 
+func _ready():
+	close()
+
 func _process(_delta) -> void:
 	if visible:
 		# Creating slots
@@ -58,20 +61,51 @@ func _process(_delta) -> void:
 					break
 
 		if target_node:
+			if target_node.isDone:
+				if !ignotIcon.visible:
+					ignotIcon.visible = true
+					ignotIcon.texture = items.content[target_node.ignot_id]['icon']
+					ore_id = 0
+					fuel_id = 0
+					ore_amount = 0
+					fuel_amount = 0
+				if target_node.ignot_amount > 1:
+					ignotAmountLabel.text = "x"+str(target_node.ignot_amount)
+			
 			if target_node.inProcessed:
 				meltButton.visible = false
 				playerInventoryMargin.visible = false
-				var formatted_value = "%.2f" % target_node.value_process
-				labelStatus.text = tr("Плавка") + "\n(%s%%)" % formatted_value	
+				if target_node.value_process <= 100.0:
+					var formatted_value = "%.2f" % target_node.value_process
+					labelStatus.text = tr("Плавка") + "\n(%s%%)" % formatted_value
+				else:
+					labelStatus.text = tr("Слиток готов.")
 			else:
 				meltButton.visible = !false
 
 		if ore_amount > 0:
 			oreAmountLabel.text = "x"+str(ore_amount)
+		else:
+			oreIcon.modulate = Color(0.8, 0.8, 0.8, 0.49)
+			oreAmountLabel.text = ''
 		if fuel_amount > 0:
 			fuelAmountLabel.text = "x"+str(fuel_amount)
+		else:
+			fuelIcon.modulate = Color(0.8, 0.8, 0.8, 0.49)
+			fuelAmountLabel.text = ''
 		if ignot_amount > 0:
 			ignotAmountLabel.text = "x"+str(ignot_amount)
+		else:
+			ignotAmountLabel.text = ''
+
+func set_result(id) -> void:
+	pass
+
+func get_result() -> int:
+	if target_node:
+		if items.content.has(target_node.ignot_id):
+			return target_node.ignot_id
+	return 0
 
 func add_item(id) -> void:
 	if items.content.has(id):
@@ -94,8 +128,8 @@ func add_item(id) -> void:
 						if inventory.inventory_items[id].has('amount'):
 							if inventory.inventory_items[id]['amount'] >= ORE_THRESHOLD:							
 								fuel_having = true
-								coalIcon.modulate = Color(1, 1, 1)
-								coalIcon.texture = items.content[id]['icon']
+								fuelIcon.modulate = Color(1, 1, 1)
+								fuelIcon.texture = items.content[id]['icon']
 								if fuel_id == id:
 									fuel_amount += 5
 								else:
@@ -106,7 +140,7 @@ func remove_item(id) -> void:
 	if items.content[id].has('item_type'):
 		match items.content[id]['item_type']:
 			'ore':
-				if ore_amount > 1:
+				if ore_amount > 0:
 					ore_amount -= 5
 				else:
 					oreIcon.texture = ORE_SLOT_DEFAULT
@@ -115,11 +149,11 @@ func remove_item(id) -> void:
 					ore_id = 0
 					ore_amount = 0
 			'fuel':
-				if fuel_amount > 1:
+				if fuel_amount > 0:
 					fuel_amount -= 5
 				else:
-					coalIcon.texture = FUEL_SLOT_DEFAULT
-					coalIcon.modulate = Color(0.8, 0.8, 0.8, 0.49)
+					fuelIcon.texture = FUEL_SLOT_DEFAULT
+					fuelIcon.modulate = Color(0.8, 0.8, 0.8, 0.49)
 					fuel_having = !true
 					fuel_id = 0
 					fuel_amount = 0
@@ -130,7 +164,6 @@ func item_create(id) -> void:
 		if inventory.inventory_items[id]["amount"] > 0:
 			playerInventory.add_child(slot)
 			slot.set_data(id, inventory.inventory_items[id]["amount"])
-			slot.cmpst_type = 0
 
 func get_special_items() -> void:
 	for z in playerInventory.get_children():
@@ -149,11 +182,12 @@ func check_button_state() -> void:
 	if !target_node.inProcessed:
 		meltButton.text = tr('Переплавить')
 		if (ore_id > 0 && ore_amount >= ORE_THRESHOLD)\
-		&& (fuel_id > 0 && fuel_amount >= FUEL_THRESHOLD):
+		&& (fuel_id > 0 && fuel_amount >= FUEL_THRESHOLD)\
+		&& ore_amount == fuel_amount:
 			meltButton.disabled = false
 		else:
 			meltButton.disabled = !false
-	else:
+	if target_node.isDone:
 		meltButton.text = tr('Получить слиток')
 		meltButton.disabled = false
 
@@ -162,13 +196,56 @@ func open(node:Node2D) -> void:
 	blur.blur(true)
 	target_node = node
 	get_special_items()
+	check_button_state()
 	anim.play('open')
+	if get_result() != 0:
+		ignotIcon.visible = true
+		ignotIcon.texture = items.content[get_result()]['icon']
+	else:
+		ignotIcon.visible = !true
+	if !target_node.inProcessed:
+		labelStatus.text = tr('Выберите из инвентаря уголь и руду для переплавки.')
+		oreIcon.texture = ORE_SLOT_DEFAULT
+		fuelIcon.texture = FUEL_SLOT_DEFAULT
+		oreAmountLabel.text = ""
+		fuelAmountLabel.text = ""
+		oreIcon.modulate  = Color(0.8, 0.8, 0.8, 0.49)
+		fuelIcon.modulate  = Color(0.8, 0.8, 0.8, 0.49)
+		if !playerInventoryMargin.visible:
+			playerInventoryMargin.visible = true
+	else:
+		ore_id = target_node.ore_id
+		fuel_id = target_node.fuel_id
+		ore_amount = target_node.ore_amount
+		fuel_amount = target_node.fuel_amount
+
+		if target_node.ore_id > 0:
+			if target_node.ore_amount > 0:
+				if items.content.has(ore_id):
+					oreIcon.texture = items.content[ore_id]['icon']
+					oreAmountLabel.text = "x" + str(ore_amount)
+					oreIcon.modulate = Color(1, 1, 1)
+		if target_node.fuel_id > 0:
+			if target_node.fuel_amount > 0:
+				if items.content.has(fuel_id):
+					fuelIcon.texture = items.content[fuel_id]['icon']
+					fuelAmountLabel.text = "x" + str(fuel_amount)
+					fuelIcon.modulate = Color(1, 1, 1)
+	
+		if playerInventoryMargin.visible:
+			playerInventoryMargin.visible = false
 
 func close() -> void:
 	opened = !true
 	blur.blur(!true)
-	target_node = null
 	anim.play('close')
+	ore_id = 0
+	ore_amount = 0
+	fuel_id = 0
+	fuel_amount = 0
+	ignot_id = 0
+	ignot_amount = 0
+	target_node = null
 
 func window() -> void:
 	visible = opened
@@ -189,16 +266,27 @@ func _on_remove_fuel_pressed():
 
 # Get Ignot
 func _on_get_ignot_pressed():
-	if !target_node.inProcessed:
-		if target_node.ignot_done:
-			if ignot_id > 0\
-			&& ignot_amount > 0:
-				print('get ignot')
-
+	pass
+	#	if !target_node.inProcessed:
+	#		if target_node.isDone:
+	#			if items.content.has(target_node.ignot_id):
+	#				print('get ignot')
 #
 func _on_melt_button_pressed():
 	if !target_node.inProcessed:
-		target_node.start_melt(ore_amount, fuel_amount)
+		if !target_node.isDone:
+			if ore_amount == fuel_amount:
+				target_node.start_melt(
+					ore_id, 
+					ore_amount, 
+					fuel_id, 
+					fuel_amount
+				)
+				inventory.subject_item(ore_id,ore_amount)
+				inventory.subject_item(fuel_id,fuel_amount)
+		else:
+			if items.content.has(target_node.ignot_id):
+				print('get ignot')
 
 # Close
 func _on_close_button_pressed():
