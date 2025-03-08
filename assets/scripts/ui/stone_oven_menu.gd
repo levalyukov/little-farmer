@@ -32,27 +32,26 @@ var current_slot_index:int = 0
 var slots_to_create:Array = []
 var opened:bool = false
 
-var ore_id:int
+var ore_id
+var fuel_id
 var ore_amount:int = 0
-
-var fuel_id:int
 var fuel_amount:int = 0
-
-var ignot_id:int
-var ignot_amount:int = 0
-
-var ore_having:bool = false
-var fuel_having:bool = false
-var ignot_having:bool = false
 var target_node:Node2D
 
 func _ready():
 	close()
 
+func _input(_event):
+	if Input.is_action_just_pressed("esc")\
+	&& blur.state\
+	&& !pause.paused\
+	&& opened:
+		close()
+
 func _process(_delta) -> void:
 	if visible:
 		# Creating slots
-		if slots_to_create.size() > 0 and current_slot_index < slots_to_create.size():
+		if slots_to_create.size() > 0 && current_slot_index < slots_to_create.size():
 			for i in range(1):
 				if current_slot_index < slots_to_create.size():
 					item_create(slots_to_create[current_slot_index])
@@ -64,7 +63,7 @@ func _process(_delta) -> void:
 			if target_node.isDone:
 				if !ignotIcon.visible:
 					ignotIcon.visible = true
-					ignotIcon.texture = items.content[target_node.ignot_id]['icon']
+					ignotIcon.texture = items.content[int(target_node.ignot_id)]['icon']
 					ore_id = 0
 					fuel_id = 0
 					ore_amount = 0
@@ -93,13 +92,6 @@ func _process(_delta) -> void:
 		else:
 			fuelIcon.modulate = Color(0.8, 0.8, 0.8, 0.49)
 			fuelAmountLabel.text = ''
-		if ignot_amount > 0:
-			ignotAmountLabel.text = "x"+str(ignot_amount)
-		else:
-			ignotAmountLabel.text = ''
-
-func set_result(id) -> void:
-	pass
 
 func get_result() -> int:
 	if target_node:
@@ -108,44 +100,53 @@ func get_result() -> int:
 	return 0
 
 func add_item(id) -> void:
-	if items.content.has(id):
-		if items.content[id].has('item_type'):
-			match items.content[id]['item_type']:
+	if items.content.has(int(id)):
+		if items.content[int(id)].has('item_type'):
+			match items.content[int(id)]['item_type']:
 				'ore':
 					if inventory.inventory_items.has(id):
 						if inventory.inventory_items[id].has('amount'):
 							if inventory.inventory_items[id]['amount'] >= ORE_THRESHOLD:
-								oreIcon.texture = items.content[id]['icon']
+								oreIcon.texture = items.content[int(id)]['icon']
 								oreIcon.modulate = Color(1, 1, 1)
-								ore_having = true
-								if ore_id == id:
-									ore_amount += 5
-								else:
-									ore_amount = 5
-								ore_id = int(id)
+								if ore_id is int:
+									if ore_id == int(id):
+										ore_amount += 5
+									else:
+										ore_amount = 5
+								elif ore_id is String:
+									if ore_id == str(id):
+										ore_amount += 5
+									else:
+										ore_amount = 5
+								ore_id = id
 				'fuel':
 					if inventory.inventory_items.has(id):
 						if inventory.inventory_items[id].has('amount'):
 							if inventory.inventory_items[id]['amount'] >= ORE_THRESHOLD:							
-								fuel_having = true
 								fuelIcon.modulate = Color(1, 1, 1)
-								fuelIcon.texture = items.content[id]['icon']
-								if fuel_id == id:
-									fuel_amount += 5
-								else:
-									fuel_amount = 5
-								fuel_id = int(id)
+								fuelIcon.texture = items.content[int(id)]['icon']
+								if fuel_id is int:
+									if fuel_id == int(id):
+										fuel_amount += 5
+									else:
+										fuel_amount = 5
+								if fuel_id is String:
+									if fuel_id == str(id):
+										fuel_amount += 5
+									else:
+										fuel_amount = 5
+								fuel_id = id
 
 func remove_item(id) -> void:
-	if items.content[id].has('item_type'):
-		match items.content[id]['item_type']:
+	if items.content[int(id)].has('item_type'):
+		match items.content[int(id)]['item_type']:
 			'ore':
 				if ore_amount > 0:
 					ore_amount -= 5
 				else:
 					oreIcon.texture = ORE_SLOT_DEFAULT
 					oreIcon.modulate = Color(0.8, 0.8, 0.8, 0.49)
-					ore_having = !true
 					ore_id = 0
 					ore_amount = 0
 			'fuel':
@@ -154,7 +155,6 @@ func remove_item(id) -> void:
 				else:
 					fuelIcon.texture = FUEL_SLOT_DEFAULT
 					fuelIcon.modulate = Color(0.8, 0.8, 0.8, 0.49)
-					fuel_having = !true
 					fuel_id = 0
 					fuel_amount = 0
 
@@ -170,26 +170,27 @@ func get_special_items() -> void:
 		playerInventory.remove_child(z)
 
 	for i in inventory.inventory_items:
-		if items.content.has(i):
-			if items.content[i].has('item_type'):
-				if items.content[i]['item_type'] is String:
-					if items.content[i]['item_type'] == "ore":
+		if items.content.has(int(i)):
+			if items.content[int(i)].has('item_type'):
+				if items.content[int(i)]['item_type'] is String:
+					if items.content[int(i)]['item_type'] == "ore":
 						slots_to_create.append(i)
-					if items.content[i]['item_type'] == "fuel":
+					if items.content[int(i)]['item_type'] == "fuel":
 						slots_to_create.append(i)
 
 func check_button_state() -> void:
-	if !target_node.inProcessed:
-		meltButton.text = tr('Переплавить')
-		if (ore_id > 0 && ore_amount >= ORE_THRESHOLD)\
-		&& (fuel_id > 0 && fuel_amount >= FUEL_THRESHOLD)\
-		&& ore_amount == fuel_amount:
+	if target_node:
+		if !target_node.inProcessed:
+			meltButton.text = tr('Переплавить')
+			if (int(ore_id) > 0 && ore_amount >= ORE_THRESHOLD)\
+			&& (int(fuel_id) > 0 && fuel_amount >= FUEL_THRESHOLD)\
+			&& ore_amount == fuel_amount:
+				meltButton.disabled = false
+			else:
+				meltButton.disabled = !false
+		if target_node.isDone:
+			meltButton.text = tr('Получить слиток')
 			meltButton.disabled = false
-		else:
-			meltButton.disabled = !false
-	if target_node.isDone:
-		meltButton.text = tr('Получить слиток')
-		meltButton.disabled = false
 
 func open(node:Node2D) -> void:
 	opened = true
@@ -203,7 +204,8 @@ func open(node:Node2D) -> void:
 		ignotIcon.texture = items.content[get_result()]['icon']
 	else:
 		ignotIcon.visible = !true
-	if !target_node.inProcessed:
+	if !target_node.inProcessed\
+	&& !target_node.isDone:
 		labelStatus.text = tr('Выберите из инвентаря уголь и руду для переплавки.')
 		oreIcon.texture = ORE_SLOT_DEFAULT
 		fuelIcon.texture = FUEL_SLOT_DEFAULT
@@ -211,8 +213,14 @@ func open(node:Node2D) -> void:
 		fuelAmountLabel.text = ""
 		oreIcon.modulate  = Color(0.8, 0.8, 0.8, 0.49)
 		fuelIcon.modulate  = Color(0.8, 0.8, 0.8, 0.49)
+		ignotAmountLabel.text = ''
 		if !playerInventoryMargin.visible:
 			playerInventoryMargin.visible = true
+	elif !target_node.inProcessed\
+	&& target_node.isDone:
+		labelStatus.text = tr("Слиток готов.")
+		if playerInventoryMargin.visible:
+			playerInventoryMargin.visible = false
 	else:
 		ore_id = target_node.ore_id
 		fuel_id = target_node.fuel_id
@@ -243,51 +251,62 @@ func close() -> void:
 	ore_amount = 0
 	fuel_id = 0
 	fuel_amount = 0
-	ignot_id = 0
-	ignot_amount = 0
 	target_node = null
 
 func window() -> void:
 	visible = opened
+	if pause:
+		pause.other_menu = opened
 
 # Removing ore
 func _on_remove_ore_pressed():
 	if !target_node.inProcessed:
-		if ore_id > 0:
+		if ore_id != null:
 			remove_item(ore_id)
 			check_button_state()
 
 # Removing fuel
 func _on_remove_fuel_pressed():
 	if !target_node.inProcessed:
-		if fuel_id > 0:
+		if fuel_id != null:
 			remove_item(fuel_id)
 			check_button_state()
-
-# Get Ignot
-func _on_get_ignot_pressed():
-	pass
-	#	if !target_node.inProcessed:
-	#		if target_node.isDone:
-	#			if items.content.has(target_node.ignot_id):
-	#				print('get ignot')
 #
 func _on_melt_button_pressed():
 	if !target_node.inProcessed:
 		if !target_node.isDone:
 			if ore_amount == fuel_amount:
 				target_node.start_melt(
-					ore_id, 
+					int(ore_id), 
 					ore_amount, 
-					fuel_id, 
+					int(fuel_id), 
 					fuel_amount
 				)
 				inventory.subject_item(ore_id,ore_amount)
 				inventory.subject_item(fuel_id,fuel_amount)
 		else:
-			if items.content.has(target_node.ignot_id):
-				print('get ignot')
-
+			if target_node.isDone:
+				if items.content.has(int(target_node.ignot_id)):
+					inventory.add_item(target_node.ignot_id, target_node.ignot_amount)
+					target_node.ignot_id = 0
+					target_node.ignot_amount = 0
+					target_node.value_process = 0.0
+					ore_id = 0
+					fuel_id = 0
+					ore_amount = 0
+					fuel_amount = 0
+					target_node.ore_id = 0
+					target_node.fuel_id = 0
+					target_node.ore_amount = 0
+					target_node.fuel_amount = 0
+					ignotIcon.visible = false
+					target_node.isDone = false
+					ignotAmountLabel.text = ''
+					labelStatus.text = tr('Выберите из инвентаря уголь и руду для переплавки.')
+					meltButton.text = tr('Переплавить')
+					meltButton.disabled = true
+					playerInventoryMargin.visible = true
+					get_special_items()
 # Close
 func _on_close_button_pressed():
 	if visible:
