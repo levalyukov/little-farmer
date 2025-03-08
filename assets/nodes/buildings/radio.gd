@@ -86,12 +86,12 @@ func convert_to_mono(file_path:String, output_path:String):
 	var _data = file.get_buffer(file_size)
 	file.close()
 	var mono_data = PackedByteArray()
-	for i in range(0, _data.size(), 4):  # Предполагаем, что данные в формате stereo (2 канала)
-		var left_channel = _data[i] + (_data[i + 1] << 8)  # Левый канал
-		var right_channel = _data[i + 2] + (_data[i + 3] << 8)  # Правый канал
-		var mono_sample = (left_channel + right_channel) / 2  # Усредняем каналы
-		mono_data.append(mono_sample & 0xFF)  # Добавляем младший байт
-		mono_data.append((mono_sample >> 8) & 0xFF)  # Добавляем старший байт
+	for i in range(0, _data.size(), 4):
+		var left_channel = _data[i] + (_data[i + 1] << 8)
+		var right_channel = _data[i + 2] + (_data[i + 3] << 8)
+		var mono_sample = (left_channel + right_channel) / 2 
+		mono_data.append(mono_sample & 0xFF)
+		mono_data.append((mono_sample >> 8) & 0xFF)
 	var output_file = FileAccess.open(output_path, FileAccess.WRITE)
 	if !output_file:
 		return

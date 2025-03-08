@@ -2449,6 +2449,7 @@ position = Vector2(360, 32)
 position = Vector2(744, 88)
 
 [node name="radio" parent="ConstructionManager" instance=ExtResource("18_mh01o")]
+visible = false
 position = Vector2(279, 71)
 
 [node name="FarmingManager" parent="." instance=ExtResource("13_r3a4n")]
