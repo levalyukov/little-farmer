@@ -53,7 +53,7 @@ var content:Dictionary = {
 				"shadow" = load("res://assets/nodes/buildings/composter_shadow.tscn"),
 				"area" = Vector2i(1,1),
 				"resources" = {
-					
+					2:{"amount": 25},
 				}
 			}
 		},
@@ -67,7 +67,8 @@ var content:Dictionary = {
 				"shadow" = load("res://assets/nodes/buildings/well/well_shadow.tscn"),
 				"area" = Vector2i(2,2),
 				"resources" = {
-					
+					3:{"amount": 25},
+					4:{"amount": 50},
 				}
 			}
 		},
@@ -81,7 +82,8 @@ var content:Dictionary = {
 				"shadow" = load("res://assets/nodes/buildings/stall/animal_stall_shadow.tscn"),
 				"area" = Vector2i(3,2),
 				"resources" = {
-					
+					1:{"amount": 100},
+					3:{"amount": 25},
 				}
 			}
 		},
@@ -95,7 +97,9 @@ var content:Dictionary = {
 				"shadow" = load("res://assets/nodes/buildings/silo/silo_shadow.tscn"),
 				"area" = Vector2i(2,2),
 				"resources" = {
-					
+					1:{"amount": 100},
+					3:{"amount": 25},
+					7:{"amount": 25},
 				}
 			}
 		},
@@ -108,7 +112,9 @@ var content:Dictionary = {
 				"node" = load("res://assets/nodes/buildings/greenhouse/greenhouse.tscn"),
 				"shadow" = load("res://assets/nodes/buildings/greenhouse/greenhouse_shadow.tscn"),
 				"area" = Vector2i(3,3),
-				"resources" = {}
+				"resources" = {
+					11:{"amount": 25}
+				}
 			}
 		},
 		7: {
@@ -121,7 +127,8 @@ var content:Dictionary = {
 				"shadow" = load("res://assets/nodes/buildings/lamp_post_shadow.tscn"),
 				"area" = Vector2i(1,1),
 				"resources" = {
-					
+					1:{"amount": 1},
+					2:{"amount": 5},
 				}
 			}
 		},
@@ -135,7 +142,7 @@ var content:Dictionary = {
 				"shadow" = load("res://assets/nodes/buildings/path_of_large_stones_shadow.tscn"),
 				"area" = Vector2i(1,1),
 				"resources" = {
-					
+					4:{"amount": 5},
 				}
 			}
 		},
