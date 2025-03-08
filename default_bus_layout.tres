@@ -1,0 +1,44 @@
+[gd_resource type="AudioBusLayout" load_steps=6 format=3 uid="uid://chuq24we0bjam"]
+
+[sub_resource type="AudioEffectLowPassFilter" id="AudioEffectLowPassFilter_h662j"]
+resource_name = "LowPassFilter"
+cutoff_hz = 3000.0
+resonance = 0.7
+
+[sub_resource type="AudioEffectHighPassFilter" id="AudioEffectHighPassFilter_2mcuu"]
+resource_name = "HighPassFilter"
+cutoff_hz = 100.0
+
+[sub_resource type="AudioEffectAmplify" id="AudioEffectAmplify_di3kx"]
+resource_name = "Amplify"
+volume_db = 6.0
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_8kk3l"]
+resource_name = "Reverb"
+room_size = 0.5
+damping = 0.6
+spread = 0.5
+dry = 0.5
+wet = 0.0
+
+[sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_f5lr4"]
+resource_name = "Compressor"
+release_ms = 100.0
+
+[resource]
+bus/1/name = &"Radio"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = 0.0
+bus/1/send = &"Master"
+bus/1/effect/0/effect = SubResource("AudioEffectLowPassFilter_h662j")
+bus/1/effect/0/enabled = true
+bus/1/effect/1/effect = SubResource("AudioEffectHighPassFilter_2mcuu")
+bus/1/effect/1/enabled = true
+bus/1/effect/2/effect = SubResource("AudioEffectAmplify_di3kx")
+bus/1/effect/2/enabled = true
+bus/1/effect/3/effect = SubResource("AudioEffectReverb_8kk3l")
+bus/1/effect/3/enabled = true
+bus/1/effect/4/effect = SubResource("AudioEffectCompressor_f5lr4")
+bus/1/effect/4/enabled = true
