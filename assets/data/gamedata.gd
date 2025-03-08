@@ -63,7 +63,6 @@ const sceneConfig = {
 }
 
 func _ready():
-	#open_folder_windows('C:/Users/leval/Desktop/LittleFarmer-main')
 	if main == "Farm":
 		# Game Load
 		if GameLoader.mode\
