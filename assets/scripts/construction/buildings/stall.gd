@@ -48,9 +48,6 @@ var object:Dictionary = {
 	},
 }
 
-func _ready():
-	update()
-
 func update():
 	if clock:
 		if sprite:
