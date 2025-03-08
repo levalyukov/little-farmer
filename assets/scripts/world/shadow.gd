@@ -2,6 +2,7 @@ extends Node
 
 @onready var main:String = str(get_tree().root.get_child(2).name)
 @onready var data:Node2D = get_node("/root/"+main)
+@onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
@@ -71,19 +72,20 @@ func create_shadow_node(shadow_name:String, _node:PackedScene, shadow_position:V
 		return
 
 func create_cloud(shadow_texture:CompressedTexture2D) -> void:
-	if clouds_value < max_clouds:
-		var node:PackedScene = load("res://assets/nodes/world/cloud.tscn")
-		var cloud = node.instantiate()
-		var cloud_position_x = randi_range(min_widht_map, max_widht_map)
-		var cloud_position_y = randi_range(min_height_map, max_height_map)
-		var target_position = Vector2i(cloud_position_x, cloud_position_y)
-		
-		cloud.name = "cloud_"+ str(clouds_value)
-		cloud.texture = shadow_texture
-		cloud.position = tilemap.map_to_local(target_position)
-		cloud_canvas.add_child(cloud)
-		cloud.change_animation(true)
-		clouds_value += 1
+	if main == 'Farm':
+		if !pause.paused:
+			if clouds_value < max_clouds:
+				var node:PackedScene = load("res://assets/nodes/world/cloud.tscn")
+				var cloud = node.instantiate()
+				var cloud_position_x = randi_range(min_widht_map, max_widht_map)
+				var cloud_position_y = randi_range(min_height_map, max_height_map)
+				var target_position = Vector2i(cloud_position_x, cloud_position_y)
+				cloud.name = "cloud_"+ str(clouds_value)
+				cloud.texture = shadow_texture
+				cloud.position = tilemap.map_to_local(target_position)
+				cloud_canvas.add_child(cloud)
+				cloud.change_animation(true)
+				clouds_value += 1
 
 func remove_all_clouds() -> void:
 	for clouds in canvas.get_children():
