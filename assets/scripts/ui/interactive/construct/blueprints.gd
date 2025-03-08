@@ -17,7 +17,7 @@ var content:Dictionary = {
 		},
 		2: {
 			"caption" = tr("Вода"),
-			"description" = "",
+			"description" = "Позволяет создавать водные пространства на вашей ферме.",
 			"icon" = load("res://assets/resources/ui/interactive/construct/water.png"),
 			"config" = {
 				"terrain" = [3,4],
@@ -38,7 +38,8 @@ var content:Dictionary = {
 				"shadow" = load("res://assets/nodes/buildings/sign_shadow.tscn"),
 				"area" = Vector2i(1,1),
 				"resources" = {
-					
+					1:{"amount": 1},
+					2:{"amount": 5},
 				}
 			}
 		},
@@ -139,7 +140,7 @@ var content:Dictionary = {
 			}
 		},
 		9: {
-			"caption" = tr("Каменная плавильня"),
+			"caption" = tr("Каменная плавильная печь"),
 			"description" = tr("Простая каменная плавильня для обработки ресурсов. Недорогая в создании, работает медленно и требует времени для плавки."),
 			"icon" = load("res://assets/resources/buildings/stone_oven/object_0.png"),
 			"config" = {
