@@ -27,22 +27,26 @@ func create_node(id:int, vector:Vector2i, node_name:String = "") -> void:
 					if blueprints.content["nodes"][id]["config"].has("node"):
 						if blueprints.content["nodes"][id]["config"].has("area"):
 							var node = blueprints.content["nodes"][id]["config"]["node"].instantiate()
-							add_child(node)
 							node.set_position(tilemap.map_to_local(vector))
-							
+
+							var node_index:int = 1
 							if node_name != "":
-								node.name = node_name
-							else:
-								if blueprints.content["nodes"][id]["config"].has("name"):
-									node.name = blueprints.content["nodes"][id]["config"]["name"] + "_1"
+								if data.get_suffix_from_name(node_name) == 0:
+									for i in get_children():
+										if data.remove_suffix(i.name) == node_name:
+											node_index += 1
+									node.name = node_name + "_" + str(node_index)
 								else:
-									node.name = "node" + "_1"
+									node.name = node_name
+							else:
+								node_index += 1
+								node.name = "node_" + str(node_index)
 
 							node.blueprint_id = id
 							if blueprints.content["nodes"][id]["config"].has("shadow"):
 								if blueprints.content["nodes"][id]["config"]["shadow"] is PackedScene:
 									shadows.create_shadow_node(
-										node_name,
+										node.name,
 										blueprints.content["nodes"][id]["config"]["shadow"],
 										vector
 									)
@@ -53,7 +57,7 @@ func create_node(id:int, vector:Vector2i, node_name:String = "") -> void:
 									tilemap.set_cell(
 										collision.building_layer, 
 										tilemap.local_to_map(
-											i.get_global_position()
+										    i.get_global_position()
 										), 
 										0, 
 										Vector2i(0,3)
@@ -66,14 +70,15 @@ func create_node(id:int, vector:Vector2i, node_name:String = "") -> void:
 										tilemap.set_cell(
 											collision.building_layer, 
 											tilemap.local_to_map(
-												Vector2i(
-													(vector.x + x) * grid.SIZE.x, 
-													(vector.y + y) * grid.SIZE.y
-												)
+											    Vector2i(
+											        (vector.x + x) * grid.SIZE.x, 
+											        (vector.y + y) * grid.SIZE.y
+											    )
 											),
 											0, 
 											Vector2i(0,3)
 										)
+							add_child(node)
 
 func remove_node(node:Node2D, vectors:Array[Vector2i]) -> void:
 	for nodes in self.get_children():
