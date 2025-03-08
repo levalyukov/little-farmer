@@ -311,7 +311,7 @@ func get_all_items() -> int:
 		data.debug("Cannot load parent.", "error")
 		return 0
 
-func add_item(id, amount:int = 0) -> void:
+func add_item(id, amount:int = 1) -> void:
 	if inventory_items.has(int(id)):
 		inventory_items[int(id)]["amount"] += amount
 	elif inventory_items.has(str(id)):
