@@ -253,7 +253,11 @@ func _process(_delta):
 					if collision.collisions_check():
 						if blueprints.content.has(group):
 							if blueprints.content[group].has(id):
-								building.create_node(id, tile_mouse_pos, blueprints.content[group][id]['config']['name']+"_")
+								building.create_node(
+									id, 
+									tile_mouse_pos,
+									blueprints.content[group][id]['config']['name']
+								)
 								if data_resources != {}:
 									inventory.subject_item(data_resources)
 				check = false
