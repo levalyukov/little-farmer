@@ -455,6 +455,28 @@ func load_buildings() -> void:
 								"lamp_post":
 									node.light.visible = file_load(file.buildings)[i]['value']
 									node.update()
+								"stone_oven":
+									if file_load(file.buildings)[i].has("value")\
+									&& file_load(file.buildings)[i].has("inProcessed")\
+									&& file_load(file.buildings)[i].has("isDone")\
+									&& file_load(file.buildings)[i].has("oreID")\
+									&& file_load(file.buildings)[i].has("oreAmount")\
+									&& file_load(file.buildings)[i].has("fuelID")\
+									&& file_load(file.buildings)[i].has("fuelAmount")\
+									&& file_load(file.buildings)[i].has("ignotID")\
+									&& file_load(file.buildings)[i].has("ignotAmount"):
+										if file_load(file.buildings)[i]['inProcessed']:
+											node.value_process = file_load(file.buildings)[i]['value']
+											node.start_melt(
+												file_load(file.buildings)[i]['oreID'],
+												file_load(file.buildings)[i]['oreAmount'],
+												file_load(file.buildings)[i]['fuelID'],
+												file_load(file.buildings)[i]['fuelAmount']
+											)
+										elif file_load(file.buildings)[i]['isDone']:
+											node.isDone = file_load(file.buildings)[i]['isDone']
+											node.ignot_id = file_load(file.buildings)[i]['ignotID']
+											node.ignot_amount = file_load(file.buildings)[i]['ignotAmount']
 								_:
 									pass
 	else:
@@ -570,6 +592,16 @@ func remove_suffix(input:String) -> String:
 	regex.compile("_[0-9]+$")
 	return regex.sub(input, "")
 
+func get_suffix_from_name(input:String) -> int:
+	var underscore_index = input.find("_")
+	if underscore_index == -1:
+		return 0
+	var parts = input.split("_")
+	if parts.size() > 1:
+		var suffix = parts[parts.size() - 1]
+		return int(suffix)
+	return 0
+
 func check_probability(percent:float) -> bool:
 	var probability = percent / 100.0
 	var random_value = randf() 
@@ -602,7 +634,6 @@ func debug(content:String = "", type:String = "info") -> void:
 				get_tree().quit()
 			_:
 				print(str(datetime) + " " + str(content))
-
 
 # Game Settings
 func config_new() -> void:
@@ -680,13 +711,11 @@ func start_newgame() -> void:
 		
 		Недавно узнал о твоём приезде, и хочу лично поздравить с началом нового этапа жизни на нашей земле. 
 		
-		Как опытный фермер, понимаю, какие испытания ждут начинающего агрария. 
-		
-		Поэтому решил вручить тебе небольшой подарок — надеюсь, он станет полезным помощником в трудах на благо фермы. 
+		Как опытный фермер, понимаю, какие испытания ждут начинающего агрария, поэтому решил вручить тебе небольшой подарок — надеюсь, он станет полезным помощником в трудах на благо фермы. 
 		
 		Желаю удачи в начинаниях и богатых урожаев! 
 		
-		Если понадобится совет или помощь, ты меня можешь всегда найти в г. Заречье, который находится справа от тебя.
+		P.S. Если понадобится совет или помощь, ты меня можешь всегда найти в г. Заречье, который находится справа от тебя.
 		",	
 		# 	Author
 		"Геннадий Николаевич",
