@@ -235,12 +235,15 @@ func start_compost(items_compost_value:int) -> void:
 	timer.start()
 	timer.wait_time = 2.5
 	total_items = items_compost_value
+	update()
 
 func stop_compost() -> void:
 	timer.stop()
+	update()
 
 func _on_timer_timeout():
 	if composting_value >= 100:
 		timer.stop()
+		update()
 	else:
-		composting_value += randf_range(0.01, 5.0)
+		composting_value += randf_range(0.01, 2.5)
