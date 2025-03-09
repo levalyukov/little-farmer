@@ -740,18 +740,17 @@ func open_folder_in_explorer(folder_path:String):
 	var command = ""
 	var arguments = []
 	var real_path = ProjectSettings.globalize_path(folder_path)
-
-	if OS.get_name() == "Windows":
-		var windows_path = real_path.replace("/", "\\")
-		print(windows_path)
-		command = "explorer.exe"
-		arguments = [windows_path]
+	var dir = DirAccess.open(folder_path)
+	if !dir:
+		FileSystem.new().Funcs.create_directory(folder_path)
+		open_folder_in_explorer(folder_path)
 	else:
-		print("Не поддерживаемая ОС")
-		return
-	var result = OS.execute(command, arguments)
-	if result != 0:
-		print("Не удалось открыть папку. Код ошибки: ", result)
+		if OS.get_name() == "Windows":
+			var windows_path = real_path.replace("/", "\\")
+			print(windows_path)
+			command = "explorer.exe"
+			arguments = [windows_path]
+		OS.execute(command, arguments)
 
 # Greenhouse
 func greenhouse_get_data(greenhouseNodeName:String) -> void:
