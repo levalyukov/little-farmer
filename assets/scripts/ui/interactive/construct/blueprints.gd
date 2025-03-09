@@ -1,6 +1,6 @@
 extends Node
 
-class_name Blueprints
+class_name BlueprintManager
 @onready var main = str(get_tree().root.get_child(2).name)
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
 var content:Dictionary = {
@@ -159,6 +159,18 @@ var content:Dictionary = {
 					3:{"amount": 50},
 					5:{"amount": 10},
 				}
+			}
+		},
+		10: {
+			"caption" = tr("Радио"),
+			"description" = tr("Позволяет "),
+			"icon" = load("res://assets/resources/buildings/radio/obj_0.png"),
+			"config" = {
+				"name" = "radio",
+				"node" = load("res://assets/nodes/buildings/radio.tscn"),
+				"shadow" = load("res://assets/nodes/buildings/radio_shadow.tscn"),
+				"area" = Vector2i(1,1),
+				"onlyInstance" = true,
 			}
 		},
 		#	6: {

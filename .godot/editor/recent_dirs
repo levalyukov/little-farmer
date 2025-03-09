@@ -1,7 +1,8 @@
 res://assets/nodes/buildings
+res://
+res://assets/nodes/ui
 res://assets/scripts/ui
 res://assets/resources/ui
-res://assets/nodes/ui
 res://assets/scripts/construction/buildings
 res://assets/scripts/farming
 res://assets/resources
@@ -15,7 +16,6 @@ res://assets/resources/world
 res://assets/resources/buildings/composter
 E:/Games
 E:/Games/LittleFarmer
-res://
 res://assets/resources/buildings/graves/grave_1
 res://assets/resources/buildings/greenhouse/level_1
 res://assets/resources/buildings/sign/summer

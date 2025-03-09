@@ -2,6 +2,7 @@ extends Sprite2D
 
 @onready var main:String = str(get_tree().root.get_child(2).name)
 @onready var data:Node2D = get_node("/root/"+main)
+@onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var plant = $".."
 @onready var timer:Timer = $"../Timer"
 
@@ -20,7 +21,7 @@ func _ready():
 func _process(_delta):
 	if plant.plantID != 0:
 		if level == crops.crops[plant.plantID]["growth_level"]\
-		and plant.condition != plant.phases.growed:
+		&& plant.condition != plant.phases.growed:
 			plant_increased()
 	else:
 		data.debug("Invalid variable index: " + str(plant.plantID), "error")
@@ -29,7 +30,7 @@ func _process(_delta):
 		
 func rect(id) -> void:
 	if crops.crops[id].has("X")\
-	and crops.crops[id].has("Y"):
+	&& crops.crops[id].has("Y"):
 		region_rect.position.x = crops.crops[id]['X']
 		region_rect.position.y = crops.crops[id]['Y']
 	else:
@@ -43,11 +44,12 @@ func set_rect(x:int, y:int, timerIsStopped:bool = false) -> void:
 		timer.stop()
 
 func _on_timer_timeout() -> void:
-	if level < crops.crops[plant.plantID]["growth_level"]:
-		region_rect.position.x += 16
-		level += 1
-	else:
-		plant_increased()
+	if !pause.paused:
+		if level < crops.crops[plant.plantID]["growth_level"]:
+			region_rect.position.x += 16
+			level += 1
+		else:
+			plant_increased()
 
 func plant_increased():
 	plant.condition = plant.phases.growed

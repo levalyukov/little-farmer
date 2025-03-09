@@ -22,31 +22,31 @@ extends Node
 
 var object_count:int
 const path:Dictionary = {
-	main = "user://.game",
-	data = "user://.game/data",
-	player = "user://.game/data/player",
-	farm = "user://.game/data/farm",
-	vectors = "user://.game/data/farm/vectors",
+	main = "user://game",
+	data = "user://game/data",
+	player = "user://game/data/player",
+	farm = "user://game/data/farm",
+	vectors = "user://game/data/farm/vectors",
 }
 
 const file:Dictionary = {
 	# files
-	config = "user://.game/config.json",
-	farm = "user://.game/data/farm/farm.json",
-	world = "user://.game/data/world.json",
-	nature = "user://.game/data/nature.json",
-	buildings = "user://.game/data/farm/buildings.json",
-	player = "user://.game/data/player/player.json",
-	blueprints = "user://.game/data/player/blueprints.json",
-	inventory = "user://.game/data/player/inventory.json",
-	mailbox = "user://.game/data/player/mailbox.json",
+	config = "user://game/config.json",
+	farm = "user://game/data/farm/farm.json",
+	world = "user://game/data/world.json",
+	nature = "user://game/data/nature.json",
+	buildings = "user://game/data/farm/buildings.json",
+	player = "user://game/data/player/player.json",
+	blueprints = "user://game/data/player/blueprints.json",
+	inventory = "user://game/data/player/inventory.json",
+	mailbox = "user://game/data/player/mailbox.json",
 	# vectors
-	vctr_roads = "user://.game/data/farm/vectors/roads.json",
-	vctr_farmlands = "user://.game/data/farm/vectors/farmlands.json",
-	vctr_waterings = "user://.game/data/farm/vectors/waterings.json",
-	vctr_plants = "user://.game/data/farm/vectors/plants.json",
-	vctr_coast = "user://.game/data/farm/vectors/coast.json",
-	vctr_water = "user://.game/data/farm/vectors/water.json",
+	vctr_roads = "user://game/data/farm/vectors/roads.json",
+	vctr_farmlands = "user://game/data/farm/vectors/farmlands.json",
+	vctr_waterings = "user://game/data/farm/vectors/waterings.json",
+	vctr_plants = "user://game/data/farm/vectors/plants.json",
+	vctr_coast = "user://game/data/farm/vectors/coast.json",
+	vctr_water = "user://game/data/farm/vectors/water.json",
 }
 
 const sceneConfig = {
@@ -562,6 +562,8 @@ func get_dictionary_content(content:String, group:String = "") -> Dictionary:
 			return {}
 
 func _input(_event):
+	if Input.is_action_just_pressed('space'):
+		open_folder_in_explorer("user://game/custom_music/")
 	if Input.is_action_just_pressed("f2"):
 		take_screenshot()
 
@@ -569,9 +571,9 @@ func take_screenshot():
 	var viewport = get_viewport()
 	var texture = viewport.get_texture()
 	var image = texture.get_image()
-	var main_directory = DirAccess.open("user://.game")
-	var target_directory = DirAccess.open("user://.game/.screenshots")
-	var file_name = "user://.game/.screenshots/screenshot-" + str(Time.get_date_string_from_system()) + "-" + str(Time.get_ticks_msec()) + ".png".format(Time.get_ticks_msec())
+	var main_directory = DirAccess.open("user://game")
+	var target_directory = DirAccess.open("user://game/.screenshots")
+	var file_name = "user://game/.screenshots/screenshot-" + str(Time.get_date_string_from_system()) + "-" + str(Time.get_ticks_msec()) + ".png".format(Time.get_ticks_msec())
 	if main_directory:
 		if target_directory:
 			if image.save_png(file_name) == OK:
@@ -580,10 +582,10 @@ func take_screenshot():
 			else:
 				debug("Couldn't save screenshot", "error")
 		else:
-			FileSystem.new().Funcs.create_directory("user://.game/.screenshots")
+			FileSystem.new().Funcs.create_directory("user://game/.screenshots")
 			take_screenshot()
 	else:
-		FileSystem.new().Funcs.create_directory("user://.game")
+		FileSystem.new().Funcs.create_directory("user://game")
 		take_screenshot()
 
 func remove_suffix(input:String) -> String:
@@ -732,38 +734,46 @@ func start_newgame() -> void:
 	remove_game_files()
 
 func remove_game_files() -> void:
-	FileSystem.new().delete_folder("user://.game/data")
+	FileSystem.new().delete_folder("user://game/data")
 
-#	func open_folder_windows(folder_path:String) -> void:
-#		var target_path = folder_path#ProjectSettings.globalize_path(folder_path)
-#		var dir = DirAccess.open(target_path)
-#		print(target_path)
-#		if dir:
-#			OS.execute("explorer", ['"' + target_path + '"'], [], false)
-#		else:
-#			print("Папка не существует: ", target_path)
+func open_folder_in_explorer(folder_path:String):
+	var command = ""
+	var arguments = []
+	var real_path = ProjectSettings.globalize_path(folder_path)
+
+	if OS.get_name() == "Windows":
+		var windows_path = real_path.replace("/", "\\")
+		print(windows_path)
+		command = "explorer.exe"
+		arguments = [windows_path]
+	else:
+		print("Не поддерживаемая ОС")
+		return
+	var result = OS.execute(command, arguments)
+	if result != 0:
+		print("Не удалось открыть папку. Код ошибки: ", result)
 
 # Greenhouse
 func greenhouse_get_data(greenhouseNodeName:String) -> void:
 	GameLoader.greenhouse_caption = greenhouseNodeName
-	var target_path = DirAccess.open("user://.game/data/farm/greenhouses")
-	var target_file_read = FileAccess.open("user://.game/data/farm/greenhouses/" + str(greenhouseNodeName) + ".json", FileAccess.READ)
+	var target_path = DirAccess.open("user://game/data/farm/greenhouses")
+	var target_file_read = FileAccess.open("user://game/data/farm/greenhouses/" + str(greenhouseNodeName) + ".json", FileAccess.READ)
 	if target_path:
 		if !target_file_read:
 			if greenhouseNodeName != "":
 				file_save(
-					["user://.game/data/farm/greenhouses"],
-					"user://.game/data/farm/greenhouses/" + str(greenhouseNodeName) + ".json",
+					["user://game/data/farm/greenhouses"],
+					"user://game/data/farm/greenhouses/" + str(greenhouseNodeName) + ".json",
 					get_greenhouse_data()
 				)
 		else:
-			var greenhouse_data = file_load("user://.game/data/farm/greenhouses/" + str(greenhouseNodeName) + ".json")
+			var greenhouse_data = file_load("user://game/data/farm/greenhouses/" + str(greenhouseNodeName) + ".json")
 			if greenhouse_data.has("farmlands"):
 				if greenhouse_data['farmlands'] != []:
 					create_terrains(
 						collision.farmland_layer,
 						get_vector_array(
-							"user://.game/data/farm/greenhouses/" + str(greenhouseNodeName) + ".json",
+							"user://game/data/farm/greenhouses/" + str(greenhouseNodeName) + ".json",
 							"farmlands"
 						),
 						collision.terrain_set,
@@ -774,7 +784,7 @@ func greenhouse_get_data(greenhouseNodeName:String) -> void:
 					create_terrains(
 						collision.watering_layer,
 						get_vector_array(
-							"user://.game/data/farm/greenhouses/" + str(greenhouseNodeName) + ".json",
+							"user://game/data/farm/greenhouses/" + str(greenhouseNodeName) + ".json",
 							"waterings"
 						),
 						collision.terrain_set,
@@ -784,16 +794,16 @@ func greenhouse_get_data(greenhouseNodeName:String) -> void:
 				if greenhouse_data['plants_collisions'] != []:
 					create_cell(
 						get_vector_array(
-							"user://.game/data/farm/greenhouses/" + str(greenhouseNodeName) + ".json",
+							"user://game/data/farm/greenhouses/" + str(greenhouseNodeName) + ".json",
 							"plants_collisions"
 						),
 					)
 
 			if greenhouse_data.has("plants"):
 				if greenhouse_data['plants'] != {}:
-					load_plant("user://.game/data/farm/greenhouses/" + str(greenhouseNodeName) + ".json", "plants")
+					load_plant("user://game/data/farm/greenhouses/" + str(greenhouseNodeName) + ".json", "plants")
 	else:
-		FileSystem.new().Funcs.create_directory("user://.game/data/farm/greenhouses")
+		FileSystem.new().Funcs.create_directory("user://game/data/farm/greenhouses")
 		greenhouse_get_data(greenhouseNodeName)
 
 func get_greenhouse_data() -> Dictionary:

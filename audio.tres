@@ -1,17 +1,17 @@
-[gd_resource type="AudioBusLayout" load_steps=6 format=3 uid="uid://chuq24we0bjam"]
+[gd_resource type="AudioBusLayout" load_steps=8 format=3 uid="uid://chuq24we0bjam"]
 
 [sub_resource type="AudioEffectLowPassFilter" id="AudioEffectLowPassFilter_h662j"]
 resource_name = "LowPassFilter"
-cutoff_hz = 3000.0
-resonance = 0.7
+cutoff_hz = 2750.0
+resonance = 1.0
 
 [sub_resource type="AudioEffectHighPassFilter" id="AudioEffectHighPassFilter_2mcuu"]
 resource_name = "HighPassFilter"
-cutoff_hz = 100.0
+cutoff_hz = 750.0
 
 [sub_resource type="AudioEffectAmplify" id="AudioEffectAmplify_di3kx"]
 resource_name = "Amplify"
-volume_db = 6.0
+volume_db = 5.0
 
 [sub_resource type="AudioEffectReverb" id="AudioEffectReverb_8kk3l"]
 resource_name = "Reverb"
@@ -25,8 +25,15 @@ wet = 0.0
 resource_name = "Compressor"
 release_ms = 100.0
 
+[sub_resource type="AudioEffectStereoEnhance" id="AudioEffectStereoEnhance_4kq28"]
+resource_name = "StereoEnhance"
+
+[sub_resource type="AudioEffectStereoEnhance" id="AudioEffectStereoEnhance_8qu6l"]
+resource_name = "StereoEnhance"
+pan_pullout = 0.0
+
 [resource]
-bus/1/name = &"Radio"
+bus/1/name = &"Old Radio"
 bus/1/solo = false
 bus/1/mute = false
 bus/1/bypass_fx = false
@@ -42,3 +49,7 @@ bus/1/effect/3/effect = SubResource("AudioEffectReverb_8kk3l")
 bus/1/effect/3/enabled = true
 bus/1/effect/4/effect = SubResource("AudioEffectCompressor_f5lr4")
 bus/1/effect/4/enabled = true
+bus/1/effect/5/effect = SubResource("AudioEffectStereoEnhance_4kq28")
+bus/1/effect/5/enabled = true
+bus/1/effect/6/effect = SubResource("AudioEffectStereoEnhance_8qu6l")
+bus/1/effect/6/enabled = true

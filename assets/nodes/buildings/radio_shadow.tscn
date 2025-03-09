@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdatju74qhc0r"]
+
+[ext_resource type="Texture2D" uid="uid://chfql0fd2mubu" path="res://assets/resources/buildings/radio/shadow.png" id="1_xbxcc"]
+
+[node name="radio_shadow" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_xbxcc")

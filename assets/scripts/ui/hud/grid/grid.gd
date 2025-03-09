@@ -21,7 +21,7 @@ extends Node2D
 
 var items = Items.new()
 var crops = Crops.new()
-var blueprints = Blueprints.new()
+var blueprints = BlueprintManager.new()
 var natural_resources = NaturalResources.new()
 
 const SIZE:Vector2 = Vector2(16, 16)
@@ -248,7 +248,6 @@ func _process(_delta):
 							hud.hud_all_show()
 							mode = modes.NOTHING
 							visible = false
-							check = false
 				if check:
 					if collision.collisions_check():
 						if blueprints.content.has(group):
@@ -260,6 +259,11 @@ func _process(_delta):
 								)
 								if data_resources != {}:
 									inventory.subject_item(data_resources)
+								if blueprints.content[group][id]["config"].has('onlyInstance'):
+									if blueprints.content[group][id]["config"]['onlyInstance']:
+										hud.hud_all_show()
+										mode = modes.NOTHING
+										visible = false
 				check = false
 
 			modes.TERRAIN_SET:
@@ -289,7 +293,7 @@ func _process(_delta):
 						var local_position = tilemap.to_local(i.get_global_position())
 						var grid_position = tilemap.local_to_map(local_position)
 						if i.texture != collision.error:
-							farming.create_fertilizer(inventory_item, grid_position)
+							farming.create_fertilizer(int(inventory_item), grid_position)
 							inventory.subject_item(inventory_item, 1)
 				check = false
 	else:

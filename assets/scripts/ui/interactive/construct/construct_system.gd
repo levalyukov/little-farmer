@@ -6,6 +6,7 @@ extends Control
 @onready var notice:Control = get_node("/root/"+main+"/UI/Feedback/Notifications")
 @onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
+@onready var building:Node2D = get_node("/root/"+main+"/ConstructionManager")
 
 @onready var node:PackedScene = load("res://assets/nodes/ui/interactive/construct/blueprint.tscn")
 @onready var scroll_container_info:ScrollContainer = $Main/MainContent/InfoContent/ScrollContainer
@@ -46,11 +47,11 @@ var section:String = "all"
 var opened:bool = false
 var all_items:bool
 var terrains_blueprints:Array[int] = [1,2,3,5]
-var node_blueprints:Array[int] = [1,2,3,4,5,6,7,8,9,10]
+var node_blueprints:Array[int] = [1,2,3,4,5,6,7,8,9,10,11]
 var upgrade_blueprints:Array[int] = []
 
 var items:Object = Items.new()
-var blueprints:Object = Blueprints.new()
+var blueprints:Object = BlueprintManager.new()
 var slots_to_create_terrains = []
 var slots_to_create_nodes = []
 var slots_to_create_upgrade = []
@@ -151,10 +152,21 @@ func get_data(group:String, id:int) -> void:
 								check_all_required_items(group, id)
 								if all_items:
 									button.disabled = false
-									button.id = id
-									button.group = group
 								else:
 									button.disabled = true
+
+							if blueprints.content[group][id]["config"].has('onlyInstance'):
+								if blueprints.content[group][id]["config"]['onlyInstance']:
+									if blueprints.content[group][id]["config"].has('name'):
+										if get_instance(blueprints.content[group][id]["config"]['name']):
+											button.disabled = true
+											button.text = tr("Превышен лимит (1/1)")
+							else:
+								button.disabled = false
+								button.text = tr("Создать")
+
+							button.id = id
+							button.group = group
 					"terrains":
 						if blueprints.content[group][id]["config"].has("terrain"):
 							button.visible = true
@@ -167,6 +179,13 @@ func get_data(group:String, id:int) -> void:
 			return
 	else:
 		return
+
+func get_instance(node_name:String) -> bool:
+	if node_name != "":
+		for x in building.get_children():
+			if data.remove_suffix(x.name) == node_name:
+				return true
+	return false
 
 func update_button_state() -> void:
 	match section:
@@ -211,22 +230,12 @@ func create_all_blueprints() -> void:
 					if blueprints.content.has("terrains"):
 						if blueprints.content["terrains"].has(i):
 							slots_to_create_terrains.append(i)
-						else:
-							pass
-					else:
-						pass
-
 		"nodes":
 			if node_blueprints != []:
 				for i in node_blueprints:
 					if blueprints.content.has("nodes"):
 						if blueprints.content["nodes"].has(i):
 							slots_to_create_nodes.append(i)
-						else:
-							pass
-					else:
-						pass
-
 		"all": 
 			slots_to_create_terrains = []
 			slots_to_create_nodes = []

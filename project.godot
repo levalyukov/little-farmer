@@ -10,13 +10,17 @@ config_version=5
 
 [application]
 
-config/name="Little Farmer"
+config/name="LittleFarmer"
 config/version="1.0.0 Alpha"
 run/main_scene="res://levels/menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
 config/icon="res://icon.png"
+
+[audio]
+
+buses/default_bus_layout="res://audio.tres"
 
 [autoload]
 
@@ -130,6 +134,5 @@ locale/translations_pot_files=PackedStringArray("res://assets/nodes/ui/windows/p
 textures/canvas_textures/default_texture_filter=0
 textures/decals/filter=0
 textures/light_projectors/filter=0
-environment/defaults/default_clear_color=Color(0, 0, 0, 1)
 2d/snap/snap_2d_transforms_to_pixel=true
 2d/snap/snap_2d_vertices_to_pixel=true

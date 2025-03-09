@@ -10,7 +10,7 @@ var index:int
 var section:String
 
 func set_data(group:String, id:int) -> void:
-	var blueprints = Blueprints.new()
+	var blueprints = BlueprintManager.new()
 	if blueprints.content.has(group):
 		if blueprints.content[group].has(id):
 			index = id

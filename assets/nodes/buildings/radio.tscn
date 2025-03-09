@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://drwgxtbhd00mq"]
 
 [ext_resource type="Texture2D" uid="uid://bra8e03ooftsi" path="res://assets/resources/buildings/radio/obj_0.png" id="1_8gu6o"]
-[ext_resource type="Script" path="res://assets/nodes/buildings/radio.gd" id="1_kdrd7"]
+[ext_resource type="Script" path="res://assets/scripts/construction/buildings/radio.gd" id="1_kdrd7"]
 [ext_resource type="Texture2D" uid="uid://catb4up4bdk25" path="res://assets/resources/buildings/radio/note.png" id="3_r3vyp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pgwjt"]
@@ -12,11 +12,6 @@ script = ExtResource("1_kdrd7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_8gu6o")
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_pgwjt")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 position = Vector2(0, -12)
@@ -30,7 +25,13 @@ gravity = Vector2(0.25, -50)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 max_distance = 512.0
-bus = &"Radio"
+bus = &"Old Radio"
 
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_pgwjt")
+
+[connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

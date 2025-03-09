@@ -65,10 +65,6 @@ func update():
 					data.debug("There is no key at index " + str(level) + ".", "error")
 			else:
 				data.debug("Index " + str(level) + " is not in the dictionary.", "error")
-		else:
-			pass
-	else:
-		pass
 
 func _change_sprite(type:bool):
 	if type:
@@ -102,10 +98,6 @@ func _change_sprite(type:bool):
 				if object[level]["seasons"].has(season):
 					if object[level]["seasons"][season].has("default"):
 						sprite.texture = object[level]["seasons"][season]["default"]
-					else:
-						pass
-				else:
-					pass
 			else:
 				data.debug("There is no key at index " + str(level) + ".", "error")
 		else:

@@ -11,7 +11,7 @@ extends Button
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
 
 var items:Object = Items.new()
-var blueprints:Object = Blueprints.new()
+var blueprints:Object = BlueprintManager.new()
 
 var disable:bool
 var group:String
