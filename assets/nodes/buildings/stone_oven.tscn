@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://ctp6kk825l53r"]
+[gd_scene load_steps=8 format=3 uid="uid://ctp6kk825l53r"]
 
 [ext_resource type="Texture2D" uid="uid://jgh8pvlwcj88" path="res://assets/resources/buildings/stone_oven/object_0.png" id="1_713hf"]
 [ext_resource type="Script" path="res://assets/scripts/construction/buildings/stone_oven.gd" id="1_wjpgj"]
 [ext_resource type="Texture2D" uid="uid://1r8kos7xjwxc" path="res://assets/resources/buildings/house/smoke.png" id="2_2d6ty"]
+[ext_resource type="Texture2D" uid="uid://bmm3sn5q3j181" path="res://assets/resources/world/light.webp" id="4_hhwm7"]
 
 [sub_resource type="Curve" id="Curve_vc5du"]
 max_value = 200.0
@@ -48,6 +49,13 @@ anim_offset_curve = SubResource("Curve_xvm6h")
 shape = SubResource("RectangleShape2D_nu65w")
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="Light" type="PointLight2D" parent="."]
+visible = false
+scale = Vector2(0.5, 0.5)
+color = Color(1, 0.627451, 0.309804, 1)
+energy = 0.5
+texture = ExtResource("4_hhwm7")
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
