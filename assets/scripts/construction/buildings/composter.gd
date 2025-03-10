@@ -96,7 +96,8 @@ func _input(event):
 		&& event.is_pressed()\
 		&& !blur.state\
 		&& destroyMode\
-		&& buttonDestroy.destroyMode:
+		&& buttonDestroy.destroyMode\
+		&& !composting:
 			buildings.remove_node(self, all_collisions)
 
 func update():
@@ -179,18 +180,7 @@ func _on_area_2d_mouse_entered() -> void:
 			if grid.mode == grid.modes.NOTHING and distance < building.max_distance:
 				if object.has(level):
 					if object[level].has("state"):
-						if composting:
-							if object[level]["state"].has("work"):
-								if object[level]["state"]['work'].has("delete"):
-									if object[level]["state"]['work']["delete"] is CompressedTexture2D:
-										sprite.texture = object[level]["state"]['work']["delete"]
-									else:
-										data.debug("'"+str(self.name) + "': 'delete' is not a CompressedTexture2D.", "error")
-								else:
-									data.debug("'"+str(self.name) + "': There is no 'delete' key.", "error")
-							else:
-								data.debug("'"+str(self.name) + "': There is no 'work' key.", "error")
-						else:
+						if !composting:
 							if object[level]["state"].has("idle"):
 								if object[level]["state"]['idle'].has("delete"):
 									if object[level]["state"]['idle']["delete"] is CompressedTexture2D:
