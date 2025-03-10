@@ -163,7 +163,7 @@ var content:Dictionary = {
 		},
 		10: {
 			"caption" = tr("Радио"),
-			"description" = tr("Позволяет "),
+			"description" = tr("Воспроизводит радиостанции и пользовательские треки.\n\nМожет быть только в единном экземпляре."),
 			"icon" = load("res://assets/resources/buildings/radio/obj_0.png"),
 			"config" = {
 				"name" = "radio",
