@@ -562,8 +562,6 @@ func get_dictionary_content(content:String, group:String = "") -> Dictionary:
 			return {}
 
 func _input(_event):
-	if Input.is_action_just_pressed('space'):
-		open_folder_in_explorer("user://game/custom_music/")
 	if Input.is_action_just_pressed("f2"):
 		take_screenshot()
 
