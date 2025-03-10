@@ -10,6 +10,7 @@ extends Node2D
 @onready var stoneOvenMenu:Control = get_node("/root/"+main+"/UI/Interactive/StoneOvenMenu")
 @onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
 @onready var buttonDestroy:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
+@onready var light:PointLight2D = $Light
 @onready var sprite:Sprite2D = $Sprite2D
 @onready var particles:CPUParticles2D = $CPUParticles2D
 @onready var timer:Timer = $Timer
@@ -85,6 +86,9 @@ func _process(_delta):
 
 	if !isDone:
 		if inProcessed:
+			if !light.visible:
+				light.visible = true
+
 			if !particles.emitting:
 				particles.emitting = true
 
@@ -104,6 +108,8 @@ func _process(_delta):
 					if stoneOvenMenu.visible:
 						stoneOvenMenu.check_button_state()
 	else:
+		if light.visible:
+			light.visible = !true
 		if particles.emitting:
 			particles.emitting = false
 
@@ -171,7 +177,7 @@ func start_melt(oreID:int, oreAmount:int, fuelID:int, fuelAmount:int) -> void:
 func _on_timer_timeout():
 	if !pause.paused:
 		if value_process <= 100.0:
-			value_process += randf_range(0.01, 2.5)
+			value_process += randf_range(0.01, 5)
 
 func get_data() -> Dictionary:
 	return {
