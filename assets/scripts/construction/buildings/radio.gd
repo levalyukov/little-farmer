@@ -8,15 +8,18 @@ extends Node2D
 @onready var buildings:Node2D = get_node("/root/"+main+"/ConstructionManager")
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var buttonDestroy:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
+@onready var radioMenu:Control = get_node("/root/"+main+"/UI/Interactive/RadioMenu")
 
 @onready var particles:CPUParticles2D = $CPUParticles2D
 @onready var audio_player:AudioStreamPlayer2D = $AudioStreamPlayer2D
 @onready var sprite:Sprite2D = $Sprite2D
 
 var audio_streams:Array[AudioStreamMP3] = []
+var audio_captions:Array[String] = []
 var audio_index_track:int = 0
 var enabled:bool = false
 var repeat:bool = true
+var userMode:bool = false
 
 var blueprint_id:int
 var all_collisions:Array[Vector2i] = []
@@ -28,7 +31,7 @@ var object:Dictionary = {
 	'delete': load("res://assets/resources/buildings/radio/obj_2.png")
 }
 
-func playlist_scan(folder_path:String) -> void:
+func playlist_scan(folder_path:String = "user://game/custom_music/") -> void:
 	var files = scan_user_files(folder_path)
 	if files != []:
 		audio_streams = []
@@ -37,8 +40,6 @@ func playlist_scan(folder_path:String) -> void:
 			var audio_resource = load_mp3(full_path)
 			if audio_resource:
 				audio_streams.append(audio_resource)
-		if audio_streams.size() > 0:
-			play_track(audio_index_track)
 	else:
 		data.debug('the folder is empty.', 'error')
 
@@ -59,32 +60,35 @@ func load_mp3(file_path:String) -> AudioStream:
 	return stream
 
 func play_track(index:int) -> void:
-	if index < 0 || index >= audio_streams.size():
-		return
-	audio_player.stop()
-	audio_player.stream = audio_streams[index]
-	audio_player.play()
+	if audio_streams.size() > 0:
+		if index < 0 || index >= audio_streams.size():
+			return
+		audio_player.stop()
+		audio_player.stream = audio_streams[index]
+		audio_player.play()
 
 func stop_track() -> void:
 	audio_player.stop()
 
-func scan_user_files(folder_path:String) -> Array:
+func scan_user_files(folder_path:String = "user://game/custom_music/") -> Array:
 	var dir = DirAccess.open(folder_path)
 	if !dir:
 		FileSystem.new().Funcs.create_directory(folder_path)
 		scan_user_files(folder_path)
 
 	dir.list_dir_begin()
+	audio_captions = []
 	var files = []
 	while true:
 		var file_name = dir.get_next()
 		if file_name == "":
 			break
-		if file_name.begins_with(".") or file_name == "..":
+		if file_name.begins_with(".") || file_name == "..":
 			continue
 		if dir.current_is_dir():
 			continue
 		if file_name.to_lower().ends_with(".mp3"):
+			audio_captions.append(file_name.replace(".mp3", ""))
 			files.append(file_name)
 	return files
 
@@ -120,16 +124,20 @@ func _input(event):
 		&& event.button_index == MOUSE_BUTTON_LEFT\
 		&& event.is_pressed()\
 		&& state:
-			if !enabled:
-				enabled = true
-				if !particles.emitting:
-					particles.emitting = true
-				playlist_scan("user://game/custom_music/")
-			else:
-				enabled = !true
-				stop_track()
-				if particles.emitting:
-					particles.emitting = !true
+			radioMenu.open(self)
+			#	if !enabled:
+			#		#	playlist_scan()
+			#		#	if audio_streams != []:
+			#		#		enabled = true
+			#		#		if !particles.emitting:
+			#		#			particles.emitting = true
+			#	else:
+			#		pass
+			#		#	stop_track()
+			#		#	if enabled:
+			#		#		enabled = !true
+			#		#	if particles.emitting:
+			#		#		particles.emitting = !true
 
 	if event is InputEventMouseButton\
 	&& event.button_index == MOUSE_BUTTON_LEFT\
