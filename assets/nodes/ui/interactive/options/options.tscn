@@ -221,6 +221,7 @@ patch_margin_right = 8
 patch_margin_bottom = 8
 
 [node name="GraphicSection" type="ScrollContainer" parent="Menu/Main/HBoxContainer/PageBackground"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -305,7 +306,6 @@ popup/item_2/text = "Выкл"
 popup/item_2/id = 2
 
 [node name="SoundVolumeSection" type="ScrollContainer" parent="Menu/Main/HBoxContainer/PageBackground"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -427,6 +427,39 @@ text = "0%"
 horizontal_alignment = 1
 
 [node name="NatureVolumeSlider" type="HSlider" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/NatureVolumeMargin/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RadioVolumeMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/RadioVolumeMargin"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/RadioVolumeMargin/HBoxContainer"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_constants/margin_right = 10
+
+[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/RadioVolumeMargin/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Радио:"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/RadioVolumeMargin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RadioVolumeLabel" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/RadioVolumeMargin/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "0%"
+horizontal_alignment = 1
+
+[node name="RadioVolumeSlider" type="HSlider" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/RadioVolumeMargin/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
