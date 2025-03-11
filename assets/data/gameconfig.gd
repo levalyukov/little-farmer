@@ -7,6 +7,7 @@ var fps_limit:int = true
 var general:int = 100
 var music:int = 23
 var nature:int = 50
+var radio:int = 75
 
 func apply():
     # V-Sync
