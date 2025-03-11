@@ -198,7 +198,7 @@ layout_mode = 2
 layout_mode = 2
 alignment = 1
 
-[node name="Pause" type="Button" parent="NinePatchRect/VBoxContainer/PowerRadio/HBoxContainer2"]
+[node name="PowerButton" type="Button" parent="NinePatchRect/VBoxContainer/PowerRadio/HBoxContainer2"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -365,6 +365,10 @@ libraries = {
 "": SubResource("AnimationLibrary_dqip4")
 }
 
+[connection signal="pressed" from="NinePatchRect/VBoxContainer/PreviousNextButton/HBoxContainer/PreviousTrackButton" to="." method="_on_previous_track_button_pressed"]
+[connection signal="pressed" from="NinePatchRect/VBoxContainer/PreviousNextButton/HBoxContainer/PauseTrackButton" to="." method="_on_pause_track_button_pressed"]
+[connection signal="pressed" from="NinePatchRect/VBoxContainer/PreviousNextButton/HBoxContainer/NextTrackButton" to="." method="_on_next_track_button_pressed"]
+[connection signal="pressed" from="NinePatchRect/VBoxContainer/PowerRadio/HBoxContainer2/PowerButton" to="." method="_on_power_button_pressed"]
 [connection signal="pressed" from="NinePatchRect/VBoxContainer/RadioType/VBoxContainer/HBoxContainer/UserTracksContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/OpenFolderButton" to="." method="_on_open_folder_button_pressed"]
 [connection signal="pressed" from="NinePatchRect/VBoxContainer/RadioType/VBoxContainer/HBoxContainer/UserTracksContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ScanFolderButton" to="." method="_on_scan_folder_button_pressed"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
