@@ -123,11 +123,7 @@ func get_data() -> Dictionary:
 			'all_collisions': all_collisions
 		}
 	return {}
-
-func load_data(obj_level:int) -> void:
-	self.level = obj_level
-	update()
-
+	
 func _on_area_2d_mouse_entered():
 	if !blur.state\
 	&& grid.mode == grid.modes.NOTHING\
