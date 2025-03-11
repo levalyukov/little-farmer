@@ -7,7 +7,7 @@ extends Control
 
 @onready var header:Label = $NinePatchRect/VBoxContainer/HeaderMargin/Label
 @onready var playNow:Label = $NinePatchRect/VBoxContainer/PlayNowMargin/Label
-@onready var powerButton:Button = $NinePatchRect/VBoxContainer/PowerRadio/HBoxContainer2/Pause
+@onready var powerButton:Button = $NinePatchRect/VBoxContainer/PowerRadio/HBoxContainer2/PowerButton
 
 @onready var buttonsInteractions:HBoxContainer = $NinePatchRect/VBoxContainer/PreviousNextButton/HBoxContainer
 @onready var previousButton:Button = $NinePatchRect/VBoxContainer/PreviousNextButton/HBoxContainer/PreviousTrackButton
@@ -27,18 +27,63 @@ var node:Node2D = null
 var buttons_captions:Array[String] = []
 var buttons_index:Array[int] = []
 var stations_name:Array[String] = []
+var stream_position:float = 0.0
+var stopped:bool = false
 var stations:Dictionary = {
-	'Retro FM': [
+	'Radio FM': [
 		'res://sounds/stations/retro/track_1',
-		'res://sounds/stations/retro/track_2',
-		'res://sounds/stations/retro/track_3',
-		'res://sounds/stations/retro/track_4',
-		'res://sounds/stations/retro/track_5'
 		],
 }
 
 func _ready():
 	close()
+
+func _process(_delta):
+	if visible:
+		if node:
+			if node.enabled:
+				if node.audio_player.is_playing():
+					if !node.particles.emitting:
+						node.particles.emitting = true
+				else:
+					if node.particles.emitting:
+						node.particles.emitting = !true
+			else:
+				if node.particles.emitting:
+					node.particles.emitting = !true
+
+			if stopped:
+				pauseTrack.text = 'Слушать'
+			else:
+				pauseTrack.text = 'Пауза'
+
+			if node.audio_player.is_playing():
+				if !buttonsInteractions.visible:
+					buttonsInteractions.visible = true
+
+			if node.enabled:
+				if !node.audio_player.is_playing() && !stopped:
+					playNow.text ="Выберите режим работы радио ниже:"
+				powerButton.text = tr("Выключить радио")
+			else:
+				if playNow.text != "":
+					playNow.text =""
+				powerButton.text = tr("Включить радио")
+				if buttonsInteractions.visible:
+					buttonsInteractions.visible = false
+
+func update_string_playNow() -> void:
+	if node:
+		if !stopped:
+			if len(node.audio_captions[node.audio_index_track]) > 28:
+				playNow.text = tr("Сейчас играет: ") + "\"" + str(node.audio_captions[node.audio_index_track].substr(0,28)) + "..." + "\""
+			else:
+				playNow.text = tr("Сейчас играет: ") + "\"" + str(node.audio_captions[node.audio_index_track]) + "\""
+		else:
+			if len(node.audio_captions[node.audio_index_track]) > 28:
+				playNow.text = tr("На паузе: ") + "\"" + str(node.audio_captions[node.audio_index_track].substr(0,28)) + "..." + "\""
+			else:
+				playNow.text = tr("На паузе: ") + "\"" + str(node.audio_captions[node.audio_index_track]) + "\""
 
 func set_stations() -> void:
 	if radiostationsContainer.get_children() != []:
@@ -53,9 +98,9 @@ func set_stations() -> void:
 			radiostationsContainer.add_child(button)
 
 func on_station_pressed(stationName:String):
-	print(
-		'stations data: ', stations[stationName]
-	)
+	if visible:
+		if node:
+			node.userMode = !true
 
 func _on_open_folder_button_pressed():
 	data.open_folder_in_explorer("user://game/custom_music/")
@@ -67,9 +112,10 @@ func _on_scan_folder_button_pressed():
 			for x in usersTracksContainer.get_children():
 				usersTracksContainer.remove_child(x)
 		if node.audio_captions != []:
+			buttons_captions = []
 			for caption in node.audio_captions:
-				if len(caption) > 20:
-					buttons_captions.append(caption.substr(0,20) + "...")
+				if len(caption) > 28:
+					buttons_captions.append(caption.substr(0,28) + "...")
 				else:
 					buttons_captions.append(caption)
 			for x in node.audio_streams.size():
@@ -83,9 +129,12 @@ func _on_scan_folder_button_pressed():
 	else:
 		usersTracksMargin.add_theme_constant_override("margin_top", 16)
 
-func on_userTrack_pressed(musicID:int):
+func on_userTrack_pressed(index:int):
 	if node:
-		print(musicID)
+		node.play_track(index)
+		node.userMode = true
+		stream_position = 0.0
+		stopped = false
 
 func open(_node:Node2D) -> void:
 	opened = true
@@ -93,6 +142,25 @@ func open(_node:Node2D) -> void:
 	set_stations()
 	blur.blur(true)
 	anim.play("open")
+	if node:
+		if !node.enabled:
+			if usersTracksContainer.get_children().size() > 0:
+				for x in usersTracksContainer.get_children():
+					if x is Button:
+						x.disabled = true
+			if radiostationsContainer.get_children().size() > 0:
+				for z in radiostationsContainer.get_children():
+					if z is Button:
+						z.disabled = true
+		else:
+			if usersTracksContainer.get_children().size() > 0:
+				for x in usersTracksContainer.get_children():
+					if x is Button:
+						x.disabled = false
+			if radiostationsContainer.get_children().size() > 0:
+				for z in radiostationsContainer.get_children():
+					if z is Button:
+						z.disabled = false
 
 func close() -> void:
 	opened = false
@@ -102,6 +170,58 @@ func close() -> void:
 
 func window() -> void:
 	visible = opened
+	if pause:
+		pause.other_menu = opened
 
 func _on_close_button_pressed() -> void:
 	close()
+
+func _on_power_button_pressed():
+	if visible:
+		if node:
+			if node.enabled:
+				node.enabled = false
+				node.audio_player.stop()
+				stream_position = 0.0
+				stopped = false
+				if usersTracksContainer.get_children().size() > 0:
+					for x in usersTracksContainer.get_children():
+						if x is Button:
+							x.disabled = true
+
+				if radiostationsContainer.get_children().size() > 0:
+					for z in radiostationsContainer.get_children():
+						if z is Button:
+							z.disabled = true
+			else:
+				node.enabled = true
+				if usersTracksContainer.get_children().size() > 0:
+					for x in usersTracksContainer.get_children():
+						if x is Button:
+							x.disabled = false
+
+				if radiostationsContainer.get_children().size() > 0:
+					for z in radiostationsContainer.get_children():
+						if z is Button:
+							z.disabled = false
+
+func _on_pause_track_button_pressed():
+	if visible:
+		if node:
+			if !stopped && node.audio_player.is_playing():
+				stream_position = node.audio_player.get_playback_position()
+				node.audio_player.stop()
+				stopped = true
+			else:
+				node.audio_player.play(stream_position)
+				stopped = false
+			
+func _on_next_track_button_pressed():
+	if visible:
+		if node:
+			node.next_track()
+
+func _on_previous_track_button_pressed():
+	if visible:
+		if node:
+			node.previous_track()
