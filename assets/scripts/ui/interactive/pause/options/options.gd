@@ -20,7 +20,10 @@ extends Control
 @onready var music_sound_label:Label = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/MusicVolumeMargin/HBoxContainer/VBoxContainer/MusicVolumeLabel
 @onready var music_sound_slider:HSlider = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/MusicVolumeMargin/HBoxContainer/VBoxContainer/MusicVolumeSlider
 @onready var nature_sound_label:Label = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/NatureVolumeMargin/HBoxContainer/VBoxContainer/NatureVolumeLabel
-@onready var nature_sound_slider:HSlider =$Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/NatureVolumeMargin/HBoxContainer/VBoxContainer/NatureVolumeSlider
+@onready var nature_sound_slider:HSlider = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/NatureVolumeMargin/HBoxContainer/VBoxContainer/NatureVolumeSlider
+@onready var radio_sound_label:Label = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/RadioVolumeMargin/HBoxContainer/VBoxContainer/RadioVolumeLabel
+@onready var radio_sound_slider:HSlider = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/RadioVolumeMargin/HBoxContainer/VBoxContainer/RadioVolumeSlider
+
 
 @onready var control_section:ScrollContainer = $Menu/Main/HBoxContainer/PageBackground/ControlSection
 
@@ -61,6 +64,7 @@ func _process(_delta):
 			general_sound_label.text = str(general_sound_slider.value)+"%"
 			music_sound_label.text = str(music_sound_slider.value)+"%"
 			nature_sound_label.text = str(nature_sound_slider.value)+"%"
+			radio_sound_label.text = str(radio_sound_slider.value)+"%"
 
 func set_values(content:Dictionary) -> void:
 	if content != {}:
@@ -86,6 +90,9 @@ func set_values(content:Dictionary) -> void:
 			if content['sounds'].has("nature"):
 				GameConfig.nature = content['sounds']['nature']
 				nature_sound_slider.value = content['sounds']['nature']
+			if content['sounds'].has("radio"):
+				GameConfig.radio = content['sounds']['radio']
+				radio_sound_slider.value = content['sounds']['radio']
 
 func _saving() -> void:
 	# Graphic
@@ -96,6 +103,7 @@ func _saving() -> void:
 	GameConfig.general = int(general_sound_slider.value)
 	GameConfig.music = int(music_sound_slider.value)
 	GameConfig.nature = int(nature_sound_slider.value)
+	GameConfig.radio = int(radio_sound_slider.value)
 
 # -- -- --
 # Buttons
