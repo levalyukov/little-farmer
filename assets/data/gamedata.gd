@@ -648,6 +648,7 @@ func config_new() -> void:
 			"general": 100,
 			"music": 25,
 			"nature": 50,
+			"radio": 75,
 		},
 	}
 	if target_path:
@@ -670,6 +671,7 @@ func config_save() -> void:
 				"general": GameConfig.general,
 				"music": GameConfig.music,
 				"nature": GameConfig.nature,
+				"radio": GameConfig.radio,
 			},
 		}
 		file_save([path.main], file.config, config)
@@ -684,6 +686,7 @@ func config_save() -> void:
 				"general": 100,
 				"music": 25,
 				"nature": 50,
+				"radio": 75,
 			},
 		}
 		FileSystem.new().Funcs.create_directory(path.main)
