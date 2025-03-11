@@ -21,7 +21,7 @@ var condition:int = phases.planted
 var fertilizer:int = fertilizers.nothing
 var degree:int
 
-enum phases {planted, growing, growed, dead}
+enum phases {planted, growing, requiresWatering, growed, dead}
 enum fertilizers {nothing, regularCompost, highQualityCompost}
 
 func _process(_delta):
@@ -63,6 +63,37 @@ func check(vector:Vector2i) -> void:
 			else:
 				timer.wait_time = crops.crops[plantID]["growth_rate"]
 			growth()
+
+func check_water(vector:Vector2i) -> void:
+	if !pause.paused:
+		if collision.check_cell(vector, collision.farmland_layer)\
+		&& collision.check_cell(vector, collision.watering_layer)\
+		&& condition != phases.dead:
+			tilemap.set_cells_terrain_connect(collision.watering_layer,[vector],0,-1)
+			condition = phases.requiresWatering
+			degree = 0
+			timer.stop()
+			check_water_timer.start()
+
+func requires_watering(vector:Vector2i) -> void:
+	if !pause.paused:
+		if collision.check_cell(vector, collision.farmland_layer)\
+		&& !collision.check_cell(vector, collision.watering_layer)\
+		&& condition == phases.requiresWatering\
+		&& condition != phases.dead:
+			if degree < crops.crops[plantID]["mortality"]:
+				degree += 1
+			else:
+				condition = phases.dead
+				check_water_timer.stop()
+		elif collision.check_cell(vector, collision.farmland_layer)\
+		&& collision.check_cell(vector, collision.watering_layer)\
+		&& condition == phases.requiresWatering\
+		&& condition != phases.dead:
+			degree = 0
+			condition = phases.growing
+			timer.start()
+			check_water_timer.stop()
 
 func growth() -> void:
 	if condition == phases.growing:
@@ -123,8 +154,10 @@ func get_condition(condition_type:int) -> String:
 		1:
 			return tr("Процветает")
 		2:
-			return tr("Выросло")
+			return tr("Требует полива")
 		3:
+			return tr("Выросло")
+		4:
 			return tr("Погибло")
 		_:
 			return ""
@@ -166,4 +199,7 @@ func _on_collision_mouse_exited() -> void:
 		tip.tooltip()
 
 func _on_check_water_timer_timeout():
-	check(tilemap.local_to_map(position))
+	if condition != phases.requiresWatering:
+		check(tilemap.local_to_map(position))
+	else:
+		requires_watering(tilemap.local_to_map(self.global_position))
