@@ -3,6 +3,7 @@ extends Sprite2D
 @onready var main:String = str(get_tree().root.get_child(2).name)
 @onready var data:Node2D = get_node("/root/"+main)
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
+@onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var plant = $".."
 @onready var timer:Timer = $"../Timer"
 
@@ -48,6 +49,7 @@ func _on_timer_timeout() -> void:
 		if level < crops.crops[plant.plantID]["growth_level"]:
 			region_rect.position.x += 16
 			level += 1
+			plant.check_water(tilemap.local_to_map(self.global_position))
 		else:
 			plant_increased()
 
