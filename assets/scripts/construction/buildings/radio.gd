@@ -60,12 +60,17 @@ func load_mp3(file_path:String) -> AudioStream:
 	return stream
 
 func play_track(index:int) -> void:
+	audio_index_track = index
 	if audio_streams.size() > 0:
 		if index < 0 || index >= audio_streams.size():
 			return
-		audio_player.stop()
-		audio_player.stream = audio_streams[index]
-		audio_player.play()
+		if enabled:
+			audio_player.stop()
+			audio_player.stream = audio_streams[audio_index_track]
+			audio_player.play()
+
+	if radioMenu:
+		radioMenu.update_string_playNow()
 
 func stop_track() -> void:
 	audio_player.stop()
@@ -101,6 +106,13 @@ func next_track() -> void:
 			audio_index_track = 0
 			play_track(audio_index_track)
 
+func previous_track() -> void:
+	if audio_index_track < 0:
+		audio_index_track = audio_streams.size()-1
+	else:
+		audio_index_track -= 1
+	play_track(audio_index_track)
+
 func _process(_delta):
 	if pause.paused:
 		if enabled:
@@ -125,19 +137,6 @@ func _input(event):
 		&& event.is_pressed()\
 		&& state:
 			radioMenu.open(self)
-			#	if !enabled:
-			#		#	playlist_scan()
-			#		#	if audio_streams != []:
-			#		#		enabled = true
-			#		#		if !particles.emitting:
-			#		#			particles.emitting = true
-			#	else:
-			#		pass
-			#		#	stop_track()
-			#		#	if enabled:
-			#		#		enabled = !true
-			#		#	if particles.emitting:
-			#		#		particles.emitting = !true
 
 	if event is InputEventMouseButton\
 	&& event.button_index == MOUSE_BUTTON_LEFT\
@@ -155,7 +154,7 @@ func _input(event):
 	&& !destroyMode:
 		next_track()
 
-func _on_area_2d_mouse_entered():
+func _on_area_2d_mouse_entered() -> void:
 	if !blur.state\
 	&& grid.mode == grid.modes.NOTHING\
 	&& !buttonDestroy.destroyMode:
@@ -174,7 +173,7 @@ func _on_area_2d_mouse_entered():
 			if object['delete'] is CompressedTexture2D:
 				sprite.texture = object['delete']
 
-func _on_area_2d_mouse_exited():
+func _on_area_2d_mouse_exited() -> void:
 	if destroyMode:
 		destroyMode = !true
 	if state:
@@ -190,5 +189,6 @@ func get_data() -> Dictionary:
 		'all_collisions': all_collisions
 	}
 
-func _on_audio_stream_player_2d_finished():
-	next_track()
+func _on_audio_stream_player_2d_finished() -> void:
+	if !pause.paused:
+		next_track()
