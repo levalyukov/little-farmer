@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bmm3sn5q3j181" path="res://assets/resources/world/light.webp" id="2_5sr1x"]
 
 [node name="lamp_post_modern" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_gxwqw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
