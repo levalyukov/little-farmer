@@ -13,7 +13,9 @@ func tooltip(text:String = "") -> void:
 	if text != "":
 		tip = true
 		label.text = text
-		visible = true
+		if !visible:
+			visible = true
 	else:
 		tip = false
-		visible = false
+		if visible:
+			visible = false

@@ -8,6 +8,7 @@ extends Node2D
 @onready var buildings:Node2D = get_node("/root/"+main+"/ConstructionManager")
 @onready var shadows:Node = get_node("/root/"+main+"/ShadowManager/CanvasGroup")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
+@onready var tools:HBoxContainer = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools")
 @onready var default:CompressedTexture2D = load("res://assets/resources/ui/interactive/hud/grid/default.png")
 @onready var error:CompressedTexture2D = load("res://assets/resources/ui/interactive/hud/grid/error.png")
 
@@ -80,31 +81,52 @@ func nature_check():
 		return
 
 func terrain_check():
-	for grids in get_children():
-		var grid_position = tilemap.local_to_map(grids.get_global_position())
-		if check_cell(grid_position, road_layer)\
-		&& !check_cell(grid_position, farmland_layer)\
-		&& !check_cell(grid_position, watering_layer)\
-		&& !check_cell(grid_position, crops_layer):
-			grids.texture = default
-			return 0
-		elif check_cell(grid_position, farmland_layer)\
-		&& !check_cell(grid_position, watering_layer)\
-		&& !check_cell(grid_position, crops_layer):
-			grids.texture = default
-			return 1
-		elif check_cell(grid_position, farmland_layer)\
-		&& check_cell(grid_position, watering_layer)\
-		&& !check_cell(grid_position, crops_layer):
-			grids.texture = default
-			return 2
-		elif check_cell(grid_position, coast_layer)\
-		&& check_cell(grid_position, water_layer):
-			grids.texture = default
-			return 3
-		else:
-			grids.texture = error
-			return -1
+	if main == "Farm":
+		for grids in get_children():
+			var grid_position = tilemap.local_to_map(grids.get_global_position())
+			if check_cell(grid_position, road_layer)\
+			&& !check_cell(grid_position, farmland_layer)\
+			&& !check_cell(grid_position, watering_layer)\
+			&& !check_cell(grid_position, crops_layer):
+				grids.texture = default
+				return 0
+			elif check_cell(grid_position, farmland_layer)\
+			&& !check_cell(grid_position, watering_layer)\
+			&& !check_cell(grid_position, crops_layer):
+				grids.texture = default
+				return 1
+			elif check_cell(grid_position, farmland_layer)\
+			&& check_cell(grid_position, watering_layer)\
+			&& !check_cell(grid_position, crops_layer):
+				grids.texture = default
+				return 2
+			elif check_cell(grid_position, coast_layer)\
+			&& check_cell(grid_position, water_layer):
+				grids.texture = default
+				return 3
+			else:
+				grids.texture = error
+				return -1
+	if main == "Greenhouse":
+		for grids in get_children():
+			var grid_position = tilemap.local_to_map(grids.get_global_position())
+			if check_cell(grid_position, farmland_layer)\
+			&& !check_cell(grid_position, watering_layer)\
+			&& !check_cell(grid_position, crops_layer):
+				grids.texture = default
+				return 1
+			elif check_cell(grid_position, farmland_layer)\
+			&& check_cell(grid_position, watering_layer)\
+			&& !check_cell(grid_position, crops_layer):
+				grids.texture = default
+				return 2
+			elif check_cell(grid_position, coast_layer)\
+			&& check_cell(grid_position, water_layer):
+				grids.texture = default
+				return 3
+			else:
+				grids.texture = error
+				return -1
 		
 func farming_collision_check() -> void:
 	if main == "Farm"\
@@ -123,6 +145,7 @@ func watering_collision_check() -> void:
 		for grids in get_children():
 			var grid_position = tilemap.local_to_map(grids.get_global_position())
 			if check_custom_data(grid_position, can_place_seed_custom_data, farmland_layer)\
+			#	&& tools.water_can > 0\
 			&& !check_cell(grid_position, watering_layer):
 				grids.texture = default
 			else:

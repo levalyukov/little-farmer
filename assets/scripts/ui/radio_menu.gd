@@ -101,6 +101,7 @@ func on_station_pressed(stationName:String):
 	if visible:
 		if node:
 			node.userMode = !true
+			print(stationName)
 
 func _on_open_folder_button_pressed():
 	data.open_folder_in_explorer("user://game/custom_music/")
@@ -123,6 +124,11 @@ func _on_scan_folder_button_pressed():
 				button.text = buttons_captions[x]
 				button.connect("pressed", Callable(self, "on_userTrack_pressed").bind(x))
 				usersTracksContainer.add_child(button)
+				if node:
+					if !node.enabled:
+						button.disabled = true
+					else:
+						button.disabled = !true
 
 	if usersTracksContainer.get_children() == []:
 		usersTracksMargin.add_theme_constant_override("margin_top", 0)

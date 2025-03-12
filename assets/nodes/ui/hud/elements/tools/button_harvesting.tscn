@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bhm44gsh6va6j"]
+[gd_scene load_steps=9 format=3 uid="uid://bhm44gsh6va6j"]
 
 [ext_resource type="Script" path="res://assets/scripts/ui/hud/tools/button_harvesting.gd" id="1_iyncx"]
 [ext_resource type="Texture2D" uid="uid://hhp2wsgrn6gt" path="res://assets/resources/ui/big_button_default.png" id="2_g3efr"]
@@ -12,6 +12,9 @@ texture = ExtResource("3_mmdki")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sh5jt"]
 texture = ExtResource("3_mmdki")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h7uyr"]
+texture = ExtResource("2_g3efr")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ihi2s"]
 
@@ -43,6 +46,7 @@ layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_v0tao")
 theme_override_styles/hover = SubResource("StyleBoxTexture_b1gkv")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_sh5jt")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_h7uyr")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ihi2s")
 
 [node name="Margin" type="MarginContainer" parent="Main"]

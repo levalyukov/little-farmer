@@ -17,7 +17,7 @@ extends Node2D
 
 var destroyMode:bool = false
 var all_collisions:Array[Vector2i] = []
-var clicked:bool = false
+var well_hovered:bool = false
 var level:int = 1
 var blueprint_id:int = 0
 var vector:Vector2i
@@ -54,15 +54,19 @@ func _input(event):
 	if grid.mode == grid.modes.NOTHING:
 		if event is InputEventMouseButton\
 		&& event.button_index == MOUSE_BUTTON_LEFT\
-		&& event.is_pressed():
-			clicked = true
+		&& event.is_pressed()\
+		&& grid.mode == grid.modes.NOTHING\
+		&& well_hovered\
+		&& !destroyMode:
+			tools.water_can = tools.water_can_max
 
 	if event is InputEventMouseButton\
 	&& event.button_index == MOUSE_BUTTON_LEFT\
 	&& event.is_pressed()\
 	&& !blur.state\
 	&& destroyMode\
-	&& buttonDestroy.destroyMode:
+	&& buttonDestroy.destroyMode\
+	&& grid.mode == grid.modes.NOTHING:
 		buildings.remove_node(self, all_collisions)
 
 func _ready():
@@ -136,6 +140,8 @@ func _change_sprite(type:bool) -> void:
 
 
 func _on_area_2d_mouse_entered():
+	if !well_hovered:
+		well_hovered = true
 	if !blur.state\
 	&& grid.mode == grid.modes.NOTHING\
 	&& !buttonDestroy.destroyMode:
@@ -153,6 +159,8 @@ func _on_area_2d_mouse_entered():
 							sprite.texture = object[level]["seasons"][season]["delete"]
 
 func _on_area_2d_mouse_exited():
+	if well_hovered:
+		well_hovered = !true
 	_change_sprite(false)
 	if destroyMode:
 		destroyMode = !true

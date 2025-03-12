@@ -24,6 +24,6 @@ func _on_timeout():
 			if has_node("/root/"+main+"/ShadowManager/CloudGroup"):
 				var random_sprite = randi() % clouds.size()
 				canvas.create_cloud(clouds[random_sprite])
-				wait_time = randi_range(spawn_clouds_time_min*clock.speed, spawn_clouds_time_max*clock.speed)
+				wait_time = randi_range(1,10)
 			else:
 				data.debug("The 'CanvasGroup' node is missing.", "error")

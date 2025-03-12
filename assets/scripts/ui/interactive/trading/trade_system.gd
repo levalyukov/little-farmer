@@ -331,7 +331,7 @@ func update_button_trade_window() -> void:
 						trade_window_button.text = tr("Купить")
 						trade_window_button.disabled = false
 					else:
-						trade_window_button.text = tr("Недостаточно средств.")
+						trade_window_button.text = tr("Недостаточно средств")
 						trade_window_button.disabled = true
 				else:
 					trade_window_button.text = tr("Склад полон")

@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://6og01lj08srh"]
+[gd_scene load_steps=8 format=3 uid="uid://6og01lj08srh"]
 
+[ext_resource type="Script" path="res://assets/scripts/ui/tools.gd" id="1_htom4"]
 [ext_resource type="PackedScene" uid="uid://i5wr18nbfkhb" path="res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_destroy.tscn" id="1_osllv"]
 [ext_resource type="Texture2D" uid="uid://dtkym5bhfhpb" path="res://assets/resources/ui/menu_background.png" id="1_ttosw"]
 [ext_resource type="PackedScene" uid="uid://d0607ns0r4vi3" path="res://assets/nodes/ui/hud/elements/tools/button_farming.tscn" id="2_72rmh"]
@@ -16,6 +17,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 0
 grow_vertical = 0
+script = ExtResource("1_htom4")
 
 [node name="Panel" type="NinePatchRect" parent="."]
 layout_mode = 2

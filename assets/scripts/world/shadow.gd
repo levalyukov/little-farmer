@@ -74,13 +74,12 @@ func create_shadow_node(shadow_name:String, _node:PackedScene, shadow_position:V
 func create_cloud(shadow_texture:CompressedTexture2D) -> void:
 	if main == 'Farm':
 		if !pause.paused:
-			if clouds_value < max_clouds:
+			if clouds_value <= max_clouds:
 				var node:PackedScene = load("res://assets/nodes/world/cloud.tscn")
 				var cloud = node.instantiate()
 				var cloud_position_x = randi_range(min_widht_map, max_widht_map)
 				var cloud_position_y = randi_range(min_height_map, max_height_map)
 				var target_position = Vector2i(cloud_position_x, cloud_position_y)
-				cloud.name = "cloud_"+ str(clouds_value)
 				cloud.texture = shadow_texture
 				cloud.position = tilemap.map_to_local(target_position)
 				cloud_canvas.add_child(cloud)

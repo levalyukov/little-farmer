@@ -65,7 +65,6 @@ func check(vector:Vector2i) -> void:
 			growth()
 
 func check_water(vector:Vector2i) -> void:
-	if !pause.paused:
 		if collision.check_cell(vector, collision.farmland_layer)\
 		&& collision.check_cell(vector, collision.watering_layer)\
 		&& condition != phases.dead:
@@ -145,7 +144,7 @@ func set_data(
 				timer.wait_time = crops.crops[plantID]["growth_rate"] - (items.content[62]["func"]["reducing"] / 100.0) * crops.crops[plantID]["growth_rate"]
 	else:
 		timer.wait_time = crops.crops[plantID]["growth_rate"]
-	growth()
+	check_water_timer.start()
 
 func get_condition(condition_type:int) -> String:
 	match condition_type:

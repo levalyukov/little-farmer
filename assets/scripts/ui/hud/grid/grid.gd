@@ -144,14 +144,14 @@ func _process(_delta):
 						):
 							if tools.water_can > 0:
 								tools.water_can -= 1
+								tilemap.set_cells_terrain_connect(
+									collision.watering_layer,
+									[grid_position],
+									collision.terrain_set,
+									collision.watering_terrain
+								)
 							else:
 								tools.water_can = 0
-							tilemap.set_cells_terrain_connect(
-								collision.watering_layer,
-								[grid_position],
-								collision.terrain_set,
-								collision.watering_terrain
-							)
 				check = false
 				
 			modes.PLANTING:

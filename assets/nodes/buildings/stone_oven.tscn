@@ -54,7 +54,7 @@ shape = SubResource("RectangleShape2D_nu65w")
 visible = false
 scale = Vector2(0.3125, 0.3125)
 color = Color(1, 0.627451, 0.309804, 1)
-energy = 0.25
+energy = 0.5
 texture = ExtResource("4_hhwm7")
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
