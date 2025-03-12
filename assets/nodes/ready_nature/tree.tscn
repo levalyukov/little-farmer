@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bkqw211lmg20b" path="res://assets/resources/world/trees/summer/tree_1.png" id="2_244ju"]
 
 [node name="tree" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_dbud7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
