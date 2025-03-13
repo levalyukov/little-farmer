@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqhxpbrco61wn"]
+
+[ext_resource type="Texture2D" uid="uid://b7qvakcmqjmlv" path="res://assets/resources/buildings/scarecrow/obj_0.png" id="1_1n51c"]
+[ext_resource type="Script" path="res://assets/scripts/construction/buildings/scarecrow.gd" id="1_63a7u"]
+
+[node name="scarecrow" type="Node2D"]
+script = ExtResource("1_63a7u")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("1_1n51c")
