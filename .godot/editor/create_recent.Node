@@ -1,3 +1,4 @@
+Sprite2D
 VBoxContainer
 MarginContainer
 Button
@@ -6,7 +7,6 @@ ScrollContainer
 NinePatchRect
 HBoxContainer
 Label
-Sprite2D
 Panel
 AudioListener2D
 AudioStreamPlayer
