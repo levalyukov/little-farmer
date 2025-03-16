@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://dkmgvs1mpa0pi"]
+[gd_scene load_steps=19 format=3 uid="uid://dkmgvs1mpa0pi"]
 
 [ext_resource type="Theme" uid="uid://btsx1m2p0i620" path="res://assets/resources/theme.tres" id="1_8l77d"]
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/trading/trade_system.gd" id="1_dpoco"]
 [ext_resource type="Texture2D" uid="uid://dtkym5bhfhpb" path="res://assets/resources/ui/menu_background.png" id="3_l3854"]
 [ext_resource type="Texture2D" uid="uid://cdxqxalncqobp" path="res://assets/resources/ui/menu_background_secondary.png" id="4_jyngy"]
 [ext_resource type="Texture2D" uid="uid://c3yf44sxb8a8o" path="res://assets/resources/ui/menu_background_middle.png" id="4_rjjme"]
+[ext_resource type="PackedScene" uid="uid://do4e681e4p00n" path="res://assets/nodes/ui/interactive/inventory/slot.tscn" id="6_68ngf"]
 [ext_resource type="Texture2D" uid="uid://idrcmhx6mgfv" path="res://assets/resources/ui/button_close_default.png" id="6_j3wo8"]
 [ext_resource type="Texture2D" uid="uid://baklqd1yo23jy" path="res://assets/resources/ui/button_close_hover.png" id="7_c5le2"]
 
@@ -276,6 +277,9 @@ theme_override_constants/margin_bottom = 8
 layout_mode = 2
 size_flags_horizontal = 0
 columns = 4
+
+[node name="Slot" parent="Content/TradeWindow/TradeWindow/VBoxContainer/ItemsContainer/GridMarginContainer/GridContainer" instance=ExtResource("6_68ngf")]
+layout_mode = 2
 
 [node name="TargetPriceContainer" type="MarginContainer" parent="Content/TradeWindow/TradeWindow/VBoxContainer"]
 layout_mode = 2
