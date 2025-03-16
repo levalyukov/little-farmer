@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmac0xfatvw"]
+
+[ext_resource type="Script" path="res://assets/scripts/construction/buildings/fountan.gd" id="1_akrtl"]
+[ext_resource type="Texture2D" uid="uid://ch8o2j0x7fbix" path="res://assets/resources/buildings/fountan/obj_0.png" id="2_rmqd1"]
+
+[node name="fountan" type="Node2D"]
+script = ExtResource("1_akrtl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("2_rmqd1")
