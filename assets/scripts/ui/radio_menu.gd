@@ -75,13 +75,13 @@ func _process(_delta):
 func update_string_playNow() -> void:
 	if node:
 		if !stopped:
-			if len(node.audio_captions[node.audio_index_track]) > 28:
-				playNow.text = tr("Сейчас играет: ") + "\"" + str(node.audio_captions[node.audio_index_track].substr(0,28)) + "..." + "\""
+			if len(node.audio_captions[node.audio_index_track]) > 50:
+				playNow.text = tr("Сейчас играет: ") + "\"" + str(node.audio_captions[node.audio_index_track].substr(0,50)) + "..." + "\""
 			else:
 				playNow.text = tr("Сейчас играет: ") + "\"" + str(node.audio_captions[node.audio_index_track]) + "\""
 		else:
-			if len(node.audio_captions[node.audio_index_track]) > 28:
-				playNow.text = tr("На паузе: ") + "\"" + str(node.audio_captions[node.audio_index_track].substr(0,28)) + "..." + "\""
+			if len(node.audio_captions[node.audio_index_track]) > 50:
+				playNow.text = tr("На паузе: ") + "\"" + str(node.audio_captions[node.audio_index_track].substr(0,50)) + "..." + "\""
 			else:
 				playNow.text = tr("На паузе: ") + "\"" + str(node.audio_captions[node.audio_index_track]) + "\""
 
@@ -115,8 +115,8 @@ func _on_scan_folder_button_pressed():
 		if node.audio_captions != []:
 			buttons_captions = []
 			for caption in node.audio_captions:
-				if len(caption) > 28:
-					buttons_captions.append(caption.substr(0,28) + "...")
+				if len(caption) > 20:
+					buttons_captions.append(caption.substr(0,20) + "...")
 				else:
 					buttons_captions.append(caption)
 			for x in node.audio_streams.size():
@@ -225,9 +225,13 @@ func _on_pause_track_button_pressed():
 func _on_next_track_button_pressed():
 	if visible:
 		if node:
+			stream_position = 0.0
+			stopped = false
 			node.next_track()
 
 func _on_previous_track_button_pressed():
 	if visible:
 		if node:
+			stream_position = 0.0
+			stopped = false
 			node.previous_track()

@@ -19,7 +19,7 @@ const seasons:Array[String] = [
 	"spring", "summer", 
 	"autumn", "winter"
 ]
-var season:int = 0
+var season:int = 1
 var year:int = 1
 var week:int = 1
 var day:int = 0

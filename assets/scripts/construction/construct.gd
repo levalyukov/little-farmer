@@ -11,6 +11,9 @@ extends Node2D
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
 const max_distance:int = 250
 var haved:bool = false
+var blueprints = BlueprintManager.new()
+var required_resources_id:Array[int] = []
+var required_resources_amount:Array[int] = []
 
 func get_buildings() -> Dictionary:
 	var data_dict = {}
@@ -20,7 +23,6 @@ func get_buildings() -> Dictionary:
 	return data_dict
 
 func create_node(id:int, vector:Vector2i, node_name:String = "") -> void:
-	var blueprints = BlueprintManager.new()
 	if blueprints.content.has("nodes"):
 		if blueprints.content["nodes"].has(id):
 			if blueprints.content["nodes"][id].has("config"):
@@ -149,6 +151,25 @@ func remove_node(node:Node2D, vectors:Array[Vector2i]) -> void:
 		if nodes == node:
 			for i in vectors:
 				if i == tilemap.local_to_map(nodes.position):
+					if blueprints.content['nodes'].has(node.blueprint_id):
+						if blueprints.content['nodes'][node.blueprint_id].has('config'):
+							if blueprints.content['nodes'][node.blueprint_id]['config'].has('resources'):
+								required_resources_id = []
+								required_resources_amount = []
+								for a in blueprints.content['nodes'][node.blueprint_id]['config']['resources']:
+									required_resources_id.append(a)
+									required_resources_amount.append(
+										blueprints.content['nodes'][node.blueprint_id]['config']['resources'][a]['amount']
+									)
+					if required_resources_id.size() > 0\
+					&& required_resources_amount.size() > 0:
+						for c in range(required_resources_id.size()):
+							var resource_id = required_resources_id[c]
+							var resource_amount = required_resources_amount[c]
+							inventory.add_item(
+								resource_id,
+								round(resource_amount / 4)
+							)
 					remove_child(node)
 
 	for i in shadows_node.get_children():

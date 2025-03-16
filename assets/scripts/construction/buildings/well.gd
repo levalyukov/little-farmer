@@ -13,6 +13,7 @@ extends Node2D
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
 @onready var buttonDestroy:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
+@onready var area:Area2D = $Area2D
 @onready var sprite:Sprite2D = $Sprite2D
 
 var destroyMode:bool = false
@@ -57,7 +58,8 @@ func _input(event):
 		&& event.is_pressed()\
 		&& grid.mode == grid.modes.NOTHING\
 		&& well_hovered\
-		&& !destroyMode:
+		&& !destroyMode\
+		&& main == "Farm":
 			tools.water_can = tools.water_can_max
 
 	if event is InputEventMouseButton\
@@ -66,11 +68,18 @@ func _input(event):
 	&& !blur.state\
 	&& destroyMode\
 	&& buttonDestroy.destroyMode\
-	&& grid.mode == grid.modes.NOTHING:
+	&& grid.mode == grid.modes.NOTHING\
+	&& main == "Farm":
 		buildings.remove_node(self, all_collisions)
 
 func _ready():
 	update()
+	if main == "Village":
+		area.visible = false
+		var shadow_sprite = load("res://assets/resources/buildings/well/level_1/shadow.png")
+		var vector2i_position = tilemap.local_to_map(position)
+		var target_position = Vector2i(vector2i_position.x, vector2i_position.y)
+		canvas.create_shadow("well_shadow", shadow_sprite, target_position)
 
 func update():
 	if clock:

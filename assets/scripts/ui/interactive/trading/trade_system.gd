@@ -81,6 +81,14 @@ func _process(_delta) -> void:
 				else:
 					break
 
+		if trade_window_items.get_children().size() > 0:
+			if !trade_window_items_container.visible:
+				trade_window_items_container.visible = true
+		else:
+			if trade_window_items_container.visible:
+				trade_window_items_container.visible = false
+				update_button_trade_window()
+
 func create_all_items(type:String = "all") -> void:
 	match type:
 		"all":
@@ -165,6 +173,7 @@ func open_trade_menu(traderID:int) -> void:
 	opened = true
 	window_visible = true
 	anim.play("open_menu")
+	forced_clear_trade_window()
 	update_inventories_trade_menu()
 	clear_all_trade_menu()
 	if !blur.state:
@@ -176,6 +185,7 @@ func close_trade_menu() -> void:
 	blur.blur(false)
 	anim.play("close_menu")
 	trader_id = 0
+	forced_clear_trade_window()
 
 func remove_player_inventory() -> void:
 	for i in player_inventory_main.get_children():
@@ -208,7 +218,6 @@ func set_item_trade_window(item_id, slot_arg, amount:int = 1) -> void:
 						trade_content[item_id]["amount"] += amount
 					else:
 						trade_content[item_id]["amount"] = inventory.inventory_items[item_id]["amount"]
-			clear_trade_window()
 			get_items_trade_window()
 		slot.tr_initator.TRADER:
 			initiator = initiators.TRADER
@@ -222,7 +231,6 @@ func set_item_trade_window(item_id, slot_arg, amount:int = 1) -> void:
 						trade_content[item_id]["amount"] += amount
 					else:
 						trade_content[item_id]["amount"] = traders.content[trader_id]["inventory"]['seasons'][clock.get_season()][item_id]["amount"]
-			clear_trade_window()
 			get_items_trade_window()
 	update_button_trade_window()
 
@@ -240,8 +248,7 @@ func add_item_trade_window(item_id, slot_arg, amount:int = 1) -> void:
 				if inventory.inventory_items.has(item_id):
 					if trade_content[item_id]["amount"] < inventory.inventory_items[item_id]["amount"]:
 						trade_content[item_id]["amount"] += amount
-			clear_trade_window()
-			get_items_trade_window()
+			trade_window_update(item_id, amount, 0, 'add')
 		slot.tr_initator.TRADER:
 			initiator = initiators.TRADER
 			if !trade_content.has(item_id):
@@ -252,8 +259,7 @@ func add_item_trade_window(item_id, slot_arg, amount:int = 1) -> void:
 				if trade_content[item_id]["amount"] >= 1:
 					if trade_content[item_id]["amount"] < traders.content[trader_id]["inventory"]['seasons'][clock.get_season()][item_id]["amount"]:
 						trade_content[item_id]["amount"] += amount
-			clear_trade_window()
-			get_items_trade_window()
+			trade_window_update(item_id, amount, 0, 'add')
 	update_button_trade_window()
 
 func remove_item_trade_window(item_id, amount:int = 1) -> void:
@@ -267,18 +273,42 @@ func remove_item_trade_window(item_id, amount:int = 1) -> void:
 						trade_content[item_id]["amount"] -= amount
 					else:
 						trade_content[item_id]["amount"] -= 1
-			clear_trade_window()
-			get_items_trade_window()
+			trade_window_update(item_id, amount, 0, 'subject')
 			update_button_trade_window()
 
-func clear_trade_window() -> void:
+func trade_window_update(id, amount:int, slot_arg, type:String) -> void:
+	if id != null\
+	&& amount > 0\
+	&& slot_arg != null:
+		var item_found = false
+		var slot = inventory.node.instantiate()
+		for i in trade_window_items.get_children():
+			if id == i.id:
+				match type:
+					'add':
+						i.amount += amount
+						item_found = true
+						break
+					'subject':
+						i.amount -= amount
+						item_found = true
+						break	
+					_:
+						break
+		if !item_found:
+			if type == 'add':
+				trade_window_items.add_child(slot)
+				slot.set_data(id,amount)
+				slot.tr_arg = slot_arg
+
+func forced_clear_trade_window() -> void:
 	if trade_window_items.get_children() != []:
 		for items in trade_window_items.get_children():
 			trade_window_items.remove_child(items)
 			items.queue_free()
 		trade_window_items_container.visible = false
 
-func get_target_price():
+func get_target_price() -> int:
 	if trade_content != {}:
 		trade_window_target_price.visible = true
 		var target_price_label:String
@@ -426,7 +456,7 @@ func update_inventories_trade_menu() -> void:
 
 func clear_all_trade_menu() -> void:
 	trade_content.clear()
-	clear_trade_window()
+	forced_clear_trade_window()
 	update_button_trade_window()
 	get_target_price()
 

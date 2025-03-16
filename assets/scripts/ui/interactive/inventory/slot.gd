@@ -23,14 +23,25 @@ var tr_arg:int = 0
 
 var cmpst_type:int = 0
 
+func _process(_delta):
+	if visible:
+		if id != null:
+			if item.content.has(int(id)):
+				if amount > 1:
+					if amount_label:
+						amount_label.visible = true
+						amount_label.text = "x"+str(amount)
+					if amount >= item.maximum:
+						amount_label.text = "x"+str(item.maximum)
+				else:
+					amount_label.visible = false
+			if amount <= 0:
+				self.queue_free()
+
 func set_data(index, item_amount:int = 1) -> void:
 	id = index
+	amount = item_amount
 	if item.content.has(int(index)):
-		amount = item_amount
-
-		if amount > item.maximum:
-			amount = item.maximum
-
 		if item.content[int(index)].has("icon"):
 			if item.content[int(index)]["icon"] is CompressedTexture2D:
 				if icon:
@@ -42,13 +53,6 @@ func set_data(index, item_amount:int = 1) -> void:
 		else:
 			icon.visible = false
 			data.debug("[ID: "+str(index)+"] The object does not have the 'icon' key.", "error")
-		
-		if amount > 1:
-			if amount_label:
-				amount_label.visible = true
-				amount_label.text = "x"+str(amount)
-		else:
-			amount_label.visible = false
 
 	else:
 		data.debug("Invalid index: " + str(index), "error")
@@ -180,14 +184,14 @@ func _on_button_pressed():
 				tr_initator.PLAYER:
 					if trade_menu:
 						if trade_menu.initiator == trade_menu.initiators.PLAYER || trade_menu.initiator == trade_menu.initiators.NONE:
-							trade_menu.set_item_trade_window(id, tr_initator.PLAYER, amount/4)
+							trade_menu.add_item_trade_window(id, tr_initator.PLAYER, amount/4)
 							trade_menu.updates_arrays()
 							trade_menu.get_target_price()
 							trade_menu.update_button_trade_window()
 				tr_initator.TRADER:
 					if trade_menu:
 						if trade_menu.initiator == trade_menu.initiators.TRADER || trade_menu.initiator == trade_menu.initiators.NONE:
-							trade_menu.set_item_trade_window(id, tr_initator.TRADER, amount/4)
+							trade_menu.add_item_trade_window(id, tr_initator.TRADER, amount/4)
 							trade_menu.updates_arrays()
 							trade_menu.get_target_price()
 							trade_menu.update_button_trade_window()

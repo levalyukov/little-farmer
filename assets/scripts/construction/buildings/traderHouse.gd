@@ -77,7 +77,7 @@ func update_shadow() -> void:
 			else:
 				data.debug("'"+str(self.name) + "': It is not possible to create a game shadow of an object because the sprite is not of the 'CompressedTexture2D' type.", "error")
 
-func _process(_delta):
+func _process(_delta) -> void:
 	if pause.paused:
 		if chimney.speed_scale > 0:
 			chimney.speed_scale = 0

@@ -23,11 +23,11 @@ const bakeEveninggOn:int = 19
 const bakeEveninggOff:int = 22
 #	var openedTradeMenu:bool = false
 var object:Dictionary = {
-	"caption" = tr("Домик"),
-	"description" = tr("Старый домик."),
-	"shadow" = load("res://assets/resources/buildings/farmer_house/shadow.png"),
-	"default" = load("res://assets/resources/buildings/farmer_house/obj_0.png"),
-	"hovered" = load("res://assets/resources/buildings/farmer_house/obj_1.png"),
+	"caption" = tr(""),
+	"description" = tr("."),
+	"shadow" = load("res://assets/resources/buildings/big_farm_house/shadow.png"),
+	"default" = load("res://assets/resources/buildings/big_farm_house/obj_0.png"),
+	"hovered" = load("res://assets/resources/buildings/big_farm_house/obj_1.png"),
 }
 
 func _ready():
@@ -61,7 +61,7 @@ func update_shadow() -> void:
 			if object["shadow"] is CompressedTexture2D:
 				var vector2i_position = tilemap.local_to_map(position)
 				var target_position = Vector2i(vector2i_position.x, vector2i_position.y-1)
-				canvas.create_shadow("farmer_shadow", object["shadow"], target_position)
+				canvas.create_shadow("house_shadow", object["shadow"], target_position)
 			else:
 				data.debug("'"+str(self.name) + "': It is not possible to create a game shadow of an object because the sprite is not of the 'CompressedTexture2D' type.", "error")
 

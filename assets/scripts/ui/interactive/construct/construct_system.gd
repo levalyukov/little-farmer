@@ -173,6 +173,7 @@ func get_data(group:String, id:int) -> void:
 							button.disabled = false
 							button.id = id
 							button.group = group
+						button.text = tr("Создать")
 			else:
 				return
 		else:
