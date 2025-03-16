@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvnyaoxfj4of3"]
+
+[ext_resource type="Script" path="res://assets/scripts/construction/buildings/bench.gd" id="1_qv7r2"]
+[ext_resource type="Texture2D" uid="uid://bpo2ojra3a5qv" path="res://assets/resources/buildings/bench/obj_0.png" id="2_4rimh"]
+
+[node name="bench" type="Node2D"]
+script = ExtResource("1_qv7r2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("2_4rimh")
