@@ -170,6 +170,14 @@ func remove_node(node:Node2D, vectors:Array[Vector2i]) -> void:
 								resource_id,
 								round(resource_amount / 4)
 							)
+
+					var audio = AudioStreamPlayer.new()
+					self.add_child(audio)
+					audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+					audio.stream = load('res://assets/sounds/buildings/destroy.ogg')
+					audio.set_pitch_scale(randf_range(0.85, 1.25))
+					audio.play()
+
 					remove_child(node)
 
 	for i in shadows_node.get_children():
@@ -180,3 +188,6 @@ func remove_node(node:Node2D, vectors:Array[Vector2i]) -> void:
 
 	for i in vectors:
 		tilemap.set_cell(collision.building_layer, i, -1)
+
+func _on_audio_finished(node) -> void:
+	node.queue_free()
