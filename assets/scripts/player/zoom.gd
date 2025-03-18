@@ -21,6 +21,11 @@ var target_zoom:float = 3.0
 var is_zooming:bool = false
 var is_changing_zoom:bool = false
 
+var audio = AudioStreamPlayer.new()
+
+func _ready():
+	self.add_child(audio)
+
 func _process(delta) -> void:
 	if !pause.paused:
 		handle_zoom(delta)
@@ -32,10 +37,16 @@ func handle_zoom(delta) -> void:
 			if current_zoom < zoom_max:
 				target_zoom = min(current_zoom + zoom_increment, zoom_max)
 				is_changing_zoom = true
+				if audio:
+					audio.stream = load('res://assets/sounds/ui/zoom.ogg')
+					audio.play()
 		if Input.is_action_just_released("mouse wheel down"):
 			if current_zoom > zoom_min:
 				target_zoom = max(current_zoom - zoom_increment, zoom_min)
 				is_changing_zoom = true
+				if audio:
+					audio.stream = load('res://assets/sounds/ui/zoom.ogg')
+					audio.play()
 
 	if is_changing_zoom:
 		current_zoom = lerp(current_zoom, target_zoom, zoom_speed * delta)
@@ -69,8 +80,8 @@ func handle_mouse_look(delta) -> void:
 
 func is_mouse_inside_viewport(mouse_position:Vector2, viewport_size:Vector2) -> bool:
 	return (
-        mouse_position.x >= 0 &&
-        mouse_position.y >= 0 &&
-        mouse_position.x <= viewport_size.x &&
-        mouse_position.y <= viewport_size.y
-    )
+		mouse_position.x >= 0 &&
+		mouse_position.y >= 0 &&
+		mouse_position.x <= viewport_size.x &&
+		mouse_position.y <= viewport_size.y
+	)
