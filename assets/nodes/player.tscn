@@ -5,7 +5,6 @@
 [ext_resource type="Script" path="res://assets/scripts/player/zoom.gd" id="3_kqeun"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pktnx"]
-render_priority = 0
 shader = ExtResource("1_7c5dj")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_chqfy"]
