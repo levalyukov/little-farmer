@@ -63,28 +63,27 @@ const sceneConfig = {
 }
 
 func _ready():
-	pass
-	#	if main == "Farm":
-	#		# Game Load
-	#		if GameLoader.mode\
-	#		&& !GameLoader.start:
-	#			gameload()
-	#			GameLoader.mode = false
-	#		# New Game
-	#		if !GameLoader.mode\
-	#		&& GameLoader.start:
-	#			start_newgame()
-	#			GameLoader.start = false
-	#	else:
-	#		if main != "MainMenu":
-	#			load_time()
-	#			load_balance()
-	#			load_inventory()
-	#			config_load()
-	#			if main == "Farm":
-	#				load_buildings()
-	#			if main == "Greenhouse":
-	#				greenhouse_get_data(GameLoader.greenhouse_caption)
+	if main == "Farm":
+		# Game Load
+		if GameLoader.mode\
+		&& !GameLoader.start:
+			gameload()
+			GameLoader.mode = false
+		# New Game
+		if !GameLoader.mode\
+		&& GameLoader.start:
+			start_newgame()
+			GameLoader.start = false
+	else:
+		if main != "MainMenu":
+			load_time()
+			load_balance()
+			load_inventory()
+			config_load()
+			if main == "Farm":
+				load_buildings()
+			if main == "Greenhouse":
+				greenhouse_get_data(GameLoader.greenhouse_caption)
 				
 func gamesave() -> void:
 	# main data
