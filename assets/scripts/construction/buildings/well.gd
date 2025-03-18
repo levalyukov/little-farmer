@@ -15,6 +15,7 @@ extends Node2D
 @onready var buttonDestroy:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
 @onready var area:Area2D = $Area2D
 @onready var sprite:Sprite2D = $Sprite2D
+var audio = AudioStreamPlayer.new()
 
 var destroyMode:bool = false
 var all_collisions:Array[Vector2i] = []
@@ -60,7 +61,18 @@ func _input(event):
 		&& well_hovered\
 		&& !destroyMode\
 		&& main == "Farm":
-			tools.water_can = tools.water_can_max
+			if tools:
+				if tools.water_can < tools.water_can_max:
+					tools.water_can = tools.water_can_max
+					if audio:
+						audio.stream = load('res://assets/sounds/buildings/using_well.ogg')
+						audio.play()
+					if tip.visible:
+						tip.tooltip()
+						tip.tooltip(
+								str(object[level]["caption"]) + "\n" +
+								str(object[level]["description"])
+							)
 
 	if event is InputEventMouseButton\
 	&& event.button_index == MOUSE_BUTTON_LEFT\
@@ -80,6 +92,8 @@ func _ready():
 		var vector2i_position = tilemap.local_to_map(position)
 		var target_position = Vector2i(vector2i_position.x, vector2i_position.y)
 		canvas.create_shadow("well_shadow", shadow_sprite, target_position)
+	else:
+		self.add_child(audio)
 
 func update():
 	if clock:
@@ -132,10 +146,23 @@ func _change_sprite(type:bool) -> void:
 							data.debug("'"+str(self.name) + "': 'hovered' is not a CompressedTexture2D.", "error")
 					else:
 						data.debug("'"+str(self.name) + "': There is no 'hovered' key.", "error")
-			tip.tooltip(
-					str(object[level]["caption"]) + "\n" +
-					str(object[level]["description"])
-				)
+			if tools:
+				if tools.water_can < tools.water_can_max:
+					tip.tooltip(
+							str(object[level]["caption"]) + "\n" +
+							str(object[level]["description"]) + '\n' +
+							"- Вы можете набрать воду в лейку."
+						)
+				else:
+					tip.tooltip(
+							str(object[level]["caption"]) + "\n" +
+							str(object[level]["description"])
+						)
+			else:
+				tip.tooltip(
+						str(object[level]["caption"]) + "\n" +
+						str(object[level]["description"])
+					)
 	else:
 		if object.has(level):
 			if object[level].has("seasons"):
