@@ -43,6 +43,7 @@ var group:String
 var terrain_set:Array = []
 var terrain_required_layer:Array = []
 var terrain_blocking_layer:Array = []
+var audio_pool = []
 
 func _process(_delta):
 	if visible\
@@ -70,6 +71,12 @@ func _process(_delta):
 									3:
 										tilemap.set_cells_terrain_connect(collision.coast_layer,[grid_position],0,-1)
 										tilemap.set_cells_terrain_connect(collision.water_layer,[grid_position],0,-1)
+									_:
+										var audio = AudioStreamPlayer.new()
+										self.add_child(audio)
+										audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+										audio.stream = load('res://assets/sounds/error.ogg')
+										audio.play()
 					destroy.NATURE:
 						collision.nature_check()
 						if check:
@@ -85,6 +92,12 @@ func _process(_delta):
 												shadows.remove_child(b)
 										tilemap.erase_cell(collision.nature_layer, grid_position) 
 										inventory.add_item(1, randi_range(1,5))
+
+										var audio = AudioStreamPlayer.new()
+										self.add_child(audio)
+										audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+										audio.stream = load('res://assets/sounds/farming/tree_destroy.ogg')
+										audio.play()
 									2: # weed
 										for a in nature.get_children():
 											if grid_position == tilemap.local_to_map(a.position):
@@ -93,6 +106,12 @@ func _process(_delta):
 											if grid_position == tilemap.local_to_map(b.position):
 												shadows.remove_child(b)
 										tilemap.erase_cell(collision.nature_layer, grid_position)
+
+										var audio = AudioStreamPlayer.new()
+										self.add_child(audio)
+										audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+										audio.stream = load('res://assets/sounds/farming/weed_destroy.ogg')
+										audio.play()
 									3: # stone
 										for a in nature.get_children():
 											if grid_position == tilemap.local_to_map(a.position):
@@ -104,28 +123,62 @@ func _process(_delta):
 										inventory.add_item(3, randi_range(1,10))
 										if data.check_probability(15):
 											inventory.add_item(5, randi_range(1,2))
+
+										var audio = AudioStreamPlayer.new()
+										self.add_child(audio)
+										audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+										audio.stream = load('res://assets/sounds/farming/stone_destroy.ogg')
+										audio.play()
 									4: # plant
 										tilemap.erase_cell(collision.crops_layer, grid_position)
 										farming.plant_destroy(grid_position)
+										var audio = AudioStreamPlayer.new()
+										self.add_child(audio)
+										audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+										audio.stream = load('res://assets/sounds/farming/plant_destroy.ogg')
+										audio.play()
 									_:
-										pass
+										var audio = AudioStreamPlayer.new()
+										self.add_child(audio)
+										audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+										audio.stream = load('res://assets/sounds/error.ogg')
+										audio.play()
 				check = false
 				
 			modes.FARMING:
 				collision.farming_collision_check()
 				if check:
 					var farming_tile_position = []
+					var collisions_detect = true
 					for i in collision.get_children():
 						var grid_position = tilemap.local_to_map(i.get_global_position())
 						if collision.check_cell(grid_position, collision.road_layer)\
 						&& collision.check_custom_data(grid_position, collision.can_place_dirt_custom_data, collision.road_layer):
 							farming_tile_position.append(grid_position)
-					tilemap.set_cells_terrain_connect(
-						collision.farmland_layer,
-						farming_tile_position,
-						collision.terrain_set, 
-						collision.farming_terrain
-					)
+						if i.texture != collision.error:
+							collisions_detect = false
+							break
+					if farming_tile_position.size() > 0:
+						if !collisions_detect:
+							tilemap.set_cells_terrain_connect(
+								collision.farmland_layer,
+								farming_tile_position,
+								collision.terrain_set, 
+								collision.farming_terrain
+							)
+
+							var audio = AudioStreamPlayer.new()
+							self.add_child(audio)
+							audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+							audio.stream = load('res://assets/sounds/farming/farming.ogg')
+							audio.set_pitch_scale(randf_range(1.00, 0.85))
+							audio.play()
+						else:
+							var audio = AudioStreamPlayer.new()
+							self.add_child(audio)
+							audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+							audio.stream = load('res://assets/sounds/error.ogg')
+							audio.play()
 					#tilemap.set_cells_terrain_connect(collision.farmland_layer,farming_tile_position,collision.coast_terrain_set,0)
 				check = false
 				
@@ -150,7 +203,18 @@ func _process(_delta):
 									collision.terrain_set,
 									collision.watering_terrain
 								)
+								var audio = AudioStreamPlayer.new()
+								self.add_child(audio)
+								audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+								audio.stream = load('res://assets/sounds/farming/watering_plant.ogg')
+								audio.set_pitch_scale(randf_range(0.85, 1.25))
+								audio.play()
 							else:
+								var audio = AudioStreamPlayer.new()
+								self.add_child(audio)
+								audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+								audio.stream = load('res://assets/sounds/error.ogg')
+								audio.play()
 								tools.water_can = 0
 				check = false
 				
@@ -173,6 +237,13 @@ func _process(_delta):
 											):
 												inventory.subject_item(inventory_item, 1)
 												farming.create_plant(plantID, grid_position)
+
+												var audio = AudioStreamPlayer.new()
+												self.add_child(audio)
+												audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+												audio.stream = load('res://assets/sounds/farming/planting.ogg')
+												audio.set_pitch_scale(randf_range(0.85, 1.25))
+												audio.play()
 										else:
 											data.debug(
 												"The numerical ID ("+ 
@@ -191,6 +262,13 @@ func _process(_delta):
 										):
 											inventory.subject_item(inventory_item, 1)
 											farming.create_plant(plantID, grid_position)
+
+											var audio = AudioStreamPlayer.new()
+											self.add_child(audio)
+											audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+											audio.stream = load('res://assets/sounds/farming/planting.ogg')
+											audio.set_pitch_scale(randf_range(0.85, 1.25))
+											audio.play()
 									else:
 										data.debug(
 											"The numerical ID ("+ 
@@ -216,20 +294,27 @@ func _process(_delta):
 						if crops.crops.has(harvest) && harvest != 0:
 							if storage.object[storage.level]["slots"] - inventory.get_all_items() != 0:
 								if collision.get_harvest(grid_position):
+									var crop_item:int = crops.crops[harvest]["item"]
+									var crop_productivity:Array = crops.crops[harvest]["productivity"]
+									var target_productivity:int = randi_range(crop_productivity[0], crop_productivity[1])
+									tilemap.erase_cell(collision.crops_layer, grid_position)
+									farming.plant_destroy(grid_position)
+									inventory.add_item(crop_item, target_productivity)
+									
 									if data.check_probability(5):
 										var crop_spoilage = crops.crops[harvest]["spoilage"]
-										var crop_productivity:Array = crops.crops[harvest]["productivity"]
-										var target_productivity:int = randi_range(crop_productivity[0], crop_productivity[1])
+										var spoiled_crop_productivity:Array = crops.crops[harvest]["productivity"]
+										var spoiled_target_productivity:int = randi_range(spoiled_crop_productivity[0], spoiled_crop_productivity[1])
 										tilemap.erase_cell(collision.crops_layer, grid_position)
 										farming.plant_destroy(grid_position)
-										inventory.add_item(crop_spoilage, target_productivity)
-									else:
-										var crop_item:int = crops.crops[harvest]["item"]
-										var crop_productivity:Array = crops.crops[harvest]["productivity"]
-										var target_productivity:int = randi_range(crop_productivity[0], crop_productivity[1])
-										tilemap.erase_cell(collision.crops_layer, grid_position)
-										farming.plant_destroy(grid_position)
-										inventory.add_item(crop_item, target_productivity)
+										inventory.add_item(crop_spoilage, spoiled_target_productivity)
+
+									var audio = AudioStreamPlayer.new()
+									self.add_child(audio)
+									audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+									audio.stream = load('res://assets/sounds/farming/harvesting.ogg')
+									audio.set_pitch_scale(randf_range(0.85, 1.25))
+									audio.play()
 							else:
 								notifications.create_notice(tr("full_inventory.error"))
 				check = false
@@ -257,6 +342,14 @@ func _process(_delta):
 									tile_mouse_pos,
 									blueprints.content[group][id]['config']['name']
 								)
+
+								var audio = AudioStreamPlayer.new()
+								self.add_child(audio)
+								audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+								audio.stream = load('res://assets/sounds/buildings/build.ogg')
+								audio.set_pitch_scale(randf_range(0.95, 1.10))
+								audio.play()
+
 								if data_resources != {}:
 									inventory.subject_item(data_resources)
 								if blueprints.content[group][id]["config"].has('onlyInstance'):
@@ -284,6 +377,7 @@ func _process(_delta):
 					check = false
 
 			modes.UPGRADE:
+				# code
 				check = false
 
 			modes.FERTILIZER:
@@ -295,6 +389,12 @@ func _process(_delta):
 						if i.texture != collision.error:
 							farming.create_fertilizer(int(inventory_item), grid_position)
 							inventory.subject_item(inventory_item, 1)
+
+							var audio = AudioStreamPlayer.new()
+							self.add_child(audio)
+							audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+							audio.stream = load('res://assets/sounds/farming/fertilizer.ogg')
+							audio.play()
 				check = false
 	else:
 		visible = false
@@ -337,3 +437,7 @@ func generate_grid():
 	else:
 		grid_dimensions = Vector2i(tools.max_grid_dimensions,tools.max_grid_dimensions)
 		generate_grid()
+
+
+func _on_audio_finished(node) -> void:
+	node.queue_free()
