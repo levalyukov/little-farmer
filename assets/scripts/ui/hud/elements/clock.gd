@@ -11,6 +11,9 @@ extends Control
 @onready var icon:TextureRect = $Margin/HBoxContainer/Icon/TextureRect
 @onready var label:Label = $Margin/HBoxContainer2/Label/Label
 @onready var timer:Timer = $Timer
+var audio = AudioStreamPlayer.new()
+const day_sound = preload('res://assets/sounds/nature/day.ogg')
+const night_sound = preload('res://assets/sounds/nature/night.ogg')
 
 const speed:float = 8
 const day_end:int = 23
@@ -37,11 +40,36 @@ func _ready():
 	timer.wait_time = speed
 	timer.set_paused(false)
 	timer.start()
+	self.add_child(audio)
 	
 func _input(_event):
 	if Input.is_action_just_pressed("space"):
 		#	update_season()
 		hour+=1
+
+func _process(_delta):
+	if (hour >= 5) && (hour < 18):
+		if audio.stream == night_sound && audio.is_playing():
+			if audio.volume_db != 50.0:
+				audio.volume_db -= 0.1
+			else:
+				audio.stop()
+				print("Night sound stopped")
+		else:
+			if !audio.is_playing():
+				audio.stream = day_sound
+				audio.play()
+	else:
+		if audio.stream == day_sound && audio.is_playing():
+			if audio.volume_db != 50.0:
+				audio.volume_db -= 0.1
+			else:
+				audio.stop()
+				print("Day sound stopped")
+		else:
+			if !audio.is_playing():
+				audio.stream = night_sound
+				audio.play()
 
 func clock_update() -> void:
 	var day_string = tr("День")
