@@ -565,8 +565,18 @@ libraries = {
 "": SubResource("AnimationLibrary_bw4sn")
 }
 
+[connection signal="mouse_entered" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons/GraphicButton" to="." method="_on_graphic_button_mouse_entered"]
 [connection signal="pressed" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons/GraphicButton" to="." method="_on_graphic_button_pressed"]
+[connection signal="mouse_entered" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons/SoundButton" to="." method="_on_sound_button_mouse_entered"]
 [connection signal="pressed" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons/SoundButton" to="." method="_on_sound_button_pressed"]
+[connection signal="mouse_entered" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons/Control" to="." method="_on_control_mouse_entered"]
 [connection signal="pressed" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons/Control" to="." method="_on_control_pressed"]
+[connection signal="mouse_entered" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons/SaveChangesButton" to="." method="_on_save_changes_button_mouse_entered"]
 [connection signal="pressed" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons/SaveChangesButton" to="." method="_on_save_changes_button_pressed"]
+[connection signal="mouse_entered" from="Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container/VSyncMargin/VSyncButton" to="." method="_on_v_sync_button_mouse_entered"]
+[connection signal="pressed" from="Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container/VSyncMargin/VSyncButton" to="." method="_on_v_sync_button_pressed"]
+[connection signal="mouse_entered" from="Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container/FullScreenMargin/FullScreenButton" to="." method="_on_full_screen_button_mouse_entered"]
+[connection signal="pressed" from="Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container/FullScreenMargin/FullScreenButton" to="." method="_on_full_screen_button_pressed"]
 [connection signal="item_selected" from="Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container/FPSLimitMargin/HBoxContainer/MarginContainer/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="mouse_entered" from="Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container/FPSLimitMargin/HBoxContainer/MarginContainer/OptionButton" to="." method="_on_option_button_mouse_entered"]
+[connection signal="pressed" from="Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container/FPSLimitMargin/HBoxContainer/MarginContainer/OptionButton" to="." method="_on_option_button_pressed"]
