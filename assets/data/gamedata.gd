@@ -69,6 +69,22 @@ func _ready():
 		&& !GameLoader.start:
 			gameload()
 			GameLoader.mode = false
+			if GameLoader.farm_plants != {} && GameLoader.time_left > 0.0:
+				var farm_plants = GameLoader.farm_plants
+				for i in farm_plants:
+					if farm_plants[i].has('timer_left'):
+						if farm_plants[i]['timer_left'] - GameLoader.time_left > 0.0:
+							farm_plants[i]['timer_left'] -= GameLoader.time_left
+						else:
+							farm_plants[i]['timer_left'] = 0.0
+				GameLoader.time_left = 0.0
+				for plnt in farming.get_children():
+					if farm_plants.has(plnt.name):
+						if farm_plants[plnt.name]['timer_left'] == 0.0:
+							plnt.increase_growth()
+						else:
+							plnt.set_new_time(farm_plants[plnt.name]['timer_left'])
+				GameLoader.farm_plants = {}
 		# New Game
 		if !GameLoader.mode\
 		&& GameLoader.start:
