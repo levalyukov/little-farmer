@@ -24,9 +24,8 @@ spread = 179.3
 gravity = Vector2(0.25, -50)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-volume_db = -1.0
 max_distance = 512.0
-bus = &"Old Radio"
+bus = &"Radio"
 
 [node name="Area2D" type="Area2D" parent="."]
 
