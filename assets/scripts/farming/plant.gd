@@ -202,3 +202,17 @@ func _on_check_water_timer_timeout():
 		check(tilemap.local_to_map(position))
 	else:
 		requires_watering(tilemap.local_to_map(self.global_position))
+
+func increase_growth() -> void:
+	if !pause.paused:
+		if sprite.level < crops.crops[plantID]["growth_level"]:
+			sprite.region_rect.position.x += 16
+			sprite.level += 1
+			check_water(tilemap.local_to_map(self.global_position))
+		else:
+			sprite.plant_increased()
+
+func set_new_time(new_time:float) -> void:
+	timer.stop()
+	timer.set_wait_time(new_time)
+	timer.start()
