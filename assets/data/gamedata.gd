@@ -705,12 +705,10 @@ func config_save() -> void:
 		file_save([path.main], file.config, config)
 
 func config_load() -> void:
-	var options_game = get_node("/root/"+main+"/UI/Interactive/Options")
-	var options_menu = get_node("/root/"+main+"/Menu/Options")
-	if options_game:
-		options_game.set_values(file_load(file.config))
-	if options_menu:
-		options_menu.set_values(file_load(file.config))
+	if get_node("/root/"+main+"/UI/Interactive/Options"):
+		get_node("/root/"+main+"/UI/Interactive/Options").set_values(file_load(file.config))
+	if get_node("/root/"+main+"/Menu/Options"):
+		get_node("/root/"+main+"/Menu/Options").set_values(file_load(file.config))
 
 func start_newgame() -> void:
 	nature.create_start_nature()
