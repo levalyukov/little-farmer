@@ -9,6 +9,7 @@ extends MarginContainer
 @onready var credits:Label = $MenuContent/VContainer/FooterMargin/Credits
 var clicked:bool = false
 
+@onready var countinue_game_button:Button = $MenuContent/VContainer/ButtonsMargin/Buttons/ContinueMargin/ContinueButton
 @onready var gamedata = get_node("/root/"+main+"/GameData")
 @onready var modal = get_node("/root/"+main+"/Menu/Modal")
 # --- --- ---
@@ -125,7 +126,7 @@ func modal_create() -> void:
 		)
 
 func _on_continue_button_mouse_entered():
-	if !clicked:
+	if !clicked && !countinue_game_button.disabled:
 		var audio = AudioStreamPlayer.new()
 		self.add_child(audio)
 		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
