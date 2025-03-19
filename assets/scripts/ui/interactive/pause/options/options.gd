@@ -54,9 +54,15 @@ func close() -> void:
 		var options = get_node("/root/"+main)
 		if options:
 			options.clicked = false
+	else:
+		if get_node("/root/"+main+"/UI/Decorative/Blur"):
+			if get_node("/root/"+main+"/UI/Decorative/Blur").state:
+				pause.open()
 	
 func window():
 	visible = opened
+	if pause:
+		pause.other_menu = opened
 
 func _process(_delta):
 	if visible:
@@ -112,16 +118,53 @@ func _on_graphic_button_pressed():
 	graphic_section.visible = true
 	sounds_section.visible = false
 	control_section.visible = false
+	var audio = AudioStreamPlayer.new()
+	self.add_child(audio)
+	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+	audio.stream = load('res://assets/sounds/ui/click.ogg')
+	audio.play()
 
 func _on_sound_button_pressed():
 	graphic_section.visible = false
 	sounds_section.visible = true
 	control_section.visible = false
+	var audio = AudioStreamPlayer.new()
+	self.add_child(audio)
+	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+	audio.stream = load('res://assets/sounds/ui/click.ogg')
+	audio.play()
 
 func _on_control_pressed():
 	graphic_section.visible = false
 	sounds_section.visible = false
 	control_section.visible = true
+	var audio = AudioStreamPlayer.new()
+	self.add_child(audio)
+	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+	audio.stream = load('res://assets/sounds/ui/click.ogg')
+	audio.play()
+
+func _on_graphic_button_mouse_entered():
+	var audio = AudioStreamPlayer.new()
+	self.add_child(audio)
+	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+	audio.stream = load('res://assets/sounds/ui/hover.ogg')
+	audio.play()
+
+func _on_sound_button_mouse_entered():
+	var audio = AudioStreamPlayer.new()
+	self.add_child(audio)
+	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+	audio.stream = load('res://assets/sounds/ui/hover.ogg')
+	audio.play()
+
+func _on_control_mouse_entered():
+	var audio = AudioStreamPlayer.new()
+	self.add_child(audio)
+	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+	audio.stream = load('res://assets/sounds/ui/hover.ogg')
+	audio.play()
+
 # -- -- --
 
 func _on_save_changes_button_pressed():
@@ -141,6 +184,11 @@ func _on_save_changes_button_pressed():
 		if data_menu.has_method('config_save'):
 			data_menu.config_save()
 			GameConfig.apply()
+	var audio = AudioStreamPlayer.new()
+	self.add_child(audio)
+	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+	audio.stream = load('res://assets/sounds/ui/click.ogg')
+	audio.play()
 
 func check_path() -> bool:
 	var path = DirAccess.open('user://.game')
@@ -149,3 +197,55 @@ func check_path() -> bool:
 		if file:
 			return true
 	return false
+
+func _on_v_sync_button_mouse_entered():
+	var audio = AudioStreamPlayer.new()
+	self.add_child(audio)
+	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+	audio.stream = load('res://assets/sounds/ui/hover.ogg')
+	audio.play()
+
+func _on_full_screen_button_mouse_entered():
+	var audio = AudioStreamPlayer.new()
+	self.add_child(audio)
+	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+	audio.stream = load('res://assets/sounds/ui/hover.ogg')
+	audio.play()
+
+func _on_option_button_mouse_entered():
+	var audio = AudioStreamPlayer.new()
+	self.add_child(audio)
+	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+	audio.stream = load('res://assets/sounds/ui/hover.ogg')
+	audio.play()
+
+func _on_option_button_pressed():
+	var audio = AudioStreamPlayer.new()
+	self.add_child(audio)
+	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+	audio.stream = load('res://assets/sounds/ui/click.ogg')
+	audio.play()
+
+func _on_full_screen_button_pressed():
+	var audio = AudioStreamPlayer.new()
+	self.add_child(audio)
+	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+	audio.stream = load('res://assets/sounds/ui/click.ogg')
+	audio.play()
+
+func _on_v_sync_button_pressed():
+	var audio = AudioStreamPlayer.new()
+	self.add_child(audio)
+	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+	audio.stream = load('res://assets/sounds/ui/click.ogg')
+	audio.play()
+
+func _on_option_button_item_selected(_index:int):
+	var audio = AudioStreamPlayer.new()
+	self.add_child(audio)
+	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+	audio.stream = load('res://assets/sounds/ui/click.ogg')
+	audio.play()
+
+func _on_audio_finished(node) -> void:
+	node.queue_free()
