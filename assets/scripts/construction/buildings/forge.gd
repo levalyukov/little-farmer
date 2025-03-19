@@ -59,7 +59,9 @@ func _input(event):
 	&& event.is_pressed()\
 	&& !blur.state\
 	&& destroyMode\
-	&& buttonDestroy.destroyMode:
+	&& buttonDestroy.destroyMode\
+	&& !isDone\
+	&& !inProcessed:
 		buildings.remove_node(self, all_collisions)
 
 func update() -> void:

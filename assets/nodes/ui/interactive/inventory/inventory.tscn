@@ -342,5 +342,7 @@ libraries = {
 "": SubResource("AnimationLibrary_of6b4")
 }
 
+[connection signal="mouse_entered" from="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/ButtonContainer/Button" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/ButtonContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="mouse_entered" from="Main/Close" to="." method="_on_close_mouse_entered"]
 [connection signal="pressed" from="Main/Close" to="." method="_on_close_pressed"]

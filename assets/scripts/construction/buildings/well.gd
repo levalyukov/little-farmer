@@ -65,8 +65,9 @@ func _input(event):
 				if tools.water_can < tools.water_can_max:
 					tools.water_can = tools.water_can_max
 					if audio:
-						audio.stream = load('res://assets/sounds/buildings/using_well.ogg')
-						audio.play()
+						if !audio.is_playing():
+							audio.stream = load('res://assets/sounds/buildings/using_well.ogg')
+							audio.play()
 					if tip.visible:
 						tip.tooltip()
 						tip.tooltip(

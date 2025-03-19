@@ -28,6 +28,8 @@ extends Control
 
 var item = Items.new()
 var crops = Crops.new()
+var audio = AudioStreamPlayer.new()
+
 var current_slot_index:int = 0
 var slots_to_create:Array = []
 var opened:bool = false
@@ -102,6 +104,7 @@ enum item_type {NOTHING, SEEDS, FERTILIZER}
 func _ready():
 	check_window()
 	reset_data()
+	self.add_child(audio)
 
 func _input(_event):
 	if Input.is_action_just_pressed("esc")\
@@ -151,7 +154,10 @@ func open() -> void:
 	check_inventory()
 	if grid.mode != grid.modes.NOTHING:
 		grid.mode = grid.modes.NOTHING
-
+	if audio:
+		if !audio.is_playing():
+			audio.stream = load('res://assets/sounds/ui/inventory.ogg')
+			audio.play()
 	create_all_items()
 	update_string_capacity()
 
@@ -445,6 +451,11 @@ func check_item_type(i_type:String) -> void:
 
 func _on_button_pressed():
 	var items = Items.new().content
+	var _audio = AudioStreamPlayer.new()
+	self.add_child(_audio)
+	_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
+	_audio.stream = load('res://assets/sounds/ui/click.ogg')
+	_audio.play()
 	match button_index:
 		item_type.SEEDS:
 			close()
@@ -478,3 +489,27 @@ func check_window() -> void:
 func _on_close_pressed():
 	if opened:
 		close()
+		var _audio = AudioStreamPlayer.new()
+		self.add_child(_audio)
+		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
+		_audio.stream = load('res://assets/sounds/ui/click.ogg')
+		_audio.play()
+
+func _on_close_mouse_entered():
+	if opened:
+		var _audio = AudioStreamPlayer.new()
+		self.add_child(_audio)
+		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
+		_audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		_audio.play()
+
+func _on_button_mouse_entered():
+	if visible:
+		var _audio = AudioStreamPlayer.new()
+		self.add_child(_audio)
+		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
+		_audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		_audio.play()
+
+func _on_audio_finished(_audio) -> void:
+	_audio.queue_free()

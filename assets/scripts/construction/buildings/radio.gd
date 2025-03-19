@@ -145,6 +145,8 @@ func _input(event):
 	&& destroyMode\
 	&& buttonDestroy.destroyMode:
 		buildings.remove_node(self, all_collisions)
+		if radioMenu:
+			radioMenu.remove_users_track_buttons()
 
 	if event is InputEventMouseButton\
 	&& event.button_index == MOUSE_BUTTON_RIGHT\

@@ -259,7 +259,11 @@ layout_mode = 2
 [node name="GameData" type="Node2D" parent="."]
 script = ExtResource("7_7q651")
 
+[connection signal="mouse_entered" from="MenuContent/VContainer/ButtonsMargin/Buttons/ContinueMargin/ContinueButton" to="." method="_on_continue_button_mouse_entered"]
 [connection signal="pressed" from="MenuContent/VContainer/ButtonsMargin/Buttons/ContinueMargin/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="mouse_entered" from="MenuContent/VContainer/ButtonsMargin/Buttons/NewGameMargin/NewGameButton" to="." method="_on_new_game_button_mouse_entered"]
 [connection signal="pressed" from="MenuContent/VContainer/ButtonsMargin/Buttons/NewGameMargin/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="mouse_entered" from="MenuContent/VContainer/ButtonsMargin/Buttons/SettingsMargin/SettingsButton" to="." method="_on_settings_button_mouse_entered"]
 [connection signal="pressed" from="MenuContent/VContainer/ButtonsMargin/Buttons/SettingsMargin/SettingsButton" to="." method="_on_options_button_pressed"]
+[connection signal="mouse_entered" from="MenuContent/VContainer/ButtonsMargin/Buttons/ExitMargin/ExitButton" to="." method="_on_exit_button_mouse_entered"]
 [connection signal="pressed" from="MenuContent/VContainer/ButtonsMargin/Buttons/ExitMargin/ExitButton" to="." method="_on_exit_button_pressed"]

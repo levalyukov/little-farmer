@@ -242,32 +242,6 @@ func get_fertilizer(vector:Vector2i) -> int:
 					return i.id
 	return 0
 
-func get_nature(vector:Vector2i) -> Node2D:
-	if main == "Farm"\
-	|| main == "Greenhouse":
-		for node in nature.get_children():
-			if vector == tilemap.local_to_map(node.position):
-				if node != null:
-					return node
-	return null
-
-func get_nature_name(vector:Vector2i) -> String:
-	if main == "Farm"\
-	|| main == "Greenhouse":
-		for node in nature.get_children():
-			if vector == tilemap.local_to_map(node.position):
-				if node != null:
-					return node.name
-	return ""
-
-func get_building(vector:Vector2i):
-	for node in buildings.get_children():
-		#if data.remove_suffix(node.name) in buildings.all_buildings:
-		print(data.remove_suffix(node.name))
-		if tilemap.local_to_map(vector) == tilemap.local_to_map(node.position)\
-		&& node.name != grid.name:
-			return node
-
 func get_shadow(vector:Vector2i) -> Node2D:
 	if main == "Farm"\
 	|| main == "Greenhouse":
@@ -331,6 +305,7 @@ func get_position_children(parent:Node2D) -> Array:
 		var coordinates = []
 		for child in children:
 			if child is Node2D:
-				coordinates.append(tilemap.local_to_map(child.global_position))
+				if data.remove_suffix(child.name) == 'plant':
+					coordinates.append(tilemap.local_to_map(child.global_position))
 		return coordinates
 	return []

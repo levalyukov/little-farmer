@@ -25,6 +25,7 @@ extends Control
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var anim:AnimationPlayer = $Animation
 
+var audio = AudioStreamPlayer.new()
 var window_visible:bool = false
 var opened:bool = false
 
@@ -52,6 +53,7 @@ var all_items:Object = Items.new()
 func _ready():
 	_update_window_visible()
 	header.text = tr("Торговля")
+	self.add_child(audio)
 
 func _process(_delta) -> void:
 	if visible:
@@ -411,6 +413,10 @@ func get_trade_result():
 					trade_window_button.disabled = false
 				else:
 					trade_window_button.disabled = true
+		if audio:
+			if !audio.is_playing():
+				audio.stream = load('res://assets/sounds/ui/trade.ogg')
+				audio.play()
 	initiator = initiators.NONE
 
 func get_all_items_in_trade_window() -> int:

@@ -195,6 +195,11 @@ func _on_get_compost_button_pressed() -> void:
 	clear_compost_items()
 	check_state_button()
 	compostingProcessLabel.text = tr("Выберите отходы для начала процесса компостирования.")
+	var _audio = AudioStreamPlayer.new()
+	self.add_child(_audio)
+	_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
+	_audio.stream = load('res://assets/sounds/ui/click.ogg')
+	_audio.play()
 
 func check_items_count() -> bool:
 	for i in current_node.compost_items:
@@ -227,6 +232,41 @@ func _on_turn_button_pressed() -> void:
 		current_node.composting = true
 		current_node.compost_items = {}
 		current_node.composting_value = 0.0
+		var _audio = AudioStreamPlayer.new()
+		self.add_child(_audio)
+		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
+		_audio.stream = load('res://assets/sounds/ui/click.ogg')
+		_audio.play()
 
 func _on_button_exit_pressed() -> void:
+	var _audio = AudioStreamPlayer.new()
+	self.add_child(_audio)
+	_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
+	_audio.stream = load('res://assets/sounds/ui/click.ogg')
+	_audio.play()
 	close()
+func _on_button_exit_mouse_entered():
+	var _audio = AudioStreamPlayer.new()
+	self.add_child(_audio)
+	_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
+	_audio.stream = load('res://assets/sounds/ui/hover.ogg')
+	_audio.play()
+	
+func _on_audio_finished(node) -> void:
+	node.queue_free()
+
+func _on_get_compost_button_mouse_entered():
+	if getCompostButton.visible:
+		var _audio = AudioStreamPlayer.new()
+		self.add_child(_audio)
+		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
+		_audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		_audio.play()
+
+func _on_turn_button_mouse_entered():
+	if startComposting.visible && !startComposting.disabled:
+		var _audio = AudioStreamPlayer.new()
+		self.add_child(_audio)
+		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
+		_audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		_audio.play()

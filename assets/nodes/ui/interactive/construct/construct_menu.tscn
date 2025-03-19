@@ -259,14 +259,6 @@ theme_override_constants/margin_bottom = 0
 
 [node name="Description" type="Label" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/DescriptionContainer"]
 layout_mode = 2
-text = "resourcesasdasda
-sd
-sadasdaa
-sd
-asd
-asd
-
-dasdad"
 autowrap_mode = 3
 
 [node name="ResourcesContainer" type="MarginContainer" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer"]
@@ -276,7 +268,6 @@ theme_override_constants/margin_right = 25
 
 [node name="Resources" type="Label" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ResourcesContainer"]
 layout_mode = 2
-text = "resources"
 autowrap_mode = 3
 
 [node name="TimeContainer" type="MarginContainer" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer"]
@@ -317,9 +308,15 @@ libraries = {
 "": SubResource("AnimationLibrary_k6ua4")
 }
 
+[connection signal="mouse_entered" from="Main/ScrollContainer/NavMenu/ButtonAllBlueprints" to="." method="_on_button_all_blueprints_mouse_entered"]
 [connection signal="pressed" from="Main/ScrollContainer/NavMenu/ButtonAllBlueprints" to="." method="_on_button_all_blueprints_pressed"]
+[connection signal="mouse_entered" from="Main/ScrollContainer/NavMenu/ButtonLandscape" to="." method="_on_button_landscape_mouse_entered"]
 [connection signal="pressed" from="Main/ScrollContainer/NavMenu/ButtonLandscape" to="." method="_on_button_landscape_pressed"]
+[connection signal="mouse_entered" from="Main/ScrollContainer/NavMenu/ButtonBuildings" to="." method="_on_button_buildings_mouse_entered"]
 [connection signal="pressed" from="Main/ScrollContainer/NavMenu/ButtonBuildings" to="." method="_on_button_buildings_pressed"]
+[connection signal="mouse_entered" from="Main/ScrollContainer/NavMenu/ButtonUpgrades" to="." method="_on_button_upgrades_mouse_entered"]
 [connection signal="pressed" from="Main/ScrollContainer/NavMenu/ButtonUpgrades" to="." method="_on_button_upgrades_pressed"]
+[connection signal="mouse_entered" from="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button" to="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button" method="_on_mouse_entered"]
 [connection signal="pressed" from="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button" to="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button" method="_on_pressed"]
+[connection signal="mouse_entered" from="Close" to="." method="_on_close_mouse_entered"]
 [connection signal="pressed" from="Close" to="." method="_on_close_pressed"]

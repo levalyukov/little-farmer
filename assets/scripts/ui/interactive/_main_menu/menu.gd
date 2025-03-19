@@ -37,8 +37,7 @@ var player_file = FileAccess.open('user://game/data/player/player.json', FileAcc
 
 func _ready():
 	blackout.blackout(false)
-	credits.text = ProjectSettings.get_setting("application/config/version") + "\n(C) Studio Miroro"
-
+	credits.text = "v" + ProjectSettings.get_setting("application/config/version") + "\n(C) Studio Miroro"
 	if !GameLoader.modal:
 		modal_create()
 	# Game Countinue
@@ -76,6 +75,11 @@ func _on_continue_button_pressed():
 			GameLoader.mode = true
 			GameLoader.start = false
 			blackout.change_scene("res://levels/farm.tscn")
+		var audio = AudioStreamPlayer.new()
+		self.add_child(audio)
+		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+		audio.stream = load('res://assets/sounds/ui/click.ogg')
+		audio.play()
 
 func _on_new_game_button_pressed():
 	if !clicked:
@@ -84,21 +88,25 @@ func _on_new_game_button_pressed():
 			GameLoader.mode = false
 			GameLoader.start = true
 			blackout.change_scene("res://levels/farm.tscn")
-			
-			remove_all_game_files()
+		var audio = AudioStreamPlayer.new()
+		self.add_child(audio)
+		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+		audio.stream = load('res://assets/sounds/ui/click.ogg')
+		audio.play()
 
 func _on_options_button_pressed():
 	if !clicked:
 		blur.blur(true)
 		options.open()
+		var audio = AudioStreamPlayer.new()
+		self.add_child(audio)
+		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+		audio.stream = load('res://assets/sounds/ui/click.ogg')
+		audio.play()
 
 func _on_exit_button_pressed():
 	if !clicked:
-		get_tree().quit()
-
-func remove_all_game_files() -> void:
-	pass
-	#	print("Test")
+		get_tree().quit() 
 
 func modal_create() -> void:
 	modal.modal_create(
@@ -115,3 +123,38 @@ func modal_create() -> void:
 		Спасибо, что присоединились к нам на этом этапе разработки!
 		"
 		)
+
+func _on_continue_button_mouse_entered():
+	if !clicked:
+		var audio = AudioStreamPlayer.new()
+		self.add_child(audio)
+		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+		audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		audio.play()
+
+func _on_new_game_button_mouse_entered():
+	if !clicked:
+		var audio = AudioStreamPlayer.new()
+		self.add_child(audio)
+		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+		audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		audio.play()
+
+func _on_settings_button_mouse_entered():
+	if !clicked:
+		var audio = AudioStreamPlayer.new()
+		self.add_child(audio)
+		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+		audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		audio.play()
+
+func _on_exit_button_mouse_entered():
+	if !clicked:
+		var audio = AudioStreamPlayer.new()
+		self.add_child(audio)
+		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+		audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		audio.play()
+
+func _on_audio_finished(node) -> void:
+	node.queue_free()

@@ -27,6 +27,7 @@ const FUEL_SLOT_DEFAULT:Resource = preload('res://assets/resources/ui/interactiv
 const ORE_THRESHOLD:int = 5
 const FUEL_THRESHOLD:int = 5
 
+var audio = AudioStreamPlayer.new()
 var items:Object = Items.new()
 var current_slot_index:int = 0
 var slots_to_create:Array = []
@@ -40,6 +41,7 @@ var target_node:Node2D
 
 func _ready():
 	close()
+	self.add_child(audio)
 
 func _input(_event):
 	if Input.is_action_just_pressed("esc")\
@@ -199,6 +201,11 @@ func open(node:Node2D) -> void:
 	get_special_items()
 	check_button_state()
 	anim.play('open')
+	if audio:
+		if !audio.is_playing():
+			audio.stream = load('res://assets/sounds/buildings/forge.ogg')
+			audio.play()
+
 	if get_result() != 0:
 		ignotIcon.visible = true
 		ignotIcon.texture = items.content[get_result()]['icon']
@@ -307,7 +314,34 @@ func _on_melt_button_pressed():
 					meltButton.disabled = true
 					playerInventoryMargin.visible = true
 					get_special_items()
+	var _audio = AudioStreamPlayer.new()
+	self.add_child(_audio)
+	_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
+	_audio.stream = load('res://assets/sounds/ui/click.ogg')
+	_audio.play()
 # Close
 func _on_close_button_pressed():
-	if visible:
-		close()
+	var _audio = AudioStreamPlayer.new()
+	self.add_child(_audio)
+	_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
+	_audio.stream = load('res://assets/sounds/ui/click.ogg')
+	_audio.play()
+	close()
+
+func _on_close_button_mouse_entered():
+	var _audio = AudioStreamPlayer.new()
+	self.add_child(_audio)
+	_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
+	_audio.stream = load('res://assets/sounds/ui/hover.ogg')
+	_audio.play()
+
+func _on_audio_finished(node) -> void:
+	node.queue_free()
+
+func _on_melt_button_mouse_entered():
+	if !meltButton.disabled:
+		var _audio = AudioStreamPlayer.new()
+		self.add_child(_audio)
+		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
+		_audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		_audio.play()

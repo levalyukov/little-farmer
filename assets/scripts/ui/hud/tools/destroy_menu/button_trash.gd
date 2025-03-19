@@ -5,6 +5,7 @@ extends Control
 @onready var tools:HBoxContainer = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
+@onready var construction:Node2D = get_node("/root/"+main+"/ConstructionManager")
 @onready var sprite:CompressedTexture2D = load("res://assets/resources/ui/interactive/hud/tools/destroy_terrains.png")
 @onready var icon:TextureRect = $Main/Margin/Icon
 
@@ -13,12 +14,27 @@ func _ready() -> void:
 
 func _on_button_pressed() -> void:
 	if !pause.paused:
-		if has_node("/root/"+main+"/ConstructionManager")\
-		&& has_node("/root/"+main+"/ConstructionManager/Grid"):
+		if construction && grid:
 			if !blur.state:
 				grid.grid_dimensions = tools.features["destroy"][tools.destroy]["grid_dimensions"]
 				grid.mode = grid.modes.DESTROY
 				grid.destroy_mode = grid.destroy.TERRAINS
 				grid.visible = true
 				grid.generate_grid()
+			var audio = AudioStreamPlayer.new()
+			self.add_child(audio)
+			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+			audio.stream = load('res://assets/sounds/ui/click.ogg')
+			audio.play()
 
+func _on_button_mouse_entered():
+	if !blur.state:
+		if !pause.paused:
+			var audio = AudioStreamPlayer.new()
+			self.add_child(audio)
+			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+			audio.stream = load('res://assets/sounds/ui/hover.ogg')
+			audio.play()
+			
+func _on_audio_finished(node) -> void:
+	node.queue_free()

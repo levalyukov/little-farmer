@@ -15,6 +15,9 @@ var audio = AudioStreamPlayer.new()
 const day_sound = preload('res://assets/sounds/nature/day.ogg')
 const night_sound = preload('res://assets/sounds/nature/night.ogg')
 
+const day_sound_end:int = 19
+const night_sound_end:int = 6
+
 const speed:float = 8
 const day_end:int = 23
 const season_change:int = 1
@@ -22,7 +25,7 @@ const seasons:Array[String] = [
 	"spring", "summer", 
 	"autumn", "winter"
 ]
-var season:int = 1
+var season:int = 2
 var year:int = 1
 var week:int = 1
 var day:int = 0
@@ -41,35 +44,43 @@ func _ready():
 	timer.set_paused(false)
 	timer.start()
 	self.add_child(audio)
-	
-func _input(_event):
-	if Input.is_action_just_pressed("space"):
-		#	update_season()
-		hour+=1
+	if hour >= night_sound_end && hour < day_sound_end:
+		audio.stop()
+		audio.volume_db = 0.0
+		audio.stream = day_sound
+		audio.play()
+	else:
+		audio.stop()
+		audio.volume_db = 0.0
+		audio.stream = night_sound
+		audio.play()
 
 func _process(_delta):
-	if (hour >= 5) && (hour < 18):
-		if audio.stream == night_sound && audio.is_playing():
-			if audio.volume_db != 50.0:
-				audio.volume_db -= 0.1
-			else:
-				audio.stop()
-				print("Night sound stopped")
+	if !pause.paused:
+		if audio.get_stream_paused():
+			audio.set_stream_paused(false)
+
+		if hour >= night_sound_end && hour < day_sound_end:
+			if audio.stream == night_sound && audio.is_playing():
+				if audio.volume_db > -25.0:
+					audio.volume_db -= .5
+				elif audio.volume_db == -25.0:
+					audio.stop()
+					audio.volume_db = 0.0
+					audio.stream = day_sound
+					audio.play()
 		else:
-			if !audio.is_playing():
-				audio.stream = day_sound
-				audio.play()
+			if audio.stream == day_sound && audio.is_playing():
+				if audio.volume_db > -25.0:
+					audio.volume_db -= .5
+				elif audio.volume_db == -25.0:
+					audio.stop()
+					audio.volume_db = 0.0
+					audio.stream = night_sound
+					audio.play()
 	else:
-		if audio.stream == day_sound && audio.is_playing():
-			if audio.volume_db != 50.0:
-				audio.volume_db -= 0.1
-			else:
-				audio.stop()
-				print("Day sound stopped")
-		else:
-			if !audio.is_playing():
-				audio.stream = night_sound
-				audio.play()
+		if !audio.get_stream_paused():
+			audio.set_stream_paused(true)
 
 func clock_update() -> void:
 	var day_string = tr("День")

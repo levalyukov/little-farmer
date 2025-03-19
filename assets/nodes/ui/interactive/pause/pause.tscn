@@ -220,7 +220,11 @@ label_settings = SubResource("LabelSettings_eklx4")
 horizontal_alignment = 1
 vertical_alignment = 2
 
+[connection signal="mouse_entered" from="Main/Container/CountinueButtonMargin/CountinueButton" to="Main/Container/CountinueButtonMargin/CountinueButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="Main/Container/CountinueButtonMargin/CountinueButton" to="Main/Container/CountinueButtonMargin/CountinueButton" method="_on_pressed"]
+[connection signal="mouse_entered" from="Main/Container/SettingsButtonMargin/SettingsButton" to="Main/Container/SettingsButtonMargin/SettingsButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="Main/Container/SettingsButtonMargin/SettingsButton" to="Main/Container/SettingsButtonMargin/SettingsButton" method="_on_pressed"]
+[connection signal="mouse_entered" from="Main/Container/ReportBugButtonMargin/ReportBugButton" to="." method="_on_report_bug_button_mouse_entered"]
 [connection signal="pressed" from="Main/Container/ReportBugButtonMargin/ReportBugButton" to="." method="_on_report_bug_button_pressed"]
+[connection signal="mouse_entered" from="Main/Container/ExitButtonMargin/ExitButton" to="Main/Container/ExitButtonMargin/ExitButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="Main/Container/ExitButtonMargin/ExitButton" to="Main/Container/ExitButtonMargin/ExitButton" method="_on_pressed"]

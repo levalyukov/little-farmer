@@ -352,10 +352,21 @@ func check_window() -> void:
 		pause.other_menu = opened
 
 func _on_close_pressed() -> void:
+	var audio = AudioStreamPlayer.new()
+	self.add_child(audio)
+	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+	audio.stream = load('res://assets/sounds/ui/click.ogg')
+	audio.play()
 	close()
 
 # navmenu
 func _on_button_landscape_pressed():
+	if section != "terrains":
+		var audio = AudioStreamPlayer.new()
+		self.add_child(audio)
+		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+		audio.stream = load('res://assets/sounds/ui/click.ogg')
+		audio.play()
 	section = "terrains"
 	caption.text = construct_menu_selected_landscapes_header
 	if terrains_blueprints == []\
@@ -376,6 +387,12 @@ func _on_button_landscape_pressed():
 	create_all_blueprints()
 
 func _on_button_buildings_pressed():
+	if section != "nodes":
+		var audio = AudioStreamPlayer.new()
+		self.add_child(audio)
+		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+		audio.stream = load('res://assets/sounds/ui/click.ogg')
+		audio.play()
 	section = "nodes"
 	caption.text = construct_menu_selected_nodes_header
 	if terrains_blueprints == []\
@@ -396,6 +413,12 @@ func _on_button_buildings_pressed():
 	create_all_blueprints()
 
 func _on_button_upgrades_pressed():
+	if section != "upgrades":
+		var audio = AudioStreamPlayer.new()
+		self.add_child(audio)
+		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+		audio.stream = load('res://assets/sounds/ui/click.ogg')
+		audio.play()
 	section = "upgrades"
 	caption.text = construct_menu_selected_upgrades_header
 	if terrains_blueprints == []\
@@ -415,8 +438,13 @@ func _on_button_upgrades_pressed():
 	remove_all_blueprints()
 	create_all_blueprints()
 
-
 func _on_button_all_blueprints_pressed():
+	if section != "all":
+		var audio = AudioStreamPlayer.new()
+		self.add_child(audio)
+		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+		audio.stream = load('res://assets/sounds/ui/click.ogg')
+		audio.play()
 	section = "all"
 	set_start_info()
 	update_navmenu()
@@ -447,3 +475,45 @@ func remove_blueprints(blueprintID:int, blueprintType:String) -> void:
 				upgrade_blueprints.erase(blueprintID)
 			_:
 				return
+
+func _on_close_mouse_entered():
+	var audio = AudioStreamPlayer.new()
+	self.add_child(audio)
+	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+	audio.stream = load('res://assets/sounds/ui/hover.ogg')
+	audio.play()
+
+func _on_button_all_blueprints_mouse_entered():
+	if section != "all":
+		var audio = AudioStreamPlayer.new()
+		self.add_child(audio)
+		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+		audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		audio.play()
+
+func _on_button_landscape_mouse_entered():
+	if section != "terrains":
+		var audio = AudioStreamPlayer.new()
+		self.add_child(audio)
+		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+		audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		audio.play()
+
+func _on_button_buildings_mouse_entered():
+	if section != "nodes":
+		var audio = AudioStreamPlayer.new()
+		self.add_child(audio)
+		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+		audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		audio.play()
+
+func _on_button_upgrades_mouse_entered():
+	if section != "upgrades":
+		var audio = AudioStreamPlayer.new()
+		self.add_child(audio)
+		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+		audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		audio.play()
+
+func _on_audio_finished(audio) -> void:
+	audio.queue_free()

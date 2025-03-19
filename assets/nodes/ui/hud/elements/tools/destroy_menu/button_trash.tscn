@@ -51,4 +51,5 @@ texture = ExtResource("4_0t8gn")
 expand_mode = 2
 stretch_mode = 5
 
+[connection signal="mouse_entered" from="Main/Button" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="Main/Button" to="." method="_on_button_pressed"]

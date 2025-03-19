@@ -191,6 +191,7 @@ func _on_area_2d_mouse_entered() -> void:
 									data.debug("'"+str(self.name) + "': There is no 'delete' key.", "error")
 							else:
 								data.debug("'"+str(self.name) + "': There is no 'idle' key.", "error")
+								
 func _on_area_2d_mouse_exited() -> void:
 	menuAccess = false
 	destroyMode = !true

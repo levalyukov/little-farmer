@@ -151,9 +151,9 @@ var content:Dictionary = {
 			"description" = tr("Простая каменная плавильня для обработки ресурсов. Недорогая в создании, работает медленно и требует времени для плавки."),
 			"icon" = load("res://assets/resources/buildings/stone_oven/object_0.png"),
 			"config" = {
-				"name" = "stone_oven",
-				"node" = load("res://assets/nodes/buildings/stone_oven.tscn"),
-				"shadow" = load("res://assets/nodes/buildings/stone_oven_shadow.tscn"),
+				"name" = "forge",
+				"node" = load("res://assets/nodes/buildings/forge.tscn"),
+				"shadow" = load("res://assets/nodes/buildings/forge_shadow.tscn"),
 				"area" = Vector2i(1,1),
 				"resources" = {
 					3:{"amount": 50},

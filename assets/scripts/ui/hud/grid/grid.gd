@@ -111,6 +111,7 @@ func _process(_delta):
 										self.add_child(audio)
 										audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 										audio.stream = load('res://assets/sounds/farming/weed_destroy.ogg')
+										audio.set_pitch_scale(randf_range(1.05, 0.85))
 										audio.play()
 									3: # stone
 										for a in nature.get_children():
@@ -128,6 +129,7 @@ func _process(_delta):
 										self.add_child(audio)
 										audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 										audio.stream = load('res://assets/sounds/farming/stone_destroy.ogg')
+										audio.set_pitch_scale(randf_range(1.05, 0.85))
 										audio.play()
 									4: # plant
 										tilemap.erase_cell(collision.crops_layer, grid_position)
@@ -136,12 +138,14 @@ func _process(_delta):
 										self.add_child(audio)
 										audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 										audio.stream = load('res://assets/sounds/farming/plant_destroy.ogg')
+										audio.set_pitch_scale(randf_range(1.05, 0.85))
 										audio.play()
 									_:
 										var audio = AudioStreamPlayer.new()
 										self.add_child(audio)
 										audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 										audio.stream = load('res://assets/sounds/error.ogg')
+										audio.set_pitch_scale(randf_range(1.05, 0.85))
 										audio.play()
 				check = false
 				
@@ -437,7 +441,6 @@ func generate_grid():
 	else:
 		grid_dimensions = Vector2i(tools.max_grid_dimensions,tools.max_grid_dimensions)
 		generate_grid()
-
 
 func _on_audio_finished(node) -> void:
 	node.queue_free()

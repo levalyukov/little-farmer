@@ -11,3 +11,20 @@ func _on_pressed() -> void:
 		if pause.paused:
 			options.open()
 			pause.visible = false
+			var audio = AudioStreamPlayer.new()
+			self.add_child(audio)
+			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+			audio.stream = load('res://assets/sounds/ui/click.ogg')
+			audio.play()
+
+func _on_mouse_entered():
+	if blur.state:
+		if pause.paused:
+			var audio = AudioStreamPlayer.new()
+			self.add_child(audio)
+			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+			audio.stream = load('res://assets/sounds/ui/hover.ogg')
+			audio.play()
+			
+func _on_audio_finished(node) -> void:
+	node.queue_free()

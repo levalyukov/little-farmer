@@ -39,4 +39,20 @@ func _on_button_pressed() -> void:
 				destroy_menu.open()
 			else:
 				destroy_menu.close()
+			var audio = AudioStreamPlayer.new()
+			self.add_child(audio)
+			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+			audio.stream = load('res://assets/sounds/ui/click.ogg')
+			audio.play()
 
+func _on_button_mouse_entered():
+	if !blur.state:
+		if !pause.paused:
+			var audio = AudioStreamPlayer.new()
+			self.add_child(audio)
+			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+			audio.stream = load('res://assets/sounds/ui/hover.ogg')
+			audio.play()
+			
+func _on_audio_finished(node) -> void:
+	node.queue_free()

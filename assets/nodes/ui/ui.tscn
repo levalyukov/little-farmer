@@ -17,7 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://dmrj3nbdfyut" path="res://assets/nodes/ui/feedback/tooltip.tscn" id="11_r363a"]
 [ext_resource type="PackedScene" uid="uid://cipgdxgpuslcv" path="res://assets/nodes/ui/feedback/notifications/notifications.tscn" id="12_3qrnm"]
 [ext_resource type="PackedScene" uid="uid://b02tx1nhggapw" path="res://assets/nodes/ui/composter_menu.tscn" id="12_q63jo"]
-[ext_resource type="PackedScene" uid="uid://dd01cpmdrnrbt" path="res://assets/nodes/ui/stone_oven_menu.tscn" id="14_btd4p"]
+[ext_resource type="PackedScene" uid="uid://dd01cpmdrnrbt" path="res://assets/nodes/ui/forge_menu.tscn" id="14_btd4p"]
 
 [node name="UI" type="CanvasLayer"]
 

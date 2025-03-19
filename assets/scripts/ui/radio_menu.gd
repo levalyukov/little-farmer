@@ -109,9 +109,7 @@ func _on_open_folder_button_pressed():
 func _on_scan_folder_button_pressed():
 	if node:
 		node.playlist_scan()
-		if usersTracksContainer.get_children() != []:
-			for x in usersTracksContainer.get_children():
-				usersTracksContainer.remove_child(x)
+		remove_users_track_buttons()
 		if node.audio_captions != []:
 			buttons_captions = []
 			for caption in node.audio_captions:
@@ -134,6 +132,13 @@ func _on_scan_folder_button_pressed():
 		usersTracksMargin.add_theme_constant_override("margin_top", 0)
 	else:
 		usersTracksMargin.add_theme_constant_override("margin_top", 16)
+
+func remove_users_track_buttons() -> void:
+	if usersTracksContainer:
+		if usersTracksContainer.get_children() != []:
+			for x in usersTracksContainer.get_children():
+				usersTracksContainer.remove_child(x)
+		usersTracksMargin.add_theme_constant_override("margin_top", 0)
 
 func on_userTrack_pressed(index:int):
 	if node:

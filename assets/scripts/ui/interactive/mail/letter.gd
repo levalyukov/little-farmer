@@ -36,6 +36,20 @@ func _update_letter_icon() -> void:
 	else:
 		data.debug("An unexpected error occurred due to the absence of the letter index '"+str(index)+"'. Double-check whether this index exists in the main dictionary of letters: \n" + str(mail.letters), "error")
 
-func _on_button_pressed() -> void:
+func _on_button_pressed():
 	mail.get_data(index)
 	_update_letter_icon()
+	if visible:
+		var audio = AudioStreamPlayer.new()
+		self.add_child(audio)
+		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+		audio.stream = load('res://assets/sounds/ui/click.ogg')
+		audio.play()
+
+func _on_button_mouse_entered() :
+	if visible:
+		var audio = AudioStreamPlayer.new()
+		self.add_child(audio)
+		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+		audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		audio.play()

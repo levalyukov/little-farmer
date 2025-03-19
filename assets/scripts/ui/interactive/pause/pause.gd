@@ -47,7 +47,7 @@ func open() -> void:
 	blur.blur(true)
 	hud.hud_all_hide()
 	player.check_switch()
-	version.text = ProjectSettings.get_setting("application/config/version") + "\n(C) Studio Miroro"
+	version.text = "v" + ProjectSettings.get_setting("application/config/version") + "\n(C) Studio Miroro"
 	if has_node("/root/"+main+"/ConstructionManager/Grid"):
 		grid.visible = false
 	if destroy_menu.opened:
@@ -68,3 +68,20 @@ func _on_report_bug_button_pressed():
 		if data:
 			if data.has_method('open_url'):
 				data.open_url("godotengine.org")
+				var audio = AudioStreamPlayer.new()
+				self.add_child(audio)
+				audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+				audio.stream = load('res://assets/sounds/ui/click.ogg')
+				audio.play()
+
+func _on_report_bug_button_mouse_entered():
+	if blur.state:
+		if paused:
+			var audio = AudioStreamPlayer.new()
+			self.add_child(audio)
+			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+			audio.stream = load('res://assets/sounds/ui/hover.ogg')
+			audio.play()
+			
+func _on_audio_finished(node) -> void:
+	node.queue_free()

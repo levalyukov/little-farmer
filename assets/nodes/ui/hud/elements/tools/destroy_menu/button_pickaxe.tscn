@@ -51,4 +51,5 @@ layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("4_hawbj")
 
+[connection signal="mouse_entered" from="Main/Button" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="Main/Button" to="." method="_on_button_pressed"]

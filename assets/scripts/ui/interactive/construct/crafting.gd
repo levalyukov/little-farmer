@@ -22,6 +22,11 @@ func _ready():
 
 func _on_pressed():
 	if visible:
+		var audio = AudioStreamPlayer.new()
+		self.add_child(audio)
+		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+		audio.stream = load('res://assets/sounds/ui/click.ogg')
+		audio.play()
 		if blueprints.content.has(group):
 			match group:
 				"nodes":
@@ -76,3 +81,14 @@ func reset_grid_data() -> void:
 	grid.terrain_set = 0
 	grid.node_upgrade = null
 	grid.visible = false
+
+func _on_mouse_entered():
+	if visible:
+		var audio = AudioStreamPlayer.new()
+		self.add_child(audio)
+		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+		audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		audio.play()
+	
+func _on_audio_finished(node) -> void:
+	node.queue_free()

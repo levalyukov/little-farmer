@@ -29,6 +29,7 @@ extends Control
 @onready var mail_manipulation_buttons:Button = $Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ManipulationButtons/MailRemove
 @onready var mails_remove_button:Button = $Panel/DeleteAllReadedLetters
 
+var audio = AudioStreamPlayer.new()
 var item:Object = Items.new()
 var opened:bool = false
  
@@ -45,12 +46,26 @@ func _input(_event):
 	&& opened:
 		close()
 
-var test_index = 1
-
 func _ready():
 	check_window()
 	reset_data()
 	delete_letters()
+	self.add_child(audio)
+	letter(
+		'Header',
+		'',
+		'',
+		1000000,
+		{
+			1:{'amount':100},
+			2:{'amount':100},
+			3:{'amount':100},
+			4:{'amount':100},
+			5:{'amount':100},
+			6:{'amount':100},
+			7:{'amount':100},
+		}
+	)
 
 func _process(_delta) -> void:
 	if visible:
@@ -307,6 +322,10 @@ func open() -> void:
 	change_state_mail_remove_button(false)
 	update_mail_manipulation_button()
 	update_state_mail_manipulation_button()
+	if audio:
+		if !audio.is_playing():
+			audio.stream = load('res://assets/sounds/ui/mailbox.ogg')
+			audio.play()
 	
 func close() -> void:
 	opened = false
@@ -323,6 +342,11 @@ func check_window() -> void:
 func _on_get_items_pressed() -> void:
 	if !button_script.button:
 		if button.visible:
+			var _audio = AudioStreamPlayer.new()
+			self.add_child(_audio)
+			_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
+			_audio.stream = load('res://assets/sounds/ui/click.ogg')
+			_audio.play()
 			get_all_items(index, letters)
 	else:
 		var full_inventory_error = tr("Нет места на складе.")
@@ -330,14 +354,29 @@ func _on_get_items_pressed() -> void:
 
 func _on_close_pressed() -> void:
 	if blur.state:
+		var _audio = AudioStreamPlayer.new()
+		self.add_child(_audio)
+		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
+		_audio.stream = load('res://assets/sounds/ui/click.ogg')
+		_audio.play()
 		close()
 
 # Mail Manipulation Buttons
 func _on_mail_remove_pressed() -> void:
 	if mails_remove_button.visible:
+		var _audio = AudioStreamPlayer.new()
+		self.add_child(_audio)
+		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
+		_audio.stream = load('res://assets/sounds/ui/click.ogg')
+		_audio.play()
 		mail_remove(index)
 
 func _on_delete_all_readed_letters_pressed() -> void:
+	var _audio = AudioStreamPlayer.new()
+	self.add_child(_audio)
+	_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
+	_audio.stream = load('res://assets/sounds/ui/click.ogg')
+	_audio.play()
 	remove_all_readed_letters()
 
 func change_state_mail_remove_button(state:bool) -> void:
@@ -407,3 +446,37 @@ func update_state_mail_manipulation_button() -> void:
 		mails_remove_button.disabled = false
 	else:
 		mails_remove_button.disabled = true
+
+func _on_close_mouse_entered():
+	var _audio = AudioStreamPlayer.new()
+	self.add_child(_audio)
+	_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
+	_audio.stream = load('res://assets/sounds/ui/hover.ogg')
+	_audio.play()
+
+func _on_get_items_mouse_entered():
+	if button.visible && !button.disabled:
+		var _audio = AudioStreamPlayer.new()
+		self.add_child(_audio)
+		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
+		_audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		_audio.play()
+
+func _on_mail_remove_mouse_entered():
+	if mail_manipulation_buttons.visible:
+		var _audio = AudioStreamPlayer.new()
+		self.add_child(_audio)
+		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
+		_audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		_audio.play()
+
+func _on_delete_all_readed_letters_mouse_entered():
+	if mails_remove_button.visible && !mails_remove_button.disabled:
+		var _audio = AudioStreamPlayer.new()
+		self.add_child(_audio)
+		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
+		_audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		_audio.play()
+
+func _on_audio_finished(node) -> void:
+	node.queue_free()

@@ -217,37 +217,49 @@ func plant_load():
 func load_plant(content_path:String, group:String = ""):
 	if group == "":
 		for i in file_load(content_path):
-			var node = plant.instantiate()
-			farming.add_child(node)
-			node.set_data(
-				file_load(content_path)[i]["plantID"],
-				file_load(content_path)[i]["condition"],
-				file_load(content_path)[i]["degree"],
-				file_load(content_path)[i]["fertilizer"],
-				file_load(content_path)[i]["region_rect.x"],
-				file_load(content_path)[i]["region_rect.y"],
-				file_load(content_path)[i]["growth_level"],
-				string_to_vector(file_load(content_path)[i]["position"]),
-				2,
-				i
-			)
-	else:
-		if file_load(content_path).has(group):
-			for i in file_load(content_path)[group]:
+			if remove_suffix(i) == 'plant':
 				var node = plant.instantiate()
 				farming.add_child(node)
 				node.set_data(
-					file_load(content_path)[group][i]["plantID"],
-					file_load(content_path)[group][i]["condition"],
-					file_load(content_path)[group][i]["degree"],
-					file_load(content_path)[group][i]["fertilizer"],
-					file_load(content_path)[group][i]["region_rect.x"],
-					file_load(content_path)[group][i]["region_rect.y"],
-					file_load(content_path)[group][i]["growth_level"],
-					string_to_vector(file_load(content_path)[group][i]["position"]),
+					file_load(content_path)[i]["plantID"],
+					file_load(content_path)[i]["condition"],
+					file_load(content_path)[i]["degree"],
+					file_load(content_path)[i]["fertilizer"],
+					file_load(content_path)[i]["region_rect.x"],
+					file_load(content_path)[i]["region_rect.y"],
+					file_load(content_path)[i]["growth_level"],
+					string_to_vector(file_load(content_path)[i]["position"]),
 					2,
 					i
 				)
+			if remove_suffix(i) == 'fertilizer':
+				farming.create_fertilizer(
+					file_load(content_path)[i]["fertilizerID"],
+					string_to_vector(file_load(content_path)[i]["position"])
+				)
+	else:
+		if file_load(content_path).has(group):
+			for i in file_load(content_path)[group]:
+				if remove_suffix(i) == 'plant':
+					var node = plant.instantiate()
+					farming.add_child(node)
+					node.set_data(
+						file_load(content_path)[group][i]["plantID"],
+						file_load(content_path)[group][i]["condition"],
+						file_load(content_path)[group][i]["degree"],
+						file_load(content_path)[group][i]["fertilizer"],
+						file_load(content_path)[group][i]["region_rect.x"],
+						file_load(content_path)[group][i]["region_rect.y"],
+						file_load(content_path)[group][i]["growth_level"],
+						string_to_vector(file_load(content_path)[group][i]["position"]),
+						2,
+						i
+					)
+				if remove_suffix(i) == 'fertilizer':
+					farming.create_fertilizer(
+						file_load(content_path)[i]["fertilizerID"],
+						string_to_vector(file_load(content_path)[i]["position"])
+					)
 
 func load_nature_nodes():
 	nature.clear_all_arrays()
