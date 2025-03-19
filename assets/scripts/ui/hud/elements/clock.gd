@@ -25,7 +25,7 @@ const seasons:Array[String] = [
 	"spring", "summer", 
 	"autumn", "winter"
 ]
-var season:int = 2
+var season:int = 0
 var year:int = 1
 var week:int = 1
 var day:int = 0
@@ -44,6 +44,7 @@ func _ready():
 	timer.set_paused(false)
 	timer.start()
 	self.add_child(audio)
+	audio.bus = 'Nature'
 	if hour >= night_sound_end && hour < day_sound_end:
 		audio.stop()
 		audio.volume_db = 0.0
