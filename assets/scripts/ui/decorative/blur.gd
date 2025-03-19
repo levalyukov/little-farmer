@@ -39,7 +39,6 @@ func blur(bluring:bool) -> void:
 		camera.switch = bluring
 	if has_node("/root/"+main+"/Player/Camera2D"):
 		zoom.is_zooming = bluring
-
 		
 	if pause:
 		if bluring\
