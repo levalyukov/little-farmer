@@ -191,8 +191,8 @@ func _on_save_changes_button_pressed():
 	audio.play()
 
 func check_path() -> bool:
-	var path = DirAccess.open('user://.game')
-	var file = FileAccess.open('user://.game/config.json', FileAccess.READ)
+	var path = DirAccess.open('user://game')
+	var file = FileAccess.open('user://game/config.json', FileAccess.READ)
 	if path:
 		if file:
 			return true
