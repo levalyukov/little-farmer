@@ -5,7 +5,7 @@ var crops:Dictionary = {
 	"atlas": load("res://assets/resources/farming/crops.png"),
 	"width": 16,
 	"height": 32,
-	"check_watering": 10,
+	"check_watering": 1,
 	"probability_spoilage": 5,
 	# spring crops
 	1: {
