@@ -29,24 +29,25 @@ func teleport() -> void:
 			var scene:String = "res://levels/village.tscn"
 			data.gamesave()
 			GameLoader.mode = false
-			get_farm_plants_status()
 			blackout.blackout(true)
 			blackout.change_scene(scene)
+			GameLoader.tracking_plants = true
+			GameLoader.timer_farm_plant_start()
 		"Village":
 			var scene:String = "res://levels/farm.tscn"
 			GameLoader.mode = true
 			data.file_save([data.path.data], data.file.world, data.get_dictionary_content("world"))
 			data.file_save([data.path.player], data.file.player, data.get_dictionary_content("player"))
 			data.file_save([data.path.player], data.file.inventory, data.get_dictionary_content("inventory"))
-			get_farm_plants_status()
 			blackout.blackout(true)
 			blackout.change_scene(scene)
 		"Greenhouse":
+			print(GameLoader.greenhouse_caption)
 			if GameLoader.greenhouse_caption != "":
 				var scene:String = "res://levels/farm.tscn"
 				data.file_save(
-					["user://.game/data/farm/greenhouses"],
-					"user://.game/data/farm/greenhouses/" + str(GameLoader.greenhouse_caption) + ".json",
+					["user://game/data/farm/greenhouses"],
+					"user://game/data/farm/greenhouses/" + str(GameLoader.greenhouse_caption) + ".json",
 					data.get_greenhouse_data()
 				)
 				data.file_save([data.path.data], data.file.world, data.get_dictionary_content("world"))
@@ -54,9 +55,9 @@ func teleport() -> void:
 				data.file_save([data.path.player], data.file.inventory, data.get_dictionary_content("inventory"))
 				blackout.blackout(true)
 				GameLoader.mode = true
-				#	GameLoader.get_plants_status()
-				GameLoader.greenhouse_caption = ""
 				blackout.change_scene(scene)
+				GameLoader.timer_greenhouse_plant_start()
+				GameLoader.greenhouse_caption = ""
 		_:
 			data.debug("Unknown name of the game scene: "+str(main), "error")
 
@@ -67,17 +68,3 @@ func _on_area_2d_mouse_entered():
 func _on_area_2d_mouse_exited():
 	if !blur.state:
 		teleporting = false
-
-func get_farm_plants_status():
-	match main:
-		"Farm":
-			var plants = {}
-			if farming.get_children() != []:
-				for i in farming.get_children():
-					if data.remove_suffix(i.name) == 'plant':
-						plants[i.name] = {}
-						plants[i.name]['timer_left'] = i.timer.get_time_left()
-			GameLoader.farm_plants = plants
-			GameLoader.timer_plant_start()
-		"Village":
-			GameLoader.timer_plant_stop()
