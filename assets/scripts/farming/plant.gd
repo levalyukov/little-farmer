@@ -20,6 +20,7 @@ var plantID:int
 var condition:int = phases.planted
 var fertilizer:int = fertilizers.nothing
 var degree:int
+var loaded:bool = false
 
 enum phases {planted, growing, requiresWatering, growed, dead}
 enum fertilizers {nothing, regularCompost, highQualityCompost}
@@ -65,14 +66,14 @@ func check(vector:Vector2i) -> void:
 			growth()
 
 func check_water(vector:Vector2i) -> void:
-		if collision.check_cell(vector, collision.farmland_layer)\
-		&& collision.check_cell(vector, collision.watering_layer)\
-		&& condition != phases.dead:
-			tilemap.set_cells_terrain_connect(collision.watering_layer,[vector],0,-1)
-			condition = phases.requiresWatering
-			degree = 0
-			timer.stop()
-			check_water_timer.start()
+	if collision.check_cell(vector, collision.farmland_layer)\
+	&& collision.check_cell(vector, collision.watering_layer)\
+	&& condition != phases.dead:
+		tilemap.set_cells_terrain_connect(collision.watering_layer,[vector],0,-1)
+		condition = phases.requiresWatering
+		degree = 0
+		timer.stop()
+		check_water_timer.start()
 
 func requires_watering(vector:Vector2i) -> void:
 	if !pause.paused:
@@ -91,10 +92,22 @@ func requires_watering(vector:Vector2i) -> void:
 		&& condition != phases.dead:
 			degree = 0
 			condition = phases.growing
-			timer.start()
 			check_water_timer.stop()
+			if collision.check_fertilizer(vector):
+				match collision.get_fertilizer(vector):
+					61:
+						fertilizer = fertilizers.regularCompost
+						timer.wait_time = crops.crops[plantID]["growth_rate"] - (items.content[61]["func"]["reducing"] / 100.0) * crops.crops[plantID]["growth_rate"]
+					62:
+						fertilizer = fertilizers.highQualityCompost
+						timer.wait_time = crops.crops[plantID]["growth_rate"] - (items.content[62]["func"]["reducing"] / 100.0) * crops.crops[plantID]["growth_rate"]
+			else:
+				timer.wait_time = crops.crops[plantID]["growth_rate"]
+			growth()
 
 func growth() -> void:
+	if loaded:
+		loaded = false
 	if condition == phases.growing:
 		timer.start()
 	if condition == phases.growed:
@@ -110,6 +123,7 @@ func get_data() -> Dictionary:
 		"region_rect.y": sprite.region_rect.position.y,
 		"growth_level": sprite.level,
 		"position": tilemap.local_to_map(global_position),
+		"time_left": timer.get_time_left()
 	}
 
 func set_data(
@@ -123,6 +137,7 @@ func set_data(
 	vector:Vector2i,
 	indexZ:int,
 	caption:String,
+	time_lefted:float
 	) -> void:
 	plantID = id
 	condition = conditionID
@@ -134,16 +149,26 @@ func set_data(
 	self.z_index = indexZ
 	self.name = caption
 	set_position(tilemap.map_to_local(vector))
-	if fertilizerID != 0:
-		match fertilizerID:
-			1:
-				fertilizer = fertilizers.regularCompost
-				timer.wait_time = crops.crops[plantID]["growth_rate"] - (items.content[61]["func"]["reducing"] / 100.0) * crops.crops[plantID]["growth_rate"]
-			2:
-				fertilizer = fertilizers.highQualityCompost
-				timer.wait_time = crops.crops[plantID]["growth_rate"] - (items.content[62]["func"]["reducing"] / 100.0) * crops.crops[plantID]["growth_rate"]
+	if time_lefted <= 0.0:
+		if fertilizerID != 0:
+			match fertilizerID:
+				1:
+					fertilizer = fertilizers.regularCompost
+					time_lefted = crops.crops[plantID]["growth_rate"] - (items.content[61]["func"]["reducing"] / 100.0) * crops.crops[plantID]["growth_rate"]
+				2:
+					fertilizer = fertilizers.highQualityCompost
+					time_lefted = crops.crops[plantID]["growth_rate"] - (items.content[62]["func"]["reducing"] / 100.0) * crops.crops[plantID]["growth_rate"]
+		else:
+			time_lefted = crops.crops[plantID]["growth_rate"]
 	else:
-		timer.wait_time = crops.crops[plantID]["growth_rate"]
+		if fertilizerID != 0:
+			match fertilizerID:
+				1:
+					fertilizer = fertilizers.regularCompost
+				2:
+					fertilizer = fertilizers.highQualityCompost
+	timer.set_wait_time(time_lefted)
+	loaded = true
 	check_water_timer.start()
 
 func get_condition(condition_type:int) -> String:
@@ -199,18 +224,35 @@ func _on_collision_mouse_exited() -> void:
 
 func _on_check_water_timer_timeout():
 	if condition != phases.requiresWatering:
-		check(tilemap.local_to_map(position))
+		if !loaded:
+			check(tilemap.local_to_map(position))
+		else:
+			if collision.check_cell(tilemap.local_to_map(position), collision.farmland_layer)\
+			&& !collision.check_cell(tilemap.local_to_map(position), collision.watering_layer)\
+			&& condition != phases.dead:
+				condition = phases.planted
+				if degree < crops.crops[plantID]["mortality"]:
+					degree += 1
+				else:
+					condition = phases.dead
+			elif collision.check_cell(tilemap.local_to_map(position), collision.farmland_layer)\
+			&& collision.check_cell(tilemap.local_to_map(position), collision.watering_layer)\
+			&& condition != phases.dead:
+				condition = phases.growing
+				check_water_timer.stop()
+				growth()
 	else:
 		requires_watering(tilemap.local_to_map(self.global_position))
 
 func increase_growth() -> void:
 	if !pause.paused:
-		if sprite.level < crops.crops[plantID]["growth_level"]:
-			sprite.region_rect.position.x += 16
-			sprite.level += 1
-			check_water(tilemap.local_to_map(self.global_position))
-		else:
-			sprite.plant_increased()
+		if crops.crops.has(plantID):
+			if sprite.level < crops.crops[plantID]["growth_level"]:
+				sprite.region_rect.position.x += 16
+				sprite.level += 1
+				check_water(tilemap.local_to_map(self.global_position))
+			else:
+				sprite.plant_increased()
 
 func set_new_time(new_time:float) -> void:
 	timer.stop()
