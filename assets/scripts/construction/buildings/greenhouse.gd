@@ -139,6 +139,7 @@ func _input(event):
 		data.gamesave()
 		blackout.blackout(true)
 		blackout.change_scene("res://levels/greenhouse.tscn")
+		GameLoader.timer_greenhouse_plant_stop()
 
 	if event is InputEventMouseButton\
 	&& event.button_index == MOUSE_BUTTON_LEFT\
