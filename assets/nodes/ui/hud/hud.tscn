@@ -244,7 +244,7 @@ root_node = NodePath("../../..")
 [node name="Label2" type="Label" parent="Main"]
 layout_mode = 2
 size_flags_vertical = 8
-text = "Альфа-тест — Игра в разработке"
+text = "Игра в разработке"
 label_settings = SubResource("LabelSettings_6tlru")
 vertical_alignment = 1
 
