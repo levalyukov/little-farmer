@@ -18,6 +18,7 @@ extends Node
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
 @onready var farming:Node2D = get_node("/root/"+main+"/FarmingManager")
 @onready var nature:Node2D = get_node("/root/"+main+"/Nature")
+@onready var teleport:Node2D = get_node('/root/'+main+'Teleports/Village')
 @onready var plant:PackedScene = load("res://assets/nodes/farming/plant.tscn")
 
 var object_count:int
@@ -69,22 +70,6 @@ func _ready():
 		&& !GameLoader.start:
 			gameload()
 			GameLoader.mode = false
-			if GameLoader.farm_plants != {} && GameLoader.time_left > 0.0:
-				var farm_plants = GameLoader.farm_plants
-				for i in farm_plants:
-					if farm_plants[i].has('timer_left'):
-						if farm_plants[i]['timer_left'] - GameLoader.time_left > 0.0:
-							farm_plants[i]['timer_left'] -= GameLoader.time_left
-						else:
-							farm_plants[i]['timer_left'] = 0.0
-				GameLoader.time_left = 0.0
-				for plnt in farming.get_children():
-					if farm_plants.has(plnt.name):
-						if farm_plants[plnt.name]['timer_left'] == 0.0:
-							plnt.increase_growth()
-						else:
-							plnt.set_new_time(farm_plants[plnt.name]['timer_left'])
-				GameLoader.farm_plants = {}
 		# New Game
 		if !GameLoader.mode\
 		&& GameLoader.start:
@@ -100,7 +85,7 @@ func _ready():
 				load_buildings()
 			if main == "Greenhouse":
 				greenhouse_get_data(GameLoader.greenhouse_caption)
-				
+
 func gamesave() -> void:
 	# main data
 	file_save([path.data], file.world, get_dictionary_content("world"))
@@ -132,9 +117,9 @@ func gameload() -> void:
 	# Scene
 	remove_all_child(farming)
 	remove_all_terrains()
-	plant_load()
 	vectors_load()
 	load_nature_nodes()
+	plant_load()
 	# Config
 	config_load()
 	
@@ -236,23 +221,61 @@ func load_plant(content_path:String, group:String = ""):
 			if remove_suffix(i) == 'plant':
 				var node = plant.instantiate()
 				farming.add_child(node)
-				node.set_data(
-					file_load(content_path)[i]["plantID"],
-					file_load(content_path)[i]["condition"],
-					file_load(content_path)[i]["degree"],
-					file_load(content_path)[i]["fertilizer"],
-					file_load(content_path)[i]["region_rect.x"],
-					file_load(content_path)[i]["region_rect.y"],
-					file_load(content_path)[i]["growth_level"],
-					string_to_vector(file_load(content_path)[i]["position"]),
-					2,
-					i
-				)
+				if GameLoader.tracking_plants:
+					GameLoader.timer_farm_plant_stop()
+					if file_load(content_path)[i]["time_left"]-GameLoader.time_left > 0.0:
+						node.set_data(
+							file_load(content_path)[i]["plantID"],
+							file_load(content_path)[i]["condition"],
+							file_load(content_path)[i]["degree"],
+							file_load(content_path)[i]["fertilizer"],
+							file_load(content_path)[i]["region_rect.x"],
+							file_load(content_path)[i]["region_rect.y"],
+							file_load(content_path)[i]["growth_level"],
+							string_to_vector(file_load(content_path)[i]["position"]),
+							2,
+							i,
+							file_load(content_path)[i]["time_left"]-GameLoader.time_left,
+						)
+					else:
+						node.set_data(
+							file_load(content_path)[i]["plantID"],
+							file_load(content_path)[i]["condition"],
+							file_load(content_path)[i]["degree"],
+							file_load(content_path)[i]["fertilizer"],
+							file_load(content_path)[i]["region_rect.x"],
+							file_load(content_path)[i]["region_rect.y"],
+							file_load(content_path)[i]["growth_level"],
+							string_to_vector(file_load(content_path)[i]["position"]),
+							2,
+							i,
+							0,
+						)
+						node.check_water(
+							tilemap.map_to_local(string_to_vector(file_load(content_path)[i]["position"]))
+						)
+						node.increase_growth()
+				else:
+					node.set_data(
+						file_load(content_path)[i]["plantID"],
+						file_load(content_path)[i]["condition"],
+						file_load(content_path)[i]["degree"],
+						file_load(content_path)[i]["fertilizer"],
+						file_load(content_path)[i]["region_rect.x"],
+						file_load(content_path)[i]["region_rect.y"],
+						file_load(content_path)[i]["growth_level"],
+						string_to_vector(file_load(content_path)[i]["position"]),
+						2,
+						i,
+						file_load(content_path)[i]["time_left"],
+					)
 			if remove_suffix(i) == 'fertilizer':
 				farming.create_fertilizer(
 					file_load(content_path)[i]["fertilizerID"],
 					string_to_vector(file_load(content_path)[i]["position"])
 				)
+		if GameLoader.tracking_plants:
+			GameLoader.tracking_plants = !true
 	else:
 		if file_load(content_path).has(group):
 			for i in file_load(content_path)[group]:
