@@ -42,7 +42,6 @@ func teleport() -> void:
 			blackout.blackout(true)
 			blackout.change_scene(scene)
 		"Greenhouse":
-			print(GameLoader.greenhouse_caption)
 			if GameLoader.greenhouse_caption != "":
 				var scene:String = "res://levels/farm.tscn"
 				data.file_save(
@@ -56,7 +55,8 @@ func teleport() -> void:
 				blackout.blackout(true)
 				GameLoader.mode = true
 				blackout.change_scene(scene)
-				GameLoader.timer_greenhouse_plant_start()
+				if farming.get_children() != []:
+					GameLoader.timer_greenhouse_plant_start()
 				GameLoader.greenhouse_caption = ""
 		_:
 			data.debug("Unknown name of the game scene: "+str(main), "error")
