@@ -1,0 +1,406 @@
+[gd_scene load_steps=27 format=3 uid="uid://b5tuskicjx2nd"]
+
+[ext_resource type="Theme" uid="uid://btsx1m2p0i620" path="res://assets/resources/theme.tres" id="1_62sx0"]
+[ext_resource type="Texture2D" uid="uid://dtkym5bhfhpb" path="res://assets/resources/ui/menu_background.png" id="2_hja71"]
+[ext_resource type="Script" path="res://assets/scripts/ui/sawmill_menu.gd" id="2_ljk7x"]
+[ext_resource type="Texture2D" uid="uid://c3yf44sxb8a8o" path="res://assets/resources/ui/menu_background_middle.png" id="3_viji6"]
+[ext_resource type="Texture2D" uid="uid://cdxqxalncqobp" path="res://assets/resources/ui/menu_background_secondary.png" id="4_yk2wk"]
+[ext_resource type="Texture2D" uid="uid://dk6ypggw1s56b" path="res://assets/resources/ui/interactive/inventory/items/resources/log.png" id="5_l24x3"]
+[ext_resource type="Texture2D" uid="uid://b4ju16qeey4bk" path="res://assets/resources/buildings/sawmill/arrow.png" id="6_sllom"]
+[ext_resource type="Texture2D" uid="uid://cpmmjuq2fdlpt" path="res://assets/resources/ui/interactive/inventory/items/resources/plank.png" id="7_veltc"]
+[ext_resource type="PackedScene" uid="uid://do4e681e4p00n" path="res://assets/nodes/ui/interactive/inventory/slot.tscn" id="9_l12ed"]
+[ext_resource type="Texture2D" uid="uid://idrcmhx6mgfv" path="res://assets/resources/ui/button_close_default.png" id="10_ldke1"]
+[ext_resource type="Texture2D" uid="uid://baklqd1yo23jy" path="res://assets/resources/ui/button_close_hover.png" id="11_jvpmq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wmvog"]
+font_size = 18
+outline_size = 1
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qb4cb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qlrfp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n2a33"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yha7o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6ro54"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cvqpu"]
+texture = ExtResource("10_ldke1")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bomtt"]
+texture = ExtResource("11_jvpmq")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1v3a8"]
+texture = ExtResource("11_jvpmq")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eo3f1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_10q8j"]
+
+[sub_resource type="Animation" id="Animation_l1ble"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_dmbpn"]
+resource_name = "close"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"window"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_npflj"]
+resource_name = "open"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"window"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_653yx"]
+_data = {
+"RESET": SubResource("Animation_l1ble"),
+"close": SubResource("Animation_dmbpn"),
+"open": SubResource("Animation_npflj")
+}
+
+[node name="SawmillMenu" type="Control"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_62sx0")
+script = ExtResource("2_ljk7x")
+
+[node name="Container" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -204.0
+offset_right = 240.0
+offset_bottom = 204.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="NinePatchRect" parent="Container"]
+layout_mode = 2
+texture = ExtResource("2_hja71")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+
+[node name="VBox" type="VBoxContainer" parent="Container/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -232.0
+offset_top = -196.0
+offset_right = 232.0
+offset_bottom = 196.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HeaderMargin" type="MarginContainer" parent="Container/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Label" type="Label" parent="Container/Panel/VBox/HeaderMargin"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_wmvog")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SlotsMargin" type="MarginContainer" parent="Container/Panel/VBox"]
+layout_mode = 2
+
+[node name="Panel" type="NinePatchRect" parent="Container/Panel/VBox/SlotsMargin"]
+custom_minimum_size = Vector2(216, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("3_viji6")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+
+[node name="MarginContainer" type="MarginContainer" parent="Container/Panel/VBox/SlotsMargin"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/Panel/VBox/SlotsMargin/MarginContainer"]
+layout_mode = 2
+
+[node name="OreContainer" type="NinePatchRect" parent="Container/Panel/VBox/SlotsMargin/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("4_yk2wk")
+region_rect = Rect2(0, 0, 128, 64)
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+
+[node name="TextureRect" type="TextureRect" parent="Container/Panel/VBox/SlotsMargin/MarginContainer/HBoxContainer/OreContainer"]
+modulate = Color(0.8, 0.8, 0.8, 0.490196)
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 56.0
+offset_bottom = 56.0
+texture = ExtResource("5_l24x3")
+
+[node name="removeLog" type="Button" parent="Container/Panel/VBox/SlotsMargin/MarginContainer/HBoxContainer/OreContainer"]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qb4cb")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_qlrfp")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_n2a33")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_yha7o")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_6ro54")
+
+[node name="LabelAmount" type="Label" parent="Container/Panel/VBox/SlotsMargin/MarginContainer/HBoxContainer/OreContainer"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 60.0
+offset_bottom = 60.0
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="ProcessContainer" type="NinePatchRect" parent="Container/Panel/VBox/SlotsMargin/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("4_yk2wk")
+region_rect = Rect2(0, 0, 128, 64)
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+
+[node name="TextureRect" type="TextureRect" parent="Container/Panel/VBox/SlotsMargin/MarginContainer/HBoxContainer/ProcessContainer"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 56.0
+offset_bottom = 56.0
+texture = ExtResource("6_sllom")
+
+[node name="IgnorContainer" type="NinePatchRect" parent="Container/Panel/VBox/SlotsMargin/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("4_yk2wk")
+region_rect = Rect2(0, 0, 128, 64)
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+
+[node name="TextureRect" type="TextureRect" parent="Container/Panel/VBox/SlotsMargin/MarginContainer/HBoxContainer/IgnorContainer"]
+modulate = Color(0.8, 0.8, 0.8, 0.490196)
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 56.0
+offset_bottom = 56.0
+texture = ExtResource("7_veltc")
+
+[node name="GetPlank" type="Button" parent="Container/Panel/VBox/SlotsMargin/MarginContainer/HBoxContainer/IgnorContainer"]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qb4cb")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_qlrfp")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_n2a33")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_yha7o")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_6ro54")
+
+[node name="LabelAmount" type="Label" parent="Container/Panel/VBox/SlotsMargin/MarginContainer/HBoxContainer/IgnorContainer"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 60.0
+offset_bottom = 60.0
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="AboutMargin" type="MarginContainer" parent="Container/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/Panel/VBox/AboutMargin"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Container/Panel/VBox/AboutMargin/VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Container/Panel/VBox/AboutMargin/VBoxContainer"]
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 8
+
+[node name="cutButton" type="Button" parent="Container/Panel/VBox/AboutMargin/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+disabled = true
+text = "Распилить"
+
+[node name="InventoryMargin" type="MarginContainer" parent="Container/Panel/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Panel" type="NinePatchRect" parent="Container/Panel/VBox/InventoryMargin"]
+layout_mode = 2
+texture = ExtResource("3_viji6")
+region_rect = Rect2(0, 0, 128, 64)
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+
+[node name="MarginContainer" type="MarginContainer" parent="Container/Panel/VBox/InventoryMargin"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Container/Panel/VBox/InventoryMargin/MarginContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="Container/Panel/VBox/InventoryMargin/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+columns = 6
+
+[node name="Slot" parent="Container/Panel/VBox/InventoryMargin/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("9_l12ed")]
+layout_mode = 2
+
+[node name="Slot2" parent="Container/Panel/VBox/InventoryMargin/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("9_l12ed")]
+layout_mode = 2
+
+[node name="Slot3" parent="Container/Panel/VBox/InventoryMargin/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("9_l12ed")]
+layout_mode = 2
+
+[node name="Slot4" parent="Container/Panel/VBox/InventoryMargin/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("9_l12ed")]
+layout_mode = 2
+
+[node name="Slot5" parent="Container/Panel/VBox/InventoryMargin/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("9_l12ed")]
+layout_mode = 2
+
+[node name="Slot6" parent="Container/Panel/VBox/InventoryMargin/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("9_l12ed")]
+layout_mode = 2
+
+[node name="Slot7" parent="Container/Panel/VBox/InventoryMargin/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("9_l12ed")]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 224.0
+offset_top = -216.0
+offset_right = 256.0
+offset_bottom = -184.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_cvqpu")
+theme_override_styles/hover = SubResource("StyleBoxTexture_bomtt")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_1v3a8")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_eo3f1")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_10q8j")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_653yx")
+}
+
+[connection signal="pressed" from="Container/Panel/VBox/SlotsMargin/MarginContainer/HBoxContainer/OreContainer/removeLog" to="." method="_on_remove_log_pressed"]
+[connection signal="mouse_entered" from="Container/Panel/VBox/AboutMargin/VBoxContainer/MarginContainer/cutButton" to="." method="_on_cut_button_mouse_entered"]
+[connection signal="pressed" from="Container/Panel/VBox/AboutMargin/VBoxContainer/MarginContainer/cutButton" to="." method="_on_cut_button_pressed"]
+[connection signal="mouse_entered" from="CloseButton" to="." method="_on_close_button_mouse_entered"]
+[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
