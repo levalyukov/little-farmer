@@ -2381,7 +2381,7 @@ script = ExtResource("2_880lm")
 [node name="Player" parent="." instance=ExtResource("10_cdmdm")]
 z_index = 1
 z_as_relative = false
-position = Vector2(296, 88)
+position = Vector2(312, 88)
 
 [node name="Tilemap" type="TileMap" parent="."]
 y_sort_enabled = true
