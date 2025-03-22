@@ -40,7 +40,7 @@ func _input(_event):
 				open()
 			else:
 				close()
-	
+
 func open() -> void:
 	paused = true
 	anim.play("open")
@@ -52,6 +52,11 @@ func open() -> void:
 		grid.visible = false
 	if destroy_menu.opened:
 		destroy_menu.close()
+
+	if GameLoader.get_children() != []:
+		for timer in GameLoader.get_children():
+			if !timer.is_paused():
+				timer.set_paused(true)
 		
 func close() -> void:
 	paused = false
@@ -59,6 +64,10 @@ func close() -> void:
 	blur.blur(false)
 	hud.hud_all_show()
 	player.check_switch()
+	if GameLoader.get_children() != []:
+		for timer in GameLoader.get_children():
+			if timer.is_paused():
+				timer.set_paused(!true)
 
 func _check_window() -> void:
 	visible = paused
