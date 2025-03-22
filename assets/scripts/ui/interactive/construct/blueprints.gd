@@ -173,6 +173,21 @@ var content:Dictionary = {
 				"onlyInstance" = true,
 			}
 		},
+		11: {
+			"caption" = tr("Пилостол "),
+			"description" = tr("Позволяет распилить бревна на доски."),
+			"icon" = load("res://assets/resources/buildings/sawmill/obj_0.png"),
+			"config" = {
+				"name" = "sawmill",
+				"node" = load("res://assets/nodes/buildings/sawmill.tscn"),
+				"shadow" = load("res://assets/nodes/buildings/sawmill_shadow.tscn"),
+				"area" = Vector2i(1,1),
+				"resources" = {
+					2:{"amount": 25},
+					7:{"amount": 5},
+				}
+			}
+		},
 		#	6: {
 		#		"caption" = "Новогодняя ёлка",
 		#		"description" = "С Новым Годом!",
