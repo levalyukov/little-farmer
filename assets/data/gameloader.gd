@@ -14,13 +14,21 @@ var greenhouse_caption:String = "greenhouse_1"
 var greenhouse_plants:Dictionary = {}
 
 func timer_farm_plant_start():
+    time_left = 0.0
     if timer:
-        self.add_child(timer)
-        timer.name = "farm_timer"
-        timer.wait_time = 1.0
-        timer.connect("timeout", Callable(self, "on_timer_timeout"))
-        time_left = 0.0
-        timer.start()
+        var timer_created = false
+        if self.get_children() != []:
+            for i in self.get_children():
+                if i.name == 'farm_timer':
+                    timer_created = true
+                    i.start()
+                    break
+        if !timer_created:
+            self.add_child(timer)
+            timer.name = "farm_timer"
+            timer.wait_time = 1.0
+            timer.connect("timeout", Callable(self, "on_timer_timeout"))
+            timer.start()
 
 func timer_farm_plant_stop():
     if timer:
@@ -29,15 +37,23 @@ func timer_farm_plant_stop():
 
 func timer_greenhouse_plant_start():
     if greenhouse_caption != "":
+        var timer_created = false
         if greenhouse_plants.has(greenhouse_caption):
             if greenhouse_plants[greenhouse_caption].has('time_left'):
                 greenhouse_plants[greenhouse_caption]['time_left'] = 0
-        var greenhouse_timer = Timer.new()
-        self.add_child(greenhouse_timer)
-        greenhouse_timer.name = greenhouse_caption+"_timer"
-        greenhouse_timer.wait_time = 1.0
-        greenhouse_timer.connect("timeout", Callable(self, "on_timer_greenhouse_timeout").bind(greenhouse_caption,greenhouse_timer))
-        greenhouse_timer.start()
+        if self.get_children() != []:
+            for i in self.get_children():
+                if i.name == greenhouse_caption+"_timer":
+                    timer_created = true
+                    i.start()
+                    break
+        if !timer_created:
+            var greenhouse_timer = Timer.new()
+            self.add_child(greenhouse_timer)
+            greenhouse_timer.name = greenhouse_caption+"_timer"
+            greenhouse_timer.wait_time = 2.0
+            greenhouse_timer.connect("timeout", Callable(self, "on_timer_greenhouse_timeout").bind(greenhouse_caption,greenhouse_timer))
+            greenhouse_timer.start()
 
 func timer_greenhouse_plant_stop():
     if greenhouse_caption != "":
@@ -64,10 +80,16 @@ func on_timer_greenhouse_timeout(greenhouse:String, timer_node:Timer) -> void:
 
 func create_timers() -> void:
     if greenhouse_plants != {}:
-        for plants in greenhouse_plants:
-            var greenhouse_timer = Timer.new()
-            self.add_child(greenhouse_timer)
-            greenhouse_timer.name = plants+"_timer"
-            greenhouse_timer.wait_time = 1.0
-            greenhouse_timer.connect("timeout", Callable(self, "on_timer_greenhouse_timeout").bind(plants,greenhouse_timer))
-            greenhouse_timer.start()
+        var found = false
+        for i in self.get_children():
+            if i.name != 'farm_name':
+                found = true
+                break
+        if !found:
+            for plants in greenhouse_plants:
+                var greenhouse_timer = Timer.new()
+                self.add_child(greenhouse_timer)
+                greenhouse_timer.name = plants+"_timer"
+                greenhouse_timer.wait_time = 1.0
+                greenhouse_timer.connect("timeout", Callable(self, "on_timer_greenhouse_timeout").bind(plants,greenhouse_timer))
+                greenhouse_timer.start()
