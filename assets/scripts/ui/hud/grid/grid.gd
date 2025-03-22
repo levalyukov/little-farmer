@@ -188,7 +188,12 @@ func _process(_delta):
 				
 			modes.WATERING:
 				collision.watering_collision_check()
-				tip.tooltip('Вода в лейке:\n' + str(tools.water_can) + "/" + str(tools.water_can_max))
+				if tools.water_can <= tools.water_can_max\
+				&& tools.water_can != 0:
+					tip.tooltip('Вода в лейке:\n' + str(tools.water_can) + "/" + str(tools.water_can_max))
+				else:
+					tip.tooltip('Лейка пуста!')
+
 				if check:
 					for i in collision.get_children():
 						var grid_position = tilemap.local_to_map(i.get_global_position())
