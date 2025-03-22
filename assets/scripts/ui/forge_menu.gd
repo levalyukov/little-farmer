@@ -52,7 +52,6 @@ func _input(_event):
 
 func _process(_delta) -> void:
 	if visible:
-		# Creating slots
 		if slots_to_create.size() > 0 && current_slot_index < slots_to_create.size():
 			for i in range(1):
 				if current_slot_index < slots_to_create.size():
@@ -319,6 +318,7 @@ func _on_melt_button_pressed():
 	_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
 	_audio.stream = load('res://assets/sounds/ui/click.ogg')
 	_audio.play()
+
 # Close
 func _on_close_button_pressed():
 	var _audio = AudioStreamPlayer.new()
