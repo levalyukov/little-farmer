@@ -21,7 +21,6 @@ extends Node
 @onready var teleport:Node2D = get_node('/root/'+main+'Teleports/Village')
 @onready var plant:PackedScene = load("res://assets/nodes/farming/plant.tscn")
 
-var object_count:int
 const path:Dictionary = {
 	main = "user://game",
 	data = "user://game/data",
@@ -52,12 +51,12 @@ const file:Dictionary = {
 
 const sceneConfig = {
 	'Farm': {
-		'farming': true,
+		'farm': true,
 		'build': true,
 		'changingLandscape': true,
 	},
 	'Village': {
-		'farming': false,
+		'farm': false,
 		'build': false,
 		'changingLandscape': false,
 	},
@@ -216,8 +215,7 @@ func remove_all_child(parent: Node):
 	for child in parent.get_children():
 		parent.remove_child(child)
 		child.queue_free()
-	object_count = 0
-	
+
 func erase_cells(layer: int) -> void:
 	var used_cells = tilemap.get_used_cells(layer)
 	for cell in used_cells:
