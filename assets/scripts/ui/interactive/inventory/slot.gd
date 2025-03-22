@@ -12,6 +12,7 @@ extends Control
 @onready var composterMenu:Control = get_node("/root/"+main+"/UI/Interactive/ComposterMenu")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var stoneMenu:Control = get_node("/root/"+main+"/UI/Interactive/StoneOvenMenu")
+@onready var sawmillMenu:Control = get_node("/root/"+main+"/UI/Interactive/SawmillMenu")
 @onready var icon:TextureRect = $Button/Icon
 @onready var amount_label:Label = $Button/Amount
 
@@ -241,15 +242,24 @@ func _on_button_pressed():
 	
 	if stoneMenu:
 		if stoneMenu.visible:
-			if stoneMenu.visible:
-				if !stoneMenu.target_node.inProcessed:
-					stoneMenu.add_item(id)
-					stoneMenu.check_button_state()
-					var audio = AudioStreamPlayer.new()
-					self.add_child(audio)
-					audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-					audio.stream = load('res://assets/sounds/ui/click.ogg')
-					audio.play()
+			if !stoneMenu.target_node.inProcessed:
+				stoneMenu.add_item(id)
+				stoneMenu.check_button_state()
+				var audio = AudioStreamPlayer.new()
+				self.add_child(audio)
+				audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+				audio.stream = load('res://assets/sounds/ui/click.ogg')
+				audio.play()
+
+	if sawmillMenu:
+		if sawmillMenu.visible:
+			sawmillMenu.add_item(id)
+			sawmillMenu.update_button()
+			var audio = AudioStreamPlayer.new()
+			self.add_child(audio)
+			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+			audio.stream = load('res://assets/sounds/ui/click.ogg')
+			audio.play()
 
 func _on_audio_finished(node) -> void:
 	node.queue_free()
