@@ -71,16 +71,6 @@ func update():
 						if object[level]["seasons"][season]["default"] is CompressedTexture2D:
 							sprite.texture = object[level]["seasons"][season]["default"]
 							self.set_position(tilemap.map_to_local(Vector2i(22,2)))
-						else:
-							data.debug("'"+str(self.name) + "': 'default' is not a CompressedTexture2D.", "error")
-					else:
-						data.debug("'"+str(self.name) + "': There is no key at index " + str(level), "error")
-				else:
-					data.debug("'"+str(self.name) + "': There is no '" + str(season) + "' key in the 'seasons' group.", "error")
-			else:
-				data.debug("'"+str(self.name) + "': There is no 'seasons' group.", "error")
-		else:
-			data.debug("'"+str(self.name) + "': Index " + str(level) + " is not in the dictionary.", "error")
 
 func shadow_create() -> void:
 	if visible:
@@ -93,16 +83,6 @@ func shadow_create() -> void:
 							var vector2i_position = tilemap.local_to_map(position)
 							var target_position = Vector2i(vector2i_position.x, vector2i_position.y+1)
 							canvas.create_shadow("storage_shadow", object[level]["seasons"][season]["shadow"], target_position)
-						else:
-							data.debug("'"+str(self.name) + "': It is not possible to create a game shadow of an object because the sprite is not of the 'CompressedTexture2D' type.", "error")
-					else:
-						data.debug("'"+str(self.name) + "': The 'shadow' key with index level "+str(level)+" is missing.", "error")
-				else:
-					pass
-			else:
-				pass
-		else:
-			data.debug("'"+str(self.name) + "': Invalid level index: "+str(level), "error")
 
 func _change_sprite(type:bool) -> void:
 	if type:
@@ -117,11 +97,12 @@ func _change_sprite(type:bool) -> void:
 							if object[level]["seasons"][season]["hovered"] is CompressedTexture2D:
 								sprite.texture = object[level]["seasons"][season]["hovered"]
 			var level_text = tr("Уровень")
-			tip.tooltip(
-					str(object[level]["caption"]) + "\n" +
-					str(object[level]["description"]) + "\n" +
-					str(level_text) + ": " + str(level)
-				)
+			if !tip.visible:
+				tip.tooltip(
+						str(object[level]["caption"]) + "\n" +
+						str(object[level]["description"]) + "\n" +
+						str(level_text) + ": " + str(level)
+					)
 	else:
 		if object.has(level):
 			if object[level].has("seasons"):
@@ -131,7 +112,8 @@ func _change_sprite(type:bool) -> void:
 						if object[level]["seasons"][season]["default"] is CompressedTexture2D:
 							sprite.texture = object[level]["seasons"][season]["default"]
 		if tip:
-			tip.tooltip("")
+			if tip.visible:
+				tip.tooltip("")
 
 func get_data() -> Dictionary:
 	if object.has(level):
