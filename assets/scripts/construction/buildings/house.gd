@@ -117,11 +117,12 @@ func _change_sprite(type:bool) -> void:
 					else:
 						data.debug("'"+str(self.name) + "': There is no 'hovered' key.", "error")
 			var level_text = tr("Уровень")
-			tip.tooltip(
-					str(object[level]["caption"]) + "\n" +
-					str(object[level]["description"]) + "\n" +
-					str(level_text) + ": " + str(level)
-				)
+			if !tip.visible:
+				tip.tooltip(
+						str(object[level]["caption"]) + "\n" +
+						str(object[level]["description"]) + "\n" +
+						str(level_text) + ": " + str(level)
+					)
 	else:
 		if object.has(level):
 			if object[level].has("seasons"):
@@ -131,7 +132,8 @@ func _change_sprite(type:bool) -> void:
 						if object[level]["seasons"][season]["default"] is CompressedTexture2D:
 							sprite.texture = object[level]["seasons"][season]["default"]
 		if tip:
-			tip.tooltip("")
+			if tip.visible:
+				tip.tooltip("")
 
 func get_data() -> Dictionary:
 	if object.has(level):
