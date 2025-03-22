@@ -149,21 +149,24 @@ func _change_sprite(type:bool) -> void:
 						data.debug("'"+str(self.name) + "': There is no 'hovered' key.", "error")
 			if tools:
 				if tools.water_can < tools.water_can_max:
-					tip.tooltip(
-							str(object[level]["caption"]) + "\n" +
-							str(object[level]["description"]) + '\n' +
-							"- Вы можете набрать воду в лейку."
-						)
+					if !tip.visible:
+						tip.tooltip(
+								str(object[level]["caption"]) + "\n" +
+								str(object[level]["description"]) + '\n' +
+								"- Вы можете набрать воду в лейку."
+							)
 				else:
+					if !tip.visible:
+						tip.tooltip(
+								str(object[level]["caption"]) + "\n" +
+								str(object[level]["description"])
+						)
+			else:
+				if !tip.visible:
 					tip.tooltip(
 							str(object[level]["caption"]) + "\n" +
 							str(object[level]["description"])
 						)
-			else:
-				tip.tooltip(
-						str(object[level]["caption"]) + "\n" +
-						str(object[level]["description"])
-					)
 	else:
 		if object.has(level):
 			if object[level].has("seasons"):
@@ -173,7 +176,8 @@ func _change_sprite(type:bool) -> void:
 						if object[level]["seasons"][season]["default"] is CompressedTexture2D:
 							sprite.texture = object[level]["seasons"][season]["default"]
 		if tip:
-			tip.tooltip("")
+			if tip.visible:
+				tip.tooltip("")
 
 
 func _on_area_2d_mouse_entered():
