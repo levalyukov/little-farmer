@@ -201,16 +201,18 @@ func _on_collision_mouse_entered() -> void:
 					var plant_status = tr("Состояние")
 					if fertilizer != fertilizers.nothing:
 						var fertilized_plant = tr("Удобрено")
-						tip.tooltip(
-							crops.crops[plantID]["caption"] +"\n"+
-							str(plant_status) + ": " + str(get_condition(condition)) +"\n"+
-							str(fertilized_plant)
-						)
+						if !tip.visible:
+							tip.tooltip(
+								crops.crops[plantID]["caption"] +"\n"+
+								str(plant_status) + ": " + str(get_condition(condition)) +"\n"+
+								str(fertilized_plant)
+							)
 					else:
-						tip.tooltip(
-							crops.crops[plantID]["caption"] +"\n"+
-							str(plant_status) + ": " + str(get_condition(condition))
-						)
+						if !tip.visible:
+							tip.tooltip(
+								crops.crops[plantID]["caption"] +"\n"+
+								str(plant_status) + ": " + str(get_condition(condition))
+							)
 				else:
 					data.debug("The 'caption' element is not a string type. Variant.type: " + str(typeof(crops.crops[plantID]["caption"])), "error")
 			else:
@@ -220,7 +222,8 @@ func _on_collision_mouse_entered() -> void:
 		
 func _on_collision_mouse_exited() -> void:
 	if !blur.state:
-		tip.tooltip()
+		if tip.visible:
+			tip.tooltip()
 
 func _on_check_water_timer_timeout():
 	if condition != phases.requiresWatering:
