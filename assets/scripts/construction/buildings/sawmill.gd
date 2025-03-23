@@ -71,6 +71,15 @@ func _on_area_2d_mouse_entered():
 				if object.has('delete'):
 					if object['delete'] is CompressedTexture2D:
 						sprite.texture = object['delete']
+	else:
+		tip.tooltip()
+		if menuAccess:
+			menuAccess = false
+		if destroyMode:
+			destroyMode = false
+		if object.has('default'):
+			if object['default'] is CompressedTexture2D:
+				sprite.texture = object['default']
 
 func _on_area_2d_mouse_exited():
 	if menuAccess:
@@ -80,9 +89,7 @@ func _on_area_2d_mouse_exited():
 	if object.has('default'):
 		if object['default'] is CompressedTexture2D:
 			sprite.texture = object['default']
-	if tip:
-		if tip.visible:
-			tip.tooltip()
+	tip.tooltip()
 
 func get_data() -> Dictionary:
 	return {
