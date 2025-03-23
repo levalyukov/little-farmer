@@ -50,7 +50,6 @@ func format(number:int, separator:String = ",") -> String:
 				count += 1
 				if count % 3 == 0 and i != 0:
 					result = separator + result
-					
 			return result
 		return "999,999,999"
 	return "0"
