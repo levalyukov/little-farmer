@@ -13,6 +13,11 @@ var content:Dictionary = {
 				"terrain" = [0],
 				"required_layer" = [1],
 				"blocking_layer" = [1,2,3,5],
+			},
+
+			"trade_info" = {
+				"caption" = tr("Чертеж тропинок"),
+				"description" = "",
 			}
 		},
 		2: {
@@ -23,6 +28,12 @@ var content:Dictionary = {
 				"terrain" = [3,4],
 				"required_layer" = [3,5],
 				"blocking_layer" = [1,2,3,9],
+			},
+
+			"trade_info" = {
+				"caption" = tr("Чертеж воды"),
+				"description" = "Позволяет создавать водные пространства на вашей ферме.",
+				"price" = 10009
 			}
 		},
 	},
@@ -41,6 +52,12 @@ var content:Dictionary = {
 					1:{"amount": 1},
 					2:{"amount": 5},
 				}
+			},
+
+			"trade_info" = {
+				"caption" = tr("Чертеж деревянного знака"),
+				"description" = tr("Позволяет разместить изображение любого предмета."),
+				"price" = 1000243
 			}
 		},
 		2: {
@@ -55,6 +72,12 @@ var content:Dictionary = {
 				"resources" = {
 					2:{"amount": 25},
 				}
+			},
+
+			"trade_info" = {
+				"caption" = tr("Чертеж компостера"),
+				"description" = tr("Ящик для приготовления удобрения."),
+				"price" = 12343
 			}
 		},
 		3: {
@@ -70,6 +93,12 @@ var content:Dictionary = {
 					3:{"amount": 25},
 					4:{"amount": 50},
 				}
+			},
+
+			"trade_info" = {
+				"caption" = tr("Чертеж колодца"),
+				"description" = tr("Позволяет пополять лейку."),
+				"price" = 10
 			}
 		},
 		4: {
@@ -85,6 +114,12 @@ var content:Dictionary = {
 					1:{"amount": 100},
 					3:{"amount": 25},
 				}
+			},
+
+			"trade_info" = {
+				"caption" = tr("Хлев"),
+				"description" = tr("Место для содержания скота."),
+				"price" = 1000
 			}
 		},
 		5: {
@@ -101,6 +136,12 @@ var content:Dictionary = {
 					3:{"amount": 25},
 					7:{"amount": 25},
 				}
+			},
+
+			"trade_info" = {
+				"caption" = tr("Силосная башня"),
+				"description" = tr("Высокое и вместительное хранилище для кормов."),
+				"price" = 1000
 			}
 		},
 		6: {
@@ -115,6 +156,12 @@ var content:Dictionary = {
 				"resources" = {
 					11:{"amount": 25}
 				}
+			},
+
+			"trade_info" = {
+				"caption" = tr("Теплица"),
+				"description" = tr("Тёплое помещение для разведения и выращивания растений."),
+				"price" = 1000
 			}
 		},
 		7: {
@@ -130,6 +177,12 @@ var content:Dictionary = {
 					1:{"amount": 1},
 					2:{"amount": 5},
 				}
+			},
+
+			"trade_info" = {
+				"caption" = tr("Фонарный столб"),
+				"description" = tr("Источник света для вашей фермы."),
+				"price" = 1000
 			}
 		},
 		8: {
@@ -144,6 +197,12 @@ var content:Dictionary = {
 				"resources" = {
 					4:{"amount": 5},
 				}
+			},
+
+			"trade_info" = {
+				"caption" = tr("Дорожка из больших камней"),
+				"description" = tr(""),
+				"price" = 1000
 			}
 		},
 		9: {
@@ -159,6 +218,12 @@ var content:Dictionary = {
 					3:{"amount": 50},
 					5:{"amount": 10},
 				}
+			},
+
+			"trade_info" = {
+				"caption" = tr("Каменная плавильная печь"),
+				"description" = tr("Простая каменная плавильня для обработки ресурсов. Недорогая в создании, работает медленно и требует времени для плавки."),
+				"price" = 1000
 			}
 		},
 		10: {
@@ -171,6 +236,12 @@ var content:Dictionary = {
 				"shadow" = load("res://assets/nodes/buildings/radio_shadow.tscn"),
 				"area" = Vector2i(1,1),
 				"onlyInstance" = true,
+			},
+
+			"trade_info" = {
+				"caption" = tr("Радио"),
+				"description" = tr("Воспроизводит радиостанции и пользовательские треки.\n\nМожет быть только в единном экземпляре."),
+				"price" = 1000
 			}
 		},
 		11: {
@@ -186,6 +257,12 @@ var content:Dictionary = {
 					2:{"amount": 25},
 					7:{"amount": 5},
 				}
+			},
+
+			"trade_info" = {
+				"caption" = tr("Пилостол "),
+				"description" = tr("Позволяет распилить бревна на доски."),
+				"price" = 1000
 			}
 		},
 		#	6: {
