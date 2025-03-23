@@ -30,8 +30,26 @@ var stations_name:Array[String] = []
 var stream_position:float = 0.0
 var stopped:bool = false
 var stations:Dictionary = {
-	'Radio FM': [
-		'res://sounds/stations/retro/track_1',
+	tr('Радио «Культура»'): [
+		'res://sounds/stations/cultura/track_1',
+		'res://sounds/stations/cultura/track_2',
+		'res://sounds/stations/cultura/track_3',
+		'res://sounds/stations/cultura/track_4',
+		'res://sounds/stations/cultura/track_5',
+		],
+	tr('Радио «Инди»'): [
+		'res://sounds/stations/indie/track_1',
+		'res://sounds/stations/indie/track_2',
+		'res://sounds/stations/indie/track_3',
+		'res://sounds/stations/indie/track_4',
+		'res://sounds/stations/indie/track_5',
+		],
+	tr('Радио+ FM'): [
+		'res://sounds/stations/radio-plus/track_1',
+		'res://sounds/stations/radio-plus/track_2',
+		'res://sounds/stations/radio-plus/track_3',
+		'res://sounds/stations/radio-plus/track_4',
+		'res://sounds/stations/radio-plus/track_5',
 		],
 }
 
