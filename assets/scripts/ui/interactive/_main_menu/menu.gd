@@ -71,6 +71,7 @@ func _ready():
 
 func _on_continue_button_pressed():
 	if !clicked:
+		clicked = true
 		if !blur.state:
 			blackout.blackout(true)
 			GameLoader.mode = true
@@ -84,6 +85,7 @@ func _on_continue_button_pressed():
 
 func _on_new_game_button_pressed():
 	if !clicked:
+		clicked = true
 		if !blur.state:
 			blackout.blackout(true)
 			GameLoader.mode = false
