@@ -33,6 +33,11 @@ var construct_menu_header:String = tr("Меню строительства")
 var construct_menu_description:String = tr("Нет чертежей. Чтобы получить новые чертежи — проходите квесты или приобретайте у специальный торговцев.")
 var construct_menu_description_empty:String = tr("Выбор чертежей происходит в левом окне. \n\nВерхние вкладки служат для группировки чертежей по их типам.")
 
+var buttonSelectAllBlueprints:String = tr("Все чертежи")
+var buttonSelectTerrains:String = tr("Чертежи ландшафта")
+var buttonSelectNodes:String = tr("Чертежи построек")
+var buttonSelectUpgrades:String = tr("Чертежи улучшений")
+
 var construct_menu_selected_nodes_header:String = tr("Постройки")
 var construct_menu_selected_landscapes_header:String = tr("Ландшафт")
 var construct_menu_selected_upgrades_header:String = tr("Улучшения")
@@ -47,7 +52,7 @@ var section:String = "all"
 var opened:bool = false
 var all_items:bool
 var terrains_blueprints:Array[int] = [1,2,3,5]
-var node_blueprints:Array[int] = [1,2,3,4,5,6,7,8,9,10,11]
+var node_blueprints:Array[int] = [1,2,]
 var upgrade_blueprints:Array[int] = []
 
 var items:Object = Items.new()
@@ -280,22 +285,22 @@ func close() -> void:
 
 func update_navmenu() -> void:
 	navmenu_button_all.visible = true
-	navmenu_button_all.text = tr("Все чертежи")
+	navmenu_button_all.text = buttonSelectAllBlueprints
 	if terrains_blueprints != []:
 		navmenu_button_landscapes.visible = true
-		navmenu_button_landscapes.text = tr("Чертежи ландшафта")
+		navmenu_button_landscapes.text = buttonSelectTerrains
 	else:
 		navmenu_button_landscapes.visible = false
 
 	if node_blueprints != []:
 		navmenu_button_nodes.visible = true
-		navmenu_button_nodes.text = tr("Чертежи построек")
+		navmenu_button_nodes.text = buttonSelectNodes
 	else:
 		navmenu_button_nodes.visible = false
 
 	if upgrade_blueprints != []:
 		navmenu_button_upgrades.visible = true
-		navmenu_button_upgrades.text = tr("Чертежи улучшений")
+		navmenu_button_upgrades.text = buttonSelectUpgrades
 	else:
 		navmenu_button_upgrades.visible = false
 
@@ -452,29 +457,31 @@ func _on_button_all_blueprints_pressed():
 	remove_all_blueprints()
 	create_all_blueprints()
 
-func add_blueprints(blueprintID:int, blueprintType:String) -> void:
-	if !blueprints.has(blueprintID):
-		match blueprintType.to_lower():
-			"terrain":
-				terrains_blueprints.append(blueprintID)
-			"node":
-				node_blueprints.append(blueprintID)
-			"upgrade":
-				upgrade_blueprints.append(blueprintID)
-			_:
-				return
+func add_blueprint(blueprintID:int, blueprintType:String) -> void:
+	if blueprints.content.has(blueprintType):
+		if blueprints.content[blueprintType].has(blueprintID):
+			match blueprintType.to_lower():
+				"terrains":
+					terrains_blueprints.append(blueprintID)
+				"nodes":
+					node_blueprints.append(blueprintID)
+				"upgrades":
+					upgrade_blueprints.append(blueprintID)
+				_:
+					return
 
-func remove_blueprints(blueprintID:int, blueprintType:String) -> void:
-	if blueprints.has(blueprintID):
-		match blueprintType.to_lower():
-			"terrain":
-				terrains_blueprints.erase(blueprintID)
-			"node":
-				node_blueprints.erase(blueprintID)
-			"upgrade":
-				upgrade_blueprints.erase(blueprintID)
-			_:
-				return
+func remove_blueprint(blueprintID:int, blueprintType:String) -> void:
+	if blueprints.content.has(blueprintType):
+		if blueprints.content[blueprintType].has(blueprintID):
+			match blueprintType.to_lower():
+				"terrain":
+					terrains_blueprints.erase(blueprintID)
+				"node":
+					node_blueprints.erase(blueprintID)
+				"upgrade":
+					upgrade_blueprints.erase(blueprintID)
+				_:
+					return
 
 func _on_close_mouse_entered():
 	var audio = AudioStreamPlayer.new()
