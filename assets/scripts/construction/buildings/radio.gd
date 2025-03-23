@@ -20,6 +20,7 @@ var audio_index_track:int = 0
 var enabled:bool = false
 var repeat:bool = true
 var userMode:bool = false
+var random:bool = false
 
 var blueprint_id:int
 var all_collisions:Array[Vector2i] = []
