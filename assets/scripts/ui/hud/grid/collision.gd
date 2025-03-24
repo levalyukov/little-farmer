@@ -60,23 +60,24 @@ func nature_check():
 	for grids in get_children():
 		var grid_position = tilemap.local_to_map(grids.get_global_position())
 		# check nature
-		for i in nature.get_children():
-			if grid_position == tilemap.local_to_map(i.position):
-				match data.remove_suffix(i.name):
-					'tree':
-						grids.texture = default
-						return 1
-					'weed':
-						grids.texture = default
-						return 2
-					'stone':
-						grids.texture = default
-						return 3
-		# check plants
-		for i in farming.get_children():
-			if grid_position == tilemap.local_to_map(i.position):
-				grids.texture = default
-				return 4
+		if !check_cell(grid_position, border_collisions):
+			for i in nature.get_children():
+				if grid_position == tilemap.local_to_map(i.position):
+					match data.remove_suffix(i.name):
+						'tree':
+							grids.texture = default
+							return 1
+						'weed':
+							grids.texture = default
+							return 2
+						'stone':
+							grids.texture = default
+							return 3
+			# check plants
+			for i in farming.get_children():
+				if grid_position == tilemap.local_to_map(i.position):
+					grids.texture = default
+					return 4
 		grids.texture = error
 		return
 
@@ -87,21 +88,25 @@ func terrain_check():
 			if check_cell(grid_position, road_layer)\
 			&& !check_cell(grid_position, farmland_layer)\
 			&& !check_cell(grid_position, watering_layer)\
-			&& !check_cell(grid_position, crops_layer):
+			&& !check_cell(grid_position, crops_layer)\
+			&& !check_cell(grid_position, border_collisions):
 				grids.texture = default
 				return 0
 			elif check_cell(grid_position, farmland_layer)\
 			&& !check_cell(grid_position, watering_layer)\
-			&& !check_cell(grid_position, crops_layer):
+			&& !check_cell(grid_position, crops_layer)\
+			&& !check_cell(grid_position, border_collisions):
 				grids.texture = default
 				return 1
 			elif check_cell(grid_position, farmland_layer)\
 			&& check_cell(grid_position, watering_layer)\
-			&& !check_cell(grid_position, crops_layer):
+			&& !check_cell(grid_position, crops_layer)\
+			&& !check_cell(grid_position, border_collisions):
 				grids.texture = default
 				return 2
 			elif check_cell(grid_position, coast_layer)\
-			&& check_cell(grid_position, water_layer):
+			&& check_cell(grid_position, water_layer)\
+			&& !check_cell(grid_position, border_collisions):
 				grids.texture = default
 				return 3
 			else:
@@ -145,8 +150,8 @@ func watering_collision_check() -> void:
 		for grids in get_children():
 			var grid_position = tilemap.local_to_map(grids.get_global_position())
 			if check_custom_data(grid_position, can_place_seed_custom_data, farmland_layer)\
-			#	&& tools.water_can > 0\
-			&& !check_cell(grid_position, watering_layer):
+			&& !check_cell(grid_position, watering_layer)\
+			&& tools.water_can > 0:
 				grids.texture = default
 			else:
 				grids.texture = error
@@ -185,15 +190,18 @@ func terrain_collision_check(terrain_layer:Array) -> void:
 			var local_position = tilemap.to_local(grids.get_global_position())
 			var grid_position = tilemap.local_to_map(local_position)
 			var collision_found = false
-			for i in terrain_layer:
-				if check_cell(grid_position, i)\
-				|| !check_cell(grid_position, ground_layer):
-					collision_found = true
-					break
-			if collision_found:
-				grids.texture = error
+			if !check_cell(grid_position, border_collisions):
+				for i in terrain_layer:
+					if check_cell(grid_position, i)\
+					|| !check_cell(grid_position, ground_layer):
+						collision_found = true
+						break
+				if collision_found:
+					grids.texture = error
+				else:
+					grids.texture = default
 			else:
-				grids.texture = default
+				grids.texture = error
 
 func building_collision_check() -> void:
 	if main == "Farm"\
@@ -208,7 +216,7 @@ func building_collision_check() -> void:
 			&& !check_cell(grid_position, watering_layer)\
 			&& !check_cell(grid_position, coast_layer)\
 			&& !check_cell(grid_position, water_layer)\
-			&& !check_cell(grid_position, collision_scene):
+			&& !check_cell(grid_position, border_collisions):
 				grids.texture = default
 			else:
 				grids.texture = error
