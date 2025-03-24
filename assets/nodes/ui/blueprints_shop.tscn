@@ -3,9 +3,9 @@
 [ext_resource type="Theme" uid="uid://btsx1m2p0i620" path="res://assets/resources/theme.tres" id="1_348qn"]
 [ext_resource type="Texture2D" uid="uid://dtkym5bhfhpb" path="res://assets/resources/ui/menu_background.png" id="2_6dupi"]
 [ext_resource type="Script" path="res://assets/scripts/ui/blueprints_shop.gd" id="2_t367v"]
-[ext_resource type="PackedScene" uid="uid://cps3s5crjjsv1" path="res://assets/nodes/ui/interactive/construct/blueprint.tscn" id="3_0tqlp"]
 [ext_resource type="Texture2D" uid="uid://c3yf44sxb8a8o" path="res://assets/resources/ui/menu_background_middle.png" id="4_bexd2"]
 [ext_resource type="Texture2D" uid="uid://d14qsl277riaw" path="res://assets/resources/ui/interactive/inventory/close_default.png" id="5_t74hg"]
+[ext_resource type="Texture2D" uid="uid://drwbxqpgt6lxf" path="res://assets/resources/ui/interactive/construct/default.png" id="6_3ybvj"]
 [ext_resource type="Texture2D" uid="uid://bmpwh4f12wnhi" path="res://assets/resources/ui/interactive/inventory/close_hover.png" id="6_hqa22"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kody8"]
@@ -28,6 +28,21 @@ texture = ExtResource("6_hqa22")
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sl2yt"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8ho87"]
+
+[sub_resource type="Animation" id="Animation_d6g8o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_ibniy"]
 resource_name = "close"
@@ -57,21 +72,6 @@ tracks/1/keys = {
 "args": [],
 "method": &"window"
 }]
-}
-
-[sub_resource type="Animation" id="Animation_d6g8o"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_7w3le"]
@@ -112,6 +112,7 @@ _data = {
 }
 
 [node name="BlueprintsShop" type="Control"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -207,30 +208,6 @@ layout_mode = 2
 [node name="BlueprintsContainer" type="GridContainer" parent="Panel/MarginContainer/HBoxContainer/BlueprintsMargin/ScrollContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Blueprint" parent="Panel/MarginContainer/HBoxContainer/BlueprintsMargin/ScrollContainer/MarginContainer/BlueprintsContainer" instance=ExtResource("3_0tqlp")]
-layout_mode = 2
-
-[node name="Blueprint2" parent="Panel/MarginContainer/HBoxContainer/BlueprintsMargin/ScrollContainer/MarginContainer/BlueprintsContainer" instance=ExtResource("3_0tqlp")]
-layout_mode = 2
-
-[node name="Blueprint3" parent="Panel/MarginContainer/HBoxContainer/BlueprintsMargin/ScrollContainer/MarginContainer/BlueprintsContainer" instance=ExtResource("3_0tqlp")]
-layout_mode = 2
-
-[node name="Blueprint4" parent="Panel/MarginContainer/HBoxContainer/BlueprintsMargin/ScrollContainer/MarginContainer/BlueprintsContainer" instance=ExtResource("3_0tqlp")]
-layout_mode = 2
-
-[node name="Blueprint5" parent="Panel/MarginContainer/HBoxContainer/BlueprintsMargin/ScrollContainer/MarginContainer/BlueprintsContainer" instance=ExtResource("3_0tqlp")]
-layout_mode = 2
-
-[node name="Blueprint6" parent="Panel/MarginContainer/HBoxContainer/BlueprintsMargin/ScrollContainer/MarginContainer/BlueprintsContainer" instance=ExtResource("3_0tqlp")]
-layout_mode = 2
-
-[node name="Blueprint7" parent="Panel/MarginContainer/HBoxContainer/BlueprintsMargin/ScrollContainer/MarginContainer/BlueprintsContainer" instance=ExtResource("3_0tqlp")]
-layout_mode = 2
-
-[node name="Blueprint8" parent="Panel/MarginContainer/HBoxContainer/BlueprintsMargin/ScrollContainer/MarginContainer/BlueprintsContainer" instance=ExtResource("3_0tqlp")]
-layout_mode = 2
-
 [node name="BlueprintsInfo" type="MarginContainer" parent="Panel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -243,61 +220,78 @@ patch_margin_top = 12
 patch_margin_right = 12
 patch_margin_bottom = 12
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/ScrollContainer"]
 layout_mode = 2
-
-[node name="CaptionMargin" type="MarginContainer" parent="Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/MarginContainer/VBoxContainer"]
-layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
-[node name="Caption" type="Label" parent="Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/MarginContainer/VBoxContainer/CaptionMargin"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/ScrollContainer/MarginContainer"]
 layout_mode = 2
-text = "Чертеж #1"
+
+[node name="SpriteMargin" type="MarginContainer" parent="Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/SpriteMargin"]
+custom_minimum_size = Vector2(0, 128)
+layout_mode = 2
+texture = ExtResource("6_3ybvj")
+stretch_mode = 5
+
+[node name="CaptionMargin" type="MarginContainer" parent="Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Caption" type="Label" parent="Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/CaptionMargin"]
+layout_mode = 2
 label_settings = SubResource("LabelSettings_qpgfe")
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="DescriptionMargin" type="MarginContainer" parent="Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_bottom = 16
-
-[node name="Description" type="Label" parent="Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/MarginContainer/VBoxContainer/DescriptionMargin"]
-layout_mode = 2
-text = "Очень длинное описание чертежа, в котором описываются основные механики и польза от этого объекта на ферме"
 autowrap_mode = 3
 
-[node name="PriceMargin" type="MarginContainer" parent="Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/MarginContainer/VBoxContainer"]
+[node name="DescriptionMargin" type="MarginContainer" parent="Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_bottom = 16
 
-[node name="Price" type="RichTextLabel" parent="Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/MarginContainer/VBoxContainer/PriceMargin"]
+[node name="Description" type="RichTextLabel" parent="Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/DescriptionMargin"]
 layout_mode = 2
 bbcode_enabled = true
-text = "Цена чертежа: 10,000"
+fit_content = true
+
+[node name="PriceMargin" type="MarginContainer" parent="Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_bottom = 16
+
+[node name="Price" type="RichTextLabel" parent="Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/PriceMargin"]
+layout_mode = 2
+bbcode_enabled = true
 fit_content = true
 scroll_active = false
 
-[node name="BuyMargin" type="MarginContainer" parent="Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/MarginContainer/VBoxContainer"]
+[node name="BuyMargin" type="MarginContainer" parent="Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_bottom = 16
 
-[node name="Button" type="Button" parent="Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/MarginContainer/VBoxContainer/BuyMargin"]
+[node name="Button" type="Button" parent="Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/BuyMargin"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 text = "Приобрести"
@@ -334,7 +328,7 @@ libraries = {
 [connection signal="pressed" from="Panel/NavMenu/ButtonLandscape" to="." method="_on_button_landscape_pressed"]
 [connection signal="mouse_entered" from="Panel/NavMenu/ButtonUpgrades" to="." method="_on_button_upgrades_mouse_entered"]
 [connection signal="pressed" from="Panel/NavMenu/ButtonUpgrades" to="." method="_on_button_upgrades_pressed"]
-[connection signal="mouse_entered" from="Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/MarginContainer/VBoxContainer/BuyMargin/Button" to="." method="_on_button_mouse_entered"]
-[connection signal="pressed" from="Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/MarginContainer/VBoxContainer/BuyMargin/Button" to="." method="_on_button_pressed"]
+[connection signal="mouse_entered" from="Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/BuyMargin/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/BuyMargin/Button" to="." method="_on_button_pressed"]
 [connection signal="mouse_entered" from="CloseButton" to="." method="_on_close_button_mouse_entered"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
