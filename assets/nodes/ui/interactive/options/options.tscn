@@ -221,7 +221,6 @@ patch_margin_right = 8
 patch_margin_bottom = 8
 
 [node name="GraphicSection" type="ScrollContainer" parent="Menu/Main/HBoxContainer/PageBackground"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -306,6 +305,7 @@ popup/item_2/text = "Выкл"
 popup/item_2/id = 2
 
 [node name="SoundVolumeSection" type="ScrollContainer" parent="Menu/Main/HBoxContainer/PageBackground"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -559,6 +559,23 @@ theme_override_constants/margin_right = 15
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "Меню паузы [Esc]"
+
+[node name="MarginContainer5" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container/MarginContainer5"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container/MarginContainer5/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container/MarginContainer5/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Увеличить/Уменьшить зум [СКМ)"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
