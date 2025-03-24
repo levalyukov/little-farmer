@@ -43,7 +43,7 @@ var construct_menu_selected_landscapes_header:String = tr("Ландшафт")
 var construct_menu_selected_upgrades_header:String = tr("Улучшения")
 
 var construct_menu_selected_nodes:String = tr("Чертежи данного типа дают возможность возводить фермерские постройки и декорации для фермы.")
-var construct_menu_selected_landscapes:String = tr("Эти чертежи позволяют преобразовывать ландшафт фермы.")
+var construct_menu_selected_landscapes:String = tr("Данные чертежи позволяют преобразовывать ландшафт фермы.")
 var construct_menu_selected_upgrades:String = tr("Чертежи этого типа используются для модернизации конкретных зданий. После улучшения здания становятся доступны новые функции или контент, связанные с ними.")
 
 
@@ -51,8 +51,8 @@ var index:int
 var section:String = "all"
 var opened:bool = false
 var all_items:bool
-var terrains_blueprints:Array[int] = [1,2,3,5]
-var node_blueprints:Array[int] = [1,2,]
+var terrains_blueprints:Array[int] = []
+var node_blueprints:Array[int] = []
 var upgrade_blueprints:Array[int] = []
 
 var items:Object = Items.new()
