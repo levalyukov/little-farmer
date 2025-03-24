@@ -49,6 +49,9 @@ func _input(event):
 	&& grid.mode == grid.modes.NOTHING\
 	&& menuAccess:
 		sawmillMenu.open(self)
+		if tip:
+			if tip.visible:
+				tip.tooltip()
 
 func _on_area_2d_mouse_entered():
 	if !pause.paused:
