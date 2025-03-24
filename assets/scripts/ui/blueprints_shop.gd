@@ -6,22 +6,24 @@ extends Control
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var balance:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Balance")
 @onready var construct:Control = get_node("/root/"+main+"/UI/Interactive/ConstructMenu")
+@onready var mail:Control = get_node("/root/"+main+"/UI/Interactive/Mailbox")
 
 @onready var buttonAllBlueprints:Button = $Panel/NavMenu/ButtonAllBlueprints
 @onready var buttonNodes:Button = $Panel/NavMenu/ButtonBuildings
 @onready var buttonTerrain:Button = $Panel/NavMenu/ButtonLandscape
 @onready var buttonUpgrades:Button = $Panel/NavMenu/ButtonUpgrades
 
-@onready var blueprintsHeader:Label = $Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/MarginContainer/VBoxContainer/CaptionMargin/Caption
-@onready var blueprintsDescription:Label = $Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/MarginContainer/VBoxContainer/DescriptionMargin/Description
-@onready var blueprintsPrice:RichTextLabel = $Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/MarginContainer/VBoxContainer/PriceMargin/Price
-@onready var blueprintsBuy:Button = $Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/MarginContainer/VBoxContainer/BuyMargin/Button
+@onready var blueprintsIcon:TextureRect = $Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/SpriteMargin/TextureRect
+@onready var blueprintsHeader:Label = $Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/CaptionMargin/Caption
+@onready var blueprintsDescription:RichTextLabel = $Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/DescriptionMargin/Description
+@onready var blueprintsPrice:RichTextLabel = $Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/PriceMargin/Price
+@onready var blueprintsBuy:Button = $Panel/MarginContainer/HBoxContainer/BlueprintsInfo/NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/BuyMargin/Button
 @onready var blueprintsContainer:GridContainer = $Panel/MarginContainer/HBoxContainer/BlueprintsMargin/ScrollContainer/MarginContainer/BlueprintsContainer
 @onready var blueprintsNode:PackedScene = load("res://assets/nodes/ui/interactive/construct/blueprint.tscn")
 @onready var anim:AnimationPlayer = $AnimationPlayer
 
 var headerString:String = tr('Меню покупки чертежей')
-var descriptionString:String = tr('Выберите в левом меню чертеж для покупки.')
+var descriptionString:String = tr('В этом магазине Вы можете приобрести [b]чертежи[/b].\n\nВыберите интересующие чертежи в левом окне, чтобы узнать полезную информацию о постройке и стоимость приобретения.')
 
 var blueprints:Object = BlueprintManager.new()
 var opened:bool = false
@@ -43,10 +45,6 @@ var blueprint_section:String = ""
 var blueprint_index:int = 0
 var blueprint_price:int = 0
 
-func _input(_event):
-	if Input.is_action_just_pressed('space'):
-		open()
-
 func _ready():
 	window()
 
@@ -64,7 +62,6 @@ func _process(_delta) -> void:
 							if blueprints.content['nodes'][slots_to_create_nodes[current_slot_index_nodes]]['trade_info'].has('caption'):
 								blueprint.disabled_button(
 									true, 
-									blueprints.content['nodes'][slots_to_create_nodes[current_slot_index_nodes]]['trade_info']['caption'], 
 									'(Имеется)'
 									)
 					current_slot_index_nodes += 1
@@ -82,7 +79,6 @@ func _process(_delta) -> void:
 							if blueprints.content['terrains'][slots_to_create_terrains[current_slot_index_terrains]]['trade_info'].has('caption'):
 								blueprint.disabled_button(
 									true, 
-									blueprints.content['terrains'][slots_to_create_terrains[current_slot_index_terrains]]['trade_info']['caption'], 
 									'(Имеется)'
 									)
 					current_slot_index_terrains += 1
@@ -96,12 +92,12 @@ func _process(_delta) -> void:
 						var blueprint = blueprintsNode.instantiate()
 						blueprintsContainer.add_child(blueprint)
 						blueprint.set_data("ugprades", slots_to_create_upgrade[current_slot_index_upgrade])
+						blueprint.set_alternative_name(blueprints.content['terrains'][slots_to_create_upgrade[current_slot_index_upgrade]]['trade_info']['caption'])
 						if check_construct_array('ugprades', slots_to_create_upgrade[current_slot_index_upgrade]):
 							if blueprints.content['terrains'][slots_to_create_upgrade[current_slot_index_upgrade]].has('trade_info'):
 								if blueprints.content['terrains'][slots_to_create_upgrade[current_slot_index_upgrade]]['trade_info'].has('caption'):
 									blueprint.disabled_button(
 										true, 
-										blueprints.content['terrains'][slots_to_create_upgrade[current_slot_index_upgrade]]['trade_info']['caption'], 
 										'(Имеется)'
 										)
 						current_slot_index_upgrade += 1
@@ -133,6 +129,12 @@ func get_data(group, index) -> void:
 		if blueprints.content[group].has(index):
 			blueprint_section = group
 			blueprint_index = index
+			if !blueprintsIcon.visible:
+				blueprintsIcon.visible = true
+			if blueprints.content[group][index].has('icon'):
+				blueprintsIcon.texture = blueprints.content[group][index]['icon']
+			else:
+				blueprintsIcon.texture = load('res://assets/resources/ui/interactive/construct/default.png')
 			if blueprints.content[group][index].has('trade_info'):
 				if blueprints.content[group][index]['trade_info'].has('caption'):
 					blueprintsHeader.text = blueprints.content[group][index]['trade_info']['caption']
@@ -141,7 +143,7 @@ func get_data(group, index) -> void:
 				if blueprints.content[group][index]['trade_info'].has('price'):
 					if blueprints.content[group][index]['trade_info']['price'] > 0:
 						blueprint_price = blueprints.content[group][index]['trade_info']['price']
-						blueprintsPrice.text = tr("Цена чертежа") + ": " + "[color=#ffce5e]" + balance.format(blueprints.content[group][index]['trade_info']['price']) + "[/color]"
+						blueprintsPrice.text = tr("Цена чертежа") + ": " + "[color=#ffce5e]" + balance.format(blueprints.content[group][index]['trade_info']['price']) + ' ' + mail.gold_money_string + ' ' +  "[/color]"
 					else:
 						blueprintsPrice.text = ''
 				else:
@@ -170,12 +172,19 @@ func update_buy_button(group, index) -> void:
 		blueprintsBuy.visible = true
 	if blueprints.content[group][index].has('trade_info'):
 		if blueprints.content[group][index]['trade_info'].has('price'):
-			if balance.money >= blueprints.content[group][index]['trade_info']['price']:
+			if blueprints.content[group][index]['trade_info']['price'] > 0:
+				if balance.money >= blueprints.content[group][index]['trade_info']['price']:
+					blueprintsBuy.text = tr('Приобрести')
+					blueprintsBuy.disabled = false
+				else:
+					blueprintsBuy.text = tr('Недостаточно средств')
+					blueprintsBuy.disabled = true
+			else:
 				blueprintsBuy.text = tr('Приобрести')
 				blueprintsBuy.disabled = false
-			else:
-				blueprintsBuy.text = tr('Недостаточно средств')
-				blueprintsBuy.disabled = true
+		else:
+			blueprintsBuy.text = tr('Приобрести')
+			blueprintsBuy.disabled = false
 
 func get_blueprints() -> void:
 	clear_blueprints_container()
@@ -290,6 +299,7 @@ func set_start_info() -> void:
 	blueprintsDescription.text = descriptionString
 	blueprintsPrice.text = ''
 	blueprintsBuy.visible = false
+	blueprintsIcon.visible = !true
 
 func _on_close_button_pressed():
 	var audio = AudioStreamPlayer.new()
