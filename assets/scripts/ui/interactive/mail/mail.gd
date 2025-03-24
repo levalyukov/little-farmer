@@ -22,7 +22,7 @@ extends Control
 @onready var header_label:Label = $Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/LetterHeader/Header
 @onready var description_label:Label = $Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/LetterContent/Content
 @onready var author_label:Label = $Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/LetterAuthor/Author
-@onready var attached_items_label:Label = $Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/MoneyContainer/Label
+@onready var attached_items_label:RichTextLabel = $Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/MoneyContainer/Label
 @onready var button_container:MarginContainer = $Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/ButtonContainer
 @onready var button:Button = $Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/ButtonContainer/GetItems
 
@@ -38,6 +38,7 @@ var letter_name
 var letters:Dictionary = {}
 var current_letter_index:int = 0
 var letters_to_create:Array = []
+var gold_money_string:String = tr('з.')
 
 func _input(_event):
 	if Input.is_action_just_pressed("esc")\
@@ -51,21 +52,6 @@ func _ready():
 	reset_data()
 	delete_letters()
 	self.add_child(audio)
-	letter(
-		'Header',
-		'',
-		'',
-		1000000,
-		{
-			1:{'amount':100},
-			2:{'amount':100},
-			3:{'amount':100},
-			4:{'amount':100},
-			5:{'amount':100},
-			6:{'amount':100},
-			7:{'amount':100},
-		}
-	)
 
 func _process(_delta) -> void:
 	if visible:
@@ -178,10 +164,9 @@ func get_data(letterID) -> void:
 
 			if letters[index]["money"] > 0:
 				var nested = tr("Вложение")
-				var money = tr("монет")
 				if letters[index]["money"] > balance.maximum:
 					letters[index]["money"] = balance.maximum
-				attached_items_label.text = nested + ": " + str(balance.format(letters[index]["money"])) + " " + money
+				attached_items_label.text = nested + ": [color=#ffce5e]" + str(balance.format(letters[index]["money"])) + " " + gold_money_string + " " + "[/color]"
 				attached_items_label.visible = true
 			else:
 				var attached_items = tr("Прикрепленные предметы")
