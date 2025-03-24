@@ -190,9 +190,9 @@ func _process(_delta):
 				collision.watering_collision_check()
 				if tools.water_can <= tools.water_can_max\
 				&& tools.water_can != 0:
-					tip.tooltip('Вода в лейке:\n' + str(tools.water_can) + "/" + str(tools.water_can_max))
+					tip.tooltip(tr('Вода в лейке:') +'\n' + str(tools.water_can) + "/" + str(tools.water_can_max))
 				else:
-					tip.tooltip('Лейка пуста!')
+					tip.tooltip(tr('Лейка пуста!'))
 
 				if check:
 					for i in collision.get_children():
