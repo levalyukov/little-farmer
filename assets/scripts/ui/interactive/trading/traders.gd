@@ -2,38 +2,50 @@ extends Node
 
 class_name Traders
 var content:Dictionary = {
+    'markUp': 1, #  15%
     1: {
         "inventory" = {
             "seasons": {
                 "spring": {
-                    13:{"amount": 25},
-                    14:{"amount": 25},
-                    15:{"amount": 25},
-                    16:{"amount": 25},
-                    17:{"amount": 25},
+                    13:{"amount": 1},
+                    14:{"amount": 1},
+                    15:{"amount": 1},
+                    16:{"amount": 1},
+                    17:{"amount": 1},
                 },
                 "summer": {
-                    18:{"amount": 25},
-                    19:{"amount": 25},
-                    20:{"amount": 25},
-                    21:{"amount": 25},
-                    22:{"amount": 25},
+                    18:{"amount": 1},
+                    19:{"amount": 1},
+                    20:{"amount": 1},
+                    21:{"amount": 1},
+                    22:{"amount": 1},
                 },
                 "autumn": {
-                    23:{"amount": 25},
-                    24:{"amount": 25},
-                    25:{"amount": 25},
-                    26:{"amount": 25},
-                    27:{"amount": 25},
+                    23:{"amount": 1},
+                    24:{"amount": 1},
+                    25:{"amount": 1},
+                    26:{"amount": 1},
+                    27:{"amount": 1},
                 },
                 "winter": {
-                    28:{"amount": 25},
-                    29:{"amount": 25},
-                    30:{"amount": 25},
-                    31:{"amount": 25},
-                    32:{"amount": 25},
+                    28:{"amount": 1},
+                    29:{"amount": 1},
+                    30:{"amount": 1},
+                    31:{"amount": 1},
+                    32:{"amount": 1},
                 },
             }
+        }
+    },
+    2: {
+        'onlyPurchase' = true,
+        "inventory" = {
+            6:{"amount": 1},
+            7:{"amount": 1},
+            8:{"amount": 1},
+            9:{"amount": 1},
+            10:{"amount": 1},
+            11:{"amount": 1},
         }
     }
 }
