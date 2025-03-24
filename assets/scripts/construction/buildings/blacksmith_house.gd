@@ -21,10 +21,11 @@ const bakeMorningOn:int = 5
 const bakeMorningOff:int = 8
 const bakeEveninggOn:int = 19
 const bakeEveninggOff:int = 22
-#	var openedTradeMenu:bool = false
+var openedMenu:bool = false
+
 var object:Dictionary = {
 	"caption" = tr("Дом Кузнеца"),
-	"description" = tr("Старый домик Кузьмы."),
+	"description" = tr("Старый домик кузнеца Кузьмы."),
 	"shadow" = load("res://assets/resources/buildings/blacksmith_house/shadow.png"),
 	"default" = load("res://assets/resources/buildings/blacksmith_house/obj_0.png"),
 	"hovered" = load("res://assets/resources/buildings/blacksmith_house/obj_1.png"),
@@ -33,6 +34,16 @@ var object:Dictionary = {
 func _ready():
 	update()
 	update_shadow()
+
+func _input(event):
+	if event is InputEventMouseButton\
+	&& event.button_index == MOUSE_BUTTON_LEFT\
+	&& event.is_pressed()\
+	&& !blur.state\
+	&& grid.mode == grid.modes.NOTHING\
+	&& openedMenu:
+		tradeMenu.open_trade_menu(2)
+		update()
 
 func update():
 	if clock:
@@ -81,6 +92,7 @@ func _process(_delta):
 				chimney.speed_scale = 0.5
 
 func _on_area_2d_mouse_entered() -> void:
+	openedMenu = true
 	if !blur.state\
 	&& grid.mode == grid.modes.NOTHING:
 		var distance = round(global_position.distance_to(player.global_position))
@@ -111,6 +123,7 @@ func _on_area_2d_mouse_entered() -> void:
 				)
 
 func _on_area_2d_mouse_exited() -> void:
+	openedMenu = !true
 	if object.has("seasons"):
 		var season = clock.get_season()
 		if object["seasons"].has(season):
