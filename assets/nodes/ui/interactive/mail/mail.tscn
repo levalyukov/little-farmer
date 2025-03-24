@@ -212,10 +212,10 @@ size_flags_vertical = 2
 [node name="LetterHeader" type="MarginContainer" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 25
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 12
 
 [node name="Header" type="Label" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/LetterHeader"]
 layout_mode = 2
@@ -271,9 +271,10 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/MoneyContainer"]
+[node name="Label" type="RichTextLabel" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/MoneyContainer"]
 layout_mode = 2
-autowrap_mode = 3
+bbcode_enabled = true
+fit_content = true
 
 [node name="ItemContainer" type="MarginContainer" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer"]
 layout_mode = 2
