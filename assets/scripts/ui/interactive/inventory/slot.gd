@@ -168,11 +168,12 @@ func _on_button_pressed():
 			if !Input.is_action_pressed("shift"):
 				match tr_arg:
 					tr_initator.PLAYER:
-						if trade_menu.initiator == trade_menu.initiators.PLAYER || trade_menu.initiator == trade_menu.initiators.NONE:
-							trade_menu.add_item_trade_window(id, tr_initator.PLAYER)
-							trade_menu.updates_arrays()
-							trade_menu.get_target_price()
-							trade_menu.update_button_trade_window()
+						if !trade_menu.onlyPurchase:
+							if trade_menu.initiator == trade_menu.initiators.PLAYER || trade_menu.initiator == trade_menu.initiators.NONE:
+								trade_menu.add_item_trade_window(id, tr_initator.PLAYER)
+								trade_menu.updates_arrays()
+								trade_menu.get_target_price()
+								trade_menu.update_button_trade_window()
 					tr_initator.TRADER:
 						if trade_menu.initiator == trade_menu.initiators.TRADER || trade_menu.initiator == trade_menu.initiators.NONE:
 							trade_menu.add_item_trade_window(id, tr_initator.TRADER)
@@ -191,11 +192,12 @@ func _on_button_pressed():
 			else:
 				match tr_arg:
 					tr_initator.PLAYER:
-						if trade_menu.initiator == trade_menu.initiators.PLAYER || trade_menu.initiator == trade_menu.initiators.NONE:
-							trade_menu.set_item_trade_window(id, tr_initator.PLAYER, amount/4)
-							trade_menu.updates_arrays()
-							trade_menu.get_target_price()
-							trade_menu.update_button_trade_window()
+						if !trade_menu.onlyPurchase:
+							if trade_menu.initiator == trade_menu.initiators.PLAYER || trade_menu.initiator == trade_menu.initiators.NONE:
+								trade_menu.set_item_trade_window(id, tr_initator.PLAYER, amount/4)
+								trade_menu.updates_arrays()
+								trade_menu.get_target_price()
+								trade_menu.update_button_trade_window()
 					tr_initator.TRADER:
 						if trade_menu.initiator == trade_menu.initiators.TRADER || trade_menu.initiator == trade_menu.initiators.NONE:
 							trade_menu.set_item_trade_window(id, tr_initator.TRADER, amount/4)
