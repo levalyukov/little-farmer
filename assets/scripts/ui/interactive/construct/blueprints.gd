@@ -7,7 +7,7 @@ var content:Dictionary = {
 	"terrains": {
 		1: {
 			"caption" = tr("Тропинки"),
-			"description" = "",
+			"description" = tr('Позволяет создавать тропы и вспахиваемую землю.\n\n-- Пошаговое объяснение --\n\n1. Расчистите место: Выберите пустой участок размером 3x3 клеток\n\n2. Создайте тропы: Превратите все клетки вокруг центральной в тропы\n\n3. Получите грядку: В центре образуется готовая к вспашке земля.'),
 			"icon" = load("res://assets/resources/ui/interactive/construct/roads.png"),
 			"config" = {
 				"terrain" = [0],
@@ -17,12 +17,13 @@ var content:Dictionary = {
 
 			"trade_info" = {
 				"caption" = tr("Чертеж тропинок"),
-				"description" = "",
+				"description" = tr('Позволяет создавать тропы и вспахиваемую землю.'),
+				"price" = 100
 			}
 		},
 		2: {
-			"caption" = tr("Вода"),
-			"description" = "Позволяет создавать водные пространства на вашей ферме.",
+			"caption" = tr("Водоём"),
+			"description" = tr('Создавайте водоёмы на своей ферме.'),
 			"icon" = load("res://assets/resources/ui/interactive/construct/water.png"),
 			"config" = {
 				"terrain" = [3,4],
@@ -31,9 +32,9 @@ var content:Dictionary = {
 			},
 
 			"trade_info" = {
-				"caption" = tr("Чертеж воды"),
-				"description" = "Позволяет создавать водные пространства на вашей ферме.",
-				"price" = 10009
+				"caption" = tr("Чертеж водоёма"),
+				"description" = tr("С помощью этого чертежа можно создавать водоёмы на своей ферме."),
+				"price" = 500
 			}
 		},
 	},
@@ -56,8 +57,8 @@ var content:Dictionary = {
 
 			"trade_info" = {
 				"caption" = tr("Чертеж деревянного знака"),
-				"description" = tr("Позволяет разместить изображение любого предмета."),
-				"price" = 1000243
+				"description" = tr("Позволяет разместить изображение любого предмета. К примеру, помогает пометить какая культура растет на грядках."),
+				"price" = 250
 			}
 		},
 		2: {
@@ -76,8 +77,8 @@ var content:Dictionary = {
 
 			"trade_info" = {
 				"caption" = tr("Чертеж компостера"),
-				"description" = tr("Ящик для приготовления удобрения."),
-				"price" = 12343
+				"description" = tr("Компостер — полезный инструмент для каждого фермера. Позволяет переработать отходы в удобрение для вашего растения."),
+				"price" = 750
 			}
 		},
 		3: {
@@ -97,8 +98,8 @@ var content:Dictionary = {
 
 			"trade_info" = {
 				"caption" = tr("Чертеж колодца"),
-				"description" = tr("Позволяет пополять лейку."),
-				"price" = 10
+				"description" = tr("Одна из полезных построек на вашей ферме — позволяет быстро наполнить лейку водой."),
+				"price" = 1250
 			}
 		},
 		4: {
@@ -117,9 +118,9 @@ var content:Dictionary = {
 			},
 
 			"trade_info" = {
-				"caption" = tr("Хлев"),
-				"description" = tr("Место для содержания скота."),
-				"price" = 1000
+				"caption" = tr("Чертеж хлева"),
+				"description" = tr("Данная постройка позволяет завести скот*.\n\n* - скот будет добавлен в будущих обновлениях."),
+				"price" = 3500
 			}
 		},
 		5: {
@@ -139,9 +140,9 @@ var content:Dictionary = {
 			},
 
 			"trade_info" = {
-				"caption" = tr("Силосная башня"),
-				"description" = tr("Высокое и вместительное хранилище для кормов."),
-				"price" = 1000
+				"caption" = tr("Чертеж силосной башни"),
+				"description" = tr("Позволяет хранить корм для скота."),
+				"price" = 2500
 			}
 		},
 		6: {
@@ -159,9 +160,9 @@ var content:Dictionary = {
 			},
 
 			"trade_info" = {
-				"caption" = tr("Теплица"),
-				"description" = tr("Тёплое помещение для разведения и выращивания растений."),
-				"price" = 1000
+				"caption" = tr("Чертеж теплицы"),
+				"description" = tr("Позволяет выращивать культуры вне зависимости от времени года. Имеет площадь 8х8 клеток."),
+				"price" = 10000
 			}
 		},
 		7: {
@@ -180,14 +181,14 @@ var content:Dictionary = {
 			},
 
 			"trade_info" = {
-				"caption" = tr("Фонарный столб"),
+				"caption" = tr("Чертеж фонарного столба"),
 				"description" = tr("Источник света для вашей фермы."),
 				"price" = 1000
 			}
 		},
 		8: {
 			"caption" = tr("Дорожка из больших камней"),
-			"description" = tr(""),
+			"description" = tr("Небольшая декоративная дорожка из камней."),
 			"icon" = load("res://assets/resources/buildings/path_of_large_stones/object_0.png"),
 			"config" = {
 				"name" = "lamp_post",
@@ -200,9 +201,9 @@ var content:Dictionary = {
 			},
 
 			"trade_info" = {
-				"caption" = tr("Дорожка из больших камней"),
-				"description" = tr(""),
-				"price" = 1000
+				"caption" = tr("Чертеж дорожки из больших камней"),
+				"description" = tr("Небольшая декоративная дорожка из камней."),
+				"price" = 500
 			}
 		},
 		9: {
@@ -221,14 +222,14 @@ var content:Dictionary = {
 			},
 
 			"trade_info" = {
-				"caption" = tr("Каменная плавильная печь"),
-				"description" = tr("Простая каменная плавильня для обработки ресурсов. Недорогая в создании, работает медленно и требует времени для плавки."),
-				"price" = 1000
+				"caption" = tr("Чертеж каменной плавильной печи"),
+				"description" = tr("Простая каменная плавильня для обработки ресурсов."),
+				"price" = 2000
 			}
 		},
 		10: {
 			"caption" = tr("Радио"),
-			"description" = tr("Воспроизводит радиостанции и пользовательские треки.\n\nМожет быть только в единном экземпляре."),
+			"description" = tr("Позволяет воспроизводить радиостанции и пользовательские треки.\n\nМожет быть только в единном экземпляре."),
 			"icon" = load("res://assets/resources/buildings/radio/obj_0.png"),
 			"config" = {
 				"name" = "radio",
@@ -240,12 +241,12 @@ var content:Dictionary = {
 
 			"trade_info" = {
 				"caption" = tr("Радио"),
-				"description" = tr("Воспроизводит радиостанции и пользовательские треки.\n\nМожет быть только в единном экземпляре."),
-				"price" = 1000
+				"description" = tr("Позволяет воспроизводить радиостанции, слушать новости и включать пользовательские песни."),
+				"price" = 5000
 			}
 		},
 		11: {
-			"caption" = tr("Пилостол "),
+			"caption" = tr("Пилостол"),
 			"description" = tr("Позволяет распилить бревна на доски."),
 			"icon" = load("res://assets/resources/buildings/sawmill/obj_0.png"),
 			"config" = {
@@ -260,9 +261,9 @@ var content:Dictionary = {
 			},
 
 			"trade_info" = {
-				"caption" = tr("Пилостол "),
-				"description" = tr("Позволяет распилить бревна на доски."),
-				"price" = 1000
+				"caption" = tr("Чертеж пилостола"),
+				"description" = tr("При помощи пилостола можно быстро распилить бревна на доски."),
+				"price" = 1500
 			}
 		},
 		#	6: {
