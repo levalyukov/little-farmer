@@ -159,14 +159,14 @@ layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_rp300")
 alignment = 0
 
-[node name="ButtonLandscape" type="Button" parent="Main/ScrollContainer/NavMenu"]
-layout_mode = 2
-theme_override_styles/focus = SubResource("StyleBoxEmpty_rp300")
-alignment = 0
-
 [node name="ButtonBuildings" type="Button" parent="Main/ScrollContainer/NavMenu"]
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_u1dor")
+alignment = 0
+
+[node name="ButtonLandscape" type="Button" parent="Main/ScrollContainer/NavMenu"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rp300")
 alignment = 0
 
 [node name="ButtonUpgrades" type="Button" parent="Main/ScrollContainer/NavMenu"]
@@ -241,8 +241,8 @@ stretch_mode = 5
 
 [node name="HeaderContainer" type="MarginContainer" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 25
-theme_override_constants/margin_right = 25
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_right = 12
 
 [node name="Header" type="Label" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/HeaderContainer"]
 layout_mode = 2
@@ -252,9 +252,9 @@ autowrap_mode = 3
 
 [node name="DescriptionContainer" type="MarginContainer" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 25
+theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 25
+theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 0
 
 [node name="Description" type="Label" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/DescriptionContainer"]
@@ -263,8 +263,8 @@ autowrap_mode = 3
 
 [node name="ResourcesContainer" type="MarginContainer" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_right = 25
+theme_override_constants/margin_left = 38
+theme_override_constants/margin_right = 12
 
 [node name="Resources" type="Label" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ResourcesContainer"]
 layout_mode = 2
@@ -272,9 +272,9 @@ autowrap_mode = 3
 
 [node name="TimeContainer" type="MarginContainer" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 25
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 25
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 12
 
 [node name="Time" type="Label" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/TimeContainer"]
 layout_mode = 2
@@ -282,10 +282,10 @@ autowrap_mode = 3
 
 [node name="ButtonContainer" type="MarginContainer" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 25
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 25
-theme_override_constants/margin_bottom = 25
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 24
 
 [node name="Button" type="Button" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer"]
 custom_minimum_size = Vector2(60, 60)
@@ -310,10 +310,10 @@ libraries = {
 
 [connection signal="mouse_entered" from="Main/ScrollContainer/NavMenu/ButtonAllBlueprints" to="." method="_on_button_all_blueprints_mouse_entered"]
 [connection signal="pressed" from="Main/ScrollContainer/NavMenu/ButtonAllBlueprints" to="." method="_on_button_all_blueprints_pressed"]
-[connection signal="mouse_entered" from="Main/ScrollContainer/NavMenu/ButtonLandscape" to="." method="_on_button_landscape_mouse_entered"]
-[connection signal="pressed" from="Main/ScrollContainer/NavMenu/ButtonLandscape" to="." method="_on_button_landscape_pressed"]
 [connection signal="mouse_entered" from="Main/ScrollContainer/NavMenu/ButtonBuildings" to="." method="_on_button_buildings_mouse_entered"]
 [connection signal="pressed" from="Main/ScrollContainer/NavMenu/ButtonBuildings" to="." method="_on_button_buildings_pressed"]
+[connection signal="mouse_entered" from="Main/ScrollContainer/NavMenu/ButtonLandscape" to="." method="_on_button_landscape_mouse_entered"]
+[connection signal="pressed" from="Main/ScrollContainer/NavMenu/ButtonLandscape" to="." method="_on_button_landscape_pressed"]
 [connection signal="mouse_entered" from="Main/ScrollContainer/NavMenu/ButtonUpgrades" to="." method="_on_button_upgrades_mouse_entered"]
 [connection signal="pressed" from="Main/ScrollContainer/NavMenu/ButtonUpgrades" to="." method="_on_button_upgrades_pressed"]
 [connection signal="mouse_entered" from="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button" to="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button" method="_on_mouse_entered"]
