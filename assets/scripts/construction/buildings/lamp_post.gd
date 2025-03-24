@@ -99,9 +99,7 @@ func _on_area_2d_mouse_entered():
 					sprite.texture = object["idle_delete"]
 
 func _on_area_2d_mouse_exited():
-	if !blur.state\
-	&& grid.mode == grid.modes.NOTHING\
-	&& buttonDestroy.destroyMode:
+	if buttonDestroy.destroyMode:
 		destroyMode = !true
 		if light.visible:
 			if object.has("lighting"):
@@ -111,3 +109,7 @@ func _on_area_2d_mouse_exited():
 			if object.has("idle"):
 				if object["idle"] is CompressedTexture2D:
 					sprite.texture = object["idle"]
+	else:
+		if object.has("idle"):
+			if object["idle"] is CompressedTexture2D:
+				sprite.texture = object["idle"]
