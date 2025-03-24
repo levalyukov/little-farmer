@@ -2298,7 +2298,7 @@ script = ExtResource("1_3hdqu")
 [node name="Player" parent="." instance=ExtResource("1_b6saw")]
 z_index = 1
 z_as_relative = false
-position = Vector2(296, 88)
+position = Vector2(152, 72)
 
 [node name="ShadowManager" parent="." instance=ExtResource("2_vinad")]
 
@@ -3501,6 +3501,9 @@ layer_5/tile_data = PackedInt32Array(1179673, 720898, 3, 1179672, 589826, 3, 117
 layer_6/name = "watering farmlands"
 layer_6/tile_data = PackedInt32Array(1179670, 524291, 3, 1179671, 589827, 3, 1179672, 589827, 3, 1179673, 720899, 3, 1114137, 720899, 0, 1114136, 655363, 0, 1114135, 655363, 0, 1114134, 524291, 0, 458778, 65539, 3, 458779, 131075, 3, 458780, 131075, 3, 458781, 196611, 3, 1179644, 524291, 1, 1245180, 524291, 3, 1245181, 589827, 3, 1179646, 720899, 2, 1114110, 720899, 0, 1114109, 655363, 0, 1114108, 524291, 0, 1179645, 589827, 2, 1245182, 720899, 3, 983038, 720899, 3, 917502, 720899, 2, 851966, 720899, 0, 851965, 655363, 0, 851964, 524291, 0, 917500, 524291, 1, 983036, 524291, 3, 983037, 589827, 3, 917501, 589827, 2, 851968, 524291, 1, 917504, 524291, 3, 917505, 589827, 3, 851970, 720899, 2, 786434, 720899, 0, 786433, 655363, 0, 786432, 524291, 0, 917506, 720899, 3, 851969, 589827, 2, 1048576, 524291, 0, 1114112, 524291, 1, 1179648, 524291, 3, 1179649, 589827, 3, 1179650, 720899, 3, 1114114, 720899, 2, 1114113, 589827, 2, 1048577, 655363, 0, 1048578, 720899, 0)
 script = ExtResource("16_bka13")
+
+[node name="barrel_of_water" parent="." instance=ExtResource("23_8h71s")]
+position = Vector2(392, 56)
 
 [connection signal="mouse_entered" from="Teleports/Village/Area2D" to="Teleports/Village" method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Teleports/Village/Area2D" to="Teleports/Village" method="_on_area_2d_mouse_exited"]
