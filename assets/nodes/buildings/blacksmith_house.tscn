@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://ckxab8nws3e43"]
+[gd_scene load_steps=7 format=3 uid="uid://ckxab8nws3e43"]
 
 [ext_resource type="Script" path="res://assets/scripts/construction/buildings/blacksmith_house.gd" id="1_ugy3h"]
 [ext_resource type="Texture2D" uid="uid://cvyd0ghjaanh6" path="res://assets/resources/buildings/blacksmith_house/obj_0.png" id="1_vofub"]
@@ -12,6 +12,9 @@ point_count = 2
 [sub_resource type="Curve" id="Curve_gbdp1"]
 _data = [Vector2(0.0489796, 1), 0.0, 0.0, 0, 0, Vector2(0.906122, 0), 0.0, 0.0, 0, 0]
 point_count = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bawbi"]
+size = Vector2(80, 64)
 
 [node name="blacksmith_house" type="Node2D"]
 script = ExtResource("1_ugy3h")
@@ -38,3 +41,12 @@ anim_speed_max = 19.37
 anim_speed_curve = SubResource("Curve_heacx")
 anim_offset_max = 0.3025
 anim_offset_curve = SubResource("Curve_gbdp1")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -24)
+shape = SubResource("RectangleShape2D_bawbi")
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
