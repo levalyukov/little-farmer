@@ -32,7 +32,7 @@ func set_data(group:String, id:int) -> void:
 			else:
 				data.debug("["+str(id)+"] "+"The 'caption' key has a non-string type.", "warning")
 
-func disabled_button(state:bool, alternative_name:String, additional_string:String):
+func disabled_button(state:bool, additional_string:String):
 	button.disabled = state
 	if state:
 		caption.modulate = Color(1, 1, 1, 0.784)
@@ -40,9 +40,6 @@ func disabled_button(state:bool, alternative_name:String, additional_string:Stri
 	else:
 		caption.modulate = Color(1, 1, 1)
 		icon.modulate = Color(1, 1, 1)
-
-	if alternative_name != "":
-		caption.text = alternative_name
 
 	if additional_string != "":
 		if len(caption.get_text()) > MAX_SYMBOLS:
