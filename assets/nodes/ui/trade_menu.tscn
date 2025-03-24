@@ -286,10 +286,11 @@ layout_mode = 2
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="TargetPrice" type="Label" parent="Content/TradeWindow/TradeWindow/VBoxContainer/TargetPriceContainer"]
+[node name="TargetPrice" type="RichTextLabel" parent="Content/TradeWindow/TradeWindow/VBoxContainer/TargetPriceContainer"]
 layout_mode = 2
+bbcode_enabled = true
 text = "trader.target_price"
-autowrap_mode = 3
+fit_content = true
 
 [node name="ButtonContainer" type="MarginContainer" parent="Content/TradeWindow/TradeWindow/VBoxContainer"]
 layout_mode = 2
