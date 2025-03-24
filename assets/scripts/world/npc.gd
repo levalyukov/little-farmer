@@ -4,7 +4,8 @@ class_name NPC
 var content:Dictionary = {
 	1: {
 		'name': tr('Добрыня'),
-		'gender': 'male',
-		'activity': 'trader'
+	},
+	2: {
+		'name': tr('Кузьма'),
 	}
 }
