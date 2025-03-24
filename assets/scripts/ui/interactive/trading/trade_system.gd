@@ -8,6 +8,7 @@ extends Control
 @onready var balance:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Balance")
 @onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
 @onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/storage")
+@onready var mail:Control = get_node("/root/"+main+"/UI/Interactive/Mailbox")
 
 @onready var playerInventoryCaption:Label = $Content/PlayerInventory/LabelMargin/Label
 @onready var tradeInventoryCaption:Label = $Content/TraderInventory/LabelMargin/Label
@@ -18,7 +19,7 @@ extends Control
 @onready var trade_window_items:GridContainer =  $Content/TradeWindow/TradeWindow/VBoxContainer/ItemsContainer/GridMarginContainer/GridContainer
 @onready var trade_window_items_container:MarginContainer = $Content/TradeWindow/TradeWindow/VBoxContainer/ItemsContainer
 @onready var trade_window_header:Label = $Content/TradeWindow/TradeWindow/VBoxContainer/HeaderContainer/Header
-@onready var trade_window_target_price:Label = $Content/TradeWindow/TradeWindow/VBoxContainer/TargetPriceContainer/TargetPrice
+@onready var trade_window_target_price:RichTextLabel = $Content/TradeWindow/TradeWindow/VBoxContainer/TargetPriceContainer/TargetPrice
 @onready var trade_window_button:Button = $Content/TradeWindow/TradeWindow/VBoxContainer/ButtonContainer/Button
 @onready var trader_inventory_main:GridContainer = $Content/TraderInventory/TraderContainer/VBoxContainer/MarginContainer/GridContainer
 @onready var trader_inventory_container:MarginContainer = $Content/TraderInventory/TraderContainer/VBoxContainer/MarginContainer
@@ -36,6 +37,8 @@ var trader_id:int = 0
 var target_price:int = 0
 var transaction:int = transactions.NONE
 var initiator:int = initiators.NONE
+var onlyPurchase:bool = false
+var markUp:float = 0.0
 
 var trade_content:Dictionary = {}
 var new_items_in_inventory = []
@@ -51,6 +54,7 @@ var traders:Object = Traders.new()
 var all_items:Object = Items.new()
 
 func _ready():
+	markUp = traders.content['markUp']
 	_update_window_visible()
 	header.text = tr("Торговля")
 	self.add_child(audio)
@@ -73,12 +77,20 @@ func _process(_delta) -> void:
 		if slots_trader_to_create.size() > 0 && current_trader_slot_index < slots_trader_to_create.size():
 			for i in range(1):
 				if current_trader_slot_index < slots_trader_to_create.size():
-					item_create(
-							initiators.TRADER, 
-							traders.content[trader_id]["inventory"]['seasons'][clock.get_season()], 
-							trader_inventory_main, 
-							slots_trader_to_create[current_trader_slot_index]
-						)
+					if traders.content[trader_id]["inventory"].has('seasons'):
+						item_create(
+								initiators.TRADER, 
+								traders.content[trader_id]["inventory"]['seasons'][clock.get_season()], 
+								trader_inventory_main, 
+								slots_trader_to_create[current_trader_slot_index]
+							)
+					else:
+						item_create(
+								initiators.TRADER, 
+								traders.content[trader_id]["inventory"], 
+								trader_inventory_main, 
+								slots_trader_to_create[current_trader_slot_index]
+							)
 					current_trader_slot_index += 1
 				else:
 					break
@@ -100,6 +112,12 @@ func create_all_items(type:String = "all") -> void:
 							slots_inventory_to_create.append(item)
 
 			if traders.content[trader_id].has('inventory'):
+				if traders.content[trader_id].has('onlyPurchase'):
+					if traders.content[trader_id]['onlyPurchase'] is bool:
+						onlyPurchase = traders.content[trader_id]['onlyPurchase']
+				else:
+					onlyPurchase = false
+
 				if traders.content[trader_id]['inventory'].has('seasons'):
 					if traders.content[trader_id]['inventory']['seasons'].has(clock.get_season()):
 						for item in traders.content[trader_id]['inventory']['seasons'][clock.get_season()]:
@@ -107,6 +125,12 @@ func create_all_items(type:String = "all") -> void:
 								if traders.content[trader_id]['inventory']['seasons'][clock.get_season()][item].has("amount"):
 									if traders.content[trader_id]['inventory']['seasons'][clock.get_season()][item]["amount"] > 0:
 										slots_trader_to_create.append(item)
+				else:
+					for item in traders.content[trader_id]['inventory']:
+						if items.content.has(int(item)):
+							if traders.content[trader_id]['inventory'][item].has("amount"):
+								if traders.content[trader_id]['inventory'][item]["amount"] > 0:
+									slots_trader_to_create.append(item)
 
 			if slots_trader_to_create.size() > 0:
 				trader_inventory_container.visible = true
@@ -133,6 +157,12 @@ func create_all_items(type:String = "all") -> void:
 								if traders.content[trader_id]['inventory']['seasons'][clock.get_season()][item].has("amount"):
 									if traders.content[trader_id]['inventory']['seasons'][clock.get_season()][item]["amount"] > 0:
 										slots_trader_to_create.append(item)
+				else:
+					for item in traders.content[trader_id]['inventory']:
+						if items.content.has(int(item)):
+							if traders.content[trader_id]['inventory'][item].has("amount"):
+								if traders.content[trader_id]['inventory'][item]["amount"] > 0:
+									slots_trader_to_create.append(item)
 
 			if slots_trader_to_create.size() > 0:
 				trader_inventory_container.visible = true
@@ -175,6 +205,7 @@ func open_trade_menu(traderID:int) -> void:
 func close_trade_menu() -> void:
 	opened = false
 	window_visible = false
+	onlyPurchase = false
 	blur.blur(false)
 	anim.play("close_menu")
 	trader_id = 0
@@ -220,10 +251,18 @@ func set_item_trade_window(item_id, slot_arg, amount:int = 1) -> void:
 					trade_content[item_id]["amount"] = amount
 			else:
 				if trade_content[item_id]["amount"] >= 1:
-					if trade_content[item_id]["amount"] + amount < traders.content[trader_id]["inventory"]['seasons'][clock.get_season()][item_id]["amount"]:
+					if traders.content[trader_id]["inventory"].has('seasons'):
+						#if trade_content[item_id]["amount"] + amount < traders.content[trader_id]["inventory"]['seasons'][clock.get_season()][item_id]["amount"]:
+						#	trade_content[item_id]["amount"] += amount
+						#else:
+						#	trade_content[item_id]["amount"] = traders.content[trader_id]["inventory"]['seasons'][clock.get_season()][item_id]["amount"]
 						trade_content[item_id]["amount"] += amount
 					else:
-						trade_content[item_id]["amount"] = traders.content[trader_id]["inventory"]['seasons'][clock.get_season()][item_id]["amount"]
+						trade_content[item_id]["amount"] += amount
+						#	if trade_content[item_id]["amount"] + amount < traders.content[trader_id]["inventory"][item_id]["amount"]:
+						#		trade_content[item_id]["amount"] += amount
+						#	else:
+						#		trade_content[item_id]["amount"] = traders.content[trader_id]["inventory"][item_id]["amount"]
 			clear_trade_window()
 			get_items_trade_window()
 	update_button_trade_window()
@@ -252,8 +291,12 @@ func add_item_trade_window(item_id, slot_arg, amount:int = 1) -> void:
 					trade_content[item_id]["amount"] = amount
 			else:
 				if trade_content[item_id]["amount"] >= 1:
-					if trade_content[item_id]["amount"] < traders.content[trader_id]["inventory"]['seasons'][clock.get_season()][item_id]["amount"]:
+					if traders.content[trader_id]["inventory"].has('seasons'):
+						#if trade_content[item_id]["amount"] < traders.content[trader_id]["inventory"]['seasons'][clock.get_season()][item_id]["amount"]:
 						trade_content[item_id]["amount"] += amount
+					else:
+						#if trade_content[item_id]["amount"] < traders.content[trader_id]["inventory"][item_id]["amount"]:
+						trade_content[item_id]["amount"] += amount	
 			clear_trade_window()
 			get_items_trade_window()
 	update_button_trade_window()
@@ -290,10 +333,10 @@ func get_target_price():
 			for item in trade_content:
 				if storage.object[storage.level]["slots"] - inventory.get_all_items() >= get_all_items_array():
 					if all_items.content.has(int(item)):
-						var sale_price = all_items.content[int(item)].get("purchase", null)
-						if sale_price != null:
+						var purchase_price = all_items.content[int(item)].get("purchase", null)
+						if purchase_price != null:
 							var amount = trade_content[item].get("amount", 1)
-							target_price += round(sale_price * amount)
+							target_price += round((purchase_price + (purchase_price * markUp)) * amount)
 						else:
 							data.debug("the 'sale' parameter is missing","error")
 					else:
@@ -310,10 +353,9 @@ func get_target_price():
 						data.debug("the 'sale' parameter is missing","error")
 				else:
 					data.debug("Invalid item ID: " + str(item), "error")
-		trade_window_target_price.text = target_price_label + ": " + str(balance.format(target_price))
+		trade_window_target_price.text = target_price_label + ": " + '[color=#ffce5e]' + str(balance.format(target_price)) + ' ' + mail.gold_money_string + ' ' + '[/color]'
 	else:
 		trade_window_target_price.visible = false
-	
 	return target_price
 
 func get_all_items_array() -> int:
@@ -347,7 +389,10 @@ func update_button_trade_window() -> void:
 		trade_window_button.visible = false
 		initiator = initiators.NONE
 		description_container.visible = true
-		description.text = tr("Для начала торговли выберите предмет из вашего инвентаря или инвентаря торговца.")
+		if !onlyPurchase:
+			description.text = tr("Для начала торговли выберите предмет из вашего инвентаря или инвентаря торговца.")
+		else:
+			description.text = tr("Выберите из инвентаря торговца интересующий товар.")
 		playerInventoryCaption.text = tr("Ваш инвентарь:")
 		if npc.content.has(trader_id):
 			tradeInventoryCaption.text = npc.content[trader_id]['name']
