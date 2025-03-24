@@ -7,6 +7,7 @@ extends Control
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
 @onready var anim:AnimationPlayer = $AnimationHud
+@onready var fpsLabel:Label = $Main/FPS
 
 var hud:bool	
 var state:bool = true
