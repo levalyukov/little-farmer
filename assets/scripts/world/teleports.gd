@@ -38,7 +38,9 @@ func teleport() -> void:
 			GameLoader.mode = true
 			data.file_save([data.path.data], data.file.world, data.get_dictionary_content("world"))
 			data.file_save([data.path.player], data.file.player, data.get_dictionary_content("player"))
+			data.file_save([data.path.player], data.file.blueprints, data.get_dictionary_content("blueprints"))
 			data.file_save([data.path.player], data.file.inventory, data.get_dictionary_content("inventory"))
+			data.file_save([data.path.player], data.file.mailbox, data.get_dictionary_content("mailbox"))
 			blackout.blackout(true)
 			blackout.change_scene(scene)
 		"Greenhouse":
