@@ -336,7 +336,7 @@ func get_target_price():
 						var purchase_price = all_items.content[int(item)].get("purchase", null)
 						if purchase_price != null:
 							var amount = trade_content[item].get("amount", 1)
-							target_price += round((purchase_price + (purchase_price * markUp)) * amount)
+							target_price += round(purchase_price * amount)
 						else:
 							data.debug("the 'sale' parameter is missing","error")
 					else:
