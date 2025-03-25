@@ -23,8 +23,7 @@ const bakeEveninggOn:int = 19
 const bakeEveninggOff:int = 22
 #	var openedTradeMenu:bool = false
 var object:Dictionary = {
-	"caption" = tr(""),
-	"description" = tr("."),
+	"caption" = tr("Дом мэра Корней Корнеича"),
 	"shadow" = load("res://assets/resources/buildings/big_farm_house/shadow.png"),
 	"default" = load("res://assets/resources/buildings/big_farm_house/obj_0.png"),
 	"hovered" = load("res://assets/resources/buildings/big_farm_house/obj_1.png"),
@@ -106,8 +105,7 @@ func _on_area_2d_mouse_entered() -> void:
 				else:
 					data.debug("'"+str(self.name) + "': There is no 'hovered' key.", "error")
 			tip.tooltip(
-					str(object["caption"]) + "\n" +
-					str(object["description"])
+					str(object["caption"])
 				)
 
 func _on_area_2d_mouse_exited() -> void:
