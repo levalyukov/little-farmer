@@ -159,6 +159,9 @@ func get_data(group:String, id:int) -> void:
 									button.disabled = false
 								else:
 									button.disabled = true
+							else:
+								button.disabled = false
+								button.text = tr("Создать")
 
 							if blueprints.content[group][id]["config"].has('onlyInstance'):
 								if blueprints.content[group][id]["config"]['onlyInstance']:
@@ -166,9 +169,6 @@ func get_data(group:String, id:int) -> void:
 										if get_instance(blueprints.content[group][id]["config"]['name']):
 											button.disabled = true
 											button.text = tr("Превышен лимит (1/1)")
-							else:
-								button.disabled = false
-								button.text = tr("Создать")
 
 							button.id = id
 							button.group = group
