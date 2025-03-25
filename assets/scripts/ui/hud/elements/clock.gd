@@ -61,7 +61,7 @@ func _process(_delta):
 		if audio.get_stream_paused():
 			audio.set_stream_paused(false)
 
-		if hour >= night_sound_end && hour < day_sound_end:
+		if range(night_sound_end+1, day_sound_end-1).has(hour):
 			if audio.stream == night_sound && audio.is_playing():
 				if audio.volume_db > -25.0:
 					audio.volume_db -= .5
