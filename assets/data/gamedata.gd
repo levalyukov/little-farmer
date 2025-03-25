@@ -86,7 +86,6 @@ func _ready():
 		if main != "MainMenu":
 			load_time()
 			load_balance()
-			load_buildings()
 			load_inventory()
 			load_blueprints()
 			load_mailbox()
