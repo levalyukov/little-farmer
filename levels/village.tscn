@@ -50,7 +50,7 @@
 [ext_resource type="PackedScene" uid="uid://dcgfhx6lnhmtf" path="res://assets/nodes/buildings/tablet.tscn" id="44_3nr4s"]
 [ext_resource type="PackedScene" uid="uid://ck7ishampbkvv" path="res://assets/nodes/ready_nature/stone.tscn" id="44_jrcth"]
 [ext_resource type="PackedScene" uid="uid://d4co5jhke00ki" path="res://assets/nodes/buildings/flowerbed.tscn" id="47_s14j7"]
-[ext_resource type="PackedScene" uid="uid://dmac0xfatvw" path="res://assets/nodes/buildings/fountan.tscn" id="48_r0cth"]
+[ext_resource type="PackedScene" uid="uid://dmac0xfatvw" path="res://assets/nodes/buildings/fountain.tscn" id="48_r0cth"]
 [ext_resource type="PackedScene" uid="uid://df5t2m6byxd6u" path="res://assets/nodes/buildings/logs.tscn" id="50_cjl6x"]
 [ext_resource type="PackedScene" uid="uid://of1lqol17vyi" path="res://assets/nodes/buildings/big_farm_house.tscn" id="51_5a105"]
 [ext_resource type="PackedScene" uid="uid://c154p3opvkrt1" path="res://assets/nodes/buildings/decor_lily.tscn" id="54_6o0j8"]
