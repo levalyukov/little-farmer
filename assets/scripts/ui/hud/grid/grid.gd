@@ -121,7 +121,7 @@ func _process(_delta):
 											if grid_position == tilemap.local_to_map(b.position):
 												shadows.remove_child(b)
 										tilemap.erase_cell(collision.nature_layer, grid_position) 
-										inventory.add_item(3, randi_range(1,10))
+										inventory.add_item(3, randi_range(1,5))
 										if data.check_probability(15):
 											inventory.add_item(5, randi_range(1,2))
 
