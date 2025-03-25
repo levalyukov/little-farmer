@@ -21,7 +21,7 @@ var blueprint_id:int = 0
 var object:Dictionary = {
 	1: {
 		"caption" = tr("Хлев"),
-		"description" = tr("Помещение для скота."),
+		"description" = tr("Помещение для скота"),
 		"shadow" = load("res://assets/resources/buildings/stall/level_1/shadow.png"),
 		"seasons" = {
 			"spring" = {
