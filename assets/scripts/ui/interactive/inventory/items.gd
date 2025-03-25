@@ -309,8 +309,8 @@ var content:Dictionary = {
 		"description": tr("Острый и сочный корнеплод."),
 		"type": "Урожай",
 		"item_type": "crop",
-		"purchase": 100,
-		"sale": 50,
+		"purchase": 75,
+		"sale": 60,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/crops/radish.png"),
 	},
 	31: {
@@ -606,7 +606,7 @@ var content:Dictionary = {
 	# Compost
 	61: {
 		"caption": tr("Обычный компост"),
-		"description": tr("Уменьшает время роста"),
+		"description": tr("Уменьшает время роста растения на 5%."),
 		"type": "Удобрения",
 		"item_type": "fertilizer",
 		"purchase": 150,
@@ -618,7 +618,7 @@ var content:Dictionary = {
 	},
 	62: {
 		"caption": tr("Высококачественный компост"),
-		"description": tr(""),
+		"description": tr("Уменьшает время роста растения на 20%."),
 		"type": "Удобрения",
 		"item_type": "fertilizer",
 		"purchase": 250,
