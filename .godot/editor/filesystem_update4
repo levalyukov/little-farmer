@@ -21,3 +21,14 @@ res://assets/scripts/ui/interactive/inventory/inventory.gd
 res://assets/nodes/buildings/house.tscn
 res://assets/scripts/world/teleports.gd
 res://assets/data/gamedata.gd
+res://assets/scripts/ui/interactive/trading/trade_system.gd
+res://assets/scripts/ui/dialog_window.gd
+res://assets/scripts/ui/hud/elements/clock.gd
+res://assets/scripts/ui/interactive/_main_menu/background.gd
+res://assets/nodes/ui/interactive/options/options.tscn
+res://assets/scripts/construction/buildings/big_farm_house.gd
+res://assets/nodes/buildings/big_farm_house.tscn
+res://assets/scripts/construction/buildings/carpenter_house.gd
+res://assets/scripts/construction/buildings/traderHouse.gd
+res://assets/nodes/buildings/fountain.tscn
+res://assets/scripts/construction/buildings/blacksmith_house.gd
