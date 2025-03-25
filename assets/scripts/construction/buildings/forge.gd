@@ -35,7 +35,7 @@ var isDone:bool = false
 var object:Dictionary = {
 	1: {
 		"caption" = tr("Каменная плавильня"),
-		"description" = tr("Позволяет переплавлять руду."),
+		"description" = tr("Позволяет переплавлять руду"),
 		"default_idle" = load("res://assets/resources/buildings/stone_oven/object_0.png"),
 		"hovered_idle" = load("res://assets/resources/buildings/stone_oven/hovered_0.png"),
 		"default_work" = load("res://assets/resources/buildings/stone_oven/object_1.png"),
