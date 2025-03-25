@@ -1,8 +1,9 @@
+CollisionShape2D
+Area2D
+Sprite2D
 Label
 MarginContainer
 RichTextLabel
-CollisionShape2D
-Area2D
 ScrollContainer
 TextureRect
 AnimationPlayer
@@ -11,4 +12,3 @@ VBoxContainer
 NinePatchRect
 GridContainer
 GridMap
-HBoxContainer
