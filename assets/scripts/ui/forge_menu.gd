@@ -108,56 +108,59 @@ func add_item(id) -> void:
 					if inventory.inventory_items.has(id):
 						if inventory.inventory_items[id].has('amount'):
 							if inventory.inventory_items[id]['amount'] >= ORE_THRESHOLD:
-								oreIcon.texture = items.content[int(id)]['icon']
-								oreIcon.modulate = Color(1, 1, 1)
-								if ore_id is int:
-									if ore_id == int(id):
-										ore_amount += 5
-									else:
-										ore_amount = 5
-								elif ore_id is String:
-									if ore_id == str(id):
-										ore_amount += 5
-									else:
-										ore_amount = 5
-								ore_id = id
+								if ore_amount + 5 <= inventory.inventory_items[id]['amount']:
+									oreIcon.texture = items.content[int(id)]['icon']
+									oreIcon.modulate = Color(1, 1, 1)
+									if ore_id is int:
+										if ore_id == int(id):
+											ore_amount += 5
+										else:
+											ore_amount = 5
+									elif ore_id is String:
+										if ore_id == str(id):
+											ore_amount += 5
+										else:
+											ore_amount = 5
+									ore_id = id
 				'fuel':
 					if inventory.inventory_items.has(id):
 						if inventory.inventory_items[id].has('amount'):
-							if inventory.inventory_items[id]['amount'] >= ORE_THRESHOLD:							
-								fuelIcon.modulate = Color(1, 1, 1)
-								fuelIcon.texture = items.content[int(id)]['icon']
-								if fuel_id is int:
-									if fuel_id == int(id):
-										fuel_amount += 5
-									else:
-										fuel_amount = 5
-								if fuel_id is String:
-									if fuel_id == str(id):
-										fuel_amount += 5
-									else:
-										fuel_amount = 5
-								fuel_id = id
+							if inventory.inventory_items[id]['amount'] >= ORE_THRESHOLD:
+								if fuel_amount + 5 <= inventory.inventory_items[id]['amount']:					
+									fuelIcon.modulate = Color(1, 1, 1)
+									fuelIcon.texture = items.content[int(id)]['icon']
+									if fuel_id is int:
+										if fuel_id == int(id):
+											fuel_amount += 5
+										else:
+											fuel_amount = 5
+									if fuel_id is String:
+										if fuel_id == str(id):
+											fuel_amount += 5
+										else:
+											fuel_amount = 5
+									fuel_id = id
 
 func remove_item(id) -> void:
-	if items.content[int(id)].has('item_type'):
-		match items.content[int(id)]['item_type']:
-			'ore':
-				if ore_amount > 0:
-					ore_amount -= 5
-				else:
-					oreIcon.texture = ORE_SLOT_DEFAULT
-					oreIcon.modulate = Color(0.8, 0.8, 0.8, 0.49)
-					ore_id = 0
-					ore_amount = 0
-			'fuel':
-				if fuel_amount > 0:
-					fuel_amount -= 5
-				else:
-					fuelIcon.texture = FUEL_SLOT_DEFAULT
-					fuelIcon.modulate = Color(0.8, 0.8, 0.8, 0.49)
-					fuel_id = 0
-					fuel_amount = 0
+	if items.content.has(int(id)):
+		if items.content[int(id)].has('item_type'):
+			match items.content[int(id)]['item_type']:
+				'ore':
+					if ore_amount > 0:
+						ore_amount -= 5
+					else:
+						oreIcon.texture = ORE_SLOT_DEFAULT
+						oreIcon.modulate = Color(0.8, 0.8, 0.8, 0.49)
+						ore_id = 0
+						ore_amount = 0
+				'fuel':
+					if fuel_amount > 0:
+						fuel_amount -= 5
+					else:
+						fuelIcon.texture = FUEL_SLOT_DEFAULT
+						fuelIcon.modulate = Color(0.8, 0.8, 0.8, 0.49)
+						fuel_id = 0
+						fuel_amount = 0
 
 func item_create(id) -> void:
 	var slot = inventory.node.instantiate()
