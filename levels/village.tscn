@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://dadhvvybayi14"]
+[gd_scene load_steps=65 format=3 uid="uid://dadhvvybayi14"]
 
 [ext_resource type="Script" path="res://assets/data/gamedata.gd" id="1_3hdqu"]
 [ext_resource type="PackedScene" uid="uid://b8eteio2464wo" path="res://assets/nodes/player.tscn" id="1_b6saw"]
@@ -54,6 +54,8 @@
 [ext_resource type="PackedScene" uid="uid://df5t2m6byxd6u" path="res://assets/nodes/buildings/logs.tscn" id="50_cjl6x"]
 [ext_resource type="PackedScene" uid="uid://of1lqol17vyi" path="res://assets/nodes/buildings/big_farm_house.tscn" id="51_5a105"]
 [ext_resource type="PackedScene" uid="uid://c154p3opvkrt1" path="res://assets/nodes/buildings/decor_lily.tscn" id="54_6o0j8"]
+[ext_resource type="PackedScene" uid="uid://c4d564jg3cv6x" path="res://assets/nodes/buildings/carpenter_house.tscn" id="55_q514j"]
+[ext_resource type="PackedScene" uid="uid://cuso610ofalpy" path="res://assets/nodes/buildings/public_well.tscn" id="56_3r6cw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hoxua"]
 size = Vector2(32, 48)
@@ -2423,10 +2425,6 @@ texture = ExtResource("41_tti21")
 [node name="tree" parent="Nature" instance=ExtResource("43_bwam0")]
 position = Vector2(72, 56)
 
-[node name="tree3" parent="Nature" instance=ExtResource("43_bwam0")]
-position = Vector2(312, -56)
-index = 4
-
 [node name="tree6" parent="Nature" instance=ExtResource("43_bwam0")]
 position = Vector2(72, 133)
 index = 2
@@ -2894,10 +2892,6 @@ index = 2
 [node name="tree237" parent="Nature" instance=ExtResource("43_bwam0")]
 position = Vector2(440, -104)
 
-[node name="tree239" parent="Nature" instance=ExtResource("43_bwam0")]
-position = Vector2(360, -72)
-index = 4
-
 [node name="tree241" parent="Nature" instance=ExtResource("43_bwam0")]
 position = Vector2(328, -104)
 index = 4
@@ -3329,6 +3323,9 @@ position = Vector2(216, 8)
 [node name="box5" parent="ConstructionManager" instance=ExtResource("17_102wi")]
 position = Vector2(200, -8)
 
+[node name="box6" parent="ConstructionManager" instance=ExtResource("17_102wi")]
+position = Vector2(312, -56)
+
 [node name="barrel" parent="ConstructionManager" instance=ExtResource("18_fy3jw")]
 position = Vector2(248, 344)
 
@@ -3451,6 +3448,10 @@ script = null
 position = Vector2(232, 8)
 script = null
 
+[node name="logs9" parent="ConstructionManager" instance=ExtResource("50_cjl6x")]
+position = Vector2(312, -40)
+script = null
+
 [node name="logs8" parent="ConstructionManager" instance=ExtResource("50_cjl6x")]
 position = Vector2(-120, 184)
 script = null
@@ -3460,6 +3461,15 @@ position = Vector2(24, 160)
 
 [node name="improved_warehouse" parent="ConstructionManager" instance=ExtResource("41_61h8r")]
 position = Vector2(-96, 184)
+
+[node name="barrel_of_water2" parent="ConstructionManager" instance=ExtResource("23_8h71s")]
+position = Vector2(392, 56)
+
+[node name="CarpenterHouse" parent="ConstructionManager" instance=ExtResource("55_q514j")]
+position = Vector2(345, -40)
+
+[node name="public_well" parent="ConstructionManager" instance=ExtResource("56_3r6cw")]
+position = Vector2(184, 104)
 
 [node name="well" parent="ConstructionManager" instance=ExtResource("42_72r8g")]
 position = Vector2(-112, 208)
@@ -3501,9 +3511,6 @@ layer_5/tile_data = PackedInt32Array(1179673, 720898, 3, 1179672, 589826, 3, 117
 layer_6/name = "watering farmlands"
 layer_6/tile_data = PackedInt32Array(1179670, 524291, 3, 1179671, 589827, 3, 1179672, 589827, 3, 1179673, 720899, 3, 1114137, 720899, 0, 1114136, 655363, 0, 1114135, 655363, 0, 1114134, 524291, 0, 458778, 65539, 3, 458779, 131075, 3, 458780, 131075, 3, 458781, 196611, 3, 1179644, 524291, 1, 1245180, 524291, 3, 1245181, 589827, 3, 1179646, 720899, 2, 1114110, 720899, 0, 1114109, 655363, 0, 1114108, 524291, 0, 1179645, 589827, 2, 1245182, 720899, 3, 983038, 720899, 3, 917502, 720899, 2, 851966, 720899, 0, 851965, 655363, 0, 851964, 524291, 0, 917500, 524291, 1, 983036, 524291, 3, 983037, 589827, 3, 917501, 589827, 2, 851968, 524291, 1, 917504, 524291, 3, 917505, 589827, 3, 851970, 720899, 2, 786434, 720899, 0, 786433, 655363, 0, 786432, 524291, 0, 917506, 720899, 3, 851969, 589827, 2, 1048576, 524291, 0, 1114112, 524291, 1, 1179648, 524291, 3, 1179649, 589827, 3, 1179650, 720899, 3, 1114114, 720899, 2, 1114113, 589827, 2, 1048577, 655363, 0, 1048578, 720899, 0)
 script = ExtResource("16_bka13")
-
-[node name="barrel_of_water" parent="." instance=ExtResource("23_8h71s")]
-position = Vector2(392, 56)
 
 [connection signal="mouse_entered" from="Teleports/Village/Area2D" to="Teleports/Village" method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Teleports/Village/Area2D" to="Teleports/Village" method="_on_area_2d_mouse_exited"]
