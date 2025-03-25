@@ -17,5 +17,5 @@ visible = false
 position = Vector2(0, -16)
 scale = Vector2(0.5, 0.5)
 color = Color(0.992157, 0.952941, 0.737255, 1)
-energy = 0.75
+energy = 0.5
 texture = ExtResource("2_5sr1x")
