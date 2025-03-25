@@ -91,15 +91,14 @@ var content:Dictionary = {
 				"shadow" = load("res://assets/nodes/buildings/well/well_shadow.tscn"),
 				"area" = Vector2i(2,2),
 				"resources" = {
-					3:{"amount": 25},
-					4:{"amount": 50},
+					3:{"amount": 50},
 				}
 			},
 
 			"trade_info" = {
 				"caption" = tr("Чертеж колодца"),
 				"description" = tr("Одна из полезных построек на вашей ферме — позволяет быстро наполнить лейку водой."),
-				"price" = 1250
+				"price" = 1000
 			}
 		},
 		4: {
@@ -255,8 +254,8 @@ var content:Dictionary = {
 				"shadow" = load("res://assets/nodes/buildings/sawmill_shadow.tscn"),
 				"area" = Vector2i(1,1),
 				"resources" = {
-					2:{"amount": 25},
-					7:{"amount": 5},
+					2:{"amount": 20},
+					10:{"amount": 2},
 				}
 			},
 
