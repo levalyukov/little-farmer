@@ -24,8 +24,7 @@ const bakeEveninggOff:int = 22
 var openedMenu:bool = false
 
 var object:Dictionary = {
-	"caption" = tr("Дом Кузнеца"),
-	"description" = tr("Старый домик кузнеца Кузьмы"),
+	"caption" = tr("Дом кузнеца Кузьмы"),
 	"shadow" = load("res://assets/resources/buildings/blacksmith_house/shadow.png"),
 	"default" = load("res://assets/resources/buildings/blacksmith_house/obj_0.png"),
 	"hovered" = load("res://assets/resources/buildings/blacksmith_house/obj_1.png"),
@@ -118,8 +117,7 @@ func _on_area_2d_mouse_entered() -> void:
 				else:
 					data.debug("'"+str(self.name) + "': There is no 'hovered' key.", "error")
 			tip.tooltip(
-					str(object["caption"]) + "\n" +
-					str(object["description"])
+					str(object["caption"])
 				)
 
 func _on_area_2d_mouse_exited() -> void:
