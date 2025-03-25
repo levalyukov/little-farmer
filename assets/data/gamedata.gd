@@ -86,7 +86,10 @@ func _ready():
 		if main != "MainMenu":
 			load_time()
 			load_balance()
+			load_buildings()
 			load_inventory()
+			load_blueprints()
+			load_mailbox()
 			config_load()
 			if main == "Farm":
 				load_buildings()
@@ -630,7 +633,7 @@ func load_buildings() -> void:
 								"lamp_post":
 									node.light.visible = file_load(file.buildings)[i]['value']
 									node.update()
-								"stone_oven":
+								"forge":
 									if file_load(file.buildings)[i].has("value")\
 									&& file_load(file.buildings)[i].has("inProcessed")\
 									&& file_load(file.buildings)[i].has("isDone")\
