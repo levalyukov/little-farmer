@@ -34,7 +34,7 @@ enum objectState {idle, inProcess, done}
 var object:Dictionary = {
 	1: {
 		"caption" = tr("Компостер"),
-		"description" = tr("Ящик для приготовления удобрения."),
+		"description" = tr("Ящик для приготовления удобрения"),
 		"shadow" = load("res://assets/resources/buildings/composter/shadow.png"),
 		"state" = {
 			"idle" = {
