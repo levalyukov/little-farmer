@@ -40,6 +40,7 @@ var content:Dictionary = {
     2: {
         'onlyPurchase' = true,
         "inventory" = {
+            5:{"amount": 1},
             6:{"amount": 1},
             7:{"amount": 1},
             8:{"amount": 1},
