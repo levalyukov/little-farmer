@@ -119,7 +119,7 @@ var content:Dictionary = {
 			"trade_info" = {
 				"caption" = tr("Чертеж хлева"),
 				"description" = tr("Данная постройка позволяет завести скот*.\n\n* - скот будет добавлен в будущих обновлениях."),
-				"price" = 3500
+				"price" = 5000
 			}
 		},
 		5: {
@@ -161,7 +161,7 @@ var content:Dictionary = {
 			"trade_info" = {
 				"caption" = tr("Чертеж теплицы"),
 				"description" = tr("Позволяет выращивать культуры вне зависимости от времени года. Имеет площадь 8х8 клеток."),
-				"price" = 10000
+				"price" = 20000
 			}
 		},
 		7: {
@@ -241,7 +241,7 @@ var content:Dictionary = {
 			"trade_info" = {
 				"caption" = tr("Радио"),
 				"description" = tr("Позволяет воспроизводить радиостанции, слушать новости и включать пользовательские песни."),
-				"price" = 5000
+				"price" = 7500
 			}
 		},
 		11: {
@@ -254,7 +254,7 @@ var content:Dictionary = {
 				"shadow" = load("res://assets/nodes/buildings/sawmill_shadow.tscn"),
 				"area" = Vector2i(1,1),
 				"resources" = {
-					2:{"amount": 20},
+					1:{"amount": 5},
 					10:{"amount": 2},
 				}
 			},
