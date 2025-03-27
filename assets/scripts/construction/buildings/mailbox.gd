@@ -17,6 +17,7 @@ extends Node2D
 @onready var buttonDestroy:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
 @onready var sprite:Sprite2D = $Sprite2D
 @onready var indicator:Sprite2D = $Indicator
+@onready var anim:AnimationPlayer = $AnimationPlayer
 
 var menu:bool = false
 var object:Dictionary = {
@@ -86,9 +87,13 @@ func check_indicator_state() -> void:
 	if GameLoader.mailbox_indicator:
 		if !indicator.visible:
 			indicator.visible = true
+			if !anim.is_playing():
+				anim.play('bubble')
 	else:
 		if indicator.visible:
 			indicator.visible = !true
+			if anim.is_playing():
+				anim.stop()
 
 func _on_area_2d_mouse_entered() -> void:
 	if !blur.state\
