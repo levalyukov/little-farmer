@@ -1,3 +1,4 @@
+AnimationPlayer
 NinePatchRect
 CollisionShape2D
 Area2D
@@ -7,7 +8,6 @@ MarginContainer
 RichTextLabel
 ScrollContainer
 TextureRect
-AnimationPlayer
 Button
 VBoxContainer
 GridContainer
