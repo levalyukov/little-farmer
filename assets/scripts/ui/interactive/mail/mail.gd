@@ -76,7 +76,6 @@ func letter(header:String, description:String = "", author:String = "", money:in
 		if items != {}: check_all_keys(key, items)
 		GameLoader.mailbox_indicator = true
 		mailbox.check_indicator_state()
-		print(GameLoader.mailbox_indicator)
 
 func check_all_keys(id, dictionary:Dictionary) -> void:
 	for key in dictionary.keys():
