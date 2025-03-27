@@ -12,6 +12,8 @@ extends Node2D
 @onready var sprite:Sprite2D = $Sprite2D
 @onready var timer:Timer = $Timer
 @onready var check_water_timer:Timer = $CheckWaterTimer
+@onready var indicator:Sprite2D = $Indicator
+@onready var anim:AnimationPlayer = $AnimationPlayer
 
 var items:Object = Items.new()
 var crops:Object = Crops.new()
@@ -26,6 +28,17 @@ enum phases {planted, growing, requiresWatering, growed, dead}
 enum fertilizers {nothing, regularCompost, highQualityCompost}
 
 func _process(_delta):
+	if condition == phases.requiresWatering:
+		if !indicator.visible:
+			indicator.visible = true
+			if !anim.is_playing():
+				anim.play('bubble')
+	else:
+		if indicator.visible:
+			indicator.visible = !true
+			if anim.is_playing():
+				anim.stop()
+
 	if pause.paused:
 		timer.set_paused(true)
 		check_water_timer.set_paused(true)
