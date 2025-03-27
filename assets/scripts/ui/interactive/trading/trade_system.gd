@@ -193,14 +193,15 @@ func _input(_event):
 		close_trade_menu()
 
 func open_trade_menu(traderID:int) -> void:
-	trader_id = traderID
-	opened = true
-	window_visible = true
-	anim.play("open_menu")
-	update_inventories_trade_menu()
-	clear_all_trade_menu()
-	if !blur.state:
-		blur.blur(true)
+	if traders.content.has(traderID):
+		trader_id = traderID
+		opened = true
+		window_visible = true
+		anim.play("open_menu")
+		update_inventories_trade_menu()
+		clear_all_trade_menu()
+		if !blur.state:
+			blur.blur(true)
 
 func close_trade_menu() -> void:
 	opened = false
@@ -228,6 +229,8 @@ func get_items_trade_window() -> void:
 func set_item_trade_window(item_id, slot_arg, amount:int = 1) -> void:
 	var node = inventory.node
 	var slot = node.instantiate()
+	if amount == 0:
+		amount = 5
 	match slot_arg:
 		slot.tr_initator.PLAYER:
 			initiator = initiators.PLAYER

@@ -24,8 +24,8 @@ var object:Dictionary = {
 	"lighting" = load("res://assets/resources/buildings/lamp_post_modern/object_1.png"),
 }
 
-const lightOn:int = 18
-const lightOff:int = 6
+const lightOn:int = 19
+const lightOff:int = 5
 
 func _ready():
 	update()

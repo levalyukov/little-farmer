@@ -29,8 +29,8 @@ var object:Dictionary = {
 	"lighting_delete" = load("res://assets/resources/buildings/lamp_post/object_3.png"),
 }
 
-const lightOn:int = 18
-const lightOff:int = 6
+const lightOn:int = 19
+const lightOff:int = 5
 
 func _ready():
 	update()
@@ -110,6 +110,11 @@ func _on_area_2d_mouse_exited():
 				if object["idle"] is CompressedTexture2D:
 					sprite.texture = object["idle"]
 	else:
-		if object.has("idle"):
-			if object["idle"] is CompressedTexture2D:
-				sprite.texture = object["idle"]
+		if light.visible:
+			if object.has("lighting"):
+				if object["lighting"] is CompressedTexture2D:
+					sprite.texture = object["lighting"]
+		else:
+			if object.has("idle"):
+				if object["idle"] is CompressedTexture2D:
+					sprite.texture = object["idle"]

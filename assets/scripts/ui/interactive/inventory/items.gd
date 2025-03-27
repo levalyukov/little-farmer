@@ -6,25 +6,25 @@ var content:Dictionary = {
 	1: {
 		"caption": tr("Бревно"),
 		"description": tr("Простое деревянное бревно, полученное из деревьев. Используется для строительства."),
-		"type": "Строительные материалы",
+		"type": tr("Строительные материалы"),
 		"item_type": 'building materials',
-		"purchase": 25,
+		"purchase": 30,
 		"sale": 5,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/log.png"),
 	},
 	2: {
 		"caption": tr("Доска"),
 		"description": tr("Обработанное бревно, готовое для использования в строительстве."),
-		"type": "Строительные материалы",
+		"type": tr("Строительные материалы"),
 		"item_type": 'building materials',
-		"purchase": 50,
+		"purchase": 40,
 		"sale": 15,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/plank.png"),
 	},
 	3: {
 		"caption": tr("Камень"),
 		"description": tr("Твёрдый природный материал. Подходит для создания прочных конструкций"),
-		"type": "Строительные материалы",
+		"type": tr("Строительные материалы"),
 		"item_type": 'building materials',
 		"purchase": 25,
 		"sale": 5,
@@ -33,16 +33,16 @@ var content:Dictionary = {
 	4: {
 		"caption": tr("Булыжник"),
 		"description": tr("Часто используемый для дорожек или декоративных элементов."),
-		"type": "Строительные материалы",
+		"type": tr("Строительные материалы"),
 		"item_type": 'building_materials',
-		"purchase": 50,
+		"purchase": 40,
 		"sale": 10,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/cobblestone.png"),
 	},
 	5: {
 		"caption": tr("Уголь"),
 		"description": tr("Горючий материал, добываемый из земли. Идеален для топлива или создания освещения."),
-		"type": "Руда",
+		"type": tr("Руда"),
 		"item_type": "fuel",
 		"purchase": 25,
 		"sale": 5,
@@ -51,7 +51,7 @@ var content:Dictionary = {
 	6: {
 		"caption": tr("Медная руда"),
 		"description": tr("После переплавки может быть использована для создания инструментов и деталей"),
-		"type": "Руда",
+		"type": tr("Руда"),
 		"item_type": "ore",
 		"oven_result": 9,
 		"purchase": 50,
@@ -61,7 +61,7 @@ var content:Dictionary = {
 	7: {
 		"caption": tr("Железная руда"),
 		"description": tr("Основа для прочных инструментов и конструкций"),
-		"type": "Руда",
+		"type": tr("Руда"),
 		"item_type": "ore",
 		"oven_result": 10,
 		"purchase": 75,
@@ -71,7 +71,7 @@ var content:Dictionary = {
 	8: {
 		"caption": tr("Бокситовая руда"),
 		"description": tr("Используется для создания лёгких и прочных материалов"),
-		"type": "Руда",
+		"type": tr("Руда"),
 		"item_type": "ore",
 		"oven_result": 11,
 		"purchase": 100,
@@ -81,7 +81,7 @@ var content:Dictionary = {
 	9: {
 		"caption": tr("Медный слиток"),
 		"description": tr("Очищенная медь, готовая для использования в строительстве"),
-		"type": "Строительные материалы",
+		"type": tr("Строительные материалы"),
 		"item_type": 'building_materials',
 		"purchase": 400,
 		"sale": 100,
@@ -90,7 +90,7 @@ var content:Dictionary = {
 	10: {
 		"caption": tr("Железный слиток"),
 		"description": tr("Прочный металл, подходящий для создания надёжных инструментов и конструкций"),
-		"type": "Строительные материалы",
+		"type": tr("Строительные материалы"),
 		"item_type": 'building_materials',
 		"purchase": 600,
 		"sale": 150,
@@ -99,7 +99,7 @@ var content:Dictionary = {
 	11: {
 		"caption": tr("Алюминивый слиток"),
 		"description": tr("Лёгкий и прочный металл, идеальный для современных конструкций"),
-		"type": "Строительные материалы",
+		"type": tr("Строительные материалы"),
 		"item_type": 'building_materials',
 		"purchase": 750,
 		"sale": 200,
@@ -108,7 +108,7 @@ var content:Dictionary = {
 	-1: {
 		"caption": tr("Аметист"),
 		"description": tr("Редкий драгоценный камень, используемый для украшений или магических целей"),
-		"type": "Строительные материалы",
+		"type": tr(tr("Строительные материалы")),
 		"item_type": 'building_materials',
 		"purchase": 100,
 		"sale": 25,
@@ -123,7 +123,7 @@ var content:Dictionary = {
 			"productivity": tr("carrot.productivity"),
 			"conditions": tr("carrot.conditions"),
 		},
-		"type": "Семена",
+		"type": tr("Семена"),
 		"item_type": "seeds",
 		"purchase": 15,
 		"sale": 5,
@@ -138,7 +138,7 @@ var content:Dictionary = {
 			"productivity": tr("potato.productivity"),
 			"conditions": tr("potato.conditions"),
 		},
-		"type": "Семена",
+		"type": tr("Семена"),
 		"item_type": "seeds",
 		"purchase": 40,
 		"sale": 10,
@@ -153,7 +153,7 @@ var content:Dictionary = {
 			"productivity": tr("radish.productivity"),
 			"conditions": tr("radish.conditions"),
 		},
-		"type": "Семена",
+		"type": tr("Семена"),
 		"item_type": "seeds",
 		"purchase": 25,
 		"sale": 5,
@@ -168,7 +168,7 @@ var content:Dictionary = {
 			"productivity": tr("cabbage.productivity"),
 			"conditions": tr("cabbage.conditions"),
 		},
-		"type": "Семена",
+		"type": tr("Семена"),
 		"item_type": "seeds",
 		"purchase": 60,
 		"sale": 25,
@@ -178,7 +178,7 @@ var content:Dictionary = {
 	17: {
 		"caption": tr("Семена репчатого лука"),
 		"description": tr("Небольшие семена для выращивания сочного репчатого лука."),
-		"type": "Семена",
+		"type": tr("Семена"),
 		"item_type": "seeds",
 		"purchase": 35,
 		"sale": 15,
@@ -188,7 +188,7 @@ var content:Dictionary = {
 	18: {
 		"caption": tr("Семена огурцов"),
 		"description": tr("Семена для выращивания свежих и хрустящих огурцов."),
-		"type": "Семена",
+		"type": tr("Семена"),
 		"item_type": "seeds",
 		"purchase": 25,
 		"sale": 5,
@@ -198,7 +198,7 @@ var content:Dictionary = {
 	19: {
 		"caption": tr("Семена томата"),
 		"description": tr("Семена для выращивания ароматных помидоров."),
-		"type": "Семена",
+		"type": tr("Семена"),
 		"item_type": "seeds",
 		"purchase": 40,
 		"sale": 20,
@@ -208,7 +208,7 @@ var content:Dictionary = {
 	20: {
 		"caption": tr("Семена баклажана"),
 		"description": tr("Семена для выращивания баклажанов с гладкой фиолетовой кожурой."),
-		"type": "Семена",
+		"type": tr("Семена"),
 		"item_type": "seeds",
 		"purchase": 50,
 		"sale": 25,
@@ -218,7 +218,7 @@ var content:Dictionary = {
 	21: {
 		"caption": tr("Семена перца"),
 		"description": tr("Семена для выращивания сладкого перца"),
-		"type": "Семена",
+		"type": tr("Семена"),
 		"item_type": "seeds",
 		"purchase": 30,
 		"sale": 15,
@@ -228,7 +228,7 @@ var content:Dictionary = {
 	22: {
 		"caption": tr("Семена кукурузы"),
 		"description": tr("Крупные семена для выращивания сладкой кукурузы."),
-		"type": "Семена",
+		"type": tr("Семена"),
 		"item_type": "seeds",
 		"purchase": 75,
 		"sale": 30,
@@ -238,7 +238,7 @@ var content:Dictionary = {
 	23: {
 		"caption": tr("Семена пастернака"),
 		"description": tr("Семена для выращивания ароматного пастернака."),
-		"type": "Семена",
+		"type": tr("Семена"),
 		"item_type": "seeds",
 		"purchase": 20,
 		"sale": 5,
@@ -248,7 +248,7 @@ var content:Dictionary = {
 	24: {
 		"caption": tr("Семена чеснока"),
 		"description": tr("Зубчики для выращивания острого чеснока."),
-		"type": "Семена",
+		"type": tr("Семена"),
 		"item_type": "seeds",
 		"purchase": 35,
 		"sale": 15,
@@ -258,7 +258,7 @@ var content:Dictionary = {
 	25: {
 		"caption": tr("Семена свёклы"),
 		"description": tr("Семена для выращивания сладкой и сочной свёклы."),
-		"type": "Семена",
+		"type": tr("Семена"),
 		"item_type": "seeds",
 		"purchase": 45,
 		"sale": 25,
@@ -268,7 +268,7 @@ var content:Dictionary = {
 	26: {
 		"caption": tr("Семена репы"),
 		"description": tr("Семена для выращивания хрустящей репы."),
-		"type": "Семена",
+		"type": tr("Семена"),
 		"item_type": "seeds",
 		"purchase": 50,
 		"sale": 25,
@@ -278,7 +278,7 @@ var content:Dictionary = {
 	27: {
 		"caption": tr("Семена фасоли"),
 		"description": tr("Семена для выращивания богатой витаминами фасоли."),
-		"type": "Семена",
+		"type": tr(tr("Семена")),
 		"item_type": "seeds",
 		"purchase": 60,
 		"sale": 30,
@@ -289,7 +289,7 @@ var content:Dictionary = {
 	28: {
 		"caption": tr("Морковь"),
 		"description": tr("Сладкая и хрустящая морковь."),
-		"type": "Урожай",
+		"type": tr("Урожай"),
 		"item_type": "crop",
 		"purchase": 100,
 		"sale": 50,
@@ -298,7 +298,7 @@ var content:Dictionary = {
 	29: {
 		"caption": tr("Картофель"),
 		"description": tr("Питательный клубень для различных блюд."),
-		"type": "Урожай",
+		"type": tr("Урожай"),
 		"item_type": "crop",
 		"purchase": 125,
 		"sale": 75,
@@ -307,7 +307,7 @@ var content:Dictionary = {
 	30: {
 		"caption": tr("Редис"),
 		"description": tr("Острый и сочный корнеплод."),
-		"type": "Урожай",
+		"type": tr("Урожай"),
 		"item_type": "crop",
 		"purchase": 75,
 		"sale": 60,
@@ -316,7 +316,7 @@ var content:Dictionary = {
 	31: {
 		"caption": tr("Кочан капусты"),
 		"description": tr("Свежая и крепкая капуста."),
-		"type": "Урожай",
+		"type": tr("Урожай"),
 		"item_type": "crop",
 		"purchase": 150,
 		"sale": 100,
@@ -325,7 +325,7 @@ var content:Dictionary = {
 	32: {
 		"caption": tr("Репчатый лук"),
 		"description": tr("Ароматный лук для приправ и салатов."),
-		"type": "Урожай",
+		"type": tr("Урожай"),
 		"item_type": "crop",
 		"purchase": 100,
 		"sale": 75,
@@ -334,7 +334,7 @@ var content:Dictionary = {
 	33: {
 		"caption": tr("Огурец"),
 		"description": tr("Хрустящий и освежающий огурец."),
-		"type": "Урожай",
+		"type": tr("Урожай"),
 		"item_type": "crop",
 		"purchase": 100,
 		"sale": 75,
@@ -343,7 +343,7 @@ var content:Dictionary = {
 	34: {
 		"caption": tr("Помидор"),
 		"description": tr("Сочные томаты для любых блюд."),
-		"type": "Урожай",
+		"type": tr("Урожай"),
 		"item_type": "crop",
 		"purchase": 110,
 		"sale": 80,
@@ -352,7 +352,7 @@ var content:Dictionary = {
 	35: {
 		"caption": tr("Баклажан"),
 		"description": tr("Темно-фиолетовый плод для жарки и запекания."),
-		"type": "Урожай",
+		"type": tr("Урожай"),
 		"item_type": "crop",
 		"purchase": 175,
 		"sale": 125,
@@ -361,7 +361,7 @@ var content:Dictionary = {
 	36: {
 		"caption": tr("Перец"),
 		"description": tr("Яркий и пикантный перец."),
-		"type": "Урожай",
+		"type": tr("Урожай"),
 		"item_type": "crop",
 		"purchase": 105,
 		"sale": 70,
@@ -370,7 +370,7 @@ var content:Dictionary = {
 	37: {
 		"caption": tr("Початок кукурузы"),
 		"description": tr("Золотистые зерна для вкусного гарнира."),
-		"type": "Урожай",
+		"type": tr("Урожай"),
 		"item_type": "crop",
 		"purchase": 175,
 		"sale": 125,
@@ -379,7 +379,7 @@ var content:Dictionary = {
 	38: {
 		"caption": tr("Пастернак"),
 		"description": tr("Деликатный вкус и полезные свойства."),
-		"type": "Урожай",
+		"type": tr("Урожай"),
 		"item_type": "crop",
 		"purchase": 90,
 		"sale": 65,
@@ -388,7 +388,7 @@ var content:Dictionary = {
 	39: {
 		"caption": tr("Чеснок"),
 		"description": tr("Ароматная пряность для усиления вкуса."),
-		"type": "Урожай",
+		"type": tr("Урожай"),
 		"item_type": "crop",
 		"purchase": 115,
 		"sale": 80,
@@ -397,7 +397,7 @@ var content:Dictionary = {
 	40: {
 		"caption": tr("Свёкла"),
 		"description": tr("Сладкая и яркая, идеальна для салатов и супов."),
-		"type": "Урожай",
+		"type": tr("Урожай"),
 		"item_type": "crop",
 		"purchase": 125,
 		"sale": 90,
@@ -406,7 +406,7 @@ var content:Dictionary = {
 	41: {
 		"caption": tr("Репа"),
 		"description": tr("Круглый и плотный корнеплод."),
-		"type": "Урожай",
+		"type": tr("Урожай"),
 		"item_type": "crop",
 		"purchase": 100,
 		"sale": 75,
@@ -415,7 +415,7 @@ var content:Dictionary = {
 	42: {
 		"caption": tr("Фасоль"),
 		"description": tr("Прекрасный источник белка, подходит для гарниров."),
-		"type": "Урожай",
+		"type": tr(tr("Урожай")),
 		"item_type": "crop",
 		"purchase": 115,
 		"sale": 90,
@@ -425,7 +425,7 @@ var content:Dictionary = {
 	43: {
 		"caption": tr("Испорченная морковь"),
 		"description": tr("Морковь, потерявшая свою свежесть."),
-		"type": "Отходы",
+		"type": tr("Отходы"),
 		"item_type": "compost",
 		"decay": 1, # seconds
 		"purchase": 25,
@@ -435,7 +435,7 @@ var content:Dictionary = {
 	44: {
 		"caption": tr("Испорченный картофель"),
 		"description": tr("Клубень, поражённый гнилью."),
-		"type": "Отходы",
+		"type": tr("Отходы"),
 		"item_type": "compost",
 		"decay": 1, # seconds
 		"purchase": 25,
@@ -445,7 +445,7 @@ var content:Dictionary = {
 	45: {
 		"caption": tr("Испорченный редис"),
 		"description": tr("Корнеплод, покрытый пятнами гнили."),
-		"type": "Отходы",
+		"type": tr("Отходы"),
 		"item_type": "compost",
 		"decay": 1, # seconds
 		"purchase": 25,
@@ -455,7 +455,7 @@ var content:Dictionary = {
 	46: {
 		"caption": tr("Испорченный кочан капусты"),
 		"description": tr("Капуста, начавшая разлагаться."),
-		"type": "Отходы",
+		"type": tr("Отходы"),
 		"item_type": "compost",
 		"decay": 1, # seconds
 		"purchase": 25,
@@ -465,7 +465,7 @@ var content:Dictionary = {
 	47: {
 		"caption": tr("Испорченный репчатый лук"),
 		"description": tr("Лук, потерявший свой аромат."),
-		"type": "Отходы",
+		"type": tr("Отходы"),
 		"item_type": "compost",
 		"decay": 1, # seconds
 		"purchase": 25,
@@ -475,7 +475,7 @@ var content:Dictionary = {
 	48: {
 		"caption": tr("Испорченный огурец"),
 		"description": tr("Огурец, утративший хрусткость и свежесть."),
-		"type": "Отходы",
+		"type": tr("Отходы"),
 		"item_type": "compost",
 		"decay": 1, # seconds
 		"purchase": 25,
@@ -485,7 +485,7 @@ var content:Dictionary = {
 	49: {
 		"caption": tr("Испорченный помидор"),
 		"description": tr("Томат, покрытый плесенью и гнилью."),
-		"type": "Отходы",
+		"type": tr("Отходы"),
 		"item_type": "compost",
 		"decay": 1, # seconds
 		"purchase": 25,
@@ -495,7 +495,7 @@ var content:Dictionary = {
 	50: {
 		"caption": tr("Испорченный баклажан"),
 		"description": tr("Плод, покрытый темными пятнами и гнилью."),
-		"type": "Отходы",
+		"type": tr("Отходы"),
 		"item_type": "compost",
 		"decay": 1, # seconds
 		"purchase": 25,
@@ -505,7 +505,7 @@ var content:Dictionary = {
 	51: {
 		"caption": tr("Испорченный перец"),
 		"description": tr("Перец, начало которого уже разложилось."),
-		"type": "Отходы",
+		"type": tr("Отходы"),
 		"item_type": "compost",
 		"decay": 1, # seconds
 		"purchase": 25,
@@ -515,7 +515,7 @@ var content:Dictionary = {
 	52: {
 		"caption": tr("Испорченный початок кукурузы"),
 		"description": tr("Кукуруза, поражённая грибком и гнилью"),
-		"type": "Отходы",
+		"type": tr("Отходы"),
 		"item_type": "compost",
 		"decay": 1, # seconds
 		"purchase": 25,
@@ -525,7 +525,7 @@ var content:Dictionary = {
 	53: {
 		"caption": tr("Испорченный пастернак"),
 		"description": tr("Корнеплод, начавший разлагаться"),
-		"type": "Отходы",
+		"type": tr("Отходы"),
 		"item_type": "compost",
 		"decay": 1, # seconds
 		"purchase": 25,
@@ -535,7 +535,7 @@ var content:Dictionary = {
 	54: {
 		"caption": tr("Испорченный чеснок"),
 		"description": tr("Чеснок, утративший свои полезные свойства"),
-		"type": "Отходы",
+		"type": tr("Отходы"),
 		"item_type": "compost",
 		"decay": 1, # seconds
 		"purchase": 25,
@@ -545,7 +545,7 @@ var content:Dictionary = {
 	55: {
 		"caption": tr("Испорченная свёкла"),
 		"description": tr("Свёкла, покрытая пятнами гнили"),
-		"type": "Отходы",
+		"type": tr("Отходы"),
 		"item_type": "compost",
 		"decay": 1, # seconds
 		"purchase": 25,
@@ -555,7 +555,7 @@ var content:Dictionary = {
 	56: {
 		"caption": tr("Испорченная репа"),
 		"description": tr("Корнеплод, поражённый гнилью"),
-		"type": "Отходы",
+		"type": tr("Отходы"),
 		"item_type": "compost",
 		"decay": 1, # seconds
 		"purchase": 25,
@@ -565,7 +565,7 @@ var content:Dictionary = {
 	57: {
 		"caption": tr("Испорченная фасоль"),
 		"description": tr("Потемневшие и размягченные бобы, непригодные для еды."),
-		"type": "Отходы",
+		"type": tr("Отходы"),
 		"item_type": "compost",
 		"decay": 1, # seconds
 		"purchase": 25,
@@ -576,7 +576,7 @@ var content:Dictionary = {
 	58: {
 		"caption": tr("Ботва"),
 		"description": tr("Листья и стебли после сбора урожая. Полезна для создания компоста или кормления животных."),
-		"type": "Отходы",
+		"type": tr("Отходы"),
 		"item_type": "compost",
 		"decay": 1, # seconds
 		"purchase": 25,
@@ -586,7 +586,7 @@ var content:Dictionary = {
 	59: {
 		"caption": tr("Ветка"),
 		"description": tr("Отломанные или срезанные ветви деревьев. Используются в строительстве, для разжигания костров или производства удобрений."),
-		"type": "Отходы",
+		"type": tr("Отходы"),
 		"item_type": "compost",
 		"decay": 1, # seconds
 		"purchase": 25,
@@ -596,7 +596,7 @@ var content:Dictionary = {
 	60: {
 		"caption": tr("Сорняки"),
 		"description": tr("Неприхотливые растения, которые мешают росту культур. Могут быть использованы в компосте"),
-		"type": "Отходы",
+		"type": tr(tr("Отходы")),
 		"item_type": "compost",
 		"decay": 1, # seconds
 		"purchase": 25,
@@ -606,8 +606,8 @@ var content:Dictionary = {
 	# Compost
 	61: {
 		"caption": tr("Обычный компост"),
-		"description": tr("Уменьшает время роста растения на 5%."),
-		"type": "Удобрения",
+		"description": tr("Уменьшает время роста растения на 5%.\n\nУдобрять перед посевом."),
+		"type": tr("Удобрение"),
 		"item_type": "fertilizer",
 		"purchase": 150,
 		"sale": 100,
@@ -618,8 +618,8 @@ var content:Dictionary = {
 	},
 	62: {
 		"caption": tr("Высококачественный компост"),
-		"description": tr("Уменьшает время роста растения на 20%."),
-		"type": "Удобрения",
+		"description": tr("Уменьшает время роста растения на 20%.\n\nУдобрять перед посевом."),
+		"type": tr("Удобрение"),
 		"item_type": "fertilizer",
 		"purchase": 250,
 		"sale": 150,

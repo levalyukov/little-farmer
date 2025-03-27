@@ -1,3 +1,4 @@
+NinePatchRect
 CollisionShape2D
 Area2D
 Sprite2D
@@ -9,6 +10,5 @@ TextureRect
 AnimationPlayer
 Button
 VBoxContainer
-NinePatchRect
 GridContainer
 GridMap

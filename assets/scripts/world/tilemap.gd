@@ -87,9 +87,6 @@ func set_atlas(season:String) -> void:
 												if node.object[node.level]["seasons"][season].has("default")\
 												&& node.object[node.level]["seasons"][season].has("hovered"):
 													node.update()
-												else: return
-											else: return
-										else: return
 									else:
 										if node.has_method("update"):
 											if node.object.has("seasons"):
@@ -97,10 +94,6 @@ func set_atlas(season:String) -> void:
 													if node.object["seasons"][season].has("default")\
 													&& node.object["seasons"][season].has("hovered"):
 														node.update()
-													else: return
-												else: return
-											else: return
-										else: return
 								else:
 									if node.has_method("update"):
 										if node.object.has("seasons"):
@@ -108,10 +101,6 @@ func set_atlas(season:String) -> void:
 												if node.object["seasons"][season].has("default")\
 												&& node.object["seasons"][season].has("hovered"):
 													node.update()
-												else: return
-											else: return
-										else: return
-									else: return
 
 				if nature:
 					if nature.get_children() != []:

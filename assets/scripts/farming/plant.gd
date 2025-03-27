@@ -28,8 +28,10 @@ enum fertilizers {nothing, regularCompost, highQualityCompost}
 func _process(_delta):
 	if pause.paused:
 		timer.set_paused(true)
+		check_water_timer.set_paused(true)
 	else:
 		timer.set_paused(false)
+		check_water_timer.set_paused(false)
 
 func plant(id:int) -> void:
 	plantID = id

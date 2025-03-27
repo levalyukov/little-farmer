@@ -16,6 +16,7 @@ extends Node2D
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var buttonDestroy:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
 @onready var sprite:Sprite2D = $Sprite2D
+@onready var indicator:Sprite2D = $Indicator
 
 var menu:bool = false
 var object:Dictionary = {
@@ -53,6 +54,7 @@ func _input(event):
 func _ready():
 	update()
 	update_shadow()
+	check_indicator_state()
 
 func update():
 	if clock:
@@ -79,6 +81,14 @@ func update_shadow() -> void:
 				canvas.create_shadow("mailbox_shadow", object["shadow"], target_position)
 			else:
 				data.debug("'"+str(self.name) + "': It is not possible to create a game shadow of an object because the sprite is not of the 'CompressedTexture2D' type.", "error")
+
+func check_indicator_state() -> void:
+	if GameLoader.mailbox_indicator:
+		if !indicator.visible:
+			indicator.visible = true
+	else:
+		if indicator.visible:
+			indicator.visible = !true
 
 func _on_area_2d_mouse_entered() -> void:
 	if !blur.state\

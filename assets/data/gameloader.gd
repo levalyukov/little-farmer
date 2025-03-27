@@ -6,9 +6,13 @@ var start:bool = false
 var mode:bool = false
 var modal:bool = true
 var tracking_plants:bool = false
-
 var time_left:float = 0.0
 var timer = Timer.new()
+
+# Indicators
+var mailbox_indicator:bool = false
+
+# ---
 
 var greenhouse_caption:String = "greenhouse_1"
 var greenhouse_plants:Dictionary = {}

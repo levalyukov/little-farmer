@@ -8,6 +8,7 @@ extends Control
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
 @onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/storage")
+@onready var mailbox:Node2D = get_node("/root/"+main+"/ConstructionManager/mailbox")
 @onready var balance:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Balance")
 @onready var button_script:Button = get_node("/root/"+main+"/UI/Interactive/Mailbox/Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/ButtonContainer/GetItems")
 @onready var letter_node:PackedScene = load("res://assets/nodes/ui/interactive/mail/letter.tscn")
@@ -25,7 +26,6 @@ extends Control
 @onready var attached_items_label:RichTextLabel = $Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/MoneyContainer/Label
 @onready var button_container:MarginContainer = $Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/ButtonContainer
 @onready var button:Button = $Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/ButtonContainer/GetItems
-
 @onready var mail_manipulation_buttons:Button = $Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ManipulationButtons/MailRemove
 @onready var mails_remove_button:Button = $Panel/DeleteAllReadedLetters
 
@@ -38,7 +38,7 @@ var letter_name
 var letters:Dictionary = {}
 var current_letter_index:int = 0
 var letters_to_create:Array = []
-var gold_money_string:String = tr('з.')
+var gold_money_string:String = tr('з.')	# Money
 
 func _input(_event):
 	if Input.is_action_just_pressed("esc")\
@@ -73,8 +73,10 @@ func letter(header:String, description:String = "", author:String = "", money:in
 		letters[key]["author"] = author
 		letters[key]["money"] = money
 		letters[key]["items"] = {}
-		if items != {}:
-			check_all_keys(key, items)
+		if items != {}: check_all_keys(key, items)
+		GameLoader.mailbox_indicator = true
+		mailbox.check_indicator_state()
+		print(GameLoader.mailbox_indicator)
 
 func check_all_keys(id, dictionary:Dictionary) -> void:
 	for key in dictionary.keys():
@@ -307,6 +309,8 @@ func open() -> void:
 	change_state_mail_remove_button(false)
 	update_mail_manipulation_button()
 	update_state_mail_manipulation_button()
+	GameLoader.mailbox_indicator = false
+	if mailbox: mailbox.check_indicator_state()
 	if audio:
 		if !audio.is_playing():
 			audio.stream = load('res://assets/sounds/ui/mailbox.ogg')

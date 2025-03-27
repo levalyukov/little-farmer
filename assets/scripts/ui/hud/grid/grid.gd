@@ -391,19 +391,24 @@ func _process(_delta):
 
 			modes.FERTILIZER:
 				collision.check_fertilizer_grid()
-				if check:
-					for i in collision.get_children():
-						var local_position = tilemap.to_local(i.get_global_position())
-						var grid_position = tilemap.local_to_map(local_position)
-						if i.texture != collision.error:
-							farming.create_fertilizer(int(inventory_item), grid_position)
-							inventory.subject_item(inventory_item, 1)
+				if inventory.get_item_amount(inventory_item) >= collision.get_children().size():
+					if check:
+						for i in collision.get_children():
+							var local_position = tilemap.to_local(i.get_global_position())
+							var grid_position = tilemap.local_to_map(local_position)
+							if i.texture != collision.error:
+								farming.create_fertilizer(int(inventory_item), grid_position)
+								inventory.subject_item(inventory_item, 1)
 
-							var audio = AudioStreamPlayer.new()
-							self.add_child(audio)
-							audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-							audio.stream = load('res://assets/sounds/farming/fertilizer.ogg')
-							audio.play()
+								var audio = AudioStreamPlayer.new()
+								self.add_child(audio)
+								audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+								audio.stream = load('res://assets/sounds/farming/fertilizer.ogg')
+								audio.play()
+				else:
+					hud.hud_all_show()
+					mode = modes.NOTHING
+					visible = false
 				check = false
 	else:
 		visible = false

@@ -13,7 +13,7 @@ extends Node2D
 @onready var buildings:Node2D = get_node("/root/"+main+"/ConstructionManager")
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
-@onready var blueprintsShop:Control = get_node("/root/"+main+"/UI/Interactive/BlueprintsShop")
+@onready var dialogWindow:Control = get_node("/root/"+main+"/UI/Interactive/DialogWindow")
 @onready var chimney:CPUParticles2D = $CPUParticles2D
 @onready var sprite:Sprite2D = $Sprite2D
 
@@ -40,7 +40,20 @@ func _input(event):
 	&& !blur.state\
 	&& grid.mode == grid.modes.NOTHING\
 	&& openedMenu:
-		blueprintsShop.open()
+		dialogWindow.dialogWindow(
+			"Дом плотника Вэнса",
+			[
+				'Перед вами стоит старый домик плотника Вэнса.\n\nВойдя в дом, Вэнс вас радостно встречает и предлагает вам свои услуги:' 
+			], 
+			{
+				0:['Приобрести чертежи','Купить ресурсов', 'Уйти'],
+			},
+			{
+				0:[3,2,0],
+				1:[0],
+			},
+			3
+			)
 		update()
 
 func update():

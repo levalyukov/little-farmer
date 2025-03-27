@@ -6,7 +6,7 @@ extends Label
 @onready var specialButton:PackedScene = load('res://assets/nodes/ui/dialog_window_button.tscn')
 @onready var timer:Timer = get_node('/root/'+main+'/UI/Interactive/DialogWindow/Timer')
 
-var mainStringContent:Array[String]
+var mainStringContent:Array
 var buttonCaptionsContent:Dictionary
 var buttonTypeContent:Dictionary
 var text_to_print:String
@@ -14,7 +14,7 @@ var print_speed:float = 0.01
 var current_char_index:int = 0
 var char_index:int = 0
 
-func setDialogText(npcCaption:String, content:Array[String], buttonsCaption:Dictionary, buttonFunc:Dictionary) -> void:
+func setDialogText(npcCaption:String, content:Array, buttonsCaption:Dictionary, buttonFunc:Dictionary) -> void:
 	npcHeader.text = npcCaption
 	mainStringContent = content
 	buttonCaptionsContent = buttonsCaption
@@ -27,7 +27,7 @@ func setDialogText(npcCaption:String, content:Array[String], buttonsCaption:Dict
 		var funcs = buttonFunc[char_index]
 		for i in range(captions.size()):
 			var button = specialButton.instantiate()
-			button.text = captions[i]
+			button.text = "— " +captions[i]
 			button.type = funcs[i]
 			buttonContainer.add_child(button)
 	add_child(timer)

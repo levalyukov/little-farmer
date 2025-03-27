@@ -194,7 +194,7 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_o3muj")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_xtslb")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_vqost")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_y23j3")
-text = "Продолжить"
+text = "Продолжить игру"
 
 [node name="NewGameMargin" type="MarginContainer" parent="MenuContent/VContainer/ButtonsMargin/Buttons"]
 layout_mode = 2

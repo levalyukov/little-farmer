@@ -7,5 +7,8 @@ var content:Dictionary = {
 	},
 	2: {
 		'name': tr('Кузьма'),
+	},
+	3: {
+		'name': tr('Вэнс'),
 	}
 }

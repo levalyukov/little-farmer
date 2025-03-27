@@ -1,7 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://dqq3yhv1irugg"]
+[gd_scene load_steps=12 format=3 uid="uid://dqq3yhv1irugg"]
 
+[ext_resource type="Theme" uid="uid://btsx1m2p0i620" path="res://assets/resources/theme.tres" id="1_mxfge"]
 [ext_resource type="Script" path="res://assets/scripts/ui/dialog_window.gd" id="1_ucr1q"]
 [ext_resource type="Script" path="res://assets/scripts/ui/dialogWindow_label.gd" id="1_yqymc"]
+[ext_resource type="Texture2D" uid="uid://dtkym5bhfhpb" path="res://assets/resources/ui/menu_background.png" id="3_k8hxo"]
+[ext_resource type="Texture2D" uid="uid://c3yf44sxb8a8o" path="res://assets/resources/ui/menu_background_middle.png" id="4_gxabb"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_yii1j"]
 font_size = 24
@@ -100,6 +103,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_mxfge")
 script = ExtResource("1_ucr1q")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -110,14 +114,19 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -320.0
-offset_top = -232.0
+offset_top = -257.0
 offset_right = 320.0
-offset_bottom = 232.0
+offset_bottom = 257.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="MarginContainer"]
+[node name="Panel" type="NinePatchRect" parent="MarginContainer"]
 layout_mode = 2
+texture = ExtResource("3_k8hxo")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel"]
 layout_mode = 1
@@ -130,10 +139,10 @@ alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 25
-theme_override_constants/margin_top = 25
-theme_override_constants/margin_right = 25
-theme_override_constants/margin_bottom = 15
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 16
 
 [node name="Label" type="Label" parent="MarginContainer/Panel/VBoxContainer/MarginContainer"]
 layout_mode = 2
@@ -145,9 +154,15 @@ size_flags_vertical = 3
 theme_override_constants/margin_left = 25
 theme_override_constants/margin_right = 25
 
-[node name="Panel" type="Panel" parent="MarginContainer/Panel/VBoxContainer/MainContent"]
+[node name="Panel" type="NinePatchRect" parent="MarginContainer/Panel/VBoxContainer/MainContent"]
 layout_mode = 2
 size_flags_vertical = 3
+texture = ExtResource("4_gxabb")
+region_rect = Rect2(0, 0, 128, 64)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
 
 [node name="MainText" type="ScrollContainer" parent="MarginContainer/Panel/VBoxContainer/MainContent/Panel"]
 custom_minimum_size = Vector2(0, 150)
@@ -155,6 +170,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
@@ -166,10 +185,10 @@ size_flags_horizontal = 3
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/Panel/VBoxContainer/MainContent/Panel/MainText/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 15
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
 
 [node name="Label" type="Label" parent="MarginContainer/Panel/VBoxContainer/MainContent/Panel/MainText/VBoxContainer/MarginContainer2"]
 layout_mode = 2
@@ -180,6 +199,10 @@ script = ExtResource("1_yqymc")
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/margin_left = 33
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 33
+theme_override_constants/margin_bottom = 20
 
 [node name="Answers" type="ScrollContainer" parent="MarginContainer/Panel/VBoxContainer/MarginContainer2"]
 custom_minimum_size = Vector2(0, 150)
@@ -190,10 +213,7 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/margin_left = 25
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 25
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_right = 8
 
 [node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/VBoxContainer/MarginContainer2/Answers/MarginContainer"]
 layout_mode = 2

@@ -13,12 +13,12 @@ y_sort_enabled = true
 position = Vector2(0, -3)
 script = ExtResource("1_oykw7")
 
-[node name="Not" type="Sprite2D" parent="."]
-visible = false
+[node name="Indicator" type="Sprite2D" parent="."]
+z_index = 100
 position = Vector2(0, -6)
 texture = ExtResource("3_wiona")
 
-[node name="TextureRect" type="TextureRect" parent="Not"]
+[node name="TextureRect" type="TextureRect" parent="Indicator"]
 offset_left = -7.0
 offset_top = -8.0
 offset_right = 7.0
