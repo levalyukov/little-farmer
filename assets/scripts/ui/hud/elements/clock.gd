@@ -25,7 +25,7 @@ const seasons:Array[String] = [
 	"spring", "summer", 
 	"autumn", "winter"
 ]
-var season:int = 0
+var season:int = 1
 var year:int = 1
 var week:int = 1
 var day:int = 0
@@ -45,7 +45,7 @@ func _ready():
 	timer.start()
 	self.add_child(audio)
 	audio.bus = 'Nature'
-	if hour >= night_sound_end && hour < day_sound_end:
+	if range(night_sound_end-1, day_sound_end+1).has(hour):
 		audio.stop()
 		audio.volume_db = 0.0
 		audio.stream = day_sound
@@ -60,8 +60,7 @@ func _process(_delta):
 	if !pause.paused:
 		if audio.get_stream_paused():
 			audio.set_stream_paused(false)
-
-		if range(night_sound_end-1, day_sound_end-1).has(hour):
+		if range(night_sound_end-1, day_sound_end+1).has(hour):
 			if audio.stream == night_sound && audio.is_playing():
 				if audio.volume_db > -25.0:
 					audio.volume_db -= .5
