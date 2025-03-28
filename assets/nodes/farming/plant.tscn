@@ -3,11 +3,26 @@
 [ext_resource type="Script" path="res://assets/scripts/farming/plant.gd" id="1_vh4nl"]
 [ext_resource type="Texture2D" uid="uid://dj1b5aexd5fug" path="res://assets/resources/farming/crops.png" id="2_fqbqe"]
 [ext_resource type="Script" path="res://assets/scripts/farming/growth.gd" id="3_2xp2i"]
-[ext_resource type="Texture2D" uid="uid://cqk33wqdap1tv" path="res://assets/resources/buildings/mailbox/not.png" id="4_lcbm2"]
+[ext_resource type="Texture2D" uid="uid://dvw3xm1oamp11" path="res://assets/resources/ui/bubble.png" id="4_r6ff1"]
 [ext_resource type="Texture2D" uid="uid://bxggfkdp2kijv" path="res://assets/resources/ui/interactive/drop_water.png" id="5_rxqxx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0gu1o"]
 size = Vector2(12, 12)
+
+[sub_resource type="Animation" id="Animation_6qtgk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Indicator:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -14)]
+}
 
 [sub_resource type="Animation" id="Animation_evei8"]
 resource_name = "bubble"
@@ -25,21 +40,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0, -14), Vector2(0, -16), Vector2(0, -14)]
-}
-
-[sub_resource type="Animation" id="Animation_6qtgk"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Indicator:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -14)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_s7t8u"]
@@ -69,22 +69,29 @@ shape = SubResource("RectangleShape2D_0gu1o")
 [node name="CheckWaterTimer" type="Timer" parent="."]
 
 [node name="Indicator" type="Sprite2D" parent="."]
+visible = false
 self_modulate = Color(1, 1, 1, 0.784314)
 z_index = 100
 position = Vector2(0, -14)
-texture = ExtResource("4_lcbm2")
+texture = ExtResource("4_r6ff1")
 
 [node name="TextureRect" type="TextureRect" parent="Indicator"]
-offset_left = -7.0
-offset_top = -8.0
-offset_right = 7.0
-offset_bottom = 6.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -14.0
+offset_top = -13.0
+offset_right = -2.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 texture = ExtResource("5_rxqxx")
 expand_mode = 2
 stretch_mode = 5
-metadata/_edit_use_anchors_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
