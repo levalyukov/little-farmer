@@ -43,6 +43,12 @@ func _ready():
 	reset_data()
 	self.add_child(audio)
 
+	var test_index = 0
+	while inventory_items.size() < 62:
+		test_index += 1
+		inventory_items[test_index] = {}
+		inventory_items[test_index]['amount'] = 1000
+
 func _input(_event):
 	if Input.is_action_just_pressed("esc")\
 	&& blur.state\
