@@ -49,6 +49,7 @@ mouse_filter = 2
 [node name="StoneOvenMenu" parent="Interactive" instance=ExtResource("14_btd4p")]
 
 [node name="Pause" parent="Interactive" instance=ExtResource("1_i05ju")]
+visible = false
 z_index = 2
 anchors_preset = 8
 anchor_left = 0.5
