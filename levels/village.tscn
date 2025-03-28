@@ -2425,10 +2425,6 @@ texture = ExtResource("41_tti21")
 [node name="tree" parent="Nature" instance=ExtResource("43_bwam0")]
 position = Vector2(72, 56)
 
-[node name="tree6" parent="Nature" instance=ExtResource("43_bwam0")]
-position = Vector2(72, 133)
-index = 2
-
 [node name="tree7" parent="Nature" instance=ExtResource("43_bwam0")]
 position = Vector2(248, -24)
 index = 2
@@ -2455,6 +2451,10 @@ index = 5
 
 [node name="tree295" parent="Nature" instance=ExtResource("43_bwam0")]
 position = Vector2(232, 168)
+index = 3
+
+[node name="tree297" parent="Nature" instance=ExtResource("43_bwam0")]
+position = Vector2(72, 120)
 index = 3
 
 [node name="tree296" parent="Nature" instance=ExtResource("43_bwam0")]
