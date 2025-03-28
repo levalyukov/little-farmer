@@ -21,6 +21,7 @@ extends Node2D
 var destroyMode:bool = false
 var all_collisions:Array[Vector2i] = []
 var blueprint_id:int = 0
+var level:int = 0
 var object:Dictionary = {
 	"shadow" = load("res://assets/resources/buildings/lamp_post/shadow.png"),
 	"idle" = load("res://assets/resources/buildings/lamp_post/object_0.png"),
