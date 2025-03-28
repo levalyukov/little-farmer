@@ -13,6 +13,7 @@ extends Node2D
 @onready var particles:CPUParticles2D = $CPUParticles2D
 @onready var audio_player:AudioStreamPlayer2D = $AudioStreamPlayer2D
 @onready var sprite:Sprite2D = $Sprite2D
+var level:int = 0
 
 var audio_streams:Array[AudioStreamMP3] = []
 var audio_captions:Array[String] = []
