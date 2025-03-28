@@ -21,6 +21,7 @@ var destroyMode:bool = false
 var all_collisions:Array[Vector2i] = []
 var blueprint_id:int = 0
 var menuAccess:bool = false
+var level:int = 0
 var object:Dictionary = {
 	'caption': tr('Пилостол'),
 	'description': tr('Превращает бревна в доски'),
