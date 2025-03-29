@@ -97,6 +97,7 @@ func _process(_delta):
 										self.add_child(audio)
 										audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 										audio.stream = load('res://assets/sounds/farming/tree_destroy.ogg')
+										audio.set_pitch_scale(randf_range(1.05, 0.90))
 										audio.play()
 									2: # weed
 										for a in nature.get_children():

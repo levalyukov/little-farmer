@@ -30,7 +30,7 @@ extends Control
 @onready var anim:AnimationPlayer = $AnimationPlayer
 
 var construct_menu_header:String = tr("Меню строительства")
-var construct_menu_description:String = tr("Нет чертежей. Чтобы получить новые чертежи — проходите квесты или приобретайте у специальный торговцев.")
+var construct_menu_description:String = tr("Нет чертежей. Чтобы получить новые чертежи — приобретайте у специальных торговцев.")
 var construct_menu_description_empty:String = tr("Выбор чертежей происходит в левом окне. \n\nВерхние вкладки служат для группировки чертежей по их типам.")
 
 var buttonSelectAllBlueprints:String = tr("Все чертежи")
@@ -51,8 +51,8 @@ var index:int
 var section:String = "all"
 var opened:bool = false
 var all_items:bool
-var terrains_blueprints:Array[int] = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
-var node_blueprints:Array[int] = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+var terrains_blueprints:Array[int] = []
+var node_blueprints:Array[int] = []
 var upgrade_blueprints:Array[int] = []
 
 var items:Object = Items.new()

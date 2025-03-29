@@ -13,6 +13,7 @@ extends Node2D
 @onready var buildings:Node2D = get_node("/root/"+main+"/ConstructionManager")
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 @onready var buttonDestroy:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
 @onready var sprite:Sprite2D = $Sprite2D
 
@@ -151,6 +152,10 @@ func _on_area_2d_mouse_entered() -> void:
 	&& grid.mode == grid.modes.NOTHING\
 	&& !buttonDestroy.destroyMode:
 		_change_sprite(true)
+	#	if cursor:
+	#		cursor.set_cursor(cursor.states.ACTIVE)
 
 func _on_area_2d_mouse_exited() -> void:
 	_change_sprite(false)
+	#	if cursor:
+	#		cursor.set_cursor(cursor.states.DEFAULT)

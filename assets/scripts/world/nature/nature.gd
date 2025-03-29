@@ -10,9 +10,9 @@ extends Node2D
 @onready var stone_node = preload("res://assets/nodes/world/stone.tscn")
 @onready var weed_node = preload("res://assets/nodes/world/weed.tscn")
 
-const tree_func_calls:int = 150 * 4
-const stone_func_calls:int = 100 * 2
-const weed_func_calls:int = 275 * 2
+const tree_func_calls:int = 150 * 5
+const stone_func_calls:int = 100 * 5
+const weed_func_calls:int = 275 * 3
 
 var all_vectors:Array[Vector2i] = []
 var occuped_cells:Array[Vector2i] = []

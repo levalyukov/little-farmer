@@ -69,14 +69,17 @@ func _ready():
 		&& !GameLoader.start:
 			gameload()
 			GameLoader.mode = false
-			if file_load(file.world)['greenhouse_data']:
-				if file_load(file.world)['greenhouse_data'] != {}:
-					GameLoader.greenhouse_plants = file_load(file.world)['greenhouse_data']
-					GameLoader.create_timers()
+			if file_load(file.world):
+				if file_load(file.world).has('greenhouse_data'):
+					if file_load(file.world)['greenhouse_data']:
+						if file_load(file.world)['greenhouse_data'] != {}:
+							GameLoader.greenhouse_plants = file_load(file.world)['greenhouse_data']
+							GameLoader.create_timers()
 			if file_load(file.player):
 				if file_load(file.player).has('tools_level'):
 					if file_load(file.player)['tools_level'].has('water_can'):
 						tools.water_can = file_load(file.player)['tools_level']['water_can']
+
 		# New Game
 		if !GameLoader.mode\
 		&& GameLoader.start:
@@ -173,9 +176,7 @@ func file_load_sort(path_file:String) -> Dictionary:
 				for key in sorted_keys:
 					sorted_dict[str(key)] = parsed_data.result[str(key)]
 				return sorted_dict
-			else: return {}
-		else: return {}
-	else: return {}
+	return {}
 		
 func get_key(path_file:String, key:String, group:String = ""):
 	var target_file = file_load(path_file)
@@ -185,11 +186,10 @@ func get_key(path_file:String, key:String, group:String = ""):
 			var container = target_file[group]
 			if container.has(key):
 				return container[key]
-			return {}
 	else:
 		if target_file.has(key):
 			return target_file[key]
-		return {}
+	return {}
 
 func get_vector_array(path_file:String, key:String) -> Array[Vector2i]:
 	var string_array = get_key(path_file, key)
@@ -663,6 +663,7 @@ func get_dictionary_content(content:String, group:String = "") -> Dictionary:
 	match content:
 		"player":
 			return {
+				'indicator_mailbox': GameLoader.mailbox_indicator,
 				"balance": balance.money,
 				"tools_level": {
 					"water_can_max": tools.water_can_max,

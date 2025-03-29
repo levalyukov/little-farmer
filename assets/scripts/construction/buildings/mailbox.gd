@@ -14,6 +14,7 @@ extends Node2D
 @onready var buildings:Node2D = get_node("/root/"+main+"/ConstructionManager")
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 @onready var buttonDestroy:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
 @onready var sprite:Sprite2D = $Sprite2D
 @onready var indicator:Sprite2D = $Indicator
@@ -51,6 +52,8 @@ func _input(event):
 	&& grid.mode == grid.modes.NOTHING\
 	&& menu:
 		mailbox.open()
+		if cursor:
+			cursor.set_cursor(cursor.states.DEFAULT)
 
 func _ready():
 	update()
@@ -112,6 +115,9 @@ func _on_area_2d_mouse_entered() -> void:
 						str(object["caption"])
 					)
 		menu = true
+	else:
+		if cursor:
+			cursor.set_cursor(cursor.states.ACTIVE)
 
 func _on_area_2d_mouse_exited() -> void:
 	if object.has("seasons"):
@@ -123,3 +129,5 @@ func _on_area_2d_mouse_exited() -> void:
 	if tip:
 		tip.tooltip("")
 	menu = false
+	if cursor:
+		cursor.set_cursor(cursor.states.DEFAULT)

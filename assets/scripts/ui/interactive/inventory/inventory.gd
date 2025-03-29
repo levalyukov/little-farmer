@@ -10,6 +10,7 @@ extends Control
 @onready var balance:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Balance")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var node:PackedScene = load("res://assets/nodes/ui/interactive/inventory/slot.tscn")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 
 @onready var anim:AnimationPlayer = $Animation
 @onready var info:BoxContainer = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer
@@ -95,14 +96,14 @@ func open() -> void:
 	anim.play("open")
 	inventory_update()
 	check_inventory()
-	if grid.mode != grid.modes.NOTHING:
-		grid.mode = grid.modes.NOTHING
+	create_all_items()
+	update_string_capacity()
+	if grid.mode != grid.modes.NOTHING: grid.mode = grid.modes.NOTHING
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 	if audio:
 		if !audio.is_playing():
 			audio.stream = load('res://assets/sounds/ui/inventory.ogg')
 			audio.play()
-	create_all_items()
-	update_string_capacity()
 
 func close() -> void:
 	opened = false

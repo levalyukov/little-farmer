@@ -12,6 +12,7 @@ extends Control
 @onready var balance:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Balance")
 @onready var button_script:Button = get_node("/root/"+main+"/UI/Interactive/Mailbox/Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/ButtonContainer/GetItems")
 @onready var letter_node:PackedScene = load("res://assets/nodes/ui/interactive/mail/letter.tscn")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 @onready var slot:PackedScene = inventory.node
 
 @onready var anim:AnimationPlayer = $AnimationPlayer
@@ -52,6 +53,11 @@ func _ready():
 	reset_data()
 	delete_letters()
 	self.add_child(audio)
+	if data:
+		if data.file_load(data.file.player):
+			if data.file_load(data.file.player).has('indicator_mailbox'):
+				GameLoader.mailbox_indicator = data.file_load(data.file.player)['indicator_mailbox']
+				mailbox.check_indicator_state()
 
 func _process(_delta) -> void:
 	if visible:
@@ -95,15 +101,11 @@ func get_data(letterID) -> void:
 		if letters[index].has("status"):
 			if letters[index]["status"] == "unread":
 				letters[index]["status"] = "readed"
-		else:
-			data.debug("The 'status' is not a string.", "error")
 
 		if letters[index].has("header"):
 			if typeof(letters[index]["header"]) == TYPE_STRING:
 				header_label.text = letters[index]["header"]
 				header_label.visible = true
-			else:
-				data.debug("The 'header' is not a string.", "error")
 		else:
 			header_label.visible = false
 
@@ -111,8 +113,6 @@ func get_data(letterID) -> void:
 			if typeof(letters[index]["description"]) == TYPE_STRING:
 				description_label.text = letters[index]["description"]
 				description_label.visible = true
-			else:
-				print_debug("The 'description_label' is not a string.", "error")
 		else:
 			description_label.visible = false
 
@@ -120,15 +120,12 @@ func get_data(letterID) -> void:
 			if typeof(letters[index]["author"]) == TYPE_STRING:
 				author_label.text = "- " + letters[index]["author"]
 				author_label.visible = true
-			else:
-				data.debug("The 'author' is not a string.", "error")
 		else:
 			author_label.visible = false
 
 		if (letters[index].has("items") or letters[index].has("money"))\
 		&& (letters[index]["items"] != {} or letters[index]["money"] != 0):
 			items_hbox.visible = true
-
 			if (letters[index]["items"] != {} || letters[index]["money"] != 0):
 				button.text = tr("Получить")
 				if letters[index]["items"] != {}:
@@ -310,6 +307,7 @@ func open() -> void:
 	update_state_mail_manipulation_button()
 	GameLoader.mailbox_indicator = false
 	if mailbox: mailbox.check_indicator_state()
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 	if audio:
 		if !audio.is_playing():
 			audio.stream = load('res://assets/sounds/ui/mailbox.ogg')
@@ -441,6 +439,12 @@ func _on_close_mouse_entered():
 	_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
 	_audio.stream = load('res://assets/sounds/ui/hover.ogg')
 	_audio.play()
+	if cursor:
+		cursor.set_cursor(cursor.states.ACTIVE)
+
+func _on_close_mouse_exited():
+	if cursor:
+		cursor.set_cursor(cursor.states.DEFAULT)
 
 func _on_get_items_mouse_entered():
 	if button.visible && !button.disabled:
@@ -449,6 +453,13 @@ func _on_get_items_mouse_entered():
 		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
 		_audio.stream = load('res://assets/sounds/ui/hover.ogg')
 		_audio.play()
+		if cursor:
+			cursor.set_cursor(cursor.states.ACTIVE)
+
+func _on_get_items_mouse_exited():
+	if button.visible && !button.disabled:
+		if cursor:
+			cursor.set_cursor(cursor.states.DEFAULT)
 
 func _on_mail_remove_mouse_entered():
 	if mail_manipulation_buttons.visible:
@@ -457,6 +468,8 @@ func _on_mail_remove_mouse_entered():
 		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
 		_audio.stream = load('res://assets/sounds/ui/hover.ogg')
 		_audio.play()
+		if cursor:
+			cursor.set_cursor(cursor.states.ACTIVE)
 
 func _on_delete_all_readed_letters_mouse_entered():
 	if mails_remove_button.visible && !mails_remove_button.disabled:
@@ -465,6 +478,8 @@ func _on_delete_all_readed_letters_mouse_entered():
 		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
 		_audio.stream = load('res://assets/sounds/ui/hover.ogg')
 		_audio.play()
+		if cursor:
+			cursor.set_cursor(cursor.states.ACTIVE)
 
 func _on_audio_finished(node) -> void:
 	node.queue_free()

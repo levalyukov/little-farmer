@@ -60,6 +60,7 @@ libraries = {
 speed_scale = 0.25
 
 [node name="Indicator" type="Sprite2D" parent="."]
+visible = false
 self_modulate = Color(1, 1, 1, 0.784314)
 z_index = 100
 position = Vector2(0, -5)
