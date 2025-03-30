@@ -52,4 +52,5 @@ mouse_filter = 2
 texture = ExtResource("4_0p3ji")
 
 [connection signal="mouse_entered" from="Main/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="Main/Button" to="." method="_on_button_mouse_exited"]
 [connection signal="pressed" from="Main/Button" to="." method="_on_button_pressed"]
