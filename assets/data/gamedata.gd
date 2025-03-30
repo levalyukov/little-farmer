@@ -598,7 +598,6 @@ func load_buildings() -> void:
 					string_to_vector(file_load(file.buildings)[i]["position"]),
 					i
 				)
-
 				if file_load(file.buildings)[i].has("level"):
 					for node in buildings.get_children():
 						if i == node.name:
