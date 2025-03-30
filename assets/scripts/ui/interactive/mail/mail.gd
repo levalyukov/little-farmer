@@ -53,11 +53,13 @@ func _ready():
 	reset_data()
 	delete_letters()
 	self.add_child(audio)
-	if data:
-		if data.file_load(data.file.player):
-			if data.file_load(data.file.player).has('indicator_mailbox'):
-				GameLoader.mailbox_indicator = data.file_load(data.file.player)['indicator_mailbox']
-				mailbox.check_indicator_state()
+	if main:
+		if main == "Farm":
+			if data:
+				if data.file_load(data.file.player):
+					if data.file_load(data.file.player).has('indicator_mailbox'):
+						GameLoader.mailbox_indicator = data.file_load(data.file.player)['indicator_mailbox']
+						mailbox.check_indicator_state()
 
 func _process(_delta) -> void:
 	if visible:
@@ -334,6 +336,8 @@ func _on_get_items_pressed() -> void:
 			_audio.stream = load('res://assets/sounds/ui/click.ogg')
 			_audio.play()
 			get_all_items(index, letters)
+			if cursor:
+				cursor.set_cursor(cursor.states.DEFAULT)
 	else:
 		var full_inventory_error = tr("Нет места на складе.")
 		notice.create_notice(full_inventory_error, "error")
@@ -471,6 +475,10 @@ func _on_mail_remove_mouse_entered():
 		if cursor:
 			cursor.set_cursor(cursor.states.ACTIVE)
 
+func _on_mail_remove_mouse_exited():
+	if cursor:
+		cursor.set_cursor(cursor.states.DEFAULT)
+
 func _on_delete_all_readed_letters_mouse_entered():
 	if mails_remove_button.visible && !mails_remove_button.disabled:
 		var _audio = AudioStreamPlayer.new()
@@ -480,6 +488,11 @@ func _on_delete_all_readed_letters_mouse_entered():
 		_audio.play()
 		if cursor:
 			cursor.set_cursor(cursor.states.ACTIVE)
+
+func _on_delete_all_readed_letters_mouse_exited():
+	if button.visible && !button.disabled:
+		if cursor:
+			cursor.set_cursor(cursor.states.DEFAULT)
 
 func _on_audio_finished(node) -> void:
 	node.queue_free()

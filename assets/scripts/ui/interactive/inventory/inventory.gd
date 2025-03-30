@@ -110,6 +110,7 @@ func close() -> void:
 	blur.blur(false)
 	anim.play("close")
 	remove_inventory_slots()
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
 func get_data(index) -> void:
 	if opened:
@@ -446,14 +447,24 @@ func _on_close_mouse_entered():
 		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
 		_audio.stream = load('res://assets/sounds/ui/hover.ogg')
 		_audio.play()
+		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 
+func _on_close_mouse_exited():
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+	
 func _on_button_mouse_entered():
 	if visible:
-		var _audio = AudioStreamPlayer.new()
-		self.add_child(_audio)
-		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
-		_audio.stream = load('res://assets/sounds/ui/hover.ogg')
-		_audio.play()
+		if !button.disabled:
+			var _audio = AudioStreamPlayer.new()
+			self.add_child(_audio)
+			_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
+			_audio.stream = load('res://assets/sounds/ui/hover.ogg')
+			_audio.play()
+			if cursor: cursor.set_cursor(cursor.states.ACTIVE)
+
+func _on_button_mouse_exited():
+	if !button.disabled:
+		if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
 func _on_audio_finished(_audio) -> void:
 	_audio.queue_free()

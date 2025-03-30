@@ -9,6 +9,7 @@ extends Node2D
 @onready var buildings:Node2D = get_node("/root/"+main+"/ConstructionManager")
 @onready var stoneOvenMenu:Control = get_node("/root/"+main+"/UI/Interactive/StoneOvenMenu")
 @onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 @onready var buttonDestroy:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
 @onready var light:PointLight2D = $Light
 @onready var sprite:Sprite2D = $Sprite2D
@@ -118,6 +119,7 @@ func _process(_delta):
 func _on_area_2d_mouse_entered():
 	if !blur.state\
 	&& grid.mode == grid.modes.NOTHING:
+		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 		if !inProcessed:
 			if buttonDestroy.destroyMode:
 				destroyMode = true
@@ -149,6 +151,7 @@ func _on_area_2d_mouse_entered():
 			stoneMenuOpen = true
 
 func _on_area_2d_mouse_exited():
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 	if !inProcessed:
 		if object.has(level):
 			if object[level].has('default_idle'):
@@ -194,5 +197,6 @@ func get_data() -> Dictionary:
 		'fuelID': fuel_id,
 		'fuelAmount': fuel_amount,
 		'ignotID': ignot_id,
-		'ignotAmount': ignot_amount
+		'ignotAmount': ignot_amount,
+		'all_collisions': all_collisions
 	}

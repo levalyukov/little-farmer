@@ -4,6 +4,7 @@ extends MarginContainer
 @onready var options:Control = $Menu/Options
 @onready var blackout:Control = $Blackout
 @onready var blur:Control = $Blur
+@onready var cursor:Node2D = $Cursor
 
 @onready var game_continue_button:Button = $MenuContent/VContainer/ButtonsMargin/Buttons/ContinueMargin/ContinueButton
 @onready var credits:Label = $MenuContent/VContainer/FooterMargin/Credits
@@ -37,6 +38,8 @@ var player_file = FileAccess.open('user://game/data/player/player.json', FileAcc
 # --- --- ---
 
 func _ready():
+	if cursor:
+		cursor.set_cursor(cursor.states.DEFAULT)
 	blackout.blackout(false)
 	credits.text = "v" + ProjectSettings.get_setting("application/config/version") + "\n(C) Studio Miroro"
 	if !GameLoader.modal:
@@ -82,6 +85,8 @@ func _on_continue_button_pressed():
 		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 		audio.stream = load('res://assets/sounds/ui/click.ogg')
 		audio.play()
+		if cursor:
+			cursor.set_cursor(cursor.states.DEFAULT)
 
 func _on_new_game_button_pressed():
 	if !clicked:
@@ -96,6 +101,8 @@ func _on_new_game_button_pressed():
 		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 		audio.stream = load('res://assets/sounds/ui/click.ogg')
 		audio.play()
+		if cursor:
+			cursor.set_cursor(cursor.states.DEFAULT)
 
 func _on_options_button_pressed():
 	if !clicked:
@@ -106,6 +113,8 @@ func _on_options_button_pressed():
 		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 		audio.stream = load('res://assets/sounds/ui/click.ogg')
 		audio.play()
+		if cursor:
+			cursor.set_cursor(cursor.states.DEFAULT)
 
 func _on_exit_button_pressed():
 	if !clicked:
@@ -134,6 +143,12 @@ func _on_continue_button_mouse_entered():
 		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 		audio.stream = load('res://assets/sounds/ui/hover.ogg')
 		audio.play()
+		if cursor:
+			cursor.set_cursor(cursor.states.ACTIVE)
+
+func _on_continue_button_mouse_exited():
+	if cursor:
+		cursor.set_cursor(cursor.states.DEFAULT)
 
 func _on_new_game_button_mouse_entered():
 	if !clicked:
@@ -142,6 +157,12 @@ func _on_new_game_button_mouse_entered():
 		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 		audio.stream = load('res://assets/sounds/ui/hover.ogg')
 		audio.play()
+		if cursor:
+			cursor.set_cursor(cursor.states.ACTIVE)
+
+func _on_new_game_button_mouse_exited():
+	if cursor:
+		cursor.set_cursor(cursor.states.DEFAULT)
 
 func _on_settings_button_mouse_entered():
 	if !clicked:
@@ -150,6 +171,12 @@ func _on_settings_button_mouse_entered():
 		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 		audio.stream = load('res://assets/sounds/ui/hover.ogg')
 		audio.play()
+		if cursor:
+			cursor.set_cursor(cursor.states.ACTIVE)
+
+func _on_settings_button_mouse_exited():
+	if cursor:
+		cursor.set_cursor(cursor.states.DEFAULT)
 
 func _on_exit_button_mouse_entered():
 	if !clicked:
@@ -158,6 +185,13 @@ func _on_exit_button_mouse_entered():
 		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 		audio.stream = load('res://assets/sounds/ui/hover.ogg')
 		audio.play()
+		if cursor:
+			cursor.set_cursor(cursor.states.ACTIVE)
+
+
+func _on_exit_button_mouse_exited():
+	if cursor:
+		cursor.set_cursor(cursor.states.DEFAULT)
 
 func _on_audio_finished(node) -> void:
 	node.queue_free()

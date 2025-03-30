@@ -9,6 +9,7 @@ extends Control
 @onready var sprite:CompressedTexture2D = load("res://assets/resources/ui/interactive/hud/tools/trash.png")
 @onready var icon:TextureRect = $Main/Margin/Icon
 @onready var destroy_menu:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/DestroyMenuMargin/DestroyMenu")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 @onready var button:Button = $Main/Button
 
 var destroyMode:bool = false
@@ -53,6 +54,10 @@ func _on_button_mouse_entered():
 			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 			audio.stream = load('res://assets/sounds/ui/hover.ogg')
 			audio.play()
+			if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 			
 func _on_audio_finished(node) -> void:
 	node.queue_free()
+
+func _on_button_mouse_exited():
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)

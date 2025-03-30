@@ -9,6 +9,7 @@ extends Node2D
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var buttonDestroy:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
 @onready var radioMenu:Control = get_node("/root/"+main+"/UI/Interactive/RadioMenu")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 
 @onready var particles:CPUParticles2D = $CPUParticles2D
 @onready var audio_player:AudioStreamPlayer2D = $AudioStreamPlayer2D
@@ -70,7 +71,6 @@ func play_track(index:int) -> void:
 			audio_player.stop()
 			audio_player.stream = audio_streams[audio_index_track]
 			audio_player.play()
-
 	if radioMenu:
 		radioMenu.update_string_playNow()
 
@@ -82,7 +82,6 @@ func scan_user_files(folder_path:String = "user://game/custom_music/") -> Array:
 	if !dir:
 		FileSystem.new().Funcs.create_directory(folder_path)
 		scan_user_files(folder_path)
-
 	dir.list_dir_begin()
 	audio_captions = []
 	var files = []
@@ -162,6 +161,7 @@ func _on_area_2d_mouse_entered() -> void:
 	if !blur.state\
 	&& grid.mode == grid.modes.NOTHING\
 	&& !buttonDestroy.destroyMode:
+		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 		if !state:
 			state = true
 		if object.has('hover'):
@@ -178,6 +178,7 @@ func _on_area_2d_mouse_entered() -> void:
 				sprite.texture = object['delete']
 
 func _on_area_2d_mouse_exited() -> void:
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 	if destroyMode:
 		destroyMode = !true
 	if state:

@@ -14,6 +14,7 @@ extends Node2D
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var compostMenu:Control = get_node("/root/"+main+"/UI/Interactive/ComposterMenu")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 @onready var buttonDestroy:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
 @onready var sprite:Sprite2D = $Sprite2D
 @onready var timer:Timer = $Timer
@@ -146,7 +147,8 @@ func _on_area_2d_mouse_entered() -> void:
 		menuAccess = true
 		if !blur.state:
 			var distance = round(global_position.distance_to(player.global_position))
-			if grid.mode == grid.modes.NOTHING and distance < building.max_distance:
+			if grid.mode == grid.modes.NOTHING && distance < building.max_distance:
+				if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 				if object.has(level):
 					if object[level].has("state"):
 						if composting:
@@ -193,6 +195,7 @@ func _on_area_2d_mouse_entered() -> void:
 								data.debug("'"+str(self.name) + "': There is no 'idle' key.", "error")
 								
 func _on_area_2d_mouse_exited() -> void:
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 	menuAccess = false
 	destroyMode = !true
 	if object.has(level):

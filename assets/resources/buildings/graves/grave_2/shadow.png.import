@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bc38hcu24r1x6"
-path="res://.godot/imported/object_2.png-3e94a3183ab4ca54a8a0e683eb4e8d9d.ctex"
+uid="uid://cw3bc6c0lerwk"
+path="res://.godot/imported/shadow.png-5928348e8c6ea8ce8452044ee9c732ca.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/resources/buildings/graves/grave_3/object_2.png"
-dest_files=["res://.godot/imported/object_2.png-3e94a3183ab4ca54a8a0e683eb4e8d9d.ctex"]
+source_file="res://assets/resources/buildings/graves/grave_2/shadow.png"
+dest_files=["res://.godot/imported/shadow.png-5928348e8c6ea8ce8452044ee9c732ca.ctex"]
 
 [params]
 

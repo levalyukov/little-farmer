@@ -90,7 +90,6 @@ offset_bottom = 720.0
 mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-visible = false
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 55.0

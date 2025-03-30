@@ -7,6 +7,7 @@ extends Control
 @onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var building:Node2D = get_node("/root/"+main+"/ConstructionManager")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 
 @onready var node:PackedScene = load("res://assets/nodes/ui/interactive/construct/blueprint.tscn")
 @onready var scroll_container_info:ScrollContainer = $Main/MainContent/InfoContent/ScrollContainer
@@ -51,9 +52,9 @@ var index:int
 var section:String = "all"
 var opened:bool = false
 var all_items:bool
-var terrains_blueprints:Array[int] = []
-var node_blueprints:Array[int] = []
-var upgrade_blueprints:Array[int] = []
+var terrains_blueprints:Array[int] = [1,2,3,4,5,6,7,8,9,10]
+var node_blueprints:Array[int] = [1,2,3,4,5,6,7,8,9,10]
+var upgrade_blueprints:Array[int] = [1,2,3,4,5,6,7,8,9,10]
 
 var items:Object = Items.new()
 var blueprints:Object = BlueprintManager.new()
@@ -79,9 +80,11 @@ func _process(_delta) -> void:
 		if slots_to_create_nodes.size() > 0 && current_slot_index_nodes < slots_to_create_nodes.size():
 			for i in range(1):
 				if current_slot_index_nodes < slots_to_create_nodes.size():
-					var blueprint = node.instantiate()
-					container.add_child(blueprint)
-					blueprint.set_data("nodes", slots_to_create_nodes[current_slot_index_nodes])
+					if blueprints.content.has('nodes'):
+						if blueprints.content['nodes'].has(slots_to_create_nodes[current_slot_index_nodes]):
+							var blueprint = node.instantiate()
+							container.add_child(blueprint)
+							blueprint.set_data("nodes", slots_to_create_nodes[current_slot_index_nodes])
 					current_slot_index_nodes += 1
 				else:
 					break
@@ -89,9 +92,11 @@ func _process(_delta) -> void:
 		if slots_to_create_terrains.size() > 0 && current_slot_index_terrains < slots_to_create_terrains.size():
 			for i in range(1):
 				if current_slot_index_terrains < slots_to_create_terrains.size():
-					var blueprint = node.instantiate()
-					container.add_child(blueprint)
-					blueprint.set_data("terrains", slots_to_create_terrains[current_slot_index_terrains])
+					if blueprints.content.has('terrains'):
+						if blueprints.content['terrains'].has(slots_to_create_terrains[current_slot_index_terrains]):
+							var blueprint = node.instantiate()
+							container.add_child(blueprint)
+							blueprint.set_data("terrains", slots_to_create_terrains[current_slot_index_terrains])
 					current_slot_index_terrains += 1
 				else:
 					break
@@ -99,10 +104,12 @@ func _process(_delta) -> void:
 		if slots_to_create_upgrade.size() > 0 && current_slot_index_upgrade < slots_to_create_upgrade.size():
 			for i in range(1):
 				if current_slot_index_upgrade < slots_to_create_upgrade.size():
-					var blueprint = node.instantiate()
-					container.add_child(blueprint)
-					blueprint.set_data("ugprades", slots_to_create_upgrade[current_slot_index_upgrade])
-					current_slot_index_upgrade += 1
+					if blueprints.content.has('ugprades'):
+						if blueprints.content['ugprades'].has(slots_to_create_upgrade[current_slot_index_upgrade]):
+							var blueprint = node.instantiate()
+							container.add_child(blueprint)
+							blueprint.set_data("ugprades", slots_to_create_upgrade[current_slot_index_upgrade])
+						current_slot_index_upgrade += 1
 				else:
 					break
 
@@ -489,6 +496,7 @@ func _on_close_mouse_entered():
 	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 	audio.stream = load('res://assets/sounds/ui/hover.ogg')
 	audio.play()
+	if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 
 func _on_button_all_blueprints_mouse_entered():
 	if section != "all":
@@ -497,6 +505,7 @@ func _on_button_all_blueprints_mouse_entered():
 		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 		audio.stream = load('res://assets/sounds/ui/hover.ogg')
 		audio.play()
+	if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 
 func _on_button_landscape_mouse_entered():
 	if section != "terrains":
@@ -505,6 +514,7 @@ func _on_button_landscape_mouse_entered():
 		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 		audio.stream = load('res://assets/sounds/ui/hover.ogg')
 		audio.play()
+	if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 
 func _on_button_buildings_mouse_entered():
 	if section != "nodes":
@@ -513,6 +523,7 @@ func _on_button_buildings_mouse_entered():
 		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 		audio.stream = load('res://assets/sounds/ui/hover.ogg')
 		audio.play()
+	if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 
 func _on_button_upgrades_mouse_entered():
 	if section != "upgrades":
@@ -521,6 +532,22 @@ func _on_button_upgrades_mouse_entered():
 		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 		audio.stream = load('res://assets/sounds/ui/hover.ogg')
 		audio.play()
+	if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 
 func _on_audio_finished(audio) -> void:
 	audio.queue_free()
+
+func _on_button_all_blueprints_mouse_exited():
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+
+func _on_button_buildings_mouse_exited():
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+
+func _on_button_landscape_mouse_exited():
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+
+func _on_button_upgrades_mouse_exited():
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+
+func _on_close_mouse_exited():
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)	

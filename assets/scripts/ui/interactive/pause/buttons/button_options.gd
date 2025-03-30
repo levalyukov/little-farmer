@@ -1,10 +1,11 @@
 extends Button
 
-@onready var main_scene = str(get_tree().root.get_child(2).name)
-@onready var blur:Control = get_node("/root/" + main_scene + "/UI/Decorative/Blur")
-@onready var pause:Control = get_node("/root/" + main_scene + "/UI/Interactive/Pause")
-@onready var options:Control = get_node("/root/" + main_scene + "/UI/Interactive/Options")
-@onready var player:CharacterBody2D = get_node("/root/" + main_scene + "/Camera")
+@onready var main = str(get_tree().root.get_child(2).name)
+@onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
+@onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
+@onready var options:Control = get_node("/root/"+main+"/UI/Interactive/Options")
+@onready var player:CharacterBody2D = get_node("/root/"+main+"/Camera")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 
 func _on_pressed() -> void:
 	if blur.state:
@@ -25,6 +26,12 @@ func _on_mouse_entered():
 			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 			audio.stream = load('res://assets/sounds/ui/hover.ogg')
 			audio.play()
+			if cursor:
+				cursor.set_cursor(cursor.states.ACTIVE)
+			
+func _on_mouse_exited():
+	if cursor:
+		cursor.set_cursor(cursor.states.DEFAULT)
 			
 func _on_audio_finished(node) -> void:
 	node.queue_free()

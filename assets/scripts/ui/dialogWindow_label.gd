@@ -1,4 +1,4 @@
-extends Label
+extends RichTextLabel
 
 @onready var main:String = str(get_tree().root.get_child(2).name)
 @onready var npcHeader:Label = get_node('/root/'+main+'/UI/Interactive/DialogWindow/MarginContainer/Panel/VBoxContainer/MarginContainer/Label')
@@ -13,6 +13,15 @@ var text_to_print:String
 var print_speed:float = 0.01
 var current_char_index:int = 0
 var char_index:int = 0
+
+func resetDialogText() -> void:
+	text = ""
+	current_char_index = 0
+	char_index = 0
+	mainStringContent = []
+	buttonCaptionsContent = {}
+	buttonTypeContent = {}
+	text_to_print = ""
 
 func setDialogText(npcCaption:String, content:Array, buttonsCaption:Dictionary, buttonFunc:Dictionary) -> void:
 	npcHeader.text = npcCaption

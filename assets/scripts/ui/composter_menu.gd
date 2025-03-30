@@ -5,6 +5,7 @@ extends Control
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 
 @onready var itemsForCompostMargin:MarginContainer = $Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin
 @onready var itemsForCompostContainer:GridContainer = $Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer
@@ -165,12 +166,14 @@ func open(node:Node2D) -> void:
 	check_state_button()
 	check_all_states()
 	compostingProcessLabel.text = tr("Выберите отходы для начала компостирования.")
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
 func close() -> void:
 	opened = false
 	blur.blur(false)
 	anim.play("close")
 	current_node = null
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
 func _check_window() -> void:
 	visible = opened
@@ -245,7 +248,9 @@ func _on_button_exit_pressed() -> void:
 	_audio.stream = load('res://assets/sounds/ui/click.ogg')
 	_audio.play()
 	close()
+
 func _on_button_exit_mouse_entered():
+	if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 	var _audio = AudioStreamPlayer.new()
 	self.add_child(_audio)
 	_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
@@ -257,6 +262,7 @@ func _on_audio_finished(node) -> void:
 
 func _on_get_compost_button_mouse_entered():
 	if getCompostButton.visible:
+		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 		var _audio = AudioStreamPlayer.new()
 		self.add_child(_audio)
 		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
@@ -265,8 +271,19 @@ func _on_get_compost_button_mouse_entered():
 
 func _on_turn_button_mouse_entered():
 	if startComposting.visible && !startComposting.disabled:
+		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 		var _audio = AudioStreamPlayer.new()
 		self.add_child(_audio)
 		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
 		_audio.stream = load('res://assets/sounds/ui/hover.ogg')
 		_audio.play()
+
+
+func _on_get_compost_button_mouse_exited():
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+
+func _on_turn_button_mouse_exited():
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+
+func _on_button_exit_mouse_exited():
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)

@@ -8,44 +8,25 @@ extends Control
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 
-var opened:bool = true
+var opened:bool = false
 var visibled:bool = false
-var trade_id:int
+var npc_id:int
 
 func _ready():
-	dialogWindowClose()
-
-func _input(event):
-#		if Input.is_action_just_pressed('space'):
-		#dialogWindow(
-		#	"Разбитая могила",
-		#	[
-		#		'Перед вами заброшенная могила, разрушенная временем.\n\nНа потрескавшейся могильной плите едва угадываются несколько букв имени покоящейся здесь женщины:\n\n - Тя..на Анна (200x — 20xx)', 
-		#		'Приблизившись, вы замечаете под плитой небольшой клочок бумаги. Похоже, это чья-то записка.',
-		#	], 
-		#	{
-		#		0:['* Подойти поближе *','* Отойти *'],
-		#		1:['* Поднять записку *'],
-		#	},
-		#	{
-		#		0:[1,0],
-		#		1:[0],
-		#	}
-		#	)
-#
+	_check_window_state()
 	if Input.is_action_just_pressed("esc")\
 	&& blur.state\
 	&& !pause.paused\
 	&& opened:
 		dialogWindowClose()
 
-func dialogWindow(npcCaption:String, mainContent:Array, buttonsCaption:Dictionary, buttonFunc:Dictionary, trade_art:int = 0) -> void:
+func dialogWindow(npcCaption:String, mainContent:Array, buttonsCaption:Dictionary, buttonFunc:Dictionary, npc_art:int = 0) -> void:
 	if !opened:
 		opened = true
 		visibled = true
 		animation.play('open')
 		mainLabel.setDialogText(npcCaption, mainContent, buttonsCaption, buttonFunc)
-		trade_id = trade_art
+		npc_id = npc_art
 		if blur:
 			blur.blur(true)
 
@@ -54,6 +35,7 @@ func dialogWindowClose() -> void:
 		animation.play('close')
 		opened = !true
 		visibled = !true
+		mainLabel.resetDialogText()
 
 func _check_window_state() -> void:
 	visible = visibled

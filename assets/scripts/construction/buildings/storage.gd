@@ -134,10 +134,10 @@ func _on_area_2d_mouse_entered() -> void:
 	&& grid.mode == grid.modes.NOTHING\
 	&& !buttonDestroy.destroyMode:
 		_change_sprite(true)
+		if cursor:
+			cursor.set_cursor(cursor.states.ACTIVE)
 	if !buttonDestroy.destroyMode:
 		menu = true
-	if cursor:
-		cursor.set_cursor(cursor.states.ACTIVE)
 
 func _on_area_2d_mouse_exited() -> void:
 	_change_sprite(false)

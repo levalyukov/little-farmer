@@ -7,6 +7,7 @@ extends Control
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
 @onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/storage")
 @onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 
 @onready var header:Label = $Panel/VBox/HeaderMargin/Label
 @onready var oreIcon:TextureRect = $Panel/VBox/MarginContainer/MarginContainer/HBoxContainer/OreContainer/TextureRect
@@ -203,6 +204,7 @@ func open(node:Node2D) -> void:
 	get_special_items()
 	check_button_state()
 	anim.play('open')
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 	if audio:
 		if !audio.is_playing():
 			audio.stream = load('res://assets/sounds/buildings/forge.ogg')
@@ -261,6 +263,7 @@ func close() -> void:
 	fuel_id = 0
 	fuel_amount = 0
 	target_node = null
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
 func window() -> void:
 	visible = opened
@@ -332,19 +335,37 @@ func _on_close_button_pressed():
 	close()
 
 func _on_close_button_mouse_entered():
+	if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 	var _audio = AudioStreamPlayer.new()
 	self.add_child(_audio)
 	_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
 	_audio.stream = load('res://assets/sounds/ui/hover.ogg')
 	_audio.play()
 
-func _on_audio_finished(node) -> void:
-	node.queue_free()
-
 func _on_melt_button_mouse_entered():
 	if !meltButton.disabled:
+		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 		var _audio = AudioStreamPlayer.new()
 		self.add_child(_audio)
 		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
 		_audio.stream = load('res://assets/sounds/ui/hover.ogg')
 		_audio.play()
+
+func _on_melt_button_mouse_exited():
+	if !meltButton.disabled:
+		if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+
+func _on_get_ignot_mouse_entered():
+	if target_node.ignot_amount > 0:
+		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
+		var _audio = AudioStreamPlayer.new()
+		self.add_child(_audio)
+		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
+		_audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		_audio.play()
+
+func _on_get_ignot_mouse_exited():
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+
+func _on_audio_finished(node) -> void:
+	node.queue_free()

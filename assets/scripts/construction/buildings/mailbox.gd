@@ -115,7 +115,6 @@ func _on_area_2d_mouse_entered() -> void:
 						str(object["caption"])
 					)
 		menu = true
-	else:
 		if cursor:
 			cursor.set_cursor(cursor.states.ACTIVE)
 
@@ -129,5 +128,6 @@ func _on_area_2d_mouse_exited() -> void:
 	if tip:
 		tip.tooltip("")
 	menu = false
-	if cursor:
-		cursor.set_cursor(cursor.states.DEFAULT)
+	if blur.state || !blur.state:
+		if cursor:
+			cursor.set_cursor(cursor.states.DEFAULT)

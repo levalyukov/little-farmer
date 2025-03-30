@@ -4,6 +4,8 @@ extends Control
 @onready var data = get_node("/root/"+main)
 @onready var construct:Control = get_node("/root/"+main+"/UI/Interactive/ConstructMenu")
 @onready var blueprintsShop:Control = get_node("/root/"+main+"/UI/Interactive/BlueprintsShop")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
+
 @onready var icon:TextureRect = $Button/HBoxContainer/MarginContainer/Icon
 @onready var caption:Label = $Button/HBoxContainer/Caption
 @onready var button:Button = $Button
@@ -69,9 +71,10 @@ func _on_button_mouse_entered():
 			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 			audio.stream = load('res://assets/sounds/ui/hover.ogg')
 			audio.play()
+			if cursor: cursor.set_cursor(cursor.states.ACTIVE)
+
+func _on_button_mouse_exited():
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
 func _on_audio_finished(node) -> void:
 	node.queue_free()
-
-
-

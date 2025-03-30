@@ -6,6 +6,7 @@ extends Control
 @onready var crafting:Control = get_node("/root/"+main+"/UI/Interactive/Crafting")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
+@onready var fps_label:MarginContainer = get_node("/root/"+main+"/UI/MarginContainer")
 @onready var anim:AnimationPlayer = $AnimationHud
 @onready var fpsLabel:Label = $Main/FPS
 
@@ -26,10 +27,12 @@ func _input(_event):
 
 func hud_all_hide() -> void:
 	anim.play("hide_all")
+	fps_label.visible = false
 	hud = false
 	
 func hud_all_show() -> void:
 	anim.play("show_all")
+	fps_label.visible = true
 	hud = true
 
 func window() -> void:

@@ -12,6 +12,7 @@ extends Control
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
 @onready var zoom:Camera2D = get_node("/root/"+main+"/Player/Camera2D")
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 @onready var anim:AnimationPlayer = $AnimationPlayer
 @onready var version:Label = $Main/Container/GameVersionMargin/GameVersion
 
@@ -91,6 +92,12 @@ func _on_report_bug_button_mouse_entered():
 			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 			audio.stream = load('res://assets/sounds/ui/hover.ogg')
 			audio.play()
+			if cursor:
+				cursor.set_cursor(cursor.states.ACTIVE)
 			
+func _on_report_bug_button_mouse_exited():
+	if cursor:
+		cursor.set_cursor(cursor.states.DEFAULT)
+
 func _on_audio_finished(node) -> void:
 	node.queue_free()

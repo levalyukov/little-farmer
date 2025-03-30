@@ -9,6 +9,7 @@ extends Button
 @onready var craft:Control = get_node("/root/"+main+"/UI/Interactive/ConstructMenu")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 
 var items:Object = Items.new()
 var blueprints:Object = BlueprintManager.new()
@@ -89,6 +90,11 @@ func _on_mouse_entered():
 		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 		audio.stream = load('res://assets/sounds/ui/hover.ogg')
 		audio.play()
+		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 	
+func _on_mouse_exited():
+	if visible:
+		if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+
 func _on_audio_finished(node) -> void:
 	node.queue_free()

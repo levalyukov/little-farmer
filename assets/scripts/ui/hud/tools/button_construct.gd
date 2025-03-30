@@ -4,6 +4,7 @@ extends Control
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var craft:Control = get_node("/root/"+main+"/UI/Interactive/ConstructMenu")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 @onready var sprite:CompressedTexture2D = load("res://assets/resources/ui/interactive/hud/tools/hammer.png")
 @onready var icon:TextureRect = $Main/Margin/Icon
 @onready var button:Button = $Main/Button
@@ -32,6 +33,12 @@ func _on_button_mouse_entered():
 			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 			audio.stream = load('res://assets/sounds/ui/hover.ogg')
 			audio.play()
-			
+			if cursor: cursor.set_cursor(cursor.states.ACTIVE)
+
+func _on_button_mouse_exited():
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+
 func _on_audio_finished(node) -> void:
 	node.queue_free()
+
+

@@ -150,6 +150,14 @@ func _on_graphic_button_mouse_entered():
 	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 	audio.stream = load('res://assets/sounds/ui/hover.ogg')
 	audio.play()
+	if main == "MainMenu":
+		var cursor = get_node('/root/'+main+'/Cursor')
+		if cursor:
+			cursor.set_cursor(cursor.states.ACTIVE)
+	else:
+		var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
+		if cursor:
+			cursor.set_cursor(cursor.states.ACTIVE)	
 
 func _on_sound_button_mouse_entered():
 	var audio = AudioStreamPlayer.new()
@@ -157,6 +165,14 @@ func _on_sound_button_mouse_entered():
 	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 	audio.stream = load('res://assets/sounds/ui/hover.ogg')
 	audio.play()
+	if main == "MainMenu":
+		var cursor = get_node('/root/'+main+'/Cursor')
+		if cursor:
+			cursor.set_cursor(cursor.states.ACTIVE)
+	else:
+		var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
+		if cursor:
+			cursor.set_cursor(cursor.states.ACTIVE)	
 
 func _on_control_mouse_entered():
 	var audio = AudioStreamPlayer.new()
@@ -164,6 +180,14 @@ func _on_control_mouse_entered():
 	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 	audio.stream = load('res://assets/sounds/ui/hover.ogg')
 	audio.play()
+	if main == "MainMenu":
+		var cursor = get_node('/root/'+main+'/Cursor')
+		if cursor:
+			cursor.set_cursor(cursor.states.ACTIVE)
+	else:
+		var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
+		if cursor:
+			cursor.set_cursor(cursor.states.ACTIVE)	
 
 # -- -- --
 
@@ -204,6 +228,14 @@ func _on_v_sync_button_mouse_entered():
 	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 	audio.stream = load('res://assets/sounds/ui/hover.ogg')
 	audio.play()
+	if main == "MainMenu":
+		var cursor = get_node('/root/'+main+'/Cursor')
+		if cursor:
+			cursor.set_cursor(cursor.states.ACTIVE)
+	else:
+		var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
+		if cursor:
+			cursor.set_cursor(cursor.states.ACTIVE)	
 
 func _on_full_screen_button_mouse_entered():
 	var audio = AudioStreamPlayer.new()
@@ -211,6 +243,14 @@ func _on_full_screen_button_mouse_entered():
 	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 	audio.stream = load('res://assets/sounds/ui/hover.ogg')
 	audio.play()
+	if main == "MainMenu":
+		var cursor = get_node('/root/'+main+'/Cursor')
+		if cursor:
+			cursor.set_cursor(cursor.states.ACTIVE)
+	else:
+		var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
+		if cursor:
+			cursor.set_cursor(cursor.states.ACTIVE)	
 
 func _on_option_button_mouse_entered():
 	var audio = AudioStreamPlayer.new()
@@ -218,6 +258,14 @@ func _on_option_button_mouse_entered():
 	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 	audio.stream = load('res://assets/sounds/ui/hover.ogg')
 	audio.play()
+	if main == "MainMenu":
+		var cursor = get_node('/root/'+main+'/Cursor')
+		if cursor:
+			cursor.set_cursor(cursor.states.ACTIVE)
+	else:
+		var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
+		if cursor:
+			cursor.set_cursor(cursor.states.ACTIVE)	
 
 func _on_option_button_pressed():
 	var audio = AudioStreamPlayer.new()
@@ -249,3 +297,83 @@ func _on_option_button_item_selected(_index:int):
 
 func _on_audio_finished(node) -> void:
 	node.queue_free()
+
+func _on_graphic_button_mouse_exited():
+	if main == "MainMenu":
+		var cursor = get_node('/root/'+main+'/Cursor')
+		if cursor:
+			cursor.set_cursor(cursor.states.DEFAULT)
+	else:
+		var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
+		if cursor:
+			cursor.set_cursor(cursor.states.DEFAULT)	
+
+func _on_control_mouse_exited():
+	if main == "MainMenu":
+		var cursor = get_node('/root/'+main+'/Cursor')
+		if cursor:
+			cursor.set_cursor(cursor.states.DEFAULT)
+	else:
+		var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
+		if cursor:
+			cursor.set_cursor(cursor.states.DEFAULT)	
+
+func _on_sound_button_mouse_exited():
+	if main == "MainMenu":
+		var cursor = get_node('/root/'+main+'/Cursor')
+		if cursor:
+			cursor.set_cursor(cursor.states.DEFAULT)
+	else:
+		var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
+		if cursor:
+			cursor.set_cursor(cursor.states.DEFAULT)	
+
+func _on_save_changes_button_mouse_exited():
+	if main == "MainMenu":
+		var cursor = get_node('/root/'+main+'/Cursor')
+		if cursor:
+			cursor.set_cursor(cursor.states.DEFAULT)
+	else:
+		var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
+		if cursor:
+			cursor.set_cursor(cursor.states.DEFAULT)	
+
+func _on_save_changes_button_mouse_entered():
+	if main == "MainMenu":
+		var cursor = get_node('/root/'+main+'/Cursor')
+		if cursor:
+			cursor.set_cursor(cursor.states.ACTIVE)
+	else:
+		var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
+		if cursor:
+			cursor.set_cursor(cursor.states.ACTIVE)	
+
+func _on_full_screen_button_mouse_exited():
+	if main == "MainMenu":
+		var cursor = get_node('/root/'+main+'/Cursor')
+		if cursor:
+			cursor.set_cursor(cursor.states.DEFAULT)
+	else:
+		var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
+		if cursor:
+			cursor.set_cursor(cursor.states.DEFAULT)	
+
+func _on_v_sync_button_mouse_exited():
+	if main == "MainMenu":
+		var cursor = get_node('/root/'+main+'/Cursor')
+		if cursor:
+			cursor.set_cursor(cursor.states.DEFAULT)
+	else:
+		var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
+		if cursor:
+			cursor.set_cursor(cursor.states.DEFAULT)		
+
+func _on_option_button_mouse_exited():
+	if main == "MainMenu":
+		var cursor = get_node('/root/'+main+'/Cursor')
+		if cursor:
+			cursor.set_cursor(cursor.states.DEFAULT)
+	else:
+		var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
+		if cursor:
+			cursor.set_cursor(cursor.states.DEFAULT)	

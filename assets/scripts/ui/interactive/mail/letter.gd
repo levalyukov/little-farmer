@@ -3,6 +3,7 @@ extends Control
 @onready var main = str(get_tree().root.get_child(2).name)
 @onready var data = get_node("/root/"+main)
 @onready var mail:Control = get_node("/root/"+main+"/UI/Interactive/Mailbox")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 @onready var icon:TextureRect = $Button/HBoxContainer/MarginContainer/TextureRect
 @onready var header:Label = $Button/HBoxContainer/Label
 const symbols:int = 32
@@ -53,3 +54,10 @@ func _on_button_mouse_entered() :
 		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 		audio.stream = load('res://assets/sounds/ui/hover.ogg')
 		audio.play()
+		if cursor:
+			cursor.set_cursor(cursor.states.ACTIVE)
+
+
+func _on_button_mouse_exited():
+	if cursor:
+		cursor.set_cursor(cursor.states.DEFAULT)

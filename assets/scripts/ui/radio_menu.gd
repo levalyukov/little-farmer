@@ -4,6 +4,7 @@ extends Control
 @onready var data = get_node("/root/"+main)
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 
 @onready var header:Label = $NinePatchRect/VBoxContainer/HeaderMargin/Label
 @onready var playNow:Label = $NinePatchRect/VBoxContainer/PlayNowMargin/Label
@@ -19,7 +20,8 @@ extends Control
 @onready var radiostationsContainer:VBoxContainer = $NinePatchRect/VBoxContainer/RadioType/VBoxContainer/HBoxContainer/RadiostationContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer
 @onready var usersTracksMargin:MarginContainer = $NinePatchRect/VBoxContainer/RadioType/VBoxContainer/HBoxContainer/UserTracksContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/MarginContainer
 @onready var usersTracksContainer:VBoxContainer = $NinePatchRect/VBoxContainer/RadioType/VBoxContainer/HBoxContainer/UserTracksContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer
-
+@onready var buttonOpenFolder:Button = $NinePatchRect/VBoxContainer/RadioType/VBoxContainer/HBoxContainer/UserTracksContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/OpenFolderButton
+@onready var buttonScanUsersTracks:Button = $NinePatchRect/VBoxContainer/RadioType/VBoxContainer/HBoxContainer/UserTracksContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ScanFolderButton
 @onready var anim:AnimationPlayer = $AnimationPlayer
 
 var opened:bool = false
@@ -55,6 +57,13 @@ var stations:Dictionary = {
 
 func _ready():
 	close()
+
+func _input(_event):
+	if Input.is_action_just_pressed("esc")\
+	&& blur.state\
+	&& !pause.paused\
+	&& opened:
+		close()
 
 func _process(_delta):
 	if visible:
@@ -119,10 +128,25 @@ func on_station_pressed(stationName:String):
 	if visible:
 		if node:
 			node.userMode = !true
+			node.random = true
+			node.repeat = true
+
+			#	Main Code...
+
+			var audio = AudioStreamPlayer.new()
+			self.add_child(audio)
+			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+			audio.stream = load('res://assets/sounds/ui/click.ogg')
+			audio.play()
 			print(stationName)
 
 func _on_open_folder_button_pressed():
 	data.open_folder_in_explorer("user://game/custom_music/")
+	var audio = AudioStreamPlayer.new()
+	self.add_child(audio)
+	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+	audio.stream = load('res://assets/sounds/ui/click.ogg')
+	audio.play()
 
 func _on_scan_folder_button_pressed():
 	if node:
@@ -145,6 +169,11 @@ func _on_scan_folder_button_pressed():
 						button.disabled = true
 					else:
 						button.disabled = !true
+			var audio = AudioStreamPlayer.new()
+			self.add_child(audio)
+			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+			audio.stream = load('res://assets/sounds/ui/click.ogg')
+			audio.play()
 
 	if usersTracksContainer.get_children() == []:
 		usersTracksMargin.add_theme_constant_override("margin_top", 0)
@@ -162,8 +191,15 @@ func on_userTrack_pressed(index:int):
 	if node:
 		node.play_track(index)
 		node.userMode = true
+		node.random = !true
+		node.repeat = true
 		stream_position = 0.0
 		stopped = false
+		var audio = AudioStreamPlayer.new()
+		self.add_child(audio)
+		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+		audio.stream = load('res://assets/sounds/ui/click.ogg')
+		audio.play()
 
 func open(_node:Node2D) -> void:
 	opened = true
@@ -190,12 +226,14 @@ func open(_node:Node2D) -> void:
 				for z in radiostationsContainer.get_children():
 					if z is Button:
 						z.disabled = false
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
 func close() -> void:
 	opened = false
 	node = null
 	blur.blur(false)
 	anim.play("close")
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
 func window() -> void:
 	visible = opened
@@ -204,6 +242,11 @@ func window() -> void:
 
 func _on_close_button_pressed() -> void:
 	close()
+	var audio = AudioStreamPlayer.new()
+	self.add_child(audio)
+	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+	audio.stream = load('res://assets/sounds/ui/click.ogg')
+	audio.play()
 
 func _on_power_button_pressed():
 	if visible:
@@ -233,6 +276,11 @@ func _on_power_button_pressed():
 					for z in radiostationsContainer.get_children():
 						if z is Button:
 							z.disabled = false
+			var audio = AudioStreamPlayer.new()
+			self.add_child(audio)
+			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+			audio.stream = load('res://assets/sounds/ui/click.ogg')
+			audio.play()
 
 func _on_pause_track_button_pressed():
 	if visible:
@@ -244,6 +292,11 @@ func _on_pause_track_button_pressed():
 			else:
 				node.audio_player.play(stream_position)
 				stopped = false
+			var audio = AudioStreamPlayer.new()
+			self.add_child(audio)
+			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+			audio.stream = load('res://assets/sounds/ui/click.ogg')
+			audio.play()
 			
 func _on_next_track_button_pressed():
 	if visible:
@@ -251,6 +304,11 @@ func _on_next_track_button_pressed():
 			stream_position = 0.0
 			stopped = false
 			node.next_track()
+			var audio = AudioStreamPlayer.new()
+			self.add_child(audio)
+			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+			audio.stream = load('res://assets/sounds/ui/click.ogg')
+			audio.play()
 
 func _on_previous_track_button_pressed():
 	if visible:
@@ -258,3 +316,106 @@ func _on_previous_track_button_pressed():
 			stream_position = 0.0
 			stopped = false
 			node.previous_track()
+			var audio = AudioStreamPlayer.new()
+			self.add_child(audio)
+			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+			audio.stream = load('res://assets/sounds/ui/click.ogg')
+			audio.play()
+
+func _on_close_button_mouse_entered():
+	if cursor: cursor.set_cursor(cursor.states.ACTIVE)
+	var audio = AudioStreamPlayer.new()
+	self.add_child(audio)
+	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+	audio.stream = load('res://assets/sounds/ui/hover.ogg')
+	audio.play()
+
+func _on_close_button_mouse_exited():
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+
+func _on_audio_finished(_audio) -> void:
+	_audio.queue_free()
+
+
+func _on_previous_track_button_mouse_entered():
+	if visible:
+		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
+		var audio = AudioStreamPlayer.new()
+		self.add_child(audio)
+		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+		audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		audio.play()
+
+func _on_previous_track_button_mouse_exited():
+	if visible:
+		if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+
+
+func _on_pause_track_button_mouse_exited():
+	if visible:
+		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
+		var audio = AudioStreamPlayer.new()
+		self.add_child(audio)
+		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+		audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		audio.play()
+
+func _on_pause_track_button_mouse_entered():
+	if visible:
+		if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+
+
+func _on_next_track_button_mouse_entered():
+	if visible:
+		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
+		var audio = AudioStreamPlayer.new()
+		self.add_child(audio)
+		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+		audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		audio.play()
+
+func _on_next_track_button_mouse_exited():
+	if visible:
+		if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+	
+
+func _on_power_button_mouse_entered():
+	if visible:
+		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
+		var audio = AudioStreamPlayer.new()
+		self.add_child(audio)
+		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+		audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		audio.play()
+
+func _on_power_button_mouse_exited():
+	if visible:
+		if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+
+
+func _on_open_folder_button_mouse_entered():
+	if visible && !buttonOpenFolder.disabled:
+		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
+		var audio = AudioStreamPlayer.new()
+		self.add_child(audio)
+		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+		audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		audio.play()
+
+func _on_open_folder_button_mouse_exited():
+	if visible:
+		if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+
+
+func _on_scan_folder_button_mouse_entered():
+	if visible && !buttonScanUsersTracks.disabled:
+		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
+		var audio = AudioStreamPlayer.new()
+		self.add_child(audio)
+		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+		audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		audio.play()
+
+func _on_scan_folder_button_mouse_exited():
+	if visible:
+		if cursor: cursor.set_cursor(cursor.states.DEFAULT)

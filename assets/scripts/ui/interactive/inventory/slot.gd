@@ -13,6 +13,7 @@ extends Control
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var stoneMenu:Control = get_node("/root/"+main+"/UI/Interactive/StoneOvenMenu")
 @onready var sawmillMenu:Control = get_node("/root/"+main+"/UI/Interactive/SawmillMenu")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 @onready var icon:TextureRect = $Button/Icon
 @onready var amount_label:Label = $Button/Amount
 
@@ -60,6 +61,8 @@ func set_data(index, item_amount:int = 1) -> void:
 
 
 func _on_button_mouse_entered():
+	if cursor:
+		cursor.set_cursor(cursor.states.ACTIVE)
 	if has_node("/root/"+main+"/UI/Interactive/Mailbox"):
 		if mailbox:
 			if mailbox.opened:
@@ -128,6 +131,8 @@ func _on_button_mouse_entered():
 						data.debug("Invalid item ID: " + str(id), "warning")
 
 func _on_button_mouse_exited():
+	if cursor:
+		cursor.set_cursor(cursor.states.DEFAULT)
 	if has_node("/root/"+main+"/UI/Interactive/Mailbox")\
 	|| has_node("/root/"+main+"/UI/Interactive/BuildingsMenu/SignMenu")\
 	|| has_node("/root/"+main+"/UI/Interactive/TradeMenu")\
