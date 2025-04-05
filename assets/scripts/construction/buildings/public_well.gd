@@ -15,6 +15,7 @@ extends Node2D
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var blueprintsShop:Control = get_node("/root/"+main+"/UI/Interactive/BlueprintsShop")
 @onready var tools:HBoxContainer = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 @onready var sprite:Sprite2D = $Sprite2D
 
 var audio = AudioStreamPlayer.new()
@@ -88,6 +89,7 @@ func _on_area_2d_mouse_entered() -> void:
 	&& grid.mode == grid.modes.NOTHING:
 		var distance = round(global_position.distance_to(player.global_position))
 		if distance < building.max_distance:
+			if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 			if object.has("seasons"):
 				var season = clock.get_season()
 				if object["seasons"].has(season):
@@ -131,6 +133,7 @@ func _on_area_2d_mouse_entered() -> void:
 
 func _on_area_2d_mouse_exited() -> void:
 	openedMenu = !true
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 	if object.has("seasons"):
 		var season = clock.get_season()
 		if object["seasons"].has(season):

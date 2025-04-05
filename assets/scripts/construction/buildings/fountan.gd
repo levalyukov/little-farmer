@@ -6,11 +6,43 @@ extends Node2D
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var sprite:Sprite2D = $Sprite2D
 @onready var shadow_sprite:CompressedTexture2D = load("res://assets/resources/buildings/fountan/shadow.png")
+@onready var audio:AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 func _ready() -> void:
 	if self:
-		if shadow_sprite:
-			if shadow_sprite is CompressedTexture2D:
-				var vector2i_position = tilemap.local_to_map(position)
-				var target_position = Vector2i(vector2i_position.x, vector2i_position.y)
-				canvas.create_shadow("fountan_shadow", shadow_sprite, target_position)
+		if clock:
+			match clock.get_season():
+				'spring':
+					var target_sprite = load('res://assets/resources/buildings/fountan/obj_2.png')
+					if target_sprite:
+						sprite.texture = target_sprite
+					if shadow_sprite:
+						if shadow_sprite is CompressedTexture2D:
+							canvas.create_shadow("fountan_shadow", shadow_sprite, tilemap.local_to_map(position))
+					if audio:
+						if audio.is_playing():
+							audio.stop()
+				'summer':
+					var target_sprite = load('res://assets/resources/buildings/fountan/obj_0.png')
+					if target_sprite:
+						sprite.texture = target_sprite
+					if shadow_sprite:
+						if shadow_sprite is CompressedTexture2D:
+							canvas.create_shadow("fountan_shadow", shadow_sprite, tilemap.local_to_map(position))
+				'autumn':
+					var target_sprite = load('res://assets/resources/buildings/fountan/obj_0.png')
+					if target_sprite:
+						sprite.texture = target_sprite
+					if shadow_sprite:
+						if shadow_sprite is CompressedTexture2D:
+							canvas.create_shadow("fountan_shadow", shadow_sprite, tilemap.local_to_map(position))
+				'winter':
+					var target_sprite = load('res://assets/resources/buildings/fountan/obj_1.png')
+					if target_sprite:
+						sprite.texture = target_sprite
+					if shadow_sprite:
+						if shadow_sprite is CompressedTexture2D:
+							canvas.create_shadow("fountan_shadow", shadow_sprite, tilemap.local_to_map(position))
+					if audio:
+						if audio.is_playing():
+							audio.stop()

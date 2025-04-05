@@ -182,6 +182,7 @@ func _change_sprite(type:bool) -> void:
 
 
 func _on_area_2d_mouse_entered():
+	if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 	if !well_hovered:
 		well_hovered = true
 	if !blur.state\

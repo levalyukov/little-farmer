@@ -10,5 +10,12 @@ extends Node2D
 
 func _ready() -> void:
 	if self:
-		var target_texture = load("res://assets/resources/world/water/water_lily/lily_"+str(index)+".png")
-		sprite.texture = target_texture
+		if clock:
+			if clock.get_season() != 'winter':
+				var target_texture = load("res://assets/resources/world/water/water_lily/lily_"+str(index)+".png")
+				sprite.texture = target_texture
+				if !self.visible:
+					self.visible = true
+			else:
+				if self.visible:
+					self.visible = false

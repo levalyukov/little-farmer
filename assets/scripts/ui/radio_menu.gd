@@ -32,28 +32,30 @@ var stations_name:Array[String] = []
 var stream_position:float = 0.0
 var stopped:bool = false
 var stations:Dictionary = {
-	tr('Радио «Культура»'): [
-		'res://sounds/stations/cultura/track_1',
-		'res://sounds/stations/cultura/track_2',
-		'res://sounds/stations/cultura/track_3',
-		'res://sounds/stations/cultura/track_4',
-		'res://sounds/stations/cultura/track_5',
+	tr('Радио «Культура»'): {
+		'captions': [
+			'Странник в облаках',
+			'Без названия',
+			'Не грусти!',
+			'Где-то в облаках',
+			'Фермерский быт',
+			'Утренний ветерок',
+			'В даль реки',
 		],
-	tr('Радио «Инди»'): [
-		'res://sounds/stations/indie/track_1',
-		'res://sounds/stations/indie/track_2',
-		'res://sounds/stations/indie/track_3',
-		'res://sounds/stations/indie/track_4',
-		'res://sounds/stations/indie/track_5',
-		],
-	tr('Радио+ FM'): [
-		'res://sounds/stations/radio-plus/track_1',
-		'res://sounds/stations/radio-plus/track_2',
-		'res://sounds/stations/radio-plus/track_3',
-		'res://sounds/stations/radio-plus/track_4',
-		'res://sounds/stations/radio-plus/track_5',
-		],
+		'tracks': [
+			'res://assets/sounds/music/radio/track#1.mp3',
+			'res://assets/sounds/music/radio/track#2.mp3',
+			'res://assets/sounds/music/radio/track#3.mp3',
+			'res://assets/sounds/music/radio/track#4.mp3',
+			'res://assets/sounds/music/radio/track#5.mp3',
+			'res://assets/sounds/music/radio/track#6.mp3',
+			'res://assets/sounds/music/radio/track#7.mp3',
+		]
+	},
 }
+
+var stations_audios = []
+var stations_index_audio:int = 0
 
 func _ready():
 	close()
@@ -127,18 +129,27 @@ func set_stations() -> void:
 func on_station_pressed(stationName:String):
 	if visible:
 		if node:
-			node.userMode = !true
+			node.userMode = false
+			node.radio = true
 			node.random = true
 			node.repeat = true
 
-			#	Main Code...
+			stations_audios = []
+			if stations.has(stationName):
+				if stations[stationName] is Array && stations[stationName].size() > 0:
+					for i in stations[stationName]:
+						stations_audios.append(i)
+
+			if stations_audios.size() > 0:
+				stations_index_audio = randi() % stations_audios.size()
+				if node:
+					node.play_radio_track(stations_audios, stations_index_audio)
 
 			var audio = AudioStreamPlayer.new()
 			self.add_child(audio)
 			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 			audio.stream = load('res://assets/sounds/ui/click.ogg')
 			audio.play()
-			print(stationName)
 
 func _on_open_folder_button_pressed():
 	data.open_folder_in_explorer("user://game/custom_music/")
@@ -191,6 +202,7 @@ func on_userTrack_pressed(index:int):
 	if node:
 		node.play_track(index)
 		node.userMode = true
+		node.radio = false
 		node.random = !true
 		node.repeat = true
 		stream_position = 0.0
@@ -336,7 +348,6 @@ func _on_close_button_mouse_exited():
 func _on_audio_finished(_audio) -> void:
 	_audio.queue_free()
 
-
 func _on_previous_track_button_mouse_entered():
 	if visible:
 		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
@@ -349,7 +360,6 @@ func _on_previous_track_button_mouse_entered():
 func _on_previous_track_button_mouse_exited():
 	if visible:
 		if cursor: cursor.set_cursor(cursor.states.DEFAULT)
-
 
 func _on_pause_track_button_mouse_exited():
 	if visible:

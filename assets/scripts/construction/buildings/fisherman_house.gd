@@ -23,8 +23,7 @@ const bakeEveninggOn:int = 19
 const bakeEveninggOff:int = 22
 #	var openedTradeMenu:bool = false
 var object:Dictionary = {
-	"caption" = tr("Дом Рыбака"),
-	"description" = tr("Старый домик Марлина."),
+	"caption" = tr("Рыбацкий дом Марлина."),
 	"shadow" = load("res://assets/resources/buildings/fisherman_house/shadow.png"),
 	"default" = load("res://assets/resources/buildings/fisherman_house/object_0.png"),
 	"hovered" = load("res://assets/resources/buildings/fisherman_house/object_1.png"),
@@ -118,10 +117,7 @@ func _on_area_2d_mouse_entered() -> void:
 						data.debug("'"+str(self.name) + "': 'hovered' is not a CompressedTexture2D.", "error")
 				else:
 					data.debug("'"+str(self.name) + "': There is no 'hovered' key.", "error")
-			tip.tooltip(
-					str(object["caption"]) + "\n" +
-					str(object["description"])
-				)
+			tip.tooltip(str(object["caption"]))
 
 func _on_area_2d_mouse_exited() -> void:
 	#	openedTradeMenu = !true

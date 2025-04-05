@@ -52,9 +52,9 @@ var index:int
 var section:String = "all"
 var opened:bool = false
 var all_items:bool
-var terrains_blueprints:Array[int] = [1,2,3,4,5,6,7,8,9,10]
-var node_blueprints:Array[int] = [1,2,3,4,5,6,7,8,9,10]
-var upgrade_blueprints:Array[int] = [1,2,3,4,5,6,7,8,9,10]
+var terrains_blueprints:Array[int] = []
+var node_blueprints:Array[int] =  [10]
+var upgrade_blueprints:Array[int] =  []
 
 var items:Object = Items.new()
 var blueprints:Object = BlueprintManager.new()

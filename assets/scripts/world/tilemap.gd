@@ -134,18 +134,3 @@ func set_atlas(season:String) -> void:
 							if i:
 								if i.has_method("check_plant_season"):
 									i.check_plant_season()
-			else:
-				data.debug(
-					"", 
-					"fatal"
-				)
-		else:
-			data.debug(
-				"", 
-				"fatal"
-			)
-	else:
-		data.debug(
-			"", 
-			"fatal"
-		)

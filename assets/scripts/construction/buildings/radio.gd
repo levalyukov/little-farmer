@@ -19,9 +19,11 @@ var level:int = 0
 var audio_streams:Array[AudioStreamMP3] = []
 var audio_captions:Array[String] = []
 var audio_index_track:int = 0
+
 var enabled:bool = false
-var repeat:bool = true
+var radio:bool = false
 var userMode:bool = false
+var repeat:bool = true
 var random:bool = false
 
 var blueprint_id:int
@@ -196,4 +198,23 @@ func get_data() -> Dictionary:
 
 func _on_audio_stream_player_2d_finished() -> void:
 	if !pause.paused:
-		next_track()
+		if userMode:
+			next_track()
+		if radio:
+			print('tset')
+			next_radio_track() 
+
+func play_radio_track(array,index) -> void:
+	if enabled:
+		audio_player.stop()
+		audio_player.stream = ResourceLoader.load(array[index])
+		audio_player.play()
+
+func next_radio_track() -> void:
+	if radioMenu:
+		if radioMenu.stations_audios.size() > 0:
+			radioMenu.stations_index_audio = randi() % radioMenu.stations_audios.size()
+			play_radio_track(
+				radioMenu.stations_audios, 
+				radioMenu.stations_index_audio
+			)

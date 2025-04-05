@@ -51,7 +51,7 @@ func update():
 				if object["seasons"][season].has("default"):
 					if object["seasons"][season]["default"] is CompressedTexture2D:
 						sprite.texture = object["seasons"][season]["default"]
-						self.set_position(tilemap.map_to_local(Vector2i(12,1)))
+						self.set_position(tilemap.map_to_local(Vector2i(13,0)))
 					else:
 						data.debug("'"+str(self.name) + "': 'default' is not a CompressedTexture2D.", "error")
 			else:
@@ -60,7 +60,7 @@ func update():
 			if object.has("default"):
 				if object["default"] is CompressedTexture2D:
 					sprite.texture = object["default"]
-					self.set_position(tilemap.map_to_local(Vector2i(12,1)))
+					self.set_position(tilemap.map_to_local(Vector2i(13,0)))
 				else:
 					data.debug("'"+str(self.name) + "': 'default' is not a CompressedTexture2D.", "error")
 			else:

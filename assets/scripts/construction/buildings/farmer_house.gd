@@ -14,6 +14,7 @@ extends Node2D
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var tradeMenu:Control = get_node("/root/"+main+"/UI/Interactive/TradeMenu")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 @onready var chimney:CPUParticles2D = $CPUParticles2D
 @onready var sprite:Sprite2D = $Sprite2D
 
@@ -23,8 +24,7 @@ const bakeEveninggOn:int = 19
 const bakeEveninggOff:int = 22
 #	var openedTradeMenu:bool = false
 var object:Dictionary = {
-	"caption" = tr("Домик"),
-	"description" = tr("Старый домик."),
+	"caption" = tr("Дом Лизы"),
 	"shadow" = load("res://assets/resources/buildings/farmer_house/shadow.png"),
 	"default" = load("res://assets/resources/buildings/farmer_house/obj_0.png"),
 	"hovered" = load("res://assets/resources/buildings/farmer_house/obj_1.png"),
@@ -91,12 +91,6 @@ func _on_area_2d_mouse_entered() -> void:
 					if object["seasons"][season].has("hovered"):
 						if object["seasons"][season]["hovered"] is CompressedTexture2D:
 							sprite.texture = object["seasons"][season]["hovered"]
-						else:
-							data.debug()
-					else:
-						data.debug()
-				else:
-					data.debug()
 			else:
 				if object.has("hovered"):
 					if object["hovered"] is CompressedTexture2D:
@@ -105,12 +99,10 @@ func _on_area_2d_mouse_entered() -> void:
 						data.debug("'"+str(self.name) + "': 'hovered' is not a CompressedTexture2D.", "error")
 				else:
 					data.debug("'"+str(self.name) + "': There is no 'hovered' key.", "error")
-			tip.tooltip(
-					str(object["caption"]) + "\n" +
-					str(object["description"])
-				)
+			tip.tooltip(str(object["caption"]))
 
 func _on_area_2d_mouse_exited() -> void:
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 	if object.has("seasons"):
 		var season = clock.get_season()
 		if object["seasons"].has(season):

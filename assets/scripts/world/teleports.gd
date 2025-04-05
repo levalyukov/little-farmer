@@ -9,6 +9,7 @@ extends Node2D
 @onready var tablet:Node2D = get_node("/root/"+main+"/ConstructionManager/tablet")
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var farming:Node2D = get_node("/root/"+main+"/FarmingManager")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 var teleporting:bool
 
 func _input(event) -> void:
@@ -64,9 +65,9 @@ func teleport() -> void:
 			data.debug("Unknown name of the game scene: "+str(main), "error")
 
 func _on_area_2d_mouse_entered():
-	if !blur.state:
-		teleporting = true
+	if cursor: cursor.set_cursor(cursor.states.ACTIVE)
+	if !blur.state: teleporting = true
 
 func _on_area_2d_mouse_exited():
-	if !blur.state:
-		teleporting = false
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+	if !blur.state: teleporting = false

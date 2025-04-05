@@ -1,8 +1,8 @@
+CollisionShape2D
+Area2D
 RichTextLabel
 AnimationPlayer
 NinePatchRect
-CollisionShape2D
-Area2D
 Sprite2D
 Label
 MarginContainer

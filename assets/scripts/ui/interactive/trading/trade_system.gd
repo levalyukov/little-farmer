@@ -9,6 +9,7 @@ extends Control
 @onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
 @onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/storage")
 @onready var mail:Control = get_node("/root/"+main+"/UI/Interactive/Mailbox")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 
 @onready var playerInventoryCaption:Label = $Content/PlayerInventory/LabelMargin/Label
 @onready var tradeInventoryCaption:Label = $Content/TraderInventory/LabelMargin/Label
@@ -442,7 +443,6 @@ func get_trade_result():
 					if !inventory.inventory_items.has(int(items_id)) && !inventory.inventory_items.has(str(items_id)):
 						inventory.inventory_items[items_id] = {}
 						inventory.inventory_items[items_id]["amount"] = trade_content[items_id]["amount"]
-
 	if self.visible:
 		match initiator:
 			initiators.PLAYER:
@@ -497,6 +497,37 @@ func _on_button_pressed():
 			get_trade_result()
 		_:
 			pass
+	var _audio = AudioStreamPlayer.new()
+	self.add_child(_audio)
+	_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
+	_audio.stream = load('res://assets/sounds/ui/click.ogg')
+	_audio.play()
 
 func _on_close_button_pressed():
 	close_trade_menu()
+
+func _on_button_mouse_entered():
+	if !trade_window_button.disabled:
+		var _audio = AudioStreamPlayer.new()
+		self.add_child(_audio)
+		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
+		_audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		_audio.play()
+		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
+
+func _on_button_mouse_exited():
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+
+func _on_close_button_mouse_entered():
+	var _audio = AudioStreamPlayer.new()
+	self.add_child(_audio)
+	_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
+	_audio.stream = load('res://assets/sounds/ui/hover.ogg')
+	_audio.play()
+	if cursor: cursor.set_cursor(cursor.states.ACTIVE)
+
+func _on_close_button_mouse_exited():
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+
+func _on_audio_finished(_audio) -> void:
+	_audio.queue_free()

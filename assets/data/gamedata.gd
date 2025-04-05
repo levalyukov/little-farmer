@@ -79,7 +79,6 @@ func _ready():
 				if file_load(file.player).has('tools_level'):
 					if file_load(file.player)['tools_level'].has('water_can'):
 						tools.water_can = file_load(file.player)['tools_level']['water_can']
-
 		# New Game
 		if !GameLoader.mode\
 		&& GameLoader.start:

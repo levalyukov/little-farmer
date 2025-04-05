@@ -176,7 +176,7 @@ func _process(_delta):
 							self.add_child(audio)
 							audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 							audio.stream = load('res://assets/sounds/farming/farming.ogg')
-							audio.set_pitch_scale(randf_range(1.00, 0.85))
+							#	audio.set_pitch_scale(randf_range(1.00, 0.85))
 							audio.play()
 						else:
 							var audio = AudioStreamPlayer.new()

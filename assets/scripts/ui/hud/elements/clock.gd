@@ -11,26 +11,57 @@ extends Control
 @onready var icon:TextureRect = $Margin/HBoxContainer/Icon/TextureRect
 @onready var label:Label = $Margin/HBoxContainer2/Label/Label
 @onready var timer:Timer = $Timer
-var audio = AudioStreamPlayer.new()
-const day_sound = preload('res://assets/sounds/nature/day.ogg')
-const night_sound = preload('res://assets/sounds/nature/night.ogg')
 
-const day_sound_end:int = 19
-const night_sound_end:int = 6
+var audio = AudioStreamPlayer.new()
+#	var random_prefab = AudioStreamPlayer.new()
+#	const random_prefab_time:int = 48
+#	var prefabs:Dictionary = {
+#		'spring': {},
+#		'summer': {
+#			'day': [
+#				load('res://assets/sounds/nature/short_audio/summer/day/'),
+#			],
+#			'night': [
+#				load('res://assets/sounds/nature/short_audio/summer/night/'),
+#			]
+#		}
+#	}
+
+var spring_day_sound = preload('res://assets/sounds/nature/spring_day.ogg')
+var spring_night_sound = load('res://assets/sounds/nature/spring_night.ogg')
+const spring_day_sound_end:int = 19
+const spring_night_sound_end:int = 6
+
+var summer_day_sound = load('res://assets/sounds/nature/summer_day.ogg')
+var summer_night_sound = load('res://assets/sounds/nature/summer_night.ogg')
+const summer_day_sound_end:int = 19
+const summer_night_sound_end:int = 6
+
+var autumn_day_sound = load('res://assets/sounds/nature/autumn_day.ogg')
+var autumn_night_sound = load('res://assets/sounds/nature/autumn_night.ogg')
+const autumn_day_sound_end:int = 19
+const autumn_night_sound_end:int = 6
+
+var winter_day_sound = load('res://assets/sounds/nature/winter_day.ogg')
+var winter_night_sound = load('res://assets/sounds/nature/winter_night.ogg')
+const winter_day_sound_end:int = 19
+const winter_night_sound_end:int = 6
 
 const speed:float = 8
 const day_end:int = 23
+
+var year:int = 1
+var week:int = 0
+var day:int = 1
+var hour:int = 7
+var minute:int = 0
+
+var season:int = 2
 const season_change:int = 1
 const seasons:Array[String] = [
 	"spring", "summer", 
 	"autumn", "winter"
 ]
-var season:int = 1
-var year:int = 1
-var week:int = 1
-var day:int = 0
-var hour:int = 7
-var minute:int = 0
 
 var weeks:Array[String] = [
 		tr("Пн."), tr("Вт."), tr("Ср."), 
@@ -39,48 +70,80 @@ var weeks:Array[String] = [
 	]
 
 func _ready():
+	tilemap.set_atlas(seasons[season])
 	icon.texture = sprite
 	timer.wait_time = speed
 	timer.set_paused(false)
 	timer.start()
 	self.add_child(audio)
 	audio.bus = 'Nature'
-	if range(night_sound_end-1, day_sound_end+1).has(hour):
-		audio.stop()
-		audio.volume_db = 0.0
-		audio.stream = day_sound
-		audio.play()
-	else:
-		audio.stop()
-		audio.volume_db = 0.0
-		audio.stream = night_sound
-		audio.play()
+	#	self.add_child(random_prefab)
+	#	random_prefab.bus = 'Nature'
+	start_nature_sounds()
 
 func _process(_delta):
 	if !pause.paused:
 		if audio.get_stream_paused():
 			audio.set_stream_paused(false)
-		if range(night_sound_end-1, day_sound_end+1).has(hour):
-			if audio.stream == night_sound && audio.is_playing():
-				if audio.volume_db > -25.0:
-					audio.volume_db -= .5
-				elif audio.volume_db == -25.0:
-					audio.stop()
-					audio.volume_db = 0.0
-					audio.stream = day_sound
-					audio.play()
-		else:
-			if audio.stream == day_sound && audio.is_playing():
-				if audio.volume_db > -25.0:
-					audio.volume_db -= .5
-				elif audio.volume_db == -25.0:
-					audio.stop()
-					audio.volume_db = 0.0
-					audio.stream = night_sound
-					audio.play()
+		start_nature_sounds()
 	else:
 		if !audio.get_stream_paused():
 			audio.set_stream_paused(true)
+
+func start_nature_sounds() -> void:
+	match get_season():
+		'spring':
+			if range(spring_night_sound_end, spring_day_sound_end).has(hour):
+				if audio.stream == spring_night_sound || !audio.is_playing():
+					audio.stop()
+					audio.volume_db = 0.0
+					audio.stream = spring_day_sound
+					audio.play()
+			else:
+				if !audio.is_playing():
+					audio.stop()
+					audio.volume_db = 0.0
+					audio.stream = spring_night_sound
+					audio.play()
+		'summer':
+			if range(summer_night_sound_end, summer_day_sound_end).has(hour):
+				if audio.stream == summer_night_sound || !audio.is_playing():
+					audio.stop()
+					audio.volume_db = 0.0
+					audio.stream = summer_day_sound
+					audio.play()
+			else:
+				if !audio.is_playing():
+					audio.stop()
+					audio.volume_db = 0.0
+					audio.stream = summer_night_sound
+					audio.play()
+		'autumn':
+			if range(autumn_night_sound_end, autumn_day_sound_end).has(hour):
+				if audio.stream != autumn_day_sound && audio.is_playing():
+					audio.stop()
+					audio.volume_db = 0.0
+					audio.stream = autumn_day_sound
+					audio.play()
+			else:
+				if !audio.is_playing():
+					audio.stop()
+				#	audio.volume_db = 0.0
+				#	audio.stream = autumn_night_sound
+				#	audio.play()
+		'winter':
+			if range(winter_night_sound_end, winter_day_sound_end).has(hour):
+				if !audio.is_playing():
+					audio.stop()
+					audio.volume_db = 0.0
+					audio.stream = winter_day_sound
+					audio.play()
+			else:
+				if !audio.is_playing():
+					audio.stop()
+					audio.volume_db = 0.0
+					audio.stream = winter_day_sound
+					audio.play()
 
 func clock_update() -> void:
 	var day_string = tr("День")

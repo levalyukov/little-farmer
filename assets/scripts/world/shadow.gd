@@ -46,13 +46,14 @@ func create_shadow_nature(
 		data.debug("shadow error", "error")
 		return
 
-func create_shadow(shadow_name:String, shadow_texture:CompressedTexture2D, shadow_position:Vector2i) -> void:
+func create_shadow(shadow_name:String, shadow_texture:CompressedTexture2D, shadow_position:Vector2i, flipH:bool = false) -> void:
 	if shadow_texture is CompressedTexture2D:
 		if shadow_name == "":
 			shadow_name = "shadow"
 		var shadow = Sprite2D.new()
 		shadow.name = shadow_name
 		shadow.texture = shadow_texture
+		shadow.flip_h = flipH
 		shadow.set_position(tilemap.map_to_local(shadow_position))
 		canvas.add_child(shadow)
 	else:
