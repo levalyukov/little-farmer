@@ -53,7 +53,7 @@ var section:String = "all"
 var opened:bool = false
 var all_items:bool
 var terrains_blueprints:Array[int] = []
-var node_blueprints:Array[int] =  [10]
+var node_blueprints:Array[int] = []
 var upgrade_blueprints:Array[int] =  []
 
 var items:Object = Items.new()

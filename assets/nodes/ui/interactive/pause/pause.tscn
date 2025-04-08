@@ -99,6 +99,7 @@ line_spacing = 4.0
 font_size = 14
 
 [node name="Pause" type="Control"]
+visible = false
 modulate = Color(1, 1, 1, 0)
 z_as_relative = false
 layout_mode = 3

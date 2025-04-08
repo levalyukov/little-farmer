@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://drwgxtbhd00mq"]
+[gd_scene load_steps=6 format=3 uid="uid://drwgxtbhd00mq"]
 
 [ext_resource type="Texture2D" uid="uid://bra8e03ooftsi" path="res://assets/resources/buildings/radio/obj_0.png" id="1_8gu6o"]
 [ext_resource type="Script" path="res://assets/scripts/construction/buildings/radio.gd" id="1_kdrd7"]
 [ext_resource type="Texture2D" uid="uid://catb4up4bdk25" path="res://assets/resources/buildings/radio/note.png" id="3_r3vyp"]
+[ext_resource type="AudioStream" uid="uid://3qqqvjr6v1tb" path="res://assets/sounds/ui/radio.ogg" id="4_rmosd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pgwjt"]
 size = Vector2(16, 16)
@@ -31,6 +32,10 @@ bus = &"Radio"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_pgwjt")
+
+[node name="RadioNoise" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_rmosd")
+volume_db = -2.5
 
 [connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]

@@ -13,6 +13,7 @@ extends Node2D
 
 @onready var particles:CPUParticles2D = $CPUParticles2D
 @onready var audio_player:AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var radio_noise:AudioStreamPlayer2D = $RadioNoise
 @onready var sprite:Sprite2D = $Sprite2D
 var level:int = 0
 
@@ -121,12 +122,16 @@ func _process(_delta):
 		if enabled:
 			if !audio_player.get_stream_paused():
 				audio_player.set_stream_paused(true)
+			if !radio_noise.get_stream_paused():
+				radio_noise.set_stream_paused(true)
 			if particles.speed_scale > 0.0:
 				particles.speed_scale = 0.0
 	else:
 		if enabled:
 			if audio_player.get_stream_paused():
 				audio_player.set_stream_paused(false)
+			if radio_noise.get_stream_paused():
+				radio_noise.set_stream_paused(false)
 			if particles.speed_scale == 0.0:
 				particles.speed_scale = 0.5
 
@@ -201,7 +206,6 @@ func _on_audio_stream_player_2d_finished() -> void:
 		if userMode:
 			next_track()
 		if radio:
-			print('tset')
 			next_radio_track() 
 
 func play_radio_track(array,index) -> void:
@@ -213,8 +217,19 @@ func play_radio_track(array,index) -> void:
 func next_radio_track() -> void:
 	if radioMenu:
 		if radioMenu.stations_audios.size() > 0:
-			radioMenu.stations_index_audio = randi() % radioMenu.stations_audios.size()
-			play_radio_track(
-				radioMenu.stations_audios, 
-				radioMenu.stations_index_audio
-			)
+			var new_index_track = random_audio_index(radioMenu.stations_audios, radioMenu.station_audio_index)
+			if new_index_track != -1:
+				radioMenu.station_audio_index = new_index_track
+				play_radio_track(
+					radioMenu.stations_audios, 
+					radioMenu.station_audio_index
+				)
+				radioMenu.set_radio_track_name(radioMenu.station_audio_index)
+
+func random_audio_index(array:Array, index:int) -> int:
+	if array.size() > 1:
+		var test_index = randi() % array.size()
+		if test_index == index:
+			random_audio_index(array,index)
+		return test_index
+	return -1

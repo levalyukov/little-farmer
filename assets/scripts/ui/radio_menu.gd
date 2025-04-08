@@ -54,8 +54,9 @@ var stations:Dictionary = {
 	},
 }
 
+var stations_audios_captions = []
 var stations_audios = []
-var stations_index_audio:int = 0
+var station_audio_index:int = 0
 
 func _ready():
 	close()
@@ -77,27 +78,39 @@ func _process(_delta):
 				else:
 					if node.particles.emitting:
 						node.particles.emitting = !true
+
+				if node.radio_noise:
+					if !node.radio_noise.is_playing():
+						node.radio_noise.play()
 			else:
 				if node.particles.emitting:
 					node.particles.emitting = !true
 
-			if stopped:
-				pauseTrack.text = 'Слушать'
-			else:
-				pauseTrack.text = 'Пауза'
+				if node.radio_noise:
+					if node.radio_noise.is_playing():
+						node.radio_noise.stop()
 
-			if node.audio_player.is_playing():
-				if !buttonsInteractions.visible:
-					buttonsInteractions.visible = true
+			if node.userMode:
+				if stopped:
+					pauseTrack.text = 'Слушать'
+				else:
+					pauseTrack.text = 'Пауза'
 
-			if node.enabled:
-				if !node.audio_player.is_playing() && !stopped:
-					playNow.text ="Выберите режим работы радио ниже:"
-				powerButton.text = tr("Выключить радио")
+				if node.audio_player.is_playing():
+					if !buttonsInteractions.visible:
+						buttonsInteractions.visible = true
+
+				if node.enabled:
+					if !node.audio_player.is_playing() && !stopped:
+						playNow.text ="Выберите режим работы радио ниже:"
+					powerButton.text = tr("Выключить радио")
+				else:
+					if playNow.text != "":
+						playNow.text =""
+					powerButton.text = tr("Включить радио")
+					if buttonsInteractions.visible:
+						buttonsInteractions.visible = false
 			else:
-				if playNow.text != "":
-					playNow.text =""
-				powerButton.text = tr("Включить радио")
 				if buttonsInteractions.visible:
 					buttonsInteractions.visible = false
 
@@ -129,27 +142,34 @@ func set_stations() -> void:
 func on_station_pressed(stationName:String):
 	if visible:
 		if node:
-			node.userMode = false
-			node.radio = true
-			node.random = true
-			node.repeat = true
+			if !node.radio:
+				node.userMode = false
+				node.radio = true
+				node.random = true
+				node.repeat = true
 
-			stations_audios = []
-			if stations.has(stationName):
-				if stations[stationName] is Array && stations[stationName].size() > 0:
-					for i in stations[stationName]:
-						stations_audios.append(i)
+				stations_audios = []
+				if stations.has(stationName):
+					if stations[stationName].has('captions'):
+						if stations[stationName]['captions'] is Array && stations[stationName]['captions'].size() > 0:
+							for i in stations[stationName]['captions']:
+								stations_audios_captions.append(i)
 
-			if stations_audios.size() > 0:
-				stations_index_audio = randi() % stations_audios.size()
-				if node:
-					node.play_radio_track(stations_audios, stations_index_audio)
+						if stations[stationName]['tracks'] is Array && stations[stationName]['tracks'].size() > 0:
+							for i in stations[stationName]['tracks']:
+								stations_audios.append(i)
 
-			var audio = AudioStreamPlayer.new()
-			self.add_child(audio)
-			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-			audio.stream = load('res://assets/sounds/ui/click.ogg')
-			audio.play()
+				if stations_audios.size() > 0 && stations_audios_captions.size() > 0 :
+					if node:
+						station_audio_index = randi() % stations_audios.size()
+						node.play_radio_track(stations_audios, station_audio_index)
+						set_radio_track_name(station_audio_index)
+
+				var audio = AudioStreamPlayer.new()
+				self.add_child(audio)
+				audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+				audio.stream = load('res://assets/sounds/ui/click.ogg')
+				audio.play()
 
 func _on_open_folder_button_pressed():
 	data.open_folder_in_explorer("user://game/custom_music/")
@@ -265,6 +285,8 @@ func _on_power_button_pressed():
 		if node:
 			if node.enabled:
 				node.enabled = false
+				node.radio = false
+				node.userMode = false
 				node.audio_player.stop()
 				stream_position = 0.0
 				stopped = false
@@ -429,3 +451,7 @@ func _on_scan_folder_button_mouse_entered():
 func _on_scan_folder_button_mouse_exited():
 	if visible:
 		if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+
+func set_radio_track_name(track_index) -> void:
+	if stations_audios_captions.size() > 0:
+		playNow.text = tr("Сейчас играет: ") + "\"" + stations_audios_captions[track_index] + "\""

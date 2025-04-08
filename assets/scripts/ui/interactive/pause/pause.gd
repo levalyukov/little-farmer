@@ -77,7 +77,7 @@ func _on_report_bug_button_pressed():
 	if visible:
 		if data:
 			if data.has_method('open_url'):
-				data.open_url("godotengine.org")
+				data.open_url("https://forms.gle/GiVAMdDLAZFgt9aZA")
 				var audio = AudioStreamPlayer.new()
 				self.add_child(audio)
 				audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))

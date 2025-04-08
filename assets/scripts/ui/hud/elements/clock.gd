@@ -56,7 +56,7 @@ var day:int = 1
 var hour:int = 7
 var minute:int = 0
 
-var season:int = 2
+var season:int = 0
 const season_change:int = 1
 const seasons:Array[String] = [
 	"spring", "summer", 
