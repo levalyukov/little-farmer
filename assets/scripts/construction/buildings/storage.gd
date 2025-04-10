@@ -22,7 +22,7 @@ var level:int = 1
 var object:Dictionary = {
 	1: {
 		"caption" = tr("Склад"),
-		"description" = tr("Место для хранения предметов."),
+		"description" = tr("Место для хранения предметов"),
 		"slots" = 100,
 		"seasons" = {
 			"spring" = {
