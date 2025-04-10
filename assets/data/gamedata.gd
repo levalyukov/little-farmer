@@ -824,7 +824,7 @@ func config_new() -> void:
 		},
 		"sounds": {
 			"general": 100,
-			"music": 25,
+			"music": 50,
 			"nature": 50,
 			"radio": 75,
 		},
@@ -862,7 +862,7 @@ func config_save() -> void:
 			},
 			"sounds": {
 				"general": 100,
-				"music": 25,
+				"music": 50,
 				"nature": 50,
 				"radio": 75,
 			},
@@ -877,6 +877,7 @@ func config_load() -> void:
 		get_node("/root/"+main+"/Menu/Options").set_values(file_load(file.config))
 
 func start_newgame() -> void:
+
 	nature.create_start_nature()
 	config_new()
 	config_load()
@@ -898,7 +899,7 @@ func start_newgame() -> void:
 		500,
 		#	Items
 		{
-			13:{"amount":36},
+			13:{"amount":42},
 		}
 	)
 
