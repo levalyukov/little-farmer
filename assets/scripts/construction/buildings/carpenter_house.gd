@@ -14,6 +14,7 @@ extends Node2D
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var dialogWindow:Control = get_node("/root/"+main+"/UI/Interactive/DialogWindow")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 @onready var chimney:CPUParticles2D = $CPUParticles2D
 @onready var sprite:Sprite2D = $Sprite2D
 
@@ -104,6 +105,7 @@ func _process(_delta) -> void:
 
 func _on_area_2d_mouse_entered() -> void:
 	openedMenu = true
+	if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 	if !blur.state\
 	&& grid.mode == grid.modes.NOTHING:
 		var distance = round(global_position.distance_to(player.global_position))
@@ -134,6 +136,7 @@ func _on_area_2d_mouse_entered() -> void:
 
 func _on_area_2d_mouse_exited() -> void:
 	openedMenu = !true
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 	if object.has("seasons"):
 		var season = clock.get_season()
 		if object["seasons"].has(season):
