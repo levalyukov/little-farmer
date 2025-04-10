@@ -11,6 +11,17 @@ const threshold:int = 100
 
 func _process(_delta):
 	if tip:
+		if cursor:
+			var viewport_size = get_viewport_rect().size
+			var screen_width = viewport_size.x
+			var node_global_pos = get_global_mouse_position()
+			var node_size = get_size()
+			var right_edge = node_global_pos.x + node_size.x
+			if right_edge > screen_width - threshold:
+				mouse_binding_global = false
+			else:
+				mouse_binding_global = true
+
 		if mouse_binding_global:
 			position = get_global_mouse_position()
 		else:
@@ -26,14 +37,3 @@ func tooltip(text:String = "") -> void:
 		tip = false
 		if visible:
 			visible = false
-
-	if cursor:
-		var viewport_size = get_viewport_rect().size
-		var screen_width = viewport_size.x
-		var node_global_pos = get_global_mouse_position()
-		var node_size = get_size()
-		var right_edge = node_global_pos.x + node_size.x
-		if right_edge > screen_width - threshold:
-			mouse_binding_global = false
-		else:
-			mouse_binding_global = true
