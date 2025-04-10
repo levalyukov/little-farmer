@@ -36,8 +36,18 @@ var inventory_file = FileAccess.open('user://game/data/player/inventory.json', F
 var mailbox_file = FileAccess.open('user://game/data/player/mailbox.json', FileAccess.READ)
 var player_file = FileAccess.open('user://game/data/player/player.json', FileAccess.READ)
 # --- --- ---
+@onready var music:AudioStreamPlayer = $AudioStreamPlayer
+@onready var music_cooldown:Timer = $Timer
+var music_cooldown_value:int = 0
+var max_cooldown_wait:int = 60
+var game_music:Array[String] = [
+	'res://assets/sounds/music/flp/spring/music_1.mp3',
+]
+
 
 func _ready():
+	play_music(game_music)
+	self.add_child(music_cooldown)
 	if cursor:
 		cursor.set_cursor(cursor.states.DEFAULT)
 	blackout.blackout(false)
@@ -195,3 +205,23 @@ func _on_exit_button_mouse_exited():
 
 func _on_audio_finished(node) -> void:
 	node.queue_free()
+
+
+func play_music(array:Array[String]) -> void:
+	var audio = array[randi() % array.size()]
+	music.stop()
+	music.stream = ResourceLoader.load(audio)
+	music.play()
+
+func _on_audio_stream_player_finished():
+	if music_cooldown:
+		music_cooldown.set_wait_time(60.0) 
+		music_cooldown.start()
+
+func _on_timer_timeout():
+	if music_cooldown_value < max_cooldown_wait:
+		music_cooldown_value += 1
+	else: 
+		music_cooldown_value = 0
+		music_cooldown.stop()
+		play_music(game_music)
