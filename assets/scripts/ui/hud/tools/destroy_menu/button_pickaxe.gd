@@ -7,6 +7,7 @@ extends Control
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
 @onready var hud:Control = get_node("/root/"+main+"/UI/HUD/GameHud/")
 @onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
+@onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
 @onready var destroy_menu:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
 @onready var destroy_main_menu:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/DestroyMenuMargin/DestroyMenu")
 @onready var sprite:CompressedTexture2D = load("res://assets/resources/ui/interactive/hud/tools/destroy_buildings.png")
@@ -38,9 +39,11 @@ func _on_button_mouse_entered():
 			audio.stream = load('res://assets/sounds/ui/hover.ogg')
 			audio.play()
 			if cursor: cursor.set_cursor(cursor.states.ACTIVE)
+			if tip: tip.tooltip('Уничтожение построек')
 
 func _on_button_mouse_exited():
-	if cursor: cursor.set_cursor(cursor.states.DEFAULT)				
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)	
+	if tip: tip.tooltip()			
 
 func _on_audio_finished(node) -> void:
 	node.queue_free()
