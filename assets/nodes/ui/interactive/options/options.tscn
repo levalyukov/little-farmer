@@ -221,6 +221,7 @@ patch_margin_right = 8
 patch_margin_bottom = 8
 
 [node name="GraphicSection" type="ScrollContainer" parent="Menu/Main/HBoxContainer/PageBackground"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -464,7 +465,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="ControlSection" type="ScrollContainer" parent="Menu/Main/HBoxContainer/PageBackground"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -541,7 +541,7 @@ theme_override_constants/margin_right = 15
 [node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container/MarginContainer3/HBoxContainer/MarginContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
-text = "Инвентарь [E/У]"
+text = "Инвентарь [Tab]"
 
 [node name="MarginContainer4" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/Container"]
 layout_mode = 2
