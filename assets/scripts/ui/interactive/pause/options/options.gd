@@ -197,6 +197,7 @@ func _on_save_changes_button_pressed():
 	var blur_menu = get_node("/root/"+main+"/Blur")
 	_saving()
 	close()
+	GameConfig.apply()
 	if blur_menu:
 		blur_menu.blur(false)
 	if data_game:
