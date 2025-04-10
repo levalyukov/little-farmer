@@ -22,7 +22,7 @@ var level:int = 1
 var object:Dictionary = {
 	1: {
 		"caption" = tr("Дом"),
-		"description" = tr("Старый и уютный деревянный домик."),
+		"description" = tr("Старый и уютный деревянный домик"),
 		"shadow" = load("res://assets/resources/buildings/house/shadow.png"),
 		"seasons" = {
 			"spring" = {
