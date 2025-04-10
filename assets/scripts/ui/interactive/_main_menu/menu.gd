@@ -5,11 +5,8 @@ extends MarginContainer
 @onready var blackout:Control = $Blackout
 @onready var blur:Control = $Blur
 @onready var cursor:Node2D = $Cursor
-
 @onready var game_continue_button:Button = $MenuContent/VContainer/ButtonsMargin/Buttons/ContinueMargin/ContinueButton
 @onready var credits:Label = $MenuContent/VContainer/FooterMargin/Credits
-var clicked:bool = false
-
 @onready var countinue_game_button:Button = $MenuContent/VContainer/ButtonsMargin/Buttons/ContinueMargin/ContinueButton
 @onready var gamedata = get_node("/root/"+main+"/GameData")
 @onready var modal = get_node("/root/"+main+"/Menu/Modal")
@@ -38,8 +35,8 @@ var player_file = FileAccess.open('user://game/data/player/player.json', FileAcc
 # --- --- ---
 @onready var music:AudioStreamPlayer = $AudioStreamPlayer
 @onready var music_cooldown:Timer = $Timer
-var music_cooldown_value:int = 0
-var max_cooldown_wait:int = 60
+
+var clicked:bool = false
 var game_music:Array[String] = [
 	'res://assets/sounds/music/flp/spring/music_1.mp3',
 ]
@@ -48,8 +45,8 @@ var game_music:Array[String] = [
 func _ready():
 	play_music(game_music)
 	self.add_child(music_cooldown)
-	if cursor:
-		cursor.set_cursor(cursor.states.DEFAULT)
+	if music: music.bus = 'Music'
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 	blackout.blackout(false)
 	credits.text = "v" + ProjectSettings.get_setting("application/config/version") + "\n(C) Studio Miroro"
 	if !GameLoader.modal:
@@ -215,13 +212,9 @@ func play_music(array:Array[String]) -> void:
 
 func _on_audio_stream_player_finished():
 	if music_cooldown:
-		music_cooldown.set_wait_time(60.0) 
+		music_cooldown.set_wait_time(30.0) 
 		music_cooldown.start()
 
 func _on_timer_timeout():
-	if music_cooldown_value < max_cooldown_wait:
-		music_cooldown_value += 1
-	else: 
-		music_cooldown_value = 0
-		music_cooldown.stop()
-		play_music(game_music)
+	music_cooldown.stop()
+	play_music(game_music)
