@@ -58,6 +58,10 @@ func open() -> void:
 		for timer in GameLoader.get_children():
 			if !timer.is_paused():
 				timer.set_paused(true)
+	if main == 'Farm':
+		for i in get_tree().root.get_child(2).get_children():
+			if i.name == 'MusicPlayer':
+				i.set_stream_paused(true)
 		
 func close() -> void:
 	paused = false
@@ -69,6 +73,10 @@ func close() -> void:
 		for timer in GameLoader.get_children():
 			if timer.is_paused():
 				timer.set_paused(!true)
+	if main == 'Farm':
+		for i in get_tree().root.get_child(2).get_children():
+			if i.name == 'MusicPlayer':
+				i.set_stream_paused(!true)
 
 func _check_window() -> void:
 	visible = paused
