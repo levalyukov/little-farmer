@@ -6,6 +6,8 @@ extends Control
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
 @onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
+@onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
+
 @onready var sprite:CompressedTexture2D = load("res://assets/resources/ui/interactive/hud/tools/hoe.png")
 @onready var icon:TextureRect = $Main/Margin/Icon
 @onready var button:Button = $Main/Button
@@ -41,9 +43,11 @@ func _on_button_mouse_entered():
 			audio.stream = load('res://assets/sounds/ui/hover.ogg')
 			audio.play()
 			if cursor: cursor.set_cursor(cursor.states.ACTIVE)
+			if tip: tip.tooltip('Вспахивание грядки')
 
 func _on_button_mouse_exited():
 	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+	if tip: tip.tooltip()
 				
 func _on_audio_finished(node) -> void:
 	node.queue_free()
