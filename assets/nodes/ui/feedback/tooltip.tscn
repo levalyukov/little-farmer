@@ -20,8 +20,8 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -53.0
-offset_right = 34.0
+offset_top = -47.0
+offset_right = 24.0
 grow_vertical = 0
 mouse_filter = 2
 theme_override_constants/margin_bottom = 4
@@ -36,6 +36,8 @@ patch_margin_bottom = 12
 
 [node name="MarginContainer" type="MarginContainer" parent="Container"]
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 mouse_filter = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -44,4 +46,5 @@ theme_override_constants/margin_bottom = 10
 
 [node name="Label" type="Label" parent="Container/MarginContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
 label_settings = SubResource("LabelSettings_8q7il")
