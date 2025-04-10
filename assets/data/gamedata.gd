@@ -21,6 +21,10 @@ extends Node
 @onready var teleport:Node2D = get_node('/root/'+main+'Teleports/Village')
 @onready var plant:PackedScene = load("res://assets/nodes/farming/plant.tscn")
 
+var music:AudioStreamPlayer = AudioStreamPlayer.new()
+var music_cooldown:Timer = Timer.new()
+var global_index_audio = -1
+
 const path:Dictionary = {
 	main = "user://game",
 	data = "user://game/data",
@@ -49,20 +53,37 @@ const file:Dictionary = {
 	vctr_water = "user://game/data/farm/vectors/water.json",
 }
 
-const sceneConfig = {
-	'Farm': {
-		'farm': true,
-		'build': true,
-		'changingLandscape': true,
-	},
-	'Village': {
-		'farm': false,
-		'build': false,
-		'changingLandscape': false,
-	},
+var music_playlist:Dictionary = {
+	'spring' = [
+		'res://assets/sounds/music/flp/spring/test_music_track.mp3',
+		'res://assets/sounds/music/flp/spring/music_2.mp3',
+		'res://assets/sounds/music/flp/spring/music_3.mp3',
+	],
+	'summer' = [
+		'res://assets/sounds/music/flp/summer/music_1.mp3',
+		'res://assets/sounds/music/flp/summer/music_2.mp3',
+	],
+	'autumn' = [
+		'res://assets/sounds/music/flp/autumn/music_1.mp3',
+		'res://assets/sounds/music/flp/autumn/music_2.mp3',
+	],
+	'winter' = [
+		'res://assets/sounds/music/flp/winter/music_1.mp3',
+		'res://assets/sounds/music/flp/winter/music_2.mp3',
+	],
 }
 
 func _ready():
+	# timer (cooldown)
+	self.add_child(music_cooldown)
+	music_cooldown.name = 'MusicCooldownTimer'
+	music_cooldown.connect("timeout", Callable(self, "_on_timer_timeout").bind())
+	# audio stream player
+	self.add_child(music)
+	music.name = 'MusicPlayer'
+	music.bus = 'Music'
+	music.connect("finished", Callable(self, "_on_music_stream_player_finished").bind())
+	play_music(music_playlist)
 	if main == "Farm":
 		# Game Load
 		if GameLoader.mode\
@@ -92,10 +113,8 @@ func _ready():
 			load_blueprints()
 			load_mailbox()
 			config_load()
-			if main == "Farm":
-				load_buildings()
-			if main == "Greenhouse":
-				greenhouse_get_data(GameLoader.greenhouse_caption)
+			if main == "Farm": load_buildings()
+			if main == "Greenhouse": greenhouse_get_data(GameLoader.greenhouse_caption)
 			if file_load(file.player):
 				if file_load(file.player).has('tools_level'):
 					if file_load(file.player)['tools_level'].has('water_can'):
@@ -984,3 +1003,45 @@ func get_greenhouse_data() -> Dictionary:
 		'farmlands': collision.get_used_cells(collision.farmland_layer),
 		'waterings': collision.get_used_cells(collision.watering_layer),
 	}
+
+func play_music(dictionary) -> void:
+	if clock and dictionary.has(clock.get_season()):
+		var season_sounds = dictionary[clock.get_season()]
+		if season_sounds is Array and season_sounds.size() > 0:
+			var index_audio = get_random_audio_index(season_sounds)
+			if index_audio != -1:
+				music.stop()
+				music.stream = ResourceLoader.load(season_sounds[index_audio])
+				music.play()
+
+func get_random_audio_index(sounds_array):
+	if sounds_array.size() == 0:
+		return -1
+	var new_index = randi() % sounds_array.size()
+	if sounds_array.size() == 1:
+		if is_valid_sound(sounds_array[0]):
+			return 0
+		else:
+			return -1
+	while true:
+		new_index = randi() % sounds_array.size()
+		if new_index != global_index_audio and is_valid_sound(sounds_array[new_index]):
+			break
+	global_index_audio = new_index
+	return new_index
+
+func is_valid_sound(sound_path) -> bool:
+	if sound_path is String and sound_path.length() > 0:
+		var file_exists = ResourceLoader.exists(sound_path, "AudioStream")
+		return file_exists
+	return false
+
+func _on_timer_timeout() -> void:
+	music_cooldown.stop()
+	play_music(music_playlist)
+
+func _on_music_stream_player_finished():
+	if music_cooldown:
+		var wait_time = randf_range(60.0,120.0)
+		music_cooldown.set_wait_time(wait_time) 
+		music_cooldown.start()
