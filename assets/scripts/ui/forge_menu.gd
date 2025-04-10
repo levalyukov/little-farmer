@@ -217,7 +217,7 @@ func open(node:Node2D) -> void:
 		ignotIcon.visible = !true
 	if !target_node.inProcessed\
 	&& !target_node.isDone:
-		labelStatus.text = tr('Выберите из инвентаря уголь и руду для переплавки.')
+		labelStatus.text = tr('Выберите из инвентаря уголь и руду для переплавки. \n5x руды + 5x угля = 1 слиток')
 		oreIcon.texture = ORE_SLOT_DEFAULT
 		fuelIcon.texture = FUEL_SLOT_DEFAULT
 		oreAmountLabel.text = ""
