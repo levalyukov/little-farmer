@@ -6,7 +6,7 @@ extends Control
 @onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 @onready var icon:TextureRect = $Button/HBoxContainer/MarginContainer/TextureRect
 @onready var header:Label = $Button/HBoxContainer/Label
-const symbols:int = 32
+const symbols:int = 24
 
 var index
 var sprites:Dictionary = {
@@ -38,14 +38,24 @@ func _update_letter_icon() -> void:
 		data.debug("An unexpected error occurred due to the absence of the letter index '"+str(index)+"'. Double-check whether this index exists in the main dictionary of letters: \n" + str(mail.letters), "error")
 
 func _on_button_pressed():
+	if visible:
+		if mail.letters.has(index):
+			if mail.letters[index].has("status"):
+				match mail.letters[index]["status"]:
+					'readed':
+						var audio = AudioStreamPlayer.new()
+						self.add_child(audio)
+						audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+						audio.stream = load('res://assets/sounds/ui/click.ogg')
+						audio.play()
+					'unread':
+						var audio = AudioStreamPlayer.new()
+						self.add_child(audio)
+						audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+						audio.stream = load('res://assets/sounds/ui/letter.ogg')
+						audio.play()
 	mail.get_data(index)
 	_update_letter_icon()
-	if visible:
-		var audio = AudioStreamPlayer.new()
-		self.add_child(audio)
-		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-		audio.stream = load('res://assets/sounds/ui/click.ogg')
-		audio.play()
 
 func _on_button_mouse_entered() :
 	if visible:
