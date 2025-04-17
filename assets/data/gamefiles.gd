@@ -50,5 +50,4 @@ func _remove_folder_recursive(dir: DirAccess, folder_path: String) -> bool:
 		if dir.remove(folder_path) != OK:
 			return false
 		return true
-	else:
-		return false
+	return false

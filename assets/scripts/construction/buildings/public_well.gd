@@ -29,6 +29,7 @@ var object:Dictionary = {
 }
 
 func _ready():
+	self.visible = GameLoader.first_empty_water_can
 	update()
 	update_shadow()
 	self.add_child(audio)

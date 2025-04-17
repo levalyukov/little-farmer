@@ -55,21 +55,20 @@ const file:Dictionary = {
 
 var music_playlist:Dictionary = {
 	'spring' = [
-		'res://assets/sounds/music/flp/spring/test_music_track.mp3',
-		'res://assets/sounds/music/flp/spring/music_2.mp3',
-		'res://assets/sounds/music/flp/spring/music_3.mp3',
+		'res://assets/sounds/music/flp/spring/music#2.ogg',
+		'res://assets/sounds/music/flp/spring/music#3.ogg',
 	],
 	'summer' = [
-		'res://assets/sounds/music/flp/summer/music_1.mp3',
-		'res://assets/sounds/music/flp/summer/music_2.mp3',
+		'res://assets/sounds/music/flp/summer/music#1.ogg',
+		'res://assets/sounds/music/flp/summer/music#2.ogg',
 	],
 	'autumn' = [
-		'res://assets/sounds/music/flp/autumn/music_1.mp3',
-		'res://assets/sounds/music/flp/autumn/music_2.mp3',
+		'res://assets/sounds/music/flp/autumn/music#1.ogg',
+		'res://assets/sounds/music/flp/autumn/music#2.ogg',
 	],
 	'winter' = [
-		'res://assets/sounds/music/flp/winter/music_1.mp3',
-		'res://assets/sounds/music/flp/winter/music_2.mp3',
+		'res://assets/sounds/music/flp/winter/music#1.ogg',
+		'res://assets/sounds/music/flp/winter/music#2.ogg',
 	],
 }
 

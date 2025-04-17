@@ -38,7 +38,7 @@ var player_file = FileAccess.open('user://game/data/player/player.json', FileAcc
 
 var clicked:bool = false
 var game_music:Array[String] = [
-	'res://assets/sounds/music/flp/spring/music_1.mp3',
+	'res://assets/sounds/music/flp/spring/music#1.ogg',
 ]
 
 

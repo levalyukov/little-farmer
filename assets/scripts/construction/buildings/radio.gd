@@ -82,23 +82,32 @@ func stop_track() -> void:
 
 func scan_user_files(folder_path:String = "user://game/custom_music/") -> Array:
 	var dir = DirAccess.open(folder_path)
+	var files = []
+	var readme_url = 'user://game/custom_music/readme.txt'
+	var readme_read = FileAccess.open(readme_url, FileAccess.READ)
+	if !readme_read:
+		var readme_file = FileAccess.open(readme_url, FileAccess.WRITE)
+		readme_file.store_string(
+			"Чтобы воспроизвести пользовательские песни, нужно поместить в эту папку аудиофайлы формата .mp3\n\n* * *\n\nTo play custom songs, you need to place the .mp3 audio files in this folder"
+		)
+		readme_file.close()
 	if !dir:
 		FileSystem.new().Funcs.create_directory(folder_path)
 		scan_user_files(folder_path)
-	dir.list_dir_begin()
-	audio_captions = []
-	var files = []
-	while true:
-		var file_name = dir.get_next()
-		if file_name == "":
-			break
-		if file_name.begins_with(".") || file_name == "..":
-			continue
-		if dir.current_is_dir():
-			continue
-		if file_name.to_lower().ends_with(".mp3"):
-			audio_captions.append(file_name.replace(".mp3", ""))
-			files.append(file_name)
+	else:
+		dir.list_dir_begin()
+		audio_captions = []
+		while true:
+			var file_name = dir.get_next()
+			if file_name == "":
+				break
+			if file_name.begins_with(".") || file_name == "..":
+				continue
+			if dir.current_is_dir():
+				continue
+			if file_name.to_lower().ends_with(".mp3"):
+				audio_captions.append(file_name.replace(".mp3", ""))
+				files.append(file_name)
 	return files
 
 func next_track() -> void:

@@ -127,7 +127,6 @@ func update_string_playNow() -> void:
 				playNow.text = tr("На паузе: ") + "\"" + str(node.audio_captions[node.audio_index_track].substr(0,50)) + "..." + "\""
 			else:
 				playNow.text = tr("На паузе: ") + "\"" + str(node.audio_captions[node.audio_index_track]) + "\""
-		check_game_music()
 
 func set_stations() -> void:
 	if radiostationsContainer.get_children() != []:
@@ -172,9 +171,18 @@ func on_station_pressed(stationName:String):
 				audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 				audio.stream = load('res://assets/sounds/ui/click.ogg')
 				audio.play()
+			check_game_music()
 
 func _on_open_folder_button_pressed():
 	data.open_folder_in_explorer("user://game/custom_music/")
+	var readme_url = 'user://game/custom_music/readme.txt'
+	var readme_read = FileAccess.open(readme_url, FileAccess.READ)
+	if !readme_read:
+		var readme_file = FileAccess.open(readme_url, FileAccess.WRITE)
+		readme_file.store_string(
+			"Чтобы воспроизвести пользовательские песни, нужно поместить в эту папку аудиофайлы формата .mp3\n\n* * *\n\nTo play custom songs, you need to place the .mp3 audio files in this folder"
+		)
+		readme_file.close()
 	var audio = AudioStreamPlayer.new()
 	self.add_child(audio)
 	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
@@ -398,7 +406,6 @@ func _on_pause_track_button_mouse_entered():
 	if visible:
 		if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
-
 func _on_next_track_button_mouse_entered():
 	if visible:
 		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
@@ -411,7 +418,6 @@ func _on_next_track_button_mouse_entered():
 func _on_next_track_button_mouse_exited():
 	if visible:
 		if cursor: cursor.set_cursor(cursor.states.DEFAULT)
-	
 
 func _on_power_button_mouse_entered():
 	if visible:
@@ -426,7 +432,6 @@ func _on_power_button_mouse_exited():
 	if visible:
 		if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
-
 func _on_open_folder_button_mouse_entered():
 	if visible && !buttonOpenFolder.disabled:
 		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
@@ -439,7 +444,6 @@ func _on_open_folder_button_mouse_entered():
 func _on_open_folder_button_mouse_exited():
 	if visible:
 		if cursor: cursor.set_cursor(cursor.states.DEFAULT)
-
 
 func _on_scan_folder_button_mouse_entered():
 	if visible && !buttonScanUsersTracks.disabled:
@@ -457,7 +461,6 @@ func _on_scan_folder_button_mouse_exited():
 func set_radio_track_name(track_index) -> void:
 	if stations_audios_captions.size() > 0:
 		playNow.text = tr("Сейчас играет: ") + "\"" + stations_audios_captions[track_index] + "\""
-
 
 func check_game_music() -> void:
 	if node:
