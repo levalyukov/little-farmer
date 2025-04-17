@@ -12,6 +12,9 @@ var timer = Timer.new()
 # Indicators
 var mailbox_indicator:bool = false
 
+# Letters Triggers
+var first_empty_water_can:bool = false
+
 # ---
 
 var greenhouse_caption:String = "greenhouse_1"

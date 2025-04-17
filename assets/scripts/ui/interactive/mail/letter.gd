@@ -15,7 +15,7 @@ var sprites:Dictionary = {
 }
 
 func set_data(id, content:String) -> void:
-	self.index = id
+	index = id
 	header.text = content
 	_text()
 	

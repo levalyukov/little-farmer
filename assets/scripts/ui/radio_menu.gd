@@ -41,15 +41,17 @@ var stations:Dictionary = {
 			'Фермерский быт',
 			'Утренний ветерок',
 			'В даль реки',
+			'Композиция',
 		],
 		'tracks': [
-			'res://assets/sounds/music/radio/track#1.mp3',
-			'res://assets/sounds/music/radio/track#2.mp3',
-			'res://assets/sounds/music/radio/track#3.mp3',
-			'res://assets/sounds/music/radio/track#4.mp3',
-			'res://assets/sounds/music/radio/track#5.mp3',
-			'res://assets/sounds/music/radio/track#6.mp3',
-			'res://assets/sounds/music/radio/track#7.mp3',
+			'res://assets/sounds/music/radio/track#1.ogg',
+			'res://assets/sounds/music/radio/track#2.ogg',
+			'res://assets/sounds/music/radio/track#3.ogg',
+			'res://assets/sounds/music/radio/track#4.ogg',
+			'res://assets/sounds/music/radio/track#5.ogg',
+			'res://assets/sounds/music/radio/track#6.ogg',
+			'res://assets/sounds/music/radio/track#7.ogg',
+			'res://assets/sounds/music/radio/track#8.ogg',
 		]
 	},
 }
@@ -72,6 +74,10 @@ func _process(_delta):
 	if visible:
 		if node:
 			if node.enabled:
+				if !node.audio_player.is_playing() && !stopped:
+					playNow.text ="Выберите режим работы радио ниже:"
+				powerButton.text = tr("Выключить радио")
+
 				if node.audio_player.is_playing():
 					if !node.particles.emitting:
 						node.particles.emitting = true
@@ -83,6 +89,10 @@ func _process(_delta):
 					if !node.radio_noise.is_playing():
 						node.radio_noise.play()
 			else:
+				if playNow.text != "":
+					playNow.text = ""
+				powerButton.text = tr("Включить радио")
+
 				if node.particles.emitting:
 					node.particles.emitting = !true
 
@@ -99,15 +109,6 @@ func _process(_delta):
 				if node.audio_player.is_playing():
 					if !buttonsInteractions.visible:
 						buttonsInteractions.visible = true
-
-				if node.enabled:
-					if !node.audio_player.is_playing() && !stopped:
-						playNow.text ="Выберите режим работы радио ниже:"
-					powerButton.text = tr("Выключить радио")
-				else:
-					if playNow.text != "":
-						playNow.text =""
-					powerButton.text = tr("Включить радио")
 					if buttonsInteractions.visible:
 						buttonsInteractions.visible = false
 			else:
@@ -126,6 +127,7 @@ func update_string_playNow() -> void:
 				playNow.text = tr("На паузе: ") + "\"" + str(node.audio_captions[node.audio_index_track].substr(0,50)) + "..." + "\""
 			else:
 				playNow.text = tr("На паузе: ") + "\"" + str(node.audio_captions[node.audio_index_track]) + "\""
+		check_game_music()
 
 func set_stations() -> void:
 	if radiostationsContainer.get_children() != []:
@@ -455,3 +457,13 @@ func _on_scan_folder_button_mouse_exited():
 func set_radio_track_name(track_index) -> void:
 	if stations_audios_captions.size() > 0:
 		playNow.text = tr("Сейчас играет: ") + "\"" + stations_audios_captions[track_index] + "\""
+
+
+func check_game_music() -> void:
+	if node:
+		if node.enabled:
+			if node.radio_noise.is_playing():
+				if main == 'Farm':
+					for i in get_tree().root.get_child(2).get_children():
+						if i.name == 'MusicPlayer':
+							i.stop()

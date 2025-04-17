@@ -96,7 +96,7 @@ func check_all_keys(id, dictionary:Dictionary) -> void:
 
 func get_data(letterID) -> void:
 	reset_data()
-	index = check_letterID(letterID)
+	index = letterID
 	content_scroll.scroll_vertical = 0
 	if letters.has(index):
 		letter_delete_items(items_container)
@@ -176,15 +176,8 @@ func get_data(letterID) -> void:
 			change_state_mail_remove_button(true)
 			items_block.visible = false
 	else:
-		data.debug("Invalid index: " + str(index), "error")
+		data.debug("Invalid index: " + str(index) + ' | godot.typeof: ' + str(typeof(index)), "error")
 	update_state_mail_manipulation_button()
-
-func check_letterID(letterID):
-	for i in letters:
-		if typeof(i) == TYPE_INT:
-			return int(letterID)
-		if typeof(i) == TYPE_STRING:
-			return str(letterID)
 
 func get_all_items(id, dictionary:Dictionary) -> void:
 	if dictionary[id].has("items"):
@@ -192,10 +185,8 @@ func get_all_items(id, dictionary:Dictionary) -> void:
 			if check_letter_item(1, id, dictionary):
 				check_letter_item(2, id, dictionary)
 	change_state_mail_remove_button(true)
-
 	if dictionary[id].has("money"):
 		balance.add_money(dictionary[id]["money"])
-
 	dictionary[id]["collected"] = true
 	button.visible = false
 

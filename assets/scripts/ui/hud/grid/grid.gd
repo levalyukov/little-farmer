@@ -17,6 +17,7 @@ extends Node2D
 @onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/storage")
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var farming:Node2D = get_node("/root/"+main+"/FarmingManager")
+@onready var mail:Control = get_node("/root/"+main+"/UI/Interactive/Mailbox")
 @onready var collision:Node2D = $GridParent
 
 var items = Items.new()
@@ -194,6 +195,13 @@ func _process(_delta):
 					tip.tooltip(tr('Вода в лейке:') +'\n' + str(tools.water_can) + "/" + str(tools.water_can_max))
 				else:
 					tip.tooltip(tr('Лейка пуста!'))
+					if !GameLoader.first_empty_water_can:
+						GameLoader.first_empty_water_can = true
+						mail.letter(
+							'Колодец общего пользования',
+							'Етуфы',
+							'С уважением,\nКорней Корнеич'
+						)
 
 				if check:
 					for i in collision.get_children():

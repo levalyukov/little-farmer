@@ -100,6 +100,10 @@ func _ready():
 				if file_load(file.player).has('tools_level'):
 					if file_load(file.player)['tools_level'].has('water_can'):
 						tools.water_can = file_load(file.player)['tools_level']['water_can']
+			if file_load(file.world):
+				if file_load(file.world).has('letter_triggers'):
+					if file_load(file.world)['letter_triggers'].has('empty_can'):
+						GameLoader.first_empty_water_can = file_load(file.world)['letter_triggers']['empty_can']
 		# New Game
 		if !GameLoader.mode\
 		&& GameLoader.start:
@@ -708,7 +712,10 @@ func get_dictionary_content(content:String, group:String = "") -> Dictionary:
 					"day": clock.day,
 					"hour": clock.hour,
 					"minute": clock.minute,
-				}
+				},
+				'letter_triggers': {
+					'empty_can': GameLoader.first_empty_water_can,
+				},
 			}
 			
 		"vectors":

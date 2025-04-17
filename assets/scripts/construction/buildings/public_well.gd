@@ -39,7 +39,8 @@ func _input(event):
 	&& event.is_pressed()\
 	&& !blur.state\
 	&& grid.mode == grid.modes.NOTHING\
-	&& openedMenu:
+	&& openedMenu\
+	&& GameLoader.first_empty_water_can:
 		if tools:
 			if tools.water_can < tools.water_can_max:
 				tools.water_can = tools.water_can_max
@@ -86,7 +87,8 @@ func update_shadow() -> void:
 func _on_area_2d_mouse_entered() -> void:
 	openedMenu = true
 	if !blur.state\
-	&& grid.mode == grid.modes.NOTHING:
+	&& grid.mode == grid.modes.NOTHING\
+	&& GameLoader.first_empty_water_can:
 		var distance = round(global_position.distance_to(player.global_position))
 		if distance < building.max_distance:
 			if cursor: cursor.set_cursor(cursor.states.ACTIVE)
