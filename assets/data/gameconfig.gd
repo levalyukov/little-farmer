@@ -5,7 +5,7 @@ var fullscreen:bool = true
 var fps_limit:int = true
     
 var general:int = 100
-var music:int = 23
+var music:int = 25
 var nature:int = 50
 var radio:int = 75
 

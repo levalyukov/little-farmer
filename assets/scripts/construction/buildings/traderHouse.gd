@@ -43,6 +43,7 @@ func _input(event):
 	&& openedTradeMenu:
 		tradeMenu.open_trade_menu(1)
 		update()
+		if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
 func update():
 	if clock:
@@ -94,9 +95,9 @@ func _process(_delta) -> void:
 
 func _on_area_2d_mouse_entered() -> void:
 	openedTradeMenu = true
-	if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 	if !blur.state\
 	&& grid.mode == grid.modes.NOTHING:
+		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 		var distance = round(global_position.distance_to(player.global_position))
 		if distance < building.max_distance:
 			if object.has("seasons"):
@@ -125,7 +126,7 @@ func _on_area_2d_mouse_entered() -> void:
 
 func _on_area_2d_mouse_exited() -> void:
 	openedTradeMenu = !true
-	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+	if !blur.state: if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 	if object.has("seasons"):
 		var season = clock.get_season()
 		if object["seasons"].has(season):

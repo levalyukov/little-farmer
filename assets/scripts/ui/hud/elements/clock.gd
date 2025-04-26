@@ -7,6 +7,8 @@ extends Control
 @onready var cycle:CanvasModulate = get_node("/root/"+main+"/Cycle")
 @onready var shadow:Node = get_node("/root/"+main+"/ShadowManager")
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
+@onready var mail:Control = get_node("/root/"+main+"/UI/Interactive/Mailbox")
+
 @onready var sprite:CompressedTexture2D = load("res://assets/resources/ui/interactive/hud/clock.png")
 @onready var icon:TextureRect = $Margin/HBoxContainer/Icon/TextureRect
 @onready var label:Label = $Margin/HBoxContainer2/Label/Label
@@ -27,7 +29,7 @@ var audio = AudioStreamPlayer.new()
 #		}
 #	}
 
-var spring_day_sound = preload('res://assets/sounds/nature/spring_day.ogg')
+var spring_day_sound = load('res://assets/sounds/nature/spring_day.ogg')
 var spring_night_sound = load('res://assets/sounds/nature/spring_night.ogg')
 const spring_day_sound_end:int = 19
 const spring_night_sound_end:int = 6
@@ -49,6 +51,13 @@ const winter_night_sound_end:int = 6
 
 const speed:float = 8
 const day_end:int = 23
+
+#	const morning_start:int = 6
+#	const morning_end:int = 12
+const cycle_day_start:int = 6
+const cycle_day_end:int = 21
+const cycle_night_start:int = 0
+const cycle_night_end:int = 6
 
 var year:int = 1
 var week:int = 0
@@ -79,7 +88,6 @@ func _ready():
 	audio.bus = 'Nature'
 	#	self.add_child(random_prefab)
 	#	random_prefab.bus = 'Nature'
-	start_nature_sounds()
 
 func _process(_delta):
 	if !pause.paused:
@@ -89,6 +97,14 @@ func _process(_delta):
 	else:
 		if !audio.get_stream_paused():
 			audio.set_stream_paused(true)
+
+func get_part_day() -> String:
+	var part_day = ''
+	if range(cycle_day_start, cycle_day_end).has(hour):
+		part_day = 'day'
+	if range(cycle_night_start, cycle_night_end).has(hour):
+		part_day = 'night'
+	return part_day
 
 func start_nature_sounds() -> void:
 	match get_season():
@@ -100,7 +116,7 @@ func start_nature_sounds() -> void:
 					audio.stream = spring_day_sound
 					audio.play()
 			else:
-				if !audio.is_playing():
+				if audio.stream != spring_night_sound:
 					audio.stop()
 					audio.volume_db = 0.0
 					audio.stream = spring_night_sound
@@ -120,7 +136,7 @@ func start_nature_sounds() -> void:
 					audio.play()
 		'autumn':
 			if range(autumn_night_sound_end, autumn_day_sound_end).has(hour):
-				if audio.stream != autumn_day_sound && audio.is_playing():
+				if audio.stream == autumn_night_sound || !audio.is_playing():
 					audio.stop()
 					audio.volume_db = 0.0
 					audio.stream = autumn_day_sound
@@ -128,12 +144,12 @@ func start_nature_sounds() -> void:
 			else:
 				if !audio.is_playing():
 					audio.stop()
-				#	audio.volume_db = 0.0
-				#	audio.stream = autumn_night_sound
-				#	audio.play()
+					audio.volume_db = 0.0
+					audio.stream = autumn_night_sound
+					audio.play()
 		'winter':
 			if range(winter_night_sound_end, winter_day_sound_end).has(hour):
-				if !audio.is_playing():
+				if audio.stream == winter_night_sound || !audio.is_playing():
 					audio.stop()
 					audio.volume_db = 0.0
 					audio.stream = winter_day_sound
@@ -142,7 +158,7 @@ func start_nature_sounds() -> void:
 				if !audio.is_playing():
 					audio.stop()
 					audio.volume_db = 0.0
-					audio.stream = winter_day_sound
+					audio.stream = winter_night_sound
 					audio.play()
 
 func clock_update() -> void:
@@ -218,9 +234,10 @@ func check_hour() -> void:
 			shadow.remove_all_clouds()
 
 func check_week() -> void:
-	if week > season_change:
-		week = 1
+	if week >= season_change:
+		week = 0
 		update_season()
+		GameLoader.reminder_harvest = !true
 
 func _on_timer_timeout() -> void:
 	if !pause.paused:
@@ -228,3 +245,37 @@ func _on_timer_timeout() -> void:
 		check_hour()
 		check_week()
 		clock_update()
+		if !GameLoader.reminder_harvest:
+			if week+1 == season_change:
+				if hour == 7\
+				&& day == 6:
+					if mail:
+						match get_season():
+							'spring':
+								GameLoader.reminder_harvest = true
+								mail.letter(
+									'Напоминание',
+									'Привет!\n\nСпешу тебе чтобы напомнить — завтра лето, поэтому собери весь созревший урожай, а то пропадет!',
+									'Садовод Добрыня'
+								)
+							'summer':
+								GameLoader.reminder_harvest = true
+								mail.letter(
+									'Напоминание',
+									'Привет!\n\nСегодня читал прогноз погоды на завтра — ожидается похолодание. Чтобы не потерять урожай, обязательно собери все, что уже созрело.\n\nТакже заглядывай ко мне чтобы приобрести осенние семена.',
+									'Садовод Добрыня'
+								)	
+							'autumn':
+								GameLoader.reminder_harvest = true
+								mail.letter(
+									'Напоминание',
+									'Привет!\n\nСтолбик термометра опускается ниже нуля, поэтому собирай весь созревший урожай, готовь корм для скота и растапливай камин — зима на носу!',
+									'Садовод Добрыня'
+								)	
+							'winter':
+								GameLoader.reminder_harvest = true
+								mail.letter(
+									'Напоминание',
+									'Привет!\n\nУ меня радостная новость — завтра ожидается потепление! С завтрашнего дня у меня можно приобрести весенние семена.',
+									'Садовод Добрыня'
+								)					

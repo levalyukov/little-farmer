@@ -118,11 +118,11 @@ var content:Dictionary = {
 	13: {
 		"caption": tr("Семена моркови"),
 		"description": tr("Маленькие семена для выращивания моркови."),
-		"specifications": {
-			"growth": tr("carrot.growth"),
-			"productivity": tr("carrot.productivity"),
-			"conditions": tr("carrot.conditions"),
-		},
+		#	"specifications": {
+		#		"growth": tr("carrot.growth"),
+		#		"productivity": tr("carrot.productivity"),
+		#		"conditions": tr("carrot.conditions"),
+		#	},
 		"type": tr("Семена"),
 		"item_type": "seeds",
 		"purchase": 15,
@@ -133,11 +133,6 @@ var content:Dictionary = {
 	14: {
 		"caption": tr("Семена картофеля"),
 		"description": tr("Эти семена помогут вырастить питательный картофель."),
-		"specifications": {
-			"growth": tr("potato.growth"),
-			"productivity": tr("potato.productivity"),
-			"conditions": tr("potato.conditions"),
-		},
 		"type": tr("Семена"),
 		"item_type": "seeds",
 		"purchase": 40,
@@ -148,11 +143,6 @@ var content:Dictionary = {
 	15: {
 		"caption": tr("Семена редиса"),
 		"description": tr("Маленькие семена для быстрого выращивания хрустящего редиса."),
-		"specifications": {
-			"growth": tr("radish.growth"),
-			"productivity": tr("radish.productivity"),
-			"conditions": tr("radish.conditions"),
-		},
 		"type": tr("Семена"),
 		"item_type": "seeds",
 		"purchase": 25,
@@ -163,11 +153,6 @@ var content:Dictionary = {
 	16: {
 		"caption": tr("Семена капусты"),
 		"description": tr("Семена для выращивания плотной и сочной капусты."),
-		"specifications": {
-			"growth": tr("cabbage.growth"),
-			"productivity": tr("cabbage.productivity"),
-			"conditions": tr("cabbage.conditions"),
-		},
 		"type": tr("Семена"),
 		"item_type": "seeds",
 		"purchase": 60,
@@ -606,7 +591,7 @@ var content:Dictionary = {
 	# Compost
 	61: {
 		"caption": tr("Обычный компост"),
-		"description": tr("Уменьшает время роста растения на 5%.\n\nУдобрять перед посевом."),
+		"description": tr("Ускоряет время роста растения на 5%.\n\nУдобрять перед посевом."),
 		"type": tr("Удобрение"),
 		"item_type": "fertilizer",
 		"purchase": 150,
@@ -618,7 +603,7 @@ var content:Dictionary = {
 	},
 	62: {
 		"caption": tr("Высококачественный компост"),
-		"description": tr("Уменьшает время роста растения на 20%.\n\nУдобрять перед посевом."),
+		"description": tr("Ускоряет время роста растения на 20%.\n\nУдобрять перед посевом."),
 		"type": tr("Удобрение"),
 		"item_type": "fertilizer",
 		"purchase": 250,

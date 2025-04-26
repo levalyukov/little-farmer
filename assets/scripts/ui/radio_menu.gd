@@ -99,18 +99,14 @@ func _process(_delta):
 				if node.radio_noise:
 					if node.radio_noise.is_playing():
 						node.radio_noise.stop()
-
 			if node.userMode:
 				if stopped:
 					pauseTrack.text = 'Слушать'
 				else:
 					pauseTrack.text = 'Пауза'
-
 				if node.audio_player.is_playing():
 					if !buttonsInteractions.visible:
 						buttonsInteractions.visible = true
-					if buttonsInteractions.visible:
-						buttonsInteractions.visible = false
 			else:
 				if buttonsInteractions.visible:
 					buttonsInteractions.visible = false
@@ -294,6 +290,7 @@ func _on_power_button_pressed():
 	if visible:
 		if node:
 			if node.enabled:
+				node.start_game_music = true
 				node.enabled = false
 				node.radio = false
 				node.userMode = false

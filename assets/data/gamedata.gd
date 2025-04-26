@@ -1,6 +1,7 @@
 extends Node
 
 @onready var main:String = str(get_tree().root.get_child(2).name)
+@onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var cycle:Node2D = get_node("/root/"+main+"/Day-Night Cycle")
 @onready var hud:Control = get_node("/root/"+main+"/UI/HUD/GameHud")
@@ -24,6 +25,10 @@ extends Node
 var music:AudioStreamPlayer = AudioStreamPlayer.new()
 var music_cooldown:Timer = Timer.new()
 var global_index_audio = -1
+var target_left_time:float = 0.0
+var target_wait_time:float = 0.0
+
+const music_wait_cooldown:Array[float] = [60.0, 120.0]
 
 const path:Dictionary = {
 	main = "user://game",
@@ -54,36 +59,68 @@ const file:Dictionary = {
 }
 
 var music_playlist:Dictionary = {
-	'spring' = [
-		'res://assets/sounds/music/flp/spring/music#2.ogg',
-		'res://assets/sounds/music/flp/spring/music#3.ogg',
-	],
-	'summer' = [
-		'res://assets/sounds/music/flp/summer/music#1.ogg',
-		'res://assets/sounds/music/flp/summer/music#2.ogg',
-	],
-	'autumn' = [
-		'res://assets/sounds/music/flp/autumn/music#1.ogg',
-		'res://assets/sounds/music/flp/autumn/music#2.ogg',
-	],
-	'winter' = [
-		'res://assets/sounds/music/flp/winter/music#1.ogg',
-		'res://assets/sounds/music/flp/winter/music#2.ogg',
-	],
+	'spring': {
+		'day' = [
+			'res://assets/sounds/music/flp/spring/music#2.ogg',
+			'res://assets/sounds/music/flp/spring/music#3.ogg',
+		],
+		'night' = [
+			'res://assets/sounds/music/flp/spring/night#1.ogg',
+			'res://assets/sounds/music/flp/spring/night#2.ogg',
+		]
+	},
+	'summer': {
+		'day' = [
+			'res://assets/sounds/music/flp/summer/music#1.ogg',
+			'res://assets/sounds/music/flp/summer/music#2.ogg',
+			'res://assets/sounds/music/flp/summer/music#3.ogg',
+		],
+		'night' = [
+			'res://assets/sounds/music/flp/summer/night#1.ogg',
+			'res://assets/sounds/music/flp/summer/night#2.ogg',
+		]
+	},
+	'autumn': {
+		'day' = [
+			'res://assets/sounds/music/flp/autumn/music#1.ogg',
+			'res://assets/sounds/music/flp/autumn/music#2.ogg',
+		],
+		'night' = [
+			'res://assets/sounds/music/flp/autumn/night#1.ogg',
+			'res://assets/sounds/music/flp/autumn/night#2.ogg',
+		]
+	},
+	'winter': {
+		'day' = [
+			'res://assets/sounds/music/flp/winter/music#1.ogg',
+			'res://assets/sounds/music/flp/winter/music#2.ogg',
+		],
+		'night' = [
+			'res://assets/sounds/music/flp/winter/night#1.ogg',
+			'res://assets/sounds/music/flp/winter/night#2.ogg',
+		]
+	},
 }
 
 func _ready():
-	# timer (cooldown)
-	self.add_child(music_cooldown)
-	music_cooldown.name = 'MusicCooldownTimer'
-	music_cooldown.connect("timeout", Callable(self, "_on_timer_timeout").bind())
-	# audio stream player
-	self.add_child(music)
-	music.name = 'MusicPlayer'
-	music.bus = 'Music'
-	music.connect("finished", Callable(self, "_on_music_stream_player_finished").bind())
-	play_music(music_playlist)
 	if main == "Farm":
+		# timer (cooldown)
+		self.add_child(music_cooldown)
+		music_cooldown.name = 'MusicCooldownTimer'
+		music_cooldown.connect("timeout", Callable(self, "_on_timer_timeout").bind())
+		# audio stream player
+		self.add_child(music)
+		music.name = 'MusicPlayer'
+		music.bus = 'Music'
+		music.connect("finished", Callable(self, "_on_music_stream_player_finished").bind())
+		if music_cooldown: 
+			if target_wait_time != 0.0:
+				target_wait_time = randf_range(music_wait_cooldown[0], music_wait_cooldown[1])
+				music_cooldown.set_wait_time(target_wait_time) 
+				music_cooldown.start()
+			else:
+				music_cooldown.set_wait_time(target_wait_time - target_left_time) 
+				music_cooldown.start()
 		# Game Load
 		if GameLoader.mode\
 		&& !GameLoader.start:
@@ -103,6 +140,9 @@ func _ready():
 				if file_load(file.world).has('letter_triggers'):
 					if file_load(file.world)['letter_triggers'].has('empty_can'):
 						GameLoader.first_empty_water_can = file_load(file.world)['letter_triggers']['empty_can']
+				if file_load(file.world).has('letter_triggers'):
+					if file_load(file.world)['letter_triggers'].has('reminder_harvest'):
+						GameLoader.reminder_harvest = file_load(file.world)['letter_triggers']['reminder_harvest']
 		# New Game
 		if !GameLoader.mode\
 		&& GameLoader.start:
@@ -158,7 +198,11 @@ func gameload() -> void:
 	load_nature_nodes()
 	plant_load()
 	# Config
-	config_load()
+	if file_load(file.config):
+		config_load()
+	else:
+		config_save()
+		config_load()
 	
 func file_save(_path:Array, _file:String, _content:Dictionary) -> void:
 	if _path != []:
@@ -578,7 +622,7 @@ func remove_all_terrains() -> void:
 
 func load_time() -> void:
 	clock.set_clock_value(
-		get_key(file.world, "season_id", "time"),
+		get_key(file.world, "season", "time"),
 		get_key(file.world, "year", "time"),
 		get_key(file.world, "week", "time"),
 		get_key(file.world, "day", "time"),
@@ -705,7 +749,7 @@ func get_dictionary_content(content:String, group:String = "") -> Dictionary:
 			return {
 				'greenhouse_data': GameLoader.greenhouse_plants,
 				"time": {
-					"season_id": clock.season,
+					"season": clock.season,
 					"year": clock.year,
 					"week": clock.week,
 					"day": clock.day,
@@ -714,6 +758,7 @@ func get_dictionary_content(content:String, group:String = "") -> Dictionary:
 				},
 				'letter_triggers': {
 					'empty_can': GameLoader.first_empty_water_can,
+					'reminder_harvest': GameLoader.reminder_harvest,
 				},
 			}
 			
@@ -849,7 +894,7 @@ func config_new() -> void:
 		},
 		"sounds": {
 			"general": 100,
-			"music": 50,
+			"music": 25,
 			"nature": 50,
 			"radio": 75,
 		},
@@ -887,7 +932,7 @@ func config_save() -> void:
 			},
 			"sounds": {
 				"general": 100,
-				"music": 50,
+				"music": 25,
 				"nature": 50,
 				"radio": 75,
 			},
@@ -902,24 +947,24 @@ func config_load() -> void:
 		get_node("/root/"+main+"/Menu/Options").set_values(file_load(file.config))
 
 func start_newgame() -> void:
-
 	nature.create_start_nature()
 	config_new()
 	config_load()
+	await get_tree().create_timer(2.5).timeout
 	mailbox.letter(
 		# 	Header
-		"Письмо новому фермеру",
+		tr("Письмо новому фермеру"),
 		# 	Description
-		"Приветствую тебя в нашем сообществе фермеров-садоводов!
+		tr("Приветствую тебя в нашем сообществе фермеров-садоводов!
 
 		Меня зовут Корней Корнеич — мэр и по совместительству профессиональный садовод города Заречье. Хочу поздравить тебя с началом нового этапа жизни на нашей земле.
 
 		В честь этого события я решил сделать тебе скромный подарок для первых шагов.
 
 		Желаю успехов и богатого урожая! В ближайшее время напишу ещё.
-		",	
+		"),	
 		# 	Author
-		"С уважением,\nМэр Корней Корнеич",
+		tr("С уважением,\nМэр Корней Корнеич"),
 		#	Money
 		500,
 		#	Items
@@ -1011,14 +1056,19 @@ func get_greenhouse_data() -> Dictionary:
 	}
 
 func play_music(dictionary) -> void:
-	if clock and dictionary.has(clock.get_season()):
-		var season_sounds = dictionary[clock.get_season()]
-		if season_sounds is Array and season_sounds.size() > 0:
-			var index_audio = get_random_audio_index(season_sounds)
-			if index_audio != -1:
-				music.stop()
-				music.stream = ResourceLoader.load(season_sounds[index_audio])
-				music.play()
+	if clock:
+		var season = clock.get_season()
+		var part_day = clock.get_part_day()
+		if dictionary.has(season):
+			if dictionary[season].has(part_day):
+				var season_sounds = dictionary[season][part_day]
+				if season_sounds is Array && season_sounds.size() > 0:
+					var index_audio = get_random_audio_index(season_sounds)
+					if index_audio != -1:
+						music.stop()
+						music.stream = ResourceLoader.load(season_sounds[index_audio])
+						if !pause.paused:
+							music.play()
 
 func get_random_audio_index(sounds_array):
 	if sounds_array.size() == 0:
@@ -1031,7 +1081,7 @@ func get_random_audio_index(sounds_array):
 			return -1
 	while true:
 		new_index = randi() % sounds_array.size()
-		if new_index != global_index_audio and is_valid_sound(sounds_array[new_index]):
+		if new_index != global_index_audio && is_valid_sound(sounds_array[new_index]):
 			break
 	global_index_audio = new_index
 	return new_index
@@ -1048,6 +1098,6 @@ func _on_timer_timeout() -> void:
 
 func _on_music_stream_player_finished():
 	if music_cooldown:
-		var wait_time = randf_range(60.0,120.0)
-		music_cooldown.set_wait_time(wait_time) 
+		target_wait_time = randf_range(music_wait_cooldown[0], music_wait_cooldown[1])
+		music_cooldown.set_wait_time(target_wait_time) 
 		music_cooldown.start()

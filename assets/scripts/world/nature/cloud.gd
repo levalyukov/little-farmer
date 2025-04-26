@@ -21,6 +21,11 @@ func _process(delta) -> void:
 		var distance = round(global_position.distance_to(player.global_position))
 		if distance > max_distance:
 			change_animation(false)
+		if life.is_paused():
+			life.set_paused(false)
+	else:
+		if !life.is_paused():
+			life.set_paused(true)
 
 func change_animation(state:bool) -> void:
 	if state:

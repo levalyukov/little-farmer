@@ -61,6 +61,7 @@ func _input(event):
 		&& grid.mode == grid.modes.NOTHING\
 		&& well_hovered\
 		&& !destroyMode\
+		&& !blur.state\
 		&& main == "Farm":
 			if tools:
 				if tools.water_can < tools.water_can_max:
@@ -182,13 +183,14 @@ func _change_sprite(type:bool) -> void:
 
 
 func _on_area_2d_mouse_entered():
-	if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 	if !well_hovered:
 		well_hovered = true
 	if !blur.state\
 	&& grid.mode == grid.modes.NOTHING\
 	&& !buttonDestroy.destroyMode:
-		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
+		if tools:
+			if tools.water_can < tools.water_can_max:
+				if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 		_change_sprite(true)
 	if !blur.state\
 	&& grid.mode == grid.modes.NOTHING\

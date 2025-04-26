@@ -242,6 +242,7 @@ layout_mode = 2
 root_node = NodePath("../../..")
 
 [node name="Label2" type="Label" parent="Main"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 8
 text = "Игра в разработке"

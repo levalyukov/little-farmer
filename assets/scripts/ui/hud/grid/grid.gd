@@ -172,7 +172,6 @@ func _process(_delta):
 								collision.terrain_set, 
 								collision.farming_terrain
 							)
-
 							var audio = AudioStreamPlayer.new()
 							self.add_child(audio)
 							audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
@@ -198,9 +197,9 @@ func _process(_delta):
 					if !GameLoader.first_empty_water_can:
 						GameLoader.first_empty_water_can = true
 						mail.letter(
-							'Колодец общего пользования',
-							'В городе Заречье был выкопан колодец для общего пользования.\n\nТеперь вы, если есть необходимость, можете приходить и наполнять лейку, ведра и так далее...',
-							'С уважением,\nМэр Корней Корнеич'
+							tr('Колодец общего пользования'),
+							tr('Уважаемый жители города Заречья!\n\nИнформирую вас о том, что в городе был сооружён колодец для общего пользования.\n\nДоступ к колодцу осуществляется свободно и бесплатно в любое время суток. Вы можете использовать его для забора воды с применением ёмкостей различного объёма (ведёр, леек и других приспособлений).\n\nПросим соблюдать порядок и бережное отношение к общегородскому имуществу.\n\nБлагодарим за внимание!'),
+							tr('Мэр Корней Корнеич')
 						)
 
 				if check:
@@ -311,14 +310,7 @@ func _process(_delta):
 						var harvest = collision.get_harvest_id(grid_position)
 						if crops.crops.has(harvest) && harvest != 0:
 							if storage.object[storage.level]["slots"] - inventory.get_all_items() != 0:
-								if collision.get_harvest(grid_position):
-									var crop_item:int = crops.crops[harvest]["item"]
-									var crop_productivity:Array = crops.crops[harvest]["productivity"]
-									var target_productivity:int = randi_range(crop_productivity[0], crop_productivity[1])
-									tilemap.erase_cell(collision.crops_layer, grid_position)
-									farming.plant_destroy(grid_position)
-									inventory.add_item(crop_item, target_productivity)
-									
+								if collision.get_harvest(grid_position):					
 									if data.check_probability(5):
 										var crop_spoilage = crops.crops[harvest]["spoilage"]
 										var spoiled_crop_productivity:Array = crops.crops[harvest]["productivity"]
@@ -326,7 +318,13 @@ func _process(_delta):
 										tilemap.erase_cell(collision.crops_layer, grid_position)
 										farming.plant_destroy(grid_position)
 										inventory.add_item(crop_spoilage, spoiled_target_productivity)
-
+									else:
+										var crop_item:int = crops.crops[harvest]["item"]
+										var crop_productivity:Array = crops.crops[harvest]["productivity"]
+										var target_productivity:int = randi_range(crop_productivity[0], crop_productivity[1])
+										tilemap.erase_cell(collision.crops_layer, grid_position)
+										farming.plant_destroy(grid_position)
+										inventory.add_item(crop_item, target_productivity)
 									var audio = AudioStreamPlayer.new()
 									self.add_child(audio)
 									audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))

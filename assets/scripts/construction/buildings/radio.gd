@@ -15,6 +15,9 @@ extends Node2D
 @onready var audio_player:AudioStreamPlayer2D = $AudioStreamPlayer2D
 @onready var radio_noise:AudioStreamPlayer2D = $RadioNoise
 @onready var sprite:Sprite2D = $Sprite2D
+
+var start_game_music:bool = false
+
 var level:int = 0
 
 var audio_streams:Array[AudioStreamMP3] = []
@@ -143,6 +146,12 @@ func _process(_delta):
 				radio_noise.set_stream_paused(false)
 			if particles.speed_scale == 0.0:
 				particles.speed_scale = 0.5
+		else:
+			if start_game_music:
+				if !data.music.is_playing():
+					start_game_music = false
+					data.music_cooldown.set_wait_time(30.0) 
+					data.music_cooldown.start()
 
 func _input(event):
 	if !pause.paused\

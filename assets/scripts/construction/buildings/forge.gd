@@ -53,6 +53,7 @@ func _input(event):
 	&& !buttonDestroy.destroyMode\
 	&& grid.mode == grid.modes.NOTHING\
 	&& stoneMenuOpen:
+		if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 		stoneOvenMenu.open(self)
 
 	if event is InputEventMouseButton\

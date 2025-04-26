@@ -18,8 +18,8 @@ var blueprint_id:int
 var vector:Vector2i
 var object:Dictionary = {
 	1: {
-		"caption" = tr("christmas_tree.caption"),
-		"description" = tr("christmas_tree.description"),
+		"caption" = tr("Новогодняя Ёлка"),
+		"description" = tr("С Новым Годом, фермер!"),
 		"default" = load("res://assets/resources/buildings/christmass_tree/sprite_0.png"),
 		"hover" = load("res://assets/resources/buildings/christmass_tree/sprite_1.png"),
 	},
@@ -51,12 +51,10 @@ func _change_sprite(type:bool):
 		if grid.mode == grid.modes.NOTHING and distance < max_distance:
 			if object.has(level):
 				_check_sprite("hover")
-				var level_text = tr("object.level")
 				tip.tooltip(
 					str(object[level]["caption"]) + "\n" +
-					str(object[level]["description"]) + "\n" +
-					str(level_text) + str(level)
-					)
+					str(object[level]["description"]) + "\n"
+				)
 	else:
 		_check_sprite("default")
 		if tip:

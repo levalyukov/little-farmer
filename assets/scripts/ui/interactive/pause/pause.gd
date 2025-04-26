@@ -13,13 +13,29 @@ extends Control
 @onready var zoom:Camera2D = get_node("/root/"+main+"/Player/Camera2D")
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
+@onready var mailbox:Node2D = get_node('/root/'+main+'/ConstructionManager/mailbox')
 @onready var anim:AnimationPlayer = $AnimationPlayer
 @onready var version:Label = $Main/Container/GameVersionMargin/GameVersion
+
+@onready var buttonCountinue:Button = $Main/Container/CountinueButtonMargin/CountinueButton
+@onready var buttonSettings:Button = $Main/Container/SettingsButtonMargin/SettingsButton
+@onready var buttonBugReport:Button = $Main/Container/ReportBugButtonMargin/ReportBugButton
+@onready var buttonExit:Button = $Main/Container/ExitButtonMargin/ExitButton
+
+var buttonCountinueText:String = tr('Продолжить')
+var buttonSettingsText:String = tr('Настройки')
+var buttonBugReportText:String = tr('Сообщить об ошибке')
+var buttonExitText:String = tr('Сохраниться и выйти')
 
 var paused:bool
 var other_menu:bool
 
 func _ready():
+	buttonCountinue.text = buttonCountinueText
+	buttonSettings.text = buttonSettingsText
+	buttonBugReport.text = buttonBugReportText
+	buttonExit.text = buttonExitText
+
 	player.switch = true
 	player.check_switch()
 	await get_tree().create_timer(0.75).timeout
@@ -60,8 +76,16 @@ func open() -> void:
 				timer.set_paused(true)
 	if main == 'Farm':
 		for i in get_tree().root.get_child(2).get_children():
-			if i.name == 'MusicPlayer':
-				i.set_stream_paused(true)
+			match i.name:
+				'MusicPlayer':
+					i.set_stream_paused(true)
+				'MusicCooldownTimer':
+					if i.is_paused():
+						i.set_paused(false)
+		if mailbox:
+			if mailbox.indicator.visible:
+				if mailbox.anim.is_playing():
+					mailbox.anim.stop()
 		
 func close() -> void:
 	paused = false
@@ -75,8 +99,16 @@ func close() -> void:
 				timer.set_paused(!true)
 	if main == 'Farm':
 		for i in get_tree().root.get_child(2).get_children():
-			if i.name == 'MusicPlayer':
-				i.set_stream_paused(!true)
+			match i.name:
+				'MusicPlayer':
+					i.set_stream_paused(!true)
+				'MusicCooldownTimer':
+					if !i.is_paused():
+						i.set_paused(true)
+		if mailbox:
+			if mailbox.indicator.visible:
+				if !mailbox.anim.is_playing():
+					mailbox.anim.play()
 
 func _check_window() -> void:
 	visible = paused

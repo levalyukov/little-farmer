@@ -175,4 +175,6 @@ libraries = {
 "": SubResource("AnimationLibrary_1po6e")
 }
 
+[connection signal="mouse_entered" from="MainContainer/VBox/ButtonsContainer/HBox/ConfirmButtonMargin/Confirm" to="." method="_on_confirm_mouse_entered"]
+[connection signal="mouse_exited" from="MainContainer/VBox/ButtonsContainer/HBox/ConfirmButtonMargin/Confirm" to="." method="_on_confirm_mouse_exited"]
 [connection signal="pressed" from="MainContainer/VBox/ButtonsContainer/HBox/ConfirmButtonMargin/Confirm" to="." method="_on_confirm_pressed"]

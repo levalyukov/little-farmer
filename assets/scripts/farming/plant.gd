@@ -42,9 +42,15 @@ func _process(_delta):
 	if pause.paused:
 		timer.set_paused(true)
 		check_water_timer.set_paused(true)
+		if indicator.visible:
+			if anim.is_playing():
+				anim.pause()
 	else:
 		timer.set_paused(false)
 		check_water_timer.set_paused(false)
+		if indicator.visible:
+			if !anim.is_playing():
+				anim.play()
 
 func plant(id:int) -> void:
 	plantID = id

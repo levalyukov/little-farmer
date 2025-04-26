@@ -28,14 +28,15 @@ gravity = Vector2(0.25, -50)
 max_distance = 512.0
 bus = &"Radio"
 
+[node name="RadioNoise" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_rmosd")
+volume_db = -2.5
+max_distance = 64.0
+
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_pgwjt")
-
-[node name="RadioNoise" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_rmosd")
-volume_db = -2.5
 
 [connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]

@@ -172,6 +172,7 @@ layout_mode = 2
 theme_override_constants/margin_bottom = 8
 
 [node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/VBoxContainer/PreviousNextButton"]
+visible = false
 layout_mode = 2
 alignment = 1
 

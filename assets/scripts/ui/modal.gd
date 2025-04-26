@@ -15,13 +15,13 @@ var state:bool = false
 func _ready():
 	_check_window()
 
-func modal_create(header_value:String, content_value:String) -> void:
+func modal_create(header_value:String, content_value:String, button_string:String = 'Хорошо') -> void:
 	if header_value != ""\
 	&& content_value != "":
 		header.text = header_value
 		content.text = content_value
 		button_confirm_container.visible = true
-		button_confirm.text = tr("Продолжить")
+		button_confirm.text = tr(button_string)
 		anim.play("create")
 		change_all_z_index(-1)
 		state = true
@@ -51,4 +51,45 @@ func _check_window():
 	visible = state
 
 func _on_confirm_pressed() -> void:
+	var audio = AudioStreamPlayer.new()
+	self.add_child(audio)
+	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+	audio.stream = load('res://assets/sounds/ui/click.ogg')
+	audio.play()
 	modal_remove()
+	cursor_update(false)
+
+func _on_confirm_mouse_entered():
+	if visible:
+		var audio = AudioStreamPlayer.new()
+		self.add_child(audio)
+		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+		audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		audio.play()
+		cursor_update(true)
+
+func _on_confirm_mouse_exited():
+	if visible:
+		cursor_update(false)
+
+func cursor_update(cursor_state:bool) -> void:
+	match cursor_state:
+		true:
+			match main:
+				'MainMenu':
+					var cursor = get_node('/root/'+main+'/Cursor')
+					if cursor:cursor.set_cursor(cursor.states.ACTIVE)
+				'Farm':
+					var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
+					if cursor:cursor.set_cursor(cursor.states.ACTIVE)
+		false:
+			match main:
+				'MainMenu':
+					var cursor = get_node('/root/'+main+'/Cursor')
+					if cursor:cursor.set_cursor(cursor.states.DEFAULT)
+				'Farm':
+					var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
+					if cursor:cursor.set_cursor(cursor.states.DEFAULT)
+
+func _on_audio_finished(node) -> void:
+	node.queue_free()

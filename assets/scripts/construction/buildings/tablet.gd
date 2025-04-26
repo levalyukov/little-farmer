@@ -15,6 +15,7 @@ extends Node2D
 @onready var canvas_group:CanvasGroup = get_node("/root/"+main+"/ShadowManager/CanvasGroup")
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
+@onready var buttonDestroy:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
 @onready var sprite:Sprite2D = $Sprite2D
 
 var object:Dictionary = {
@@ -119,9 +120,10 @@ func _on_area_2d_mouse_entered() -> void:
 	if visible:
 		if !blur.state\
 		&& grid.mode == grid.modes.NOTHING:
-			var distance = round(global_position.distance_to(player.global_position))
-			if distance < building.max_distance:
-				_change_sprite(true)
+			if buttonDestroy.destroyMode:
+				var distance = round(global_position.distance_to(player.global_position))
+				if distance < building.max_distance:
+					_change_sprite(true)
 
 func _on_area_2d_mouse_exited() -> void:
 	_change_sprite(false)

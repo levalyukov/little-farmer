@@ -42,6 +42,7 @@ func _input(event):
 	&& !blur.state\
 	&& grid.mode == grid.modes.NOTHING\
 	&& openedMenu:
+		if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 		tradeMenu.open_trade_menu(2)
 		update()
 

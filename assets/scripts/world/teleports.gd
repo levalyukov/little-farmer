@@ -34,6 +34,7 @@ func teleport() -> void:
 			blackout.change_scene(scene)
 			GameLoader.tracking_plants = true
 			GameLoader.timer_farm_plant_start()
+			data.target_left_time = data.music_cooldown.get_time_left()
 		"Village":
 			var scene:String = "res://levels/farm.tscn"
 			GameLoader.mode = true
@@ -65,9 +66,7 @@ func teleport() -> void:
 			data.debug("Unknown name of the game scene: "+str(main), "error")
 
 func _on_area_2d_mouse_entered():
-	if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 	if !blur.state: teleporting = true
 
 func _on_area_2d_mouse_exited():
-	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 	if !blur.state: teleporting = false

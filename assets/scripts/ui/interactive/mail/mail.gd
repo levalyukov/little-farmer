@@ -82,13 +82,17 @@ func letter(header:String, description:String = "", author:String = "", money:in
 		letters[key]["money"] = money
 		letters[key]["items"] = {}
 		if items != {}: check_all_keys(key, items)
-		GameLoader.mailbox_indicator = true
-		mailbox.check_indicator_state()
 		var _audio = AudioStreamPlayer.new()
 		self.add_child(_audio)
 		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
 		_audio.stream = load('res://assets/sounds/ui/new_letter.ogg')
 		_audio.play()
+		if !opened:
+			GameLoader.mailbox_indicator = true
+			mailbox.check_indicator_state()
+		else:
+			delete_letters()
+			create_all_letters()
 
 func check_all_keys(id, dictionary:Dictionary) -> void:
 	for key in dictionary.keys():

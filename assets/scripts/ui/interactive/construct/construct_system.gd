@@ -53,7 +53,7 @@ var section:String = "all"
 var opened:bool = false
 var all_items:bool
 var terrains_blueprints:Array[int] = []
-var node_blueprints:Array[int] = [10,11]
+var node_blueprints:Array[int] = []
 var upgrade_blueprints:Array[int] =  []
 
 var items:Object = Items.new()
@@ -142,7 +142,7 @@ func get_data(group:String, id:int) -> void:
 						if blueprints.content[group][id].has('config'):
 							if blueprints.content[group][id]["config"].has("resources"):
 								if blueprints.content[group][id]["config"]["resources"] != {}:
-									description.text = blueprints.content[group][id]["description"] + tr("\n\nТребуемые ресурсы:")
+									description.text = blueprints.content[group][id]["description"] + '\n\n' + tr("Требуемые ресурсы:")
 							else:
 								description.text = blueprints.content[group][id]["description"]
 						else:

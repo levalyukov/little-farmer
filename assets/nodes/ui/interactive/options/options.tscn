@@ -200,7 +200,6 @@ custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 16
-disabled = true
 text = "Язык: Русский"
 
 [node name="SaveChangesButton" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons"]
@@ -306,7 +305,6 @@ popup/item_2/text = "Выкл"
 popup/item_2/id = 2
 
 [node name="SoundVolumeSection" type="ScrollContainer" parent="Menu/Main/HBoxContainer/PageBackground"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -359,7 +357,6 @@ size_flags_horizontal = 3
 [node name="GeneralVolumeLabel" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/GeneralVolumeMargin/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
-text = "0%"
 horizontal_alignment = 1
 
 [node name="GeneralVolumeSlider" type="HSlider" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/GeneralVolumeMargin/HBoxContainer/VBoxContainer"]
@@ -391,7 +388,6 @@ size_flags_horizontal = 3
 [node name="MusicVolumeLabel" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/MusicVolumeMargin/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
-text = "0%"
 horizontal_alignment = 1
 
 [node name="MusicVolumeSlider" type="HSlider" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/MusicVolumeMargin/HBoxContainer/VBoxContainer"]
@@ -424,7 +420,6 @@ size_flags_horizontal = 3
 [node name="NatureVolumeLabel" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/NatureVolumeMargin/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
-text = "0%"
 horizontal_alignment = 1
 
 [node name="NatureVolumeSlider" type="HSlider" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/NatureVolumeMargin/HBoxContainer/VBoxContainer"]
@@ -457,7 +452,6 @@ size_flags_horizontal = 3
 [node name="RadioVolumeLabel" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/RadioVolumeMargin/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
-text = "0%"
 horizontal_alignment = 1
 
 [node name="RadioVolumeSlider" type="HSlider" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/RadioVolumeMargin/HBoxContainer/VBoxContainer"]
@@ -465,6 +459,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="ControlSection" type="ScrollContainer" parent="Menu/Main/HBoxContainer/PageBackground"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

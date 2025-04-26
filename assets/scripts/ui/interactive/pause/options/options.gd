@@ -24,7 +24,6 @@ extends Control
 @onready var radio_sound_label:Label = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/RadioVolumeMargin/HBoxContainer/VBoxContainer/RadioVolumeLabel
 @onready var radio_sound_slider:HSlider = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/RadioVolumeMargin/HBoxContainer/VBoxContainer/RadioVolumeSlider
 
-
 @onready var control_section:ScrollContainer = $Menu/Main/HBoxContainer/PageBackground/ControlSection
 
 var opened:bool = false

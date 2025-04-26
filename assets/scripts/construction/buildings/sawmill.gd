@@ -14,6 +14,7 @@ extends Node2D
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var sawmillMenu:Control = get_node("/root/"+main+"/UI/Interactive/SawmillMenu")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 @onready var buttonDestroy:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
 @onready var sprite:Sprite2D = $Sprite2D
 
@@ -49,15 +50,15 @@ func _input(event):
 	&& !buttonDestroy.destroyMode\
 	&& grid.mode == grid.modes.NOTHING\
 	&& menuAccess:
+		if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 		sawmillMenu.open(self)
-		if tip:
-			if tip.visible:
-				tip.tooltip()
+		if tip: if tip.visible: tip.tooltip()
 
 func _on_area_2d_mouse_entered():
 	if !pause.paused:
 		if !buttonDestroy.destroyMode\
 		&& grid.mode == grid.modes.NOTHING:
+			if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 			if !menuAccess:
 				menuAccess = true
 			if !blur.state:
@@ -86,6 +87,7 @@ func _on_area_2d_mouse_entered():
 				sprite.texture = object['default']
 
 func _on_area_2d_mouse_exited():
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 	if menuAccess:
 		menuAccess = false
 	if destroyMode:
