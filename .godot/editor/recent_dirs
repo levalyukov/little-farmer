@@ -1,4 +1,7 @@
 res://assets/localizations
+res://assets/scripts/world
+res://assets/scripts/ui/interactive/trading
+res://assets/scripts/ui/interactive/_main_menu
 res://assets/data
 res://assets/scripts/construction/buildings
 res://assets/nodes/ui/interactive/construct
@@ -17,7 +20,4 @@ res://assets/resources/ui/interactive/construct
 res://assets/scripts/ui
 res://assets/resources/ui
 res://assets/resources
-res://assets/scripts/world/nature
-res://assets/resources/buildings/metal_cheap_fence
-res://assets/nodes/world
 D:/Microsoft VS Code
