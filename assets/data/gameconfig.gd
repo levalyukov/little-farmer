@@ -1,5 +1,7 @@
 extends Node
 
+var language:int = 0
+
 var vsync:bool = false
 var fullscreen:bool = true
 var fps_limit:int = true
