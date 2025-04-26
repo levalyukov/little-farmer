@@ -887,6 +887,7 @@ func config_new() -> void:
 	var target_path = DirAccess.open(path.main)
 	var target_file = FileAccess.open(file.config, FileAccess.READ)
 	var config = {
+		'language': 0,
 		"graphic": {
 			"v-sync": false,
 			"fullscreen": true,
@@ -910,6 +911,7 @@ func config_save() -> void:
 	var target_path = DirAccess.open(path.main)
 	if target_path:
 		var config = {
+			'language': GameConfig.language,
 			"graphic": {
 				"v-sync": GameConfig.vsync,
 				"fullscreen": GameConfig.fullscreen,
@@ -925,6 +927,7 @@ func config_save() -> void:
 		file_save([path.main], file.config, config)
 	else:
 		var config = {
+			'language': 0,
 			"graphic": {
 				"v-sync": false,
 				"fullscreen": true,
