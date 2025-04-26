@@ -41,3 +41,12 @@ res://assets/scripts/construction/buildings/christmas_tree.gd
 res://assets/scripts/construction/buildings/grave.gd
 res://assets/scripts/ui/tools.gd
 res://assets/scripts/world/nature/cloud_spawner.gd
+res://assets/scripts/ui/interactive/trading/trade_system.gd
+res://assets/scripts/world/npc.gd
+res://assets/scripts/ui/interactive/trading/traders.gd
+res://assets/scripts/construction/buildings/traderHouse.gd
+res://assets/scripts/construction/buildings/carpenter_house.gd
+res://assets/scripts/ui/interactive/pause/options/buttons/language_system.gd
+res://assets/scripts/ui/interactive/pause/options/buttons/language.gd
+res://assets/data/gamefiles.gd
+res://assets/nodes/ui/ui.tscn
