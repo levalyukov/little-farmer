@@ -98,6 +98,15 @@ func set_values(content:Dictionary) -> void:
 			if content['sounds'].has("radio"):
 				GameConfig.radio = content['sounds']['radio']
 				radio_sound_slider.value = content['sounds']['radio']
+		if content.has('language'):
+			GameConfig.language = content['language']
+			match main:
+				'MainMenu':
+					var languageButton = get_node('/root/'+main+'/Menu/Options/Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons/ChangeLanguageButton')
+					languageButton.set_language(GameConfig.language)
+				_:
+					var languageButton = get_node('/root/'+main+'/UI/Interactive/Options/Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons/ChangeLanguageButton')
+					languageButton.set_language(GameConfig.language)
 
 func _saving() -> void:
 	# Graphic
