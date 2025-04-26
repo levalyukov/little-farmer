@@ -33,6 +33,16 @@ var inventory_file = FileAccess.open('user://game/data/player/inventory.json', F
 var mailbox_file = FileAccess.open('user://game/data/player/mailbox.json', FileAccess.READ)
 var player_file = FileAccess.open('user://game/data/player/player.json', FileAccess.READ)
 # --- --- ---
+@onready var buttonCountinue:Button = $MenuContent/VContainer/ButtonsMargin/Buttons/ContinueMargin/ContinueButton
+@onready var buttonNewGame:Button = $MenuContent/VContainer/ButtonsMargin/Buttons/NewGameMargin/NewGameButton
+@onready var buttonSettings:Button = $MenuContent/VContainer/ButtonsMargin/Buttons/SettingsMargin/SettingsButton
+@onready var buttonExit:Button = $MenuContent/VContainer/ButtonsMargin/Buttons/ExitMargin/ExitButton
+
+var buttonCountinueText:String = tr('Продолжить игру')
+var buttonNewGameText:String = tr('Новая игра')
+var buttonSettingsText:String = tr('Настройки')
+var buttonExitText:String = tr('Выйти из игры')
+
 @onready var music:AudioStreamPlayer = $AudioStreamPlayer
 @onready var music_cooldown:Timer = $Timer
 
@@ -43,6 +53,11 @@ var game_music:Array[String] = [
 
 
 func _ready():
+	buttonCountinue.text = buttonCountinueText
+	buttonNewGame.text = buttonNewGameText
+	buttonSettings.text = buttonSettingsText
+	buttonExit.text = buttonExitText
+
 	play_music(game_music)
 	self.add_child(music_cooldown)
 	if music: music.bus = 'Music'
@@ -129,20 +144,18 @@ func _on_exit_button_pressed():
 
 func modal_create() -> void:
 	modal.modal_create(
-		"Добро пожаловать!", 
-		"
-		Игра находится в ранем доступе, поэтому Вы можете
+		tr("Добро пожаловать!"), 
+		tr("Игра находится в ранем доступе, поэтому Вы можете 
 		столкнуться с багами/ошибками, нестабильной 
 		работой механик и неполным контентом.
-
-		Если Вы нашли баг, недочет или какая-то механика
-		перестала корректно работать, используйте кнопку
+		
+		Если Вы нашли баг, недочет или какая-то механика 
+		перестала корректно работать, используйте кнопку 
 		в меню паузы «Сообщить об ошибке».
-
-		Спасибо, что присоединились к нам на этом этапе разработки!
-		",
-		'Хорошо'
-		)
+		
+		Спасибо, что присоединились к нам на этом этапе разработки!"),
+		tr('Хорошо')
+	)
 
 func _on_continue_button_mouse_entered():
 	if !clicked && !countinue_game_button.disabled:
