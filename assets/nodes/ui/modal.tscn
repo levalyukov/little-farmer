@@ -147,6 +147,17 @@ theme_override_constants/margin_bottom = 10
 
 [node name="Content" type="Label" parent="MainContainer/VBox/ContentContainer"]
 layout_mode = 2
+text = "
+		Игра находится в ранем доступе, поэтому Вы можете
+		столкнуться с багами/ошибками, нестабильной 
+		работой механик и неполным контентом.
+
+		Если Вы нашли баг, недочет или какая-то механика
+		перестала корректно работать, используйте кнопку
+		в меню паузы «Сообщить об ошибке».
+
+		Спасибо, что присоединились к нам на этом этапе разработки!
+		"
 
 [node name="ButtonsContainer" type="MarginContainer" parent="MainContainer/VBox"]
 layout_mode = 2
