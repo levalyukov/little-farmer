@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://bhadiamik4ev0"]
+[gd_scene load_steps=11 format=3 uid="uid://bhadiamik4ev0"]
 
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/pause/options/options.gd" id="1_cadvs"]
 [ext_resource type="Theme" uid="uid://btsx1m2p0i620" path="res://assets/resources/theme.tres" id="1_nnyn0"]
 [ext_resource type="Texture2D" uid="uid://dtkym5bhfhpb" path="res://assets/resources/ui/menu_background.png" id="2_l7a0s"]
 [ext_resource type="Texture2D" uid="uid://c3yf44sxb8a8o" path="res://assets/resources/ui/menu_background_middle.png" id="4_tqjim"]
+[ext_resource type="Script" path="res://assets/scripts/ui/interactive/pause/options/buttons/language.gd" id="4_vbh1p"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_opmpa"]
 font_size = 20
@@ -201,6 +202,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 16
 text = "Язык: Русский"
+script = ExtResource("4_vbh1p")
 
 [node name="SaveChangesButton" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons"]
 custom_minimum_size = Vector2(60, 60)
@@ -586,6 +588,7 @@ libraries = {
 [connection signal="mouse_entered" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons/Control" to="." method="_on_control_mouse_entered"]
 [connection signal="mouse_exited" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons/Control" to="." method="_on_control_mouse_exited"]
 [connection signal="pressed" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons/Control" to="." method="_on_control_pressed"]
+[connection signal="pressed" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons/ChangeLanguageButton" to="Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons/ChangeLanguageButton" method="_on_pressed"]
 [connection signal="mouse_entered" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons/SaveChangesButton" to="." method="_on_save_changes_button_mouse_entered"]
 [connection signal="mouse_exited" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons/SaveChangesButton" to="." method="_on_save_changes_button_mouse_exited"]
 [connection signal="pressed" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons/SaveChangesButton" to="." method="_on_save_changes_button_pressed"]
