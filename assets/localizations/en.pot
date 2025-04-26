@@ -51,6 +51,7 @@
 # res://assets/scripts/construction/buildings/traderHouse.gd
 # res://assets/scripts/construction/buildings/well.gd
 # res://assets/data/gamedata.gd
+# res://assets/scripts/ui/interactive/_main_menu/menu.gd
 #
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -998,6 +999,7 @@ msgid "Продолжить"
 msgstr ""
 
 #: assets/scripts/ui/interactive/pause/pause.gd
+#: assets/scripts/ui/interactive/_main_menu/menu.gd
 msgid "Настройки"
 msgstr ""
 
@@ -1191,4 +1193,61 @@ msgstr ""
 
 #: assets/data/gamedata.gd
 msgid "Скриншот сохранен"
+msgstr ""
+
+#: assets/data/gamedata.gd
+msgid "Письмо новому фермеру"
+msgstr ""
+
+#: assets/data/gamedata.gd
+msgid ""
+"Приветствую тебя в нашем сообществе фермеров-садоводов!\n"
+"\n"
+"\t\tМеня зовут Корней Корнеич — мэр и по совместительству профессиональный садовод города Заречье. Хочу поздравить тебя с началом нового этапа жизни на нашей земле.\n"
+"\n"
+"\t\tВ честь этого события я решил сделать тебе скромный подарок для первых шагов.\n"
+"\n"
+"\t\tЖелаю успехов и богатого урожая! В ближайшее время напишу ещё.\n"
+"\t\t"
+msgstr ""
+
+#: assets/data/gamedata.gd
+msgid ""
+"С уважением,\n"
+"Мэр Корней Корнеич"
+msgstr ""
+
+#: assets/scripts/ui/interactive/_main_menu/menu.gd
+msgid "Продолжить игру"
+msgstr ""
+
+#: assets/scripts/ui/interactive/_main_menu/menu.gd
+msgid "Новая игра"
+msgstr ""
+
+#: assets/scripts/ui/interactive/_main_menu/menu.gd
+msgid "Выйти из игры"
+msgstr ""
+
+#: assets/scripts/ui/interactive/_main_menu/menu.gd
+msgid "Добро пожаловать!"
+msgstr ""
+
+#: assets/scripts/ui/interactive/_main_menu/menu.gd
+msgid ""
+"\n"
+"\t\tИгра находится в ранем доступе, поэтому Вы можете\n"
+"\t\tстолкнуться с багами/ошибками, нестабильной \n"
+"\t\tработой механик и неполным контентом.\n"
+"\n"
+"\t\tЕсли Вы нашли баг, недочет или какая-то механика\n"
+"\t\tперестала корректно работать, используйте кнопку\n"
+"\t\tв меню паузы «Сообщить об ошибке».\n"
+"\n"
+"\t\tСпасибо, что присоединились к нам на этом этапе разработки!\n"
+"\t\t"
+msgstr ""
+
+#: assets/scripts/ui/interactive/_main_menu/menu.gd
+msgid "Хорошо"
 msgstr ""
