@@ -35,8 +35,6 @@ var isDone:bool = false
 
 var object:Dictionary = {
 	1: {
-		"caption" = tr("Каменная плавильня"),
-		"description" = tr("Позволяет переплавлять руду"),
 		"default_idle" = load("res://assets/resources/buildings/stone_oven/object_0.png"),
 		"hovered_idle" = load("res://assets/resources/buildings/stone_oven/hovered_0.png"),
 		"default_work" = load("res://assets/resources/buildings/stone_oven/object_1.png"),
@@ -135,7 +133,7 @@ func _on_area_2d_mouse_entered():
 							sprite.texture = object[level]['hovered_idle']
 				if tip:
 					tip.tooltip(
-						str(object[level]['caption']) + "\n" + str(object[level]['description'])
+						str(tr('object.forge.caption')) + "\n" + str(tr('object.forge.description'))
 					)
 		else:
 			if !buttonDestroy.destroyMode:
@@ -145,7 +143,7 @@ func _on_area_2d_mouse_entered():
 							sprite.texture = object[level]['hovered_work']
 				if tip:
 					tip.tooltip(
-						str(object[level]['caption']) + "\n" + str(object[level]['description'])
+						str(tr('object.forge.caption')) + "\n" + str(tr('object.forge.description'))
 					)
 
 		if !stoneMenuOpen:
