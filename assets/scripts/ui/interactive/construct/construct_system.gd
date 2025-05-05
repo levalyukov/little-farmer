@@ -24,37 +24,18 @@ extends Control
 @onready var navmenu_button_landscapes:Button = $Main/ScrollContainer/NavMenu/ButtonLandscape
 @onready var navmenu_button_nodes:Button = $Main/ScrollContainer/NavMenu/ButtonBuildings
 @onready var navmenu_button_upgrades:Button = $Main/ScrollContainer/NavMenu/ButtonUpgrades
-
 @onready var navmenu_button_all:Button = $Main/ScrollContainer/NavMenu/ButtonAllBlueprints
 
 @onready var button_script = get_node("/root/"+main+"/UI/Interactive/ConstructMenu/Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button")
 @onready var anim:AnimationPlayer = $AnimationPlayer
 
-var construct_menu_header:String = tr("Меню строительства")
-var construct_menu_description:String = tr("Нет чертежей. Чтобы получить новые чертежи — приобретайте у специальных торговцев.")
-var construct_menu_description_empty:String = tr("Выбор чертежей происходит в левом окне. \n\nВерхние вкладки служат для группировки чертежей по их типам.")
-
-var buttonSelectAllBlueprints:String = tr("Все чертежи")
-var buttonSelectTerrains:String = tr("Чертежи ландшафта")
-var buttonSelectNodes:String = tr("Чертежи построек")
-var buttonSelectUpgrades:String = tr("Чертежи улучшений")
-
-var construct_menu_selected_nodes_header:String = tr("Постройки")
-var construct_menu_selected_landscapes_header:String = tr("Ландшафт")
-var construct_menu_selected_upgrades_header:String = tr("Улучшения")
-
-var construct_menu_selected_nodes:String = tr("Чертежи данного типа дают возможность возводить фермерские постройки и декорации для фермы.")
-var construct_menu_selected_landscapes:String = tr("Данные чертежи позволяют преобразовывать ландшафт фермы.")
-var construct_menu_selected_upgrades:String = tr("Чертежи этого типа используются для модернизации конкретных зданий. После улучшения здания становятся доступны новые функции или контент, связанные с ними.")
-
-
 var index:int
 var section:String = "all"
 var opened:bool = false
 var all_items:bool
-var terrains_blueprints:Array[int] = []
-var node_blueprints:Array[int] = []
-var upgrade_blueprints:Array[int] =  []
+var terrains_blueprints:Array[int] = [1,2,3,4,5,6,7]
+var node_blueprints:Array[int] = [1,2,3,4,5,6,7]
+var upgrade_blueprints:Array[int] =  [1,2,3,4,5,6,7]
 
 var items:Object = Items.new()
 var blueprints:Object = BlueprintManager.new()
@@ -142,7 +123,7 @@ func get_data(group:String, id:int) -> void:
 						if blueprints.content[group][id].has('config'):
 							if blueprints.content[group][id]["config"].has("resources"):
 								if blueprints.content[group][id]["config"]["resources"] != {}:
-									description.text = blueprints.content[group][id]["description"] + '\n\n' + tr("Требуемые ресурсы:")
+									description.text = blueprints.content[group][id]["description"] + '\n\n' + tr("build.text.required_resources") + ":"
 							else:
 								description.text = blueprints.content[group][id]["description"]
 						else:
@@ -168,24 +149,25 @@ func get_data(group:String, id:int) -> void:
 									button.disabled = true
 							else:
 								button.disabled = false
-								button.text = tr("Создать")
+								button.text = tr("build.button.create_node")
 
 							if blueprints.content[group][id]["config"].has('onlyInstance'):
 								if blueprints.content[group][id]["config"]['onlyInstance']:
 									if blueprints.content[group][id]["config"].has('name'):
 										if get_instance(blueprints.content[group][id]["config"]['name']):
 											button.disabled = true
-											button.text = tr("Превышен лимит (1/1)")
+											button.text = tr("build.error.exceeded_limit_(1/1)")
 
 							button.id = id
 							button.group = group
+							button.text = tr("build.button.create_node")
 					"terrains":
 						if blueprints.content[group][id]["config"].has("terrain"):
 							button.visible = true
 							button.disabled = false
 							button.id = id
 							button.group = group
-						button.text = tr("Создать")
+						button.text = tr("build.button.create_node")
 			else:
 				return
 		else:
@@ -211,6 +193,11 @@ func update_button_state() -> void:
 			navmenu_button_landscapes.modulate = Color(1, 1, 1, 0.784)
 			navmenu_button_nodes.modulate = Color(1, 1, 1)
 			navmenu_button_upgrades.modulate = Color(1, 1, 1, 0.784)
+			navmenu_button_all.modulate = Color(1, 1, 1, 0.784)
+		"upgrades":
+			navmenu_button_landscapes.modulate = Color(1, 1, 1, 0.784)
+			navmenu_button_nodes.modulate = Color(1, 1, 1, 0.784)
+			navmenu_button_upgrades.modulate = Color(1, 1, 1)
 			navmenu_button_all.modulate = Color(1, 1, 1, 0.784)
 		"all":
 			navmenu_button_landscapes.modulate = Color(1, 1, 1, 0.784)
@@ -292,33 +279,33 @@ func close() -> void:
 
 func update_navmenu() -> void:
 	navmenu_button_all.visible = true
-	navmenu_button_all.text = buttonSelectAllBlueprints
+	navmenu_button_all.text = tr("build.button.all_blueprints")
 	if terrains_blueprints != []:
 		navmenu_button_landscapes.visible = true
-		navmenu_button_landscapes.text = buttonSelectTerrains
+		navmenu_button_landscapes.text = tr("build.button.landscape_blueprints")
 	else:
 		navmenu_button_landscapes.visible = false
 
 	if node_blueprints != []:
 		navmenu_button_nodes.visible = true
-		navmenu_button_nodes.text = buttonSelectNodes
+		navmenu_button_nodes.text = tr("build.button.buildings_blueprints")
 	else:
 		navmenu_button_nodes.visible = false
 
 	if upgrade_blueprints != []:
 		navmenu_button_upgrades.visible = true
-		navmenu_button_upgrades.text = buttonSelectUpgrades
+		navmenu_button_upgrades.text = tr("build.button.upgrades_blueprints")
 	else:
 		navmenu_button_upgrades.visible = false
 
 func set_start_info() -> void:
-	caption.text = construct_menu_header
+	caption.text = tr("build.header")
 	if terrains_blueprints == []\
 	&& node_blueprints == []\
 	&& upgrade_blueprints == []:
-		description.text = construct_menu_description
+		description.text = tr("build.text.no_blueprints")
 	else:
-		description.text = construct_menu_description_empty
+		description.text = tr("build.text.description")
 
 	caption.visible = true
 	description.visible = true
@@ -380,13 +367,13 @@ func _on_button_landscape_pressed():
 		audio.stream = load('res://assets/sounds/ui/click.ogg')
 		audio.play()
 	section = "terrains"
-	caption.text = construct_menu_selected_landscapes_header
+	caption.text = tr("build.header.landscape")
 	if terrains_blueprints == []\
 	&& node_blueprints == []\
 	&& upgrade_blueprints == []:
 		description.text = ""
 	else:
-		description.text = construct_menu_selected_landscapes
+		description.text = tr("build.description.landscape")
 
 	caption.visible = true
 	description.visible = true
@@ -406,13 +393,13 @@ func _on_button_buildings_pressed():
 		audio.stream = load('res://assets/sounds/ui/click.ogg')
 		audio.play()
 	section = "nodes"
-	caption.text = construct_menu_selected_nodes_header
+	caption.text = tr("build.header.buildings")
 	if terrains_blueprints == []\
 	&& node_blueprints == []\
 	&& upgrade_blueprints == []:
 		description.text = ""
 	else:
-		description.text = construct_menu_selected_nodes
+		description.text = tr("build.description.buildings")
 
 	caption.visible = true
 	description.visible = true
@@ -432,13 +419,13 @@ func _on_button_upgrades_pressed():
 		audio.stream = load('res://assets/sounds/ui/click.ogg')
 		audio.play()
 	section = "upgrades"
-	caption.text = construct_menu_selected_upgrades_header
+	caption.text = tr("build.header.upgrades")
 	if terrains_blueprints == []\
 	&& node_blueprints == []\
 	&& upgrade_blueprints == []:
 		description.text = ""
 	else:
-		description.text = construct_menu_selected_upgrades
+		description.text = tr("build.description.upgrades")
 
 	caption.visible = true
 	description.visible = true
