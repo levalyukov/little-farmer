@@ -15,7 +15,7 @@ var state:bool = false
 func _ready():
 	_check_window()
 
-func modal_create(header_value:String, content_value:String, button_string:String = 'Хорошо') -> void:
+func modal_create(header_value:String, content_value:String, button_string:String = tr('Продолжить')) -> void:
 	if header_value != ""\
 	&& content_value != "":
 		header.text = header_value
