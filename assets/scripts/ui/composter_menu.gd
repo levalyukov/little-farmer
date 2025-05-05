@@ -11,10 +11,12 @@ extends Control
 @onready var itemsForCompostContainer:GridContainer = $Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ItemContainer/ScrollContainer/GridContainer
 @onready var compostingProcessMargin:MarginContainer = $Panel/VBoxContainer/HBoxContainer/ProgressMargin
 @onready var compostingProcessLabel:Label = $Panel/VBoxContainer/HBoxContainer/ProgressMargin/VBoxContainer/LabelMargin/Header
-@onready var selectItemsLabel:MarginContainer = $Panel/VBoxContainer/SelectItemsMargin
+@onready var selectItems:MarginContainer = $Panel/VBoxContainer/SelectItemsMargin
 @onready var playerInventoryMargin:MarginContainer = $Panel/VBoxContainer/HBoxContainer/PlayerInventory
 @onready var playerInventoryItemsContainer:GridContainer = $Panel/VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ItemContainer/ScrollContainer/GridContainer
 
+@onready var header:Label = $Panel/VBoxContainer/HeaderMargin/Header
+@onready var selectItemsLabel:Label = $Panel/VBoxContainer/SelectItemsMargin/SelectItemsLabel
 @onready var startComposting:Button = $Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ButtonMargin/TurnButton
 @onready var getCompostButton:Button = $Panel/VBoxContainer/HBoxContainer/ProgressMargin/VBoxContainer/GetCompostMargin/GetCompostButton
 @onready var anim:AnimationPlayer = $AnimationPlayer
@@ -52,7 +54,7 @@ func _process(_delta) -> void:
 			if current_node.composting:
 				if current_node.composting_value < 100.0:
 					var formatted_value = "%.2f" % current_node.composting_value
-					compostingProcessLabel.text = tr("Компостирование") + "\n(%s%%)" % formatted_value
+					compostingProcessLabel.text = tr("composting_menu.process") + "\n(%s%%)" % formatted_value
 					if getCompostButton.visible:
 						getCompostButton.visible = false
 					if startComposting.visible:
@@ -60,7 +62,7 @@ func _process(_delta) -> void:
 				if current_node.composting_value >= 100.0:
 					current_node.stop_compost()
 					current_node.composting_value = 100.0
-					compostingProcessLabel.text = tr("Компост готов")
+					compostingProcessLabel.text = tr("composting_menu.compost_ready")
 					if !getCompostButton.visible:
 						getCompostButton.visible = true
 					if startComposting.visible:
@@ -155,6 +157,10 @@ func check_all_states() -> void:
 		current_node.composting_value = 0
 
 func open(node:Node2D) -> void:
+	header.text = tr('composting_menu.header')
+	startComposting.text = tr('composting_menu.start_compost')
+	getCompostButton.text = tr('composting_menu.get_compost')
+	selectItemsLabel.text = tr('composting_menu.select_items') + ':'
 	node.compost_items = {}
 	current_node = node
 	opened = true
@@ -165,7 +171,7 @@ func open(node:Node2D) -> void:
 	clear_compost_items()
 	check_state_button()
 	check_all_states()
-	compostingProcessLabel.text = tr("Выберите отходы для начала компостирования.")
+	compostingProcessLabel.text = tr("composting_menu.description")
 	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
 func close() -> void:
@@ -197,7 +203,7 @@ func _on_get_compost_button_pressed() -> void:
 	get_compost_items()
 	clear_compost_items()
 	check_state_button()
-	compostingProcessLabel.text = tr("Выберите отходы для начала процесса компостирования.")
+	compostingProcessLabel.text = tr("composting_menu.description")
 	var _audio = AudioStreamPlayer.new()
 	self.add_child(_audio)
 	_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
