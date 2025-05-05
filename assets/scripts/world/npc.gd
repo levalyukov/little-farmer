@@ -3,12 +3,12 @@ extends Node
 class_name NPC
 var content:Dictionary = {
 	1: {
-		'name': tr('Добрыня'),
+		'name': 'npc.dobrynya',
 	},
 	2: {
-		'name': tr('Кузьма'),
+		'name': 'npc.kuzma',
 	},
 	3: {
-		'name': tr('Вэнс'),
+		'name': 'npc.vance',
 	}
 }
