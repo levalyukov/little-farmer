@@ -24,7 +24,6 @@ const bakeEveninggOn:int = 19
 const bakeEveninggOff:int = 22
 #	var openedTradeMenu:bool = false
 var object:Dictionary = {
-	"caption" = tr("Дом Лизы"),
 	"shadow" = load("res://assets/resources/buildings/farmer_house/shadow.png"),
 	"default" = load("res://assets/resources/buildings/farmer_house/obj_0.png"),
 	"hovered" = load("res://assets/resources/buildings/farmer_house/obj_1.png"),
@@ -42,18 +41,10 @@ func update():
 				if object["seasons"][season].has("default"):
 					if object["seasons"][season]["default"] is CompressedTexture2D:
 						sprite.texture = object["seasons"][season]["default"]
-					else:
-						data.debug("'"+str(self.name) + "': 'default' is not a CompressedTexture2D.", "error")
-			else:
-				data.debug("'"+str(self.name) + "': There is no '" + str(season) + "' key in the 'seasons' group.", "error")
 		else:
 			if object.has("default"):
 				if object["default"] is CompressedTexture2D:
 					sprite.texture = object["default"]
-				else:
-					data.debug("'"+str(self.name) + "': 'default' is not a CompressedTexture2D.", "error")
-			else:
-				data.debug("'"+str(self.name) + "': There is no 'default' key.", "error")
 
 func update_shadow() -> void:
 	if visible:
@@ -62,9 +53,6 @@ func update_shadow() -> void:
 				var vector2i_position = tilemap.local_to_map(position)
 				var target_position = Vector2i(vector2i_position.x, vector2i_position.y-1)
 				canvas.create_shadow("farmer_shadow", object["shadow"], target_position)
-			else:
-				data.debug("'"+str(self.name) + "': It is not possible to create a game shadow of an object because the sprite is not of the 'CompressedTexture2D' type.", "error")
-
 func _process(_delta):
 	if pause.paused:
 		if chimney.speed_scale > 0:
@@ -95,11 +83,7 @@ func _on_area_2d_mouse_entered() -> void:
 				if object.has("hovered"):
 					if object["hovered"] is CompressedTexture2D:
 						sprite.texture = object["hovered"]
-					else:
-						data.debug("'"+str(self.name) + "': 'hovered' is not a CompressedTexture2D.", "error")
-				else:
-					data.debug("'"+str(self.name) + "': There is no 'hovered' key.", "error")
-			tip.tooltip(str(object["caption"]))
+			tip.tooltip(tr('object.farmer_house.caption'))
 
 func _on_area_2d_mouse_exited() -> void:
 	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
