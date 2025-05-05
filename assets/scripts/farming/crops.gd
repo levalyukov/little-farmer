@@ -9,7 +9,7 @@ var crops:Dictionary = {
 	"probability_spoilage": 5,
 	# spring crops
 	1: {
-		"caption" = tr("Морковь"),
+		"caption" = tr("crops.carrot"),
 		"type" = "vegetable", 
 		"season" = ["spring"],
 		"environment" = "soil",
@@ -22,7 +22,7 @@ var crops:Dictionary = {
 		"spoilage" = 43,
 	},
 	2: {
-		"caption" = tr("Картофель"),
+		"caption" = tr("crops.potato"),
 		"type" = "vegetable", 
 		"season" = ["spring"],
 		"environment" = "soil",
@@ -35,7 +35,7 @@ var crops:Dictionary = {
 		"spoilage" = 44,
 	},
 	3: {
-		"caption" = tr("Редис"),
+		"caption" = tr("crops.radish"),
 		"type" = "vegetable", 
 		"season" = ["spring"],
 		"environment" = "soil",
@@ -48,7 +48,7 @@ var crops:Dictionary = {
 		"spoilage" = 45,
 	},
 	4: {
-		"caption" = tr("Капуста"),
+		"caption" = tr("crops.cabbage"),
 		"type" = "vegetable", 
 		"season" = ["spring"],
 		"environment" = "soil",
@@ -61,7 +61,7 @@ var crops:Dictionary = {
 		"spoilage" = 46,
 	},
 	5: {
-		"caption" = tr("Репчатый лук"),
+		"caption" = tr("crops.onion"),
 		"type" = "vegetable", 
 		"season" = ["spring"],
 		"environment" = "soil",
@@ -75,7 +75,7 @@ var crops:Dictionary = {
 	},
 	# summer crops
 	6: {
-		"caption" = tr("Огурцы"),
+		"caption" = tr("crops.cucumber"),
 		"type" = "vegetable", 
 		"season" = ["summer"],
 		"environment" = "soil",
@@ -88,7 +88,7 @@ var crops:Dictionary = {
 		"spoilage" = 48,
 	},
 	7: {
-		"caption" = tr("Томат"),
+		"caption" = tr("crops.tomato"),
 		"type" = "vegetable", 
 		"season" = ["summer"],
 		"environment" = "soil",
@@ -101,7 +101,7 @@ var crops:Dictionary = {
 		"spoilage" = 49,
 	},
 	8: {
-		"caption" = tr("Баклажан"),
+		"caption" = tr("crops.eggplant"),
 		"type" = "vegetable", 
 		"season" = ["summer"],
 		"environment" = "soil",
@@ -114,7 +114,7 @@ var crops:Dictionary = {
 		"spoilage" = 50,
 	},
 	9: {
-		"caption" = tr("Перец"),
+		"caption" = tr("crops.pepper"),
 		"type" = "vegetable", 
 		"season" = ["summer"],
 		"environment" = "soil",
@@ -127,7 +127,7 @@ var crops:Dictionary = {
 		"spoilage" = 51,
 	},
 	10: {
-		"caption" = tr("Кукуруза"),
+		"caption" = tr("crops.corn"),
 		"type" = "vegetable", 
 		"season" = ["summer"],
 		"environment" = "soil",
@@ -142,7 +142,7 @@ var crops:Dictionary = {
 
 	# autumn crops
 	11: {
-		"caption" = tr("Пастернак"),
+		"caption" = tr("crops.parsnips"),
 		"type" = "vegetable", 
 		"season" = ["autumn"],
 		"environment" = "soil",
@@ -155,7 +155,7 @@ var crops:Dictionary = {
 		"spoilage" = 53,
 	},
 	12: {
-		"caption" = tr("Чеснок"),
+		"caption" = tr("crops.garlic"),
 		"type" = "vegetable", 
 		"season" = ["autumn"],
 		"environment" = "soil",
@@ -168,7 +168,7 @@ var crops:Dictionary = {
 		"spoilage" = 54,
 	},
 	13: {
-		"caption" = tr("Свёкла"),
+		"caption" = tr("crops.beet"),
 		"type" = "vegetable", 
 		"season" = ["autumn"],
 		"environment" = "soil",
@@ -181,7 +181,7 @@ var crops:Dictionary = {
 		"spoilage" = 55,
 	},
 	14: {
-		"caption" = tr("Репа"),
+		"caption" = tr("crops.turnip"),
 		"type" = "vegetable", 
 		"season" = ["autumn"],
 		"environment" = "soil",
@@ -194,7 +194,7 @@ var crops:Dictionary = {
 		"spoilage" = 56,
 	},
 	15: {
-		"caption" = tr("Фасоль"),
+		"caption" = tr("crops.bean"),
 		"type" = "vegetable", 
 		"season" = ["autumn"],
 		"environment" = "soil",
