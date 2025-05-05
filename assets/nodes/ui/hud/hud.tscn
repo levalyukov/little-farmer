@@ -250,6 +250,7 @@ label_settings = SubResource("LabelSettings_6tlru")
 vertical_alignment = 1
 
 [node name="AreaName" type="MarginContainer" parent="Main"]
+visible = false
 layout_mode = 2
 mouse_filter = 2
 script = ExtResource("9_jpol3")
