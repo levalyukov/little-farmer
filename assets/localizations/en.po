@@ -230,7 +230,7 @@ msgstr "The mailbox is empty"
 
 #: assets/scripts/ui/interactive/mail/mail.gd
 msgid "mail.button.full_inventory_error"
-msgstr "No Storage Space Available"
+msgstr "Storage Full"
 
 #: assets/scripts/ui/interactive/mail/mail.gd
 msgid "mail.button.letter_remove"
@@ -417,33 +417,33 @@ msgstr "Sun"
 msgid "clock.day"
 msgstr "Day"
 
-#: assets/scripts/ui/hud/elements/clock.gd
+#: assets/scripts/ui/hud/elements/clock.gd assets/localizations/local.gd
 msgid "letter.reminder_season_header"
 msgstr "Reminder"
 
-#: assets/scripts/ui/hud/elements/clock.gd
+#: assets/scripts/ui/hud/elements/clock.gd assets/localizations/local.gd
 msgid "letter.reminder_season_description_spring_->_summer"
 msgstr ""
 "Hi there! Quick reminder — summer starts tomorrow! Make sure to harvest all "
 "your ripe crops before they go to waste!"
 
-#: assets/scripts/ui/hud/elements/clock.gd
+#: assets/scripts/ui/hud/elements/clock.gd assets/localizations/local.gd
 msgid "letter.gardener_dobrynya"
 msgstr "Gardener Dobrynya"
 
-#: assets/scripts/ui/hud/elements/clock.gd
+#: assets/scripts/ui/hud/elements/clock.gd assets/localizations/local.gd
 msgid "letter.reminder_season_description_summer_->_autumn"
 msgstr ""
 "Hey! The weather forecast predicts a cold snap tomorrow! To save your crops, "
 "harvest everything ripe. Also, stop by my shop for autumn seeds!"
 
-#: assets/scripts/ui/hud/elements/clock.gd
+#: assets/scripts/ui/hud/elements/clock.gd assets/localizations/local.gd
 msgid "letter.reminder_season_description_autumn_->_winter"
 msgstr ""
 "Hello! The thermometer’s hitting below zero! Harvest all ripe crops, prep "
 "livestock feed, and stoke the fireplace — winter’s here!"
 
-#: assets/scripts/ui/hud/elements/clock.gd
+#: assets/scripts/ui/hud/elements/clock.gd assets/localizations/local.gd
 msgid "letter.reminder_season_description_winter_->_spring"
 msgstr ""
 "Hi! Great news — the warm weather’s coming! Starting tomorrow, I’ll have "
@@ -683,6 +683,30 @@ msgid "letter.for_new_player.signature"
 msgstr "With respect, Mayor Korney Korneich"
 
 #: assets/localizations/local.gd
+msgid "letter.public_well_announcement_header"
+msgstr "Public Well Announcement"
+
+#: assets/localizations/local.gd
+msgid "letter.public_well_announcement_content"
+msgstr ""
+"Dear residents of Zarechie,\n"
+"\n"
+"I am pleased to inform you that a public well has been constructed in our "
+"city. Access to the well is free and available 24/7. \n"
+"\n"
+"You may use it to collect water using containers of various sizes, such as "
+"buckets, watering cans, or other tools. \n"
+"\n"
+"We kindly ask that you maintain order and show respect for this shared "
+"community resource. \n"
+"\n"
+"Thank you for your attention!"
+
+#: assets/localizations/local.gd
+msgid "letter.korney_korneich.signature"
+msgstr "Mayor Korney Korneich"
+
+#: assets/localizations/local.gd
 msgid "npc.dobrynya"
 msgstr "Dobrynya"
 
@@ -783,6 +807,46 @@ msgstr "Turnip"
 #: assets/scripts/farming/crops.gd
 msgid "crops.bean"
 msgstr "Bean"
+
+#: assets/scripts/ui/hud/grid/grid.gd
+msgid "tooltip.water_can"
+msgstr "Water in watering can"
+
+#: assets/scripts/ui/hud/grid/grid.gd
+msgid "tooltip.empty_water_can"
+msgstr "Watering can is empty"
+
+#: assets/scripts/ui/hud/grid/grid.gd
+msgid "grid.harvesting.error.inventory_full"
+msgstr "Storage Full"
+
+#: assets/scripts/ui/composter_menu.gd
+msgid "composting_menu.process"
+msgstr "Composting"
+
+#: assets/scripts/ui/composter_menu.gd
+msgid "composting_menu.compost_ready"
+msgstr "Compost Ready!"
+
+#: assets/scripts/ui/composter_menu.gd
+msgid "composting_menu.header"
+msgstr "Composter"
+
+#: assets/scripts/ui/composter_menu.gd
+msgid "composting_menu.start_compost"
+msgstr "Convert to Compost"
+
+#: assets/scripts/ui/composter_menu.gd
+msgid "composting_menu.get_compost"
+msgstr "Collect Compost"
+
+#: assets/scripts/ui/composter_menu.gd
+msgid "composting_menu.select_items"
+msgstr "Compost Materials"
+
+#: assets/scripts/ui/composter_menu.gd
+msgid "composting_menu.description"
+msgstr "Select Waste Items to Start Composting"
 
 #~ msgid "Создать"
 #~ msgstr "Build"
