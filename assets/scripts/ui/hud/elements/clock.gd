@@ -267,28 +267,28 @@ func _on_timer_timeout() -> void:
 							'spring':
 								GameLoader.reminder_harvest = true
 								mail.letter(
-									tr('letter.reminder_season_header'),
-									tr('letter.reminder_season_description_spring_->_summer'),
-									tr('letter.gardener_dobrynya')
+									'letter.reminder_season_header',
+									'letter.reminder_season_description_spring_->_summer',
+									'letter.gardener_dobrynya'
 								)
 							'summer':
 								GameLoader.reminder_harvest = true
 								mail.letter(
-									tr('letter.reminder_season_header'),
-									tr('letter.reminder_season_description_summer_->_autumn'),
-									tr('letter.gardener_dobrynya')
+									'letter.reminder_season_header',
+									'letter.reminder_season_description_summer_->_autumn',
+									'letter.gardener_dobrynya'
 								)	
 							'autumn':
 								GameLoader.reminder_harvest = true
 								mail.letter(
-									tr('letter.reminder_season_header'),
-									tr('letter.reminder_season_description_autumn_->_winter'),
-									tr('letter.gardener_dobrynya')
+									'letter.reminder_season_header',
+									'letter.reminder_season_description_autumn_->_winter',
+									'letter.gardener_dobrynya'
 								)	
 							'winter':
 								GameLoader.reminder_harvest = true
 								mail.letter(
-									tr('letter.reminder_season_header'),
-									tr('letter.reminder_season_description_winter_->_spring'),
-									tr('letter.gardener_dobrynya')
+									'letter.reminder_season_header',
+									'letter.reminder_season_description_winter_->_spring',
+									'letter.gardener_dobrynya'
 								)					
