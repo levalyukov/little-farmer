@@ -191,17 +191,16 @@ func _process(_delta):
 				collision.watering_collision_check()
 				if tools.water_can <= tools.water_can_max\
 				&& tools.water_can != 0:
-					tip.tooltip(tr('Вода в лейке:') +'\n' + str(tools.water_can) + "/" + str(tools.water_can_max))
+					tip.tooltip(tr('tooltip.water_can') +':\n' + str(tools.water_can) + "/" + str(tools.water_can_max))
 				else:
-					tip.tooltip(tr('Лейка пуста!'))
+					tip.tooltip(tr('tooltip.empty_water_can') + "!")
 					if !GameLoader.first_empty_water_can:
 						GameLoader.first_empty_water_can = true
 						mail.letter(
-							tr('Колодец общего пользования'),
-							tr('Уважаемый жители города Заречья!\n\nИнформирую вас о том, что в городе был сооружён колодец для общего пользования.\n\nДоступ к колодцу осуществляется свободно и бесплатно в любое время суток. Вы можете использовать его для забора воды с применением ёмкостей различного объёма (ведёр, леек и других приспособлений).\n\nПросим соблюдать порядок и бережное отношение к общегородскому имуществу.\n\nБлагодарим за внимание!'),
-							tr('Мэр Корней Корнеич')
+							'letter.public_well_announcement_header',
+							'letter.public_well_announcement_content',
+							'letter.korney_korneich.signature'
 						)
-
 				if check:
 					for i in collision.get_children():
 						var grid_position = tilemap.local_to_map(i.get_global_position())
@@ -254,7 +253,6 @@ func _process(_delta):
 											):
 												inventory.subject_item(inventory_item, 1)
 												farming.create_plant(plantID, grid_position)
-
 												var audio = AudioStreamPlayer.new()
 												self.add_child(audio)
 												audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
@@ -332,7 +330,7 @@ func _process(_delta):
 									audio.set_pitch_scale(randf_range(0.85, 1.25))
 									audio.play()
 							else:
-								notifications.create_notice(tr("full_inventory.error"))
+								notifications.create_notice(tr("grid.harvesting.error.inventory_full"))
 				check = false
 
 			modes.BUILD:
