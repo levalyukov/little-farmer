@@ -39,7 +39,7 @@ func _on_button_mouse_entered():
 			audio.stream = load('res://assets/sounds/ui/hover.ogg')
 			audio.play()
 			if cursor: cursor.set_cursor(cursor.states.ACTIVE)
-			if tip: tip.tooltip('Уничтожение построек')
+			if tip: tip.tooltip(tr('ui.tools.buildings_destroy_button'))
 
 func _on_button_mouse_exited():
 	if cursor: cursor.set_cursor(cursor.states.DEFAULT)	
