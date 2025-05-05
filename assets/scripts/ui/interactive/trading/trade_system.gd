@@ -57,7 +57,6 @@ var all_items:Object = Items.new()
 func _ready():
 	markUp = traders.content['markUp']
 	_update_window_visible()
-	header.text = tr("Торговля")
 	self.add_child(audio)
 
 func _process(_delta) -> void:
@@ -199,6 +198,9 @@ func open_trade_menu(traderID:int) -> void:
 		opened = true
 		window_visible = true
 		anim.play("open_menu")
+		header.text = tr("trade_menu.header.trading")
+		if npc.content.has(trader_id):
+			tradeInventoryCaption.text = tr(npc.content[trader_id]['name'])
 		update_inventories_trade_menu()
 		clear_all_trade_menu()
 		if !blur.state:
@@ -333,7 +335,7 @@ func get_target_price():
 		var target_price_label:String
 		target_price = 0
 		if initiator == initiators.TRADER:
-			target_price_label = tr("К оплате")
+			target_price_label = tr("trade_menu.text.amount_due")
 			for item in trade_content:
 				if storage.object[storage.level]["slots"] - inventory.get_all_items() >= get_all_items_array():
 					if all_items.content.has(int(item)):
@@ -346,7 +348,7 @@ func get_target_price():
 					else:
 						data.debug("Invalid item ID: " + str(item), "error")
 		else:
-			target_price_label = tr("Итог")
+			target_price_label = tr("trade_menu.text.total_price")
 			for item in trade_content:
 				if all_items.content.has(int(item)):
 					var sale_price = all_items.content[int(item)].get("sale", null)
@@ -357,7 +359,7 @@ func get_target_price():
 						data.debug("the 'sale' parameter is missing","error")
 				else:
 					data.debug("Invalid item ID: " + str(item), "error")
-		trade_window_target_price.text = target_price_label + ": " + '[color=#ffce5e]' + str(balance.format(target_price)) + ' ' + mail.gold_money_string + ' ' + '[/color]'
+		trade_window_target_price.text = target_price_label + ": " + '[color=#ffce5e]' + str(balance.format(target_price)) + ' ' + tr('money_symbol') + ' ' + '[/color]'
 	else:
 		trade_window_target_price.visible = false
 	return target_price
@@ -376,16 +378,16 @@ func update_button_trade_window() -> void:
 				description_container.visible = false
 				if storage.object[storage.level]["slots"] - inventory.get_all_items() >= get_all_items_array():
 					if balance.money >= get_target_price():
-						trade_window_button.text = tr("Купить")
+						trade_window_button.text = tr("trade_menu.button.buy")
 						trade_window_button.disabled = false
 					else:
-						trade_window_button.text = tr("Недостаточно средств")
+						trade_window_button.text = tr("trade_menu.button.error_insufficient_funds")
 						trade_window_button.disabled = true
 				else:
-					trade_window_button.text = tr("Склад полон")
+					trade_window_button.text = tr("trade_menu.button.error_storage_full")
 					trade_window_button.disabled = true
 			initiators.PLAYER:
-				trade_window_button.text = tr("Продать")
+				trade_window_button.text = tr("trade_menu.button.sell")
 				trade_window_button.visible = true
 				trade_window_button.disabled = false
 				description_container.visible = false
@@ -394,12 +396,10 @@ func update_button_trade_window() -> void:
 		initiator = initiators.NONE
 		description_container.visible = true
 		if !onlyPurchase:
-			description.text = tr("Для начала торговли выберите предмет из вашего инвентаря или инвентаря торговца.")
+			description.text = tr("trade_menu.main_text.!onlyPurchase")
 		else:
-			description.text = tr("Выберите из инвентаря торговца интересующий товар.")
-		playerInventoryCaption.text = tr("Ваш инвентарь:")
-		if npc.content.has(trader_id):
-			tradeInventoryCaption.text = npc.content[trader_id]['name']
+			description.text = tr("trade_menu.main_text.onlyPurchase")
+		playerInventoryCaption.text = tr("trade_menu.your_inventory.text") + ":"
 
 func remove_trader_inventory() -> void:
 	if trader_inventory_main.get_children() != []:
