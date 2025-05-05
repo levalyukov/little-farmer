@@ -18,9 +18,6 @@ var disable:bool
 var group:String
 var id:int
 
-func _ready():
-	self.text = tr("Создать")
-
 func _on_pressed():
 	if visible:
 		var audio = AudioStreamPlayer.new()
