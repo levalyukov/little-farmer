@@ -172,7 +172,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ehicp")
-text = "Продолжить"
+text = "pause.continue_button"
 icon_alignment = 1
 script = ExtResource("3_ipf4w")
 
@@ -183,7 +183,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ehicp")
-text = "Настройки"
+text = "pause.settings_button"
 icon_alignment = 1
 script = ExtResource("4_t8cec")
 
@@ -194,7 +194,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ehicp")
-text = "Сообщить об ошибке"
+text = "pause.report_button"
 icon_alignment = 1
 
 [node name="ExitButtonMargin" type="MarginContainer" parent="Main/Container"]
@@ -204,7 +204,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_xop70")
-text = "Выйти и сохранить"
+text = "pause.exit_button"
 icon_alignment = 1
 script = ExtResource("6_wegtm")
 
@@ -214,8 +214,6 @@ theme_override_constants/margin_top = 12
 
 [node name="GameVersion" type="Label" parent="Main/Container/GameVersionMargin"]
 layout_mode = 2
-text = "1.0.0 Alpha
-(C) Studio Miroro"
 label_settings = SubResource("LabelSettings_eklx4")
 horizontal_alignment = 1
 vertical_alignment = 2
