@@ -1,0 +1,785 @@
+# LANGUAGE translation for LittleFarmer for the following files:
+# res://levels/menu.tscn
+# res://assets/nodes/ui/interactive/options/options.tscn
+# res://assets/nodes/ui/interactive/pause/pause.tscn
+# res://assets/scripts/ui/interactive/inventory/inventory.gd
+# res://assets/scripts/ui/interactive/mail/mail.gd
+# res://assets/nodes/ui/interactive/construct/construct_menu.tscn
+# res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_destroy.tscn
+# res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_trash.tscn
+# res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_axe.tscn
+# res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_pickaxe.tscn
+# res://assets/nodes/ui/hud/elements/tools/button_construction.tscn
+# res://assets/nodes/ui/hud/elements/tools/button_farming.tscn
+# res://assets/nodes/ui/hud/elements/tools/button_harvesting.tscn
+# res://assets/nodes/ui/hud/elements/tools/button_watering.tscn
+# res://assets/scripts/construction/buildings/storage.gd
+# res://assets/scripts/construction/buildings/house.gd
+# res://assets/scripts/construction/buildings/mailbox.gd
+# res://assets/scripts/ui/hud/elements/clock.gd
+# res://assets/scripts/construction/buildings/stall.gd
+# res://assets/scripts/construction/buildings/silo.gd
+# res://assets/scripts/construction/buildings/sign.gd
+# res://assets/scripts/construction/buildings/well.gd
+# res://assets/scripts/construction/buildings/greenhouse.gd
+# res://assets/scripts/construction/buildings/public_well.gd
+# res://assets/scripts/construction/buildings/sawmill.gd
+# res://assets/scripts/construction/buildings/tablet.gd
+# res://assets/scripts/construction/buildings/traderHouse.gd
+# res://assets/scripts/construction/buildings/carpenter_house.gd
+# res://assets/scripts/construction/buildings/blacksmith_house.gd
+# res://assets/scripts/construction/buildings/big_farm_house.gd
+# res://assets/scripts/construction/buildings/farmer_house.gd
+# res://assets/scripts/farming/plant.gd
+# res://assets/scripts/construction/buildings/forge.gd
+# res://assets/scripts/ui/interactive/_buildings/sign_menu.gd
+# res://assets/scripts/ui/forge_menu.gd
+# res://assets/data/gamedata.gd
+# res://assets/scripts/ui/interactive/trading/trade_system.gd
+# res://assets/scripts/world/npc.gd
+# res://assets/localizations/local.gd
+# res://assets/scripts/construction/buildings/fisherman_house.gd
+# res://assets/scripts/ui/blueprints_shop.gd
+# res://assets/scripts/farming/crops.gd
+#
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: LittleFarmer\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#: levels/menu.tscn
+msgid "main_menu.countinue_game_button"
+msgstr ""
+
+#: levels/menu.tscn
+msgid "main_menu.new_game_button"
+msgstr ""
+
+#: levels/menu.tscn
+msgid "main_menu.settings_button"
+msgstr ""
+
+#: levels/menu.tscn
+msgid "main_menu.quit_buttin"
+msgstr ""
+
+#: levels/menu.tscn
+msgid "main_menu.credits"
+msgstr ""
+
+#: levels/menu.tscn
+msgid "modal.early_version_header"
+msgstr ""
+
+#: levels/menu.tscn
+msgid "modal.early_version_description"
+msgstr ""
+
+#: levels/menu.tscn
+msgid "modal.modal_early_version_button"
+msgstr ""
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.graphic"
+msgstr ""
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.sounds"
+msgstr ""
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.control"
+msgstr ""
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.game_language"
+msgstr ""
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.save_changes"
+msgstr ""
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.graphic.vsync"
+msgstr ""
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.graphic.fullScreen"
+msgstr ""
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.graphic.FPSLimit"
+msgstr ""
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.graphic.FPSLimit_off"
+msgstr ""
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.sounds.overall"
+msgstr ""
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.sounds.music"
+msgstr ""
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.sounds.nature"
+msgstr ""
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.sounds.radio"
+msgstr ""
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.control.movement"
+msgstr ""
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.control.interact"
+msgstr ""
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.control.inventory"
+msgstr ""
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.control.zoom"
+msgstr ""
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.control.screenshot"
+msgstr ""
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.control.movement_input"
+msgstr ""
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.control.interact_input"
+msgstr ""
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.control.inventory_input"
+msgstr ""
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.control.zoom_input"
+msgstr ""
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.control.screenshot_input"
+msgstr ""
+
+#: assets/nodes/ui/interactive/pause/pause.tscn
+msgid "pause.continue_button"
+msgstr ""
+
+#: assets/nodes/ui/interactive/pause/pause.tscn
+msgid "pause.settings_button"
+msgstr ""
+
+#: assets/nodes/ui/interactive/pause/pause.tscn
+msgid "pause.report_button"
+msgstr ""
+
+#: assets/nodes/ui/interactive/pause/pause.tscn
+msgid "pause.exit_button"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/inventory.gd
+msgid "inventory.tip.item_type"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/inventory.gd
+msgid "inventory.tip.total_items"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/inventory.gd
+msgid "inventory.available_slots"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/inventory.gd
+msgid "inventory.button.plant_seeds"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/inventory.gd
+msgid "inventory.button.wrong_season"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/inventory.gd
+msgid "inventory.button.fertilize"
+msgstr ""
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.button.delete_read_ones"
+msgstr ""
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.button.get_all_items"
+msgstr ""
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.letter.investment"
+msgstr ""
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+#: assets/scripts/ui/interactive/trading/trade_system.gd
+#: assets/scripts/ui/blueprints_shop.gd
+msgid "money_symbol"
+msgstr ""
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.letter.attached_items"
+msgstr ""
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.ui.header"
+msgstr ""
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.ui.mailbox_has_unread_letters_text"
+msgstr ""
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.ui.mailbox_has_letters_text"
+msgstr ""
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.ui.mailbox_empty_text"
+msgstr ""
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.button.full_inventory_error"
+msgstr ""
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.button.letter_remove"
+msgstr ""
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.ui.notification"
+msgstr ""
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.ui.letter_has_delete"
+msgstr ""
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.ui.letters_was_delete"
+msgstr ""
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.ui.letters_unreceived_items_not_delete.text"
+msgstr ""
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+#: assets/scripts/ui/forge_menu.gd
+#: assets/scripts/ui/blueprints_shop.gd
+msgid ""
+msgstr ""
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+msgid "build.text.required_resources"
+msgstr ""
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+msgid "build.button.create_node"
+msgstr ""
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+msgid "build.error.exceeded_limit_(1/1)"
+msgstr ""
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+#: assets/scripts/ui/blueprints_shop.gd
+msgid "build.button.all_blueprints"
+msgstr ""
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+#: assets/scripts/ui/blueprints_shop.gd
+msgid "build.button.landscape_blueprints"
+msgstr ""
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+#: assets/scripts/ui/blueprints_shop.gd
+msgid "build.button.buildings_blueprints"
+msgstr ""
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+#: assets/scripts/ui/blueprints_shop.gd
+msgid "build.button.upgrades_blueprints"
+msgstr ""
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+msgid "build.header"
+msgstr ""
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+msgid "build.text.no_blueprints"
+msgstr ""
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+msgid "build.text.description"
+msgstr ""
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+msgid "build.header.landscape"
+msgstr ""
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+msgid "build.description.landscape"
+msgstr ""
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+msgid "build.header.buildings"
+msgstr ""
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+msgid "build.description.buildings"
+msgstr ""
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+msgid "build.header.upgrades"
+msgstr ""
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+msgid "build.description.upgrades"
+msgstr ""
+
+#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_destroy.tscn
+msgid "ui.tools.destroy_menu"
+msgstr ""
+
+#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_trash.tscn
+msgid "ui.tools.terrain_destroy_button"
+msgstr ""
+
+#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_axe.tscn
+msgid "ui.tools.nature_destroy_button"
+msgstr ""
+
+#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_pickaxe.tscn
+msgid "ui.tools.buildings_destroy_button"
+msgstr ""
+
+#: assets/nodes/ui/hud/elements/tools/button_construction.tscn
+msgid "ui.tools.contruct_menu"
+msgstr ""
+
+#: assets/nodes/ui/hud/elements/tools/button_farming.tscn
+msgid "ui.tools.create_farmlands_button"
+msgstr ""
+
+#: assets/nodes/ui/hud/elements/tools/button_harvesting.tscn
+msgid "ui.tools.harvesting_button"
+msgstr ""
+
+#: assets/nodes/ui/hud/elements/tools/button_watering.tscn
+msgid "ui.tools.watering_button"
+msgstr ""
+
+#: assets/scripts/construction/buildings/storage.gd
+msgid "object.storage.caption"
+msgstr ""
+
+#: assets/scripts/construction/buildings/storage.gd
+msgid "object.storage.description"
+msgstr ""
+
+#: assets/scripts/construction/buildings/storage.gd
+#: assets/scripts/construction/buildings/house.gd
+msgid "tip.object_level"
+msgstr ""
+
+#: assets/scripts/construction/buildings/house.gd
+msgid "object.house.caption"
+msgstr ""
+
+#: assets/scripts/construction/buildings/house.gd
+msgid "object.house.description"
+msgstr ""
+
+#: assets/scripts/construction/buildings/mailbox.gd
+msgid "object.mailbox.caption"
+msgstr ""
+
+#: assets/scripts/ui/hud/elements/clock.gd
+msgid "clock.monday"
+msgstr ""
+
+#: assets/scripts/ui/hud/elements/clock.gd
+msgid "clock.tuesday"
+msgstr ""
+
+#: assets/scripts/ui/hud/elements/clock.gd
+msgid "clock.wednesday"
+msgstr ""
+
+#: assets/scripts/ui/hud/elements/clock.gd
+msgid "clock.thursday"
+msgstr ""
+
+#: assets/scripts/ui/hud/elements/clock.gd
+msgid "clock.friday"
+msgstr ""
+
+#: assets/scripts/ui/hud/elements/clock.gd
+msgid "clock.saturday"
+msgstr ""
+
+#: assets/scripts/ui/hud/elements/clock.gd
+msgid "clock.sunday"
+msgstr ""
+
+#: assets/scripts/ui/hud/elements/clock.gd
+msgid "clock.day"
+msgstr ""
+
+#: assets/scripts/ui/hud/elements/clock.gd
+msgid "letter.reminder_season_header"
+msgstr ""
+
+#: assets/scripts/ui/hud/elements/clock.gd
+msgid "letter.reminder_season_description_spring_->_summer"
+msgstr ""
+
+#: assets/scripts/ui/hud/elements/clock.gd
+msgid "letter.gardener_dobrynya"
+msgstr ""
+
+#: assets/scripts/ui/hud/elements/clock.gd
+msgid "letter.reminder_season_description_summer_->_autumn"
+msgstr ""
+
+#: assets/scripts/ui/hud/elements/clock.gd
+msgid "letter.reminder_season_description_autumn_->_winter"
+msgstr ""
+
+#: assets/scripts/ui/hud/elements/clock.gd
+msgid "letter.reminder_season_description_winter_->_spring"
+msgstr ""
+
+#: assets/scripts/construction/buildings/stall.gd
+msgid "object.animal_stall.caption"
+msgstr ""
+
+#: assets/scripts/construction/buildings/stall.gd
+msgid "object.animal_stall.description"
+msgstr ""
+
+#: assets/scripts/construction/buildings/silo.gd
+msgid "object.silo.caption"
+msgstr ""
+
+#: assets/scripts/construction/buildings/silo.gd
+msgid "object.silo.description"
+msgstr ""
+
+#: assets/scripts/construction/buildings/well.gd
+msgid "object.well.caption"
+msgstr ""
+
+#: assets/scripts/construction/buildings/well.gd
+msgid "object.well.description"
+msgstr ""
+
+#: assets/scripts/construction/buildings/well.gd
+#: assets/scripts/construction/buildings/public_well.gd
+msgid "object.well.opportunity_fill_watering_can"
+msgstr ""
+
+#: assets/scripts/construction/buildings/greenhouse.gd
+msgid "object.greenhouse.caption"
+msgstr ""
+
+#: assets/scripts/construction/buildings/greenhouse.gd
+msgid "object.greenhouse.description"
+msgstr ""
+
+#: assets/scripts/construction/buildings/public_well.gd
+msgid "object.public_well.caption"
+msgstr ""
+
+#: assets/scripts/construction/buildings/public_well.gd
+msgid "object.public_well.description"
+msgstr ""
+
+#: assets/scripts/construction/buildings/sawmill.gd
+msgid "object.sawmill.caption"
+msgstr ""
+
+#: assets/scripts/construction/buildings/sawmill.gd
+msgid "object.sawmill.description"
+msgstr ""
+
+#: assets/scripts/construction/buildings/tablet.gd
+msgid "object.tablet.caption"
+msgstr ""
+
+#: assets/scripts/construction/buildings/tablet.gd
+msgid "object.tablet.description_farm"
+msgstr ""
+
+#: assets/scripts/construction/buildings/tablet.gd
+msgid "object.tablet.description_city"
+msgstr ""
+
+#: assets/scripts/construction/buildings/traderHouse.gd
+msgid "object.trader_house.caption"
+msgstr ""
+
+#: assets/scripts/construction/buildings/carpenter_house.gd
+msgid "object.carpenter_house.caption"
+msgstr ""
+
+#: assets/scripts/construction/buildings/carpenter_house.gd
+msgid "dialog.carpenter_house.main_text"
+msgstr ""
+
+#: assets/scripts/construction/buildings/carpenter_house.gd
+msgid "dialog.carpenter_house.buy_blueprints_button"
+msgstr ""
+
+#: assets/scripts/construction/buildings/carpenter_house.gd
+msgid "dialog.carpenter_house.buy_resources"
+msgstr ""
+
+#: assets/scripts/construction/buildings/carpenter_house.gd
+msgid "dialog.quit_button"
+msgstr ""
+
+#: assets/scripts/construction/buildings/blacksmith_house.gd
+msgid "object.blacksmith_house_caption"
+msgstr ""
+
+#: assets/scripts/construction/buildings/big_farm_house.gd
+msgid "object.mayor_house.caption"
+msgstr ""
+
+#: assets/scripts/construction/buildings/farmer_house.gd
+msgid "object.farmer_house.caption"
+msgstr ""
+
+#: assets/scripts/farming/plant.gd
+msgid "plant_condition.planted"
+msgstr ""
+
+#: assets/scripts/farming/plant.gd
+msgid "plant_condition.growing"
+msgstr ""
+
+#: assets/scripts/farming/plant.gd
+msgid "plant_condition.requires_watering"
+msgstr ""
+
+#: assets/scripts/farming/plant.gd
+msgid "plant_condition.growed"
+msgstr ""
+
+#: assets/scripts/farming/plant.gd
+msgid "plant_condition.dead"
+msgstr ""
+
+#: assets/scripts/farming/plant.gd
+msgid "tooltip.plant_condition"
+msgstr ""
+
+#: assets/scripts/farming/plant.gd
+msgid "tooltip.plant_fertilized"
+msgstr ""
+
+#: assets/scripts/construction/buildings/forge.gd
+#: assets/scripts/ui/forge_menu.gd
+msgid "object.forge.caption"
+msgstr ""
+
+#: assets/scripts/construction/buildings/forge.gd
+msgid "object.forge.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/_buildings/sign_menu.gd
+msgid "ui.sign_menu.header"
+msgstr ""
+
+#: assets/scripts/ui/forge_menu.gd
+msgid "forge.status.melting"
+msgstr ""
+
+#: assets/scripts/ui/forge_menu.gd
+msgid "forge.status.ignot_ready"
+msgstr ""
+
+#: assets/scripts/ui/forge_menu.gd
+msgid "forge.button.melt"
+msgstr ""
+
+#: assets/scripts/ui/forge_menu.gd
+msgid "forge.button.get_ignot"
+msgstr ""
+
+#: assets/scripts/ui/forge_menu.gd
+msgid "forge.description_text"
+msgstr ""
+
+#: assets/scripts/ui/forge_menu.gd
+msgid "forge.formula_text"
+msgstr ""
+
+#: assets/scripts/ui/interactive/trading/trade_system.gd
+msgid "trade_menu.header.trading"
+msgstr ""
+
+#: assets/scripts/ui/interactive/trading/trade_system.gd
+msgid "trade_menu.text.amount_due"
+msgstr ""
+
+#: assets/scripts/ui/interactive/trading/trade_system.gd
+msgid "trade_menu.text.total_price"
+msgstr ""
+
+#: assets/scripts/ui/interactive/trading/trade_system.gd
+msgid "trade_menu.button.buy"
+msgstr ""
+
+#: assets/scripts/ui/interactive/trading/trade_system.gd
+msgid "trade_menu.button.error_insufficient_funds"
+msgstr ""
+
+#: assets/scripts/ui/interactive/trading/trade_system.gd
+msgid "trade_menu.button.error_storage_full"
+msgstr ""
+
+#: assets/scripts/ui/interactive/trading/trade_system.gd
+msgid "trade_menu.button.sell"
+msgstr ""
+
+#: assets/scripts/ui/interactive/trading/trade_system.gd
+msgid "trade_menu.main_text.!onlyPurchase"
+msgstr ""
+
+#: assets/scripts/ui/interactive/trading/trade_system.gd
+msgid "trade_menu.main_text.onlyPurchase"
+msgstr ""
+
+#: assets/scripts/ui/interactive/trading/trade_system.gd
+msgid "trade_menu.your_inventory.text"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "letter.for_new_player.header"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "letter.for_new_player.content"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "letter.for_new_player.signature"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "npc.dobrynya"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "npc.kuzma"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "npc.vance"
+msgstr ""
+
+#: assets/scripts/construction/buildings/fisherman_house.gd
+msgid "object.fisherman_house.caption"
+msgstr ""
+
+#: assets/scripts/ui/blueprints_shop.gd
+msgid "blueprints_shop.available"
+msgstr ""
+
+#: assets/scripts/ui/blueprints_shop.gd
+msgid "blueprints_shop.blueprint_cost"
+msgstr ""
+
+#: assets/scripts/ui/blueprints_shop.gd
+msgid "blueprints_shop.purchase"
+msgstr ""
+
+#: assets/scripts/ui/blueprints_shop.gd
+msgid "blueprints_shop.insufficient_funds"
+msgstr ""
+
+#: assets/scripts/ui/blueprints_shop.gd
+msgid "blueprints_shop.header"
+msgstr ""
+
+#: assets/scripts/ui/blueprints_shop.gd
+msgid "blueprints_shop.description"
+msgstr ""
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.carrot"
+msgstr ""
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.potato"
+msgstr ""
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.radish"
+msgstr ""
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.cabbage"
+msgstr ""
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.onion"
+msgstr ""
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.cucumber"
+msgstr ""
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.tomato"
+msgstr ""
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.eggplant"
+msgstr ""
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.pepper"
+msgstr ""
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.corn"
+msgstr ""
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.parsnips"
+msgstr ""
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.garlic"
+msgstr ""
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.beet"
+msgstr ""
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.turnip"
+msgstr ""
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.bean"
+msgstr ""
