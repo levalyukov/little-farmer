@@ -26,8 +26,6 @@ var blueprint_id:int = 0
 var vector:Vector2i
 var object:Dictionary = {
 	1: {
-		"caption" = tr("Колодец"),
-		"description" = tr("Позволяет наполнить лейку"),
 		"seasons" = {
 			"spring" = {
 				"default" = load("res://assets/resources/buildings/well/level_1/spring/object_0.png"),
@@ -73,8 +71,8 @@ func _input(event):
 					if tip.visible:
 						tip.tooltip()
 						tip.tooltip(
-								str(object[level]["caption"]) + "\n" +
-								str(object[level]["description"])
+								str(tr("object.well.caption")) + "\n" +
+								str(tr("object.well.description"))
 							)
 
 	if event is InputEventMouseButton\
@@ -135,39 +133,29 @@ func _change_sprite(type:bool) -> void:
 						if object[level]["seasons"][season].has("hovered"):
 							if object[level]["seasons"][season]["hovered"] is CompressedTexture2D:
 								sprite.texture = object[level]["seasons"][season]["hovered"]
-							else:
-								data.debug()
-						else:
-							data.debug()
-					else:
-						data.debug()
 				else:
 					if object[level].has("hovered"):
 						if object[level]["hovered"] is CompressedTexture2D:
 							sprite.texture = object[level]["hovered"]
-						else:
-							data.debug("'"+str(self.name) + "': 'hovered' is not a CompressedTexture2D.", "error")
-					else:
-						data.debug("'"+str(self.name) + "': There is no 'hovered' key.", "error")
 			if tools:
 				if tools.water_can < tools.water_can_max:
 					if !tip.visible:
 						tip.tooltip(
-								str(object[level]["caption"]) + "\n" +
-								str(object[level]["description"]) + '\n' +
-								"- Вы можете набрать воду в лейку."
+								str(tr("object.well.caption")) + "\n" +
+								str(tr("object.well.description")) + '\n' +
+								"- " + tr('object.well.opportunity_fill_watering_can')
 							)
 				else:
 					if !tip.visible:
 						tip.tooltip(
-								str(object[level]["caption"]) + "\n" +
-								str(object[level]["description"])
+								str(tr("object.well.caption")) + "\n" +
+								str(tr("object.well.description"))
 						)
 			else:
 				if !tip.visible:
 					tip.tooltip(
-							str(object[level]["caption"]) + "\n" +
-							str(object[level]["description"])
+							str(tr("object.well.caption")) + "\n" +
+							str(tr("object.well.description"))
 						)
 	else:
 		if object.has(level):
@@ -180,7 +168,6 @@ func _change_sprite(type:bool) -> void:
 		if tip:
 			if tip.visible:
 				tip.tooltip("")
-
 
 func _on_area_2d_mouse_entered():
 	if !well_hovered:
