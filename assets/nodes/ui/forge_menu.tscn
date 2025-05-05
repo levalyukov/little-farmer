@@ -167,7 +167,6 @@ theme_override_constants/margin_bottom = 12
 [node name="Label" type="Label" parent="Panel/VBox/HeaderMargin"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
-text = "Каменная плавильня"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBox"]
@@ -340,7 +339,6 @@ theme_override_constants/margin_bottom = 16
 
 [node name="LabelStatus" type="Label" parent="Panel/VBox/MainInfo/VBoxContainer/MarginContainer"]
 layout_mode = 2
-text = "Выберите из инвентаря уголь и руду для переплавки."
 horizontal_alignment = 1
 autowrap_mode = 3
 
@@ -348,7 +346,6 @@ autowrap_mode = 3
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 disabled = true
-text = "Переплавить"
 
 [node name="PlayerInventory" type="MarginContainer" parent="Panel/VBox"]
 layout_mode = 2
