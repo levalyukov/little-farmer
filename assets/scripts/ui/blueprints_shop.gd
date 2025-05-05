@@ -21,10 +21,6 @@ extends Control
 @onready var blueprintsContainer:GridContainer = $Panel/MarginContainer/HBoxContainer/BlueprintsMargin/ScrollContainer/MarginContainer/BlueprintsContainer
 @onready var blueprintsNode:PackedScene = load("res://assets/nodes/ui/interactive/construct/blueprint.tscn")
 @onready var anim:AnimationPlayer = $AnimationPlayer
-
-var headerString:String = tr('Меню покупки чертежей')
-var descriptionString:String = tr('В этом магазине Вы можете приобрести [b]чертежи[/b].\n\nВыберите интересующие чертежи в левом окне, чтобы узнать полезную информацию о постройке и стоимость приобретения.')
-
 var blueprints:Object = BlueprintManager.new()
 var opened:bool = false
 
@@ -62,7 +58,7 @@ func _process(_delta) -> void:
 							if blueprints.content['nodes'][slots_to_create_nodes[current_slot_index_nodes]]['trade_info'].has('caption'):
 								blueprint.disabled_button(
 									true, 
-									'(Имеется)'
+									tr('blueprints_shop.available')
 									)
 					current_slot_index_nodes += 1
 				else:
@@ -79,7 +75,7 @@ func _process(_delta) -> void:
 							if blueprints.content['terrains'][slots_to_create_terrains[current_slot_index_terrains]]['trade_info'].has('caption'):
 								blueprint.disabled_button(
 									true, 
-									'(Имеется)'
+									tr('blueprints_shop.available')
 									)
 					current_slot_index_terrains += 1
 				else:
@@ -98,7 +94,7 @@ func _process(_delta) -> void:
 								if blueprints.content['terrains'][slots_to_create_upgrade[current_slot_index_upgrade]]['trade_info'].has('caption'):
 									blueprint.disabled_button(
 										true, 
-										'(Имеется)'
+										tr('blueprints_shop.available')
 										)
 						current_slot_index_upgrade += 1
 				else:
@@ -143,7 +139,7 @@ func get_data(group, index) -> void:
 				if blueprints.content[group][index]['trade_info'].has('price'):
 					if blueprints.content[group][index]['trade_info']['price'] > 0:
 						blueprint_price = blueprints.content[group][index]['trade_info']['price']
-						blueprintsPrice.text = tr("Цена чертежа") + ": " + "[color=#ffce5e]" + balance.format(blueprints.content[group][index]['trade_info']['price']) + ' ' + mail.gold_money_string + ' ' +  "[/color]"
+						blueprintsPrice.text = tr("blueprints_shop.blueprint_cost") + ": " + "[color=#ffce5e]" + balance.format(blueprints.content[group][index]['trade_info']['price']) + ' ' + tr('money_symbol') + ' ' +  "[/color]"
 					else:
 						blueprintsPrice.text = ''
 				else:
@@ -174,16 +170,16 @@ func update_buy_button(group, index) -> void:
 		if blueprints.content[group][index]['trade_info'].has('price'):
 			if blueprints.content[group][index]['trade_info']['price'] > 0:
 				if balance.money >= blueprints.content[group][index]['trade_info']['price']:
-					blueprintsBuy.text = tr('Приобрести')
+					blueprintsBuy.text = tr('blueprints_shop.purchase')
 					blueprintsBuy.disabled = false
 				else:
-					blueprintsBuy.text = tr('Недостаточно средств')
+					blueprintsBuy.text = tr('blueprints_shop.insufficient_funds')
 					blueprintsBuy.disabled = true
 			else:
-				blueprintsBuy.text = tr('Приобрести')
+				blueprintsBuy.text = tr('blueprints_shop.purchase')
 				blueprintsBuy.disabled = false
 		else:
-			blueprintsBuy.text = tr('Приобрести')
+			blueprintsBuy.text = tr('blueprints_shop.purchase')
 			blueprintsBuy.disabled = false
 
 func get_blueprints() -> void:
@@ -268,10 +264,10 @@ func update_nav_menu() -> void:
 	else:
 		buttonUpgrades.visible = !true
 
-	buttonAllBlueprints.text = construct.buttonSelectAllBlueprints
-	buttonNodes.text = construct.buttonSelectNodes
-	buttonTerrain.text = construct.buttonSelectTerrains
-	buttonUpgrades.text = construct.buttonSelectUpgrades
+	buttonAllBlueprints.text = 'build.button.all_blueprints'
+	buttonNodes.text = 'build.button.landscape_blueprints'
+	buttonTerrain.text = 'build.button.buildings_blueprints'
+	buttonUpgrades.text = 'build.button.upgrades_blueprints'
 	match section:
 		'nodes':
 			buttonAllBlueprints.modulate = Color(1, 1, 1, 0.784)
@@ -295,8 +291,8 @@ func update_nav_menu() -> void:
 			buttonUpgrades.modulate = Color(1, 1, 1, 0.784)
 
 func set_start_info() -> void:
-	blueprintsHeader.text = headerString
-	blueprintsDescription.text = descriptionString
+	blueprintsHeader.text = tr('blueprints_shop.header')
+	blueprintsDescription.text = tr('blueprints_shop.description')
 	blueprintsPrice.text = ''
 	blueprintsBuy.visible = false
 	blueprintsIcon.visible = !true
