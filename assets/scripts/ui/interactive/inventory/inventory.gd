@@ -44,11 +44,11 @@ func _ready():
 	reset_data()
 	self.add_child(audio)
 
-	#	var test_index = 0
-	#	while inventory_items.size() < 62:
-	#		test_index += 1
-	#		inventory_items[test_index] = {}
-	#		inventory_items[test_index]['amount'] = 1000
+	var test_index = 0
+	while inventory_items.size() < 62:
+		test_index += 1
+		inventory_items[test_index] = {}
+		inventory_items[test_index]['amount'] = 1000
 
 func _input(_event):
 	if Input.is_action_just_pressed("esc")\
@@ -150,27 +150,25 @@ func get_data(index) -> void:
 				description.visible = false
 				data.debug("[ID: "+str(index)+"] The object does not have the 'description' key.", "error")
 
-			if item.content[int(index)].has("specifications"):
-				if item.content[int(index)].get("specifications") != {}:
-					specifications_margin.visible = true
-					specifications.text = ""
-					for i in item.content[int(index)]["specifications"]:
-						get_specifications(int(index), i)
-				else:
-					specifications_margin.visible = false
-					data.debug("[ID: "+str(index)+"] The 'specifications' key is empty.", "error")
-			else:
-				specifications_margin.visible = false
+			#	if item.content[int(index)].has("specifications"):
+			#		if item.content[int(index)].get("specifications") != {}:
+			#			specifications_margin.visible = true
+			#			specifications.text = ""
+			#			for i in item.content[int(index)]["specifications"]:
+			#				get_specifications(int(index), i)
+			#		else:
+			#			specifications_margin.visible = false
+			#			data.debug("[ID: "+str(index)+"] The 'specifications' key is empty.", "error")
+			#	else:
+			#		specifications_margin.visible = false
 
 			if item.content[int(index)].has("type"):
 				if typeof(item.content[int(index)]["type"]) == TYPE_STRING:
-					var type_text = tr("Тип предмета")
 					type.visible = true
-					type.text = "\n" + type_text + ": " + item.content[int(index)]["type"] + "\n"
+					type.text = "\n" + tr("inventory.tip.item_type") + ": " + item.content[int(index)]["type"] + "\n"
 					check_item_type(item.content[int(index)]["item_type"])
 					if inventory_items[index]["amount"] > item.maximum:
-						var total_amount = tr("Всего")
-						type.text += "\n" + total_amount + ": " + str(
+						type.text += "\n" + tr("inventory.tip.total_items") + ": " + str(
 							balance.format(inventory_items[index]["amount"])
 						)
 				else:
@@ -238,8 +236,7 @@ func update_string_capacity() -> void:
 	if has_node("/root/"+main+"/ConstructionManager"):
 		if has_node("/root/"+main+"/ConstructionManager/storage"):
 			if storage.object.has(storage.level) && storage.object[storage.level].has("slots"):
-				var text = tr("Доступно слотов")
-				list.text = text + ": " + str(get_all_items()) + "/" + str(storage.object[storage.level]["slots"])
+				list.text = tr("inventory.available_slots") + ": " + str(get_all_items()) + "/" + str(storage.object[storage.level]["slots"])
 				list.visible = true
 			else:
 				data.debug("The 'slots' element does not exist.", "error")
@@ -338,27 +335,27 @@ func check_amount(index) -> void:
 			push_warning("[ID: " + str(index) + "] The 'amount' element does not exist in the inventory dictionary (array).")
 			inventory_items[index]["amount"] = 1
 
-func get_specifications(index, i) -> void:
-	var items = Items.new()
-	if typeof(items.content[index]["specifications"][i]) == TYPE_STRING and specifications.text is String:
-		specifications.text = specifications.text + "\n• " + get_tip(i) + ": "+ items.content[index]["specifications"][i]
-	else:
-		data.debug("[ID: "+str(index)+"] The '"+ str(i) +"' element is not a string.", "error")
+#	func get_specifications(index, i) -> void:
+#		var items = Items.new()
+#		if items.content[index]["specifications"][i] is int:
+#			specifications.text = specifications.text + "\n• " + get_tip(i) + ": "+ items.content[index]["specifications"][i]
+#		else:
+#			data.debug("[ID: "+str(index)+"] The '"+ str(i) +"' element is not a string.", "error")
 
 func update_inventory_content() -> void:
 	for items in inventory_items:
 		check_amount(items)
 
-func get_tip(tip:String) -> String:
-	match tip:
-		"growth":
-			return tr("Время роста")
-		"productivity":
-			return tr("Урожайность")
-		"conditions":
-			return tr("Условия")
-		_:
-			return ""
+#	func get_tip(tip:String) -> String:
+#		match tip:
+#			"growth":
+#				return tr("Время роста")
+#			"productivity":
+#				return tr("Урожайность")
+#			"conditions":
+#				return tr("Условия")
+#			_:
+#				return ""
 
 func check_item_type(i_type:String) -> void:
 	if main == "Farm"\
@@ -373,22 +370,22 @@ func check_item_type(i_type:String) -> void:
 					for i in crop_season:
 						if main == "Farm":
 							if i == clock.get_season():
-								button.text = tr("Посадить семена")
+								button.text = tr("inventory.button.plant_seeds")
 								button.disabled = false
 								break
 							else:
-								button.text = tr("Не тот сезон")
+								button.text = tr("inventory.button.wrong_season")
 								button.disabled = !false
 								break
 						else:
 							if main == "Greenhouse":
-								button.text = tr("Посадить семена")
+								button.text = tr("inventory.button.plant_seeds")
 								button.disabled = false
 								break
 			"fertilizer":
 				button_index = item_type.FERTILIZER
 				button.visible = true
-				button.text = tr("Удобрить")
+				button.text = tr("inventory.button.fertilize")
 				button.disabled = false
 			_:
 				button_index = item_type.NOTHING
