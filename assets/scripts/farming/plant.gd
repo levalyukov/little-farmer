@@ -195,15 +195,15 @@ func set_data(
 func get_condition(condition_type:int) -> String:
 	match condition_type:
 		0:
-			return tr("Посажено")
+			return tr("plant_condition.planted")
 		1:
-			return tr("Процветает")
+			return tr("plant_condition.growing")
 		2:
-			return tr("Требует полива")
+			return tr("plant_condition.requires_watering")
 		3:
-			return tr("Выросло")
+			return tr("plant_condition.growed")
 		4:
-			return tr("Погибло")
+			return tr("plant_condition.dead")
 		_:
 			return ""
 
@@ -218,28 +218,20 @@ func _on_collision_mouse_entered() -> void:
 	&& grid.mode == grid.modes.NOTHING:
 		if crops.crops.has(plantID):
 			if crops.crops[plantID].has("caption"):
-				if typeof(crops.crops[plantID]["caption"]) == TYPE_STRING:
-					var plant_status = tr("Состояние")
+				if crops.crops[plantID]["caption"] is String:
 					if fertilizer != fertilizers.nothing:
-						var fertilized_plant = tr("Удобрено")
 						if !tip.visible:
 							tip.tooltip(
-								crops.crops[plantID]["caption"] +"\n"+
-								str(plant_status) + ": " + str(get_condition(condition)) +"\n"+
-								str(fertilized_plant)
+								tr(crops.crops[plantID]["caption"]) +"\n"+
+								str(tr("tooltip.plant_condition")) + ": " + str(get_condition(condition)) +"\n"+
+								str(tr('tooltip.plant_fertilized'))
 							)
 					else:
 						if !tip.visible:
 							tip.tooltip(
-								crops.crops[plantID]["caption"] +"\n"+
-								str(plant_status) + ": " + str(get_condition(condition))
+								tr(crops.crops[plantID]["caption"]) +"\n"+
+								str(tr("tooltip.plant_condition")) + ": " + str(get_condition(condition))
 							)
-				else:
-					data.debug("The 'caption' element is not a string type. Variant.type: " + str(typeof(crops.crops[plantID]["caption"])), "error")
-			else:
-				data.debug("The 'caption' element is missing.", "error")
-		else:
-			data.debug("Invalid ID: " + str(plantID), "error")
 		
 func _on_collision_mouse_exited() -> void:
 	if !blur.state:
