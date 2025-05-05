@@ -61,7 +61,7 @@ const cycle_night_end:int = 6
 
 var year:int = 1
 var week:int = 0
-var day:int = 1
+var day:int = 0
 var hour:int = 7
 var minute:int = 0
 
@@ -72,10 +72,10 @@ const seasons:Array[String] = [
 	"autumn", "winter"
 ]
 
-var weeks:Array[String] = [
-		tr("Пн."), tr("Вт."), tr("Ср."), 
-		tr("Чт."), tr("Пт."), tr("Сб."), 
-		tr("Вс.")
+var weeks = [
+		tr("clock.monday"), tr("clock.tuesday"), tr("clock.wednesday"), 
+		tr("clock.thursday"), tr("clock.friday"), tr("clock.saturday"), 
+		tr("clock.sunday")
 	]
 
 func _ready():
@@ -162,9 +162,22 @@ func start_nature_sounds() -> void:
 					audio.play()
 
 func clock_update() -> void:
-	var day_string = tr("День")
-	var time = str(hour) + ":" + str(minute) + "0; " + day_string + ": " + str(day+1)
-	label.text = str(weeks[day]) + " " + str(time)
+	var time_text = "%s %s:%d0; %s: %d" % [
+		weeks[day],
+		hour,
+		minute,
+		tr("clock.day"),
+		day + 1
+	]
+	label.text = time_text
+
+func update_week_days():
+	weeks = [
+		tr("clock.monday"), tr("clock.tuesday"), tr("clock.wednesday"), 
+		tr("clock.thursday"), tr("clock.friday"), tr("clock.saturday"), 
+		tr("clock.sunday")
+	]
+	clock_update()
 
 func get_season() -> String:
 	return seasons[season]
@@ -244,7 +257,7 @@ func _on_timer_timeout() -> void:
 		check_minute()
 		check_hour()
 		check_week()
-		clock_update()
+		update_week_days()
 		if !GameLoader.reminder_harvest:
 			if week+1 == season_change:
 				if hour == 7\
@@ -254,28 +267,28 @@ func _on_timer_timeout() -> void:
 							'spring':
 								GameLoader.reminder_harvest = true
 								mail.letter(
-									'Напоминание',
-									'Привет!\n\nСпешу тебе чтобы напомнить — завтра лето, поэтому собери весь созревший урожай, а то пропадет!',
-									'Садовод Добрыня'
+									tr('letter.reminder_season_header'),
+									tr('letter.reminder_season_description_spring_->_summer'),
+									tr('letter.gardener_dobrynya')
 								)
 							'summer':
 								GameLoader.reminder_harvest = true
 								mail.letter(
-									'Напоминание',
-									'Привет!\n\nСегодня читал прогноз погоды на завтра — ожидается похолодание. Чтобы не потерять урожай, обязательно собери все, что уже созрело.\n\nТакже заглядывай ко мне чтобы приобрести осенние семена.',
-									'Садовод Добрыня'
+									tr('letter.reminder_season_header'),
+									tr('letter.reminder_season_description_summer_->_autumn'),
+									tr('letter.gardener_dobrynya')
 								)	
 							'autumn':
 								GameLoader.reminder_harvest = true
 								mail.letter(
-									'Напоминание',
-									'Привет!\n\nСтолбик термометра опускается ниже нуля, поэтому собирай весь созревший урожай, готовь корм для скота и растапливай камин — зима на носу!',
-									'Садовод Добрыня'
+									tr('letter.reminder_season_header'),
+									tr('letter.reminder_season_description_autumn_->_winter'),
+									tr('letter.gardener_dobrynya')
 								)	
 							'winter':
 								GameLoader.reminder_harvest = true
 								mail.letter(
-									'Напоминание',
-									'Привет!\n\nУ меня радостная новость — завтра ожидается потепление! С завтрашнего дня у меня можно приобрести весенние семена.',
-									'Садовод Добрыня'
+									tr('letter.reminder_season_header'),
+									tr('letter.reminder_season_description_winter_->_spring'),
+									tr('letter.gardener_dobrynya')
 								)					
