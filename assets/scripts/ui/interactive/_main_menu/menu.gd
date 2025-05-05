@@ -6,7 +6,8 @@ extends MarginContainer
 @onready var blur:Control = $Blur
 @onready var cursor:Node2D = $Cursor
 @onready var game_continue_button:Button = $MenuContent/VContainer/ButtonsMargin/Buttons/ContinueMargin/ContinueButton
-@onready var credits:Label = $MenuContent/VContainer/FooterMargin/Credits
+@onready var version:Label = $MenuContent/VContainer/FooterMargin/VBoxContainer/Version
+@onready var credits:Label = $MenuContent/VContainer/FooterMargin/VBoxContainer/Credits
 @onready var countinue_game_button:Button = $MenuContent/VContainer/ButtonsMargin/Buttons/ContinueMargin/ContinueButton
 @onready var gamedata = get_node("/root/"+main+"/GameData")
 @onready var modal = get_node("/root/"+main+"/Menu/Modal")
@@ -38,10 +39,13 @@ var player_file = FileAccess.open('user://game/data/player/player.json', FileAcc
 @onready var buttonSettings:Button = $MenuContent/VContainer/ButtonsMargin/Buttons/SettingsMargin/SettingsButton
 @onready var buttonExit:Button = $MenuContent/VContainer/ButtonsMargin/Buttons/ExitMargin/ExitButton
 
-var buttonCountinueText:String = tr('Продолжить игру')
-var buttonNewGameText:String = tr('Новая игра')
-var buttonSettingsText:String = tr('Настройки')
-var buttonExitText:String = tr('Выйти из игры')
+#Игра находится в ранем доступе, поэтому Вы можете\nстолкнуться с багами/ошибками, нестабильной\nработой механик и неполным контентом.\n\nЕсли Вы нашли баг, недочет или какая-то механика \nперестала корректно работать, используйте кнопку \nв меню паузы «Сообщить об ошибке».\n\nСпасибо, что присоединились к нам на этом этапе разработки!
+
+var buttonCountinueText:String = tr('main_menu.countinue_game_button')
+var buttonNewGameText:String = tr('main_menu.new_game_button')
+var buttonSettingsText:String = tr('main_menu.settings_button')
+var buttonQuitText:String = tr('main_menu.quit_buttin')
+var creditsText:String = tr('main_menu.credits')
 
 @onready var music:AudioStreamPlayer = $AudioStreamPlayer
 @onready var music_cooldown:Timer = $Timer
@@ -53,19 +57,12 @@ var game_music:Array[String] = [
 
 
 func _ready():
-	buttonCountinue.text = buttonCountinueText
-	buttonNewGame.text = buttonNewGameText
-	buttonSettings.text = buttonSettingsText
-	buttonExit.text = buttonExitText
-
 	play_music(game_music)
 	self.add_child(music_cooldown)
 	if music: music.bus = 'Music'
 	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 	blackout.blackout(false)
-	credits.text = "v" + ProjectSettings.get_setting("application/config/version") + "\n(C) Studio Miroro"
-	if !GameLoader.modal:
-		modal_create()
+	version.text = "v" + ProjectSettings.get_setting("application/config/version")
 	# Game Countinue
 	if data_path\
 	&& farm_path\
@@ -93,6 +90,9 @@ func _ready():
 		if gamedata.has_method('config_load'):
 			gamedata.config_load()
 			GameConfig.apply()
+	await get_tree().create_timer(0.25).timeout
+	if !GameLoader.modal:
+		modal_create()
 
 func _on_continue_button_pressed():
 	if !clicked:
@@ -144,17 +144,9 @@ func _on_exit_button_pressed():
 
 func modal_create() -> void:
 	modal.modal_create(
-		tr("Добро пожаловать!"), 
-		tr("Игра находится в ранем доступе, поэтому Вы можете 
-		столкнуться с багами/ошибками, нестабильной 
-		работой механик и неполным контентом.
-		
-		Если Вы нашли баг, недочет или какая-то механика 
-		перестала корректно работать, используйте кнопку 
-		в меню паузы «Сообщить об ошибке».
-		
-		Спасибо, что присоединились к нам на этом этапе разработки!"),
-		tr('Хорошо')
+		tr("modal.early_version_header"),
+		tr("modal.early_version_description"),
+		tr('modal.modal_early_version_button')
 	)
 
 func _on_continue_button_mouse_entered():
