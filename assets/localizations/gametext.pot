@@ -41,6 +41,8 @@
 # res://assets/scripts/construction/buildings/fisherman_house.gd
 # res://assets/scripts/ui/blueprints_shop.gd
 # res://assets/scripts/farming/crops.gd
+# res://assets/scripts/ui/hud/grid/grid.gd
+# res://assets/scripts/ui/composter_menu.gd
 #
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -443,26 +445,32 @@ msgid "clock.day"
 msgstr ""
 
 #: assets/scripts/ui/hud/elements/clock.gd
+#: assets/localizations/local.gd
 msgid "letter.reminder_season_header"
 msgstr ""
 
 #: assets/scripts/ui/hud/elements/clock.gd
+#: assets/localizations/local.gd
 msgid "letter.reminder_season_description_spring_->_summer"
 msgstr ""
 
 #: assets/scripts/ui/hud/elements/clock.gd
+#: assets/localizations/local.gd
 msgid "letter.gardener_dobrynya"
 msgstr ""
 
 #: assets/scripts/ui/hud/elements/clock.gd
+#: assets/localizations/local.gd
 msgid "letter.reminder_season_description_summer_->_autumn"
 msgstr ""
 
 #: assets/scripts/ui/hud/elements/clock.gd
+#: assets/localizations/local.gd
 msgid "letter.reminder_season_description_autumn_->_winter"
 msgstr ""
 
 #: assets/scripts/ui/hud/elements/clock.gd
+#: assets/localizations/local.gd
 msgid "letter.reminder_season_description_winter_->_spring"
 msgstr ""
 
@@ -685,6 +693,18 @@ msgid "letter.for_new_player.signature"
 msgstr ""
 
 #: assets/localizations/local.gd
+msgid "letter.public_well_announcement_header"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "letter.public_well_announcement_content"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "letter.korney_korneich.signature"
+msgstr ""
+
+#: assets/localizations/local.gd
 msgid "npc.dobrynya"
 msgstr ""
 
@@ -782,4 +802,44 @@ msgstr ""
 
 #: assets/scripts/farming/crops.gd
 msgid "crops.bean"
+msgstr ""
+
+#: assets/scripts/ui/hud/grid/grid.gd
+msgid "tooltip.water_can"
+msgstr ""
+
+#: assets/scripts/ui/hud/grid/grid.gd
+msgid "tooltip.empty_water_can"
+msgstr ""
+
+#: assets/scripts/ui/hud/grid/grid.gd
+msgid "grid.harvesting.error.inventory_full"
+msgstr ""
+
+#: assets/scripts/ui/composter_menu.gd
+msgid "composting_menu.process"
+msgstr ""
+
+#: assets/scripts/ui/composter_menu.gd
+msgid "composting_menu.compost_ready"
+msgstr ""
+
+#: assets/scripts/ui/composter_menu.gd
+msgid "composting_menu.header"
+msgstr ""
+
+#: assets/scripts/ui/composter_menu.gd
+msgid "composting_menu.start_compost"
+msgstr ""
+
+#: assets/scripts/ui/composter_menu.gd
+msgid "composting_menu.get_compost"
+msgstr ""
+
+#: assets/scripts/ui/composter_menu.gd
+msgid "composting_menu.select_items"
+msgstr ""
+
+#: assets/scripts/ui/composter_menu.gd
+msgid "composting_menu.description"
 msgstr ""
