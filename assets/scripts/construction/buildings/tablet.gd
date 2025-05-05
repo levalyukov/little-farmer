@@ -15,6 +15,7 @@ extends Node2D
 @onready var canvas_group:CanvasGroup = get_node("/root/"+main+"/ShadowManager/CanvasGroup")
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 @onready var buttonDestroy:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
 @onready var sprite:Sprite2D = $Sprite2D
 
@@ -96,13 +97,13 @@ func _change_sprite(type:bool) -> void:
 		if tip:
 			if main == "Farm":
 				tip.tooltip(
-						tr("Указатель") + "\n" +
-						tr("-> г. Заречье") + "\n"
+						tr("object.tablet.caption") + "\n" +
+						tr("object.tablet.description_farm")
 					)
 			elif main == "Village":
 				tip.tooltip(
-						tr("Указатель") + "\n" +
-						tr("<- Ферма") + "\n"
+						tr("object.tablet.caption") + "\n" +
+						tr("object.tablet.description_city")
 					)
 	else:
 		if object.has("seasons"):
@@ -120,10 +121,9 @@ func _on_area_2d_mouse_entered() -> void:
 	if visible:
 		if !blur.state\
 		&& grid.mode == grid.modes.NOTHING:
-			if buttonDestroy.destroyMode:
-				var distance = round(global_position.distance_to(player.global_position))
-				if distance < building.max_distance:
-					_change_sprite(true)
+			if cursor: cursor.set_cursor(cursor.states.ACTIVE)
+			_change_sprite(true)
 
 func _on_area_2d_mouse_exited() -> void:
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 	_change_sprite(false)
