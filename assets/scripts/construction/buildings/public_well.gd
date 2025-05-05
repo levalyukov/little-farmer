@@ -21,8 +21,6 @@ extends Node2D
 var audio = AudioStreamPlayer.new()
 var openedMenu:bool = false
 var object:Dictionary = {
-	"caption" = tr("Колодец общего пользования"),
-	"description" = tr("Позволяет наполнить лейку"),
 	"shadow" = load("res://assets/resources/buildings/public_well/shadow.png"),
 	"default" = load("res://assets/resources/buildings/public_well/obj_0.png"),
 	"hovered" = load("res://assets/resources/buildings/public_well/obj_1.png"),
@@ -49,11 +47,10 @@ func _input(event):
 					if !audio.is_playing():
 						audio.stream = load('res://assets/sounds/buildings/using_well.ogg')
 						audio.play()
-				if tip.visible:
-					tip.tooltip()
+				if !tip.visible:
 					tip.tooltip(
-							str(object["caption"]) + "\n" +
-							str(object["description"])
+							str(tr('object.public_well.caption')) + "\n" +
+							str(tr('object.public_well.description'))
 						)
 
 func update():
@@ -64,27 +61,15 @@ func update():
 				if object["seasons"][season].has("default"):
 					if object["seasons"][season]["default"] is CompressedTexture2D:
 						sprite.texture = object["seasons"][season]["default"]
-					else:
-						data.debug("'"+str(self.name) + "': 'default' is not a CompressedTexture2D.", "error")
-			else:
-				data.debug("'"+str(self.name) + "': There is no '" + str(season) + "' key in the 'seasons' group.", "error")
 		else:
 			if object.has("default"):
 				if object["default"] is CompressedTexture2D:
 					sprite.texture = object["default"]
-				else:
-					data.debug("'"+str(self.name) + "': 'default' is not a CompressedTexture2D.", "error")
-			else:
-				data.debug("'"+str(self.name) + "': There is no 'default' key.", "error")
-
 func update_shadow() -> void:
 	if visible:
 		if object.has("shadow"):
 			if object["shadow"] is CompressedTexture2D:
 				canvas.create_shadow("house_shadow", object["shadow"], tilemap.local_to_map(position))
-			else:
-				data.debug("'"+str(self.name) + "': It is not possible to create a game shadow of an object because the sprite is not of the 'CompressedTexture2D' type.", "error")
-
 func _on_area_2d_mouse_entered() -> void:
 	openedMenu = true
 	if !blur.state\
@@ -99,12 +84,6 @@ func _on_area_2d_mouse_entered() -> void:
 					if object["seasons"][season].has("hovered"):
 						if object["seasons"][season]["hovered"] is CompressedTexture2D:
 							sprite.texture = object["seasons"][season]["hovered"]
-						else:
-							data.debug()
-					else:
-						data.debug()
-				else:
-					data.debug()
 			else:
 				if object.has("hovered"):
 					if object["hovered"] is CompressedTexture2D:
@@ -117,21 +96,21 @@ func _on_area_2d_mouse_entered() -> void:
 				if tools.water_can < tools.water_can_max:
 					if !tip.visible:
 						tip.tooltip(
-								str(object["caption"]) + "\n" +
-								str(object["description"]) + '\n' +
-								"- Вы можете набрать воду в лейку."
+								str(tr('object.public_well.caption')) + "\n" +
+								str(tr('object.public_well.description')) + '\n' +
+								"- " + tr('object.well.opportunity_fill_watering_can')
 							)
 				else:
 					if !tip.visible:
 						tip.tooltip(
-								str(object["caption"]) + "\n" +
-								str(object["description"])
+								str(tr('object.public_well.caption')) + "\n" +
+								str(tr('object.public_well.description'))
 						)
 			else:
 				if !tip.visible:
 					tip.tooltip(
-							str(object["caption"]) + "\n" +
-							str(object["description"])
+							str(tr('object.public_well.caption')) + "\n" +
+							str(tr('object.public_well.description'))
 						)
 
 func _on_area_2d_mouse_exited() -> void:
