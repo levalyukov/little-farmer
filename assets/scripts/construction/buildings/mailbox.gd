@@ -22,7 +22,6 @@ extends Node2D
 
 var menu:bool = false
 var object:Dictionary = {
-	"caption" = tr("Почтовый ящик"),
 	"shadow" = load("res://assets/resources/buildings/mailbox/shadow.png"),
 	"seasons" = {
 		"spring" = {
@@ -111,9 +110,7 @@ func _on_area_2d_mouse_entered() -> void:
 						if object["seasons"][season]["hovered"] is CompressedTexture2D:
 							sprite.texture = object["seasons"][season]["hovered"]
 			if tip:
-				tip.tooltip(
-						str(object["caption"])
-					)
+				tip.tooltip(tr('object.mailbox.caption'))
 		menu = true
 		if cursor:
 			cursor.set_cursor(cursor.states.ACTIVE)
