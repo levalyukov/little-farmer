@@ -43,6 +43,7 @@ var target_node:Node2D
 func _ready():
 	close()
 	self.add_child(audio)
+	header.text = tr('object.forge.caption')
 
 func _input(_event):
 	if Input.is_action_just_pressed("esc")\
@@ -78,9 +79,9 @@ func _process(_delta) -> void:
 				playerInventoryMargin.visible = false
 				if target_node.value_process <= 100.0:
 					var formatted_value = "%.2f" % target_node.value_process
-					labelStatus.text = tr("Плавка") + "\n(%s%%)" % formatted_value
+					labelStatus.text = tr("forge.status.melting") + "\n(%s%%)" % formatted_value
 				else:
-					labelStatus.text = tr("Слиток готов.")
+					labelStatus.text = tr("forge.status.ignot_ready")
 			else:
 				meltButton.visible = !false
 
@@ -186,7 +187,7 @@ func get_special_items() -> void:
 func check_button_state() -> void:
 	if target_node:
 		if !target_node.inProcessed:
-			meltButton.text = tr('Переплавить')
+			meltButton.text = tr('forge.button.melt')
 			if (int(ore_id) > 0 && ore_amount >= ORE_THRESHOLD)\
 			&& (int(fuel_id) > 0 && fuel_amount >= FUEL_THRESHOLD)\
 			&& ore_amount == fuel_amount:
@@ -194,7 +195,7 @@ func check_button_state() -> void:
 			else:
 				meltButton.disabled = !false
 		if target_node.isDone:
-			meltButton.text = tr('Получить слиток')
+			meltButton.text = tr('forge.button.get_ignot')
 			meltButton.disabled = false
 
 func open(node:Node2D) -> void:
@@ -217,7 +218,7 @@ func open(node:Node2D) -> void:
 		ignotIcon.visible = !true
 	if !target_node.inProcessed\
 	&& !target_node.isDone:
-		labelStatus.text = tr('Выберите из инвентаря уголь и руду для переплавки. \n5х руды + 5х угля = 1 слиток')
+		labelStatus.text = tr('forge.description_text') + '\n' + tr('forge.formula_text')
 		oreIcon.texture = ORE_SLOT_DEFAULT
 		fuelIcon.texture = FUEL_SLOT_DEFAULT
 		oreAmountLabel.text = ""
@@ -229,7 +230,7 @@ func open(node:Node2D) -> void:
 			playerInventoryMargin.visible = true
 	elif !target_node.inProcessed\
 	&& target_node.isDone:
-		labelStatus.text = tr("Слиток готов.")
+		labelStatus.text = tr("forge.status.ignot_ready")
 		if playerInventoryMargin.visible:
 			playerInventoryMargin.visible = false
 	else:
@@ -314,8 +315,8 @@ func _on_melt_button_pressed():
 					ignotIcon.visible = false
 					target_node.isDone = false
 					ignotAmountLabel.text = ''
-					labelStatus.text = tr('Выберите из инвентаря уголь и руду для переплавки.')
-					meltButton.text = tr('Переплавить')
+					labelStatus.text = tr('forge.description_text')
+					meltButton.text = tr('forge.button.melt')
 					meltButton.disabled = true
 					playerInventoryMargin.visible = true
 					get_special_items()
