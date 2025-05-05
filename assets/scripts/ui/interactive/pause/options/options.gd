@@ -10,22 +10,83 @@ extends Control
 @onready var anim:AnimationPlayer = $AnimationPlayer
 
 @onready var graphic_section:ScrollContainer = $Menu/Main/HBoxContainer/PageBackground/GraphicSection
-@onready var vsync:CheckButton = $Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container/VSyncMargin/VSyncButton
-@onready var fullscreen:CheckButton = $Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container/FullScreenMargin/FullScreenButton
-@onready var fps_limit:OptionButton = $Menu/Main/HBoxContainer/PageBackground/GraphicSection/Container/FPSLimitMargin/HBoxContainer/MarginContainer/OptionButton
+@onready var vsync:CheckButton = $Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container/VSyncMargin/VSyncButton
+@onready var fullscreen:CheckButton = $Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container/FullScreenMargin/FullScreenButton
+@onready var fps_limit:OptionButton = $Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container/FPSLimitMargin/HBoxContainer/MarginContainer/OptionButton
 
 @onready var sounds_section:ScrollContainer = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection 
-@onready var general_sound_label:Label = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/GeneralVolumeMargin/HBoxContainer/VBoxContainer/GeneralVolumeLabel
-@onready var general_sound_slider:HSlider = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/GeneralVolumeMargin/HBoxContainer/VBoxContainer/GeneralVolumeSlider
-@onready var music_sound_label:Label = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/MusicVolumeMargin/HBoxContainer/VBoxContainer/MusicVolumeLabel
-@onready var music_sound_slider:HSlider = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/MusicVolumeMargin/HBoxContainer/VBoxContainer/MusicVolumeSlider
-@onready var nature_sound_label:Label = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/NatureVolumeMargin/HBoxContainer/VBoxContainer/NatureVolumeLabel
-@onready var nature_sound_slider:HSlider = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/NatureVolumeMargin/HBoxContainer/VBoxContainer/NatureVolumeSlider
-@onready var radio_sound_label:Label = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/RadioVolumeMargin/HBoxContainer/VBoxContainer/RadioVolumeLabel
-@onready var radio_sound_slider:HSlider = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/Container/RadioVolumeMargin/HBoxContainer/VBoxContainer/RadioVolumeSlider
-
+@onready var general_sound_label:Label = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/GeneralVolumeMargin/HBoxContainer/VBoxContainer/GeneralVolumeLabel
+@onready var general_sound_slider:HSlider = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/GeneralVolumeMargin/HBoxContainer/VBoxContainer/GeneralVolumeSlider
+@onready var music_sound_label:Label = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/MusicVolumeMargin/HBoxContainer/VBoxContainer/MusicVolumeLabel
+@onready var music_sound_slider:HSlider = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/MusicVolumeMargin/HBoxContainer/VBoxContainer/MusicVolumeSlider
+@onready var nature_sound_label:Label = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/NatureVolumeMargin/HBoxContainer/VBoxContainer/NatureVolumeLabel
+@onready var nature_sound_slider:HSlider = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/NatureVolumeMargin/HBoxContainer/VBoxContainer/NatureVolumeSlider
+@onready var radio_sound_label:Label = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/RadioVolumeMargin/HBoxContainer/VBoxContainer/RadioVolumeLabel
+@onready var radio_sound_slider:HSlider = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/RadioVolumeMargin/HBoxContainer/VBoxContainer/RadioVolumeSlider
 @onready var control_section:ScrollContainer = $Menu/Main/HBoxContainer/PageBackground/ControlSection
 
+# --- --- ---
+
+@onready var buttonGraphic:Button = $Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons/GraphicButton
+@onready var buttonSounds:Button = $Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons/SoundButton
+@onready var buttonControl:Button = $Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons/ControlButton
+@onready var buttonLanguage:Button = $Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons/ChangeLanguageButton
+@onready var buttonSaveSettings:Button = $Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons/SaveChangesButton
+
+var buttonGraphicText:String = tr('options.graphic')
+var buttonSoundsText:String = tr('options.sounds')
+var buttonControlText:String = tr('options.control')
+var buttonLanguageText:String = tr('options.game_language')
+var buttonSaveSettingsText:String = tr('options.save_changes')
+
+# --- --- ---
+
+# Graphic Section
+@onready var vSyncButton:Button = $Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container/VSyncMargin/VSyncButton
+@onready var fullModeButton:Button = $Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container/FullScreenMargin/FullScreenButton
+@onready var fpsLimit:Label = $Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container/FPSLimitMargin/HBoxContainer/MarginContainer/Label
+var vSyncText:String = tr('options.graphic.vsync')
+var fullModeText:String = tr('options.graphic.fullScreen')
+var fpsLimitText:String = tr('options.graphic.FPSLimit')
+var fpsLimitOff:String = tr('options.graphic.FPSLimit_off')
+
+# Sounds Section
+@onready var soundsOverall:Label = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/GeneralVolumeMargin/HBoxContainer/MarginContainer/Label
+@onready var soundsMusic:Label = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/MusicVolumeMargin/HBoxContainer/MarginContainer/Label
+@onready var soundsNature:Label = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/NatureVolumeMargin/HBoxContainer/MarginContainer/Label
+@onready var soundsRadio:Label = $Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/RadioVolumeMargin/HBoxContainer/MarginContainer/Label
+
+var soundsOverallText:String = tr('options.sounds.overall')
+var soundsMusicText:String = tr('options.sounds.music')
+var soundsNatureText:String = tr('options.sounds.nature')
+var soundsRadioText:String = tr('options.sounds.radio')
+
+# Control Section
+@onready var controlMovementLabel:Label = $Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/MovementButton/MarginContainer/HBoxContainer/InputsName
+@onready var controlInteractLabel:Label = $Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/InteractiveButton/MarginContainer/HBoxContainer/InputsName
+@onready var controlInventoryLabel:Label = $Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/InventoryButton/MarginContainer/HBoxContainer/InputsName
+@onready var controlCameraZoomLabel:Label = $Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/CameraZoomButton/MarginContainer/HBoxContainer/InputsName
+@onready var controlScreenshotLabel:Label = $Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ScreenshotButton/MarginContainer/HBoxContainer/InputsName
+
+@onready var controlMovementInputLabel:Label = $Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/MovementButton/MarginContainer/HBoxContainer/Inputs
+@onready var controlInteractInputLabel:Label = $Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/InteractiveButton/MarginContainer/HBoxContainer/Inputs
+@onready var controlInventoryInputLabel:Label = $Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/InventoryButton/MarginContainer/HBoxContainer/Inputs
+@onready var controlCameraZoomInputLabel:Label = $Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/CameraZoomButton/MarginContainer/HBoxContainer/Inputs
+@onready var controlScreenshotInputLabel:Label = $Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ScreenshotButton/MarginContainer/HBoxContainer/Inputs
+
+var controlMovementText:String = tr('options.control.movement')
+var controlInteractText:String = tr('options.control.interact')
+var controlInventoryText:String = tr('options.control.inventory')
+var controlCameraZoomText:String = tr('options.control.zoom')
+var controlScreenshotText:String = tr('options.control.screenshot')
+
+var controlMovementInputText:String = tr('options.control.movement_input')
+var controlInteractInputText:String = tr('options.control.interact_input')
+var controlInventoryInputText:String = tr('options.control.inventory_input')
+var controlCameraZoomInputText:String = tr('options.control.zoom_input')
+var controlScreenshotInputText:String = tr('options.control.screenshot_input')
+
+# --- --- ---
 var opened:bool = false
 
 func _ready():
