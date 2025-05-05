@@ -219,7 +219,6 @@ theme_override_constants/margin_bottom = 12
 
 [node name="Header" type="Label" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/LetterHeader"]
 layout_mode = 2
-text = "Header"
 label_settings = SubResource("LabelSettings_y2ytc")
 horizontal_alignment = 1
 autowrap_mode = 3
@@ -231,7 +230,6 @@ theme_override_constants/margin_right = 10
 
 [node name="Content" type="Label" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/LetterContent"]
 layout_mode = 2
-text = "Description"
 autowrap_mode = 3
 
 [node name="LetterAuthor" type="MarginContainer" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer"]
@@ -243,7 +241,6 @@ theme_override_constants/margin_bottom = 10
 
 [node name="Author" type="Label" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/LetterAuthor"]
 layout_mode = 2
-text = "- Author"
 autowrap_mode = 3
 
 [node name="ItemsContainer" type="MarginContainer" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer"]
@@ -299,7 +296,7 @@ theme_override_constants/margin_bottom = 10
 [node name="GetItems" type="Button" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ItemsContainer/VBoxContainer/ButtonContainer"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-text = "Получить"
+text = "mail.button.get_all_items"
 script = ExtResource("3_j40v4")
 
 [node name="ManipulationButtons" type="MarginContainer" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer"]
@@ -311,7 +308,7 @@ theme_override_constants/margin_bottom = 25
 [node name="MailRemove" type="Button" parent="Panel/HBoxContainer/LetterContent/ScrollContainer/VBoxContainer/ManipulationButtons"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-text = "Удалить письмо"
+text = "mail.button.letter_remove"
 
 [node name="DeleteAllReadedLetters" type="Button" parent="Panel"]
 custom_minimum_size = Vector2(60, 60)
@@ -327,7 +324,7 @@ offset_right = 367.5
 offset_bottom = 280.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Удалить прочитанные"
+text = "mail.button.delete_read_ones"
 text_overrun_behavior = 3
 
 [node name="Close" type="Button" parent="."]
