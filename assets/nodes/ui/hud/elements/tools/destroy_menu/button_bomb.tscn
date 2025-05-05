@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://5l4506nneg48"]
+[gd_scene load_steps=8 format=3 uid="uid://b7p6gbs3tx12"]
 
 [ext_resource type="Script" path="res://assets/scripts/ui/hud/tools/destroy_menu/button_bomb.gd" id="1_iubc7"]
 [ext_resource type="Texture2D" uid="uid://hhp2wsgrn6gt" path="res://assets/resources/ui/big_button_default.png" id="2_yybde"]
