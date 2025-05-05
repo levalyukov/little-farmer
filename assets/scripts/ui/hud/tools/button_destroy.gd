@@ -13,7 +13,6 @@ extends Control
 @onready var destroy_menu:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/DestroyMenuMargin/DestroyMenu")
 @onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 @onready var button:Button = $Main/Button
-
 var destroyMode:bool = false
 
 func _ready() -> void:
@@ -57,7 +56,7 @@ func _on_button_mouse_entered():
 			audio.stream = load('res://assets/sounds/ui/hover.ogg')
 			audio.play()
 			if cursor: cursor.set_cursor(cursor.states.ACTIVE)
-			if tip: tip.tooltip('Меню уничтожение объектов')
+			if tip: tip.tooltip(tr('ui.tools.destroy_menu'))
 			
 func _on_audio_finished(node) -> void:
 	node.queue_free()
