@@ -8,7 +8,7 @@ extends Control
 const max_grid_dimensions:int = 32
 
 var water_can_max:int = 100
-var water_can:int = 1
+var water_can:int = 100
 # farming
 var hoe:int = 1 # for plowing the cells
 var watering_can:int = 1 # for watering the cells
