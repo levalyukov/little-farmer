@@ -629,6 +629,7 @@ func load_time() -> void:
 		get_key(file.world, "hour", "time"),
 		get_key(file.world, "minute", "time")
 	)
+	clock.update_week_days()
 	cycle.set_cycle_value(get_key(file.world, "hour", "time"))
 
 func load_balance() -> void:
@@ -824,7 +825,7 @@ func take_screenshot():
 		if target_directory:
 			if image.save_png(file_name) == OK:
 				debug("Screenshot saved: " + str(file_name), "info")
-				notice.create_notice(tr("Скриншот сохранен") + ": " + "screenshot-" + str(Time.get_date_string_from_system()) + "-" + str(Time.get_ticks_msec()) + ".png", "photo")
+				notice.create_notice("screenshot-" + str(Time.get_date_string_from_system()) + "-" + str(Time.get_ticks_msec()) + ".png", "photo")
 			else:
 				debug("Couldn't save screenshot", "error")
 		else:
@@ -955,22 +956,10 @@ func start_newgame() -> void:
 	config_load()
 	await get_tree().create_timer(2.5).timeout
 	mailbox.letter(
-		# 	Header
-		tr("Письмо новому фермеру"),
-		# 	Description
-		tr("Приветствую тебя в нашем сообществе фермеров-садоводов!
-
-		Меня зовут Корней Корнеич — мэр и по совместительству профессиональный садовод города Заречье. Хочу поздравить тебя с началом нового этапа жизни на нашей земле.
-
-		В честь этого события я решил сделать тебе скромный подарок для первых шагов.
-
-		Желаю успехов и богатого урожая! В ближайшее время напишу ещё.
-		"),	
-		# 	Author
-		tr("С уважением,\nМэр Корней Корнеич"),
-		#	Money
+		'letter.for_new_player.header',
+		'letter.for_new_player.content',
+		'letter.for_new_player.signature',
 		500,
-		#	Items
 		{
 			13:{"amount":42},
 		}
