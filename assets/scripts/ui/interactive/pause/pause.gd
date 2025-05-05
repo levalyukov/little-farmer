@@ -22,20 +22,10 @@ extends Control
 @onready var buttonBugReport:Button = $Main/Container/ReportBugButtonMargin/ReportBugButton
 @onready var buttonExit:Button = $Main/Container/ExitButtonMargin/ExitButton
 
-var buttonCountinueText:String = tr('Продолжить')
-var buttonSettingsText:String = tr('Настройки')
-var buttonBugReportText:String = tr('Сообщить об ошибке')
-var buttonExitText:String = tr('Сохраниться и выйти')
-
 var paused:bool
 var other_menu:bool
 
 func _ready():
-	buttonCountinue.text = buttonCountinueText
-	buttonSettings.text = buttonSettingsText
-	buttonBugReport.text = buttonBugReportText
-	buttonExit.text = buttonExitText
-
 	player.switch = true
 	player.check_switch()
 	await get_tree().create_timer(0.75).timeout
