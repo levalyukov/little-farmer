@@ -39,7 +39,6 @@ var letter_name
 var letters:Dictionary = {}
 var current_letter_index:int = 0
 var letters_to_create:Array = []
-var gold_money_string:String = tr('з.')	# Money
 
 func _input(_event):
 	if Input.is_action_just_pressed("esc")\
@@ -60,6 +59,8 @@ func _ready():
 					if data.file_load(data.file.player).has('indicator_mailbox'):
 						GameLoader.mailbox_indicator = data.file_load(data.file.player)['indicator_mailbox']
 						mailbox.check_indicator_state()
+						if mails_remove_button:
+							mails_remove_button.text = tr('mail.button.delete_read_ones')
 
 func _process(_delta) -> void:
 	if visible:
@@ -115,21 +116,21 @@ func get_data(letterID) -> void:
 
 		if letters[index].has("header"):
 			if typeof(letters[index]["header"]) == TYPE_STRING:
-				header_label.text = letters[index]["header"]
+				header_label.text = tr(letters[index]["header"])
 				header_label.visible = true
 		else:
 			header_label.visible = false
 
 		if letters[index].has("description"):
 			if typeof(letters[index]["description"]) == TYPE_STRING:
-				description_label.text = letters[index]["description"]
+				description_label.text = tr(letters[index]["description"])
 				description_label.visible = true
 		else:
 			description_label.visible = false
 
 		if letters[index].has("author"):
 			if typeof(letters[index]["author"]) == TYPE_STRING:
-				author_label.text = "- " + letters[index]["author"]
+				author_label.text = "- " + tr(letters[index]["author"])
 				author_label.visible = true
 		else:
 			author_label.visible = false
@@ -138,7 +139,7 @@ func get_data(letterID) -> void:
 		&& (letters[index]["items"] != {} or letters[index]["money"] != 0):
 			items_hbox.visible = true
 			if (letters[index]["items"] != {} || letters[index]["money"] != 0):
-				button.text = tr("Получить")
+				button.text = tr("mail.button.get_all_items")
 				if letters[index]["items"] != {}:
 					items_block.visible = true
 					for i in letters[index]["items"]:
@@ -172,14 +173,12 @@ func get_data(letterID) -> void:
 					button.visible = false
 
 			if letters[index]["money"] > 0:
-				var nested = tr("Вложение")
 				if letters[index]["money"] > balance.maximum:
 					letters[index]["money"] = balance.maximum
-				attached_items_label.text = nested + ": [color=#ffce5e]" + str(balance.format(letters[index]["money"])) + " " + gold_money_string + " " + "[/color]"
+				attached_items_label.text = tr("mail.letter.investment") + ": [color=#ffce5e]" + str(balance.format(letters[index]["money"])) + " " + tr('money_symbol') + " " + "[/color]"
 				attached_items_label.visible = true
 			else:
-				var attached_items = tr("Прикрепленные предметы")
-				attached_items_label.text = attached_items + ":"
+				attached_items_label.text = tr("mail.letter.attached_items") + ":"
 				attached_items_label.visible = true
 		else:
 			change_state_mail_remove_button(true)
@@ -222,7 +221,7 @@ func check_letter_item(check:int, letterID, dictionary:Dictionary):
 func create_letter(id) -> void:
 	var object = letter_node.instantiate()
 	letters_container.add_child(object)
-	object.set_data(id, letters[id]["header"])
+	object.set_data(id, tr(letters[id]["header"]))
 	if letters[id].has("status"):
 		match letters[id]["status"]:
 			"unread":
@@ -282,16 +281,15 @@ func get_letters() -> Dictionary:
 	return letters
 
 func reset_data() -> void:
-	var string_header_mail:String = tr("Почта")
 	if letters != {}:
-		header_label.text = string_header_mail
+		header_label.text = tr("mail.ui.header")
 		if get_all_unreaded_letters() > 0:
-			description_label.text = tr("Есть непрочитанные письма") + ": " + str(get_all_unreaded_letters())
+			description_label.text = tr("mail.ui.mailbox_has_unread_letters_text") + ": " + str(get_all_unreaded_letters())
 		else:
-			description_label.text = tr("Здесь хранятся письма.")
+			description_label.text = tr("mail.ui.mailbox_has_letters_text")
 	else:
-		header_label.text = string_header_mail
-		description_label.text = tr("Почтовый ящик пуст.")
+		header_label.text = tr("mail.ui.header")
+		description_label.text = tr("mail.ui.mailbox_empty_text")
 	author_label.text = ""
 	items_hbox.visible = false
 	change_state_mail_remove_button(false)
@@ -339,7 +337,7 @@ func _on_get_items_pressed() -> void:
 			if cursor:
 				cursor.set_cursor(cursor.states.DEFAULT)
 	else:
-		var full_inventory_error = tr("Нет места на складе.")
+		var full_inventory_error = tr("mail.button.full_inventory_error")
 		notice.create_notice(full_inventory_error, "error")
 
 func _on_close_pressed() -> void:
@@ -371,11 +369,12 @@ func _on_delete_all_readed_letters_pressed() -> void:
 
 func change_state_mail_remove_button(state:bool) -> void:
 	mail_manipulation_buttons.visible = state
+	mail_manipulation_buttons.text = tr('mail.button.letter_remove')
 
 func mail_remove(letter_id) -> void:
 	letters.erase(letter_id)
 	mail_update()
-	modal.modal_create(tr('Уведомление'), tr('Письмо было удалено.'))
+	modal.modal_create(tr('mail.ui.notification'), tr('mail.ui.letter_has_delete'))
 
 func remove_all_readed_letters() -> void:
 	var ids_remove:Array[int] = []
@@ -396,9 +395,9 @@ func remove_all_readed_letters() -> void:
 			deleted+=1
 			letters.erase(id)
 		mail_update()
-		modal.modal_create(tr('Уведомление'), tr("Было удалено") + ": " + str(deleted))
+		modal.modal_create(tr('mail.ui.notification'), tr("mail.ui.letters_was_delete") + ": " + str(deleted))
 	else:
-		modal.modal_create(tr('Уведомление'), tr('Письма с неполученными посылками не были удалены.'))
+		modal.modal_create(tr('mail.ui.notification'), tr('mail.ui.letters_unreceived_items_not_delete.text'))
 
 func get_all_unreaded_letters() -> int:
 	var count_unreaded:int = 0
