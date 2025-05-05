@@ -198,7 +198,7 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_o3muj")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_xtslb")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_vqost")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_y23j3")
-text = "Продолжить игру"
+text = "main_menu.countinue_game_button"
 
 [node name="NewGameMargin" type="MarginContainer" parent="MenuContent/VContainer/ButtonsMargin/Buttons"]
 layout_mode = 2
@@ -213,7 +213,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_8657f")
 theme_override_styles/hover = SubResource("StyleBoxTexture_qco8a")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_8pg3f")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_63r1u")
-text = "Новая игра"
+text = "main_menu.new_game_button"
 
 [node name="SettingsMargin" type="MarginContainer" parent="MenuContent/VContainer/ButtonsMargin/Buttons"]
 layout_mode = 2
@@ -228,7 +228,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_dif7q")
 theme_override_styles/hover = SubResource("StyleBoxTexture_phoql")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_udmmo")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_embk8")
-text = "Настройки"
+text = "main_menu.settings_button"
 
 [node name="ExitMargin" type="MarginContainer" parent="MenuContent/VContainer/ButtonsMargin/Buttons"]
 layout_mode = 2
@@ -243,17 +243,25 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_7pi30")
 theme_override_styles/hover = SubResource("StyleBoxTexture_u7keh")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_dq66j")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_gtq0s")
-text = "Выйти из игры"
+text = "main_menu.quit_buttin"
 
 [node name="FooterMargin" type="MarginContainer" parent="MenuContent/VContainer"]
 layout_mode = 2
 size_flags_vertical = 10
 
-[node name="Credits" type="Label" parent="MenuContent/VContainer/FooterMargin"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContent/VContainer/FooterMargin"]
+layout_mode = 2
+
+[node name="Version" type="Label" parent="MenuContent/VContainer/FooterMargin/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
-text = "v.1.0.0
-(C) Studio Miroro"
+label_settings = SubResource("LabelSettings_eema0")
+horizontal_alignment = 1
+
+[node name="Credits" type="Label" parent="MenuContent/VContainer/FooterMargin/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "main_menu.credits"
 label_settings = SubResource("LabelSettings_eema0")
 horizontal_alignment = 1
 
