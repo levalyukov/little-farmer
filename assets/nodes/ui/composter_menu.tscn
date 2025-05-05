@@ -166,7 +166,6 @@ theme_override_constants/margin_bottom = 0
 
 [node name="SelectItemsLabel" type="Label" parent="Panel/VBoxContainer/SelectItemsMargin"]
 layout_mode = 2
-text = "Отходы для компоста:"
 autowrap_mode = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
@@ -287,7 +286,6 @@ size_flags_vertical = 10
 [node name="GetCompostButton" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ProgressMargin/VBoxContainer/GetCompostMargin"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-text = "Собрать компост"
 
 [node name="ItemsForCompostMargin" type="MarginContainer" parent="Panel/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -384,7 +382,6 @@ theme_override_constants/margin_bottom = 10
 [node name="TurnButton" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ItemsForCompostMargin/VBoxContainer/ButtonMargin"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-text = "Превратить в компост"
 
 [node name="ButtonExit" type="Button" parent="."]
 layout_mode = 1
