@@ -298,8 +298,9 @@ msgstr ""
 #: assets/nodes/ui/interactive/construct/construct_menu.tscn
 msgid "build.text.description"
 msgstr ""
-"Выбор чертежей происходит в левом окне. \\n\\nВерхние вкладки служат для "
-"группировки чертежей по их типам."
+"Выбор чертежей происходит в левом окне. \n"
+"\n"
+"Верхние вкладки служат для группировки чертежей по их типам."
 
 #: assets/nodes/ui/interactive/construct/construct_menu.tscn
 msgid "build.header.landscape"
@@ -419,34 +420,34 @@ msgstr "Вс"
 msgid "clock.day"
 msgstr "День"
 
-#: assets/scripts/ui/hud/elements/clock.gd
+#: assets/scripts/ui/hud/elements/clock.gd assets/localizations/local.gd
 msgid "letter.reminder_season_header"
 msgstr "Напоминание"
 
-#: assets/scripts/ui/hud/elements/clock.gd
+#: assets/scripts/ui/hud/elements/clock.gd assets/localizations/local.gd
 msgid "letter.reminder_season_description_spring_->_summer"
 msgstr ""
 "Привет! Спешу тебе напомнить — завтра лето, поэтому собери весь созревший "
 "урожай, а то пропадет!"
 
-#: assets/scripts/ui/hud/elements/clock.gd
+#: assets/scripts/ui/hud/elements/clock.gd assets/localizations/local.gd
 msgid "letter.gardener_dobrynya"
 msgstr "Садовод Добрыня"
 
-#: assets/scripts/ui/hud/elements/clock.gd
+#: assets/scripts/ui/hud/elements/clock.gd assets/localizations/local.gd
 msgid "letter.reminder_season_description_summer_->_autumn"
 msgstr ""
 "Привет! Сегодня читал прогноз погоды на завтра — ожидается похолодание. "
 "Чтобы не потерять урожай, обязательно собери все, что уже созрело. Также "
 "заглядывай ко мне чтобы приобрести осенние семена."
 
-#: assets/scripts/ui/hud/elements/clock.gd
+#: assets/scripts/ui/hud/elements/clock.gd assets/localizations/local.gd
 msgid "letter.reminder_season_description_autumn_->_winter"
 msgstr ""
 "Привет! Столбик термометра опускается ниже нуля, поэтому собирай весь "
 "созревший урожай, готовь корм для скота и растапливай камин — зима на носу!"
 
-#: assets/scripts/ui/hud/elements/clock.gd
+#: assets/scripts/ui/hud/elements/clock.gd assets/localizations/local.gd
 msgid "letter.reminder_season_description_winter_->_spring"
 msgstr ""
 "Привет! У меня радостная новость — завтра ожидается потепление! С "
@@ -647,7 +648,7 @@ msgstr "Недостаточно средств"
 
 #: assets/scripts/ui/interactive/trading/trade_system.gd
 msgid "trade_menu.button.error_storage_full"
-msgstr "Склад полон"
+msgstr "Нет места на складе."
 
 #: assets/scripts/ui/interactive/trading/trade_system.gd
 msgid "trade_menu.button.sell"
@@ -687,6 +688,30 @@ msgstr ""
 #: assets/localizations/local.gd
 msgid "letter.for_new_player.signature"
 msgstr "С уважением, Мэр Корней Корнеич"
+
+#: assets/localizations/local.gd
+msgid "letter.public_well_announcement_header"
+msgstr "Колодец общего пользования"
+
+#: assets/localizations/local.gd
+msgid "letter.public_well_announcement_content"
+msgstr ""
+"Уважаемый жители города Заречья!\n"
+"\n"
+"Информирую вас о том, что в городе был сооружён колодец для общего "
+"пользования. Доступ к колодцу осуществляется свободно и бесплатно в любое "
+"время суток.\n"
+"\n"
+"Вы можете использовать его для забора воды с применением ёмкостей различного "
+"объёма (ведёр, леек и других приспособлений). \n"
+"\n"
+"Просим соблюдать порядок и бережное отношение к общегородскому имуществу.\n"
+"\n"
+"Благодарим за внимание!"
+
+#: assets/localizations/local.gd
+msgid "letter.korney_korneich.signature"
+msgstr "Мэр Корней Корнеич"
 
 #: assets/localizations/local.gd
 msgid "npc.dobrynya"
@@ -790,6 +815,46 @@ msgstr "Репа"
 #: assets/scripts/farming/crops.gd
 msgid "crops.bean"
 msgstr "Фасоль"
+
+#: assets/scripts/ui/hud/grid/grid.gd
+msgid "tooltip.water_can"
+msgstr "Вода в лейке"
+
+#: assets/scripts/ui/hud/grid/grid.gd
+msgid "tooltip.empty_water_can"
+msgstr "Лейка пуста"
+
+#: assets/scripts/ui/hud/grid/grid.gd
+msgid "grid.harvesting.error.inventory_full"
+msgstr "Нет места на складе."
+
+#: assets/scripts/ui/composter_menu.gd
+msgid "composting_menu.process"
+msgstr "Компостирование"
+
+#: assets/scripts/ui/composter_menu.gd
+msgid "composting_menu.compost_ready"
+msgstr "Компост готов"
+
+#: assets/scripts/ui/composter_menu.gd
+msgid "composting_menu.header"
+msgstr "Компостер"
+
+#: assets/scripts/ui/composter_menu.gd
+msgid "composting_menu.start_compost"
+msgstr "Превратить в компост"
+
+#: assets/scripts/ui/composter_menu.gd
+msgid "composting_menu.get_compost"
+msgstr "Собрать компост"
+
+#: assets/scripts/ui/composter_menu.gd
+msgid "composting_menu.select_items"
+msgstr "Отходы для компоста"
+
+#: assets/scripts/ui/composter_menu.gd
+msgid "composting_menu.description"
+msgstr "Выберите отходы для начала компостирования"
 
 #, fuzzy
 #~| msgid "Создать"
