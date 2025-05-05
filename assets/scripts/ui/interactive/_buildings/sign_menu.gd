@@ -39,15 +39,14 @@ func _open(node_name) -> void:
 	sign_name = node_name
 
 func _close() -> void:
-	_remove_all_items()
 	anim.play("close")
 	blur.blur(false)
 	pause.other_menu = false
 	opened = false
+	_remove_all_items()
 
 func _set_header() -> void:
-	var header_:String = tr("Выберите иконку")
-	header.text = header_ + ":"
+	header.text = tr("ui.sign_menu.header")
 
 func _create_item(id) -> void:
 	var node = inventory.node
