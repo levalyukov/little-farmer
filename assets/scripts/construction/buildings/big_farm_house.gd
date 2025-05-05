@@ -23,7 +23,6 @@ const bakeEveninggOn:int = 19
 const bakeEveninggOff:int = 22
 #	var openedTradeMenu:bool = false
 var object:Dictionary = {
-	"caption" = tr("Дом мэра Корней Корнеича"),
 	"shadow" = load("res://assets/resources/buildings/big_farm_house/shadow.png"),
 	"default" = load("res://assets/resources/buildings/big_farm_house/obj_0.png"),
 	"hovered" = load("res://assets/resources/buildings/big_farm_house/obj_1.png"),
@@ -90,12 +89,6 @@ func _on_area_2d_mouse_entered() -> void:
 					if object["seasons"][season].has("hovered"):
 						if object["seasons"][season]["hovered"] is CompressedTexture2D:
 							sprite.texture = object["seasons"][season]["hovered"]
-						else:
-							data.debug()
-					else:
-						data.debug()
-				else:
-					data.debug()
 			else:
 				if object.has("hovered"):
 					if object["hovered"] is CompressedTexture2D:
@@ -105,7 +98,7 @@ func _on_area_2d_mouse_entered() -> void:
 				else:
 					data.debug("'"+str(self.name) + "': There is no 'hovered' key.", "error")
 			tip.tooltip(
-					str(object["caption"])
+					tr('object.mayor_house.caption')
 				)
 
 func _on_area_2d_mouse_exited() -> void:
