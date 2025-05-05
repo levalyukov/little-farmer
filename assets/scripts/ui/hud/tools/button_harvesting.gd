@@ -43,7 +43,7 @@ func _on_button_mouse_entered():
 			audio.stream = load('res://assets/sounds/ui/hover.ogg')
 			audio.play()
 			if cursor: cursor.set_cursor(cursor.states.ACTIVE)
-			if tip: tip.tooltip('Сбор урожая')
+			if tip: tip.tooltip(tr('ui.tools.harvesting_button'))
 			
 func _on_button_mouse_exited():
 	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
