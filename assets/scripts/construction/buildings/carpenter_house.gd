@@ -24,7 +24,6 @@ const bakeEveninggOn:int = 19
 const bakeEveninggOff:int = 22
 var openedMenu:bool = false
 var object:Dictionary = {
-	"caption" = tr("Дом плотника Вэнси"),
 	"shadow" = load("res://assets/resources/buildings/carpenter_house/shadow.png"),
 	"default" = load("res://assets/resources/buildings/carpenter_house/obj_0.png"),
 	"hovered" = load("res://assets/resources/buildings/carpenter_house/obj_1.png"),
@@ -42,12 +41,13 @@ func _input(event):
 	&& grid.mode == grid.modes.NOTHING\
 	&& openedMenu:
 		dialogWindow.dialogWindow(
-			tr("Дом плотника Вэнса"),
+			tr('object.carpenter_house.caption'),
 			[
-				tr('Перед вами стоит старый домик плотника Вэнса.\n\nВойдя в дом, Вэнс вас радостно встречает и предлагает вам свои услуги:')
+				# Перед вами стоит старый домик плотника Вэнса.\n\nВойдя в дом, Вэнс вас радостно встречает и предлагает вам свои услуги:
+				tr('dialog.carpenter_house.main_text')
 			], 
 			{
-				0:[tr('Приобрести чертежи'),tr('Купить ресурсов'), tr('Уйти')],
+				0:[tr('dialog.carpenter_house.buy_blueprints_button'),tr('dialog.carpenter_house.buy_resources'), tr('dialog.quit_button')],
 			},
 			{
 				0:[3,2,0],
@@ -132,7 +132,7 @@ func _on_area_2d_mouse_entered() -> void:
 				else:
 					data.debug("'"+str(self.name) + "': There is no 'hovered' key.", "error")
 			tip.tooltip(
-					str(object["caption"])
+					str(tr('object.carpenter_house.caption'))
 				)
 
 func _on_area_2d_mouse_exited() -> void:
