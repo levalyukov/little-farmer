@@ -25,8 +25,6 @@ var level:int = 1
 var blueprint_id:int = 0
 var object:Dictionary = {
 	1: {
-		"caption" = tr("Теплица"),
-		"description" = tr("Тёплое помещение для разведения\nи выращивания растений."),
 		"shadow" = load("res://assets/resources/buildings/greenhouse/level_1/shadow.png"),
 		"seasons" = {
 			"spring" = {
@@ -108,8 +106,8 @@ func _change_sprite(type:bool) -> void:
 					else:
 						data.debug("'"+str(self.name) + "': There is no 'hovered' key.", "error")
 			tip.tooltip(
-					str(object[level]["caption"]) + "\n" +
-					str(object[level]["description"])
+					str(tr("object.greenhouse.caption")) + "\n" +
+					str(tr("object.greenhouse.description")) # Тёплое помещение для разведения\nи выращивания растений
 				)
 	else:
 		if object.has(level):
