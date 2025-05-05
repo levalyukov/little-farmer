@@ -175,7 +175,6 @@ theme_override_constants/margin_left = 8
 
 [node name="Label" type="Label" parent="Content/PlayerInventory/LabelMargin"]
 layout_mode = 2
-text = "Player Inventory"
 label_settings = SubResource("LabelSettings_nkxs0")
 
 [node name="PlayerContainer" type="ScrollContainer" parent="Content/PlayerInventory"]
@@ -236,7 +235,6 @@ theme_override_constants/margin_top = 25
 
 [node name="Header" type="Label" parent="Content/TradeWindow/TradeWindow/VBoxContainer/HeaderContainer"]
 layout_mode = 2
-text = "trader.window_header"
 label_settings = SubResource("LabelSettings_ijn06")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -251,7 +249,6 @@ theme_override_constants/margin_right = 8
 [node name="Description" type="Label" parent="Content/TradeWindow/TradeWindow/VBoxContainer/DescriptionContainer"]
 custom_minimum_size = Vector2(270, 0)
 layout_mode = 2
-text = "trade_menu.description"
 autowrap_mode = 3
 
 [node name="ItemsContainer" type="MarginContainer" parent="Content/TradeWindow/TradeWindow/VBoxContainer"]
@@ -289,7 +286,6 @@ theme_override_constants/margin_bottom = 5
 [node name="TargetPrice" type="RichTextLabel" parent="Content/TradeWindow/TradeWindow/VBoxContainer/TargetPriceContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "trader.target_price"
 fit_content = true
 
 [node name="ButtonContainer" type="MarginContainer" parent="Content/TradeWindow/TradeWindow/VBoxContainer"]
@@ -300,7 +296,6 @@ theme_override_constants/margin_bottom = 15
 [node name="Button" type="Button" parent="Content/TradeWindow/TradeWindow/VBoxContainer/ButtonContainer"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-text = "trader.buy_sell_button"
 
 [node name="TraderInventory" type="NinePatchRect" parent="Content"]
 custom_minimum_size = Vector2(305, 380)
@@ -321,7 +316,6 @@ theme_override_constants/margin_right = 9
 
 [node name="Label" type="Label" parent="Content/TraderInventory/LabelMargin"]
 layout_mode = 2
-text = "Trader Inventory"
 label_settings = SubResource("LabelSettings_nkxs0")
 horizontal_alignment = 2
 
