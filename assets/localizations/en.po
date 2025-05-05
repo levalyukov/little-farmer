@@ -1,56 +1,4 @@
 # LANGUAGE translation for LittleFarmer for the following files:
-# res://assets/scripts/farming/crops.gd
-# res://assets/scripts/ui/interactive/construct/blueprints.gd
-# res://assets/scripts/ui/interactive/construct/construct_system.gd
-# res://assets/scripts/ui/interactive/mail/mail.gd
-# res://assets/scripts/ui/interactive/inventory/items.gd
-# res://assets/scripts/ui/interactive/inventory/inventory.gd
-# res://assets/scripts/ui/interactive/pause/pause.gd
-# res://assets/nodes/ui/interactive/options/options.tscn
-# res://assets/scripts/construction/buildings/barrel.gd
-# res://assets/scripts/construction/buildings/barrel_of_water.gd
-# res://assets/scripts/construction/buildings/bench.gd
-# res://assets/scripts/construction/buildings/big_farm_house.gd
-# res://assets/scripts/construction/buildings/blacksmith_house.gd
-# res://assets/scripts/construction/buildings/box.gd
-# res://assets/scripts/construction/buildings/carpenter_house.gd
-# res://assets/scripts/construction/buildings/christmas_tree.gd
-# res://assets/scripts/construction/buildings/composter.gd
-# res://assets/scripts/construction/buildings/decor.gd
-# res://assets/scripts/construction/buildings/decor_lily.gd
-# res://assets/scripts/construction/buildings/farmer_house.gd
-# res://assets/scripts/construction/buildings/fisherman_house.gd
-# res://assets/scripts/construction/buildings/flowerbed.gd
-# res://assets/scripts/construction/buildings/forge.gd
-# res://assets/scripts/construction/buildings/fountan.gd
-# res://assets/scripts/construction/buildings/garden_decor.gd
-# res://assets/scripts/construction/buildings/grave.gd
-# res://assets/scripts/construction/buildings/greenhouse.gd
-# res://assets/scripts/construction/buildings/greenhouse_decor.gd
-# res://assets/scripts/construction/buildings/house.gd
-# res://assets/scripts/construction/buildings/improved_warehouse.gd
-# res://assets/scripts/construction/buildings/lamp_post.gd
-# res://assets/scripts/construction/buildings/lamp_post_modern.gd
-# res://assets/scripts/construction/buildings/logs.gd
-# res://assets/scripts/construction/buildings/mailbox.gd
-# res://assets/scripts/construction/buildings/mailbox_for_house_0.gd
-# res://assets/scripts/construction/buildings/metal_cheap_fence.gd
-# res://assets/scripts/construction/buildings/path_of_large_stones.gd
-# res://assets/scripts/construction/buildings/public_well.gd
-# res://assets/scripts/construction/buildings/radio.gd
-# res://assets/scripts/construction/buildings/rose_in_pot.gd
-# res://assets/scripts/construction/buildings/sawmill.gd
-# res://assets/scripts/construction/buildings/scarecrow.gd
-# res://assets/scripts/construction/buildings/sea_lantern.gd
-# res://assets/scripts/construction/buildings/sign.gd
-# res://assets/scripts/construction/buildings/silo.gd
-# res://assets/scripts/construction/buildings/stall.gd
-# res://assets/scripts/construction/buildings/storage.gd
-# res://assets/scripts/construction/buildings/stump.gd
-# res://assets/scripts/construction/buildings/tablet.gd
-# res://assets/scripts/construction/buildings/traderHouse.gd
-# res://assets/scripts/construction/buildings/well.gd
-# res://assets/data/gamedata.gd
 # res://assets/scripts/ui/interactive/_main_menu/menu.gd
 #
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -69,1220 +17,775 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.6\n"
 
-#: assets/scripts/farming/crops.gd
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Морковь"
-msgstr "Carrot"
+#: levels/menu.tscn
+msgid "main_menu.countinue_game_button"
+msgstr "Continue Game"
 
-#: assets/scripts/farming/crops.gd
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Картофель"
-msgstr "Potato"
+#: levels/menu.tscn
+msgid "main_menu.new_game_button"
+msgstr "New Game"
 
-#: assets/scripts/farming/crops.gd
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Редис"
-msgstr "Radish"
+#: levels/menu.tscn
+msgid "main_menu.settings_button"
+msgstr "Settings"
 
-#: assets/scripts/farming/crops.gd
-msgid "Капуста"
-msgstr "Cabbage"
+#: levels/menu.tscn
+msgid "main_menu.quit_buttin"
+msgstr "Quit Game"
 
-#: assets/scripts/farming/crops.gd
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Репчатый лук"
-msgstr "Onion"
+#: levels/menu.tscn
+msgid "main_menu.credits"
+msgstr "Developed by Studio Miroro ❤"
 
-#: assets/scripts/farming/crops.gd
-msgid "Огурцы"
-msgstr "Cucumbers"
+#: levels/menu.tscn
+msgid "modal.early_version_header"
+msgstr "Welcome!"
 
-#: assets/scripts/farming/crops.gd
-msgid "Томат"
-msgstr "Tomato"
-
-#: assets/scripts/farming/crops.gd
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Баклажан"
-msgstr "Eggplant"
-
-#: assets/scripts/farming/crops.gd
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Перец"
-msgstr "Pepper"
-
-#: assets/scripts/farming/crops.gd
-msgid "Кукуруза"
-msgstr "Corn"
-
-#: assets/scripts/farming/crops.gd
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Пастернак"
+#: levels/menu.tscn
+msgid "modal.early_version_description"
 msgstr ""
-
-#: assets/scripts/farming/crops.gd
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Чеснок"
-msgstr ""
-
-#: assets/scripts/farming/crops.gd
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Свёкла"
-msgstr ""
-
-#: assets/scripts/farming/crops.gd
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Репа"
-msgstr ""
-
-#: assets/scripts/farming/crops.gd
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Фасоль"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Тропинки"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid ""
-"Позволяет создавать тропы и вспахиваемую землю.\n"
+"The game is currently in early access, so you may \n"
+"encounter bugs/errors, unstable mechanics, or incomplete content.\n"
 "\n"
-"-- Пошаговое объяснение --\n"
+"If you discover a bug, glitch, or notice that a mechanic is \n"
+"not functioning properly, please use the \"Report an Issue\"\n"
+" button in the pause menu.\n"
 "\n"
-"1. Расчистите место: Выберите пустой участок размером 3x3 клеток\n"
-"\n"
-"2. Создайте тропы: Превратите все клетки вокруг центральной в тропы\n"
-"\n"
-"3. Получите грядку: В центре образуется готовая к вспашке земля."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Чертеж тропинок"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Позволяет создавать тропы и вспахиваемую землю."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Водоём"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Создавайте водоёмы на своей ферме."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Чертеж водоёма"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "С помощью этого чертежа можно создавать водоёмы на своей ферме."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Деревянный знак"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Позволяет разместить изображение любого предмета."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Чертеж деревянного знака"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid ""
-"Позволяет разместить изображение любого предмета. К примеру, помогает "
-"пометить какая культура растет на грядках."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-#: assets/scripts/construction/buildings/composter.gd
-msgid "Компостер"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Ящик для приготовления удобрения."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Чертеж компостера"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid ""
-"Компостер — полезный инструмент для каждого фермера. Позволяет переработать "
-"отходы в удобрение для вашего растения."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-#: assets/scripts/construction/buildings/well.gd
-msgid "Колодец"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Позволяет пополять лейку."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Чертеж колодца"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid ""
-"Одна из полезных построек на вашей ферме — позволяет быстро наполнить лейку "
-"водой."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-#: assets/scripts/construction/buildings/stall.gd
-msgid "Хлев"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Место для содержания скота."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Чертеж хлева"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid ""
-"Данная постройка позволяет завести скот*.\n"
-"\n"
-"* - скот будет добавлен в будущих обновлениях."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-#: assets/scripts/construction/buildings/silo.gd
-msgid "Силосная башня"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Высокое и вместительное хранилище для кормов."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Чертеж силосной башни"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Позволяет хранить корм для скота."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-#: assets/scripts/construction/buildings/greenhouse.gd
-msgid "Теплица"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Тёплое помещение для разведения и выращивания растений."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Чертеж теплицы"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid ""
-"Позволяет выращивать культуры вне зависимости от времени года. Имеет площадь "
-"8х8 клеток."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Фонарный столб"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Источник света для вашей фермы."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Чертеж фонарного столба"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Дорожка из больших камней"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Небольшая декоративная дорожка из камней."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Чертеж дорожки из больших камней"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Каменная плавильная печь"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid ""
-"Простая каменная плавильня для обработки ресурсов. Недорогая в создании, "
-"работает медленно и требует времени для плавки."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Чертеж каменной плавильной печи"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Простая каменная плавильня для обработки ресурсов."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Радио"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid ""
-"Позволяет воспроизводить радиостанции и пользовательские треки.\n"
-"\n"
-"Может быть только в единном экземпляре."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid ""
-"Позволяет воспроизводить радиостанции, слушать новости и включать "
-"пользовательские песни."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-#: assets/scripts/construction/buildings/sawmill.gd
-msgid "Пилостол"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Позволяет распилить бревна на доски."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "Чертеж пилостола"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/blueprints.gd
-msgid "При помощи пилостола можно быстро распилить бревна на доски."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/construct_system.gd
-msgid "Меню строительства"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/construct_system.gd
-msgid ""
-"Нет чертежей. Чтобы получить новые чертежи — приобретайте у специальных "
-"торговцев."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/construct_system.gd
-msgid ""
-"Выбор чертежей происходит в левом окне. \n"
-"\n"
-"Верхние вкладки служат для группировки чертежей по их типам."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/construct_system.gd
-msgid "Все чертежи"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/construct_system.gd
-msgid "Чертежи ландшафта"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/construct_system.gd
-msgid "Чертежи построек"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/construct_system.gd
-msgid "Чертежи улучшений"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/construct_system.gd
-msgid "Постройки"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/construct_system.gd
-msgid "Ландшафт"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/construct_system.gd
-msgid "Улучшения"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/construct_system.gd
-msgid ""
-"Чертежи данного типа дают возможность возводить фермерские постройки и "
-"декорации для фермы."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/construct_system.gd
-msgid "Данные чертежи позволяют преобразовывать ландшафт фермы."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/construct_system.gd
-msgid ""
-"Чертежи этого типа используются для модернизации конкретных зданий. После "
-"улучшения здания становятся доступны новые функции или контент, связанные с "
-"ними."
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/construct_system.gd
-msgid "Требуемые ресурсы:"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/construct_system.gd
-msgid "Создать"
-msgstr ""
-
-#: assets/scripts/ui/interactive/construct/construct_system.gd
-msgid "Превышен лимит (1/1)"
-msgstr ""
-
-#: assets/scripts/ui/interactive/mail/mail.gd
-msgid "з."
-msgstr ""
-
-#: assets/scripts/ui/interactive/mail/mail.gd
-msgid "Получить"
-msgstr ""
-
-#: assets/scripts/ui/interactive/mail/mail.gd
-msgid "Вложение"
-msgstr ""
-
-#: assets/scripts/ui/interactive/mail/mail.gd
-msgid "Прикрепленные предметы"
-msgstr ""
-
-#: assets/scripts/ui/interactive/mail/mail.gd
-msgid "Почта"
-msgstr ""
-
-#: assets/scripts/ui/interactive/mail/mail.gd
-msgid "Есть непрочитанные письма"
-msgstr ""
-
-#: assets/scripts/ui/interactive/mail/mail.gd
-msgid "Здесь хранятся письма."
-msgstr ""
-
-#: assets/scripts/ui/interactive/mail/mail.gd
-msgid "Почтовый ящик пуст."
-msgstr ""
-
-#: assets/scripts/ui/interactive/mail/mail.gd
-msgid "Нет места на складе."
-msgstr ""
-
-#: assets/scripts/ui/interactive/mail/mail.gd
-msgid "Уведомление"
-msgstr ""
-
-#: assets/scripts/ui/interactive/mail/mail.gd
-msgid "Письмо было удалено."
-msgstr ""
-
-#: assets/scripts/ui/interactive/mail/mail.gd
-msgid "Было удалено"
-msgstr ""
-
-#: assets/scripts/ui/interactive/mail/mail.gd
-msgid "Письма с неполученными посылками не были удалены."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Бревно"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid ""
-"Простое деревянное бревно, полученное из деревьев. Используется для "
-"строительства."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Строительные материалы"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Доска"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Обработанное бревно, готовое для использования в строительстве."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Камень"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Твёрдый природный материал. Подходит для создания прочных конструкций"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Булыжник"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Часто используемый для дорожек или декоративных элементов."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Уголь"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid ""
-"Горючий материал, добываемый из земли. Идеален для топлива или создания "
-"освещения."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Руда"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Медная руда"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid ""
-"После переплавки может быть использована для создания инструментов и деталей"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Железная руда"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Основа для прочных инструментов и конструкций"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Бокситовая руда"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Используется для создания лёгких и прочных материалов"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Медный слиток"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Очищенная медь, готовая для использования в строительстве"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Железный слиток"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid ""
-"Прочный металл, подходящий для создания надёжных инструментов и конструкций"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Алюминивый слиток"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Лёгкий и прочный металл, идеальный для современных конструкций"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Аметист"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid ""
-"Редкий драгоценный камень, используемый для украшений или магических целей"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Семена моркови"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Маленькие семена для выращивания моркови."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Семена"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Семена картофеля"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Эти семена помогут вырастить питательный картофель."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Семена редиса"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Маленькие семена для быстрого выращивания хрустящего редиса."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Семена капусты"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Семена для выращивания плотной и сочной капусты."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Семена репчатого лука"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Небольшие семена для выращивания сочного репчатого лука."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Семена огурцов"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Семена для выращивания свежих и хрустящих огурцов."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Семена томата"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Семена для выращивания ароматных помидоров."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Семена баклажана"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Семена для выращивания баклажанов с гладкой фиолетовой кожурой."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Семена перца"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Семена для выращивания сладкого перца"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Семена кукурузы"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Крупные семена для выращивания сладкой кукурузы."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Семена пастернака"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Семена для выращивания ароматного пастернака."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Семена чеснока"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Зубчики для выращивания острого чеснока."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Семена свёклы"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Семена для выращивания сладкой и сочной свёклы."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Семена репы"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Семена для выращивания хрустящей репы."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Семена фасоли"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Семена для выращивания богатой витаминами фасоли."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Сладкая и хрустящая морковь."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Урожай"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Питательный клубень для различных блюд."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Острый и сочный корнеплод."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Кочан капусты"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Свежая и крепкая капуста."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Ароматный лук для приправ и салатов."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Огурец"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Хрустящий и освежающий огурец."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Помидор"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Сочные томаты для любых блюд."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Темно-фиолетовый плод для жарки и запекания."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Яркий и пикантный перец."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Початок кукурузы"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Золотистые зерна для вкусного гарнира."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Деликатный вкус и полезные свойства."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Ароматная пряность для усиления вкуса."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Сладкая и яркая, идеальна для салатов и супов."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Круглый и плотный корнеплод."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Прекрасный источник белка, подходит для гарниров."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Испорченная морковь"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Морковь, потерявшая свою свежесть."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Отходы"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Испорченный картофель"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Клубень, поражённый гнилью."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Испорченный редис"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Корнеплод, покрытый пятнами гнили."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Испорченный кочан капусты"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Капуста, начавшая разлагаться."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Испорченный репчатый лук"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Лук, потерявший свой аромат."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Испорченный огурец"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Огурец, утративший хрусткость и свежесть."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Испорченный помидор"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Томат, покрытый плесенью и гнилью."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Испорченный баклажан"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Плод, покрытый темными пятнами и гнилью."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Испорченный перец"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Перец, начало которого уже разложилось."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Испорченный початок кукурузы"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Кукуруза, поражённая грибком и гнилью"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Испорченный пастернак"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Корнеплод, начавший разлагаться"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Испорченный чеснок"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Чеснок, утративший свои полезные свойства"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Испорченная свёкла"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Свёкла, покрытая пятнами гнили"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Испорченная репа"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Корнеплод, поражённый гнилью"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Испорченная фасоль"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Потемневшие и размягченные бобы, непригодные для еды."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Ботва"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid ""
-"Листья и стебли после сбора урожая. Полезна для создания компоста или "
-"кормления животных."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Ветка"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid ""
-"Отломанные или срезанные ветви деревьев. Используются в строительстве, для "
-"разжигания костров или производства удобрений."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Сорняки"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid ""
-"Неприхотливые растения, которые мешают росту культур. Могут быть "
-"использованы в компосте"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Обычный компост"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid ""
-"Ускоряет время роста растения на 5%.\n"
-"\n"
-"Удобрять перед посевом."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Удобрение"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid "Высококачественный компост"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/items.gd
-msgid ""
-"Ускоряет время роста растения на 20%.\n"
-"\n"
-"Удобрять перед посевом."
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/inventory.gd
-msgid "Тип предмета"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/inventory.gd
-msgid "Всего"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/inventory.gd
-msgid "Доступно слотов"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/inventory.gd
-msgid "Время роста"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/inventory.gd
-msgid "Урожайность"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/inventory.gd
-msgid "Условия"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/inventory.gd
-msgid "Посадить семена"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/inventory.gd
-msgid "Не тот сезон"
-msgstr ""
-
-#: assets/scripts/ui/interactive/inventory/inventory.gd
-msgid "Удобрить"
-msgstr ""
-
-#: assets/scripts/ui/interactive/pause/pause.gd
-msgid "Продолжить"
-msgstr ""
-
-#: assets/scripts/ui/interactive/pause/pause.gd
-#: assets/scripts/ui/interactive/_main_menu/menu.gd
-msgid "Настройки"
-msgstr ""
-
-#: assets/scripts/ui/interactive/pause/pause.gd
-msgid "Сообщить об ошибке"
-msgstr ""
-
-#: assets/scripts/ui/interactive/pause/pause.gd
-msgid "Сохраниться и выйти"
-msgstr ""
+"Thank you for joining us during this early stage of development!\n"
+"We appreciate your support as we refine the experience."
+
+#: levels/menu.tscn
+msgid "modal.modal_early_version_button"
+msgstr "OK"
 
 #: assets/nodes/ui/interactive/options/options.tscn
-msgid "Графика"
-msgstr ""
+msgid "options.graphic"
+msgstr "Graphic"
 
 #: assets/nodes/ui/interactive/options/options.tscn
-msgid "Звук"
-msgstr ""
+msgid "options.sounds"
+msgstr "Sounds"
 
 #: assets/nodes/ui/interactive/options/options.tscn
-msgid "Управление"
-msgstr ""
+msgid "options.control"
+msgstr "Control"
 
 #: assets/nodes/ui/interactive/options/options.tscn
-msgid "Язык: Русский"
+msgid "options.game_language"
 msgstr "Language: English"
 
 #: assets/nodes/ui/interactive/options/options.tscn
-msgid "Сохранить изменения"
-msgstr ""
+msgid "options.save_changes"
+msgstr "Save & Exit"
 
 #: assets/nodes/ui/interactive/options/options.tscn
-msgid "Верт. синхронизация"
-msgstr ""
+msgid "options.graphic.vsync"
+msgstr "V-Sync"
 
 #: assets/nodes/ui/interactive/options/options.tscn
-msgid "Полноэкранный режим"
-msgstr ""
+msgid "options.graphic.fullScreen"
+msgstr "Full Screen"
 
 #: assets/nodes/ui/interactive/options/options.tscn
-msgid "Ограничение FPS"
-msgstr ""
+msgid "options.graphic.FPSLimit"
+msgstr "FPS Limit"
 
 #: assets/nodes/ui/interactive/options/options.tscn
-msgid "Общая: "
-msgstr ""
+msgid "options.graphic.FPSLimit_off"
+msgstr "Off"
 
 #: assets/nodes/ui/interactive/options/options.tscn
-msgid "Музыка:"
-msgstr ""
+msgid "options.sounds.overall"
+msgstr "Overall"
 
 #: assets/nodes/ui/interactive/options/options.tscn
-msgid "Природа:"
-msgstr ""
+msgid "options.sounds.music"
+msgstr "Music"
 
 #: assets/nodes/ui/interactive/options/options.tscn
-msgid "Радио:"
-msgstr ""
+msgid "options.sounds.nature"
+msgstr "Nature"
 
 #: assets/nodes/ui/interactive/options/options.tscn
-msgid "Передвижение [WASD]"
-msgstr ""
+msgid "options.sounds.radio"
+msgstr "Radio"
 
 #: assets/nodes/ui/interactive/options/options.tscn
-msgid "Взаимодействие [ЛКМ]"
-msgstr ""
+msgid "options.control.movement"
+msgstr "Movement"
 
 #: assets/nodes/ui/interactive/options/options.tscn
-msgid "Инвентарь [Tab]"
-msgstr ""
+msgid "options.control.interact"
+msgstr "Interact"
 
 #: assets/nodes/ui/interactive/options/options.tscn
-msgid "Меню паузы [Esc]"
-msgstr ""
+msgid "options.control.inventory"
+msgstr "Inventory"
 
 #: assets/nodes/ui/interactive/options/options.tscn
-msgid "Приблизить/Отдалить зум [СКМ)"
-msgstr ""
+msgid "options.control.zoom"
+msgstr "Zoom"
 
-#: assets/scripts/construction/buildings/big_farm_house.gd
-msgid "Дом мэра Корней Корнеича"
-msgstr ""
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.control.screenshot"
+msgstr "Screenshot"
 
-#: assets/scripts/construction/buildings/blacksmith_house.gd
-msgid "Дом кузнеца Кузьмы"
-msgstr ""
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.control.movement_input"
+msgstr "WASD"
 
-#: assets/scripts/construction/buildings/carpenter_house.gd
-msgid "Дом плотника Вэнси"
-msgstr ""
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.control.interact_input"
+msgstr "LMB"
 
-#: assets/scripts/construction/buildings/christmas_tree.gd
-msgid "Новогодняя Ёлка"
-msgstr ""
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.control.inventory_input"
+msgstr "Tab"
 
-#: assets/scripts/construction/buildings/christmas_tree.gd
-msgid "С Новым Годом, фермер!"
-msgstr ""
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.control.zoom_input"
+msgstr "MMB"
 
-#: assets/scripts/construction/buildings/composter.gd
-msgid "Ящик для приготовления удобрения"
-msgstr ""
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.control.screenshot_input"
+msgstr "F2"
 
-#: assets/scripts/construction/buildings/farmer_house.gd
-msgid "Дом Лизы"
-msgstr ""
+#: assets/nodes/ui/interactive/pause/pause.tscn
+msgid "pause.continue_button"
+msgstr "Continue"
 
-#: assets/scripts/construction/buildings/fisherman_house.gd
-msgid "Рыбацкий дом Марлина."
-msgstr ""
+#: assets/nodes/ui/interactive/pause/pause.tscn
+msgid "pause.settings_button"
+msgstr "Settings"
 
-#: assets/scripts/construction/buildings/forge.gd
-msgid "Каменная плавильня"
-msgstr ""
+#: assets/nodes/ui/interactive/pause/pause.tscn
+msgid "pause.report_button"
+msgstr "Report an Issue"
 
-#: assets/scripts/construction/buildings/forge.gd
-msgid "Позволяет переплавлять руду"
-msgstr ""
+#: assets/nodes/ui/interactive/pause/pause.tscn
+msgid "pause.exit_button"
+msgstr "Save & Exit"
 
-#: assets/scripts/construction/buildings/greenhouse.gd
-msgid ""
-"Тёплое помещение для разведения\n"
-"и выращивания растений."
-msgstr ""
+#: assets/scripts/ui/interactive/inventory/inventory.gd
+msgid "inventory.tip.item_type"
+msgstr "Item type"
 
-#: assets/scripts/construction/buildings/house.gd
-msgid "Дом"
-msgstr ""
+#: assets/scripts/ui/interactive/inventory/inventory.gd
+msgid "inventory.tip.total_items"
+msgstr "Total"
 
-#: assets/scripts/construction/buildings/house.gd
-msgid "Старый и уютный деревянный домик"
-msgstr ""
+#: assets/scripts/ui/interactive/inventory/inventory.gd
+msgid "inventory.available_slots"
+msgstr "Available slots"
 
-#: assets/scripts/construction/buildings/house.gd
-#: assets/scripts/construction/buildings/silo.gd
-#: assets/scripts/construction/buildings/stall.gd
+#: assets/scripts/ui/interactive/inventory/inventory.gd
+msgid "inventory.button.plant_seeds"
+msgstr "Plant the seeds"
+
+#: assets/scripts/ui/interactive/inventory/inventory.gd
+msgid "inventory.button.wrong_season"
+msgstr "Wrong season"
+
+#: assets/scripts/ui/interactive/inventory/inventory.gd
+msgid "inventory.button.fertilize"
+msgstr "Fertilize"
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.button.delete_read_ones"
+msgstr "Delete Read Letters"
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.button.get_all_items"
+msgstr "Receive Items"
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.letter.investment"
+msgstr "Money"
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+#: assets/scripts/ui/interactive/trading/trade_system.gd
+#: assets/scripts/ui/blueprints_shop.gd
+msgid "money_symbol"
+msgstr "g"
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.letter.attached_items"
+msgstr "Attached Items"
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.ui.header"
+msgstr "Mailbox"
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.ui.mailbox_has_unread_letters_text"
+msgstr "You have unread letters"
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.ui.mailbox_has_letters_text"
+msgstr "Letters are stored here."
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.ui.mailbox_empty_text"
+msgstr "The mailbox is empty"
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.button.full_inventory_error"
+msgstr "No Storage Space Available"
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.button.letter_remove"
+msgstr "Remove Letter"
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.ui.notification"
+msgstr "Notification"
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.ui.letter_has_delete"
+msgstr "The letter has been deleted."
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.ui.letters_was_delete"
+msgstr "Removed"
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.ui.letters_unreceived_items_not_delete.text"
+msgstr "Letters with unclaimed items were not deleted."
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+msgid "build.text.required_resources"
+msgstr "Required Resources"
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+msgid "build.button.create_node"
+msgstr "Build"
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+msgid "build.error.exceeded_limit_(1/1)"
+msgstr "Exceeded Limit (1/1)"
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+#: assets/scripts/ui/blueprints_shop.gd
+msgid "build.button.all_blueprints"
+msgstr "All Blueprints"
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+#: assets/scripts/ui/blueprints_shop.gd
+msgid "build.button.landscape_blueprints"
+msgstr "Landscape Blueprints"
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+#: assets/scripts/ui/blueprints_shop.gd
+msgid "build.button.buildings_blueprints"
+msgstr "Buildings Blueprints"
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+#: assets/scripts/ui/blueprints_shop.gd
+msgid "build.button.upgrades_blueprints"
+msgstr "Upgrades Blueprints"
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+msgid "build.header"
+msgstr "Build Menu"
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+msgid "build.text.no_blueprints"
+msgstr ""
+"No blueprints available. To get new blueprints, purchase them from special "
+"vendors."
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+msgid "build.text.description"
+msgstr ""
+"Blueprint selection occurs in the left window. The top tabs are used to "
+"group blueprints by type."
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+msgid "build.header.landscape"
+msgstr "Landscape"
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+msgid "build.description.landscape"
+msgstr "These blueprints allow you to modify the farm’s landscape."
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+msgid "build.header.buildings"
+msgstr "Buildings"
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+msgid "build.description.buildings"
+msgstr ""
+"These blueprints let you construct farm structures and decorations for your "
+"farm."
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+msgid "build.header.upgrades"
+msgstr "Upgrades"
+
+#: assets/nodes/ui/interactive/construct/construct_menu.tscn
+msgid "build.description.upgrades"
+msgstr ""
+"These blueprints are used to upgrade specific buildings. After upgrading, "
+"new features or content related to them become available."
+
+#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_destroy.tscn
+msgid "ui.tools.destroy_menu"
+msgstr "Destroy Menu"
+
+#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_trash.tscn
+msgid "ui.tools.terrain_destroy_button"
+msgstr "Destroy Landscape"
+
+#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_axe.tscn
+msgid "ui.tools.nature_destroy_button"
+msgstr "Remove Nature"
+
+#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_pickaxe.tscn
+msgid "ui.tools.buildings_destroy_button"
+msgstr "Demolish Building"
+
+#: assets/nodes/ui/hud/elements/tools/button_construction.tscn
+msgid "ui.tools.contruct_menu"
+msgstr "Build Menu"
+
+#: assets/nodes/ui/hud/elements/tools/button_farming.tscn
+msgid "ui.tools.create_farmlands_button"
+msgstr "Plow farmland"
+
+#: assets/nodes/ui/hud/elements/tools/button_harvesting.tscn
+msgid "ui.tools.harvesting_button"
+msgstr "Harvesting"
+
+#: assets/nodes/ui/hud/elements/tools/button_watering.tscn
+msgid "ui.tools.watering_button"
+msgstr "Watering"
+
 #: assets/scripts/construction/buildings/storage.gd
-msgid "Уровень"
-msgstr ""
+msgid "object.storage.caption"
+msgstr "Storage"
+
+#: assets/scripts/construction/buildings/storage.gd
+msgid "object.storage.description"
+msgstr "Place to store items"
+
+#: assets/scripts/construction/buildings/storage.gd
+#: assets/scripts/construction/buildings/house.gd
+msgid "tip.object_level"
+msgstr "Level"
+
+#: assets/scripts/construction/buildings/house.gd
+msgid "object.house.caption"
+msgstr "House"
+
+#: assets/scripts/construction/buildings/house.gd
+msgid "object.house.description"
+msgstr "Old and cozy wooden house"
 
 #: assets/scripts/construction/buildings/mailbox.gd
-msgid "Почтовый ящик"
-msgstr ""
+msgid "object.mailbox.caption"
+msgstr "Mailbox"
 
-#: assets/scripts/construction/buildings/public_well.gd
-msgid "Колодец общего пользования"
-msgstr ""
+#: assets/scripts/ui/hud/elements/clock.gd
+msgid "clock.monday"
+msgstr "Mon"
 
-#: assets/scripts/construction/buildings/public_well.gd
-#: assets/scripts/construction/buildings/well.gd
-msgid "Позволяет наполнить лейку"
-msgstr ""
+#: assets/scripts/ui/hud/elements/clock.gd
+msgid "clock.tuesday"
+msgstr "Tue"
 
-#: assets/scripts/construction/buildings/sawmill.gd
-msgid "Превращает бревна в доски"
-msgstr ""
+#: assets/scripts/ui/hud/elements/clock.gd
+msgid "clock.wednesday"
+msgstr "Wed"
 
-#: assets/scripts/construction/buildings/silo.gd
-msgid ""
-"Хранилище для долгосрочного\n"
-"хранения зерна и кормов"
+#: assets/scripts/ui/hud/elements/clock.gd
+msgid "clock.thursday"
+msgstr "Thu"
+
+#: assets/scripts/ui/hud/elements/clock.gd
+msgid "clock.friday"
+msgstr "Fri"
+
+#: assets/scripts/ui/hud/elements/clock.gd
+msgid "clock.saturday"
+msgstr "Sat"
+
+#: assets/scripts/ui/hud/elements/clock.gd
+msgid "clock.sunday"
+msgstr "Sun"
+
+#: assets/scripts/ui/hud/elements/clock.gd
+msgid "clock.day"
+msgstr "Day"
+
+#: assets/scripts/ui/hud/elements/clock.gd
+msgid "letter.reminder_season_header"
+msgstr "Reminder"
+
+#: assets/scripts/ui/hud/elements/clock.gd
+msgid "letter.reminder_season_description_spring_->_summer"
 msgstr ""
+"Hi there! Quick reminder — summer starts tomorrow! Make sure to harvest all "
+"your ripe crops before they go to waste!"
+
+#: assets/scripts/ui/hud/elements/clock.gd
+msgid "letter.gardener_dobrynya"
+msgstr "Gardener Dobrynya"
+
+#: assets/scripts/ui/hud/elements/clock.gd
+msgid "letter.reminder_season_description_summer_->_autumn"
+msgstr ""
+"Hey! The weather forecast predicts a cold snap tomorrow! To save your crops, "
+"harvest everything ripe. Also, stop by my shop for autumn seeds!"
+
+#: assets/scripts/ui/hud/elements/clock.gd
+msgid "letter.reminder_season_description_autumn_->_winter"
+msgstr ""
+"Hello! The thermometer’s hitting below zero! Harvest all ripe crops, prep "
+"livestock feed, and stoke the fireplace — winter’s here!"
+
+#: assets/scripts/ui/hud/elements/clock.gd
+msgid "letter.reminder_season_description_winter_->_spring"
+msgstr ""
+"Hi! Great news — the warm weather’s coming! Starting tomorrow, I’ll have "
+"spring seeds available for purchase!"
 
 #: assets/scripts/construction/buildings/stall.gd
-msgid "Помещение для скота"
-msgstr ""
+msgid "object.animal_stall.caption"
+msgstr "Barn"
 
-#: assets/scripts/construction/buildings/storage.gd
-msgid "Склад"
-msgstr ""
+#: assets/scripts/construction/buildings/stall.gd
+msgid "object.animal_stall.description"
+msgstr "Livestock Shelter"
 
-#: assets/scripts/construction/buildings/storage.gd
-msgid "Место для хранения предметов"
-msgstr ""
+#: assets/scripts/construction/buildings/silo.gd
+msgid "object.silo.caption"
+msgstr "Silage Tower"
+
+#: assets/scripts/construction/buildings/silo.gd
+msgid "object.silo.description"
+msgstr "Long-term Storage for Grain and Feed"
+
+#: assets/scripts/construction/buildings/well.gd
+msgid "object.well.caption"
+msgstr "Well"
+
+#: assets/scripts/construction/buildings/well.gd
+msgid "object.well.description"
+msgstr "Fill Your Watering Can Here"
+
+#: assets/scripts/construction/buildings/well.gd
+#: assets/scripts/construction/buildings/public_well.gd
+msgid "object.well.opportunity_fill_watering_can"
+msgstr "You can fill your watering can at this well"
+
+#: assets/scripts/construction/buildings/greenhouse.gd
+msgid "object.greenhouse.caption"
+msgstr "Greenhouse"
+
+#: assets/scripts/construction/buildings/greenhouse.gd
+msgid "object.greenhouse.description"
+msgstr "A Warm Facility for Cultivating Plants"
+
+#: assets/scripts/construction/buildings/public_well.gd
+msgid "object.public_well.caption"
+msgstr "Public Well"
+
+#: assets/scripts/construction/buildings/public_well.gd
+msgid "object.public_well.description"
+msgstr "Fill Your Watering Can Here"
+
+#: assets/scripts/construction/buildings/sawmill.gd
+msgid "object.sawmill.caption"
+msgstr "Sawbench"
+
+#: assets/scripts/construction/buildings/sawmill.gd
+msgid "object.sawmill.description"
+msgstr "Converts Logs into Planks"
 
 #: assets/scripts/construction/buildings/tablet.gd
-msgid "Указатель"
-msgstr ""
+msgid "object.tablet.caption"
+msgstr "Signpost"
 
 #: assets/scripts/construction/buildings/tablet.gd
-msgid "-> г. Заречье"
-msgstr ""
+msgid "object.tablet.description_farm"
+msgstr "-> City"
 
 #: assets/scripts/construction/buildings/tablet.gd
-msgid "<- Ферма"
-msgstr ""
+msgid "object.tablet.description_city"
+msgstr "<- Farm"
 
 #: assets/scripts/construction/buildings/traderHouse.gd
-msgid "Дом торговца Добрыни"
-msgstr ""
+msgid "object.trader_house.caption"
+msgstr "Trader Dobrynya's House"
 
-#: assets/data/gamedata.gd
-msgid "Скриншот сохранен"
-msgstr ""
+#: assets/scripts/construction/buildings/carpenter_house.gd
+msgid "object.carpenter_house.caption"
+msgstr "Carpenter Vance's Cottage"
 
-#: assets/data/gamedata.gd
-msgid "Письмо новому фермеру"
+#: assets/scripts/construction/buildings/carpenter_house.gd
+msgid "dialog.carpenter_house.main_text"
 msgstr ""
+"Before you stands Vance’s old carpenter’s cottage. Upon entering, Vance "
+"greets you warmly and offers his services:"
 
-#: assets/data/gamedata.gd
-msgid ""
-"Приветствую тебя в нашем сообществе фермеров-садоводов!\n"
+#: assets/scripts/construction/buildings/carpenter_house.gd
+msgid "dialog.carpenter_house.buy_blueprints_button"
+msgstr "Purchase Blueprints"
+
+#: assets/scripts/construction/buildings/carpenter_house.gd
+msgid "dialog.carpenter_house.buy_resources"
+msgstr "Buy Resources"
+
+#: assets/scripts/construction/buildings/carpenter_house.gd
+msgid "dialog.quit_button"
+msgstr "Leave"
+
+#: assets/scripts/construction/buildings/blacksmith_house.gd
+msgid "object.blacksmith_house_caption"
+msgstr "Blacksmith Kuzma's Forge"
+
+#: assets/scripts/construction/buildings/big_farm_house.gd
+msgid "object.mayor_house.caption"
+msgstr "Mayor Kornei Korneich's House"
+
+#: assets/scripts/construction/buildings/farmer_house.gd
+msgid "object.farmer_house.caption"
+msgstr "Liza's House"
+
+#: assets/scripts/farming/plant.gd
+msgid "plant_condition.planted"
+msgstr "Planted"
+
+#: assets/scripts/farming/plant.gd
+msgid "plant_condition.growing"
+msgstr "Growing"
+
+#: assets/scripts/farming/plant.gd
+msgid "plant_condition.requires_watering"
+msgstr "Requires Watering"
+
+#: assets/scripts/farming/plant.gd
+msgid "plant_condition.growed"
+msgstr "Growed"
+
+#: assets/scripts/farming/plant.gd
+msgid "plant_condition.dead"
+msgstr "Dead"
+
+#: assets/scripts/farming/plant.gd
+msgid "tooltip.plant_condition"
+msgstr "Condition"
+
+#: assets/scripts/farming/plant.gd
+msgid "tooltip.plant_fertilized"
+msgstr "Fertilized"
+
+#: assets/scripts/construction/buildings/forge.gd
+#: assets/scripts/ui/forge_menu.gd
+msgid "object.forge.caption"
+msgstr "Stone Forge"
+
+#: assets/scripts/construction/buildings/forge.gd
+msgid "object.forge.description"
+msgstr "Allows you to melt ore"
+
+#: assets/scripts/ui/interactive/_buildings/sign_menu.gd
+msgid "ui.sign_menu.header"
+msgstr "Choose Item Picture:"
+
+#: assets/scripts/ui/forge_menu.gd
+msgid "forge.status.melting"
+msgstr "Melting"
+
+#: assets/scripts/ui/forge_menu.gd
+msgid "forge.status.ignot_ready"
+msgstr "Ignot is ready"
+
+#: assets/scripts/ui/forge_menu.gd
+msgid "forge.button.melt"
+msgstr "Smelt Ore"
+
+#: assets/scripts/ui/forge_menu.gd
+msgid "forge.button.get_ignot"
+msgstr "Smelt Ingot"
+
+#: assets/scripts/ui/forge_menu.gd
+msgid "forge.description_text"
+msgstr "Select coal and ore from your inventory for smelting."
+
+#: assets/scripts/ui/forge_menu.gd
+msgid "forge.formula_text"
+msgstr "5x Ore + 5x Coal = 1 Ingot"
+
+#: assets/scripts/ui/interactive/trading/trade_system.gd
+msgid "trade_menu.header.trading"
+msgstr "Trading"
+
+#: assets/scripts/ui/interactive/trading/trade_system.gd
+msgid "trade_menu.text.amount_due"
+msgstr "Amount Due"
+
+#: assets/scripts/ui/interactive/trading/trade_system.gd
+msgid "trade_menu.text.total_price"
+msgstr "Total Price"
+
+#: assets/scripts/ui/interactive/trading/trade_system.gd
+msgid "trade_menu.button.buy"
+msgstr "Buy"
+
+#: assets/scripts/ui/interactive/trading/trade_system.gd
+msgid "trade_menu.button.error_insufficient_funds"
+msgstr "Insufficient Funds"
+
+#: assets/scripts/ui/interactive/trading/trade_system.gd
+msgid "trade_menu.button.error_storage_full"
+msgstr "Storage Full"
+
+#: assets/scripts/ui/interactive/trading/trade_system.gd
+msgid "trade_menu.button.sell"
+msgstr "Sell"
+
+#: assets/scripts/ui/interactive/trading/trade_system.gd
+msgid "trade_menu.main_text.!onlyPurchase"
+msgstr ""
+"To begin trading, select an item from your inventory or the merchant’s "
+"inventory."
+
+#: assets/scripts/ui/interactive/trading/trade_system.gd
+msgid "trade_menu.main_text.onlyPurchase"
+msgstr "Select the desired item from the merchant’s inventory."
+
+#: assets/scripts/ui/interactive/trading/trade_system.gd
+msgid "trade_menu.your_inventory.text"
+msgstr "Your Inventory"
+
+#: assets/localizations/local.gd
+msgid "letter.for_new_player.header"
+msgstr "Letter to a New Farmer"
+
+#: assets/localizations/local.gd
+msgid "letter.for_new_player.content"
+msgstr ""
+"Welcome to our farming and gardening community!\n"
 "\n"
-"\t\tМеня зовут Корней Корнеич — мэр и по совместительству профессиональный "
-"садовод города Заречье. Хочу поздравить тебя с началом нового этапа жизни на "
-"нашей земле.\n"
+"My name is Korney Korneich — I am the mayor of Zarechie and, by the way, a "
+"professional gardener.\n"
 "\n"
-"\t\tВ честь этого события я решил сделать тебе скромный подарок для первых "
-"шагов.\n"
+"I would like to congratulate you on starting this new chapter of life here "
+"in our town. To celebrate this occasion, I’ve prepared a modest gift to help "
+"you begin your journey. \n"
 "\n"
-"\t\tЖелаю успехов и богатого урожая! В ближайшее время напишу ещё.\n"
-"\t\t"
-msgstr ""
+"Wishing you success and a bountiful harvest! I’ll write again soon with more "
+"updates."
 
-#: assets/data/gamedata.gd
-msgid ""
-"С уважением,\n"
-"Мэр Корней Корнеич"
-msgstr ""
+#: assets/localizations/local.gd
+msgid "letter.for_new_player.signature"
+msgstr "With respect, Mayor Korney Korneich"
 
-#: assets/scripts/ui/interactive/_main_menu/menu.gd
-msgid "Продолжить игру"
-msgstr ""
+#: assets/localizations/local.gd
+msgid "npc.dobrynya"
+msgstr "Dobrynya"
 
-#: assets/scripts/ui/interactive/_main_menu/menu.gd
-msgid "Новая игра"
-msgstr ""
+#: assets/localizations/local.gd
+msgid "npc.kuzma"
+msgstr "Kuzma"
 
-#: assets/scripts/ui/interactive/_main_menu/menu.gd
-msgid "Выйти из игры"
-msgstr ""
+#: assets/localizations/local.gd
+msgid "npc.vance"
+msgstr "Vance"
 
-#: assets/scripts/ui/interactive/_main_menu/menu.gd
-msgid "Добро пожаловать!"
-msgstr ""
+#: assets/scripts/construction/buildings/fisherman_house.gd
+msgid "object.fisherman_house.caption"
+msgstr "Fisherman Marlin's Cottage"
 
-#: assets/scripts/ui/interactive/_main_menu/menu.gd
-msgid ""
-"\n"
-"\t\tИгра находится в ранем доступе, поэтому Вы можете\n"
-"\t\tстолкнуться с багами/ошибками, нестабильной \n"
-"\t\tработой механик и неполным контентом.\n"
-"\n"
-"\t\tЕсли Вы нашли баг, недочет или какая-то механика\n"
-"\t\tперестала корректно работать, используйте кнопку\n"
-"\t\tв меню паузы «Сообщить об ошибке».\n"
-"\n"
-"\t\tСпасибо, что присоединились к нам на этом этапе разработки!\n"
-"\t\t"
-msgstr ""
+#: assets/scripts/ui/blueprints_shop.gd
+msgid "blueprints_shop.available"
+msgstr "(Available)"
 
-#: assets/scripts/ui/interactive/_main_menu/menu.gd
-msgid "Хорошо"
+#: assets/scripts/ui/blueprints_shop.gd
+msgid "blueprints_shop.blueprint_cost"
+msgstr "Blueprint Cost"
+
+#: assets/scripts/ui/blueprints_shop.gd
+msgid "blueprints_shop.purchase"
+msgstr "Purchase"
+
+#: assets/scripts/ui/blueprints_shop.gd
+msgid "blueprints_shop.insufficient_funds"
+msgstr "Insufficient Funds"
+
+#: assets/scripts/ui/blueprints_shop.gd
+msgid "blueprints_shop.header"
+msgstr "Blueprint Purchase Menu"
+
+#: assets/scripts/ui/blueprints_shop.gd
+msgid "blueprints_shop.description"
 msgstr ""
+"In this store, you can purchase blueprints. Select the desired blueprints in "
+"the left window to view construction details and purchase cost."
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.carrot"
+msgstr "Carrot"
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.potato"
+msgstr "Potato"
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.radish"
+msgstr "Radish"
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.cabbage"
+msgstr "Cabbage"
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.onion"
+msgstr "Onion"
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.cucumber"
+msgstr "Cucumber"
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.tomato"
+msgstr "Tomato"
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.eggplant"
+msgstr "Eggplant"
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.pepper"
+msgstr "Pepper"
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.corn"
+msgstr "Corn"
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.parsnips"
+msgstr "Parsnips"
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.garlic"
+msgstr "Garlic"
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.beet"
+msgstr "Beet"
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.turnip"
+msgstr "Turnip"
+
+#: assets/scripts/farming/crops.gd
+msgid "crops.bean"
+msgstr "Bean"
+
+#~ msgid "Создать"
+#~ msgstr "Build"
+
+#~ msgid "Требуемые ресурсы:"
+#~ msgstr "Required resources"
