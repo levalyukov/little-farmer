@@ -21,8 +21,6 @@ var menu:bool = false
 var level:int = 1
 var object:Dictionary = {
 	1: {
-		"caption" = tr("Склад"),
-		"description" = tr("Место для хранения предметов"),
 		"slots" = 100,
 		"seasons" = {
 			"spring" = {
@@ -99,12 +97,11 @@ func _change_sprite(type:bool) -> void:
 						if object[level]["seasons"][season].has("hovered"):
 							if object[level]["seasons"][season]["hovered"] is CompressedTexture2D:
 								sprite.texture = object[level]["seasons"][season]["hovered"]
-			var level_text = tr("Уровень")
 			if !tip.visible:
 				tip.tooltip(
-						str(object[level]["caption"]) + "\n" +
-						str(object[level]["description"]) + "\n" +
-						str(level_text) + ": " + str(level)
+						str(tr("object.storage.caption")) + "\n" +
+						str(tr("object.storage.description")) + "\n" +
+						str(tr("tip.object_level")) + ": " + str(level)
 					)
 	else:
 		if object.has(level):
@@ -134,8 +131,7 @@ func _on_area_2d_mouse_entered() -> void:
 	&& grid.mode == grid.modes.NOTHING\
 	&& !buttonDestroy.destroyMode:
 		_change_sprite(true)
-		if cursor:
-			cursor.set_cursor(cursor.states.ACTIVE)
+		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 	if !buttonDestroy.destroyMode:
 		menu = true
 
