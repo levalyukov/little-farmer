@@ -56,7 +56,5 @@ theme_override_constants/margin_right = 4
 [node name="Label" type="Label" parent="Margin/HBoxContainer2/Label"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
-text = "0
-"
 label_settings = SubResource("LabelSettings_iehuk")
 horizontal_alignment = 2
