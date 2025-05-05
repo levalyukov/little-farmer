@@ -25,7 +25,7 @@ const bakeEveninggOff:int = 22
 var openedMenu:bool = false
 
 var object:Dictionary = {
-	"caption" = tr("Дом кузнеца Кузьмы"),
+	"caption" = tr("object.blacksmith_house_caption"),
 	"shadow" = load("res://assets/resources/buildings/blacksmith_house/shadow.png"),
 	"default" = load("res://assets/resources/buildings/blacksmith_house/obj_0.png"),
 	"hovered" = load("res://assets/resources/buildings/blacksmith_house/obj_1.png"),
