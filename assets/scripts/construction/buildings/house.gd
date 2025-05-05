@@ -21,8 +21,6 @@ var menu:bool = false
 var level:int = 1
 var object:Dictionary = {
 	1: {
-		"caption" = tr("Дом"),
-		"description" = tr("Старый и уютный деревянный домик"),
 		"shadow" = load("res://assets/resources/buildings/house/shadow.png"),
 		"seasons" = {
 			"spring" = {
@@ -117,12 +115,11 @@ func _change_sprite(type:bool) -> void:
 							data.debug("'"+str(self.name) + "': 'hovered' is not a CompressedTexture2D.", "error")
 					else:
 						data.debug("'"+str(self.name) + "': There is no 'hovered' key.", "error")
-			var level_text = tr("Уровень")
 			if !tip.visible:
 				tip.tooltip(
-						str(object[level]["caption"]) + "\n" +
-						str(object[level]["description"]) + "\n" +
-						str(level_text) + ": " + str(level)
+						str(tr("object.house.caption")) + "\n" +
+						str(tr("object.house.description")) + "\n" +
+						str(tr('tip.object_level')) + ": " + str(level)
 					)
 	else:
 		if object.has(level):
