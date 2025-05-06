@@ -118,7 +118,7 @@ func get_data(index) -> void:
 		scroll_info.scroll_vertical = 0
 		if item.content.has(int(index)):
 			if item.content[int(index)].has("icon"):
-				if typeof(item.content[int(index)]["icon"]) == TYPE_OBJECT:
+				if item.content[int(index)]["icon"] is CompressedTexture2D:
 					icon.visible = true
 					icon.texture = item.content[int(index)]["icon"]
 				else:
@@ -129,9 +129,9 @@ func get_data(index) -> void:
 				icon.visible = false
 
 			if item.content[int(index)].has("caption"):
-				if typeof(item.content[int(index)]["caption"]) == TYPE_STRING:
+				if item.content[int(index)]["caption"] is String:
 					caption.visible = true
-					caption.text = item.content[int(index)]["caption"]
+					caption.text = tr(item.content[int(index)]["caption"])
 				else:
 					caption.visible = false
 					data.debug("[ID: "+str(index)+"] The 'caption' key has a non-string type.", "error")
@@ -140,15 +140,12 @@ func get_data(index) -> void:
 				caption.visible = false
 
 			if item.content[int(index)].has("description"):
-				if typeof(item.content[int(index)]["description"]) == TYPE_STRING:
+				if item.content[int(index)]["description"] is String:
 					description.visible = true
-					description.text = item.content[int(index)]["description"]
-				else:
-					description.visible = false
-					data.debug("[ID: "+str(index)+"] The 'description' key has a non-string type.", "error")
-			else:
-				description.visible = false
-				data.debug("[ID: "+str(index)+"] The object does not have the 'description' key.", "error")
+					if !tr(item.content[int(index)]["description"]).ends_with('.'):
+						description.text = tr(item.content[int(index)]["description"]) + '.'
+					else:
+						description.text = tr(item.content[int(index)]["description"])
 
 			#	if item.content[int(index)].has("specifications"):
 			#		if item.content[int(index)].get("specifications") != {}:
@@ -163,9 +160,9 @@ func get_data(index) -> void:
 			#		specifications_margin.visible = false
 
 			if item.content[int(index)].has("type"):
-				if typeof(item.content[int(index)]["type"]) == TYPE_STRING:
+				if item.content[int(index)]["type"] is String:
 					type.visible = true
-					type.text = "\n" + tr("inventory.tip.item_type") + ": " + item.content[int(index)]["type"] + "\n"
+					type.text = "\n" + tr("inventory.tip.item_type") + ": " + tr(item.content[int(index)]["type"]) + "\n"
 					check_item_type(item.content[int(index)]["item_type"])
 					if inventory_items[index]["amount"] > item.maximum:
 						type.text += "\n" + tr("inventory.tip.total_items") + ": " + str(
