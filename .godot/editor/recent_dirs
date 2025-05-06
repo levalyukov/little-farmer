@@ -1,4 +1,5 @@
 res://assets/localizations
+res://assets/scripts/ui/interactive/inventory
 res://assets/scripts/ui
 res://assets/scripts/ui/hud/grid
 res://assets/resources/world/landscape/summer
@@ -17,7 +18,6 @@ res://assets/nodes/ui/hud
 res://assets/nodes/ui/interactive/construct
 res://assets/scripts/ui/hud/tools/destroy_menu
 res://assets/scripts/ui/interactive/mail
-res://assets/scripts/ui/interactive/inventory
 res://assets/nodes/ui/interactive/pause
 res://assets/nodes/ui/interactive/options
 H:/
