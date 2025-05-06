@@ -420,39 +420,6 @@ msgstr "Вс"
 msgid "clock.day"
 msgstr "День"
 
-#: assets/scripts/ui/hud/elements/clock.gd assets/localizations/local.gd
-msgid "letter.reminder_season_header"
-msgstr "Напоминание"
-
-#: assets/scripts/ui/hud/elements/clock.gd assets/localizations/local.gd
-msgid "letter.reminder_season_description_spring_->_summer"
-msgstr ""
-"Привет! Спешу тебе напомнить — завтра лето, поэтому собери весь созревший "
-"урожай, а то пропадет!"
-
-#: assets/scripts/ui/hud/elements/clock.gd assets/localizations/local.gd
-msgid "letter.gardener_dobrynya"
-msgstr "Садовод Добрыня"
-
-#: assets/scripts/ui/hud/elements/clock.gd assets/localizations/local.gd
-msgid "letter.reminder_season_description_summer_->_autumn"
-msgstr ""
-"Привет! Сегодня читал прогноз погоды на завтра — ожидается похолодание. "
-"Чтобы не потерять урожай, обязательно собери все, что уже созрело. Также "
-"заглядывай ко мне чтобы приобрести осенние семена."
-
-#: assets/scripts/ui/hud/elements/clock.gd assets/localizations/local.gd
-msgid "letter.reminder_season_description_autumn_->_winter"
-msgstr ""
-"Привет! Столбик термометра опускается ниже нуля, поэтому собирай весь "
-"созревший урожай, готовь корм для скота и растапливай камин — зима на носу!"
-
-#: assets/scripts/ui/hud/elements/clock.gd assets/localizations/local.gd
-msgid "letter.reminder_season_description_winter_->_spring"
-msgstr ""
-"Привет! У меня радостная новость — завтра ожидается потепление! С "
-"завтрашнего дня у меня можно приобрести весенние семена."
-
 #: assets/scripts/construction/buildings/stall.gd
 msgid "object.animal_stall.caption"
 msgstr "Хлев"
@@ -714,6 +681,39 @@ msgid "letter.korney_korneich.signature"
 msgstr "Мэр Корней Корнеич"
 
 #: assets/localizations/local.gd
+msgid "letter.gardener_dobrynya"
+msgstr "Садовод Добрыня"
+
+#: assets/localizations/local.gd
+msgid "letter.reminder_season_header"
+msgstr "Напоминание"
+
+#: assets/localizations/local.gd
+msgid "letter.reminder_season_description_spring_->_summer"
+msgstr ""
+"Привет! Спешу тебе напомнить — завтра лето, поэтому собери весь созревший "
+"урожай, а то пропадет!"
+
+#: assets/localizations/local.gd
+msgid "letter.reminder_season_description_summer_->_autumn"
+msgstr ""
+"Привет! Сегодня читал прогноз погоды на завтра — ожидается похолодание. "
+"Чтобы не потерять урожай, обязательно собери все, что уже созрело. Также "
+"заглядывай ко мне чтобы приобрести осенние семена."
+
+#: assets/localizations/local.gd
+msgid "letter.reminder_season_description_autumn_->_winter"
+msgstr ""
+"Привет! Столбик термометра опускается ниже нуля, поэтому собирай весь "
+"созревший урожай, готовь корм для скота и растапливай камин — зима на носу!"
+
+#: assets/localizations/local.gd
+msgid "letter.reminder_season_description_winter_->_spring"
+msgstr ""
+"Привет! У меня радостная новость — завтра ожидается потепление! С "
+"завтрашнего дня у меня можно приобрести весенние семена."
+
+#: assets/localizations/local.gd
 msgid "npc.dobrynya"
 msgstr "Добрыня"
 
@@ -855,6 +855,533 @@ msgstr "Отходы для компоста"
 #: assets/scripts/ui/composter_menu.gd
 msgid "composting_menu.description"
 msgstr "Выберите отходы для начала компостирования"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.log.caption"
+msgstr "Бревно"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.log.description"
+msgstr ""
+"Простое деревянное бревно, полученное из деревьев. Используется для "
+"строительства."
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.type.building_materials"
+msgstr "Строительные материалы"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.plank.caption"
+msgstr "Доска"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.plank.description"
+msgstr "Обработанное бревно, готовое для использования в строительстве."
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.stone.caption"
+msgstr "Камень"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.stone.description"
+msgstr "Твёрдый природный материал. Подходит для создания прочных конструкций."
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.cobblestone.caption"
+msgstr "Булыжник"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.cobblestone.description"
+msgstr "Часто используемый для дорожек или декоративных элементов."
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.coal.caption"
+msgstr "Уголь"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.coal.description"
+msgstr ""
+"Горючий материал, добываемый из земли. Идеален для топлива или создания "
+"освещения."
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.type.ores"
+msgstr "Руда"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.copper_ore.caption"
+msgstr "Медная руда"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.copper_ore.description"
+msgstr ""
+"После переплавки может быть использована для создания инструментов и деталей."
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.iron_ore.caption"
+msgstr "Железная руда"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.iron_ore.description"
+msgstr "Основа для прочных инструментов и конструкций."
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.bauxite_ore.caption"
+msgstr "Бокситовая руда"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.bauxite_ore.description"
+msgstr "Используется для создания лёгких и прочных материалов."
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.copper_ingot.caption"
+msgstr "Медный слиток"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.copper_ingot.description"
+msgstr "Очищенная медь, готовая для использования в строительстве."
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.iron_ingot.caption"
+msgstr "Железный слиток"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.iron_ingot.description"
+msgstr ""
+"Прочный металл, подходящий для создания надёжных инструментов и конструкций."
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.aluminum_ingot.caption"
+msgstr "Алюминивый слиток"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.aluminum_ingot.description"
+msgstr "Лёгкий и прочный металл, идеальный для современных конструкций."
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.carrot_seeds.caption"
+msgstr "Семена моркови"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.carrot_seeds.description"
+msgstr "Маленькие семена для выращивания моркови."
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.type.seeds"
+msgstr "Семена"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.potato_seeds.caption"
+msgstr "Семена картофеля"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.potato_seeds.description"
+msgstr "Эти семена помогут вырастить питательный картофель."
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.radish_seeds.caption"
+msgstr "Семена редиса"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.radish_seeds.description"
+msgstr "Маленькие семена для быстрого выращивания хрустящего редиса."
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.cabbage_seeds.caption"
+msgstr "Семена капусты"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.cabbage_seeds.description"
+msgstr "Семена для выращивания плотной и сочной капусты"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.onion_seeds.caption"
+msgstr "Семена репчатого лука"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.onion_seeds.description"
+msgstr "Небольшие семена для выращивания сочного репчатого лука"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.cucumber_seeds.caption"
+msgstr "Семена огурцов"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.cucumber_seeds.description"
+msgstr "Семена для выращивания свежих и хрустящих огурцов"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.tomato_seeds.caption"
+msgstr "Семена томата"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.tomato_seeds.description"
+msgstr "Семена для выращивания ароматных помидоров"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.eggplant_seeds.caption"
+msgstr "Семена баклажана"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.eggplant_seeds.description"
+msgstr "Семена для выращивания баклажанов с гладкой фиолетовой кожурой"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.pepper_seeds.caption"
+msgstr "Семена перца"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.pepper_seeds.description"
+msgstr "Семена для выращивания сладкого перца"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.corn_seeds.caption"
+msgstr "Семена кукурузы"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.corn_seeds.description"
+msgstr "Крупные семена для выращивания сладкой кукурузы"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.parsnip_seeds.caption"
+msgstr "Семена пастернака"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.parsnip_seeds.description"
+msgstr "Семена для выращивания ароматного пастернака"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.garlic_seeds.caption"
+msgstr "Зубчики чеснока"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.garlic_seeds.description"
+msgstr "Зубчики для выращивания острого чеснока"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.beet_seeds.caption"
+msgstr "Семена свёклы"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.beet_seeds.description"
+msgstr "Семена для выращивания сладкой и сочной свёклы"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.turnip_seeds.caption"
+msgstr "Семена репы"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.turnip_seeds.description"
+msgstr "Семена для выращивания хрустящей репы"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.bean_seeds.caption"
+msgstr "Семена фасоли"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.bean_seeds.description"
+msgstr "Семена для выращивания богатой витаминами фасоли"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.carrot.caption"
+msgstr "Морковь"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.carrot.description"
+msgstr "Сладкая и хрустящая морковь"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.type.harvest"
+msgstr "Урожай"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.potato.caption"
+msgstr "Картофель"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.potato.description"
+msgstr "Питательный клубень для различных блюд"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.radish.caption"
+msgstr "Редис"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.radish.description"
+msgstr "Острый и сочный корнеплод"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.cabbage.caption"
+msgstr "Кочан капусты"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.cabbage.description"
+msgstr "Свежая и крепкая капуста"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.onion.caption"
+msgstr "Репчатый лук"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.onion.description"
+msgstr "Ароматный лук для приправ и салатов"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.cucumber.caption"
+msgstr "Огурец"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.cucumber.description"
+msgstr "Хрустящий и освежающий огурец"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.tomato.caption"
+msgstr "Помидор"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.tomato.description"
+msgstr "Сочные томаты для любых блюд"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.eggplant.caption"
+msgstr "Баклажан"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.eggplant.description"
+msgstr "Темно-фиолетовый плод для жарки и запекания"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.pepper.caption"
+msgstr "Перец"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.pepper.description"
+msgstr "Яркий и пикантный перец"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.corn.caption"
+msgstr "Початок кукурузы"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.corn.description"
+msgstr "Золотистые зерна для вкусного гарнира"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.parsnip.caption"
+msgstr "Пастернак"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.parsnip.description"
+msgstr "Деликатный вкус и полезные свойства"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.garlic.caption"
+msgstr "Чеснок"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.garlic.description"
+msgstr "Ароматная пряность для усиления вкуса"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.beet.caption"
+msgstr "Свёкла"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.beet.description"
+msgstr "Сладкая и яркая, идеальна для салатов и супов"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.turnip.caption"
+msgstr "Репа"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.turnip.description"
+msgstr "Круглый и плотный корнеплод"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.bean.caption"
+msgstr "Фасоль"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.bean.description"
+msgstr "Прекрасный источник белка, подходит для гарниров"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_carrot.caption"
+msgstr "Испорченная морковь"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_carrot.description"
+msgstr "Морковь, потерявшая свою свежесть"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.type.waste"
+msgstr "Отходы"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_potato.caption"
+msgstr "Испорченный картофель"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_potato.description"
+msgstr "Клубень, поражённый гнилью"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_radish.caption"
+msgstr "Испорченный редис"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_radish.description"
+msgstr "Корнеплод, покрытый пятнами гнили"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_cabbage.caption"
+msgstr "Испорченный кочан капусты"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_cabbage.description"
+msgstr "Капуста, начавшая разлагаться"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_onion.caption"
+msgstr "Испорченный репчатый лук"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_onion.description"
+msgstr "Лук, потерявший свой аромат"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_cucumber.caption"
+msgstr "Испорченный огурец"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_cucumber.description"
+msgstr "Огурец, утративший хрусткость и свежесть"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_tomato.caption"
+msgstr "Испорченный помидор"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_tomato.description"
+msgstr "Томат, покрытый плесенью и гнилью"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_eggplant.caption"
+msgstr "Испорченный баклажан"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_eggplant.description"
+msgstr "Плод, покрытый темными пятнами и гнилью"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_pepper.caption"
+msgstr "Испорченный перец"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_pepper.description"
+msgstr "Перец, начало которого уже разложилось"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_corn.caption"
+msgstr "Испорченный початок кукурузы"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_corn.description"
+msgstr "Кукуруза, поражённая грибком и гнилью"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_parsnip.caption"
+msgstr "Испорченный пастернак"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_parsnip.description"
+msgstr "Корнеплод, начавший разлагаться"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_garlic.caption"
+msgstr "Испорченный чеснок"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_garlic.description"
+msgstr "Чеснок, утративший свои полезные свойства"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_beet.caption"
+msgstr "Испорченная свёкла"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_beet.description"
+msgstr "Свёкла, покрытая пятнами гнили"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_turnip.caption"
+msgstr "Испорченная репа"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_turnip.description"
+msgstr "Корнеплод, поражённый гнилью"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_beans.caption"
+msgstr "Испорченная фасоль"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_beans.description"
+msgstr "Потемневшие и размягченные бобы, непригодные для еды"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.crop_residue.caption"
+msgstr "Ботва"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.crop_residue.description"
+msgstr ""
+"Листья и стебли после сбора урожая. Полезна для создания компоста или "
+"кормления животных"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.broken_branch.caption"
+msgstr "Ветки"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.broken_branch.description"
+msgstr ""
+"Отломанные или срезанные ветви деревьев. Используются в строительстве, для "
+"разжигания костров или производства удобрений"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.weeds.caption"
+msgstr "Сорняки"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.weeds.description"
+msgstr ""
+"Неприхотливые растения, которые мешают росту культур. Могут быть "
+"использованы в компосте"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.basic_compost.caption"
+msgstr "Обычный компост"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.basic_compost.description"
+msgstr "Ускоряет время роста растения на 5%. Удобрять перед посевом"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.type.fertilizer"
+msgstr "Удобрения"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.premium_compost.caption"
+msgstr "Высококачественный компост"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.premium_compost.description"
+msgstr "Ускоряет время роста растения на 20%. Удобрять перед посевом"
+
+#~ msgid "items.type.crops"
+#~ msgstr "Урожай"
 
 #, fuzzy
 #~| msgid "Создать"
