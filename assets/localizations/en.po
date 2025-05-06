@@ -417,38 +417,6 @@ msgstr "Sun"
 msgid "clock.day"
 msgstr "Day"
 
-#: assets/scripts/ui/hud/elements/clock.gd assets/localizations/local.gd
-msgid "letter.reminder_season_header"
-msgstr "Reminder"
-
-#: assets/scripts/ui/hud/elements/clock.gd assets/localizations/local.gd
-msgid "letter.reminder_season_description_spring_->_summer"
-msgstr ""
-"Hi there! Quick reminder — summer starts tomorrow! Make sure to harvest all "
-"your ripe crops before they go to waste!"
-
-#: assets/scripts/ui/hud/elements/clock.gd assets/localizations/local.gd
-msgid "letter.gardener_dobrynya"
-msgstr "Gardener Dobrynya"
-
-#: assets/scripts/ui/hud/elements/clock.gd assets/localizations/local.gd
-msgid "letter.reminder_season_description_summer_->_autumn"
-msgstr ""
-"Hey! The weather forecast predicts a cold snap tomorrow! To save your crops, "
-"harvest everything ripe. Also, stop by my shop for autumn seeds!"
-
-#: assets/scripts/ui/hud/elements/clock.gd assets/localizations/local.gd
-msgid "letter.reminder_season_description_autumn_->_winter"
-msgstr ""
-"Hello! The thermometer’s hitting below zero! Harvest all ripe crops, prep "
-"livestock feed, and stoke the fireplace — winter’s here!"
-
-#: assets/scripts/ui/hud/elements/clock.gd assets/localizations/local.gd
-msgid "letter.reminder_season_description_winter_->_spring"
-msgstr ""
-"Hi! Great news — the warm weather’s coming! Starting tomorrow, I’ll have "
-"spring seeds available for purchase!"
-
 #: assets/scripts/construction/buildings/stall.gd
 msgid "object.animal_stall.caption"
 msgstr "Barn"
@@ -707,6 +675,38 @@ msgid "letter.korney_korneich.signature"
 msgstr "Mayor Korney Korneich"
 
 #: assets/localizations/local.gd
+msgid "letter.gardener_dobrynya"
+msgstr "Gardener Dobrynya"
+
+#: assets/localizations/local.gd
+msgid "letter.reminder_season_header"
+msgstr "Reminder"
+
+#: assets/localizations/local.gd
+msgid "letter.reminder_season_description_spring_->_summer"
+msgstr ""
+"Hi there! Quick reminder — summer starts tomorrow! Make sure to harvest all "
+"your ripe crops before they go to waste!"
+
+#: assets/localizations/local.gd
+msgid "letter.reminder_season_description_summer_->_autumn"
+msgstr ""
+"Hey! The weather forecast predicts a cold snap tomorrow! To save your crops, "
+"harvest everything ripe. Also, stop by my shop for autumn seeds!"
+
+#: assets/localizations/local.gd
+msgid "letter.reminder_season_description_autumn_->_winter"
+msgstr ""
+"Hello! The thermometer’s hitting below zero! Harvest all ripe crops, prep "
+"livestock feed, and stoke the fireplace — winter’s here!"
+
+#: assets/localizations/local.gd
+msgid "letter.reminder_season_description_winter_->_spring"
+msgstr ""
+"Hi! Great news — the warm weather’s coming! Starting tomorrow, I’ll have "
+"spring seeds available for purchase!"
+
+#: assets/localizations/local.gd
 msgid "npc.dobrynya"
 msgstr "Dobrynya"
 
@@ -847,6 +847,604 @@ msgstr "Compost Materials"
 #: assets/scripts/ui/composter_menu.gd
 msgid "composting_menu.description"
 msgstr "Select Waste Items to Start Composting"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.silo.caption"
+msgid "items.log.caption"
+msgstr "Log"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.silo.description"
+msgid "items.log.description"
+msgstr "A basic wooden log obtained from trees. Used for construction"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.type.building_materials"
+msgstr "Construction Materials"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.plank.caption"
+msgstr "Plank"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "build.text.description"
+msgid "items.plank.description"
+msgstr "Processed log ready for construction use"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.storage.caption"
+msgid "items.stone.caption"
+msgstr "Stone"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.storage.description"
+msgid "items.stone.description"
+msgstr "Hard natural material suitable for durable structures"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.storage.caption"
+msgid "items.cobblestone.caption"
+msgstr "Cobblestone"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.storage.description"
+msgid "items.cobblestone.description"
+msgstr "Commonly used for pathways or decorative elements"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.tablet.caption"
+msgid "items.coal.caption"
+msgstr "Coal"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "build.text.description"
+msgid "items.coal.description"
+msgstr ""
+"Flammable material extracted from the ground. Ideal for fuel or lighting"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.type.ores"
+msgstr "Ores"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.carpenter_house.caption"
+msgid "items.copper_ore.caption"
+msgstr "Copper Ore"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.forge.description"
+msgid "items.copper_ore.description"
+msgstr "Can be smelted into copper for tools and components"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.forge.caption"
+msgid "items.iron_ore.caption"
+msgstr "Iron Ore"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.forge.description"
+msgid "items.iron_ore.description"
+msgstr "Base material for durable tools and structures"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.bauxite_ore.caption"
+msgstr "Bauxite Ore"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "build.text.description"
+msgid "items.bauxite_ore.description"
+msgstr "Used to create lightweight yet strong materials"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.copper_ingot.caption"
+msgstr "Copper Ingot"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "blueprints_shop.description"
+msgid "items.copper_ingot.description"
+msgstr "Purified copper ready for construction use"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.iron_ingot.caption"
+msgstr "Iron Ingot"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "composting_menu.description"
+msgid "items.iron_ingot.description"
+msgstr "Strong metal for reliable tools and structures"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.aluminum_ingot.caption"
+msgstr "Aluminum Ingot"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "blueprints_shop.description"
+msgid "items.aluminum_ingot.description"
+msgstr "Lightweight and strong, ideal for modern structures"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.carpenter_house.caption"
+msgid "items.carrot_seeds.caption"
+msgstr "Carrot Seeds"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.house.description"
+msgid "items.carrot_seeds.description"
+msgstr "Small seeds for growing carrots"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.type.seeds"
+msgstr "Seeds"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.potato_seeds.caption"
+msgstr "Potato Seeds"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "composting_menu.description"
+msgid "items.potato_seeds.description"
+msgstr "Seeds for growing nutritious potatoes"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.trader_house.caption"
+msgid "items.radish_seeds.caption"
+msgstr "Radish Seeds"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "blueprints_shop.description"
+msgid "items.radish_seeds.description"
+msgstr "Small seeds for quickly growing crisp radishes"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.cabbage_seeds.caption"
+msgstr "Cabbage Seeds"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.greenhouse.description"
+msgid "items.cabbage_seeds.description"
+msgstr "Seeds for growing dense and juicy cabbage"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.onion_seeds.caption"
+msgstr "Onion Seeds"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "composting_menu.description"
+msgid "items.onion_seeds.description"
+msgstr "Small seeds for growing juicy onions"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.cucumber_seeds.caption"
+msgstr "Cucumber Seeds "
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.house.description"
+msgid "items.cucumber_seeds.description"
+msgstr "Seeds for growing fresh and crisp cucumbers"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.mayor_house.caption"
+msgid "items.tomato_seeds.caption"
+msgstr "Tomato Seeds"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.storage.description"
+msgid "items.tomato_seeds.description"
+msgstr "Seeds for growing aromatic tomatoes"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.eggplant_seeds.caption"
+msgstr "Eggplant Seeds"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "blueprints_shop.description"
+msgid "items.eggplant_seeds.description"
+msgstr "Seeds for growing eggplants with smooth purple skin"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.carpenter_house.caption"
+msgid "items.pepper_seeds.caption"
+msgstr "Pepper Seeds"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.greenhouse.description"
+msgid "items.pepper_seeds.description"
+msgstr "Seeds for growing sweet peppers"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.mayor_house.caption"
+msgid "items.corn_seeds.caption"
+msgstr "Corn Seeds"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.house.description"
+msgid "items.corn_seeds.description"
+msgstr "Large seeds for growing sweet corn"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.parsnip_seeds.caption"
+msgstr "Parsnip Seeds"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "blueprints_shop.description"
+msgid "items.parsnip_seeds.description"
+msgstr "Seeds for growing aromatic parsnips"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.garlic_seeds.caption"
+msgstr "Garlic Cloves"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.greenhouse.description"
+msgid "items.garlic_seeds.description"
+msgstr "Cloves for growing spicy garlic"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.beet_seeds.caption"
+msgstr "Beet Seeds"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.house.description"
+msgid "items.beet_seeds.description"
+msgstr "Seeds for growing sweet and juicy beets"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.turnip_seeds.caption"
+msgstr "Turnip Seeds"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "composting_menu.description"
+msgid "items.turnip_seeds.description"
+msgstr "Seeds for growing crisp turnips"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.bean_seeds.caption"
+msgstr "Bean Seeds"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.greenhouse.description"
+msgid "items.bean_seeds.description"
+msgstr "Seeds for growing vitamin-rich beans"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.carpenter_house.caption"
+msgid "items.carrot.caption"
+msgstr "Carrot"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "build.text.description"
+msgid "items.carrot.description"
+msgstr "Sweet and crisp carrot"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.type.harvest"
+msgstr "Harvest"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.tablet.caption"
+msgid "items.potato.caption"
+msgstr "Potato"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "build.text.description"
+msgid "items.potato.description"
+msgstr "Nutritious tuber for various dishes"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.radish.caption"
+msgstr "Radish"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "blueprints_shop.description"
+msgid "items.radish.description"
+msgstr "Pungent and juicy root vegetable"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.tablet.caption"
+msgid "items.cabbage.caption"
+msgstr "Cabbage Head"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.storage.description"
+msgid "items.cabbage.description"
+msgstr "Fresh and sturdy cabbage"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.silo.caption"
+msgid "items.onion.caption"
+msgstr "Onion"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.silo.description"
+msgid "items.onion.description"
+msgstr "Aromatic onion for seasonings and salads"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.cucumber.caption"
+msgstr "Cucumber"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.house.description"
+msgid "items.cucumber.description"
+msgstr "Crisp and refreshing cucumber"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.tablet.caption"
+msgid "items.tomato.caption"
+msgstr "Tomato"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "build.text.description"
+msgid "items.tomato.description"
+msgstr "Juicy tomatoes for any dish"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.eggplant.caption"
+msgstr "Eggplant"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "build.text.description"
+msgid "items.eggplant.description"
+msgstr "Dark purple fruit for frying and roasting"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.pepper.caption"
+msgstr "Pepper"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "build.text.description"
+msgid "items.pepper.description"
+msgstr "Bright and pungent pepper"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.forge.caption"
+msgid "items.corn.caption"
+msgstr "Corn Cob"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.forge.description"
+msgid "items.corn.description"
+msgstr "Golden kernels for a tasty side dish"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.silo.caption"
+msgid "items.parsnip.caption"
+msgstr "Parsnip"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.silo.description"
+msgid "items.parsnip.description"
+msgstr "Delicate flavor and nutritious properties"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.garlic.caption"
+msgstr "Garlic"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "build.text.description"
+msgid "items.garlic.description"
+msgstr "Aromatic spice to enhance flavor"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.tablet.caption"
+msgid "items.beet.caption"
+msgstr "Beet"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "build.text.description"
+msgid "items.beet.description"
+msgstr "Sweet and vibrant, perfect for salads and soups"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.turnip.caption"
+msgstr "Turnip"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "build.text.description"
+msgid "items.turnip.description"
+msgstr "Round and dense root vegetable"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.tablet.caption"
+msgid "items.bean.caption"
+msgstr "Bean"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "build.text.description"
+msgid "items.bean.description"
+msgstr "Excellent protein source, great for side dishes"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_carrot.caption"
+msgstr "Rotten Carrot"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "build.text.description"
+msgid "items.rotten_carrot.description"
+msgstr "A carrot that has lost its freshness and begun to rot"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.type.waste"
+msgstr "Waste"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_potato.caption"
+msgstr "Rotten Potato"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "build.text.description"
+msgid "items.rotten_potato.description"
+msgstr "A tuber affected by rot"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_radish.caption"
+msgstr "Rotten Radish"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "blueprints_shop.description"
+msgid "items.rotten_radish.description"
+msgstr "A root vegetable covered in rot spots"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_cabbage.caption"
+msgstr "Rotten Cabbage Head"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.storage.description"
+msgid "items.rotten_cabbage.description"
+msgstr "Cabbage that has started to decompose"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_onion.caption"
+msgstr "Rotten Onion"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "composting_menu.description"
+msgid "items.rotten_onion.description"
+msgstr "An onion that has lost its aroma and freshness"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_cucumber.caption"
+msgstr "Rotten Cucumber"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "composting_menu.description"
+msgid "items.rotten_cucumber.description"
+msgstr "A cucumber that has lost its crispness and freshness"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_tomato.caption"
+msgstr "Rotten Tomato"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "build.text.description"
+msgid "items.rotten_tomato.description"
+msgstr "A tomato covered in mold and rot"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_eggplant.caption"
+msgstr "Rotten Eggplant"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "composting_menu.description"
+msgid "items.rotten_eggplant.description"
+msgstr "An eggplant with dark rot spots"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_pepper.caption"
+msgstr "Rotten Pepper"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "composting_menu.description"
+msgid "items.rotten_pepper.description"
+msgstr "A pepper that has started to decompose"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_corn.caption"
+msgstr "Rotten Corn Cob"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "composting_menu.description"
+msgid "items.rotten_corn.description"
+msgstr "A corn cob affected by mold and rot"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_parsnip.caption"
+msgstr "Rotten Parsnip"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "blueprints_shop.description"
+msgid "items.rotten_parsnip.description"
+msgstr "A parsnip that has started to decompose"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_garlic.caption"
+msgstr "Rotten Garlic"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "build.text.description"
+msgid "items.rotten_garlic.description"
+msgstr "Garlic that has lost its beneficial properties"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.tablet.caption"
+msgid "items.rotten_beet.caption"
+msgstr "Rotten Beet"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "build.text.description"
+msgid "items.rotten_beet.description"
+msgstr "A beet with rot spots"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_turnip.caption"
+msgstr "Rotten Turnip"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "build.text.description"
+msgid "items.rotten_turnip.description"
+msgstr "A turnip affected by rot"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_beans.caption"
+msgstr "Rotten Beans"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "composting_menu.description"
+msgid "items.rotten_beans.description"
+msgstr "Darkened and softened beans, inedible"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.crop_residue.caption"
+msgstr "Crop Residue"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "composting_menu.description"
+msgid "items.crop_residue.description"
+msgstr "Leaves and stems after harvest. Useful for compost or animal feed"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.broken_branch.caption"
+msgstr "Broken Branch"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.greenhouse.description"
+msgid "items.broken_branch.description"
+msgstr ""
+"Broken or cut branches. Used in construction, firewood, or fertilizer "
+"production"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.well.caption"
+msgid "items.weeds.caption"
+msgstr "Weeds"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "object.well.description"
+msgid "items.weeds.description"
+msgstr "Hardy plants hindering crop growth. Can be used in compost"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.basic_compost.caption"
+msgstr "Basic Compost"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "composting_menu.description"
+msgid "items.basic_compost.description"
+msgstr "Accelerates plant growth by 5%. Apply before planting"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.type.fertilizer"
+msgstr "Fertilizer"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.premium_compost.caption"
+msgstr "Premium Compost"
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+#| msgid "composting_menu.description"
+msgid "items.premium_compost.description"
+msgstr "Accelerates plant growth by 20%. Apply before planting"
 
 #~ msgid "Создать"
 #~ msgstr "Build"
