@@ -69,9 +69,7 @@ func _on_button_mouse_entered():
 				if item.content.has(int(id)):
 					if item.content[int(id)].has("caption"):
 						var item_amount:String = "x"
-						tip.tooltip(
-							item.content[int(id)]["caption"] + " [" + item_amount + str(amount) + "]"
-							)
+						tip.tooltip(tr(item.content[int(id)]["caption"]) + " [" + item_amount + str(amount) + "]")
 					else:
 						print_debug("The 'caption' key is missing.", "error")
 				else:
@@ -81,9 +79,7 @@ func _on_button_mouse_entered():
 		if signmenu.opened:
 			if item.content.has(int(id)):
 				if item.content[int(id)].has("caption"):
-					tip.tooltip(
-						item.content[int(id)]["caption"]
-						)
+					tip.tooltip(tr(item.content[int(id)]["caption"]))
 				else:
 					data.debug("The 'caption' key is missing.", "error")
 			else:
@@ -95,9 +91,7 @@ func _on_button_mouse_entered():
 				if id:
 					if item.content.has(int(id)):
 						if item.content[int(id)].has("caption"):
-							tip.tooltip(
-								item.content[int(id)]["caption"]
-								)
+							tip.tooltip(tr(item.content[int(id)]["caption"]))
 						else:
 							data.debug("The 'caption' key is missing.", "error")
 					else:
@@ -109,9 +103,7 @@ func _on_button_mouse_entered():
 				if id:
 					if item.content.has(int(id)):
 						if item.content[int(id)].has("caption"):
-							tip.tooltip(
-								item.content[int(id)]["caption"]
-								)
+							tip.tooltip(tr(item.content[int(id)]["caption"]))
 						else:
 							data.debug("The 'caption' key is missing.", "error")
 					else:
@@ -122,9 +114,7 @@ func _on_button_mouse_entered():
 				if id:
 					if item.content.has(int(id)):
 						if item.content[int(id)].has("caption"):
-							tip.tooltip(
-								item.content[int(id)]["caption"]
-								)
+							tip.tooltip(tr(item.content[int(id)]["caption"]))
 						else:
 							data.debug("The 'caption' key is missing.", "error")
 					else:
