@@ -16,6 +16,7 @@ extends Node2D
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
+@onready var tablet:Node2D = get_node("/root/"+main+"/ConstructionManager/tablet")
 @onready var buttonDestroy:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
 @onready var sprite:Sprite2D = $Sprite2D
 
@@ -121,8 +122,11 @@ func _on_area_2d_mouse_entered() -> void:
 	if visible:
 		if !blur.state\
 		&& grid.mode == grid.modes.NOTHING:
-			if cursor: cursor.set_cursor(cursor.states.ACTIVE)
-			_change_sprite(true)
+			if tablet:
+				if round(tablet.global_position.distance_to(player.global_position)) < 100:
+					_change_sprite(true)
+					if cursor: 
+						cursor.set_cursor(cursor.states.ACTIVE)
 
 func _on_area_2d_mouse_exited() -> void:
 	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
