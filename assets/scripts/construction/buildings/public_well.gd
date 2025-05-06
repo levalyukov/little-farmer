@@ -70,6 +70,7 @@ func update_shadow() -> void:
 		if object.has("shadow"):
 			if object["shadow"] is CompressedTexture2D:
 				canvas.create_shadow("house_shadow", object["shadow"], tilemap.local_to_map(position))
+
 func _on_area_2d_mouse_entered() -> void:
 	openedMenu = true
 	if !blur.state\
@@ -95,6 +96,7 @@ func _on_area_2d_mouse_entered() -> void:
 			if tools:
 				if tools.water_can < tools.water_can_max:
 					if !tip.visible:
+						tip.tooltip()
 						tip.tooltip(
 								str(tr('object.public_well.caption')) + "\n" +
 								str(tr('object.public_well.description')) + '\n' +
@@ -102,6 +104,7 @@ func _on_area_2d_mouse_entered() -> void:
 							)
 				else:
 					if !tip.visible:
+						tip.tooltip()
 						tip.tooltip(
 								str(tr('object.public_well.caption')) + "\n" +
 								str(tr('object.public_well.description'))
