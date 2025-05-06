@@ -43,6 +43,7 @@
 # res://assets/scripts/farming/crops.gd
 # res://assets/scripts/ui/hud/grid/grid.gd
 # res://assets/scripts/ui/composter_menu.gd
+# res://assets/scripts/ui/interactive/inventory/items.gd
 #
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -444,36 +445,6 @@ msgstr ""
 msgid "clock.day"
 msgstr ""
 
-#: assets/scripts/ui/hud/elements/clock.gd
-#: assets/localizations/local.gd
-msgid "letter.reminder_season_header"
-msgstr ""
-
-#: assets/scripts/ui/hud/elements/clock.gd
-#: assets/localizations/local.gd
-msgid "letter.reminder_season_description_spring_->_summer"
-msgstr ""
-
-#: assets/scripts/ui/hud/elements/clock.gd
-#: assets/localizations/local.gd
-msgid "letter.gardener_dobrynya"
-msgstr ""
-
-#: assets/scripts/ui/hud/elements/clock.gd
-#: assets/localizations/local.gd
-msgid "letter.reminder_season_description_summer_->_autumn"
-msgstr ""
-
-#: assets/scripts/ui/hud/elements/clock.gd
-#: assets/localizations/local.gd
-msgid "letter.reminder_season_description_autumn_->_winter"
-msgstr ""
-
-#: assets/scripts/ui/hud/elements/clock.gd
-#: assets/localizations/local.gd
-msgid "letter.reminder_season_description_winter_->_spring"
-msgstr ""
-
 #: assets/scripts/construction/buildings/stall.gd
 msgid "object.animal_stall.caption"
 msgstr ""
@@ -705,6 +676,30 @@ msgid "letter.korney_korneich.signature"
 msgstr ""
 
 #: assets/localizations/local.gd
+msgid "letter.gardener_dobrynya"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "letter.reminder_season_header"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "letter.reminder_season_description_spring_->_summer"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "letter.reminder_season_description_summer_->_autumn"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "letter.reminder_season_description_autumn_->_winter"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "letter.reminder_season_description_winter_->_spring"
+msgstr ""
+
+#: assets/localizations/local.gd
 msgid "npc.dobrynya"
 msgstr ""
 
@@ -842,4 +837,516 @@ msgstr ""
 
 #: assets/scripts/ui/composter_menu.gd
 msgid "composting_menu.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.log.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.log.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.type.building_materials"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.plank.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.plank.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.stone.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.stone.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.cobblestone.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.cobblestone.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.coal.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.coal.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.type.ores"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.copper_ore.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.copper_ore.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.iron_ore.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.iron_ore.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.bauxite_ore.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.bauxite_ore.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.copper_ingot.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.copper_ingot.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.iron_ingot.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.iron_ingot.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.aluminum_ingot.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.aluminum_ingot.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.carrot_seeds.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.carrot_seeds.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.type.seeds"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.potato_seeds.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.potato_seeds.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.radish_seeds.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.radish_seeds.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.cabbage_seeds.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.cabbage_seeds.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.onion_seeds.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.onion_seeds.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.cucumber_seeds.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.cucumber_seeds.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.tomato_seeds.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.tomato_seeds.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.eggplant_seeds.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.eggplant_seeds.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.pepper_seeds.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.pepper_seeds.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.corn_seeds.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.corn_seeds.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.parsnip_seeds.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.parsnip_seeds.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.garlic_seeds.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.garlic_seeds.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.beet_seeds.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.beet_seeds.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.turnip_seeds.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.turnip_seeds.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.bean_seeds.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.bean_seeds.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.carrot.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.carrot.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.type.harvest"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.potato.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.potato.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.radish.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.radish.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.cabbage.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.cabbage.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.onion.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.onion.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.cucumber.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.cucumber.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.tomato.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.tomato.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.eggplant.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.eggplant.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.pepper.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.pepper.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.corn.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.corn.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.parsnip.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.parsnip.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.garlic.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.garlic.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.beet.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.beet.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.turnip.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.turnip.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.bean.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.bean.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_carrot.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_carrot.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.type.waste"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_potato.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_potato.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_radish.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_radish.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_cabbage.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_cabbage.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_onion.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_onion.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_cucumber.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_cucumber.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_tomato.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_tomato.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_eggplant.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_eggplant.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_pepper.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_pepper.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_corn.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_corn.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_parsnip.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_parsnip.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_garlic.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_garlic.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_beet.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_beet.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_turnip.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_turnip.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_beans.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.rotten_beans.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.crop_residue.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.crop_residue.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.broken_branch.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.broken_branch.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.weeds.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.weeds.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.basic_compost.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.basic_compost.description"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.type.fertilizer"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.premium_compost.caption"
+msgstr ""
+
+#: assets/scripts/ui/interactive/inventory/items.gd
+msgid "items.premium_compost.description"
 msgstr ""
