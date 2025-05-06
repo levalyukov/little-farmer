@@ -14,14 +14,12 @@ var teleporting:bool
 
 func _input(event) -> void:
 	if tablet:
-		var distance = round(tablet.global_position.distance_to(player.global_position))
 		if event is InputEventMouseButton\
 		&& event.button_index == MOUSE_BUTTON_LEFT\
 		&& event.is_pressed()\
 		&& teleporting\
 		&& grid.mode == grid.modes.NOTHING\
-		&& !blur.state\
-		&& distance < 100:
+		&& !blur.state:
 			teleport()
 
 func teleport() -> void:
@@ -68,7 +66,8 @@ func teleport() -> void:
 			data.debug("Unknown name of the game scene: "+str(main), "error")
 
 func _on_area_2d_mouse_entered():
-	if !blur.state: teleporting = true
+	if !blur.state\
+	&& round(tablet.global_position.distance_to(player.global_position)) < 100: teleporting = true
 
 func _on_area_2d_mouse_exited():
 	if !blur.state: teleporting = false
