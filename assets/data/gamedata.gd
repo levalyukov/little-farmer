@@ -114,12 +114,16 @@ func _ready():
 		music.bus = 'Music'
 		music.connect("finished", Callable(self, "_on_music_stream_player_finished").bind())
 		if music_cooldown: 
-			if target_wait_time != 0.0:
-				target_wait_time = randf_range(music_wait_cooldown[0], music_wait_cooldown[1])
-				music_cooldown.set_wait_time(target_wait_time) 
-				music_cooldown.start()
+			if !GameConfig.game_music:
+				if target_wait_time != 0.0:
+					target_wait_time = randf_range(music_wait_cooldown[0], music_wait_cooldown[1])
+					music_cooldown.set_wait_time(target_wait_time) 
+					music_cooldown.start()
+				else:
+					music_cooldown.set_wait_time(target_wait_time - target_left_time) 
+					music_cooldown.start()
 			else:
-				music_cooldown.set_wait_time(target_wait_time - target_left_time) 
+				music_cooldown.set_wait_time(music_wait_cooldown[0]) 
 				music_cooldown.start()
 		# Game Load
 		if GameLoader.mode\
@@ -1061,6 +1065,10 @@ func play_music(dictionary) -> void:
 						music.stream = ResourceLoader.load(season_sounds[index_audio])
 						if !pause.paused:
 							music.play()
+			else:
+				target_wait_time = randf_range(music_wait_cooldown[0], music_wait_cooldown[1])
+				music_cooldown.set_wait_time(target_wait_time) 
+				music_cooldown.start()
 
 func get_random_audio_index(sounds_array):
 	if sounds_array.size() == 0:
@@ -1085,6 +1093,7 @@ func is_valid_sound(sound_path) -> bool:
 	return false
 
 func _on_timer_timeout() -> void:
+	GameConfig.game_music = false
 	music_cooldown.stop()
 	play_music(music_playlist)
 
