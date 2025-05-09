@@ -66,7 +66,7 @@
 [ext_resource type="Script" path="res://assets/scripts/construction/buildings/greenhouse_decor.gd" id="64_poiwr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hoxua"]
-size = Vector2(32, 48)
+size = Vector2(48, 48)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pavo1"]
 texture = ExtResource("9_73b47")
@@ -3618,7 +3618,7 @@ script = ExtResource("6_ovv5n")
 [node name="Area2D" type="Area2D" parent="Teleports/Village"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Teleports/Village/Area2D"]
-position = Vector2(112, 56)
+position = Vector2(104, 72)
 shape = SubResource("RectangleShape2D_hoxua")
 
 [node name="Day-Night Cycle" parent="." instance=ExtResource("7_1tuw3")]
