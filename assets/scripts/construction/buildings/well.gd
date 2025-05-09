@@ -74,6 +74,7 @@ func _input(event):
 								str(tr("object.well.caption")) + "\n" +
 								str(tr("object.well.description"))
 							)
+					if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
 	if event is InputEventMouseButton\
 	&& event.button_index == MOUSE_BUTTON_LEFT\
