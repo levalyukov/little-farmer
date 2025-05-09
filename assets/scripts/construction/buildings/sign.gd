@@ -12,6 +12,7 @@ extends Node2D
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var buildings:Node2D = get_node("/root/"+main+"/ConstructionManager")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 @onready var buttonDestroy:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
 @onready var icon:TextureRect = $TextureRect
 @onready var sprite:Sprite2D = $Sprite2D
@@ -146,8 +147,9 @@ func _on_area_2d_mouse_entered() -> void:
 					if object[level]["seasons"][season].has("delete"):
 						if object[level]["seasons"][season]["delete"] is CompressedTexture2D:
 							sprite.texture = object[level]["seasons"][season]["delete"]
+	if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 
 func _on_area_2d_mouse_exited() -> void:
 	_change_sprite(false)
-	if destroyMode:
-		destroyMode = !true
+	if destroyMode: destroyMode = !true
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
