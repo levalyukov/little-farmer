@@ -53,8 +53,7 @@ func _process(_delta):
 					grid_movement()
 
 func grid_movement() -> void:
-	var movement:Vector2 = local_to_map(get_global_mouse_position())
-	grid.set_position(map_to_local(movement))
+	grid.set_position(map_to_local(local_to_map(get_global_mouse_position())))
 
 func set_atlas(season:String) -> void:
 	if SEASON_ATLAS.has(season):
