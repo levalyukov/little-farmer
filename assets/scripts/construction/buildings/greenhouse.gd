@@ -13,6 +13,7 @@ extends Node2D
 @onready var buildings:Node2D = get_node("/root/"+main+"/ConstructionManager")
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 @onready var buttonDestroy:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
 @onready var blackout:Control = get_node("/root/"+main+"/UI/Decorative/Blackout")
 @onready var sprite:Sprite2D = $Sprite2D
@@ -107,7 +108,7 @@ func _change_sprite(type:bool) -> void:
 						data.debug("'"+str(self.name) + "': There is no 'hovered' key.", "error")
 			tip.tooltip(
 					str(tr("object.greenhouse.caption")) + "\n" +
-					str(tr("object.greenhouse.description")) # Тёплое помещение для разведения\nи выращивания растений
+					str(tr("object.greenhouse.description"))
 				)
 	else:
 		if object.has(level):
@@ -167,10 +168,10 @@ func _on_area_2d_mouse_entered() -> void:
 					if object[level]["seasons"][season].has("delete"):
 						if object[level]["seasons"][season]["delete"] is CompressedTexture2D:
 							sprite.texture = object[level]["seasons"][season]["delete"]
+	if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 
 func _on_area_2d_mouse_exited() -> void:
 	_change_sprite(false)
-	if greenhouse_open:
-		greenhouse_open = !true
-	if destroyMode:
-		destroyMode = !true
+	if greenhouse_open: greenhouse_open = !true
+	if destroyMode: destroyMode = !true
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
