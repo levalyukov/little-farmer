@@ -47,11 +47,13 @@ func _input(event):
 					if !audio.is_playing():
 						audio.stream = load('res://assets/sounds/buildings/using_well.ogg')
 						audio.play()
-				if !tip.visible:
+				if tip.visible:
+					tip.tooltip()
 					tip.tooltip(
 							str(tr('object.public_well.caption')) + "\n" +
 							str(tr('object.public_well.description'))
 						)
+				if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
 func update():
 	if clock:
@@ -78,7 +80,6 @@ func _on_area_2d_mouse_entered() -> void:
 	&& GameLoader.first_empty_water_can:
 		var distance = round(global_position.distance_to(player.global_position))
 		if distance < building.max_distance:
-			if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 			if object.has("seasons"):
 				var season = clock.get_season()
 				if object["seasons"].has(season):
@@ -95,8 +96,8 @@ func _on_area_2d_mouse_entered() -> void:
 					data.debug("'"+str(self.name) + "': There is no 'hovered' key.", "error")
 			if tools:
 				if tools.water_can < tools.water_can_max:
+					if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 					if !tip.visible:
-						tip.tooltip()
 						tip.tooltip(
 								str(tr('object.public_well.caption')) + "\n" +
 								str(tr('object.public_well.description')) + '\n' +
