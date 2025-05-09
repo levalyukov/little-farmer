@@ -2371,7 +2371,7 @@ sources/4 = SubResource("TileSetAtlasSource_kommq")
 sources/5 = SubResource("TileSetAtlasSource_wl8jg")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hhb1c"]
-size = Vector2(32, 48)
+size = Vector2(48, 48)
 
 [node name="Farm" type="Node2D"]
 y_sort_enabled = true
@@ -2458,7 +2458,7 @@ script = ExtResource("43_511qs")
 [node name="Area2D" type="Area2D" parent="Teleports/Village"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Teleports/Village/Area2D"]
-position = Vector2(752, 88)
+position = Vector2(744, 88)
 shape = SubResource("RectangleShape2D_hhb1c")
 
 [node name="Day-Night Cycle" parent="." instance=ExtResource("19_mbw1w")]
