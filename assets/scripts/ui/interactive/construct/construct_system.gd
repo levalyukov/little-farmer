@@ -33,9 +33,9 @@ var index:int
 var section:String = "all"
 var opened:bool = false
 var all_items:bool
-var terrains_blueprints:Array[int] = [1,2,3,4,5,6,7]
-var node_blueprints:Array[int] = [1,2,3,4,5,6,7]
-var upgrade_blueprints:Array[int] =  [1,2,3,4,5,6,7]
+var terrains_blueprints:Array[int] = []
+var node_blueprints:Array[int] = []
+var upgrade_blueprints:Array[int] =  []
 
 var items:Object = Items.new()
 var blueprints:Object = BlueprintManager.new()
@@ -104,8 +104,6 @@ func get_data(group:String, id:int) -> void:
 					if blueprints.content[group][id]["icon"] is CompressedTexture2D:
 						icon.texture = blueprints.content[group][id]["icon"]
 						icon.visible = true
-					else:
-						icon.visible = false
 				else:
 					icon.visible = false
 
@@ -113,8 +111,6 @@ func get_data(group:String, id:int) -> void:
 					if blueprints.content[group][id]["caption"] is String:
 						caption.text = blueprints.content[group][id]["caption"]
 						caption.visible = true
-					else:
-						caption.visible = false
 				else:
 					caption.visible = false
 
@@ -123,14 +119,21 @@ func get_data(group:String, id:int) -> void:
 						if blueprints.content[group][id].has('config'):
 							if blueprints.content[group][id]["config"].has("resources"):
 								if blueprints.content[group][id]["config"]["resources"] != {}:
-									description.text = blueprints.content[group][id]["description"] + '\n\n' + tr("build.text.required_resources") + ":"
+									if !tr(blueprints.content[group][id]["description"]).ends_with('.'):
+										description.text = tr(blueprints.content[group][id]["description"]) + "." + '\n\n' + tr("build.text.required_resources") + ":"
+									else:
+										description.text = tr(blueprints.content[group][id]["description"]) + '\n\n' + tr("build.text.required_resources") + ":"
 							else:
-								description.text = blueprints.content[group][id]["description"]
+								if !tr(blueprints.content[group][id]["description"]).ends_with('.'):
+									description.text = tr(blueprints.content[group][id]["description"])
+								else:
+									description.text = tr(blueprints.content[group][id]["description"])
 						else:
-							description.text = blueprints.content[group][id]["description"]
+							if !tr(blueprints.content[group][id]["description"]).ends_with('.'):
+								description.text = tr(blueprints.content[group][id]["description"])
+							else:
+								description.text = tr(blueprints.content[group][id]["description"])
 						description.visible = true
-					else:
-						description.visible = false
 				else:
 					description.visible = false
 				
@@ -168,12 +171,6 @@ func get_data(group:String, id:int) -> void:
 							button.id = id
 							button.group = group
 						button.text = tr("build.button.create_node")
-			else:
-				return
-		else:
-			return
-	else:
-		return
 
 func get_instance(node_name:String) -> bool:
 	if node_name != "":
@@ -208,10 +205,9 @@ func update_button_state() -> void:
 func get_all_required_items(group:String, id:int) -> void:
 	if blueprints.content[group][id]["config"]["resources"] != {}:
 		for i in blueprints.content[group][id]["config"]["resources"]:
-			var resource_name = items.content[i]["caption"]
 			var required_amount = blueprints.content[group][id]["config"]["resources"][i]["amount"]
 			var available_amount = inventory.get_item_amount(i)
-			resources.text += "• " + str(resource_name) + " (" + str(available_amount) + "/" + str(required_amount) + ")\n"
+			resources.text += "• " + tr(items.content[i]["caption"]) + " (" + str(available_amount) + "/" + str(required_amount) + ")\n"
 
 func check_all_required_items(group:String, id:int) -> void:
 	all_items = true
