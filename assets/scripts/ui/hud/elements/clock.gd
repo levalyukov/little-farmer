@@ -55,7 +55,7 @@ const day_end:int = 23
 #	const morning_start:int = 6
 #	const morning_end:int = 12
 const cycle_day_start:int = 6
-const cycle_day_end:int = 21
+const cycle_day_end:int = 20
 const cycle_night_start:int = 0
 const cycle_night_end:int = 6
 
