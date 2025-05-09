@@ -365,9 +365,6 @@ func _on_option_button_item_selected(_index:int):
 	audio.stream = load('res://assets/sounds/ui/click.ogg')
 	audio.play()
 
-func _on_audio_finished(node) -> void:
-	node.queue_free()
-
 func _on_graphic_button_mouse_exited():
 	if main == "MainMenu":
 		var cursor = get_node('/root/'+main+'/Cursor')
@@ -447,3 +444,6 @@ func _on_option_button_mouse_exited():
 		var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 		if cursor:
 			cursor.set_cursor(cursor.states.DEFAULT)	
+
+func _on_audio_finished(node) -> void:
+	node.queue_free()
