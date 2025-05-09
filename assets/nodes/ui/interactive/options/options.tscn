@@ -699,6 +699,8 @@ libraries = {
 [connection signal="mouse_entered" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons/ControlButton" to="." method="_on_control_mouse_entered"]
 [connection signal="mouse_exited" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons/ControlButton" to="." method="_on_control_mouse_exited"]
 [connection signal="pressed" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons/ControlButton" to="." method="_on_control_pressed"]
+[connection signal="mouse_entered" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons/ChangeLanguageButton" to="Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons/ChangeLanguageButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons/ChangeLanguageButton" to="Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons/ChangeLanguageButton" method="_on_mouse_exited"]
 [connection signal="pressed" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons/ChangeLanguageButton" to="Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons/ChangeLanguageButton" method="_on_pressed"]
 [connection signal="mouse_entered" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons/SaveChangesButton" to="." method="_on_save_changes_button_mouse_entered"]
 [connection signal="mouse_exited" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons/SaveChangesButton" to="." method="_on_save_changes_button_mouse_exited"]
