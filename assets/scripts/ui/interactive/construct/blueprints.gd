@@ -6,8 +6,8 @@ class_name BlueprintManager
 var content:Dictionary = {
 	"terrains": {
 		1: {
-			"caption" = tr("Тропинки"),
-			"description" = tr('Позволяет создавать тропы и вспахиваемую землю.\n\n-- Пошаговое объяснение --\n\n1. Расчистите место: Выберите пустой участок размером 3x3 клеток\n\n2. Создайте тропы: Превратите все клетки вокруг центральной в тропы\n\n3. Получите грядку: В центре образуется готовая к вспашке земля.'),
+			"caption" = "blueprints.path.caption",
+			"description" = 'blueprints.path.description',
 			"icon" = load("res://assets/resources/ui/interactive/construct/roads.png"),
 			"config" = {
 				"terrain" = [0],
@@ -16,14 +16,14 @@ var content:Dictionary = {
 			},
 
 			"trade_info" = {
-				"caption" = tr("Чертеж тропинок"),
-				"description" = tr('Позволяет создавать тропы и вспахиваемую землю.'),
+				"caption" = "blueprints.path_blueprint.caption",
+				"description" = 'blueprints.path_blueprint.description',
 				"price" = 100
 			}
 		},
 		2: {
-			"caption" = tr("Водоём"),
-			"description" = tr('Создавайте водоёмы на своей ферме.'),
+			"caption" = "blueprints.water_body.caption",
+			"description" = 'blueprints.water_body.description',
 			"icon" = load("res://assets/resources/ui/interactive/construct/water.png"),
 			"config" = {
 				"terrain" = [3,4],
@@ -32,8 +32,8 @@ var content:Dictionary = {
 			},
 
 			"trade_info" = {
-				"caption" = tr("Чертеж водоёма"),
-				"description" = tr("С помощью этого чертежа можно создавать водоёмы на своей ферме."),
+				"caption" = "blueprints.water_body_blueprints.caption",
+				"description" = "blueprints.water_body_blueprints.description",
 				"price" = 500
 			}
 		},
@@ -41,8 +41,8 @@ var content:Dictionary = {
 	
 	"nodes": {
 		1: {
-			"caption" = tr("Деревянный знак"),
-			"description" = tr("Позволяет разместить изображение любого предмета."),
+			"caption" = "blueprints.wooden_sign.caption",
+			"description" = "blueprints.wooden_sign.description",
 			"icon" = load("res://assets/resources/buildings/sign/summer/object_0.png"),
 			"config" = {
 				"name" = "sign",
@@ -56,14 +56,14 @@ var content:Dictionary = {
 			},
 
 			"trade_info" = {
-				"caption" = tr("Чертеж деревянного знака"),
-				"description" = tr("Позволяет разместить изображение любого предмета. К примеру, помогает пометить какая культура растет на грядках."),
+				"caption" = "blueprints.wooden_sign_blueprint.caption",
+				"description" = "blueprints.wooden_sign_blueprint.description",
 				"price" = 250
 			}
 		},
 		2: {
-			"caption" = tr("Компостер"),
-			"description" = tr("Ящик для приготовления удобрения."),
+			"caption" = "blueprints.composter.caption",
+			"description" = "blueprints.composter.description",
 			"icon" = load("res://assets/resources/buildings/composter/idle_0.png"),
 			"config" = {
 				"name" = "composter",
@@ -76,14 +76,14 @@ var content:Dictionary = {
 			},
 
 			"trade_info" = {
-				"caption" = tr("Чертеж компостера"),
-				"description" = tr("Компостер — полезный инструмент для каждого фермера. Позволяет переработать отходы в удобрение для вашего растения."),
+				"caption" = "blueprints.composter_blueprint.caption",
+				"description" = "blueprints.composter_blueprint.description",
 				"price" = 750
 			}
 		},
 		3: {
-			"caption" = tr("Колодец"),
-			"description" = tr("Позволяет пополять лейку."),
+			"caption" = "blueprints.well.caption",
+			"description" = "blueprints.well.description",
 			"icon" = load("res://assets/resources/buildings/well/icon.png"),
 			"config" = {
 				"name" = "well",
@@ -96,14 +96,14 @@ var content:Dictionary = {
 			},
 
 			"trade_info" = {
-				"caption" = tr("Чертеж колодца"),
-				"description" = tr("Одна из полезных построек на вашей ферме — позволяет быстро наполнить лейку водой."),
+				"caption" = "blueprints.well_blueprint.caption",
+				"description" = "blueprints.well_blueprint.description",
 				"price" = 1000
 			}
 		},
 		4: {
-			"caption" = tr("Хлев"),
-			"description" = tr("Место для содержания скота."),
+			"caption" = "blueprints.barn.caption",
+			"description" = "blueprints.barn.description",
 			"icon" = load("res://assets/resources/buildings/stall/level_1/summer/object_0.png"),
 			"config" = {
 				"name" = "animal_stall",
@@ -117,14 +117,14 @@ var content:Dictionary = {
 			},
 
 			"trade_info" = {
-				"caption" = tr("Чертеж хлева"),
-				"description" = tr("Данная постройка позволяет завести скот*.\n\n* - скот будет добавлен в будущих обновлениях."),
+				"caption" = "blueprints.barn_blueprint.caption",
+				"description" = "blueprints.barn_blueprint.description",
 				"price" = 5000
 			}
 		},
 		5: {
-			"caption" = tr("Силосная башня"),
-			"description" = tr("Высокое и вместительное хранилище для кормов."),
+			"caption" = "blueprints.silo.caption",
+			"description" = "blueprints.silo.description",
 			"icon" = load("res://assets/resources/buildings/silo/level_1/summer/object_0.png"),
 			"config" = {
 				"name" = "silo",
@@ -139,14 +139,14 @@ var content:Dictionary = {
 			},
 
 			"trade_info" = {
-				"caption" = tr("Чертеж силосной башни"),
-				"description" = tr("Позволяет хранить корм для скота."),
+				"caption" = "blueprints.silo_blueprint.caption",
+				"description" = "blueprints.silo_blueprint.description",
 				"price" = 2500
 			}
 		},
 		6: {
-			"caption" = tr("Теплица"),
-			"description" = tr("Тёплое помещение для разведения и выращивания растений."),
+			"caption" = "blueprints.greenhouse.caption",
+			"description" = "blueprints.greenhouse.description",
 			"icon" = load("res://assets/resources/buildings/greenhouse/level_1/summer/object_0.png"),
 			"config" = {
 				"name" = "greenhouse",
@@ -159,14 +159,14 @@ var content:Dictionary = {
 			},
 
 			"trade_info" = {
-				"caption" = tr("Чертеж теплицы"),
-				"description" = tr("Позволяет выращивать культуры вне зависимости от времени года. Имеет площадь 8х8 клеток."),
+				"caption" = "blueprints.greenhouse_blueprint.caption",
+				"description" = "blueprints.greenhouse_blueprint.description",
 				"price" = 20000
 			}
 		},
 		7: {
-			"caption" = tr("Фонарный столб"),
-			"description" = tr("Источник света для вашей фермы."),
+			"caption" = "blueprints.lantern_post.caption",
+			"description" = "blueprints.lantern_post.description",
 			"icon" = load("res://assets/resources/buildings/lamp_post/object_1.png"),
 			"config" = {
 				"name" = "lamp_post",
@@ -180,14 +180,14 @@ var content:Dictionary = {
 			},
 
 			"trade_info" = {
-				"caption" = tr("Чертеж фонарного столба"),
-				"description" = tr("Источник света для вашей фермы."),
+				"caption" = "blueprints.lantern_post_blueprints.caption",
+				"description" = "blueprints.lantern_post_blueprints.description",
 				"price" = 1000
 			}
 		},
 		8: {
-			"caption" = tr("Дорожка из больших камней"),
-			"description" = tr("Небольшая декоративная дорожка из камней."),
+			"caption" = "blueprints.stone_path.caption",
+			"description" = "blueprints.stone_path.description",
 			"icon" = load("res://assets/resources/buildings/path_of_large_stones/object_0.png"),
 			"config" = {
 				"name" = "lamp_post",
@@ -200,14 +200,14 @@ var content:Dictionary = {
 			},
 
 			"trade_info" = {
-				"caption" = tr("Чертеж дорожки из больших камней"),
-				"description" = tr("Небольшая декоративная дорожка из камней."),
+				"caption" = "blueprints.stone_path_blueprint.caption",
+				"description" = "blueprints.stone_path_blueprint.description",
 				"price" = 500
 			}
 		},
 		9: {
-			"caption" = tr("Каменная плавильная печь"),
-			"description" = tr("Простая каменная плавильня для обработки ресурсов. Недорогая в создании, работает медленно и требует времени для плавки."),
+			"caption" = "blueprints.stone_forge.caption",
+			"description" = "blueprints.stone_forge.description",
 			"icon" = load("res://assets/resources/buildings/stone_oven/object_0.png"),
 			"config" = {
 				"name" = "forge",
@@ -221,14 +221,14 @@ var content:Dictionary = {
 			},
 
 			"trade_info" = {
-				"caption" = tr("Чертеж каменной плавильной печи"),
-				"description" = tr("Простая каменная плавильня для обработки ресурсов."),
+				"caption" = "blueprints.stone_forge_blueprint.caption",
+				"description" = "blueprints.stone_forge_blueprint.description",
 				"price" = 2000
 			}
 		},
 		10: {
-			"caption" = tr("Радио"),
-			"description" = tr("Позволяет воспроизводить радиостанции и пользовательские треки.\n\nМожет быть только в единном экземпляре."),
+			"caption" = "blueprints.radio.caption",
+			"description" = "blueprints.radio.description",
 			"icon" = load("res://assets/resources/buildings/radio/obj_0.png"),
 			"config" = {
 				"name" = "radio",
@@ -239,14 +239,14 @@ var content:Dictionary = {
 			},
 
 			"trade_info" = {
-				"caption" = tr("Радио"),
-				"description" = tr("Позволяет воспроизводить радиостанции, слушать новости и включать пользовательские песни."),
+				"caption" = "blueprints.radio_blueprint.caption",
+				"description" = "blueprints.radio_blueprint.description",
 				"price" = 7500
 			}
 		},
 		11: {
-			"caption" = tr("Пилостол"),
-			"description" = tr("Позволяет распилить бревна на доски."),
+			"caption" = "blueprints.sawbench.caption",
+			"description" = "blueprints.sawbench.description",
 			"icon" = load("res://assets/resources/buildings/sawmill/obj_0.png"),
 			"config" = {
 				"name" = "sawmill",
@@ -260,8 +260,8 @@ var content:Dictionary = {
 			},
 
 			"trade_info" = {
-				"caption" = tr("Чертеж пилостола"),
-				"description" = tr("При помощи пилостола можно быстро распилить бревна на доски."),
+				"caption" = "blueprints.sawbench_blueprint.caption",
+				"description" = "blueprints.sawbench_blueprint.description",
 				"price" = 1500
 			}
 		},
@@ -274,9 +274,7 @@ var content:Dictionary = {
 		#			"node" = load("res://assets/nodes/buildings/christmas_tree/christmas_tree.tscn"),
 		#			"shadow" = load("res://assets/nodes/buildings/christmas_tree/christmas_tree_shadow.tscn"),
 		#			"area" = Vector2i(1,1),
-		#			"resources" = {
-		#				
-		#			}
+		#			"resources" = {}
 		#		}
 		#	},
 	},
