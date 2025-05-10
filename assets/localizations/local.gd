@@ -280,3 +280,23 @@ func _ready():
 
 	tr('items.premium_compost.caption')
 	tr('items.premium_compost.description')
+
+	# 	Crops
+	# Spring
+	tr('crops.carrot')
+	tr('crops.potato')
+	tr('crops.radish')
+	tr('crops.cabbage')
+	tr('crops.onion')
+	# Summer
+	tr('crops.cucumber')
+	tr('crops.tomato')
+	tr('crops.eggplant')
+	tr('crops.pepper')
+	tr('crops.corn')
+	# Autumn
+	tr('crops.parsnips')
+	tr('crops.garlic')
+	tr('crops.beet')
+	tr('crops.turnip')
+	tr('crops.bean')
