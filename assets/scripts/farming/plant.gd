@@ -223,14 +223,14 @@ func _on_collision_mouse_entered() -> void:
 						if !tip.visible:
 							tip.tooltip(
 								tr(crops.crops[plantID]["caption"]) +"\n"+
-								str(tr("tooltip.plant_condition")) + ": " + str(get_condition(condition)) +"\n"+
-								str(tr('tooltip.plant_fertilized'))
+								tr("tooltip.plant_condition") + ": " + str(get_condition(condition)) +"\n"+
+								tr('tooltip.plant_fertilized')
 							)
 					else:
 						if !tip.visible:
 							tip.tooltip(
 								tr(crops.crops[plantID]["caption"]) +"\n"+
-								str(tr("tooltip.plant_condition")) + ": " + str(get_condition(condition))
+								tr("tooltip.plant_condition") + ": " + str(get_condition(condition))
 							)
 		
 func _on_collision_mouse_exited() -> void:
