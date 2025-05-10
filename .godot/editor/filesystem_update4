@@ -3,4 +3,9 @@ res://assets/shaders/pixel.gdshader
 res://assets/resources/world/gradients/summer.tres
 res://assets/resources/theme.tres
 res://assets/shaders/blur.gdshader
-res://assets/scripts/ui/hud/elements/clock.gd
+res://assets/localizations/local.gd
+res://assets/scripts/farming/plant.gd
+res://assets/scripts/farming/crops.gd
+res://assets/scripts/ui/interactive/mail/mail.gd
+res://assets/nodes/buildings/mailbox.tscn
+res://assets/nodes/ui/interactive/mail/mail.tscn
