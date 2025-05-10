@@ -59,8 +59,6 @@ func _ready():
 					if data.file_load(data.file.player).has('indicator_mailbox'):
 						GameLoader.mailbox_indicator = data.file_load(data.file.player)['indicator_mailbox']
 						mailbox.check_indicator_state()
-						if mails_remove_button:
-							mails_remove_button.text = tr('mail.button.delete_read_ones')
 
 func _process(_delta) -> void:
 	if visible:
@@ -310,6 +308,7 @@ func open() -> void:
 	GameLoader.mailbox_indicator = false
 	if mailbox: mailbox.check_indicator_state()
 	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+	if mails_remove_button: mails_remove_button.text = tr('mail.button.delete_read_ones')
 	if audio:
 		if !audio.is_playing():
 			audio.stream = load('res://assets/sounds/ui/mailbox.ogg')
@@ -433,10 +432,8 @@ func update_mail_manipulation_button() -> void:
 			mails_remove_button.visible = false
 
 func update_state_mail_manipulation_button() -> void:
-	if get_all_readed_letters() > 0:
-		mails_remove_button.disabled = false
-	else:
-		mails_remove_button.disabled = true
+	if get_all_readed_letters() > 0: mails_remove_button.disabled = false
+	else: mails_remove_button.disabled = true
 
 func _on_close_mouse_entered():
 	var _audio = AudioStreamPlayer.new()
@@ -444,12 +441,10 @@ func _on_close_mouse_entered():
 	_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
 	_audio.stream = load('res://assets/sounds/ui/hover.ogg')
 	_audio.play()
-	if cursor:
-		cursor.set_cursor(cursor.states.ACTIVE)
+	if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 
 func _on_close_mouse_exited():
-	if cursor:
-		cursor.set_cursor(cursor.states.DEFAULT)
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
 func _on_get_items_mouse_entered():
 	if button.visible && !button.disabled:
@@ -458,13 +453,11 @@ func _on_get_items_mouse_entered():
 		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
 		_audio.stream = load('res://assets/sounds/ui/hover.ogg')
 		_audio.play()
-		if cursor:
-			cursor.set_cursor(cursor.states.ACTIVE)
+		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 
 func _on_get_items_mouse_exited():
 	if button.visible && !button.disabled:
-		if cursor:
-			cursor.set_cursor(cursor.states.DEFAULT)
+		if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
 func _on_mail_remove_mouse_entered():
 	if mail_manipulation_buttons.visible:
@@ -473,12 +466,10 @@ func _on_mail_remove_mouse_entered():
 		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
 		_audio.stream = load('res://assets/sounds/ui/hover.ogg')
 		_audio.play()
-		if cursor:
-			cursor.set_cursor(cursor.states.ACTIVE)
+		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 
 func _on_mail_remove_mouse_exited():
-	if cursor:
-		cursor.set_cursor(cursor.states.DEFAULT)
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
 func _on_delete_all_readed_letters_mouse_entered():
 	if mails_remove_button.visible && !mails_remove_button.disabled:
@@ -487,13 +478,11 @@ func _on_delete_all_readed_letters_mouse_entered():
 		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
 		_audio.stream = load('res://assets/sounds/ui/hover.ogg')
 		_audio.play()
-		if cursor:
-			cursor.set_cursor(cursor.states.ACTIVE)
+		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 
 func _on_delete_all_readed_letters_mouse_exited():
 	if button.visible && !button.disabled:
-		if cursor:
-			cursor.set_cursor(cursor.states.DEFAULT)
+		if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
 func _on_audio_finished(node) -> void:
 	node.queue_free()
