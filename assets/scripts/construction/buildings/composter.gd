@@ -34,8 +34,6 @@ var total_items:int = 0
 enum objectState {idle, inProcess, done}
 var object:Dictionary = {
 	1: {
-		"caption" = tr("Компостер"),
-		"description" = tr("Ящик для приготовления удобрения"),
 		"shadow" = load("res://assets/resources/buildings/composter/shadow.png"),
 		"state" = {
 			"idle" = {
@@ -54,6 +52,19 @@ var object:Dictionary = {
 
 func _ready():
 	update()
+	update_texture()
+
+func update_texture() -> void:
+	if composting:
+		if object[level]["state"].has("work"):
+			if object[level]["state"]['work'].has("default"):
+				if object[level]["state"]['work']["default"] is CompressedTexture2D:
+					sprite.texture = object[level]["state"]['work']["default"]
+	else:
+		if object[level]["state"].has("idle"):
+			if object[level]["state"]['idle'].has("default"):
+				if object[level]["state"]['idle']["default"] is CompressedTexture2D:
+					sprite.texture = object[level]["state"]['idle']["default"]
 
 func _input(event):
 	if event is InputEventMouseButton\
@@ -72,23 +83,11 @@ func _input(event):
 						if object[level]["state"]['work'].has("default"):
 							if object[level]["state"]['work']["default"] is CompressedTexture2D:
 								sprite.texture = object[level]["state"]['work']["default"]
-							else:
-								data.debug("'"+str(self.name) + "': 'default' is not a CompressedTexture2D.", "error")
-						else:
-							data.debug("'"+str(self.name) + "': There is no 'default' key.", "error")
-					else:
-						data.debug("'"+str(self.name) + "': There is no 'work' key.", "error")
 				else:
 					if object[level]["state"].has("idle"):
 						if object[level]["state"]['idle'].has("default"):
 							if object[level]["state"]['idle']["default"] is CompressedTexture2D:
 								sprite.texture = object[level]["state"]['idle']["default"]
-							else:
-								data.debug("'"+str(self.name) + "': 'default' is not a CompressedTexture2D.", "error")
-						else:
-							data.debug("'"+str(self.name) + "': There is no 'default' key.", "error")
-					else:
-						data.debug("'"+str(self.name) + "': There is no 'work' key.", "error")
 		if tip:
 			tip.tooltip()
 	else:
@@ -109,12 +108,6 @@ func update():
 					if object[level]["state"]['work'].has("default"):
 						if object[level]["state"]['work']["default"] is CompressedTexture2D:
 							sprite.texture = object[level]["state"]['work']["default"]
-						else:
-							data.debug("'"+str(self.name) + "': 'default' is not a CompressedTexture2D.", "error")
-					else:
-						data.debug("'"+str(self.name) + "': There is no 'default' key.", "error")
-				else:
-					data.debug("'"+str(self.name) + "': There is no 'work' key.", "error")
 			else:
 				if object[level].has("state"):
 					if object[level]["state"].has("idle"):
@@ -122,12 +115,6 @@ func update():
 							if object[level]["state"]["idle"]["idle_0"] is CompressedTexture2D:
 								sprite.texture = object[level]["idle"]["idle_0"]
 								self.set_position(tilemap.map_to_local(Vector2i(18,2)))
-							else:
-								data.debug("'"+str(self.name) + "': 'idle' is not a CompressedTexture2D.", "error")
-					else:
-						data.debug("'"+str(self.name) + "': There is no 'idle' key.", "error")
-		else:
-			data.debug("'"+str(self.name) + "': Index " + str(level) + " is not in the dictionary.", "error")
 
 func get_data() -> Dictionary:
 	if object.has(level):
@@ -156,25 +143,13 @@ func _on_area_2d_mouse_entered() -> void:
 								if object[level]["state"]['work'].has("hovered"):
 									if object[level]["state"]['work']["hovered"] is CompressedTexture2D:
 										sprite.texture = object[level]["state"]['work']["hovered"]
-									else:
-										data.debug("'"+str(self.name) + "': 'hovered' is not a CompressedTexture2D.", "error")
-								else:
-									data.debug("'"+str(self.name) + "': There is no 'hovered' key.", "error")
-							else:
-								data.debug("'"+str(self.name) + "': There is no 'work' key.", "error")
 						else:
 							if object[level]["state"].has("idle"):
 								if object[level]["state"]['idle'].has("hovered"):
 									if object[level]["state"]['idle']["hovered"] is CompressedTexture2D:
 										sprite.texture = object[level]["state"]['idle']["hovered"]
-									else:
-										data.debug("'"+str(self.name) + "': 'hovered' is not a CompressedTexture2D.", "error")
-								else:
-									data.debug("'"+str(self.name) + "': There is no 'hovered' key.", "error")
-							else:
-								data.debug("'"+str(self.name) + "': There is no 'idle' key.", "error")
 				if tip:
-					tip.tooltip(str(object[level]["caption"]) + "\n" +str(object[level]["description"]))
+					tip.tooltip(tr('object.composter.caption') + "\n" +tr('object.composter.description'))
 	if buttonDestroy.destroyMode:
 		if !blur.state:
 			destroyMode = true
@@ -187,12 +162,6 @@ func _on_area_2d_mouse_entered() -> void:
 								if object[level]["state"]['idle'].has("delete"):
 									if object[level]["state"]['idle']["delete"] is CompressedTexture2D:
 										sprite.texture = object[level]["state"]['idle']["delete"]
-									else:
-										data.debug("'"+str(self.name) + "': 'delete' is not a CompressedTexture2D.", "error")
-								else:
-									data.debug("'"+str(self.name) + "': There is no 'delete' key.", "error")
-							else:
-								data.debug("'"+str(self.name) + "': There is no 'idle' key.", "error")
 								
 func _on_area_2d_mouse_exited() -> void:
 	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
@@ -205,23 +174,11 @@ func _on_area_2d_mouse_exited() -> void:
 					if object[level]["state"]['work'].has("default"):
 						if object[level]["state"]['work']["default"] is CompressedTexture2D:
 							sprite.texture = object[level]["state"]['work']["default"]
-						else:
-							data.debug("'"+str(self.name) + "': 'default' is not a CompressedTexture2D.", "error")
-					else:
-						data.debug("'"+str(self.name) + "': There is no 'default' key.", "error")
-				else:
-					data.debug("'"+str(self.name) + "': There is no 'work' key.", "error")
 			else:
 				if object[level]["state"].has("idle"):
 					if object[level]["state"]['idle'].has("default"):
 						if object[level]["state"]['idle']["default"] is CompressedTexture2D:
 							sprite.texture = object[level]["state"]['idle']["default"]
-						else:
-							data.debug("'"+str(self.name) + "': 'default' is not a CompressedTexture2D.", "error")
-					else:
-						data.debug("'"+str(self.name) + "': There is no 'default' key.", "error")
-				else:
-					data.debug("'"+str(self.name) + "': There is no 'work' key.", "error")
 	if tip:
 		tip.tooltip()
 
