@@ -203,6 +203,7 @@ func _on_get_compost_button_pressed() -> void:
 	get_compost_items()
 	clear_compost_items()
 	check_state_button()
+	current_node.update_texture()
 	compostingProcessLabel.text = tr("composting_menu.description")
 	var _audio = AudioStreamPlayer.new()
 	self.add_child(_audio)
@@ -233,7 +234,7 @@ func _on_turn_button_pressed() -> void:
 		if itemsForCompostContainer.get_children().size() >= 8:
 			current_node.highQuality = true
 		current_node.start_compost(get_items_count())
-		current_node.update()
+		current_node.update_texture()
 		get_compost_state()
 		get_compost_items()
 		clear_compost_items()
