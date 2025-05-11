@@ -490,5 +490,8 @@ func check_game_music() -> void:
 			if node.radio_noise.is_playing():
 				if main == 'Farm':
 					for i in get_tree().root.get_child(2).get_children():
-						if i.name == 'MusicPlayer':
+						if i.name == 'MusicPlayer' && i is AudioStreamPlayer:
 							i.stop()
+						if i.name == 'MusicCooldownTimer' && i is Timer:
+							if !i.is_paused():
+								i.set_paused(true)
