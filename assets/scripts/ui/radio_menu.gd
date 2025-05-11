@@ -34,18 +34,20 @@ var stopped:bool = false
 var stations:Dictionary = {
 	'station.radio_cultura.caption': {
 		'captions': [
-			'res://assets/sounds/music/radio/track#1.ogg',
-			'res://assets/sounds/music/radio/track#2.ogg',
-			'res://assets/sounds/music/radio/track#3.ogg',
-			'res://assets/sounds/music/radio/track#4.ogg',
-			'res://assets/sounds/music/radio/track#5.ogg',
-			'res://assets/sounds/music/radio/track#6.ogg',
-			'res://assets/sounds/music/radio/track#7.ogg',
-			'res://assets/sounds/music/radio/track#8.ogg',
-			'res://assets/sounds/music/radio/track#9.ogg',
-			'res://assets/sounds/music/radio/track#10.ogg',
-			'res://assets/sounds/music/radio/track#11.ogg',
-			'res://assets/sounds/music/radio/track#12.ogg',
+
+			'Странник в облаках',
+			'Без названия',
+			'Не грусти!',
+			'Где-то в облаках',
+			'Фермерский быт',
+			'Утренний ветерок',
+			'В даль реки',
+			'Я когда-то Вас любил',
+			'Ручеёк',
+			'Идиллия',
+			'Пыльные записки',
+			'Вселенная',
+
 		],
 		'tracks': [
 			'res://assets/sounds/music/radio/track#1.ogg',
@@ -64,6 +66,7 @@ var stations:Dictionary = {
 	},
 }
 
+var current_station_name:String = ''
 var stations_audios_captions = []
 var stations_audios = []
 var station_audio_index:int = 0
@@ -152,7 +155,6 @@ func on_station_pressed(stationName:String):
 				node.radio = true
 				node.random = true
 				node.repeat = true
-
 				stations_audios = []
 				if stations.has(stationName):
 					if stations[stationName].has('captions'):
@@ -167,6 +169,7 @@ func on_station_pressed(stationName:String):
 				if stations_audios.size() > 0 && stations_audios_captions.size() > 0 :
 					if node:
 						station_audio_index = randi() % stations_audios.size()
+						current_station_name = stationName
 						node.play_radio_track(stations_audios, station_audio_index)
 						set_radio_track_name(station_audio_index)
 
@@ -479,8 +482,7 @@ func _on_scan_folder_button_mouse_exited():
 		if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
 func set_radio_track_name(track_index) -> void:
-	if stations_audios_captions.size() > 0:
-		playNow.text = tr("radio_menu.now_playing_track") + ":  " + "\"" + stations_audios_captions[track_index] + "\""
+	playNow.text = tr(current_station_name) + ":  " + "\"" + stations_audios_captions[track_index] + "\""
 
 func check_game_music() -> void:
 	if node:
