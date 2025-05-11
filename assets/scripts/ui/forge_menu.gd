@@ -315,7 +315,7 @@ func _on_melt_button_pressed():
 					ignotIcon.visible = false
 					target_node.isDone = false
 					ignotAmountLabel.text = ''
-					labelStatus.text = tr('forge.description_text')
+					labelStatus.text = tr('forge.description_text') + '\n' + tr('forge.formula_text')
 					meltButton.text = tr('forge.button.melt')
 					meltButton.disabled = true
 					playerInventoryMargin.visible = true
