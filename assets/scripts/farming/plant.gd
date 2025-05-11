@@ -24,21 +24,12 @@ var fertilizer:int = fertilizers.nothing
 var degree:int
 var loaded:bool = false
 
+var is_active:bool = false
+
 enum phases {planted, growing, requiresWatering, growed, dead}
 enum fertilizers {nothing, regularCompost, highQualityCompost}
 
 func _process(_delta):
-	if condition == phases.requiresWatering:
-		if !indicator.visible:
-			indicator.visible = true
-			if !anim.is_playing():
-				anim.play('bubble')
-	else:
-		if indicator.visible:
-			indicator.visible = !true
-			if anim.is_playing():
-				anim.stop()
-
 	if pause.paused:
 		timer.set_paused(true)
 		check_water_timer.set_paused(true)
@@ -102,6 +93,10 @@ func requires_watering(vector:Vector2i) -> void:
 		&& !collision.check_cell(vector, collision.watering_layer)\
 		&& condition == phases.requiresWatering\
 		&& condition != phases.dead:
+			if !indicator.visible:
+				indicator.visible = true
+				if !anim.is_playing(): 
+					anim.play('bubble')
 			if degree < crops.crops[plantID]["mortality"]:
 				degree += 1
 			else:
@@ -125,6 +120,10 @@ func requires_watering(vector:Vector2i) -> void:
 			else:
 				timer.wait_time = crops.crops[plantID]["growth_rate"]
 			growth()
+			if indicator.visible:
+				indicator.visible = !true
+				if anim.is_playing():
+					anim.stop()
 
 func growth() -> void:
 	if loaded:
@@ -148,17 +147,17 @@ func get_data() -> Dictionary:
 	}
 
 func set_data(
-	id:int, 
-	conditionID:int, 
-	degreeID:int, 
-	fertilizerID:int, 
-	region_rect_x:int, 
-	region_rect_y:int, 
-	level:int, 
-	vector:Vector2i,
-	indexZ:int,
-	caption:String,
-	time_lefted:float
+		id:int, 
+		conditionID:int, 
+		degreeID:int, 
+		fertilizerID:int, 
+		region_rect_x:int, 
+		region_rect_y:int, 
+		level:int, 
+		vector:Vector2i,
+		indexZ:int,
+		caption:String,
+		time_lefted:float
 	) -> void:
 	plantID = id
 	condition = conditionID
