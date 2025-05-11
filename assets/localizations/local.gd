@@ -300,3 +300,6 @@ func _ready():
 	tr('crops.beet')
 	tr('crops.turnip')
 	tr('crops.bean')
+
+	# Radio
+	tr('station.radio_cultura.caption')
