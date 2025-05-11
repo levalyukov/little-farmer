@@ -902,7 +902,7 @@ func config_new() -> void:
 			"general": 100,
 			"music": 25,
 			"nature": 50,
-			"radio": 75,
+			"radio": 50,
 		},
 	}
 	if target_path:
@@ -942,7 +942,7 @@ func config_save() -> void:
 				"general": 100,
 				"music": 25,
 				"nature": 50,
-				"radio": 75,
+				"radio": 50,
 			},
 		}
 		FileSystem.new().Funcs.create_directory(path.main)
