@@ -59,6 +59,45 @@ msgstr ""
 msgid "modal.modal_early_version_button"
 msgstr "Хорошо"
 
+#: levels/menu.tscn
+msgid "main_menu.modal.credits_header"
+msgstr "Титры"
+
+#: levels/menu.tscn
+msgid "main_menu.modal.credits_content"
+msgstr ""
+"Лев Алюков (levalyukov):\n"
+"— Программирование\n"
+"— Графика\n"
+"— Музыка и звук\n"
+"— Тестирование\n"
+"— Глажка кота\n"
+"— Основатель своей студии Studio Miroro\n"
+"\n"
+"--- При разработке использовал ---\n"
+"Игровой движок: Godot Engine 4.2.1\n"
+"Графический редактор: Aseprite\n"
+"Музыка: FL Studio 12\n"
+"\n"
+"--- Наши соц.сети ---\n"
+"Наш сайт: [color=\"#d2eaa8\"][url=https://studio-miroro.ru/]studio-"
+"miroro.ru[/url][/color]\n"
+"Telegram: [color=\"#d2eaa8\"][url=https://t.me/miroro]@miroro[/url][/color]\n"
+"Bluesky: [color=\"#d2eaa8\"][url=https://bsky.app/profile/studio-"
+"miroro.ru]@studio-miroro.ru[/url][/color]\n"
+"GameJolt: [color=\"#d2eaa8\"][url=https://gamejolt.com/@miroro]@miroro[/url]"
+"[/color]\n"
+"Itch.io: [color=\"#d2eaa8\"][url=https://miroro.itch.io/]@miroro[/url][/"
+"color]"
+
+#: levels/menu.tscn
+msgid "main_menu.modal.credits_button"
+msgstr "Молодец!"
+
+#: levels/menu.tscn
+msgid "main_menu.credits_button"
+msgstr "Титры"
+
 #: assets/nodes/ui/interactive/options/options.tscn
 msgid "options.graphic"
 msgstr "Графика"
@@ -192,10 +231,6 @@ msgid "inventory.button.fertilize"
 msgstr "Удобрить"
 
 #: assets/scripts/ui/interactive/mail/mail.gd
-msgid "mail.button.delete_read_ones"
-msgstr "Удалить прочитанные"
-
-#: assets/scripts/ui/interactive/mail/mail.gd
 msgid "mail.button.get_all_items"
 msgstr "Получить"
 
@@ -219,7 +254,7 @@ msgstr "Почта"
 
 #: assets/scripts/ui/interactive/mail/mail.gd
 msgid "mail.ui.mailbox_has_unread_letters_text"
-msgstr "Имеются непрочитанные письма."
+msgstr "Имеются непрочитанные письма"
 
 #: assets/scripts/ui/interactive/mail/mail.gd
 msgid "mail.ui.mailbox_has_letters_text"
@@ -228,6 +263,10 @@ msgstr "Здесь хранятся письма."
 #: assets/scripts/ui/interactive/mail/mail.gd
 msgid "mail.ui.mailbox_empty_text"
 msgstr "Почтовый ящик пуст."
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.button.delete_read_ones"
+msgstr "Удалить прочитанные"
 
 #: assets/scripts/ui/interactive/mail/mail.gd
 msgid "mail.button.full_inventory_error"
@@ -732,10 +771,12 @@ msgstr "Тропинки"
 #: assets/localizations/local.gd
 msgid "blueprints.path.description"
 msgstr ""
-"Позволяет создавать тропы и вспахиваемую землю. -- Пошаговое объяснение -- "
-"1. Расчистите место: Выберите пустой участок размером 3x3 клеток 2. Создайте "
-"тропы: Превратите все клетки вокруг центральной в тропы 3. Получите грядку: "
-"В центре образуется готовая к вспашке земля."
+"Позволяет создавать тропы и вспахиваемую землю.\n"
+"\n"
+"-- Пошаговое объяснение --\n"
+"1. Расчистите место: Выберите пустой участок размером 3x3 клеток\n"
+"2. Создайте тропы: Превратите все клетки вокруг центральной в тропы\n"
+"3. Получите грядку: В центре образуется готовая к вспашке земля."
 
 #: assets/localizations/local.gd
 msgid "blueprints.path_blueprint.caption"
@@ -1478,6 +1519,70 @@ msgstr "Высококачественный компост"
 msgid "items.premium_compost.description"
 msgstr "Ускоряет время роста растения на 20%. Удобрять перед посевом"
 
+#: assets/localizations/local.gd
+msgid "crops.carrot"
+msgstr "Морковь"
+
+#: assets/localizations/local.gd
+msgid "crops.potato"
+msgstr "Картофель"
+
+#: assets/localizations/local.gd
+msgid "crops.radish"
+msgstr "Редис"
+
+#: assets/localizations/local.gd
+msgid "crops.cabbage"
+msgstr "Капуста"
+
+#: assets/localizations/local.gd
+msgid "crops.onion"
+msgstr "Репчатый лук"
+
+#: assets/localizations/local.gd
+msgid "crops.cucumber"
+msgstr "Огурцы"
+
+#: assets/localizations/local.gd
+msgid "crops.tomato"
+msgstr "Томат"
+
+#: assets/localizations/local.gd
+msgid "crops.eggplant"
+msgstr "Баклажан"
+
+#: assets/localizations/local.gd
+msgid "crops.pepper"
+msgstr "Перец"
+
+#: assets/localizations/local.gd
+msgid "crops.corn"
+msgstr "Кукуруза"
+
+#: assets/localizations/local.gd
+msgid "crops.parsnips"
+msgstr "Пастернак"
+
+#: assets/localizations/local.gd
+msgid "crops.garlic"
+msgstr "Чеснок"
+
+#: assets/localizations/local.gd
+msgid "crops.beet"
+msgstr "Свёкла"
+
+#: assets/localizations/local.gd
+msgid "crops.turnip"
+msgstr "Репа"
+
+#: assets/localizations/local.gd
+msgid "crops.bean"
+msgstr "Фасоль"
+
+#: assets/localizations/local.gd
+msgid "station.radio_cultura.caption"
+msgstr "Радио «Культура»"
+
 #: assets/scripts/construction/buildings/fisherman_house.gd
 msgid "object.fisherman_house.caption"
 msgstr "Рыбацкий дом Марлина"
@@ -1508,66 +1613,6 @@ msgstr ""
 "В этом магазине Вы можете приобрести чертежи. Выберите интересующие чертежи "
 "в левом окне, чтобы узнать полезную информацию о постройке и стоимость "
 "приобретения."
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.carrot"
-msgstr "Морковь"
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.potato"
-msgstr "Картофель"
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.radish"
-msgstr "Редис"
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.cabbage"
-msgstr "Капуста"
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.onion"
-msgstr "Репчатый лук"
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.cucumber"
-msgstr "Огурцы"
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.tomato"
-msgstr "Томат"
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.eggplant"
-msgstr "Баклажан"
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.pepper"
-msgstr "Перец"
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.corn"
-msgstr "Кукуруза"
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.parsnips"
-msgstr "Пастернак"
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.garlic"
-msgstr "Чеснок"
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.beet"
-msgstr "Свёкла"
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.turnip"
-msgstr "Репа"
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.bean"
-msgstr "Фасоль"
 
 #: assets/scripts/ui/hud/grid/grid.gd
 msgid "tooltip.water_can"
@@ -1608,6 +1653,91 @@ msgstr "Отходы для компоста"
 #: assets/scripts/ui/composter_menu.gd
 msgid "composting_menu.description"
 msgstr "Выберите отходы для начала компостирования"
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.select_mode"
+msgstr "Выберите режим работы радио ниже"
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.off_radio_button"
+msgstr "Выключить радио"
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.on_radio_button"
+msgstr "Включить радио"
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.play_track_button"
+msgstr "Слушать"
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.pause_track_button"
+msgstr "Пауза"
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.now_playing_track"
+msgstr "Сейчас играет"
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.paused_track"
+msgstr "На паузе"
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.header"
+msgstr "Радио"
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.header.radiostations"
+msgstr "Радиостанции"
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.header.users_tracks"
+msgstr "Пользовательские треки"
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.button.open_folder"
+msgstr "Открыть папку"
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.button.scan_users_tracks"
+msgstr "Сканировать"
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.button.previous_track"
+msgstr "Предыдущий"
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.button.next_track"
+msgstr "Следующий"
+
+#: assets/scripts/ui/sawmill_menu.gd
+#| msgid "object.sawmill.caption"
+msgid "sawmill_menu.caption"
+msgstr "Пилостол"
+
+#: assets/scripts/ui/sawmill_menu.gd
+#| msgid "object.sawmill.description"
+msgid "sawmill_menu.description"
+msgstr "Выберите бревно для распилки"
+
+#: assets/scripts/ui/sawmill_menu.gd
+#| msgid "main_menu.credits_button"
+msgid "sawmill_menu.button"
+msgstr "Распилить"
+
+#: assets/scripts/construction/buildings/composter.gd
+#| msgid "object.house.caption"
+msgid "object.composter.caption"
+msgstr "Компостер"
+
+#: assets/scripts/construction/buildings/composter.gd
+#| msgid "object.house.description"
+msgid "object.composter.description"
+msgstr "Ящик для приготовления удобрения"
+
+#~| msgid "main_menu.settings_button"
+#~ msgid "menu.credits_button"
+#~ msgstr "as"
 
 #~ msgid "items.type.crops"
 #~ msgstr "Урожай"
