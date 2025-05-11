@@ -141,7 +141,8 @@ func get_data(group:String, id:int) -> void:
 					"nodes":
 						if blueprints.content[group][id]["config"].has("node"):
 							button.visible = true
-							update_button_state()		
+							update_button_state()
+							button.text = tr("build.button.create_node")
 							if blueprints.content[group][id]["config"].has("resources"):
 								get_all_required_items(group, id)
 								resources.visible = true
@@ -163,7 +164,6 @@ func get_data(group:String, id:int) -> void:
 
 							button.id = id
 							button.group = group
-							button.text = tr("build.button.create_node")
 					"terrains":
 						if blueprints.content[group][id]["config"].has("terrain"):
 							button.visible = true
