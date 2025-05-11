@@ -22,7 +22,7 @@ var level:int = 0
 
 var audio_streams:Array[AudioStreamMP3] = []
 var audio_captions:Array[String] = []
-var audio_index_track:int = 0
+var audio_index_track:int = -1
 
 var enabled:bool = false
 var radio:bool = false
@@ -235,7 +235,7 @@ func play_radio_track(array,index) -> void:
 func next_radio_track() -> void:
 	if radioMenu:
 		if radioMenu.stations_audios.size() > 0:
-			var new_index_track = random_audio_index(radioMenu.stations_audios, radioMenu.station_audio_index)
+			var new_index_track = get_random_audio_index(radioMenu.stations_audios, radioMenu.station_audio_index)
 			if new_index_track != -1:
 				radioMenu.station_audio_index = new_index_track
 				play_radio_track(
@@ -244,10 +244,24 @@ func next_radio_track() -> void:
 				)
 				radioMenu.set_radio_track_name(radioMenu.station_audio_index)
 
-func random_audio_index(array:Array, index:int) -> int:
-	if array.size() > 1:
-		var test_index = randi() % array.size()
-		if test_index == index:
-			random_audio_index(array,index)
-		return test_index
-	return -1
+func get_random_audio_index(sounds_array, index):
+	if sounds_array.size() == 0:
+		return -1
+	var new_index = randi() % sounds_array.size()
+	if sounds_array.size() == 1:
+		if is_valid_sound(sounds_array[0]):
+			return 0
+		else:
+			return -1
+	while true:
+		new_index = randi() % sounds_array.size()
+		if new_index != index && is_valid_sound(sounds_array[new_index]):
+			break
+	audio_index_track = new_index
+	return new_index
+
+func is_valid_sound(sound_path) -> bool:
+	if sound_path is String and sound_path.length() > 0:
+		var file_exists = ResourceLoader.exists(sound_path, "AudioStream")
+		return file_exists
+	return false
