@@ -32,16 +32,20 @@ var stations_name:Array[String] = []
 var stream_position:float = 0.0
 var stopped:bool = false
 var stations:Dictionary = {
-	tr('Радио «Культура»'): {
+	'station.radio_cultura.caption': {
 		'captions': [
-			'Странник в облаках',
-			'Без названия',
-			'Не грусти!',
-			'Где-то в облаках',
-			'Фермерский быт',
-			'Утренний ветерок',
-			'В даль реки',
-			'Композиция',
+			'res://assets/sounds/music/radio/track#1.ogg',
+			'res://assets/sounds/music/radio/track#2.ogg',
+			'res://assets/sounds/music/radio/track#3.ogg',
+			'res://assets/sounds/music/radio/track#4.ogg',
+			'res://assets/sounds/music/radio/track#5.ogg',
+			'res://assets/sounds/music/radio/track#6.ogg',
+			'res://assets/sounds/music/radio/track#7.ogg',
+			'res://assets/sounds/music/radio/track#8.ogg',
+			'res://assets/sounds/music/radio/track#9.ogg',
+			'res://assets/sounds/music/radio/track#10.ogg',
+			'res://assets/sounds/music/radio/track#11.ogg',
+			'res://assets/sounds/music/radio/track#12.ogg',
 		],
 		'tracks': [
 			'res://assets/sounds/music/radio/track#1.ogg',
@@ -52,6 +56,10 @@ var stations:Dictionary = {
 			'res://assets/sounds/music/radio/track#6.ogg',
 			'res://assets/sounds/music/radio/track#7.ogg',
 			'res://assets/sounds/music/radio/track#8.ogg',
+			'res://assets/sounds/music/radio/track#9.ogg',
+			'res://assets/sounds/music/radio/track#10.ogg',
+			'res://assets/sounds/music/radio/track#11.ogg',
+			'res://assets/sounds/music/radio/track#12.ogg',
 		]
 	},
 }
@@ -75,8 +83,8 @@ func _process(_delta):
 		if node:
 			if node.enabled:
 				if !node.audio_player.is_playing() && !stopped:
-					playNow.text ="Выберите режим работы радио ниже:"
-				powerButton.text = tr("Выключить радио")
+					playNow.text = tr("radio_menu.select_mode") + ":" 
+				powerButton.text = tr("radio_menu.off_radio_button")
 
 				if node.audio_player.is_playing():
 					if !node.particles.emitting:
@@ -91,7 +99,7 @@ func _process(_delta):
 			else:
 				if playNow.text != "":
 					playNow.text = ""
-				powerButton.text = tr("Включить радио")
+				powerButton.text = tr("radio_menu.on_radio_button")
 
 				if node.particles.emitting:
 					node.particles.emitting = !true
@@ -101,9 +109,9 @@ func _process(_delta):
 						node.radio_noise.stop()
 			if node.userMode:
 				if stopped:
-					pauseTrack.text = 'Слушать'
+					pauseTrack.text = tr("radio_menu.play_track_button")
 				else:
-					pauseTrack.text = 'Пауза'
+					pauseTrack.text = tr("radio_menu.pause_track_button")
 				if node.audio_player.is_playing():
 					if !buttonsInteractions.visible:
 						buttonsInteractions.visible = true
@@ -115,14 +123,14 @@ func update_string_playNow() -> void:
 	if node:
 		if !stopped:
 			if len(node.audio_captions[node.audio_index_track]) > 50:
-				playNow.text = tr("Сейчас играет: ") + "\"" + str(node.audio_captions[node.audio_index_track].substr(0,50)) + "..." + "\""
+				playNow.text = tr("radio_menu.now_playing_track") + ": " + "\"" + str(node.audio_captions[node.audio_index_track].substr(0,50)) + "..." + "\""
 			else:
-				playNow.text = tr("Сейчас играет: ") + "\"" + str(node.audio_captions[node.audio_index_track]) + "\""
+				playNow.text = tr("radio_menu.now_playing_track") + ": " + "\"" + str(node.audio_captions[node.audio_index_track]) + "\""
 		else:
 			if len(node.audio_captions[node.audio_index_track]) > 50:
-				playNow.text = tr("На паузе: ") + "\"" + str(node.audio_captions[node.audio_index_track].substr(0,50)) + "..." + "\""
+				playNow.text = tr("radio_menu.paused_track") + ": " + "\"" + str(node.audio_captions[node.audio_index_track].substr(0,50)) + "..." + "\""
 			else:
-				playNow.text = tr("На паузе: ") + "\"" + str(node.audio_captions[node.audio_index_track]) + "\""
+				playNow.text = tr("radio_menu.paused_track") + ": " + "\"" + str(node.audio_captions[node.audio_index_track]) + "\""
 
 func set_stations() -> void:
 	if radiostationsContainer.get_children() != []:
@@ -238,6 +246,7 @@ func on_userTrack_pressed(index:int):
 		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 		audio.stream = load('res://assets/sounds/ui/click.ogg')
 		audio.play()
+		check_game_music()
 
 func open(_node:Node2D) -> void:
 	opened = true
@@ -245,6 +254,14 @@ func open(_node:Node2D) -> void:
 	set_stations()
 	blur.blur(true)
 	anim.play("open")
+	header.text = tr('radio_menu.header')
+	radiostationsHeader.text = tr('radio_menu.header.radiostations')
+	usersTracksHeader.text = tr('radio_menu.header.users_tracks')
+	buttonOpenFolder.text = tr('radio_menu.button.open_folder')
+	buttonScanUsersTracks.text = tr('radio_menu.button.scan_users_tracks')
+	previousButton.text = tr('radio_menu.button.previous_track')
+	nextTrack.text = tr('radio_menu.button.next_track')
+
 	if node:
 		if !node.enabled:
 			if usersTracksContainer.get_children().size() > 0:
@@ -264,6 +281,12 @@ func open(_node:Node2D) -> void:
 				for z in radiostationsContainer.get_children():
 					if z is Button:
 						z.disabled = false
+
+		if node.userMode:
+			update_string_playNow()
+		if node.radio:
+			set_radio_track_name(station_audio_index)
+
 	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
 func close() -> void:
@@ -457,7 +480,7 @@ func _on_scan_folder_button_mouse_exited():
 
 func set_radio_track_name(track_index) -> void:
 	if stations_audios_captions.size() > 0:
-		playNow.text = tr("Сейчас играет: ") + "\"" + stations_audios_captions[track_index] + "\""
+		playNow.text = tr("radio_menu.now_playing_track") + ":  " + "\"" + stations_audios_captions[track_index] + "\""
 
 func check_game_music() -> void:
 	if node:
