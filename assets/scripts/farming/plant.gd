@@ -102,6 +102,10 @@ func requires_watering(vector:Vector2i) -> void:
 			else:
 				condition = phases.dead
 				check_water_timer.stop()
+				if indicator.visible:
+					indicator.visible = !true
+					if anim.is_playing():
+						anim.stop()
 		elif collision.check_cell(vector, collision.farmland_layer)\
 		&& collision.check_cell(vector, collision.watering_layer)\
 		&& condition == phases.requiresWatering\
