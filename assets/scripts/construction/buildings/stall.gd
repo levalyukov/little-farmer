@@ -68,14 +68,6 @@ func _change_sprite(type:bool):
 						if object[level]["seasons"].has(season):
 							if object[level]["seasons"][season].has("hovered"):
 								sprite.texture = object[level]["seasons"][season]["hovered"]
-							else:
-								pass
-						else:
-							pass
-					else:
-						data.debug("There is no key at index " + str(level) + ".", "error")
-				else:
-					data.debug("Index " + str(level) + " is not in the dictionary.", "error")
 			tip.tooltip(
 					str(tr("object.animal_stall.caption")) + "\n" +
 					str(tr("object.animal_stall.description")) + "\n"
