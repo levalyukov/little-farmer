@@ -24,15 +24,9 @@ func set_data(group:String, id:int) -> void:
 			if blueprints.content[group][id].has("icon"):
 				if blueprints.content[group][id]["icon"] is CompressedTexture2D:
 					icon.texture = blueprints.content[group][id]["icon"]
-				else:
-					data.debug("["+str(id)+"] "+"The key stores a non-Compressed 2D Texture.", "warning")
-			else:
-				data.debug("["+str(id)+"] "+"The object does not have the 'icon' key.", "warning")
 
 			if blueprints.content[group][id].has("caption"):
-				caption.text = blueprints.content[group][id]["caption"]
-			else:
-				data.debug("["+str(id)+"] "+"The 'caption' key has a non-string type.", "warning")
+				caption.text = tr(blueprints.content[group][id]["caption"])
 
 func disabled_button(state:bool, additional_string:String):
 	button.disabled = state
