@@ -58,6 +58,46 @@ msgstr ""
 msgid "modal.modal_early_version_button"
 msgstr "OK"
 
+#: levels/menu.tscn
+msgid "main_menu.modal.credits_header"
+msgstr "Credits"
+
+#: levels/menu.tscn
+msgid "main_menu.modal.credits_content"
+msgstr ""
+"Lev Alyukov (levalyukov):\n"
+"— Programming\n"
+"— Graphics\n"
+"— Music and Sound\n"
+"— Testing\n"
+"— Cat Petting\n"
+"— Founder of Studio Miroro\n"
+"\n"
+"--- Tools Used in Development --- \n"
+"Game Engine: Godot Engine 4.2.1\n"
+"Graphics Editor: Aseprite\n"
+"Music: FL Studio 12\n"
+"\n"
+"--- Our Social Media ---\n"
+"Our Website: [color=\"#d2eaa8\"][url=https://studio-miroro.ru/ ]studio-"
+"miroro.ru[/url][/color]\n"
+"Telegram: [color=\"#d2eaa8\"][url=https://t.me/miroro ]@miroro[/url][/"
+"color]\n"
+"Bluesky: [color=\"#d2eaa8\"][url=https://bsky.app/profile/studio-"
+"miroro.ru ]@studio-miroro.ru[/url][/color]\n"
+"GameJolt: [color=\"#d2eaa8\"][url=https://gamejolt.com/ @miroro]@miroro[/url]"
+"[/color]\n"
+"Itch.io: [color=\"#d2eaa8\"][url=https://miroro.itch.io/ ]@miroro[/url][/"
+"color]"
+
+#: levels/menu.tscn
+msgid "main_menu.modal.credits_button"
+msgstr "Good job!"
+
+#: levels/menu.tscn
+msgid "main_menu.credits_button"
+msgstr "Credits"
+
 #: assets/nodes/ui/interactive/options/options.tscn
 msgid "options.graphic"
 msgstr "Graphic"
@@ -191,10 +231,6 @@ msgid "inventory.button.fertilize"
 msgstr "Fertilize"
 
 #: assets/scripts/ui/interactive/mail/mail.gd
-msgid "mail.button.delete_read_ones"
-msgstr "Delete Read Letters"
-
-#: assets/scripts/ui/interactive/mail/mail.gd
 msgid "mail.button.get_all_items"
 msgstr "Receive Items"
 
@@ -227,6 +263,10 @@ msgstr "Letters are stored here."
 #: assets/scripts/ui/interactive/mail/mail.gd
 msgid "mail.ui.mailbox_empty_text"
 msgstr "The mailbox is empty"
+
+#: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.button.delete_read_ones"
+msgstr "Delete Read Letters"
 
 #: assets/scripts/ui/interactive/mail/mail.gd
 msgid "mail.button.full_inventory_error"
@@ -719,12 +759,10 @@ msgid "npc.vance"
 msgstr "Vance"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.path.caption"
 msgstr "Paths"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.path.description"
 msgstr ""
 "Allows creating paths and tillable land.\n"
@@ -735,257 +773,207 @@ msgstr ""
 "3. Obtain a plot: The center tile becomes tillable farmland"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.blueprint_cost"
 msgid "blueprints.path_blueprint.caption"
 msgstr "Path Blueprint"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.path_blueprint.description"
 msgstr "Allows creating paths and tillable land"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.water_body.caption"
 msgstr "Water Body"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.water_body.description"
 msgstr "Create water areas on your farm"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.blueprint_cost"
 msgid "blueprints.water_body_blueprints.caption"
 msgstr "Water Body Blueprint"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.water_body_blueprints.description"
 msgstr "Use this blueprint to create water areas on your farm"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.wooden_sign.caption"
 msgstr "Wooden Sign"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.wooden_sign.description"
 msgstr "Allows displaying an image of any item"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.blueprint_cost"
 msgid "blueprints.wooden_sign_blueprint.caption"
 msgstr "Wooden Sign Blueprint"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.wooden_sign_blueprint.description"
 msgstr "Use to display item images (e.g., label crop plots)"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.composter.caption"
 msgstr "Composter"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.composter.description"
 msgstr "Converts waste into fertilizer for your plants"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.blueprint_cost"
 msgid "blueprints.composter_blueprint.caption"
 msgstr "Composter Blueprint"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.composter_blueprint.description"
 msgstr "A farmer’s essential tool—converts waste into plant fertilizer."
 
 #: assets/localizations/local.gd
-#| msgid "object.well.caption"
 msgid "blueprints.well.caption"
 msgstr "Well"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.well.description"
 msgstr "Fill your watering can with water"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.blueprint_cost"
 msgid "blueprints.well_blueprint.caption"
 msgstr "Well Blueprint"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.well_blueprint.description"
 msgstr "A practical farm building to quickly fill your watering can"
 
 #: assets/localizations/local.gd
-#| msgid "items.bean.caption"
 msgid "blueprints.barn.caption"
 msgstr "Barn"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.barn.description"
 msgstr "Housing for livestock"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.blueprint_cost"
 msgid "blueprints.barn_blueprint.caption"
 msgstr "Barn Blueprint"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.barn_blueprint.description"
 msgstr "A structure to house your livestock"
 
 #: assets/localizations/local.gd
-#| msgid "object.silo.caption"
 msgid "blueprints.silo.caption"
 msgstr "Silage Tower"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.silo.description"
 msgstr "A large storage for animal feed"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.blueprint_cost"
 msgid "blueprints.silo_blueprint.caption"
 msgstr "Silage Tower Blueprint"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.silo_blueprint.description"
 msgstr "Stores feed for livestock"
 
 #: assets/localizations/local.gd
-#| msgid "object.greenhouse.caption"
 msgid "blueprints.greenhouse.caption"
 msgstr "Greenhouse"
 
 #: assets/localizations/local.gd
-#| msgid "object.greenhouse.description"
 msgid "blueprints.greenhouse.description"
 msgstr "A warm facility for growing plants year-round"
 
 #: assets/localizations/local.gd
-#| msgid "object.greenhouse.caption"
 msgid "blueprints.greenhouse_blueprint.caption"
 msgstr "Greenhouse Blueprint"
 
 #: assets/localizations/local.gd
-#| msgid "object.greenhouse.description"
 msgid "blueprints.greenhouse_blueprint.description"
 msgstr "Enables off-season crop growth. Occupies an 8x8 tile area"
 
 #: assets/localizations/local.gd
-#| msgid "object.carpenter_house.caption"
 msgid "blueprints.lantern_post.caption"
 msgstr "Lantern Post"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.lantern_post.description"
 msgstr "A light source for your farm"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.blueprint_cost"
 msgid "blueprints.lantern_post_blueprints.caption"
 msgstr "Lantern Post Blueprint"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.lantern_post_blueprints.description"
 msgstr "Provides light for your farm"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.stone_path.caption"
 msgstr "Stone Path"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.stone_path.description"
 msgstr "A decorative stone path."
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.blueprint_cost"
 msgid "blueprints.stone_path_blueprint.caption"
 msgstr "Stone Path Blueprint"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.stone_path_blueprint.description"
 msgstr "Blueprint for a decorative stone path."
 
 #: assets/localizations/local.gd
-#| msgid "items.stone.caption"
 msgid "blueprints.stone_forge.caption"
 msgstr "Smelting Furnace"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.stone_forge.description"
 msgstr "A basic furnace for processing resources"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.blueprint_cost"
 msgid "blueprints.stone_forge_blueprint.caption"
 msgstr "Smelting Furnace Blueprint"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.stone_forge_blueprint.description"
 msgstr ""
 "A simple, affordable furnace for smelting. Works slowly and requires time"
 
 #: assets/localizations/local.gd
-#| msgid "items.radish.caption"
 msgid "blueprints.radio.caption"
 msgstr "Radio"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.radio.description"
 msgstr ""
 "Plays radio stations, news, and custom songs. Only one instance allowed per "
 "farm."
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.blueprint_cost"
 msgid "blueprints.radio_blueprint.caption"
 msgstr "Radio"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.radio_blueprint.description"
 msgstr ""
 "Plays radio stations, news, and custom songs. Only one instance allowed per "
 "farm."
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.sawbench.caption"
 msgstr "Sawbench"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.sawbench.description"
 msgstr "Converts logs into planks"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.blueprint_cost"
 msgid "blueprints.sawbench_blueprint.caption"
 msgstr "Sawbench Blueprint"
 
 #: assets/localizations/local.gd
-#| msgid "blueprints_shop.description"
 msgid "blueprints.sawbench_blueprint.description"
 msgstr "Use to turn logs into planks quickly"
 
@@ -1504,6 +1492,70 @@ msgstr "Premium Compost"
 msgid "items.premium_compost.description"
 msgstr "Accelerates plant growth by 20%. Apply before planting"
 
+#: assets/localizations/local.gd
+msgid "crops.carrot"
+msgstr "Carrot"
+
+#: assets/localizations/local.gd
+msgid "crops.potato"
+msgstr "Potato"
+
+#: assets/localizations/local.gd
+msgid "crops.radish"
+msgstr "Radish"
+
+#: assets/localizations/local.gd
+msgid "crops.cabbage"
+msgstr "Cabbage"
+
+#: assets/localizations/local.gd
+msgid "crops.onion"
+msgstr "Onion"
+
+#: assets/localizations/local.gd
+msgid "crops.cucumber"
+msgstr "Cucumber"
+
+#: assets/localizations/local.gd
+msgid "crops.tomato"
+msgstr "Tomato"
+
+#: assets/localizations/local.gd
+msgid "crops.eggplant"
+msgstr "Eggplant"
+
+#: assets/localizations/local.gd
+msgid "crops.pepper"
+msgstr "Pepper"
+
+#: assets/localizations/local.gd
+msgid "crops.corn"
+msgstr "Corn"
+
+#: assets/localizations/local.gd
+msgid "crops.parsnips"
+msgstr "Parsnips"
+
+#: assets/localizations/local.gd
+msgid "crops.garlic"
+msgstr "Garlic"
+
+#: assets/localizations/local.gd
+msgid "crops.beet"
+msgstr "Beet"
+
+#: assets/localizations/local.gd
+msgid "crops.turnip"
+msgstr "Turnip"
+
+#: assets/localizations/local.gd
+msgid "crops.bean"
+msgstr "Bean"
+
+#: assets/localizations/local.gd
+msgid "station.radio_cultura.caption"
+msgstr "Radio station \"Culture\""
+
 #: assets/scripts/construction/buildings/fisherman_house.gd
 msgid "object.fisherman_house.caption"
 msgstr "Fisherman Marlin's Cottage"
@@ -1533,66 +1585,6 @@ msgid "blueprints_shop.description"
 msgstr ""
 "In this store, you can purchase blueprints. Select the desired blueprints in "
 "the left window to view construction details and purchase cost."
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.carrot"
-msgstr "Carrot"
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.potato"
-msgstr "Potato"
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.radish"
-msgstr "Radish"
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.cabbage"
-msgstr "Cabbage"
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.onion"
-msgstr "Onion"
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.cucumber"
-msgstr "Cucumber"
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.tomato"
-msgstr "Tomato"
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.eggplant"
-msgstr "Eggplant"
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.pepper"
-msgstr "Pepper"
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.corn"
-msgstr "Corn"
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.parsnips"
-msgstr "Parsnips"
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.garlic"
-msgstr "Garlic"
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.beet"
-msgstr "Beet"
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.turnip"
-msgstr "Turnip"
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.bean"
-msgstr "Bean"
 
 #: assets/scripts/ui/hud/grid/grid.gd
 msgid "tooltip.water_can"
@@ -1633,6 +1625,87 @@ msgstr "Compost Materials"
 #: assets/scripts/ui/composter_menu.gd
 msgid "composting_menu.description"
 msgstr "Select Waste Items to Start Composting"
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.select_mode"
+msgstr "Pick a radio mode"
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.off_radio_button"
+msgstr "Turn off"
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.on_radio_button"
+msgstr "Turn on"
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.play_track_button"
+msgstr "Play"
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.pause_track_button"
+msgstr "Pause"
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.now_playing_track"
+msgstr "Now playing"
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.paused_track"
+msgstr "On pause"
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.header"
+msgstr "Radio"
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.header.radiostations"
+msgstr "Radiostations"
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.header.users_tracks"
+msgstr "Custom Tracks"
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.button.open_folder"
+msgstr "Open Folder"
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.button.scan_users_tracks"
+msgstr "Scan Folder"
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.button.previous_track"
+msgstr "Previous"
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.button.next_track"
+msgstr "Next"
+
+#: assets/scripts/ui/sawmill_menu.gd
+#| msgid "object.sawmill.caption"
+msgid "sawmill_menu.caption"
+msgstr "Sawbench"
+
+#: assets/scripts/ui/sawmill_menu.gd
+#| msgid "object.sawmill.description"
+msgid "sawmill_menu.description"
+msgstr "Select a log to process"
+
+#: assets/scripts/ui/sawmill_menu.gd
+#| msgid "main_menu.credits_button"
+msgid "sawmill_menu.button"
+msgstr "Process"
+
+#: assets/scripts/construction/buildings/composter.gd
+#| msgid "object.house.caption"
+msgid "object.composter.caption"
+msgstr "Composter"
+
+#: assets/scripts/construction/buildings/composter.gd
+#| msgid "object.house.description"
+msgid "object.composter.description"
+msgstr "Converts waste into fertilizer for your plants"
 
 #~ msgid "Создать"
 #~ msgstr "Build"
