@@ -81,7 +81,8 @@ func reset_grid_data() -> void:
 	grid.visible = false
 
 func _on_mouse_entered():
-	if visible:
+	if visible\
+	&& !disabled:
 		var audio = AudioStreamPlayer.new()
 		self.add_child(audio)
 		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
