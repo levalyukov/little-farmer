@@ -1,12 +1,12 @@
 H:/Release/LittleFarmer
-res://
 res://assets/localizations
-res://assets/scripts/ui/interactive/inventory
+res://assets/scripts/construction/buildings
 res://assets/scripts/ui
+res://
+res://assets/scripts/ui/interactive/inventory
 res://assets/scripts/ui/hud/grid
 res://assets/resources/world/landscape/summer
 res://assets/scripts/farming
-res://assets/scripts/construction/buildings
 res://assets/scripts/world
 res://assets/scripts/ui/interactive/trading
 res://assets/data
@@ -20,4 +20,3 @@ res://assets/nodes/ui/hud
 res://assets/nodes/ui/interactive/construct
 res://assets/scripts/ui/hud/tools/destroy_menu
 res://assets/scripts/ui/interactive/mail
-res://assets/nodes/ui/interactive/pause
