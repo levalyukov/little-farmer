@@ -155,8 +155,8 @@ func _on_area_2d_mouse_entered() -> void:
 	&& grid.mode == grid.modes.NOTHING\
 	&& !buttonDestroy.destroyMode:
 		_change_sprite(true)
-		if !greenhouse_open:
-			greenhouse_open = true
+		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
+		if !greenhouse_open: greenhouse_open = true
 	if !blur.state\
 	&& grid.mode == grid.modes.NOTHING\
 	&& buttonDestroy.destroyMode:
@@ -168,7 +168,6 @@ func _on_area_2d_mouse_entered() -> void:
 					if object[level]["seasons"][season].has("delete"):
 						if object[level]["seasons"][season]["delete"] is CompressedTexture2D:
 							sprite.texture = object[level]["seasons"][season]["delete"]
-	if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 
 func _on_area_2d_mouse_exited() -> void:
 	_change_sprite(false)
