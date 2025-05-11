@@ -116,9 +116,13 @@ func _process(_delta):
 			particles.emitting = false
 
 func _on_area_2d_mouse_entered():
-	if !blur.state\
+	if !buttonDestroy.destroyMode\
+	&& !blur.state\
 	&& grid.mode == grid.modes.NOTHING:
 		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
+
+	if !blur.state\
+	&& grid.mode == grid.modes.NOTHING:
 		if !inProcessed:
 			if buttonDestroy.destroyMode:
 				destroyMode = true
