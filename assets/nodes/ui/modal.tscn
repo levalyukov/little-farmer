@@ -107,10 +107,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -138.5
-offset_top = -86.0
-offset_right = 138.5
-offset_bottom = 86.0
+offset_left = -256.0
+offset_top = -112.0
+offset_right = 256.0
+offset_bottom = 113.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -145,8 +145,11 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 10
 
-[node name="Content" type="Label" parent="MainContainer/VBox/ContentContainer"]
+[node name="Content" type="RichTextLabel" parent="MainContainer/VBox/ContentContainer"]
 layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
 
 [node name="ButtonsContainer" type="MarginContainer" parent="MainContainer/VBox"]
 layout_mode = 2
@@ -175,6 +178,7 @@ libraries = {
 "": SubResource("AnimationLibrary_1po6e")
 }
 
+[connection signal="meta_clicked" from="MainContainer/VBox/ContentContainer/Content" to="." method="_on_content_meta_clicked"]
 [connection signal="mouse_entered" from="MainContainer/VBox/ButtonsContainer/HBox/ConfirmButtonMargin/Confirm" to="." method="_on_confirm_mouse_entered"]
 [connection signal="mouse_exited" from="MainContainer/VBox/ButtonsContainer/HBox/ConfirmButtonMargin/Confirm" to="." method="_on_confirm_mouse_exited"]
 [connection signal="pressed" from="MainContainer/VBox/ButtonsContainer/HBox/ConfirmButtonMargin/Confirm" to="." method="_on_confirm_pressed"]
