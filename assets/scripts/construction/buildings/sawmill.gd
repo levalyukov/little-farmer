@@ -52,6 +52,14 @@ func _input(event):
 		sawmillMenu.open(self)
 		if tip: if tip.visible: tip.tooltip()
 
+	if event is InputEventMouseButton\
+	&& event.button_index == MOUSE_BUTTON_LEFT\
+	&& event.is_pressed()\
+	&& !blur.state\
+	&& destroyMode\
+	&& buttonDestroy.destroyMode:
+		buildings.remove_node(self, all_collisions)
+
 func _on_area_2d_mouse_entered():
 	if !pause.paused:
 		if !buttonDestroy.destroyMode\
@@ -68,28 +76,25 @@ func _on_area_2d_mouse_entered():
 					tr('object.sawmill.caption') + '\n' + tr('object.sawmill.description')
 				)
 		else:
-			if destroyMode:
-				destroyMode = true
-			if !blur.state:
+			if !destroyMode: destroyMode = true
+			if !blur.state\
+			&& destroyMode\
+			&& buttonDestroy.destroyMode:
 				if object.has('delete'):
 					if object['delete'] is CompressedTexture2D:
 						sprite.texture = object['delete']
 	else:
 		tip.tooltip()
-		if menuAccess:
-			menuAccess = false
-		if destroyMode:
-			destroyMode = false
+		if menuAccess: menuAccess = false
+		if destroyMode: destroyMode = false
 		if object.has('default'):
 			if object['default'] is CompressedTexture2D:
 				sprite.texture = object['default']
 
 func _on_area_2d_mouse_exited():
 	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
-	if menuAccess:
-		menuAccess = false
-	if destroyMode:
-		destroyMode = false
+	if menuAccess: menuAccess = false
+	if destroyMode: destroyMode = false
 	if object.has('default'):
 		if object['default'] is CompressedTexture2D:
 			sprite.texture = object['default']
