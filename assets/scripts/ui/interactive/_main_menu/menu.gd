@@ -143,6 +143,7 @@ func _on_exit_button_pressed():
 		get_tree().quit() 
 
 func modal_create() -> void:
+	clicked = true
 	modal.modal_create(
 		tr("modal.early_version_header"),
 		tr("modal.early_version_description"),
@@ -156,12 +157,10 @@ func _on_continue_button_mouse_entered():
 		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 		audio.stream = load('res://assets/sounds/ui/hover.ogg')
 		audio.play()
-		if cursor:
-			cursor.set_cursor(cursor.states.ACTIVE)
+		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 
 func _on_continue_button_mouse_exited():
-	if cursor:
-		cursor.set_cursor(cursor.states.DEFAULT)
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
 func _on_new_game_button_mouse_entered():
 	if !clicked:
@@ -170,12 +169,10 @@ func _on_new_game_button_mouse_entered():
 		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
 		audio.stream = load('res://assets/sounds/ui/hover.ogg')
 		audio.play()
-		if cursor:
-			cursor.set_cursor(cursor.states.ACTIVE)
+		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 
 func _on_new_game_button_mouse_exited():
-	if cursor:
-		cursor.set_cursor(cursor.states.DEFAULT)
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
 func _on_settings_button_mouse_entered():
 	if !clicked:
@@ -224,3 +221,17 @@ func _on_audio_stream_player_finished():
 func _on_timer_timeout():
 	music_cooldown.stop()
 	play_music(game_music)
+
+func _on_credits_button_pressed():
+	if !clicked:
+		var audio = AudioStreamPlayer.new()
+		self.add_child(audio)
+		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+		audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		audio.play()
+		clicked = true
+		modal.modal_create(
+			tr('main_menu.modal.credits_header'),
+			tr('main_menu.modal.credits_content'),
+			tr('main_menu.modal.credits_button')
+		)
