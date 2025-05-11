@@ -26,8 +26,6 @@ var slots_to_create:Array = []
 
 func _ready():
 	window()
-	header.text = tr("Пилостол")
-	description.text = tr("Выберите бревно для распилки.")
 
 func _process(_delta):
 	if visible:
@@ -56,6 +54,9 @@ func open(node:Node2D) -> void:
 	anim.play('open')
 	blur.blur(true)
 	get_menu_inventory()
+	header.text = tr("sawmill_menu.caption")
+	description.text = tr("sawmill_menu.description")
+	cutButton.text = tr('sawmill_menu.button')
 	if node:
 		current_node = node
 
