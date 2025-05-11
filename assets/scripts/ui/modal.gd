@@ -4,7 +4,7 @@ extends Control
 @onready var mail:Control = get_node("/root/"+main+"/UI/Interactive/Mailbox")
 @onready var container:MarginContainer = $MainContainer
 @onready var header:Label = $MainContainer/VBox/HeaderContainer/Header
-@onready var content:Label = $MainContainer/VBox/ContentContainer/Content
+@onready var content:RichTextLabel = $MainContainer/VBox/ContentContainer/Content
 @onready var button_confirm_container:MarginContainer = $MainContainer/VBox/ButtonsContainer/HBox/ConfirmButtonMargin
 @onready var button_cancel_container:MarginContainer = $MainContainer/VBox/ButtonsContainer/HBox/CancelButtonMargin
 @onready var button_confirm:Button = $MainContainer/VBox/ButtonsContainer/HBox/ConfirmButtonMargin/Confirm
@@ -93,3 +93,11 @@ func cursor_update(cursor_state:bool) -> void:
 
 func _on_audio_finished(node) -> void:
 	node.queue_free()
+
+func _on_content_meta_clicked(meta:Variant):
+	var target_url = ""
+	if !meta.begins_with("https://"):
+		target_url = "https://" + meta
+	else:
+		target_url = meta
+	OS.shell_open(target_url)
