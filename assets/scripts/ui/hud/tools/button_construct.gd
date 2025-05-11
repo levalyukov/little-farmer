@@ -28,8 +28,8 @@ func _on_button_pressed() -> void:
 			audio.play()
 
 func _on_button_mouse_entered():
-	if !blur.state:
-		if !pause.paused:
+	if !blur.state\
+	&& !pause.paused:
 			var audio = AudioStreamPlayer.new()
 			self.add_child(audio)
 			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
