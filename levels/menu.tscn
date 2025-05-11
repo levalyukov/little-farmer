@@ -162,7 +162,7 @@ alignment = 2
 
 [node name="LogoMargin" type="MarginContainer" parent="MenuContent/VContainer"]
 layout_mode = 2
-size_flags_vertical = 10
+size_flags_vertical = 2
 
 [node name="Logo" type="TextureRect" parent="MenuContent/VContainer/LogoMargin"]
 custom_minimum_size = Vector2(512, 256)
@@ -174,8 +174,8 @@ stretch_mode = 5
 
 [node name="ButtonsMargin" type="MarginContainer" parent="MenuContent/VContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = 14
-theme_override_constants/margin_bottom = 14
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_bottom = 8
 
 [node name="Buttons" type="VBoxContainer" parent="MenuContent/VContainer/ButtonsMargin"]
 custom_minimum_size = Vector2(375, 0)
@@ -230,6 +230,21 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_udmmo")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_embk8")
 text = "main_menu.settings_button"
 
+[node name="CreditsMargin" type="MarginContainer" parent="MenuContent/VContainer/ButtonsMargin/Buttons"]
+layout_mode = 2
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="CreditsButton" type="Button" parent="MenuContent/VContainer/ButtonsMargin/Buttons/CreditsMargin"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxTexture_dif7q")
+theme_override_styles/hover = SubResource("StyleBoxTexture_phoql")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_udmmo")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_embk8")
+text = "main_menu.credits_button"
+
 [node name="ExitMargin" type="MarginContainer" parent="MenuContent/VContainer/ButtonsMargin/Buttons"]
 layout_mode = 2
 theme_override_constants/margin_top = 5
@@ -258,13 +273,6 @@ size_flags_vertical = 8
 label_settings = SubResource("LabelSettings_eema0")
 horizontal_alignment = 1
 
-[node name="Credits" type="Label" parent="MenuContent/VContainer/FooterMargin/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 8
-text = "main_menu.credits"
-label_settings = SubResource("LabelSettings_eema0")
-horizontal_alignment = 1
-
 [node name="Blur" parent="." instance=ExtResource("2_jinr7")]
 layout_mode = 2
 
@@ -282,6 +290,9 @@ script = ExtResource("7_7q651")
 [connection signal="mouse_entered" from="MenuContent/VContainer/ButtonsMargin/Buttons/SettingsMargin/SettingsButton" to="." method="_on_settings_button_mouse_entered"]
 [connection signal="mouse_exited" from="MenuContent/VContainer/ButtonsMargin/Buttons/SettingsMargin/SettingsButton" to="." method="_on_settings_button_mouse_exited"]
 [connection signal="pressed" from="MenuContent/VContainer/ButtonsMargin/Buttons/SettingsMargin/SettingsButton" to="." method="_on_options_button_pressed"]
+[connection signal="mouse_entered" from="MenuContent/VContainer/ButtonsMargin/Buttons/CreditsMargin/CreditsButton" to="." method="_on_settings_button_mouse_entered"]
+[connection signal="mouse_exited" from="MenuContent/VContainer/ButtonsMargin/Buttons/CreditsMargin/CreditsButton" to="." method="_on_settings_button_mouse_exited"]
+[connection signal="pressed" from="MenuContent/VContainer/ButtonsMargin/Buttons/CreditsMargin/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="mouse_entered" from="MenuContent/VContainer/ButtonsMargin/Buttons/ExitMargin/ExitButton" to="." method="_on_exit_button_mouse_entered"]
 [connection signal="mouse_exited" from="MenuContent/VContainer/ButtonsMargin/Buttons/ExitMargin/ExitButton" to="." method="_on_exit_button_mouse_exited"]
 [connection signal="pressed" from="MenuContent/VContainer/ButtonsMargin/Buttons/ExitMargin/ExitButton" to="." method="_on_exit_button_pressed"]
