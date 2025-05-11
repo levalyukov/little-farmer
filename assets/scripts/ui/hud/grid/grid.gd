@@ -88,9 +88,11 @@ func _process(_delta):
 										for a in nature.get_children():
 											if grid_position == tilemap.local_to_map(a.position):
 												nature.remove_child(a)
+												a.queue_free()
 										for b in shadows.get_children():
 											if grid_position == tilemap.local_to_map(b.position):
 												shadows.remove_child(b)
+												b.queue_free()
 										tilemap.erase_cell(collision.nature_layer, grid_position) 
 										inventory.add_item(1, randi_range(1,5))
 
@@ -104,9 +106,11 @@ func _process(_delta):
 										for a in nature.get_children():
 											if grid_position == tilemap.local_to_map(a.position):
 												nature.remove_child(a)
+												a.queue_free()
 										for b in shadows.get_children():
 											if grid_position == tilemap.local_to_map(b.position):
 												shadows.remove_child(b)
+												b.queue_free()
 										tilemap.erase_cell(collision.nature_layer, grid_position)
 
 										var audio = AudioStreamPlayer.new()
@@ -119,9 +123,11 @@ func _process(_delta):
 										for a in nature.get_children():
 											if grid_position == tilemap.local_to_map(a.position):
 												nature.remove_child(a)
+												a.queue_free()
 										for b in shadows.get_children():
 											if grid_position == tilemap.local_to_map(b.position):
 												shadows.remove_child(b)
+												b.queue_free()
 										tilemap.erase_cell(collision.nature_layer, grid_position) 
 										inventory.add_item(3, randi_range(1,5))
 										if data.check_probability(15):
@@ -454,7 +460,10 @@ func generate_grid():
 				sprite.position = Vector2(x * SIZE.x, y * SIZE.y)
 				collision.add_child(sprite)
 	else:
-		grid_dimensions = Vector2i(tools.max_grid_dimensions,tools.max_grid_dimensions)
+		grid_dimensions = Vector2i(
+			tools.max_grid_dimensions,
+			tools.max_grid_dimensions
+		)
 		generate_grid()
 
 func _on_audio_finished(node) -> void:
