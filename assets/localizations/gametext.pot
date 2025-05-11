@@ -44,6 +44,9 @@
 # res://assets/scripts/ui/hud/grid/grid.gd
 # res://assets/scripts/ui/composter_menu.gd
 # res://assets/scripts/ui/interactive/inventory/items.gd
+# res://assets/scripts/ui/radio_menu.gd
+# res://assets/scripts/ui/sawmill_menu.gd
+# res://assets/scripts/construction/buildings/composter.gd
 #
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -85,6 +88,22 @@ msgstr ""
 
 #: levels/menu.tscn
 msgid "modal.modal_early_version_button"
+msgstr ""
+
+#: levels/menu.tscn
+msgid "main_menu.modal.credits_header"
+msgstr ""
+
+#: levels/menu.tscn
+msgid "main_menu.modal.credits_content"
+msgstr ""
+
+#: levels/menu.tscn
+msgid "main_menu.modal.credits_button"
+msgstr ""
+
+#: levels/menu.tscn
+msgid "main_menu.credits_button"
 msgstr ""
 
 #: assets/nodes/ui/interactive/options/options.tscn
@@ -220,10 +239,6 @@ msgid "inventory.button.fertilize"
 msgstr ""
 
 #: assets/scripts/ui/interactive/mail/mail.gd
-msgid "mail.button.delete_read_ones"
-msgstr ""
-
-#: assets/scripts/ui/interactive/mail/mail.gd
 msgid "mail.button.get_all_items"
 msgstr ""
 
@@ -258,6 +273,10 @@ msgid "mail.ui.mailbox_empty_text"
 msgstr ""
 
 #: assets/scripts/ui/interactive/mail/mail.gd
+msgid "mail.button.delete_read_ones"
+msgstr ""
+
+#: assets/scripts/ui/interactive/mail/mail.gd
 msgid "mail.button.full_inventory_error"
 msgstr ""
 
@@ -285,6 +304,8 @@ msgstr ""
 #: assets/nodes/ui/interactive/construct/construct_menu.tscn
 #: assets/scripts/ui/forge_menu.gd
 #: assets/scripts/ui/blueprints_shop.gd
+#: assets/scripts/ui/radio_menu.gd
+#: assets/scripts/ui/sawmill_menu.gd
 msgid ""
 msgstr ""
 
@@ -1431,6 +1452,70 @@ msgstr ""
 msgid "items.premium_compost.description"
 msgstr ""
 
+#: assets/localizations/local.gd
+msgid "crops.carrot"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "crops.potato"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "crops.radish"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "crops.cabbage"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "crops.onion"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "crops.cucumber"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "crops.tomato"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "crops.eggplant"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "crops.pepper"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "crops.corn"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "crops.parsnips"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "crops.garlic"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "crops.beet"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "crops.turnip"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "crops.bean"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "station.radio_cultura.caption"
+msgstr ""
+
 #: assets/scripts/construction/buildings/fisherman_house.gd
 msgid "object.fisherman_house.caption"
 msgstr ""
@@ -1457,66 +1542,6 @@ msgstr ""
 
 #: assets/scripts/ui/blueprints_shop.gd
 msgid "blueprints_shop.description"
-msgstr ""
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.carrot"
-msgstr ""
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.potato"
-msgstr ""
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.radish"
-msgstr ""
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.cabbage"
-msgstr ""
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.onion"
-msgstr ""
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.cucumber"
-msgstr ""
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.tomato"
-msgstr ""
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.eggplant"
-msgstr ""
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.pepper"
-msgstr ""
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.corn"
-msgstr ""
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.parsnips"
-msgstr ""
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.garlic"
-msgstr ""
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.beet"
-msgstr ""
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.turnip"
-msgstr ""
-
-#: assets/scripts/farming/crops.gd
-msgid "crops.bean"
 msgstr ""
 
 #: assets/scripts/ui/hud/grid/grid.gd
@@ -1557,4 +1582,80 @@ msgstr ""
 
 #: assets/scripts/ui/composter_menu.gd
 msgid "composting_menu.description"
+msgstr ""
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.select_mode"
+msgstr ""
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.off_radio_button"
+msgstr ""
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.on_radio_button"
+msgstr ""
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.play_track_button"
+msgstr ""
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.pause_track_button"
+msgstr ""
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.now_playing_track"
+msgstr ""
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.paused_track"
+msgstr ""
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.header"
+msgstr ""
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.header.radiostations"
+msgstr ""
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.header.users_tracks"
+msgstr ""
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.button.open_folder"
+msgstr ""
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.button.scan_users_tracks"
+msgstr ""
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.button.previous_track"
+msgstr ""
+
+#: assets/scripts/ui/radio_menu.gd
+msgid "radio_menu.button.next_track"
+msgstr ""
+
+#: assets/scripts/ui/sawmill_menu.gd
+msgid "sawmill_menu.caption"
+msgstr ""
+
+#: assets/scripts/ui/sawmill_menu.gd
+msgid "sawmill_menu.description"
+msgstr ""
+
+#: assets/scripts/ui/sawmill_menu.gd
+msgid "sawmill_menu.button"
+msgstr ""
+
+#: assets/scripts/construction/buildings/composter.gd
+msgid "object.composter.caption"
+msgstr ""
+
+#: assets/scripts/construction/buildings/composter.gd
+msgid "object.composter.description"
 msgstr ""
