@@ -33,6 +33,7 @@ func plant_destroy(vector:Vector2i) -> void:
 			if data.remove_suffix(child.name) == "plant"\
 			|| data.remove_suffix(child.name) == "fertilizer":
 				remove_child(child)
+				child.queue_free()
 
 func check_season(id:int) -> bool:
 	var crop_season = crops.crops[id]["season"]
