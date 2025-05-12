@@ -12,8 +12,6 @@ extends Node2D
 const max_distance:int = 250
 var haved:bool = false
 var blueprints = BlueprintManager.new()
-var required_resources_id:Array[int] = []
-var required_resources_amount:Array[int] = []
 
 func get_buildings() -> Dictionary:
 	var data_dict = {}
@@ -34,19 +32,7 @@ func create_node(id:int, vector:Vector2i, node_name:String = "") -> void:
 								var node = blueprints.content["nodes"][id]["config"]["node"].instantiate()
 								node.set_position(tilemap.map_to_local(vector))
 								
-								var node_index:int = 1
-								if node_name != "":
-									if data.get_suffix_from_name(node_name) == 0:
-										for i in self.get_children():
-											if data.remove_suffix(i.name) == node_name:
-												node_index += 1
-										node.name = node_name + "_" + str(node_index)
-									else:
-										node.name = node_name
-								else:
-									node_index += 1
-									node.name = "node_" + str(node_index)
-
+								node.name = generate_unique_name(node_name)
 								node.blueprint_id = id
 								if blueprints.content["nodes"][id]["config"].has("shadow"):
 									if blueprints.content["nodes"][id]["config"]["shadow"] is PackedScene:
@@ -108,6 +94,7 @@ func create_node(id:int, vector:Vector2i, node_name:String = "") -> void:
 											node_index += 1
 											node.name = "node_" + str(node_index)
 
+										node.node_name = node_name
 										node.blueprint_id = id
 										if blueprints.content["nodes"][id]["config"].has("shadow"):
 											if blueprints.content["nodes"][id]["config"]["shadow"] is PackedScene:
@@ -147,47 +134,62 @@ func create_node(id:int, vector:Vector2i, node_name:String = "") -> void:
 										add_child(node)
 
 func remove_node(node:Node2D, vectors:Array[Vector2i]) -> void:
-	for nodes in self.get_children():
-		if nodes == node:
-			for i in vectors:
-				if i == tilemap.local_to_map(nodes.position):
-					if blueprints.content['nodes'].has(node.blueprint_id):
-						if blueprints.content['nodes'][node.blueprint_id].has('config'):
-							if blueprints.content['nodes'][node.blueprint_id]['config'].has('resources'):
-								required_resources_id = []
-								required_resources_amount = []
-								for a in blueprints.content['nodes'][node.blueprint_id]['config']['resources']:
-									required_resources_id.append(a)
-									required_resources_amount.append(
-										blueprints.content['nodes'][node.blueprint_id]['config']['resources'][a]['amount']
-									)
-					if required_resources_id.size() > 0\
-					&& required_resources_amount.size() > 0:
-						for c in range(required_resources_id.size()):
-							var resource_id = required_resources_id[c]
-							var resource_amount = required_resources_amount[c]
-							inventory.add_item(
-								resource_id,
-								round(resource_amount / 4)
-							)
+	if !self.get_children().has(node): return
 
-					var audio = AudioStreamPlayer.new()
-					self.add_child(audio)
-					audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-					audio.stream = load('res://assets/sounds/buildings/destroy.ogg')
-					audio.set_pitch_scale(randf_range(0.85, 1.25))
-					audio.play()
+	var blueprint_id = node.blueprint_id
+	if !blueprints.content.has("nodes") || !blueprints.content["nodes"].has(blueprint_id): return
 
-					remove_child(node)
+	var config = blueprints.content["nodes"][blueprint_id].get("config", {})
+	if config.is_empty(): return
 
-	for i in shadows_node.get_children():
-		if i.name == node.name:
-			for v in vectors:
-				if v == tilemap.local_to_map(i.position):
-					shadows_node.remove_child(i)
+	var resources = config.get("resources", {})
+	var required_resources_id = []
+	var required_resources_amount = []
 
-	for i in vectors:
-		tilemap.set_cell(collision.building_layer, i, -1)
+	for resource_id in resources:
+		var resource_data = resources[resource_id]
+		if resource_data.has("amount"):
+			required_resources_id.append(resource_id)
+			required_resources_amount.append(resource_data["amount"])
+
+	if required_resources_id.size() > 0 && required_resources_amount.size() > 0:
+		for i in range(required_resources_id.size()):
+			var resource_id = required_resources_id[i]
+			var resource_amount = required_resources_amount[i]
+			inventory.add_item(resource_id, round(resource_amount / 2))
+
+	var audio = AudioStreamPlayer.new()
+	self.add_child(audio)
+	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+	audio.stream = load('res://assets/sounds/buildings/destroy.ogg')
+	audio.set_pitch_scale(randf_range(0.85, 1.25))
+	audio.play()
+
+	remove_child(node)
+	node.queue_free()
+
+	for child in shadows_node.get_children():
+		if child.name == node.name:
+			shadows_node.remove_child(child)
+			child.queue_free()
+
+	for v in vectors:
+		tilemap.set_cell(collision.building_layer, v, -1)
+
+func generate_unique_name(base_name:String) -> String:
+	if base_name == "":
+		base_name = "node"
+
+	var existing_names = []
+	for child in self.get_children():
+		existing_names.append(child.name)
+
+	var candidate = base_name
+	var counter = 1
+	while existing_names.has(candidate):
+		candidate = base_name + "_" + str(counter)
+		counter += 1
+	return candidate
 
 func _on_audio_finished(node) -> void:
 	node.queue_free()
