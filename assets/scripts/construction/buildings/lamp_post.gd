@@ -18,6 +18,7 @@ extends Node2D
 @onready var sprite:Sprite2D = $Sprite2D
 @onready var light:PointLight2D = $Light
 
+var node_name:String = ''
 var destroyMode:bool = false
 var all_collisions:Array[Vector2i] = []
 var blueprint_id:int = 0
@@ -29,9 +30,6 @@ var object:Dictionary = {
 	"idle_delete" = load("res://assets/resources/buildings/lamp_post/object_2.png"),
 	"lighting_delete" = load("res://assets/resources/buildings/lamp_post/object_3.png"),
 }
-
-const lightOn:int = 19
-const lightOff:int = 5
 
 func _ready():
 	update()
@@ -63,27 +61,15 @@ func update():
 					data.debug("'"+str(self.name) + "': 'lighting' is not a CompressedTexture2D.", "error")
 			else:
 				data.debug("'"+str(self.name) + "': There is no 'lighting' key.", "error")
-
-func _process(_delta):
-	if light\
-	&& clock:
-		var target_hour = clock.get_hour()
-		if target_hour >= lightOn || (target_hour < lightOff ) :
-			if !light.visible:
-				light.visible = true
-				update()
-		if target_hour >= lightOff && target_hour < lightOn:
-			if light.visible:
-				light.visible = false
-				update()
 		
 func get_data() -> Dictionary:
 	return {
+		'name': node_name,
 		"value": light.visible,
 		"position": tilemap.local_to_map(position),
 		"id": blueprint_id,
 		'all_collisions': all_collisions
-		}
+	}
 
 func _on_area_2d_mouse_entered():
 	if !blur.state\
