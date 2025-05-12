@@ -16,8 +16,8 @@ extends Node2D
 @onready var buttonDestroy:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
 @onready var area:Area2D = $Area2D
 @onready var sprite:Sprite2D = $Sprite2D
-var audio = AudioStreamPlayer.new()
 
+var audio = AudioStreamPlayer.new()
 var destroyMode:bool = false
 var all_collisions:Array[Vector2i] = []
 var well_hovered:bool = false
@@ -201,11 +201,9 @@ func _on_area_2d_mouse_exited():
 		destroyMode = !true
 
 func get_data() -> Dictionary:
-	if object.has(level):
-		return {
-			"id": blueprint_id,
-			"position": tilemap.local_to_map(position),
-			"level": level,
-			'all_collisions': all_collisions
-		}
-	return {}
+	return {
+		"id": blueprint_id,
+		"position": tilemap.local_to_map(position),
+		"level": level,
+		'all_collisions': all_collisions
+	}
