@@ -117,17 +117,15 @@ func update():
 								self.set_position(tilemap.map_to_local(Vector2i(18,2)))
 
 func get_data() -> Dictionary:
-	if object.has(level):
-		return {
-			"level": level,
-			"value": composting_value,
-			"position": tilemap.local_to_map(position),
-			"id": blueprint_id,
-			"state": composting,
-			"total_items": total_items,
-			'all_collisions': all_collisions
-			}
-	return {}
+	return {
+		"level": level,
+		"value": composting_value,
+		"position": tilemap.local_to_map(position),
+		"id": blueprint_id,
+		"state": composting,
+		"total_items": total_items,
+		'all_collisions': all_collisions
+		}
 
 func _on_area_2d_mouse_entered() -> void:
 	if !buttonDestroy.destroyMode:
