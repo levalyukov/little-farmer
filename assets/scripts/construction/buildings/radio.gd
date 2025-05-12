@@ -16,6 +16,7 @@ extends Node2D
 @onready var radio_noise:AudioStreamPlayer2D = $RadioNoise
 @onready var sprite:Sprite2D = $Sprite2D
 
+var node_name:String = ''
 var start_game_music:bool = false
 
 var level:int = 0
@@ -214,6 +215,7 @@ func _on_area_2d_mouse_exited() -> void:
 
 func get_data() -> Dictionary:
 	return {
+		'name': node_name,
 		"id": blueprint_id,
 		"position": tilemap.local_to_map(position),
 		'all_collisions': all_collisions
