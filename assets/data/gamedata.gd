@@ -663,22 +663,27 @@ func load_buildings() -> void:
 	if file_load(file.buildings) != {}:
 		for i in file_load(file.buildings):
 			if file_load(file.buildings)[i].has("id"):
+				
+				var current_node_name = ''
+				if file_load(file.buildings)[i].has('name'):
+					current_node_name = ''
+				else:
+					current_node_name = i
+				
 				buildings.create_node(
 					file_load(file.buildings)[i]["id"], 
 					string_to_vector(file_load(file.buildings)[i]["position"]),
-					i
+					current_node_name
 				)
 				if file_load(file.buildings)[i].has("level"):
 					for node in buildings.get_children():
 						if i == node.name:
 							node.level = file_load(file.buildings)[i]["level"]
-					
 				if file_load(file.buildings)[i].has("sprite_id"):
 					for node in buildings.get_children():
 						if i == node.name:
 							var sprite_id = file_load(file.buildings)[i]["sprite_id"]
 							node.set_sign_sprite(int(sprite_id))
-
 				if file_load(file.buildings)[i].has("all_collisions"):
 					for node in buildings.get_children():
 						if i == node.name:
@@ -686,7 +691,6 @@ func load_buildings() -> void:
 							for a in file_load(file.buildings)[i]['all_collisions']:
 								target_vectors.append(string_to_vector(a))
 							node.all_collisions = target_vectors
-
 				if file_load(file.buildings)[i].has("value"):
 					for node in buildings.get_children():
 						if i == node.name:
@@ -723,10 +727,6 @@ func load_buildings() -> void:
 											node.isDone = file_load(file.buildings)[i]['isDone']
 											node.ignot_id = file_load(file.buildings)[i]['ignotID']
 											node.ignot_amount = file_load(file.buildings)[i]['ignotAmount']
-								_:
-									pass
-	else:
-		debug("load_buildings(): Empty dictionary.", "error")
 
 func get_dictionary_content(content:String, group:String = "") -> Dictionary:
 	match content:
