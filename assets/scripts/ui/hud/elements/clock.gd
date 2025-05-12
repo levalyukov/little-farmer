@@ -1,6 +1,7 @@
 extends Control
 
 @onready var main:String = str(get_tree().root.get_child(2).name)
+@onready var data:Node2D = get_node("/root/"+main)
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var hud:Control = get_node("/root/"+main+"/UI/Decorative/Hud")
 @onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
@@ -8,6 +9,7 @@ extends Control
 @onready var shadow:Node = get_node("/root/"+main+"/ShadowManager")
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var mail:Control = get_node("/root/"+main+"/UI/Interactive/Mailbox")
+@onready var buildings:Node2D = get_node('/root/'+main+'/ConstructionManager')
 
 @onready var sprite:CompressedTexture2D = load("res://assets/resources/ui/interactive/hud/clock.png")
 @onready var icon:TextureRect = $Margin/HBoxContainer/Icon/TextureRect
@@ -186,12 +188,12 @@ func get_hour() -> int:
 	return hour
 
 func set_clock_value(
-	season_value:int,
-	year_value:int,
-	week_value:int,
-	day_value:int,
-	hour_value:int,
-	minute_value:int
+		season_value:int,
+		year_value:int,
+		week_value:int,
+		day_value:int,
+		hour_value:int,
+		minute_value:int
 	) -> void:
 	year = year_value
 	week = week_value
@@ -258,6 +260,7 @@ func _on_timer_timeout() -> void:
 		check_hour()
 		check_week()
 		update_week_days()
+		light_post_check(get_hour())
 		if !GameLoader.reminder_harvest:
 			if week+1 == season_change:
 				if hour == 7\
@@ -292,3 +295,20 @@ func _on_timer_timeout() -> void:
 									'letter.reminder_season_description_winter_->_spring',
 									'letter.gardener_dobrynya'
 								)					
+
+const lightOn:int = 19
+const lightOff:int = 5
+
+func light_post_check(current_time:int):
+	if buildings:
+		for nodes in buildings.get_children():
+			if data:
+				if data.remove_suffix(nodes.name) == 'lamp_post':
+					if current_time >= lightOn || (current_time < lightOff ):
+						if !nodes.light.visible:
+							nodes.light.visible = true
+							nodes.update()
+					if current_time >= lightOff && current_time < lightOn:
+						if nodes.light.visible:
+							nodes.light.visible = false
+							nodes.update()
