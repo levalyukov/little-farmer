@@ -12,11 +12,11 @@ extends Node2D
 @onready var shadows:Node = get_node("/root/"+main+"/ShadowManager/CanvasGroup")
 @onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
-@onready var building:Node2D = get_node("/root/"+main+"/ConstructionManager")
+@onready var buildManager:Node2D = get_node("/root/"+main+"/ConstructionManager")
 @onready var notice:Control = get_node("/root/"+main+"/UI/Feedback/Notifications")
 @onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/storage")
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
-@onready var farming:Node2D = get_node("/root/"+main+"/FarmingManager")
+@onready var farmingManager:Node2D = get_node("/root/"+main+"/FarmingManager")
 @onready var mail:Control = get_node("/root/"+main+"/UI/Interactive/Mailbox")
 @onready var collision:Node2D = $GridParent
 
@@ -27,7 +27,7 @@ var natural_resources = NaturalResources.new()
 
 const SIZE:Vector2 = Vector2(16, 16)
 var grid_dimensions:Vector2i = Vector2i(1,1)
-var check:bool = false
+
 var mode:int = modes.NOTHING
 var destroy_mode:int = destroy.NOTHING
 enum modes {NOTHING, DESTROY, FARMING, PLANTING, WATERING, HARVESTING, FERTILIZER, BUILD, TERRAIN_SET, UPGRADE}
@@ -35,7 +35,6 @@ enum destroy {NOTHING, TERRAINS, NATURE}
 
 # plant config
 var plantID
-var crop_growed:bool
 var inventory_item
 
 # construct config
@@ -44,160 +43,32 @@ var group:String
 var terrain_set:Array = []
 var terrain_required_layer:Array = []
 var terrain_blocking_layer:Array = []
-var audio_pool = []
 
 func _process(_delta):
-	if visible\
-	&& !blur.state\
-	&& mode != modes.NOTHING:
-		if destroy_menu.opened:
-			destroy_menu.close()
-		var mouse_pos:Vector2 = get_global_mouse_position()
-		var tile_mouse_pos = tilemap.local_to_map(mouse_pos)
-		match mode:
-			modes.DESTROY:
-				match destroy_mode:
-					destroy.TERRAINS:
-						collision.terrain_check()
-						if check:
-							for i in collision.get_children():
-								var grid_position = tilemap.local_to_map(i.get_global_position())
-								match collision.terrain_check():
-									0:
-										tilemap.set_cells_terrain_connect(collision.road_layer,[grid_position],0,-1)
-									1:
-										tilemap.set_cells_terrain_connect(collision.farmland_layer,[grid_position],0,-1)
-									2:
-										tilemap.set_cells_terrain_connect(collision.watering_layer,[grid_position],0,-1)
-									3:
-										tilemap.set_cells_terrain_connect(collision.coast_layer,[grid_position],0,-1)
-										tilemap.set_cells_terrain_connect(collision.water_layer,[grid_position],0,-1)
-									_:
-										var audio = AudioStreamPlayer.new()
-										self.add_child(audio)
-										audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-										audio.stream = load('res://assets/sounds/error.ogg')
-										audio.play()
-					destroy.NATURE:
-						collision.nature_check()
-						if check:
-							for i in collision.get_children():
-								var grid_position = tilemap.local_to_map(i.get_global_position())
-								match collision.nature_check():
-									1: # tree
-										for a in nature.get_children():
-											if grid_position == tilemap.local_to_map(a.position):
-												nature.remove_child(a)
-												a.queue_free()
-										for b in shadows.get_children():
-											if grid_position == tilemap.local_to_map(b.position):
-												shadows.remove_child(b)
-												b.queue_free()
-										tilemap.erase_cell(collision.nature_layer, grid_position) 
-										inventory.add_item(1, randi_range(1,5))
-
-										var audio = AudioStreamPlayer.new()
-										self.add_child(audio)
-										audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-										audio.stream = load('res://assets/sounds/farming/tree_destroy.ogg')
-										audio.set_pitch_scale(randf_range(1.05, 0.90))
-										audio.play()
-									2: # weed
-										for a in nature.get_children():
-											if grid_position == tilemap.local_to_map(a.position):
-												nature.remove_child(a)
-												a.queue_free()
-										for b in shadows.get_children():
-											if grid_position == tilemap.local_to_map(b.position):
-												shadows.remove_child(b)
-												b.queue_free()
-										tilemap.erase_cell(collision.nature_layer, grid_position)
-
-										var audio = AudioStreamPlayer.new()
-										self.add_child(audio)
-										audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-										audio.stream = load('res://assets/sounds/farming/weed_destroy.ogg')
-										audio.set_pitch_scale(randf_range(1.05, 0.85))
-										audio.play()
-									3: # stone
-										for a in nature.get_children():
-											if grid_position == tilemap.local_to_map(a.position):
-												nature.remove_child(a)
-												a.queue_free()
-										for b in shadows.get_children():
-											if grid_position == tilemap.local_to_map(b.position):
-												shadows.remove_child(b)
-												b.queue_free()
-										tilemap.erase_cell(collision.nature_layer, grid_position) 
-										inventory.add_item(3, randi_range(1,5))
-										if data.check_probability(15):
-											inventory.add_item(5, randi_range(1,2))
-
-										var audio = AudioStreamPlayer.new()
-										self.add_child(audio)
-										audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-										audio.stream = load('res://assets/sounds/farming/stone_destroy.ogg')
-										audio.set_pitch_scale(randf_range(1.05, 0.85))
-										audio.play()
-									4: # plant
-										tilemap.erase_cell(collision.crops_layer, grid_position)
-										farming.plant_destroy(grid_position)
-										var audio = AudioStreamPlayer.new()
-										self.add_child(audio)
-										audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-										audio.stream = load('res://assets/sounds/farming/plant_destroy.ogg')
-										audio.set_pitch_scale(randf_range(1.05, 0.85))
-										audio.play()
-									_:
-										var audio = AudioStreamPlayer.new()
-										self.add_child(audio)
-										audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-										audio.stream = load('res://assets/sounds/error.ogg')
-										audio.set_pitch_scale(randf_range(1.05, 0.85))
-										audio.play()
-				check = false
-				
-			modes.FARMING:
-				collision.farming_collision_check()
-				if check:
-					var farming_tile_position = []
-					var collisions_detect = true
-					for i in collision.get_children():
-						var grid_position = tilemap.local_to_map(i.get_global_position())
-						if collision.check_cell(grid_position, collision.road_layer)\
-						&& collision.check_custom_data(grid_position, collision.can_place_dirt_custom_data, collision.road_layer):
-							farming_tile_position.append(grid_position)
-						if i.texture != collision.error:
-							collisions_detect = false
-							break
-					if farming_tile_position.size() > 0:
-						if !collisions_detect:
-							tilemap.set_cells_terrain_connect(
-								collision.farmland_layer,
-								farming_tile_position,
-								collision.terrain_set, 
-								collision.farming_terrain
-							)
-							var audio = AudioStreamPlayer.new()
-							self.add_child(audio)
-							audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-							audio.stream = load('res://assets/sounds/farming/farming.ogg')
-							#	audio.set_pitch_scale(randf_range(1.00, 0.85))
-							audio.play()
-						else:
-							var audio = AudioStreamPlayer.new()
-							self.add_child(audio)
-							audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-							audio.stream = load('res://assets/sounds/error.ogg')
-							audio.play()
-					#tilemap.set_cells_terrain_connect(collision.farmland_layer,farming_tile_position,collision.coast_terrain_set,0)
-				check = false
-				
-			modes.WATERING:
-				collision.watering_collision_check()
+	match mode:
+		modes.DESTROY:
+			match destroy_mode:
+				destroy.TERRAINS:
+					collision.terrain_check()
+				destroy.NATURE:
+					collision.nature_check()
+		modes.FARMING:
+			collision.farming_collision_check()
+		modes.PLANTING:
+			collision.planting_collision_check()
+		modes.WATERING:
+			collision.watering_collision_check()
+			if tools\
+			&& tip:
 				if tools.water_can <= tools.water_can_max\
 				&& tools.water_can != 0:
-					tip.tooltip(tr('tooltip.water_can') +':\n' + str(tools.water_can) + "/" + str(tools.water_can_max))
+					tip.tooltip(
+						tr('tooltip.water_can') 
+						+':\n' + 
+						str(tools.water_can) 
+						+ "/" + 
+						str(tools.water_can_max)
+					)
 				else:
 					tip.tooltip(tr('tooltip.empty_water_can') + "!")
 					if !GameLoader.first_empty_water_can:
@@ -207,223 +78,16 @@ func _process(_delta):
 							'letter.public_well_announcement_content',
 							'letter.korney_korneich.signature'
 						)
-				if check:
-					for i in collision.get_children():
-						var grid_position = tilemap.local_to_map(i.get_global_position())
-						if collision.check_cell(grid_position, collision.farmland_layer)\
-						&& !collision.check_cell(grid_position, collision.watering_layer)\
-						&& collision.check_custom_data(
-							grid_position, 
-							collision.can_place_watering_custom_data, 
-							collision.farmland_layer
-						):
-							if tools.water_can > 0:
-								tools.water_can -= 1
-								tilemap.set_cells_terrain_connect(
-									collision.watering_layer,
-									[grid_position],
-									collision.terrain_set,
-									collision.watering_terrain
-								)
-								var audio = AudioStreamPlayer.new()
-								self.add_child(audio)
-								audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-								audio.stream = load('res://assets/sounds/farming/watering_plant.ogg')
-								audio.set_pitch_scale(randf_range(0.85, 1.25))
-								audio.play()
-							else:
-								var audio = AudioStreamPlayer.new()
-								self.add_child(audio)
-								audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-								audio.stream = load('res://assets/sounds/error.ogg')
-								audio.play()
-								tools.water_can = 0
-				check = false
-				
-			modes.PLANTING:
-				collision.planting_collision_check()
-				if inventory.check_item_amount(inventory_item):
-					if inventory.get_item_amount(inventory_item) >= collision.get_children().size():
-						for i in collision.get_children():
-							var grid_position = tilemap.local_to_map(i.get_global_position())
-							if check:
-								if main == "Farm":
-									if farming.check_season(plantID):
-										if crops.crops.has(plantID):
-											if collision.check_cell(grid_position, collision.farmland_layer)\
-											&& !collision.check_cell(grid_position, collision.crops_layer)\
-											&& collision.check_custom_data(
-												grid_position, 
-												collision.can_place_seed_custom_data, 
-												collision.farmland_layer
-											):
-												inventory.subject_item(inventory_item, 1)
-												farming.create_plant(plantID, grid_position)
-												var audio = AudioStreamPlayer.new()
-												self.add_child(audio)
-												audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-												audio.stream = load('res://assets/sounds/farming/planting.ogg')
-												audio.set_pitch_scale(randf_range(0.85, 1.25))
-												audio.play()
-										else:
-											data.debug(
-												"The numerical ID ("+ 
-												str(plantID) 
-												+") of this crop is missing in the main file crops.gd", 
-												"error"
-											)
-								else:
-									if crops.crops.has(plantID):
-										if collision.check_cell(grid_position, collision.farmland_layer)\
-										&& !collision.check_cell(grid_position, collision.crops_layer)\
-										&& collision.check_custom_data(
-											grid_position, 
-											collision.can_place_seed_custom_data, 
-											collision.farmland_layer
-										):
-											inventory.subject_item(inventory_item, 1)
-											farming.create_plant(plantID, grid_position)
-
-											var audio = AudioStreamPlayer.new()
-											self.add_child(audio)
-											audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-											audio.stream = load('res://assets/sounds/farming/planting.ogg')
-											audio.set_pitch_scale(randf_range(0.85, 1.25))
-											audio.play()
-									else:
-										data.debug(
-											"The numerical ID ("+ 
-											str(plantID) 
-											+") of this crop is missing in the main file crops.gd", 
-											"error"
-										)
-					else:
-						grid_dimensions = Vector2i(1,1)
-						generate_grid()
-				else:
-					hud.hud_all_show()
-					mode = modes.NOTHING
-					visible = false
-				check = false
-
-			modes.HARVESTING:
-				collision.harvest_check()
-				if check:
-					for i in collision.get_children(): 
-						var grid_position = tilemap.local_to_map(i.get_global_position())
-						var harvest = collision.get_harvest_id(grid_position)
-						if crops.crops.has(harvest) && harvest != 0:
-							if storage.object[storage.level]["slots"] - inventory.get_all_items() != 0:
-								if collision.get_harvest(grid_position):					
-									if data.check_probability(5):
-										var crop_spoilage = crops.crops[harvest]["spoilage"]
-										var spoiled_crop_productivity:Array = crops.crops[harvest]["productivity"]
-										var spoiled_target_productivity:int = randi_range(spoiled_crop_productivity[0], spoiled_crop_productivity[1])
-										tilemap.erase_cell(collision.crops_layer, grid_position)
-										farming.plant_destroy(grid_position)
-										inventory.add_item(crop_spoilage, spoiled_target_productivity)
-									else:
-										var crop_item:int = crops.crops[harvest]["item"]
-										var crop_productivity:Array = crops.crops[harvest]["productivity"]
-										var target_productivity:int = randi_range(crop_productivity[0], crop_productivity[1])
-										tilemap.erase_cell(collision.crops_layer, grid_position)
-										farming.plant_destroy(grid_position)
-										inventory.add_item(crop_item, target_productivity)
-									var audio = AudioStreamPlayer.new()
-									self.add_child(audio)
-									audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-									audio.stream = load('res://assets/sounds/farming/harvesting.ogg')
-									audio.set_pitch_scale(randf_range(0.85, 1.25))
-									audio.play()
-							else:
-								notifications.create_notice(tr("grid.harvesting.error.inventory_full"))
-				check = false
-
-			modes.BUILD:
-				var data_resources = {}
-				collision.building_collision_check()
-				if blueprints.content[group][id]["config"].has("resources"):
-					for resource in blueprints.content[group][id]["config"]["resources"]:
-						var required_amount = blueprints.content[group][id]["config"]["resources"][resource]["amount"]
-						var available_amount = inventory.get_item_amount(resource)
-						if available_amount >= required_amount:
-							data_resources[resource] = {}
-							data_resources[resource]["amount"] = blueprints.content[group][id]["config"]["resources"][resource]["amount"]
-						else:
-							hud.hud_all_show()
-							mode = modes.NOTHING
-							visible = false
-				if check:
-					if collision.collisions_check():
-						if blueprints.content.has(group):
-							if blueprints.content[group].has(id):
-								building.create_node(
-									id, 
-									tile_mouse_pos,
-									blueprints.content[group][id]['config']['name']
-								)
-
-								var audio = AudioStreamPlayer.new()
-								self.add_child(audio)
-								audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-								audio.stream = load('res://assets/sounds/buildings/build.ogg')
-								audio.set_pitch_scale(randf_range(0.95, 1.10))
-								audio.play()
-
-								if data_resources != {}:
-									inventory.subject_item(data_resources)
-								if blueprints.content[group][id]["config"].has('onlyInstance'):
-									if blueprints.content[group][id]["config"]['onlyInstance']:
-										hud.hud_all_show()
-										mode = modes.NOTHING
-										visible = false
-				check = false
-
-			modes.TERRAIN_SET:
-				collision.terrain_collision_check(terrain_blocking_layer)
-				if check:
-					var positions = []
-					for i in collision.get_children():
-						var local_position = tilemap.to_local(i.get_global_position())
-						var grid_position = tilemap.local_to_map(local_position)
-						if i.texture != collision.error:
-							positions.append(grid_position)
-					for index in range(len(terrain_required_layer)):
-						if index < terrain_set.size():
-							if positions != []:
-								var layer = terrain_required_layer[index]
-								var terrain = terrain_set[index]
-								tilemap.set_cells_terrain_connect(layer, positions, 0, terrain)
-					check = false
-
-			modes.UPGRADE:
-				# code
-				check = false
-
-			modes.FERTILIZER:
-				collision.check_fertilizer_grid()
-				if inventory.get_item_amount(inventory_item) >= collision.get_children().size():
-					if check:
-						for i in collision.get_children():
-							var local_position = tilemap.to_local(i.get_global_position())
-							var grid_position = tilemap.local_to_map(local_position)
-							if i.texture != collision.error:
-								farming.create_fertilizer(int(inventory_item), grid_position)
-								inventory.subject_item(inventory_item, 1)
-
-								var audio = AudioStreamPlayer.new()
-								self.add_child(audio)
-								audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-								audio.stream = load('res://assets/sounds/farming/fertilizer.ogg')
-								audio.play()
-				else:
-					hud.hud_all_show()
-					mode = modes.NOTHING
-					visible = false
-				check = false
-	else:
-		visible = false
-		check = false
+		modes.HARVESTING:
+			collision.harvest_check()
+		modes.FERTILIZER:
+			collision.check_fertilizer_cell()
+		modes.BUILD:
+			collision.building_collision_check()
+		modes.TERRAIN_SET:
+			collision.terrain_collision_check(terrain_blocking_layer)
+		modes.UPGRADE:
+			return # in next update...
 
 func _input(event):
 	if visible\
@@ -432,20 +96,283 @@ func _input(event):
 		if event is InputEventMouseButton\
 		&& event.button_index == MOUSE_BUTTON_LEFT\
 		&& event.is_pressed():
-			check = true
+			if visible\
+			&& !blur.state\
+			&& mode != modes.NOTHING:
+				if destroy_menu.opened: destroy_menu.close()
+				match mode:
+					modes.DESTROY:
+						match destroy_mode:
+							destroy.TERRAINS:
+								destroy_terrains()
+							destroy.NATURE:
+								destroy_nature()
+
+					modes.FARMING:
+						farming()
+
+					modes.WATERING:
+						watering()
+
+					modes.PLANTING:
+						planting()
+
+					modes.HARVESTING:
+						harvesting()
+
+					modes.BUILD:
+						var global_mouse_position = get_global_mouse_position()
+						var tile_position = tilemap.local_to_map(global_mouse_position)
+						building(tile_position)
+
+					modes.TERRAIN_SET:
+						terrain()
+
+					modes.UPGRADE:
+						upgrade()
+
+					modes.FERTILIZER:
+						fertilizer()
+			else:
+				disabled_grid()
 
 	if event is InputEventMouseButton\
 	&& event.button_index == MOUSE_BUTTON_RIGHT\
 	&& event.is_pressed()\
 	&& visible\
 	&& mode != modes.NOTHING:
-		hud.hud_all_show()
-		mode = modes.NOTHING
-		check = false
-		destroy_mode = destroy.NOTHING
-		tip.tooltip()
+		disabled_grid()
 		for child in collision.get_children():
 			child.queue_free()
+
+func upgrade() -> void:
+	return
+
+func destroy_terrains() -> void:
+	for c in collision.get_children():
+		var grid_position = tilemap.local_to_map(c.get_global_position())
+		match collision.terrain_check():
+			0:
+				tilemap.set_cells_terrain_connect(collision.road_layer,[grid_position],0,-1)
+			1:
+				tilemap.set_cells_terrain_connect(collision.farmland_layer,[grid_position],0,-1)
+			2:
+				tilemap.set_cells_terrain_connect(collision.watering_layer,[grid_position],0,-1)
+			3:
+				tilemap.set_cells_terrain_connect(collision.coast_layer,[grid_position],0,-1)
+				tilemap.set_cells_terrain_connect(collision.water_layer,[grid_position],0,-1)
+
+func destroy_nature() -> void:
+	for i in collision.get_children():
+		var grid_position = tilemap.local_to_map(i.get_global_position())
+		match collision.nature_check():
+			1:
+				for a in nature.get_children():
+					if grid_position == tilemap.local_to_map(a.position):
+						nature.remove_child(a)
+						a.queue_free()
+				for b in shadows.get_children():
+					if grid_position == tilemap.local_to_map(b.position):
+						shadows.remove_child(b)
+						b.queue_free()
+				tilemap.erase_cell(collision.nature_layer, grid_position) 
+				inventory.add_item(1, randi_range(1,5))
+				play_sound('farming/tree_destroy')
+			2:
+				for a in nature.get_children():
+					if grid_position == tilemap.local_to_map(a.position):
+						nature.remove_child(a)
+						a.queue_free()
+				for b in shadows.get_children():
+					if grid_position == tilemap.local_to_map(b.position):
+						shadows.remove_child(b)
+						b.queue_free()
+				tilemap.erase_cell(collision.nature_layer, grid_position)
+				play_sound('farming/weed_destroy')
+			3:
+				for a in nature.get_children():
+					if grid_position == tilemap.local_to_map(a.position):
+						nature.remove_child(a)
+						a.queue_free()
+				for b in shadows.get_children():
+					if grid_position == tilemap.local_to_map(b.position):
+						shadows.remove_child(b)
+						b.queue_free()
+				tilemap.erase_cell(collision.nature_layer, grid_position) 
+				inventory.add_item(3, randi_range(1,5))
+				if data.check_probability(15):
+					inventory.add_item(5, randi_range(1,2))
+				play_sound('farming/stone_destroy')
+			4:
+				tilemap.erase_cell(collision.crops_layer, grid_position)
+				farmingManager.plant_destroy(grid_position)
+				play_sound('farming/plant_destroy')
+
+func farming() -> void:
+	var farming_tile_position = []
+	var collisions_detect = true
+	for i in collision.get_children():
+		var grid_position = tilemap.local_to_map(i.get_global_position())
+		if collision.check_cell(grid_position, collision.road_layer)\
+		&& collision.check_custom_data(grid_position, collision.can_place_dirt_custom_data, collision.road_layer):
+			farming_tile_position.append(grid_position)
+		if i.texture != collision.error:
+			collisions_detect = false
+			break
+	if farming_tile_position.size() > 0:
+		if !collisions_detect:
+			tilemap.set_cells_terrain_connect(
+				collision.farmland_layer,
+				farming_tile_position,
+				collision.terrain_set, 
+				collision.farming_terrain
+			)
+			play_sound('farming/farming')
+
+func watering() -> void:
+	for i in collision.get_children():
+		var grid_position = tilemap.local_to_map(i.get_global_position())
+		if collision.check_cell(grid_position, collision.farmland_layer)\
+		&& !collision.check_cell(grid_position, collision.watering_layer)\
+		&& collision.check_custom_data(
+			grid_position, 
+			collision.can_place_watering_custom_data, 
+			collision.farmland_layer
+		):
+			if tools.water_can > 0:
+				tools.water_can -= 1
+				tilemap.set_cells_terrain_connect(
+					collision.watering_layer,
+					[grid_position],
+					collision.terrain_set,
+					collision.watering_terrain
+				)
+				play_sound('farming/watering_plant')
+
+func planting() -> void:
+	if inventory.check_item_amount(inventory_item):
+		if inventory.get_item_amount(inventory_item) >= collision.get_children().size():
+			for i in collision.get_children():
+				var grid_position = tilemap.local_to_map(i.get_global_position())
+				if main == "Farm":
+					if farmingManager.check_season(plantID):
+						if crops.crops.has(plantID):
+							if collision.check_cell(grid_position, collision.farmland_layer)\
+							&& !collision.check_cell(grid_position, collision.crops_layer)\
+							&& collision.check_custom_data(
+								grid_position, 
+								collision.can_place_seed_custom_data, 
+								collision.farmland_layer
+							):
+								inventory.subject_item(inventory_item, 1)
+								farmingManager.create_plant(plantID, grid_position)
+				else:
+					if crops.crops.has(plantID):
+						if collision.check_cell(grid_position, collision.farmland_layer)\
+						&& !collision.check_cell(grid_position, collision.crops_layer)\
+						&& collision.check_custom_data(
+							grid_position, 
+							collision.can_place_seed_custom_data, 
+							collision.farmland_layer
+						):
+							inventory.subject_item(inventory_item, 1)
+							farmingManager.create_plant(plantID, grid_position)
+				play_sound('farming/planting')
+		else:
+			grid_dimensions.x = 1
+			grid_dimensions.y = 1
+			generate_grid()
+	else:
+		disabled_grid()
+
+func harvesting() -> void:
+	collision.harvest_check()
+	for i in collision.get_children(): 
+		var grid_position = tilemap.local_to_map(i.get_global_position())
+		var harvest = collision.get_harvest_id(grid_position)
+		if crops.crops.has(harvest) && harvest != 0:
+			if storage.object[storage.level]["slots"] - inventory.get_all_items() != 0:
+				if collision.get_harvest(grid_position):
+					var crop_item:int = 0
+					var crop_productivity:Array[int] = []
+					var target_productivity:int = 0
+					if data.check_probability(5):
+						crop_item = crops.crops[harvest]["spoilage"]
+						crop_productivity = crops.crops[harvest]["productivity"]
+						target_productivity = randi_range(crop_productivity[0], crop_productivity[1])
+					else:
+						crop_item = crops.crops[harvest]["item"]
+						crop_productivity = crops.crops[harvest]["productivity"]
+						target_productivity = randi_range(crop_productivity[0], crop_productivity[1])
+					inventory.add_item(crop_item, target_productivity)
+					tilemap.erase_cell(collision.crops_layer, grid_position)
+					farmingManager.plant_destroy(grid_position)
+					play_sound('farming/harvesting')
+			else:
+				notifications.create_notice(tr("grid.harvesting.error.inventory_full"))
+
+func building(mouse_position:Vector2i) -> void:
+	var data_resources = {}
+	if blueprints.content[group][id]["config"].has("resources"):
+		for resource in blueprints.content[group][id]["config"]["resources"]:
+			var required_amount = blueprints.content[group][id]["config"]["resources"][resource]["amount"]
+			var available_amount = inventory.get_item_amount(resource)
+			if available_amount >= required_amount:
+				data_resources[resource] = {}
+				data_resources[resource]["amount"] = required_amount
+			else:
+				disabled_grid()
+	if collision.collisions_check():
+		if blueprints.content.has(group):
+			if blueprints.content[group].has(id):
+				var node_name = blueprints.content[group][id]['config']['name']
+				buildManager.create_node(id, mouse_position, node_name)
+				play_sound('buildings/build')
+				if data_resources.keys().size() > 0:
+					inventory.subject_item(data_resources)
+				if blueprints.content[group][id]["config"].has('onlyInstance'):
+					if blueprints.content[group][id]["config"]['onlyInstance']:
+						disabled_grid()
+
+func terrain() -> void:
+	var positions = []
+	for i in collision.get_children():
+		var local_position = tilemap.to_local(i.get_global_position())
+		var grid_position = tilemap.local_to_map(local_position)
+		if i.texture != collision.error:
+			positions.append(grid_position)
+	for index in range(len(terrain_required_layer)):
+		if index < terrain_set.size():
+			if positions != []:
+				var layer = terrain_required_layer[index]
+				var terrain_index = terrain_set[index]
+				tilemap.set_cells_terrain_connect(layer, positions, 0, terrain_index)
+
+func fertilizer() -> void:
+	if inventory.get_item_amount(inventory_item) >= collision.get_children().size():
+		for i in collision.get_children():
+			var local_position = tilemap.to_local(i.get_global_position())
+			var grid_position = tilemap.local_to_map(local_position)
+			if i.texture != collision.error:
+				farmingManager.create_fertilizer(int(inventory_item), grid_position)
+				inventory.subject_item(inventory_item, 1)
+	else:
+		disabled_grid()
+
+func disabled_grid() -> void:
+	hud.hud_all_show()
+	mode = modes.NOTHING
+	visible = false
+	set_process(false)
+	destroy_mode = destroy.NOTHING
+	tip.tooltip()
+	plantID = null
+	inventory_item = null
+	id = 0
+	group = ''
+	terrain_set = []
+	terrain_required_layer = []
+	terrain_blocking_layer = []
 
 func generate_grid():
 	if grid_dimensions.x <= tools.max_grid_dimensions\
@@ -465,6 +392,13 @@ func generate_grid():
 			tools.max_grid_dimensions
 		)
 		generate_grid()
+
+func play_sound(ogg_name:String) -> void:
+	var audio = AudioStreamPlayer.new()
+	self.add_child(audio)
+	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+	audio.stream = load('res://assets/sounds/'+ogg_name+'.ogg')
+	audio.play()
 
 func _on_audio_finished(node) -> void:
 	node.queue_free()
