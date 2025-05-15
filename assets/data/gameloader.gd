@@ -2,7 +2,7 @@ extends Node
 
 const MAX_VALUE:float = 300.0
 
-var start:bool = false
+var start:bool = !false
 var mode:bool = false
 var modal:bool = false
 var tracking_plants:bool = false
