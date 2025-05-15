@@ -1,6 +1,6 @@
 extends Node
-
 class_name Items
+
 const maximum:int = 9999
 var content:Dictionary = {
 	1: {
@@ -10,7 +10,7 @@ var content:Dictionary = {
 		"item_type": 'building materials',
 		"purchase": 30,
 		"sale": 5,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/log.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/resources/log.png"),
 	},
 	2: {
 		"caption": "items.plank.caption",
@@ -19,7 +19,7 @@ var content:Dictionary = {
 		"item_type": 'building materials',
 		"purchase": 40,
 		"sale": 15,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/plank.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/resources/plank.png"),
 	},
 	3: {
 		"caption": "items.stone.caption",
@@ -28,7 +28,7 @@ var content:Dictionary = {
 		"item_type": 'building materials',
 		"purchase": 25,
 		"sale": 5,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/stone.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/resources/stone.png"),
 	},
 	4: {
 		"caption": "items.cobblestone.caption",
@@ -37,7 +37,7 @@ var content:Dictionary = {
 		"item_type": 'building_materials',
 		"purchase": 40,
 		"sale": 10,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/cobblestone.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/resources/cobblestone.png"),
 	},
 	5: {
 		"caption": "items.coal.caption",
@@ -46,7 +46,7 @@ var content:Dictionary = {
 		"item_type": "fuel",
 		"purchase": 25,
 		"sale": 5,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/coal.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/resources/coal.png"),
 	},
 	6: {
 		"caption": "items.copper_ore.caption",
@@ -56,7 +56,7 @@ var content:Dictionary = {
 		"oven_result": 9,
 		"purchase": 50,
 		"sale": 10,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/copper_ore.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/resources/copper_ore.png"),
 	},
 	7: {
 		"caption": "items.iron_ore.caption",
@@ -66,7 +66,7 @@ var content:Dictionary = {
 		"oven_result": 10,
 		"purchase": 75,
 		"sale": 10,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/iron_ore.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/resources/iron_ore.png"),
 	},
 	8: {
 		"caption": "items.bauxite_ore.caption",
@@ -76,7 +76,7 @@ var content:Dictionary = {
 		"oven_result": 11,
 		"purchase": 100,
 		"sale": 125,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/bauxite_ore.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/resources/bauxite_ore.png"),
 	},
 	9: {
 		"caption": "items.copper_ingot.caption",
@@ -85,7 +85,7 @@ var content:Dictionary = {
 		"item_type": 'building_materials',
 		"purchase": 400,
 		"sale": 100,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/copper_ingot.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/resources/copper_ingot.png"),
 	},
 	10: {
 		"caption": "items.iron_ingot.caption",
@@ -94,7 +94,7 @@ var content:Dictionary = {
 		"item_type": 'building_materials',
 		"purchase": 600,
 		"sale": 150,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/iron_ingot.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/resources/iron_ingot.png"),
 	},
 	11: {
 		"caption": "items.aluminum_ingot.caption",
@@ -103,7 +103,7 @@ var content:Dictionary = {
 		"item_type": 'building_materials',
 		"purchase": 750,
 		"sale": 200,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/aluminum_ingot.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/resources/aluminum_ingot.png"),
 	},
 	#	-1: {
 	#		"caption": "Аметист"),
@@ -112,7 +112,7 @@ var content:Dictionary = {
 	#		"item_type": 'building_materials',
 	#		"purchase": 100,
 	#		"sale": 25,
-	#		"icon": load("res://assets/resources/ui/interactive/inventory/items/resources/aluminum_ingot.png"),
+	#		"icon": preload("res://assets/resources/ui/interactive/inventory/items/resources/aluminum_ingot.png"),
 	#	},
 	# seeds packets
 	13: {
@@ -128,7 +128,7 @@ var content:Dictionary = {
 		"purchase": 15,
 		"sale": 5,
 		"crop": 1,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_1.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_1.png"),
 	},
 	14: {
 		"caption": "items.potato_seeds.caption",
@@ -138,7 +138,7 @@ var content:Dictionary = {
 		"purchase": 40,
 		"sale": 10,
 		"crop": 2,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_2.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_2.png"),
 	},
 	15: {
 		"caption": "items.radish_seeds.caption",
@@ -148,7 +148,7 @@ var content:Dictionary = {
 		"purchase": 25,
 		"sale": 5,
 		"crop": 3,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_3.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_3.png"),
 	},
 	16: {
 		"caption": "items.cabbage_seeds.caption",
@@ -158,7 +158,7 @@ var content:Dictionary = {
 		"purchase": 60,
 		"sale": 25,
 		"crop": 4,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_4.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_4.png"),
 	},
 	17: {
 		"caption": "items.onion_seeds.caption",
@@ -168,7 +168,7 @@ var content:Dictionary = {
 		"purchase": 35,
 		"sale": 15,
 		"crop": 5,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_5.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_5.png"),
 	},
 	18: {
 		"caption": "items.cucumber_seeds.caption",
@@ -178,7 +178,7 @@ var content:Dictionary = {
 		"purchase": 25,
 		"sale": 5,
 		"crop": 6,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_6.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_6.png"),
 	},
 	19: {
 		"caption": "items.tomato_seeds.caption",
@@ -188,7 +188,7 @@ var content:Dictionary = {
 		"purchase": 40,
 		"sale": 20,
 		"crop": 7,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_7.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_7.png"),
 	},
 	20: {
 		"caption": "items.eggplant_seeds.caption",
@@ -198,7 +198,7 @@ var content:Dictionary = {
 		"purchase": 50,
 		"sale": 25,
 		"crop": 8,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_8.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_8.png"),
 	},
 	21: {
 		"caption": "items.pepper_seeds.caption",
@@ -208,7 +208,7 @@ var content:Dictionary = {
 		"purchase": 30,
 		"sale": 15,
 		"crop": 9,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_9.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_9.png"),
 	},
 	22: {
 		"caption": "items.corn_seeds.caption",
@@ -218,7 +218,7 @@ var content:Dictionary = {
 		"purchase": 75,
 		"sale": 30,
 		"crop": 10,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_10.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_10.png"),
 	},
 	23: {
 		"caption": "items.parsnip_seeds.caption",
@@ -228,7 +228,7 @@ var content:Dictionary = {
 		"purchase": 20,
 		"sale": 5,
 		"crop": 11,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_11.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_11.png"),
 	},
 	24: {
 		"caption": "items.garlic_seeds.caption",
@@ -238,7 +238,7 @@ var content:Dictionary = {
 		"purchase": 35,
 		"sale": 15,
 		"crop": 12,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_12.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_12.png"),
 	},
 	25: {
 		"caption": "items.beet_seeds.caption",
@@ -248,7 +248,7 @@ var content:Dictionary = {
 		"purchase": 45,
 		"sale": 25,
 		"crop": 13,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_13.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_13.png"),
 	},
 	26: {
 		"caption": "items.turnip_seeds.caption",
@@ -258,7 +258,7 @@ var content:Dictionary = {
 		"purchase": 50,
 		"sale": 25,
 		"crop": 14,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_14.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_14.png"),
 	},
 	27: {
 		"caption": "items.bean_seeds.caption",
@@ -268,7 +268,7 @@ var content:Dictionary = {
 		"purchase": 60,
 		"sale": 30,
 		"crop": 15,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_15.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds packets/packet_15.png"),
 	},
 	# crops
 	28: {
@@ -278,7 +278,7 @@ var content:Dictionary = {
 		"item_type": "crop",
 		"purchase": 100,
 		"sale": 50,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/crops/carrot.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/carrot.png"),
 	},
 	29: {
 		"caption": "items.potato.caption",
@@ -287,7 +287,7 @@ var content:Dictionary = {
 		"item_type": "crop",
 		"purchase": 125,
 		"sale": 75,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/crops/potato.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/potato.png"),
 	},
 	30: {
 		"caption": "items.radish.caption",
@@ -296,7 +296,7 @@ var content:Dictionary = {
 		"item_type": "crop",
 		"purchase": 75,
 		"sale": 60,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/crops/radish.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/radish.png"),
 	},
 	31: {
 		"caption": "items.cabbage.caption",
@@ -305,7 +305,7 @@ var content:Dictionary = {
 		"item_type": "crop",
 		"purchase": 150,
 		"sale": 100,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/crops/cabbage.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/cabbage.png"),
 	},
 	32: {
 		"caption": "items.onion.caption",
@@ -314,7 +314,7 @@ var content:Dictionary = {
 		"item_type": "crop",
 		"purchase": 100,
 		"sale": 75,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/crops/onion.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/onion.png"),
 	},
 	33: {
 		"caption": "items.cucumber.caption",
@@ -323,7 +323,7 @@ var content:Dictionary = {
 		"item_type": "crop",
 		"purchase": 100,
 		"sale": 75,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/crops/cucumber.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/cucumber.png"),
 	},
 	34: {
 		"caption": "items.tomato.caption",
@@ -332,7 +332,7 @@ var content:Dictionary = {
 		"item_type": "crop",
 		"purchase": 110,
 		"sale": 80,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/crops/tomato.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/tomato.png"),
 	},
 	35: {
 		"caption": "items.eggplant.caption",
@@ -341,7 +341,7 @@ var content:Dictionary = {
 		"item_type": "crop",
 		"purchase": 175,
 		"sale": 125,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/crops/eggplant.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/eggplant.png"),
 	},
 	36: {
 		"caption": "items.pepper.caption",
@@ -350,7 +350,7 @@ var content:Dictionary = {
 		"item_type": "crop",
 		"purchase": 105,
 		"sale": 70,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/crops/pepper.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/pepper.png"),
 	},
 	37: {
 		"caption": "items.corn.caption",
@@ -359,7 +359,7 @@ var content:Dictionary = {
 		"item_type": "crop",
 		"purchase": 175,
 		"sale": 125,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/crops/corn.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/corn.png"),
 	},
 	38: {
 		"caption": "items.parsnip.caption",
@@ -368,7 +368,7 @@ var content:Dictionary = {
 		"item_type": "crop",
 		"purchase": 90,
 		"sale": 65,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/crops/parships.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/parships.png"),
 	},
 	39: {
 		"caption": "items.garlic.caption",
@@ -377,7 +377,7 @@ var content:Dictionary = {
 		"item_type": "crop",
 		"purchase": 115,
 		"sale": 80,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/crops/garlic.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/garlic.png"),
 	},
 	40: {
 		"caption": "items.beet.caption",
@@ -386,7 +386,7 @@ var content:Dictionary = {
 		"item_type": "crop",
 		"purchase": 125,
 		"sale": 90,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/crops/beet.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/beet.png"),
 	},
 	41: {
 		"caption": "items.turnip.caption",
@@ -395,7 +395,7 @@ var content:Dictionary = {
 		"item_type": "crop",
 		"purchase": 100,
 		"sale": 75,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/crops/turnip.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/turnip.png"),
 	},
 	42: {
 		"caption": "items.bean.caption",
@@ -404,7 +404,7 @@ var content:Dictionary = {
 		"item_type": "crop",
 		"purchase": 115,
 		"sale": 90,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/crops/greenbeen.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/greenbeen.png"),
 	},
 	# spoiled crops
 	43: {
@@ -415,7 +415,7 @@ var content:Dictionary = {
 		"decay": 1, # seconds
 		"purchase": 25,
 		"sale": 5,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_1.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_1.png"),
 	},
 	44: {
 		"caption": "items.rotten_potato.caption",
@@ -425,7 +425,7 @@ var content:Dictionary = {
 		"decay": 1, # seconds
 		"purchase": 25,
 		"sale": 5,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_2.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_2.png"),
 	},
 	45: {
 		"caption": "items.rotten_radish.caption",
@@ -435,7 +435,7 @@ var content:Dictionary = {
 		"decay": 1, # seconds
 		"purchase": 25,
 		"sale": 5,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_3.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_3.png"),
 	},
 	46: {
 		"caption": "items.rotten_cabbage.caption",
@@ -445,7 +445,7 @@ var content:Dictionary = {
 		"decay": 1, # seconds
 		"purchase": 25,
 		"sale": 5,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_4.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_4.png"),
 	},
 	47: {
 		"caption": "items.rotten_onion.caption",
@@ -455,7 +455,7 @@ var content:Dictionary = {
 		"decay": 1, # seconds
 		"purchase": 25,
 		"sale": 5,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_5.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_5.png"),
 	},
 	48: {
 		"caption": "items.rotten_cucumber.caption",
@@ -465,7 +465,7 @@ var content:Dictionary = {
 		"decay": 1, # seconds
 		"purchase": 25,
 		"sale": 5,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_6.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_6.png"),
 	},
 	49: {
 		"caption": "items.rotten_tomato.caption",
@@ -475,7 +475,7 @@ var content:Dictionary = {
 		"decay": 1, # seconds
 		"purchase": 25,
 		"sale": 5,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_7.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_7.png"),
 	},
 	50: {
 		"caption": "items.rotten_eggplant.caption",
@@ -485,7 +485,7 @@ var content:Dictionary = {
 		"decay": 1, # seconds
 		"purchase": 25,
 		"sale": 5,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_8.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_8.png"),
 	},
 	51: {
 		"caption": "items.rotten_pepper.caption",
@@ -495,7 +495,7 @@ var content:Dictionary = {
 		"decay": 1, # seconds
 		"purchase": 25,
 		"sale": 5,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_9.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_9.png"),
 	},
 	52: {
 		"caption": "items.rotten_corn.caption",
@@ -505,7 +505,7 @@ var content:Dictionary = {
 		"decay": 1, # seconds
 		"purchase": 25,
 		"sale": 5,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_10.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_10.png"),
 	},
 	53: {
 		"caption": "items.rotten_parsnip.caption",
@@ -515,7 +515,7 @@ var content:Dictionary = {
 		"decay": 1, # seconds
 		"purchase": 25,
 		"sale": 5,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_11.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_11.png"),
 	},
 	54: {
 		"caption": "items.rotten_garlic.caption",
@@ -525,7 +525,7 @@ var content:Dictionary = {
 		"decay": 1, # seconds
 		"purchase": 25,
 		"sale": 5,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_12.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_12.png"),
 	},
 	55: {
 		"caption": "items.rotten_beet.caption",
@@ -535,7 +535,7 @@ var content:Dictionary = {
 		"decay": 1, # seconds
 		"purchase": 25,
 		"sale": 5,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_13.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_13.png"),
 	},
 	56: {
 		"caption": "items.rotten_turnip.caption",
@@ -545,7 +545,7 @@ var content:Dictionary = {
 		"decay": 1, # seconds
 		"purchase": 25,
 		"sale": 5,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_14.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_14.png"),
 	},
 	57: {
 		"caption": "items.rotten_beans.caption",
@@ -555,7 +555,7 @@ var content:Dictionary = {
 		"decay": 1, # seconds
 		"purchase": 25,
 		"sale": 5,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_15.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_15.png"),
 	},
 	# trash
 	58: {
@@ -566,7 +566,7 @@ var content:Dictionary = {
 		"decay": 1, # seconds
 		"purchase": 25,
 		"sale": 5,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/trash/trash_1.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/trash/trash_1.png"),
 	},
 	59: {
 		"caption": "items.broken_branch.caption",
@@ -576,7 +576,7 @@ var content:Dictionary = {
 		"decay": 1, # seconds
 		"purchase": 25,
 		"sale": 5,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/trash/trash_2.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/trash/trash_2.png"),
 	},
 	60: {
 		"caption": "items.weeds.caption",
@@ -586,7 +586,7 @@ var content:Dictionary = {
 		"decay": 1, # seconds
 		"purchase": 25,
 		"sale": 5,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/trash/trash_2.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/trash/trash_2.png"),
 	},
 	# Compost
 	61: {
@@ -596,7 +596,7 @@ var content:Dictionary = {
 		"item_type": "fertilizer",
 		"purchase": 150,
 		"sale": 100,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/fertilizer.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/fertilizer.png"),
 		"func": {
 			"reducing": 5.0, # %
 		},
@@ -608,7 +608,7 @@ var content:Dictionary = {
 		"item_type": "fertilizer",
 		"purchase": 250,
 		"sale": 150,
-		"icon": load("res://assets/resources/ui/interactive/inventory/items/high_fertilizer.png"),
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/high_fertilizer.png"),
 		"func": {
 			"reducing": 20.0, # %
 		},
