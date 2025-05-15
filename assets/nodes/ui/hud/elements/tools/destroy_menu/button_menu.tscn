@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://xyyb1t832m5p"]
+
+[ext_resource type="Script" path="res://assets/scripts/ui/hud/tools/button_destroy.gd" id="1_g0kay"]
+[ext_resource type="Texture2D" uid="uid://hhp2wsgrn6gt" path="res://assets/resources/ui/big_button_default.png" id="2_xnm2m"]
+[ext_resource type="Texture2D" uid="uid://bmddhgo3dycej" path="res://assets/resources/ui/big_button_hover.png" id="3_26f14"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mtr0a"]
+texture = ExtResource("2_xnm2m")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ve3ml"]
+texture = ExtResource("3_26f14")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7jsua"]
+texture = ExtResource("3_26f14")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aquru"]
+texture = ExtResource("2_xnm2m")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gnkfs"]
+
+[node name="ButtonDestroyMenu" type="Control"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 64.0
+offset_bottom = 64.0
+script = ExtResource("1_g0kay")
+
+[node name="Main" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="Main"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_mtr0a")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ve3ml")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_7jsua")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_aquru")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gnkfs")
+
+[node name="Margin" type="MarginContainer" parent="Main"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Icon" type="TextureRect" parent="Main/Margin"]
+layout_mode = 2
+mouse_filter = 2
+
+[connection signal="mouse_entered" from="Main/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="Main/Button" to="." method="_on_button_mouse_exited"]
+[connection signal="pressed" from="Main/Button" to="." method="_on_button_pressed"]
