@@ -262,10 +262,17 @@ func get_letter_items() -> int:
 	return item_counter
 
 func letter_create_items(id:int, amount:int, parent:GridContainer, node:PackedScene) -> void:
+	var item_caption = item.content[id]["caption"]
+	var item_icon = item.content[id]['icon']
 	if item.content.has(id):
 		var object = node.instantiate()
 		parent.add_child(object)
-		object.set_data(id, amount)
+		object.set_data(
+			id, 
+			amount, 
+			item_icon, 
+			item_caption
+		)
 	else:
 		data.debug("Invalid item ID: " + str(id), "error")
 		
