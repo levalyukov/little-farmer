@@ -221,7 +221,7 @@ func building_collision_check() -> void:
 			else:
 				grids.texture = error
 
-func check_fertilizer_grid() -> void:
+func check_fertilizer_cell() -> void:
 	if main == "Farm"\
 	|| main == "Greenhouse":
 		for grids in get_children():
