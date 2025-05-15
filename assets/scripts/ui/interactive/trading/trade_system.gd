@@ -171,11 +171,19 @@ func create_all_items(type:String = "all") -> void:
 
 func item_create(slot_arg:int, items:Dictionary, container:GridContainer, id) -> void:
 	var slot = inventory.node.instantiate()
+	var item_caption = all_items.content[int(id)]["caption"]
+	var item_amount = items[id]["amount"]
+	var item_icon = all_items.content[int(id)]['icon']
 	if items.has(id):
 		if items[id]["amount"] > 0:
 			container.add_child(slot)
-			slot.set_data(id, items[id]["amount"])
-			slot.tr_arg = slot_arg
+			slot.set_data(
+				id, 
+				item_amount, 
+				item_icon, 
+				item_caption
+			)
+			slot.trader_arg = slot_arg
 		else:
 			remove_item(items,id)
 			data.debug("Invalid item index: " + str(id), "error")
@@ -222,12 +230,20 @@ func remove_player_inventory() -> void:
 func get_items_trade_window() -> void:
 	if trade_content != {}:
 		trade_window_items_container.visible = true
-		for item in trade_content:
+		for item_id in trade_content:
 			var node = inventory.node
 			var slot = node.instantiate()
+			var item_caption = all_items.content[int(item_id)]["caption"]
+			var item_amount = trade_content[item_id]["amount"]
+			var item_icon = all_items.content[int(item_id)]['icon']
 			trade_window_items.add_child(slot)
-			slot.set_data(item, trade_content[item]["amount"])
-			slot.tr_arg = slot.tr_initator.NONE
+			slot.set_data(
+					item_id, 
+					item_amount,
+					item_icon,
+					item_caption
+				)
+			slot.trader_arg = slot.trader_initator.NONE
 
 func set_item_trade_window(item_id, slot_arg, amount:int = 1) -> void:
 	var node = inventory.node
@@ -235,7 +251,7 @@ func set_item_trade_window(item_id, slot_arg, amount:int = 1) -> void:
 	if amount == 0:
 		amount = 5
 	match slot_arg:
-		slot.tr_initator.PLAYER:
+		slot.trader_initator.PLAYER:
 			initiator = initiators.PLAYER
 			if !trade_content.has(item_id):
 				trade_content[item_id] = {}
@@ -249,7 +265,7 @@ func set_item_trade_window(item_id, slot_arg, amount:int = 1) -> void:
 						trade_content[item_id]["amount"] = inventory.inventory_items[item_id]["amount"]
 			clear_trade_window()
 			get_items_trade_window()
-		slot.tr_initator.TRADER:
+		slot.trader_initator.TRADER:
 			initiator = initiators.TRADER
 			if !trade_content.has(item_id):
 				trade_content[item_id] = {}
@@ -277,7 +293,7 @@ func add_item_trade_window(item_id, slot_arg, amount:int = 1) -> void:
 	var node = inventory.node
 	var slot = node.instantiate()
 	match slot_arg:
-		slot.tr_initator.PLAYER:
+		slot.trader_initator.PLAYER:
 			initiator = initiators.PLAYER
 			if !trade_content.has(item_id):
 				trade_content[item_id] = {}
@@ -289,7 +305,7 @@ func add_item_trade_window(item_id, slot_arg, amount:int = 1) -> void:
 						trade_content[item_id]["amount"] += amount
 			clear_trade_window()
 			get_items_trade_window()
-		slot.tr_initator.TRADER:
+		slot.trader_initator.TRADER:
 			initiator = initiators.TRADER
 			if !trade_content.has(item_id):
 				trade_content[item_id] = {}
