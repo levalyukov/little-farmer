@@ -21,23 +21,23 @@ var menu:bool = false
 var level:int = 1
 var object:Dictionary = {
 	1: {
-		"shadow" = load("res://assets/resources/buildings/house/shadow.png"),
+		"shadow" = preload("res://assets/resources/buildings/house/shadow.png"),
 		"seasons" = {
 			"spring" = {
-				"default" = load("res://assets/resources/buildings/house/spring/level_1/object_0.png"),
-				"hovered" = load("res://assets/resources/buildings/house/spring/level_1/object_1.png"),
+				"default" = preload("res://assets/resources/buildings/house/spring/level_1/object_0.png"),
+				"hovered" = preload("res://assets/resources/buildings/house/spring/level_1/object_1.png"),
 			},
 			"summer" = {
-				"default" = load("res://assets/resources/buildings/house/summer/level_1/object_0.png"),
-				"hovered" = load("res://assets/resources/buildings/house/summer/level_1/object_1.png"),
+				"default" = preload("res://assets/resources/buildings/house/summer/level_1/object_0.png"),
+				"hovered" = preload("res://assets/resources/buildings/house/summer/level_1/object_1.png"),
 			},
 			"autumn" = {
-				"default" = load("res://assets/resources/buildings/house/autumn/level_1/object_0.png"),
-				"hovered" = load("res://assets/resources/buildings/house/autumn/level_1/object_1.png"),
+				"default" = preload("res://assets/resources/buildings/house/autumn/level_1/object_0.png"),
+				"hovered" = preload("res://assets/resources/buildings/house/autumn/level_1/object_1.png"),
 			},
 			"winter" = {
-				"default" = load("res://assets/resources/buildings/house/winter/level_1/object_0.png"),
-				"hovered" = load("res://assets/resources/buildings/house/winter/level_1/object_1.png"),
+				"default" = preload("res://assets/resources/buildings/house/winter/level_1/object_0.png"),
+				"hovered" = preload("res://assets/resources/buildings/house/winter/level_1/object_1.png"),
 			},
 		}
 	},
