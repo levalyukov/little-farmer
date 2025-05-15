@@ -8,7 +8,7 @@ extends Node
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
 @onready var canvas:CanvasGroup = get_node("/root/"+main+"/ShadowManager/CanvasGroup")
 @onready var cloud_canvas:CanvasGroup = get_node("/root/"+main+"/ShadowManager/CloudGroup")
-@onready var shadow_node:PackedScene = load("res://assets/nodes/world/nature_obj_shadow.tscn")
+@onready var shadow_node:PackedScene = preload("res://assets/nodes/world/nature_obj_shadow.tscn")
 
 const max_widht_map:int = 39
 const min_widht_map:int = -8
