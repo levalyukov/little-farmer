@@ -24,24 +24,24 @@ var object:Dictionary = {
 		"slots" = 100,
 		"seasons" = {
 			"spring" = {
-				"default" = load("res://assets/resources/buildings/storage/spring/level_1/object_0.png"),
-				"hovered" = load("res://assets/resources/buildings/storage/spring/level_1/object_1.png"),
-				"shadow" = load("res://assets/resources/buildings/storage/spring/level_1/shadow.png"),
+				"default" = preload("res://assets/resources/buildings/storage/spring/level_1/object_0.png"),
+				"hovered" = preload("res://assets/resources/buildings/storage/spring/level_1/object_1.png"),
+				"shadow" = preload("res://assets/resources/buildings/storage/spring/level_1/shadow.png"),
 			},
 			"summer" = {
-				"default" = load("res://assets/resources/buildings/storage/summer/level_1/object_0.png"),
-				"hovered" = load("res://assets/resources/buildings/storage/summer/level_1/object_1.png"),
-				"shadow" = load("res://assets/resources/buildings/storage/summer/level_1/shadow.png"),
+				"default" = preload("res://assets/resources/buildings/storage/summer/level_1/object_0.png"),
+				"hovered" = preload("res://assets/resources/buildings/storage/summer/level_1/object_1.png"),
+				"shadow" = preload("res://assets/resources/buildings/storage/summer/level_1/shadow.png"),
 			},
 			"autumn" = {
-				"default" = load("res://assets/resources/buildings/storage/autumn/level_1/object_0.png"),
-				"hovered" = load("res://assets/resources/buildings/storage/autumn/level_1/object_1.png"),
-				"shadow" = load("res://assets/resources/buildings/storage/autumn/level_1/shadow.png"),
+				"default" = preload("res://assets/resources/buildings/storage/autumn/level_1/object_0.png"),
+				"hovered" = preload("res://assets/resources/buildings/storage/autumn/level_1/object_1.png"),
+				"shadow" = preload("res://assets/resources/buildings/storage/autumn/level_1/shadow.png"),
 			},
 			"winter" = {
-				"default" = load("res://assets/resources/buildings/storage/winter/level_1/object_0.png"),
-				"hovered" = load("res://assets/resources/buildings/storage/winter/level_1/object_1.png"),
-				"shadow" = load("res://assets/resources/buildings/storage/winter/level_1/shadow.png"),
+				"default" = preload("res://assets/resources/buildings/storage/winter/level_1/object_0.png"),
+				"hovered" = preload("res://assets/resources/buildings/storage/winter/level_1/object_1.png"),
+				"shadow" = preload("res://assets/resources/buildings/storage/winter/level_1/shadow.png"),
 			},
 		}
 	},
