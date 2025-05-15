@@ -32,7 +32,6 @@ func create_node(id:int, vector:Vector2i, node_name:String = "") -> void:
 								var node = blueprints.content["nodes"][id]["config"]["node"].instantiate()
 								node.set_position(tilemap.map_to_local(vector))
 								
-								node.name = generate_unique_name(node_name)
 								node.blueprint_id = id
 								if blueprints.content["nodes"][id]["config"].has("shadow"):
 									if blueprints.content["nodes"][id]["config"]["shadow"] is PackedScene:
@@ -81,20 +80,6 @@ func create_node(id:int, vector:Vector2i, node_name:String = "") -> void:
 										var node = blueprints.content["nodes"][id]["config"]["node"].instantiate()
 										node.set_position(tilemap.map_to_local(vector))
 
-										var node_index:int = 1
-										if node_name != "":
-											if data.get_suffix_from_name(node_name) == 0:
-												for i in self.get_children():
-													if data.remove_suffix(i.name) == node_name:
-														node_index += 1
-												node.name = node_name + "_" + str(node_index)
-											else:
-												node.name = node_name
-										else:
-											node_index += 1
-											node.name = "node_" + str(node_index)
-
-										node.node_name = node_name
 										node.blueprint_id = id
 										if blueprints.content["nodes"][id]["config"].has("shadow"):
 											if blueprints.content["nodes"][id]["config"]["shadow"] is PackedScene:
@@ -175,21 +160,6 @@ func remove_node(node:Node2D, vectors:Array[Vector2i]) -> void:
 
 	for v in vectors:
 		tilemap.set_cell(collision.building_layer, v, -1)
-
-func generate_unique_name(base_name:String) -> String:
-	if base_name == "":
-		base_name = "node"
-
-	var existing_names = []
-	for child in self.get_children():
-		existing_names.append(child.name)
-
-	var candidate = base_name
-	var counter = 1
-	while existing_names.has(candidate):
-		candidate = base_name + "_" + str(counter)
-		counter += 1
-	return candidate
 
 func _on_audio_finished(node) -> void:
 	node.queue_free()
