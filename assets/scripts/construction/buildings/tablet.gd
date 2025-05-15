@@ -23,24 +23,24 @@ extends Node2D
 var object:Dictionary = {
 	"seasons" = {
 		"spring" = {
-			"default" = load("res://assets/resources/buildings/tablet/spring/object_0.png"),
-			"hovered" = load("res://assets/resources/buildings/tablet/spring/object_1.png"),
-			"shadow" = load("res://assets/resources/buildings/tablet/spring/shadow.png"),
+			"default" = preload("res://assets/resources/buildings/tablet/spring/object_0.png"),
+			"hovered" = preload("res://assets/resources/buildings/tablet/spring/object_1.png"),
+			"shadow" = preload("res://assets/resources/buildings/tablet/spring/shadow.png"),
 		},
 		"summer" = {
-			"default" = load("res://assets/resources/buildings/tablet/summer/object_0.png"),
-			"hovered" = load("res://assets/resources/buildings/tablet/summer/object_1.png"),
-			"shadow" = load("res://assets/resources/buildings/tablet/summer/shadow.png"),
+			"default" = preload("res://assets/resources/buildings/tablet/summer/object_0.png"),
+			"hovered" = preload("res://assets/resources/buildings/tablet/summer/object_1.png"),
+			"shadow" = preload("res://assets/resources/buildings/tablet/summer/shadow.png"),
 		},
 		"autumn" = {
-			"default" = load("res://assets/resources/buildings/tablet/autumn/object_0.png"),
-			"hovered" = load("res://assets/resources/buildings/tablet/autumn/object_1.png"),
-			"shadow" = load("res://assets/resources/buildings/tablet/autumn/shadow.png"),
+			"default" = preload("res://assets/resources/buildings/tablet/autumn/object_0.png"),
+			"hovered" = preload("res://assets/resources/buildings/tablet/autumn/object_1.png"),
+			"shadow" = preload("res://assets/resources/buildings/tablet/autumn/shadow.png"),
 		},
 		"winter" = {
-			"default" = load("res://assets/resources/buildings/tablet/winter/object_0.png"),
-			"hovered" = load("res://assets/resources/buildings/tablet/winter/object_1.png"),
-			"shadow" = load("res://assets/resources/buildings/tablet/winter/shadow.png"),
+			"default" = preload("res://assets/resources/buildings/tablet/winter/object_0.png"),
+			"hovered" = preload("res://assets/resources/buildings/tablet/winter/object_1.png"),
+			"shadow" = preload("res://assets/resources/buildings/tablet/winter/shadow.png"),
 		},
 	}
 }
