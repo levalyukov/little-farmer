@@ -106,22 +106,6 @@ func update():
 					if object[level]["seasons"][season].has("default"):
 						if object[level]["seasons"][season]["default"] is CompressedTexture2D:
 							sprite.texture = object[level]["seasons"][season]["default"]
-						else:
-							data.debug("'"+str(self.name) + "': 'default' is not a CompressedTexture2D.", "error")
-					else:
-						data.debug("'"+str(self.name) + "': There is no key at index " + str(level), "error")
-				else:
-					data.debug("'"+str(self.name) + "': There is no '" + str(season) + "' key in the 'seasons' group.", "error")
-			else:
-				if object[level].has("default"):
-					if object[level]["default"] is CompressedTexture2D:
-						sprite.texture = object[level]["default"]
-					else:
-						data.debug("'"+str(self.name) + "': 'default' is not a CompressedTexture2D.", "error")
-				else:
-					data.debug("'"+str(self.name) + "': There is no 'default' key.", "error")
-		else:
-			data.debug("'"+str(self.name) + "': Index " + str(level) + " is not in the dictionary.", "error")
 
 func _change_sprite(type:bool) -> void:
 	if type:
