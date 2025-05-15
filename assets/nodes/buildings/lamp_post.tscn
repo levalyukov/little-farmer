@@ -15,14 +15,14 @@ position = Vector2(0, -8)
 texture = ExtResource("2_o3hvl")
 
 [node name="Light" type="PointLight2D" parent="."]
-visible = false
-position = Vector2(0, -16)
-scale = Vector2(0.75, 0.75)
+position = Vector2(0, -17)
+scale = Vector2(0.5, 0.5)
 color = Color(0.992157, 0.952941, 0.737255, 1)
 energy = 0.75
 texture = ExtResource("1_lwy4g")
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, -8)
