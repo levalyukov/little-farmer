@@ -14,6 +14,7 @@ extends Control
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 @onready var mailbox:Node2D = get_node('/root/'+main+'/ConstructionManager/mailbox')
+@onready var farming_manager:Node2D = get_node('/root/'+main+'/FarmingManager')
 @onready var anim:AnimationPlayer = $AnimationPlayer
 @onready var version:Label = $Main/Container/GameVersionMargin/GameVersion
 
@@ -76,6 +77,10 @@ func open() -> void:
 			if mailbox.indicator.visible:
 				if mailbox.anim.is_playing():
 					mailbox.anim.stop()
+
+		# For plants
+		check_plants_state(true)
+	
 		
 func close() -> void:
 	paused = false
@@ -99,6 +104,23 @@ func close() -> void:
 			if mailbox.indicator.visible:
 				if !mailbox.anim.is_playing():
 					mailbox.anim.play()
+
+		check_plants_state(false)
+
+func check_plants_state(state_plant:bool) -> void:
+	if farming_manager:
+		if farming_manager.get_children().size() > 0:
+			for plants in farming_manager.get_children():
+				plants.timer.set_paused(state_plant)
+				plants.check_water_timer.set_paused(state_plant)
+				if state_plant:
+					if plants.indicator.visible:
+						if plants.anim.is_playing():
+							plants.anim.pause()
+				else:
+					if plants.indicator.visible:
+						if !plants.anim.is_playing():
+							plants.anim.play()
 
 func _check_window() -> void:
 	visible = paused
