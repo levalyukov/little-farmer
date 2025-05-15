@@ -9,7 +9,7 @@ extends Control
 @onready var storage:Node2D = get_node("/root/"+main+"/ConstructionManager/storage")
 @onready var balance:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Balance")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
-@onready var node:PackedScene = load("res://assets/nodes/ui/interactive/inventory/slot.tscn")
+@onready var node:PackedScene = preload("res://assets/nodes/ui/interactive/inventory/slot.tscn")
 @onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 
 @onready var anim:AnimationPlayer = $Animation
@@ -26,6 +26,8 @@ extends Control
 @onready var type:Label = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/Type/Type
 @onready var button:Button = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/ButtonContainer/Button
 @onready var list:Label = $Main/HBoxContainer/InventoryContent/Label
+
+var inventory_sound = preload('res://assets/sounds/ui/inventory.ogg')
 
 var item = Items.new()
 var crops = Crops.new()
@@ -49,6 +51,7 @@ func _ready():
 		test_index += 1
 		inventory_items[test_index] = {}
 		inventory_items[test_index]['amount'] = 1000
+	test_index = 0
 
 func _input(_event):
 	if Input.is_action_just_pressed("esc")\
@@ -84,7 +87,6 @@ func check_inventory():
 			for id in inventory_items:
 				inventory_items.erase(id)
 				break
-				data.debug("Due to inventory overflow, an item with the following ID was destroyed: " + str(id), "info")
 
 func load_content(content:Dictionary) -> void:
 	inventory_items = content
@@ -102,8 +104,9 @@ func open() -> void:
 	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 	if audio:
 		if !audio.is_playing():
-			audio.stream = load('res://assets/sounds/ui/inventory.ogg')
+			audio.stream = inventory_sound
 			audio.play()
+	check_window()
 
 func close() -> void:
 	opened = false
@@ -118,9 +121,10 @@ func get_data(index) -> void:
 		scroll_info.scroll_vertical = 0
 		if item.content.has(int(index)):
 			if item.content[int(index)].has("icon"):
-				if item.content[int(index)]["icon"] is CompressedTexture2D:
+				var item_icon = item.content[int(index)]["icon"]
+				if item_icon is CompressedTexture2D:
 					icon.visible = true
-					icon.texture = item.content[int(index)]["icon"]
+					icon.texture = item_icon
 				else:
 					icon.visible = false
 					data.debug("[ID: "+str(index)+"] The key stores a non-Compressed 2D Texture.", "error")
@@ -129,9 +133,10 @@ func get_data(index) -> void:
 				icon.visible = false
 
 			if item.content[int(index)].has("caption"):
-				if item.content[int(index)]["caption"] is String:
+				var item_caption = item.content[int(index)]["caption"]
+				if item_caption is String:
 					caption.visible = true
-					caption.text = tr(item.content[int(index)]["caption"])
+					caption.text = tr(item_caption)
 				else:
 					caption.visible = false
 					data.debug("[ID: "+str(index)+"] The 'caption' key has a non-string type.", "error")
@@ -140,12 +145,13 @@ func get_data(index) -> void:
 				caption.visible = false
 
 			if item.content[int(index)].has("description"):
-				if item.content[int(index)]["description"] is String:
+				var item_description = item.content[int(index)]["description"]
+				if item_description is String:
 					description.visible = true
-					if !tr(item.content[int(index)]["description"]).ends_with('.'):
-						description.text = tr(item.content[int(index)]["description"]) + '.'
+					if !tr(item_description).ends_with('.'):
+						description.text = tr(item_description) + '.'
 					else:
-						description.text = tr(item.content[int(index)]["description"])
+						description.text = tr(item_description)
 
 			#	if item.content[int(index)].has("specifications"):
 			#		if item.content[int(index)].get("specifications") != {}:
@@ -170,11 +176,6 @@ func get_data(index) -> void:
 						)
 				else:
 					type.visible = false
-					data.debug("[ID: "+str(index)+"] The 'type' key has a non-string type.", "error")
-			else:
-				data.debug("The object does not have the 'type' key.", "error")
-		else:
-			data.debug("The object does not have the 'type' key.", "error")
 
 func reset_data() -> void:
 	icon.visible = false
@@ -191,43 +192,50 @@ func get_items() -> Dictionary:
 func create_all_items() -> void:
 	remove_inventory_slots()
 	slots_to_create = []
-	var items = Items.new()
 	for id in inventory_items:
-		if items.content.has(int(id)):
+		if item.content.has(int(id)):
 			if inventory_items[id].has("amount"):
 				if inventory_items[id]["amount"] > 0:
 					slots_to_create.append(id)
 	current_slot_index = 0
+	set_process(true)
 
 func _process(_delta) -> void:
-	if visible:
-		if slots_to_create.size() > 0 and current_slot_index < slots_to_create.size():
-			for i in range(1):
-				if current_slot_index < slots_to_create.size():
-					item_create(slots_to_create[current_slot_index])
-					current_slot_index += 1
-				else:
-					break
+	if visible && (slots_to_create.size() > 0 && current_slot_index < slots_to_create.size()):
+		for i in range(1):
+			if current_slot_index < slots_to_create.size():
+				item_create(slots_to_create[current_slot_index])
+				current_slot_index += 1
+			else:
+				break
+	else:
+		set_process(false)
 
 func remove_inventory_slots() -> void:
+	slots_to_create.clear()
 	for items in slots.get_children():
 		slots.remove_child(items)
 		items.queue_free()
 
 func item_create(id) -> void:
-	if slots.get_child_count() >= storage.object[storage.level]["slots"]:
-		data.debug("Inventory is full. Cannot add more items.", "warning")
-		return
-
-	var slot = node.instantiate()
 	check_amount(id)
-	if inventory_items.has(id):
-		if inventory_items[id]["amount"] > 0:
-			slots.add_child(slot)
-			slot.set_data(id, inventory_items[id]["amount"])
-		else:
-			remove_item(id)
-			data.debug("Invalid item index: " + str(id), "error")
+	var slot_node = node.instantiate()
+	var item_caption = item.content[int(id)]["caption"]
+	var item_amount = inventory_items[id]["amount"]
+	var item_icon = item.content[int(id)]['icon']
+	if inventory_items.has(id) && item_amount > 0:
+		if slots.get_child_count() < storage.object[storage.level]["slots"]:
+			slots.add_child(slot_node)
+			slot_node.set_data(
+				id, 
+				item_amount, 
+				item_icon, 
+				item_caption
+			)
+	while slots.get_child_count() > storage.object[storage.level]["slots"]:
+		var last_slot = slots.get_children()[-1]
+		slots.remove_child(last_slot)
+		last_slot.queue_free()
 
 func update_string_capacity() -> void:
 	if has_node("/root/"+main+"/ConstructionManager"):
@@ -235,66 +243,57 @@ func update_string_capacity() -> void:
 			if storage.object.has(storage.level) && storage.object[storage.level].has("slots"):
 				list.text = tr("inventory.available_slots") + ": " + str(get_all_items()) + "/" + str(storage.object[storage.level]["slots"])
 				list.visible = true
-			else:
-				data.debug("The 'slots' element does not exist.", "error")
-				list.visible = false
-		else:
-			data.debug("In the parent of 'ConstructionManager' there is no child node 'Storage'", "error")
-	else:
-		data.debug("There is no parent of 'ConstructionManager' in the '"+main+"' scene", "error")
 
 func get_all_items() -> int:
-	var items = Items.new()
+	var item_count:int = 0
 	if slots:
-		var item_count:int = 0
 		if inventory_items != {}:
 			for i in inventory_items:
-				if items.content.has(int(i)):
+				if item.content.has(int(i)):
 					item_count += 1
-		return item_count
-	else:
-		data.debug("Cannot load parent.", "error")
-		return 0
+	return item_count
 
 func add_item(id, amount:int = 1) -> void:
-	if inventory_items.has(int(id)):
-		inventory_items[int(id)]["amount"] += amount
-	elif inventory_items.has(str(id)):
-		inventory_items[str(id)]["amount"] += amount
-	else:
-		inventory_items[int(id)] = {"amount": amount}
+	if item.content.has(int(id)):
+		if inventory_items.has(int(id)):
+			inventory_items[int(id)]["amount"] += amount
+		elif inventory_items.has(str(id)):
+			inventory_items[str(id)]["amount"] += amount
+		else:
+			inventory_items[int(id)] = {"amount": amount}
 		
 func subject_item(id, item_amount:int = 1) -> void:
-	if id is int || id is String:
-		if item_amount != 0:
-			for key in inventory_items:
-				if id is int:
-					if id == int(key):
-						inventory_items[id]["amount"] -= item_amount 
-						check_amount(id)
-				elif id is String:
-					if id == str(key):
-						inventory_items[id]["amount"] -= item_amount 
-						check_amount(id)
+	if item.content.has(int(id)):
+		if id is int || id is String:
+			if item_amount != 0:
+				for key in inventory_items:
+					if id is int:
+						if id == int(key):
+							inventory_items[id]["amount"] -= item_amount 
+							check_amount(id)
+					elif id is String:
+						if id == str(key):
+							inventory_items[id]["amount"] -= item_amount 
+							check_amount(id)
 
-	if id is Dictionary:
-		var resources_id = []
-		var amounts = []
-		for items in id:
-			if id[items].has("amount"):
-				if id[items]["amount"] > 0:
-					resources_id.append(items)
-					amounts.append(id[items]["amount"])
+		if id is Dictionary:
+			var resources_id = []
+			var amounts = []
+			for items in id:
+				if id[items].has("amount"):
+					if id[items]["amount"] > 0:
+						resources_id.append(items)
+						amounts.append(id[items]["amount"])
 
-		for idx in range(resources_id.size()):
-			var ids = resources_id[idx]
-			var amount = amounts[idx]
-			if inventory_items.has(int(ids)):
-				check_amount(int(ids))
-				inventory_items[int(ids)]["amount"] -= amount
-			elif inventory_items.has(str(ids)):
-				check_amount(str(ids))
-				inventory_items[str(ids)]["amount"] -= amount
+			for idx in range(resources_id.size()):
+				var ids = resources_id[idx]
+				var amount = amounts[idx]
+				if inventory_items.has(int(ids)):
+					check_amount(int(ids))
+					inventory_items[int(ids)]["amount"] -= amount
+				elif inventory_items.has(str(ids)):
+					check_amount(str(ids))
+					inventory_items[str(ids)]["amount"] -= amount
 
 func remove_item(id) -> void:
 	if inventory_items.has(int(id)):
@@ -328,8 +327,11 @@ func check_amount(index) -> void:
 		if inventory_items[index].has("amount"):
 			if inventory_items[index]["amount"] <= 0:
 				remove_item(index)
+				for slot in slots.get_children():
+					if slot.item_id == index:
+						slot.queue_free()
+						break
 		else:
-			push_warning("[ID: " + str(index) + "] The 'amount' element does not exist in the inventory dictionary (array).")
 			inventory_items[index]["amount"] = 1
 
 #	func get_specifications(index, i) -> void:
@@ -393,7 +395,7 @@ func _on_button_pressed():
 	var _audio = AudioStreamPlayer.new()
 	self.add_child(_audio)
 	_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
-	_audio.stream = load('res://assets/sounds/ui/click.ogg')
+	_audio.stream = preload('res://assets/sounds/ui/click.ogg')
 	_audio.play()
 	match button_index:
 		item_type.SEEDS:
@@ -431,7 +433,7 @@ func _on_close_pressed():
 		var _audio = AudioStreamPlayer.new()
 		self.add_child(_audio)
 		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
-		_audio.stream = load('res://assets/sounds/ui/click.ogg')
+		_audio.stream = preload('res://assets/sounds/ui/click.ogg')
 		_audio.play()
 
 func _on_close_mouse_entered():
@@ -439,7 +441,7 @@ func _on_close_mouse_entered():
 		var _audio = AudioStreamPlayer.new()
 		self.add_child(_audio)
 		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
-		_audio.stream = load('res://assets/sounds/ui/hover.ogg')
+		_audio.stream = preload('res://assets/sounds/ui/hover.ogg')
 		_audio.play()
 		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 
@@ -452,7 +454,7 @@ func _on_button_mouse_entered():
 			var _audio = AudioStreamPlayer.new()
 			self.add_child(_audio)
 			_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
-			_audio.stream = load('res://assets/sounds/ui/hover.ogg')
+			_audio.stream = preload('res://assets/sounds/ui/hover.ogg')
 			_audio.play()
 			if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 
