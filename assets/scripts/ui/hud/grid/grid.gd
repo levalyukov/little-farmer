@@ -20,7 +20,6 @@ extends Node2D
 @onready var mail:Control = get_node("/root/"+main+"/UI/Interactive/Mailbox")
 @onready var collision:Node2D = $GridParent
 
-var items = Items.new()
 var crops = Crops.new()
 var blueprints = BlueprintManager.new()
 var natural_resources = NaturalResources.new()
@@ -375,6 +374,7 @@ func disabled_grid() -> void:
 	terrain_blocking_layer = []
 
 func generate_grid():
+	set_process(true)
 	if grid_dimensions.x <= tools.max_grid_dimensions\
 	&& grid_dimensions.y <= tools.max_grid_dimensions:
 		for child in collision.get_children():
