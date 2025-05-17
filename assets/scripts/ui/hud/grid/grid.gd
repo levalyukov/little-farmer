@@ -328,7 +328,8 @@ func building(mouse_position:Vector2i) -> void:
 				buildManager.create_node(id, mouse_position, node_name)
 				play_sound('buildings/build')
 				if data_resources.keys().size() > 0:
-					inventory.subject_item(data_resources)
+					for r in data_resources:
+						inventory.subject_item(r, data_resources[r]['amount'])
 				if blueprints.content[group][id]["config"].has('onlyInstance'):
 					if blueprints.content[group][id]["config"]['onlyInstance']:
 						disabled_grid()
