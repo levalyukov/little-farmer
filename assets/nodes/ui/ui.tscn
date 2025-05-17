@@ -41,12 +41,16 @@ mouse_filter = 2
 [node name="Interactive" type="Node" parent="."]
 
 [node name="BlueprintsShop" parent="Interactive" instance=ExtResource("5_67fpr")]
+visible = false
 
 [node name="SawmillMenu" parent="Interactive" instance=ExtResource("5_fj7fg")]
+visible = false
 
 [node name="RadioMenu" parent="Interactive" instance=ExtResource("5_ugixp")]
+visible = false
 
 [node name="StoneOvenMenu" parent="Interactive" instance=ExtResource("14_btd4p")]
+visible = false
 
 [node name="Pause" parent="Interactive" instance=ExtResource("1_i05ju")]
 visible = false
@@ -62,31 +66,41 @@ size_flags_vertical = 4
 [node name="Options" parent="Interactive" instance=ExtResource("2_o0hgi")]
 
 [node name="Inventory" parent="Interactive" instance=ExtResource("3_e1ua5")]
+visible = false
 
 [node name="ConstructMenu" parent="Interactive" instance=ExtResource("8_bjlhe")]
+visible = false
 
 [node name="Mailbox" parent="Interactive" instance=ExtResource("5_2qvs7")]
+visible = false
 
 [node name="TradeMenu" parent="Interactive" instance=ExtResource("10_tqfvj")]
+visible = false
 
 [node name="DialogWindow" parent="Interactive" instance=ExtResource("11_egk03")]
+visible = false
 
 [node name="ComposterMenu" parent="Interactive" instance=ExtResource("12_q63jo")]
+visible = false
 
 [node name="BuildingsMenu" type="Node" parent="Interactive"]
 
 [node name="SignMenu" parent="Interactive/BuildingsMenu" instance=ExtResource("6_ha8vt")]
+visible = false
 
 [node name="Feedback" type="Node" parent="."]
 
 [node name="Modal" parent="Feedback" instance=ExtResource("10_a5quq")]
+visible = false
 
 [node name="Tooltip" parent="Feedback" instance=ExtResource("11_r363a")]
+visible = false
 z_index = 1
 offset_top = 720.0
 offset_bottom = 720.0
 
 [node name="Notifications" parent="Feedback" instance=ExtResource("12_3qrnm")]
+visible = false
 mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
