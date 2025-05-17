@@ -64,7 +64,7 @@ func _input(event):
 	&& !inProcessed:
 		buildings.remove_node(self, all_collisions)
 
-func update() -> void:
+func sprite_update() -> void:
 	if !inProcessed:
 		if object.has(level):
 			if object[level].has('default_idle'):
@@ -76,39 +76,13 @@ func update() -> void:
 				if object[level]['default_work'] is CompressedTexture2D:
 					sprite.texture = object[level]['default_work']
 
-func _process(_delta):
-	if pause.paused:
-		if particles.emitting:
-			if particles.speed_scale > 0.0:
-				particles.speed_scale = 0.0
-	else:
-		if particles.emitting:
-			if particles.speed_scale == 0.0:
-				particles.speed_scale = 0.5
-
 	if !isDone:
 		if inProcessed:
 			if !light.visible:
 				light.visible = true
-
 			if !particles.emitting:
 				particles.emitting = true
 
-			if value_process >= 100.0:
-				if items.content.has(int(ore_id)):
-					value_process = 100.0
-					ignot_id = items.content[int(ore_id)]['oven_result']
-					ignot_amount = ore_amount / 5
-					inProcessed = false
-					isDone = true
-					timer.stop()
-					ore_id = null
-					ore_amount = 0
-					fuel_id = null
-					fuel_amount = 0
-					update()
-					if stoneOvenMenu.visible:
-						stoneOvenMenu.check_button_state()
 	else:
 		if light.visible:
 			light.visible = !true
@@ -180,12 +154,28 @@ func start_melt(oreID:int, oreAmount:int, fuelID:int, fuelAmount:int) -> void:
 	inProcessed = true
 	timer.wait_time = 2.5
 	timer.start()
-	update()
+	sprite_update()
 
 func _on_timer_timeout():
 	if !pause.paused:
 		if value_process <= 100.0:
-			value_process += randf_range(0.01, 5)
+			value_process += 50.0#randf_range(0.01, 5.0)
+		else:
+			if !isDone:
+				if items.content.has(int(ore_id)):
+					value_process = 100.0
+					ignot_id = items.content[int(ore_id)]['oven_result']
+					ignot_amount = ore_amount / 5
+					inProcessed = false
+					isDone = true
+					timer.stop()
+					ore_id = null
+					ore_amount = 0
+					fuel_id = null
+					fuel_amount = 0
+					sprite_update()
+		if stoneOvenMenu && stoneOvenMenu.visible:
+			stoneOvenMenu.update_forge_state()
 
 func get_data() -> Dictionary:
 	return {
