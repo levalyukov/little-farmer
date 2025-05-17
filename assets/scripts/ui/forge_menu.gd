@@ -30,6 +30,7 @@ const FUEL_THRESHOLD:int = 5
 
 var audio = AudioStreamPlayer.new()
 var items:Object = Items.new()
+
 var current_slot_index:int = 0
 var slots_to_create:Array = []
 var opened:bool = false
@@ -53,48 +54,55 @@ func _input(_event):
 		close()
 
 func _process(_delta) -> void:
-	if visible:
-		if slots_to_create.size() > 0 && current_slot_index < slots_to_create.size():
-			for i in range(1):
-				if current_slot_index < slots_to_create.size():
-					item_create(slots_to_create[current_slot_index])
-					current_slot_index += 1
-				else:
-					break
-
-		if target_node:
-			if target_node.isDone:
-				if !ignotIcon.visible:
-					ignotIcon.visible = true
-					ignotIcon.texture = items.content[int(target_node.ignot_id)]['icon']
-					ore_id = 0
-					fuel_id = 0
-					ore_amount = 0
-					fuel_amount = 0
-				if target_node.ignot_amount > 1:
-					ignotAmountLabel.text = "x"+str(target_node.ignot_amount)
-			
-			if target_node.inProcessed:
-				meltButton.visible = false
-				playerInventoryMargin.visible = false
-				if target_node.value_process <= 100.0:
-					var formatted_value = "%.2f" % target_node.value_process
-					labelStatus.text = tr("forge.status.melting") + "\n(%s%%)" % formatted_value
-				else:
-					labelStatus.text = tr("forge.status.ignot_ready")
+	if visible && (slots_to_create.size() > 0 && current_slot_index < slots_to_create.size()):
+		for i in range(1):
+			if current_slot_index < slots_to_create.size():
+				item_create(slots_to_create[current_slot_index])
+				current_slot_index += 1
 			else:
-				meltButton.visible = !false
+				break
+	else:
+		set_process(false)
 
-		if ore_amount > 0:
-			oreAmountLabel.text = "x"+str(ore_amount)
+func update_forge_state() -> void:
+	if target_node:
+		if target_node.isDone:
+			if !ignotIcon.visible:
+				ignotIcon.visible = true
+				ignotIcon.texture = items.content[int(target_node.ignot_id)]['icon']
+				ore_id = 0
+				fuel_id = 0
+				ore_amount = 0
+				fuel_amount = 0
+			if target_node.ignot_amount > 1:
+				ignotAmountLabel.text = "x"+str(target_node.ignot_amount)
+		
+		if target_node.inProcessed:
+			meltButton.visible = false
+			playerInventoryMargin.visible = false
+			if target_node.value_process <= 100.0:
+				var formatted_value = "%.2f" % target_node.value_process
+				labelStatus.text = tr("forge.status.melting") + "\n(%s%%)" % formatted_value
+			else:
+				if !meltButton.visible:
+					meltButton.visible = true
+					labelStatus.text = tr("forge.status.ignot_ready")
 		else:
-			oreIcon.modulate = Color(0.8, 0.8, 0.8, 0.49)
-			oreAmountLabel.text = ''
-		if fuel_amount > 0:
-			fuelAmountLabel.text = "x"+str(fuel_amount)
-		else:
-			fuelIcon.modulate = Color(0.8, 0.8, 0.8, 0.49)
-			fuelAmountLabel.text = ''
+			meltButton.visible = !false
+
+func update_ore_value() -> void:
+	if ore_amount > 0:
+		oreAmountLabel.text = "x"+str(ore_amount)
+	else:
+		oreIcon.modulate = Color(0.8, 0.8, 0.8, 0.49)
+		oreAmountLabel.text = ''
+
+func update_fuel_value() -> void:
+	if fuel_amount > 0:
+		fuelAmountLabel.text = "x"+str(fuel_amount)
+	else:
+		fuelIcon.modulate = Color(0.8, 0.8, 0.8, 0.49)
+		fuelAmountLabel.text = ''
 
 func get_result() -> int:
 	if target_node:
@@ -124,6 +132,7 @@ func add_item(id) -> void:
 										else:
 											ore_amount = 5
 									ore_id = id
+					update_ore_value()
 				'fuel':
 					if inventory.inventory_items.has(id):
 						if inventory.inventory_items[id].has('amount'):
@@ -142,6 +151,7 @@ func add_item(id) -> void:
 										else:
 											fuel_amount = 5
 									fuel_id = id
+					update_fuel_value()
 
 func remove_item(id) -> void:
 	if items.content.has(int(id)):
@@ -164,12 +174,20 @@ func remove_item(id) -> void:
 						fuel_id = 0
 						fuel_amount = 0
 
-func item_create(id) -> void:
+func item_create(item_id) -> void:
 	var slot = inventory.node.instantiate()
-	if inventory.inventory_items.has(id):
-		if inventory.inventory_items[id]["amount"] > 0:
+	if inventory.inventory_items.has(item_id):
+		if inventory.inventory_items[item_id]["amount"] > 0:
+			var item_amount = inventory.inventory_items[item_id]["amount"]
+			var item_icon = items.content[int(item_id)]["icon"]
+			var item_caption = items.content[int(item_id)]["caption"]
 			playerInventory.add_child(slot)
-			slot.set_data(id, inventory.inventory_items[id]["amount"])
+			slot.set_data(
+				item_id,
+				item_amount,
+				item_icon,
+				item_caption
+			)
 
 func get_special_items() -> void:
 	for z in playerInventory.get_children():
@@ -183,6 +201,7 @@ func get_special_items() -> void:
 						slots_to_create.append(i)
 					if items.content[int(i)]['item_type'] == "fuel":
 						slots_to_create.append(i)
+	set_process(true)
 
 func check_button_state() -> void:
 	if target_node:
@@ -205,6 +224,8 @@ func open(node:Node2D) -> void:
 	get_special_items()
 	check_button_state()
 	anim.play('open')
+	check_window()
+	update_forge_state()
 	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 	if audio:
 		if !audio.is_playing():
@@ -216,6 +237,7 @@ func open(node:Node2D) -> void:
 		ignotIcon.texture = items.content[get_result()]['icon']
 	else:
 		ignotIcon.visible = !true
+
 	if !target_node.inProcessed\
 	&& !target_node.isDone:
 		labelStatus.text = tr('forge.description_text') + '\n' + tr('forge.formula_text')
@@ -265,8 +287,9 @@ func close() -> void:
 	fuel_amount = 0
 	target_node = null
 	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+	check_window()
 
-func window() -> void:
+func check_window() -> void:
 	visible = opened
 	if pause:
 		pause.other_menu = opened
@@ -297,6 +320,7 @@ func _on_melt_button_pressed():
 				)
 				inventory.subject_item(ore_id,ore_amount)
 				inventory.subject_item(fuel_id,fuel_amount)
+				update_forge_state()
 		else:
 			if target_node.isDone:
 				if items.content.has(int(target_node.ignot_id)):
@@ -319,54 +343,48 @@ func _on_melt_button_pressed():
 					meltButton.text = tr('forge.button.melt')
 					meltButton.disabled = true
 					playerInventoryMargin.visible = true
+					update_forge_state()
 					get_special_items()
-	var _audio = AudioStreamPlayer.new()
-	self.add_child(_audio)
-	_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
-	_audio.stream = load('res://assets/sounds/ui/click.ogg')
-	_audio.play()
+					check_button_state()
+					update_ore_value()
+					update_fuel_value()
+	_play_sound('ui/click')
 
 # Close
 func _on_close_button_pressed():
-	var _audio = AudioStreamPlayer.new()
-	self.add_child(_audio)
-	_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
-	_audio.stream = load('res://assets/sounds/ui/click.ogg')
-	_audio.play()
+	_play_sound('ui/click')
 	close()
 
 func _on_close_button_mouse_entered():
 	if cursor: cursor.set_cursor(cursor.states.ACTIVE)
-	var _audio = AudioStreamPlayer.new()
-	self.add_child(_audio)
-	_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
-	_audio.stream = load('res://assets/sounds/ui/hover.ogg')
-	_audio.play()
+	_play_sound('ui/hover')
+
+func _on_close_button_mouse_exited():
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
 func _on_melt_button_mouse_entered():
 	if !meltButton.disabled:
 		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
-		var _audio = AudioStreamPlayer.new()
-		self.add_child(_audio)
-		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
-		_audio.stream = load('res://assets/sounds/ui/hover.ogg')
-		_audio.play()
+		_play_sound('ui/hover')
 
 func _on_melt_button_mouse_exited():
-	if !meltButton.disabled:
-		if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
 func _on_get_ignot_mouse_entered():
-	if target_node.ignot_amount > 0:
-		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
-		var _audio = AudioStreamPlayer.new()
-		self.add_child(_audio)
-		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
-		_audio.stream = load('res://assets/sounds/ui/hover.ogg')
-		_audio.play()
+	if target_node:
+		if target_node.ignot_amount > 0:
+			if cursor: cursor.set_cursor(cursor.states.ACTIVE)
+			_play_sound('ui/hover')
 
 func _on_get_ignot_mouse_exited():
 	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+
+func _play_sound(path_ogg:String) -> void:
+	var ogg = AudioStreamPlayer.new()
+	self.add_child(ogg)
+	ogg.connect("finished", Callable(self, "_on_audio_finished").bind(ogg))
+	ogg.stream = load('res://assets/sounds/'+path_ogg+'.ogg')
+	ogg.play()
 
 func _on_audio_finished(node) -> void:
 	node.queue_free()
