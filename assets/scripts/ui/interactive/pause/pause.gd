@@ -14,7 +14,8 @@ extends Control
 @onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
 @onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 @onready var mailbox:Node2D = get_node('/root/'+main+'/ConstructionManager/mailbox')
-@onready var farming_manager:Node2D = get_node('/root/'+main+'/FarmingManager')
+@onready var constructionManager:Node2D = get_node('/root/'+main+'/ConstructionManager')
+@onready var farmingManager:Node2D = get_node('/root/'+main+'/FarmingManager')
 @onready var anim:AnimationPlayer = $AnimationPlayer
 @onready var version:Label = $Main/Container/GameVersionMargin/GameVersion
 
@@ -80,6 +81,8 @@ func open() -> void:
 
 		# For plants
 		check_plants_state(true)
+		# For forges
+		check_forges_state()
 	
 		
 func close() -> void:
@@ -106,11 +109,12 @@ func close() -> void:
 					mailbox.anim.play()
 
 		check_plants_state(false)
+		check_forges_state()
 
 func check_plants_state(state_plant:bool) -> void:
-	if farming_manager:
-		if farming_manager.get_children().size() > 0:
-			for plants in farming_manager.get_children():
+	if farmingManager:
+		if farmingManager.get_children().size() > 0:
+			for plants in farmingManager.get_children():
 				plants.timer.set_paused(state_plant)
 				plants.check_water_timer.set_paused(state_plant)
 				if state_plant:
@@ -121,6 +125,23 @@ func check_plants_state(state_plant:bool) -> void:
 					if plants.indicator.visible:
 						if !plants.anim.is_playing():
 							plants.anim.play()
+
+func check_forges_state() -> void:
+	if constructionManager:
+		if constructionManager.get_children().size() > 0:
+			for node in constructionManager.get_children():
+				if node:
+					if 'blueprint_id' in node:
+						if node.blueprint_id == 9:
+							match paused:
+								true:
+									if node.particles && node.particles.emitting:
+											if node.particles.speed_scale > 0.0:
+												node.particles.speed_scale = 0.0
+								false:
+									if node.particles && node.particles.emitting:
+											if node.particles.speed_scale == 0.0:
+												node.particles.speed_scale = 0.5
 
 func _check_window() -> void:
 	visible = paused
@@ -148,8 +169,7 @@ func _on_report_bug_button_mouse_entered():
 				cursor.set_cursor(cursor.states.ACTIVE)
 			
 func _on_report_bug_button_mouse_exited():
-	if cursor:
-		cursor.set_cursor(cursor.states.DEFAULT)
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
 func _on_audio_finished(node) -> void:
 	node.queue_free()
