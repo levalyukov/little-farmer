@@ -42,6 +42,7 @@ var inventory_items:Dictionary = {}
 enum item_type {NOTHING, SEEDS, FERTILIZER}
 
 func _ready():
+	set_process(false)
 	check_window()
 	reset_data()
 	self.add_child(audio)
