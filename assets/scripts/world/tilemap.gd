@@ -45,16 +45,6 @@ var SEASON_ATLAS = {
 	},
 }
 
-func _process(_delta):
-	if !blur.state:
-		if has_node("/root/"+main+"/ConstructionManager"):
-			if has_node("/root/"+main+"/ConstructionManager/Grid"):
-				if grid.mode != grid.modes.NOTHING:
-					grid_movement()
-
-func grid_movement() -> void:
-	grid.set_position(map_to_local(local_to_map(get_global_mouse_position())))
-
 func set_atlas(season:String) -> void:
 	if SEASON_ATLAS.has(season):
 		if SEASON_ATLAS[season].has("ground")\
