@@ -54,6 +54,9 @@ const winter_night_sound_end:int = 6
 const speed:float = 8
 const day_end:int = 23
 
+const lightOn:int = 19
+const lightOff:int = 5
+
 #	const morning_start:int = 6
 #	const morning_end:int = 12
 const cycle_day_start:int = 6
@@ -90,15 +93,6 @@ func _ready():
 	audio.bus = 'Nature'
 	#	self.add_child(random_prefab)
 	#	random_prefab.bus = 'Nature'
-
-func _process(_delta):
-	if !pause.paused:
-		if audio.get_stream_paused():
-			audio.set_stream_paused(false)
-		start_nature_sounds()
-	else:
-		if !audio.get_stream_paused():
-			audio.set_stream_paused(true)
 
 func get_part_day() -> String:
 	var part_day = ''
@@ -233,14 +227,14 @@ func set_season(target_season:int) -> void:
 	|| main == "Village":
 		tilemap.set_atlas(seasons[target_season])
 	
-func check_minute() -> void:
+func update_minute() -> void:
 	if minute >= 0:
 		minute += 1
 	if minute > 5:
 		minute = 0
 		hour = hour + 1
 
-func check_hour() -> void:
+func update_hour() -> void:
 	if hour > day_end:
 		hour = 0
 		week_update()
@@ -248,19 +242,22 @@ func check_hour() -> void:
 		|| main == "Village":
 			shadow.remove_all_clouds()
 
-func check_week() -> void:
+func update_week() -> void:
 	if week >= season_change:
 		week = 0
 		update_season()
-		GameLoader.reminder_harvest = !true
+		GameLoader.reminder_harvest = false
 
-func _on_timer_timeout() -> void:
+func update_music_state() -> void:
 	if !pause.paused:
-		check_minute()
-		check_hour()
-		check_week()
-		update_week_days()
-		light_post_check(get_hour())
+		if audio.get_stream_paused():
+			audio.set_stream_paused(false)
+		start_nature_sounds()
+	else:
+		if !audio.get_stream_paused():
+			audio.set_stream_paused(true)
+
+func update_letters() -> void:
 		if !GameLoader.reminder_harvest:
 			if week+1 == season_change:
 				if hour == 7\
@@ -294,12 +291,19 @@ func _on_timer_timeout() -> void:
 									'letter.reminder_season_header',
 									'letter.reminder_season_description_winter_->_spring',
 									'letter.gardener_dobrynya'
-								)					
+								)		
 
-const lightOn:int = 19
-const lightOff:int = 5
+func _on_timer_timeout() -> void:
+	if !pause.paused:
+		update_minute()
+		update_hour()
+		update_week()
+		update_week_days()
+		check_light_post(get_hour())
+		update_music_state()
+		update_letters()			
 
-func light_post_check(current_time:int):
+func check_light_post(current_time:int):
 	if buildings:
 		for nodes in buildings.get_children():
 			if data:
