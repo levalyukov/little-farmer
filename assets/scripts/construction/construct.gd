@@ -119,13 +119,16 @@ func create_node(id:int, vector:Vector2i, node_name:String = "") -> void:
 										add_child(node)
 
 func remove_node(node:Node2D, vectors:Array[Vector2i]) -> void:
-	if !self.get_children().has(node): return
+	if !self.get_children().has(node): 
+		return
 
 	var blueprint_id = node.blueprint_id
-	if !blueprints.content.has("nodes") || !blueprints.content["nodes"].has(blueprint_id): return
+	if !blueprints.content.has("nodes") || !blueprints.content["nodes"].has(blueprint_id): 
+		return
 
 	var config = blueprints.content["nodes"][blueprint_id].get("config", {})
-	if config.is_empty(): return
+	if config.is_empty(): 
+		return
 
 	var resources = config.get("resources", {})
 	var required_resources_id = []
