@@ -47,6 +47,7 @@ var current_slot_index_nodes = 0
 var current_slot_index_upgrade = 0
 
 func _ready():
+	set_process(false)
 	check_window()
 
 func _input(_event):
@@ -56,6 +57,7 @@ func _input(_event):
 		close()
 
 func _process(_delta) -> void:
+	print('test')
 	if visible:
 		# nodes
 		if slots_to_create_nodes.size() > 0 && current_slot_index_nodes < slots_to_create_nodes.size():
@@ -93,6 +95,24 @@ func _process(_delta) -> void:
 						current_slot_index_upgrade += 1
 				else:
 					break
+		check_process()
+
+func check_process() -> void:
+	match section:
+		'all':
+			# После добавления чертежей улучшений доработать эту функцию.
+			if current_slot_index_nodes == slots_to_create_nodes.size()\
+			&& current_slot_index_terrains == slots_to_create_terrains.size():
+				set_process(false)
+		'nodes':
+			if current_slot_index_nodes == slots_to_create_nodes.size():
+				set_process(false)
+		'terrains':
+			if current_slot_index_terrains == slots_to_create_terrains.size():
+				set_process(false)
+		'upgrades':
+			if current_slot_index_upgrade == slots_to_create_upgrade.size():
+				set_process(false)
 
 func get_data(group:String, id:int) -> void:
 	if blueprints.content.has(group):
@@ -251,6 +271,7 @@ func create_all_blueprints() -> void:
 				for i in upgrade_blueprints:
 					if blueprints.content['nodes'].has(i):
 						slots_to_create_upgrade.append(i)
+	set_process(true)
 
 func remove_all_blueprints() -> void:
 	for i in container.get_children():
@@ -261,6 +282,8 @@ func open() -> void:
 	blur.blur(true)
 	opened = true
 	section = "all"
+	#	check_window()
+	#	set_process(true)
 
 	set_start_info()
 	update_navmenu()
