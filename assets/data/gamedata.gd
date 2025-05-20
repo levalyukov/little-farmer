@@ -90,16 +90,16 @@ var music_playlist:Dictionary = {
 			'res://assets/sounds/music/flp/autumn/night#2.ogg',
 		]
 	},
-	'winter': {
-		'day' = [
-			'res://assets/sounds/music/flp/winter/music#1.ogg',
-			'res://assets/sounds/music/flp/winter/music#2.ogg',
-		],
-		'night' = [
-			'res://assets/sounds/music/flp/winter/night#1.ogg',
-			'res://assets/sounds/music/flp/winter/night#2.ogg',
-		]
-	},
+	#	'winter': {
+	#		'day' = [
+	#			'res://assets/sounds/music/flp/winter/music#1.ogg',
+	#			'res://assets/sounds/music/flp/winter/music#2.ogg',
+	#		],
+	#		'night' = [
+	#			'res://assets/sounds/music/flp/winter/night#1.ogg',
+	#			'res://assets/sounds/music/flp/winter/night#2.ogg',
+	#		]
+	#	},
 }
 
 func _ready():
@@ -226,9 +226,7 @@ func file_load(path_file:String) -> Dictionary:
 		var result = JSON.parse_string(target_file.get_as_text())
 		target_file.close()
 		return result
-	else:
-		debug("file not found: " + str(path_file), "ERROR")
-		return {}
+	return {}
 
 func file_load_sort(path_file:String) -> Dictionary:
 	var target_file = FileAccess.open(path_file, FileAccess.READ)
