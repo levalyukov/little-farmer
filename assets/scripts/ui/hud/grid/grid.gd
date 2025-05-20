@@ -43,7 +43,11 @@ var terrain_set:Array = []
 var terrain_required_layer:Array = []
 var terrain_blocking_layer:Array = []
 
+func _ready():
+	set_process(false)
+
 func _process(_delta):
+	movement_grid()
 	match mode:
 		modes.DESTROY:
 			match destroy_mode:
@@ -374,7 +378,7 @@ func disabled_grid() -> void:
 	terrain_required_layer = []
 	terrain_blocking_layer = []
 
-func generate_grid():
+func generate_grid() -> void:
 	set_process(true)
 	if grid_dimensions.x <= tools.max_grid_dimensions\
 	&& grid_dimensions.y <= tools.max_grid_dimensions:
@@ -393,6 +397,12 @@ func generate_grid():
 			tools.max_grid_dimensions
 		)
 		generate_grid()
+
+func movement_grid() -> void:
+	var mouse_position = tilemap.get_global_mouse_position()
+	var local_to_map = tilemap.local_to_map(mouse_position)
+	var target_position = tilemap.map_to_local(local_to_map)
+	self.set_position(target_position)
 
 func play_sound(ogg_name:String) -> void:
 	var audio = AudioStreamPlayer.new()
