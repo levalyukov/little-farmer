@@ -138,6 +138,7 @@ func _on_button_pressed():
 		if sawmillMenu.visible:
 			sawmillMenu.add_item(item_id)
 			sawmillMenu.update_button()
+			sawmillMenu.update_icon_log()
 			
 	_play_sound('ui/click')
 
