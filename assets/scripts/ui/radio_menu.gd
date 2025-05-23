@@ -171,13 +171,9 @@ func on_station_pressed(stationName:String):
 						station_audio_index = randi() % stations_audios.size()
 						current_station_name = stationName
 						node.play_radio_track(stations_audios, station_audio_index)
-						set_radio_track_name(station_audio_index)
+						set_radio_track_name()
 
-				var audio = AudioStreamPlayer.new()
-				self.add_child(audio)
-				audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-				audio.stream = load('res://assets/sounds/ui/click.ogg')
-				audio.play()
+				_play_sound('ui/click')
 			check_game_music()
 
 func _on_open_folder_button_pressed():
@@ -190,11 +186,7 @@ func _on_open_folder_button_pressed():
 			"Чтобы воспроизвести пользовательские песни, нужно поместить в эту папку аудиофайлы формата .mp3\n\n* * *\n\nTo play custom songs, you need to place the .mp3 audio files in this folder"
 		)
 		readme_file.close()
-	var audio = AudioStreamPlayer.new()
-	self.add_child(audio)
-	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-	audio.stream = load('res://assets/sounds/ui/click.ogg')
-	audio.play()
+	_play_sound('ui/click')
 
 func _on_scan_folder_button_pressed():
 	if node:
@@ -217,11 +209,7 @@ func _on_scan_folder_button_pressed():
 						button.disabled = true
 					else:
 						button.disabled = !true
-			var audio = AudioStreamPlayer.new()
-			self.add_child(audio)
-			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-			audio.stream = load('res://assets/sounds/ui/click.ogg')
-			audio.play()
+			_play_sound('ui/click')
 
 	if usersTracksContainer.get_children() == []:
 		usersTracksMargin.add_theme_constant_override("margin_top", 0)
@@ -244,11 +232,7 @@ func on_userTrack_pressed(index:int):
 		node.repeat = true
 		stream_position = 0.0
 		stopped = false
-		var audio = AudioStreamPlayer.new()
-		self.add_child(audio)
-		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-		audio.stream = load('res://assets/sounds/ui/click.ogg')
-		audio.play()
+		_play_sound('ui/click')
 		check_game_music()
 
 func open(_node:Node2D) -> void:
@@ -288,7 +272,7 @@ func open(_node:Node2D) -> void:
 		if node.userMode:
 			update_string_playNow()
 		if node.radio:
-			set_radio_track_name(station_audio_index)
+			set_radio_track_name()
 
 	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
@@ -306,11 +290,7 @@ func window() -> void:
 
 func _on_close_button_pressed() -> void:
 	close()
-	var audio = AudioStreamPlayer.new()
-	self.add_child(audio)
-	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-	audio.stream = load('res://assets/sounds/ui/click.ogg')
-	audio.play()
+	_play_sound('ui/click')
 
 func _on_power_button_pressed():
 	if visible:
@@ -343,11 +323,7 @@ func _on_power_button_pressed():
 					for z in radiostationsContainer.get_children():
 						if z is Button:
 							z.disabled = false
-			var audio = AudioStreamPlayer.new()
-			self.add_child(audio)
-			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-			audio.stream = load('res://assets/sounds/ui/click.ogg')
-			audio.play()
+			_play_sound('ui/click')
 
 func _on_pause_track_button_pressed():
 	if visible:
@@ -359,11 +335,7 @@ func _on_pause_track_button_pressed():
 			else:
 				node.audio_player.play(stream_position)
 				stopped = false
-			var audio = AudioStreamPlayer.new()
-			self.add_child(audio)
-			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-			audio.stream = load('res://assets/sounds/ui/click.ogg')
-			audio.play()
+			_play_sound('ui/click')
 			
 func _on_next_track_button_pressed():
 	if visible:
@@ -371,11 +343,7 @@ func _on_next_track_button_pressed():
 			stream_position = 0.0
 			stopped = false
 			node.next_track()
-			var audio = AudioStreamPlayer.new()
-			self.add_child(audio)
-			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-			audio.stream = load('res://assets/sounds/ui/click.ogg')
-			audio.play()
+			_play_sound('ui/click')
 
 func _on_previous_track_button_pressed():
 	if visible:
@@ -383,19 +351,11 @@ func _on_previous_track_button_pressed():
 			stream_position = 0.0
 			stopped = false
 			node.previous_track()
-			var audio = AudioStreamPlayer.new()
-			self.add_child(audio)
-			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-			audio.stream = load('res://assets/sounds/ui/click.ogg')
-			audio.play()
+			_play_sound('ui/click')
 
 func _on_close_button_mouse_entered():
 	if cursor: cursor.set_cursor(cursor.states.ACTIVE)
-	var audio = AudioStreamPlayer.new()
-	self.add_child(audio)
-	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-	audio.stream = load('res://assets/sounds/ui/hover.ogg')
-	audio.play()
+	_play_sound('ui/hover')
 
 func _on_close_button_mouse_exited():
 	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
@@ -406,11 +366,7 @@ func _on_audio_finished(_audio) -> void:
 func _on_previous_track_button_mouse_entered():
 	if visible:
 		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
-		var audio = AudioStreamPlayer.new()
-		self.add_child(audio)
-		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-		audio.stream = load('res://assets/sounds/ui/hover.ogg')
-		audio.play()
+		_play_sound('ui/hover')
 
 func _on_previous_track_button_mouse_exited():
 	if visible:
@@ -419,11 +375,7 @@ func _on_previous_track_button_mouse_exited():
 func _on_pause_track_button_mouse_exited():
 	if visible:
 		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
-		var audio = AudioStreamPlayer.new()
-		self.add_child(audio)
-		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-		audio.stream = load('res://assets/sounds/ui/hover.ogg')
-		audio.play()
+		_play_sound('ui/hover')
 
 func _on_pause_track_button_mouse_entered():
 	if visible:
@@ -432,11 +384,7 @@ func _on_pause_track_button_mouse_entered():
 func _on_next_track_button_mouse_entered():
 	if visible:
 		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
-		var audio = AudioStreamPlayer.new()
-		self.add_child(audio)
-		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-		audio.stream = load('res://assets/sounds/ui/hover.ogg')
-		audio.play()
+		_play_sound('ui/hover')
 
 func _on_next_track_button_mouse_exited():
 	if visible:
@@ -445,12 +393,8 @@ func _on_next_track_button_mouse_exited():
 func _on_power_button_mouse_entered():
 	if visible:
 		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
-		var audio = AudioStreamPlayer.new()
-		self.add_child(audio)
-		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-		audio.stream = load('res://assets/sounds/ui/hover.ogg')
-		audio.play()
-
+		_play_sound('ui/hover')
+	
 func _on_power_button_mouse_exited():
 	if visible:
 		if cursor: cursor.set_cursor(cursor.states.DEFAULT)
@@ -458,11 +402,7 @@ func _on_power_button_mouse_exited():
 func _on_open_folder_button_mouse_entered():
 	if visible && !buttonOpenFolder.disabled:
 		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
-		var audio = AudioStreamPlayer.new()
-		self.add_child(audio)
-		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-		audio.stream = load('res://assets/sounds/ui/hover.ogg')
-		audio.play()
+		_play_sound('ui/hover')
 
 func _on_open_folder_button_mouse_exited():
 	if visible:
@@ -471,18 +411,14 @@ func _on_open_folder_button_mouse_exited():
 func _on_scan_folder_button_mouse_entered():
 	if visible && !buttonScanUsersTracks.disabled:
 		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
-		var audio = AudioStreamPlayer.new()
-		self.add_child(audio)
-		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-		audio.stream = load('res://assets/sounds/ui/hover.ogg')
-		audio.play()
+		_play_sound('ui/hover')
 
 func _on_scan_folder_button_mouse_exited():
 	if visible:
 		if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
-func set_radio_track_name(track_index) -> void:
-	playNow.text = tr(current_station_name) + ":  " + "\"" + stations_audios_captions[track_index] + "\""
+func set_radio_track_name() -> void:
+	playNow.text = tr(current_station_name)
 
 func check_game_music() -> void:
 	if node:
@@ -495,3 +431,10 @@ func check_game_music() -> void:
 						if i.name == 'MusicCooldownTimer' && i is Timer:
 							if !i.is_paused():
 								i.set_paused(true)
+
+func _play_sound(path_ogg:String) -> void:
+	var audio = AudioStreamPlayer.new()
+	self.add_child(audio)
+	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+	audio.stream = load('res://assets/sounds/'+path_ogg+'.ogg')
+	audio.play()
