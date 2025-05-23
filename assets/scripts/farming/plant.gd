@@ -15,24 +15,47 @@ extends Node2D
 @onready var indicator:Sprite2D = $Indicator
 @onready var anim:AnimationPlayer = $AnimationPlayer
 
-var items:Object = Items.new()
-var crops:Object = Crops.new()
-
-var plantID:int
+# 
+var plant_id:int
 var condition:int = phases.planted
 var fertilizer:int = fertilizers.nothing
 var degree:int
 var loaded:bool = false
 
-var is_active:bool = false
+# Crops config
+var plant_caption:String = ''
+var plant_growth_rate:float = 0.0
+var plant_check_watering:int = 0
+var plant_growth_level_max:int = 0
+var plant_mortality:int = 0
+var plant_seasons:Array = []
+var plant_rect_x:int = 0
+var plant_rect_y:int = 0
+
+# plant_fertilize
+var plant_fertilize:float = 0.0
 
 enum phases {planted, growing, requiresWatering, growed, dead}
 enum fertilizers {nothing, regularCompost, highQualityCompost}
 
-func plant(id:int) -> void:
-	plantID = id
-	sprite.rect(id)
-	check_water_timer.wait_time = crops.crops["check_watering"]
+func plant(
+	id:int, caption_value:String, plant_growth_rate_value:float, check_watering_value:int,
+	growth_level_max_value:int, plant_mortality_value:int, plant_seasons_array:Array,
+	default_rect_x:int, default_rect_y:int
+	) -> void:
+	plant_id = id
+
+	plant_caption = caption_value
+	plant_growth_rate = plant_growth_rate_value
+	plant_check_watering = check_watering_value
+	plant_growth_level_max = growth_level_max_value
+	plant_mortality = plant_mortality_value
+	plant_seasons = plant_seasons_array
+	plant_rect_x = default_rect_x
+	plant_rect_y = default_rect_y
+
+	sprite.rect(plant_rect_x, plant_rect_y)
+	check_water_timer.wait_time = check_watering_value
 	check_water_timer.start()
 			
 func check(vector:Vector2i) -> void:
@@ -41,7 +64,7 @@ func check(vector:Vector2i) -> void:
 		&& !collision.check_cell(vector, collision.watering_layer)\
 		&& condition != phases.dead:
 			condition = phases.planted
-			if degree < crops.crops[plantID]["mortality"]:
+			if degree < plant_mortality:
 				degree += 1
 			else:
 				condition = phases.dead
@@ -55,12 +78,12 @@ func check(vector:Vector2i) -> void:
 				match collision.get_fertilizer(vector):
 					61:
 						fertilizer = fertilizers.regularCompost
-						timer.wait_time = crops.crops[plantID]["growth_rate"] - (items.content[61]["func"]["reducing"] / 100.0) * crops.crops[plantID]["growth_rate"]
+						timer.wait_time = plant_growth_rate - (plant_fertilize / 100.0) * plant_growth_rate
 					62:
 						fertilizer = fertilizers.highQualityCompost
-						timer.wait_time = crops.crops[plantID]["growth_rate"] - (items.content[62]["func"]["reducing"] / 100.0) * crops.crops[plantID]["growth_rate"]
+						timer.wait_time = plant_growth_rate - (plant_fertilize / 100.0) * plant_growth_rate
 			else:
-				timer.wait_time = crops.crops[plantID]["growth_rate"]
+				timer.wait_time = plant_growth_rate
 			growth()
 
 func check_water(vector:Vector2i) -> void:
@@ -83,7 +106,7 @@ func requires_watering(vector:Vector2i) -> void:
 				indicator.visible = true
 				if !anim.is_playing(): 
 					anim.play('bubble')
-			if degree < crops.crops[plantID]["mortality"]:
+			if degree < plant_mortality:
 				degree += 1
 			else:
 				condition = phases.dead
@@ -103,12 +126,12 @@ func requires_watering(vector:Vector2i) -> void:
 				match collision.get_fertilizer(vector):
 					61:
 						fertilizer = fertilizers.regularCompost
-						timer.wait_time = crops.crops[plantID]["growth_rate"] - (items.content[61]["func"]["reducing"] / 100.0) * crops.crops[plantID]["growth_rate"]
+						timer.wait_time = plant_growth_rate - (plant_fertilize / 100.0) * plant_growth_rate
 					62:
 						fertilizer = fertilizers.highQualityCompost
-						timer.wait_time = crops.crops[plantID]["growth_rate"] - (items.content[62]["func"]["reducing"] / 100.0) * crops.crops[plantID]["growth_rate"]
+						timer.wait_time = plant_growth_rate - (plant_fertilize / 100.0) * plant_growth_rate
 			else:
-				timer.wait_time = crops.crops[plantID]["growth_rate"]
+				timer.wait_time = plant_growth_rate
 			growth()
 			if indicator.visible:
 				indicator.visible = !true
@@ -125,7 +148,7 @@ func growth() -> void:
 
 func get_data() -> Dictionary:
 	return {
-		"plantID": plantID,
+		"plant_id": plant_id,
 		"degree": degree,
 		"condition": condition,
 		"fertilizer": fertilizer,
@@ -133,7 +156,15 @@ func get_data() -> Dictionary:
 		"region_rect.y": sprite.region_rect.position.y,
 		"growth_level": sprite.level,
 		"position": tilemap.local_to_map(global_position),
-		"time_left": timer.get_time_left()
+		"time_left": timer.get_time_left(),
+		"caption": plant_caption,
+		"growth_rate": plant_growth_rate,
+		"check_watering": plant_check_watering,
+		"growth_level_max": plant_growth_level_max,
+		"mortality": plant_mortality,
+		"seasons": plant_seasons,
+		'rect_x': 1,
+		'rect_y': 1
 	}
 
 func set_data(
@@ -146,10 +177,18 @@ func set_data(
 		level:int, 
 		vector:Vector2i,
 		indexZ:int,
-		caption:String,
-		time_lefted:float
+		caption_value:String,
+		time_lefted:float,
+		value_caption:String,
+		value_growth_rate:int,
+		value_check_watering:int,
+		value_growth_level_max:int,
+		value_mortality:int,
+		value_seasons:Array,
+		value_rect_x:int,
+		value_rect_y:int,
 	) -> void:
-	plantID = id
+	plant_id = id
 	condition = conditionID
 	degree = degreeID
 	fertilizer = fertilizerID
@@ -157,19 +196,30 @@ func set_data(
 	sprite.region_rect.position.y = region_rect_y
 	sprite.level = level
 	self.z_index = indexZ
-	self.name = caption
+	self.name = caption_value
+	plant_caption = caption_value
 	set_position(tilemap.map_to_local(vector))
+
+	plant_caption = value_caption
+	plant_growth_rate = value_growth_rate
+	plant_check_watering = value_check_watering
+	plant_growth_level_max = value_growth_level_max
+	plant_mortality = value_mortality
+	plant_seasons = value_seasons
+	plant_rect_x = value_rect_x
+	plant_rect_y = value_rect_y
+
 	if time_lefted <= 0.0:
 		if fertilizerID != 0:
 			match fertilizerID:
 				1:
 					fertilizer = fertilizers.regularCompost
-					time_lefted = crops.crops[plantID]["growth_rate"] - (items.content[61]["func"]["reducing"] / 100.0) * crops.crops[plantID]["growth_rate"]
+					time_lefted = plant_growth_rate - (plant_fertilize / 100.0) * plant_growth_rate
 				2:
 					fertilizer = fertilizers.highQualityCompost
-					time_lefted = crops.crops[plantID]["growth_rate"] - (items.content[62]["func"]["reducing"] / 100.0) * crops.crops[plantID]["growth_rate"]
+					time_lefted = plant_growth_rate - (plant_fertilize / 100.0) * plant_growth_rate
 		else:
-			time_lefted = crops.crops[plantID]["growth_rate"]
+			time_lefted = plant_growth_rate
 	else:
 		if fertilizerID != 0:
 			match fertilizerID:
@@ -197,30 +247,28 @@ func get_condition(condition_type:int) -> String:
 			return ""
 
 func check_plant_season() -> void:
-	for i in crops.crops[plantID]["season"]:
-		if i != clock.get_season():
+	var target_season = clock.get_season()
+	for s in plant_seasons:
+		if s != target_season:
 			condition = phases.dead
 			sprite.set_rect(0, 160)
 
 func _on_collision_mouse_entered() -> void:
 	if !blur.state\
 	&& grid.mode == grid.modes.NOTHING:
-		if crops.crops.has(plantID):
-			if crops.crops[plantID].has("caption"):
-				if crops.crops[plantID]["caption"] is String:
-					if fertilizer != fertilizers.nothing:
-						if !tip.visible:
-							tip.tooltip(
-								tr(crops.crops[plantID]["caption"]) +"\n"+
-								tr("tooltip.plant_condition") + ": " + str(get_condition(condition)) +"\n"+
-								tr('tooltip.plant_fertilized')
-							)
-					else:
-						if !tip.visible:
-							tip.tooltip(
-								tr(crops.crops[plantID]["caption"]) +"\n"+
-								tr("tooltip.plant_condition") + ": " + str(get_condition(condition))
-							)
+		if fertilizer != fertilizers.nothing:
+			if !tip.visible:
+				tip.tooltip(
+					tr(plant_caption) +"\n"+
+					tr("tooltip.plant_condition") + ": " + str(get_condition(condition)) +"\n"+
+					tr('tooltip.plant_fertilized')
+				)
+		else:
+			if !tip.visible:
+				tip.tooltip(
+					tr(plant_caption) +"\n"+
+					tr("tooltip.plant_condition") + ": " + str(get_condition(condition))
+				)
 		
 func _on_collision_mouse_exited() -> void:
 	if !blur.state:
@@ -236,7 +284,7 @@ func _on_check_water_timer_timeout():
 			&& !collision.check_cell(tilemap.local_to_map(position), collision.watering_layer)\
 			&& condition != phases.dead:
 				condition = phases.planted
-				if degree < crops.crops[plantID]["mortality"]:
+				if degree < plant_mortality:
 					degree += 1
 				else:
 					condition = phases.dead
@@ -248,16 +296,6 @@ func _on_check_water_timer_timeout():
 				growth()
 	else:
 		requires_watering(tilemap.local_to_map(self.global_position))
-
-func increase_growth() -> void:
-	if !pause.paused:
-		if crops.crops.has(plantID):
-			if sprite.level < crops.crops[plantID]["growth_level"]:
-				sprite.region_rect.position.x += 16
-				sprite.level += 1
-				check_water(tilemap.local_to_map(self.global_position))
-			else:
-				sprite.plant_increased()
 
 func set_new_time(new_time:float) -> void:
 	timer.stop()
