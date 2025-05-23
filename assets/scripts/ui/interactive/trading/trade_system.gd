@@ -58,8 +58,10 @@ func _ready():
 	markUp = traders.content['markUp']
 	_update_window_visible()
 	self.add_child(audio)
+	set_process(false)
 
 func _process(_delta) -> void:
+	print('true')
 	if visible:
 		if slots_inventory_to_create.size() > 0 && current_inventory_slot_index < slots_inventory_to_create.size():
 			for i in range(1):
@@ -94,6 +96,12 @@ func _process(_delta) -> void:
 					current_trader_slot_index += 1
 				else:
 					break
+		_check_items()
+
+func _check_items() -> void:
+	if	current_inventory_slot_index == slots_inventory_to_create.size()\
+	&& current_trader_slot_index == slots_trader_to_create.size():
+		set_process(false)
 
 func create_all_items(type:String = "all") -> void:
 	match type:
@@ -168,6 +176,7 @@ func create_all_items(type:String = "all") -> void:
 				trader_inventory_container.visible = true
 		_:
 			return
+	set_process(true)
 
 func item_create(slot_arg:int, items:Dictionary, container:GridContainer, id) -> void:
 	var slot = inventory.node.instantiate()
