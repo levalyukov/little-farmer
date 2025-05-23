@@ -81,16 +81,19 @@ func create_start_nature():
 	while weed_func_called < weed_func_calls:
 		weed_func_called+=1
 		create_natural_obj(weed_node, "weed", weeds, weeds_shadow)
+		print('weed_func_called < weed_func_calls')
 
 	check_aviabled_vectors()
 	while stone_func_called < stone_func_calls:
 		stone_func_called+=1
 		create_natural_obj(stone_node, "stone", stones, stones_shadow)
+		print('stone_func_called < stone_func_calls')
 
 	check_aviabled_vectors()
 	while tree_func_called < tree_func_calls:
 		tree_func_called+=1
 		create_natural_obj(tree_node, "tree", trees, trees_shadow)
+		print('tree_func_called < tree_func_calls')
 
 func create_natural_obj(node:PackedScene, node_name:String, sprites_array:Array[CompressedTexture2D], shadows_array:Array[CompressedTexture2D]) -> void:
 	var target_node = node.instantiate()
