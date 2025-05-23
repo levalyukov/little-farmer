@@ -31,3 +31,7 @@ res://assets/scripts/farming/plant.gd
 res://assets/scripts/farming/farming.gd
 res://assets/scripts/farming/crops.gd
 res://assets/scripts/ui/interactive/construct/construct_system.gd
+res://assets/scripts/ui/hud/grid/grid.gd
+res://assets/scripts/ui/interactive/trading/trade_system.gd
+res://assets/scripts/ui/interactive/construct/blueprints.gd
+res://assets/scripts/construction/construct.gd
