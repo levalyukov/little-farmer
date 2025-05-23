@@ -317,27 +317,34 @@ func harvesting() -> void:
 
 func building(mouse_position:Vector2i) -> void:
 	var data_resources = {}
-	if blueprints.content[group][id]["config"].has("resources"):
-		for resource in blueprints.content[group][id]["config"]["resources"]:
-			var required_amount = blueprints.content[group][id]["config"]["resources"][resource]["amount"]
-			var available_amount = inventory.get_item_amount(resource)
-			if available_amount >= required_amount:
-				data_resources[resource] = {}
-				data_resources[resource]["amount"] = required_amount
-			else:
-				disabled_grid()
-	if collision.collisions_check():
-		if blueprints.content.has(group):
-			if blueprints.content[group].has(id):
+	if blueprints.content.has(group) && blueprints.content[group].has(id):
+		var build_config = blueprints.content[group][id]["config"]
+		if blueprints.content[group][id].has('config'):
+			if build_config.has("resources"):
+				var resources:Dictionary = build_config["resources"]
+				for resource in resources:
+					var resource_data:Dictionary = resources.get(resource, {})
+					if resource_data.has('amount'):
+						var required_amount:int = resource_data['amount']
+						var available_amount:int = inventory.get_item_amount(resource)
+						if available_amount >= required_amount:
+							data_resources[resource] = {'amount': required_amount}
+						else:
+							disabled_grid()
+							return
+
+			if collision.collisions_check():
 				var node_name = blueprints.content[group][id]['config']['name']
 				buildManager.create_node(id, mouse_position, node_name)
 				play_sound('buildings/build')
 				if data_resources.keys().size() > 0:
 					for r in data_resources:
-						inventory.subject_item(r, data_resources[r]['amount'])
-				if blueprints.content[group][id]["config"].has('onlyInstance'):
-					if blueprints.content[group][id]["config"]['onlyInstance']:
+						inventory.subject_item(r, data_resources[r].get('amount', 0))
+				if build_config.has('onlyInstance'):
+					var build_one_only = build_config.get('onlyInstance')
+					if build_one_only:
 						disabled_grid()
+						return
 
 func terrain() -> void:
 	var positions = []
