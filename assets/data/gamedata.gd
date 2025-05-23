@@ -305,7 +305,7 @@ func load_plant(content_path:String, group:String = ""):
 					if file_load(content_path)[i]["time_left"]-GameLoader.time_left > 0.0\
 					&& file_load(content_path)[i]["condition"] == 1:
 						node.set_data(
-							file_load(content_path)[i]["plantID"],
+							file_load(content_path)[i]["plant_id"],
 							file_load(content_path)[i]["condition"],
 							file_load(content_path)[i]["degree"],
 							file_load(content_path)[i]["fertilizer"],
@@ -316,11 +316,19 @@ func load_plant(content_path:String, group:String = ""):
 							2,
 							i,
 							file_load(content_path)[i]["time_left"]-GameLoader.time_left,
+							file_load(content_path)[i]["caption"],
+							file_load(content_path)[i]["growth_rate"],
+							file_load(content_path)[i]["check_watering"],
+							file_load(content_path)[i]["growth_level_max"],
+							file_load(content_path)[i]["mortality"],
+							file_load(content_path)[i]["seasons"],
+							file_load(content_path)[i]["rect_x"],
+							file_load(content_path)[i]["rect_y"]
 						)
 					else:
 						if file_load(content_path)[i]["condition"] == 1:
 							node.set_data(
-								file_load(content_path)[i]["plantID"],
+								file_load(content_path)[i]["plant_id"],
 								file_load(content_path)[i]["condition"],
 								file_load(content_path)[i]["degree"],
 								file_load(content_path)[i]["fertilizer"],
@@ -331,6 +339,14 @@ func load_plant(content_path:String, group:String = ""):
 								2,
 								i,
 								0,
+								file_load(content_path)[i]["caption"],
+								file_load(content_path)[i]["growth_rate"],
+								file_load(content_path)[i]["check_watering"],
+								file_load(content_path)[i]["growth_level_max"],
+								file_load(content_path)[i]["mortality"],
+								file_load(content_path)[i]["seasons"],
+								file_load(content_path)[i]["rect_x"],
+								file_load(content_path)[i]["rect_y"]
 							)
 							node.check_water(
 								tilemap.map_to_local(string_to_vector(file_load(content_path)[i]["position"]))
@@ -338,7 +354,7 @@ func load_plant(content_path:String, group:String = ""):
 							node.increase_growth()
 						else:
 							node.set_data(
-								file_load(content_path)[i]["plantID"],
+								file_load(content_path)[i]["plant_id"],
 								file_load(content_path)[i]["condition"],
 								file_load(content_path)[i]["degree"],
 								file_load(content_path)[i]["fertilizer"],
@@ -349,10 +365,18 @@ func load_plant(content_path:String, group:String = ""):
 								2,
 								i,
 								0,
+								file_load(content_path)[i]["caption"],
+								file_load(content_path)[i]["growth_rate"],
+								file_load(content_path)[i]["check_watering"],
+								file_load(content_path)[i]["growth_level_max"],
+								file_load(content_path)[i]["mortality"],
+								file_load(content_path)[i]["seasons"],
+								file_load(content_path)[i]["rect_x"],
+								file_load(content_path)[i]["rect_y"]
 							)
 				else:
 					node.set_data(
-						file_load(content_path)[i]["plantID"],
+						file_load(content_path)[i]["plant_id"],
 						file_load(content_path)[i]["condition"],
 						file_load(content_path)[i]["degree"],
 						file_load(content_path)[i]["fertilizer"],
@@ -363,6 +387,14 @@ func load_plant(content_path:String, group:String = ""):
 						2,
 						i,
 						file_load(content_path)[i]["time_left"],
+						file_load(content_path)[i]["caption"],
+						file_load(content_path)[i]["growth_rate"],
+						file_load(content_path)[i]["check_watering"],
+						file_load(content_path)[i]["growth_level_max"],
+						file_load(content_path)[i]["mortality"],
+						file_load(content_path)[i]["seasons"],
+						file_load(content_path)[i]["rect_x"],
+						file_load(content_path)[i]["rect_y"]
 					)
 			if remove_suffix(i) == 'fertilizer':
 				farming.create_fertilizer(
@@ -385,7 +417,7 @@ func load_plant(content_path:String, group:String = ""):
 									&& file_load(content_path)[group][i]["condition"] == 1:
 										GameLoader.timer_greenhouse_plant_stop()
 										node.set_data(
-											file_load(content_path)[group][i]["plantID"],
+											file_load(content_path)[group][i]["plant_id"],
 											file_load(content_path)[group][i]["condition"],
 											file_load(content_path)[group][i]["degree"],
 											file_load(content_path)[group][i]["fertilizer"],
@@ -395,12 +427,20 @@ func load_plant(content_path:String, group:String = ""):
 											string_to_vector(file_load(content_path)[group][i]["position"]),
 											2,
 											i,
-											file_load(content_path)[group][i]["time_left"]-GameLoader.greenhouse_plants[GameLoader.greenhouse_caption]['time_left']
+											file_load(content_path)[group][i]["time_left"]-GameLoader.greenhouse_plants[GameLoader.greenhouse_caption]['time_left'],
+											file_load(content_path)[group][i]["caption"],
+											file_load(content_path)[group][i]["growth_rate"],
+											file_load(content_path)[group][i]["check_watering"],
+											file_load(content_path)[group][i]["growth_level_max"],
+											file_load(content_path)[group][i]["mortality"],
+											file_load(content_path)[group][i]["seasons"],
+											file_load(content_path)[group][i]["rect_x"],
+											file_load(content_path)[group][i]["rect_y"]
 										)
 									else:
 										if file_load(content_path)[group][i]["condition"] == 1:
 											node.set_data(
-												file_load(content_path)[group][i]["plantID"],
+												file_load(content_path)[group][i]["plant_id"],
 												file_load(content_path)[group][i]["condition"],
 												file_load(content_path)[group][i]["degree"],
 												file_load(content_path)[group][i]["fertilizer"],
@@ -410,7 +450,15 @@ func load_plant(content_path:String, group:String = ""):
 												string_to_vector(file_load(content_path)[group][i]["position"]),
 												2,
 												i,
-												file_load(content_path)[group][i]["time_left"]
+												file_load(content_path)[group][i]["time_left"],
+												file_load(content_path)[group][i]["caption"],
+												file_load(content_path)[group][i]["growth_rate"],
+												file_load(content_path)[group][i]["check_watering"],
+												file_load(content_path)[group][i]["growth_level_max"],
+												file_load(content_path)[group][i]["mortality"],
+												file_load(content_path)[group][i]["seasons"],
+												file_load(content_path)[group][i]["rect_x"],
+												file_load(content_path)[group][i]["rect_y"]
 											)
 											node.check_water(
 												tilemap.map_to_local(string_to_vector(file_load(content_path)[group][i]["position"]))
@@ -418,7 +466,7 @@ func load_plant(content_path:String, group:String = ""):
 											node.increase_growth()
 										else:
 											node.set_data(
-												file_load(content_path)[group][i]["plantID"],
+												file_load(content_path)[group][i]["plant_id"],
 												file_load(content_path)[group][i]["condition"],
 												file_load(content_path)[group][i]["degree"],
 												file_load(content_path)[group][i]["fertilizer"],
@@ -428,11 +476,19 @@ func load_plant(content_path:String, group:String = ""):
 												string_to_vector(file_load(content_path)[group][i]["position"]),
 												2,
 												i,
-												file_load(content_path)[group][i]["time_left"]
+												file_load(content_path)[group][i]["time_left"],
+												file_load(content_path)[group][i]["caption"],
+												file_load(content_path)[group][i]["growth_rate"],
+												file_load(content_path)[group][i]["check_watering"],
+												file_load(content_path)[group][i]["growth_level_max"],
+												file_load(content_path)[group][i]["mortality"],
+												file_load(content_path)[group][i]["seasons"],
+												file_load(content_path)[group][i]["rect_x"],
+												file_load(content_path)[group][i]["rect_y"]
 											)
 								else:
 									node.set_data(
-										file_load(content_path)[group][i]["plantID"],
+										file_load(content_path)[group][i]["plant_id"],
 										file_load(content_path)[group][i]["condition"],
 										file_load(content_path)[group][i]["degree"],
 										file_load(content_path)[group][i]["fertilizer"],
@@ -442,11 +498,19 @@ func load_plant(content_path:String, group:String = ""):
 										string_to_vector(file_load(content_path)[group][i]["position"]),
 										2,
 										i,
-										file_load(content_path)[group][i]["time_left"]
+										file_load(content_path)[group][i]["time_left"],
+										file_load(content_path)[group][i]["caption"],
+										file_load(content_path)[group][i]["growth_rate"],
+										file_load(content_path)[group][i]["check_watering"],
+										file_load(content_path)[group][i]["growth_level_max"],
+										file_load(content_path)[group][i]["mortality"],
+										file_load(content_path)[group][i]["seasons"],
+										file_load(content_path)[group][i]["rect_x"],
+										file_load(content_path)[group][i]["rect_y"]
 									)
 							else:
 								node.set_data(
-									file_load(content_path)[group][i]["plantID"],
+									file_load(content_path)[group][i]["plant_id"],
 									file_load(content_path)[group][i]["condition"],
 									file_load(content_path)[group][i]["degree"],
 									file_load(content_path)[group][i]["fertilizer"],
@@ -456,11 +520,19 @@ func load_plant(content_path:String, group:String = ""):
 									string_to_vector(file_load(content_path)[group][i]["position"]),
 									2,
 									i,
-									file_load(content_path)[group][i]["time_left"]
+									file_load(content_path)[group][i]["time_left"],
+									file_load(content_path)[group][i]["caption"],
+									file_load(content_path)[group][i]["growth_rate"],
+									file_load(content_path)[group][i]["check_watering"],
+									file_load(content_path)[group][i]["growth_level_max"],
+									file_load(content_path)[group][i]["mortality"],
+									file_load(content_path)[group][i]["seasons"],
+									file_load(content_path)[group][i]["rect_x"],
+									file_load(content_path)[group][i]["rect_y"]
 								)
 						else:
 							node.set_data(
-								file_load(content_path)[group][i]["plantID"],
+								file_load(content_path)[group][i]["plant_id"],
 								file_load(content_path)[group][i]["condition"],
 								file_load(content_path)[group][i]["degree"],
 								file_load(content_path)[group][i]["fertilizer"],
@@ -470,11 +542,19 @@ func load_plant(content_path:String, group:String = ""):
 								string_to_vector(file_load(content_path)[group][i]["position"]),
 								2,
 								i,
-								file_load(content_path)[group][i]["time_left"]
+								file_load(content_path)[group][i]["time_left"],
+								file_load(content_path)[group][i]["caption"],
+								file_load(content_path)[group][i]["growth_rate"],
+								file_load(content_path)[group][i]["check_watering"],
+								file_load(content_path)[group][i]["growth_level_max"],
+								file_load(content_path)[group][i]["mortality"],
+								file_load(content_path)[group][i]["seasons"],
+								file_load(content_path)[group][i]["rect_x"],
+								file_load(content_path)[group][i]["rect_y"]
 							)
 					else:
 						node.set_data(
-							file_load(content_path)[group][i]["plantID"],
+							file_load(content_path)[group][i]["plant_id"],
 							file_load(content_path)[group][i]["condition"],
 							file_load(content_path)[group][i]["degree"],
 							file_load(content_path)[group][i]["fertilizer"],
@@ -484,7 +564,15 @@ func load_plant(content_path:String, group:String = ""):
 							string_to_vector(file_load(content_path)[group][i]["position"]),
 							2,
 							i,
-							file_load(content_path)[group][i]["time_left"]
+							file_load(content_path)[group][i]["time_left"],
+							file_load(content_path)[group][i]["caption"],
+							file_load(content_path)[group][i]["growth_rate"],
+							file_load(content_path)[group][i]["check_watering"],
+							file_load(content_path)[group][i]["growth_level_max"],
+							file_load(content_path)[group][i]["mortality"],
+							file_load(content_path)[group][i]["seasons"],
+							file_load(content_path)[group][i]["rect_x"],
+							file_load(content_path)[group][i]["rect_y"]
 						)
 
 				if remove_suffix(i) == 'fertilizer':
