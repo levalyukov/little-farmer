@@ -43,6 +43,7 @@ var blueprint_price:int = 0
 
 func _ready():
 	window()
+	set_process(false)
 
 func _process(_delta) -> void:
 	if visible:
@@ -99,12 +100,31 @@ func _process(_delta) -> void:
 						current_slot_index_upgrade += 1
 				else:
 					break
+		check_items_state()
+
+func check_items_state() -> void:
+	match section:
+		'all':
+			# Добавить "current_slot_index_upgrade == slots_to_create_upgrade.size()" после добавления чертежей улучшений
+			if current_slot_index_nodes == slots_to_create_nodes.size()\
+			&& current_slot_index_terrains == slots_to_create_terrains.size():
+				set_process(false)
+		'nodes':
+			if current_slot_index_nodes == slots_to_create_nodes.size():
+				set_process(false)
+		'terrains':
+			if current_slot_index_terrains == slots_to_create_terrains.size():
+				set_process(false)
+		'upgrades':
+			if current_slot_index_upgrade == slots_to_create_upgrade.size():
+				set_process(false)
 
 func open() -> void:
 	opened = true
 	anim.play('open')
 	blur.blur(true)
 	section = 'all'
+	window()
 	set_start_info()
 	get_blueprints()
 	update_nav_menu()
@@ -189,21 +209,21 @@ func get_blueprints() -> void:
 			current_slot_index_nodes = 0
 			slots_to_create_nodes = []
 			if blueprints.content.has('nodes'):
-				if blueprints.content['nodes'] != {}:
+				if blueprints.content['nodes'].keys().size() > 0:
 					for i in blueprints.content['nodes']:
 						slots_to_create_nodes.append(i)
 		'terrains':
 			current_slot_index_terrains = 0
 			slots_to_create_terrains = []
 			if blueprints.content.has('terrains'):
-				if blueprints.content['terrains'] != {}:
+				if blueprints.content['terrains'].keys().size() > 0:
 					for i in blueprints.content['terrains']:
 						slots_to_create_terrains.append(i)
 		'upgrades':
 			current_slot_index_upgrade = 0
 			current_slot_index_upgrade = []
 			if blueprints.content.has('upgrades'):
-				if blueprints.content['upgrades'] != {}:
+				if blueprints.content['upgrades'].keys().size() > 0:
 					for i in blueprints.content['upgrades']:
 						current_slot_index_upgrade.append(i)
 		_:
@@ -217,7 +237,7 @@ func get_blueprints() -> void:
 			slots_to_create_terrains_captions = []
 			slots_to_create_upgrade_captions = []
 			if blueprints.content.has('nodes'):
-				if blueprints.content['nodes'] != {}:
+				if blueprints.content['nodes'].keys().size() > 0:
 					for i in blueprints.content['nodes']:
 						slots_to_create_nodes.append(i)
 						if blueprints.content['nodes'][i].has('trade_info'):
@@ -226,7 +246,7 @@ func get_blueprints() -> void:
 									blueprints.content['nodes'][i]['trade_info']['caption']
 								)
 			if blueprints.content.has('terrains'):
-				if blueprints.content['terrains'] != {}:
+				if blueprints.content['terrains'].keys().size() > 0:
 					for i in blueprints.content['terrains']:
 						slots_to_create_terrains.append(i)
 						if blueprints.content['terrains'][i].has('trade_info'):
@@ -236,7 +256,7 @@ func get_blueprints() -> void:
 								)
 
 			if blueprints.content.has('upgrades'):
-				if blueprints.content['upgrades'] != {}:
+				if blueprints.content['upgrades'].keys().size() > 0:
 					for i in blueprints.content['upgrades']:
 						slots_to_create_upgrade.append(i)
 						if blueprints.content['upgrades'][i].has('trade_info'):
@@ -244,6 +264,7 @@ func get_blueprints() -> void:
 								slots_to_create_upgrade_captions.append(
 									blueprints.content['upgrades'][i]['trade_info']['caption']
 									)
+	set_process(true)
 
 func clear_blueprints_container() -> void:
 	if blueprintsContainer.get_children().size() > 0:
@@ -251,15 +272,15 @@ func clear_blueprints_container() -> void:
 			blueprintsContainer.remove_child(i)
 
 func update_nav_menu() -> void:
-	if blueprints.content['nodes'] != {}:
+	if blueprints.content['nodes'].keys().size() > 0:
 		buttonNodes.visible = true
 	else:
 		buttonNodes.visible = !true
-	if blueprints.content['terrains'] != {}:
+	if blueprints.content['terrains'].keys().size() > 0:
 		buttonTerrain.visible = true
 	else:
 		buttonTerrain.visible = !true
-	if blueprints.content['upgrades'] != {}:
+	if blueprints.content['upgrades'].keys().size() > 0:
 		buttonUpgrades.visible = true
 	else:
 		buttonUpgrades.visible = !true
