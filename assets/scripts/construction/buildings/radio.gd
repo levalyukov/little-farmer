@@ -130,30 +130,6 @@ func previous_track() -> void:
 		audio_index_track -= 1
 	play_track(audio_index_track)
 
-func _process(_delta):
-	if pause.paused:
-		if enabled:
-			if !audio_player.get_stream_paused():
-				audio_player.set_stream_paused(true)
-			if !radio_noise.get_stream_paused():
-				radio_noise.set_stream_paused(true)
-			if particles.speed_scale > 0.0:
-				particles.speed_scale = 0.0
-	else:
-		if enabled:
-			if audio_player.get_stream_paused():
-				audio_player.set_stream_paused(false)
-			if radio_noise.get_stream_paused():
-				radio_noise.set_stream_paused(false)
-			if particles.speed_scale == 0.0:
-				particles.speed_scale = 0.5
-		else:
-			if start_game_music:
-				if !data.music.is_playing():
-					start_game_music = false
-					data.music_cooldown.set_wait_time(30.0) 
-					data.music_cooldown.start()
-
 func _input(event):
 	if !pause.paused\
 	&& !blur.state\
@@ -244,7 +220,7 @@ func next_radio_track() -> void:
 					radioMenu.stations_audios, 
 					radioMenu.station_audio_index
 				)
-				radioMenu.set_radio_track_name(radioMenu.station_audio_index)
+				radioMenu.set_radio_track_name()
 
 func get_random_audio_index(sounds_array, index):
 	if sounds_array.size() == 0:
