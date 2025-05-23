@@ -83,7 +83,10 @@ func open() -> void:
 		check_plants_state(true)
 		# For forges
 		check_forges_state()
-	
+		# For radio
+		check_radio_state(true)
+		# For nature sound
+		check_nature_sound(true)
 		
 func close() -> void:
 	paused = false
@@ -110,14 +113,22 @@ func close() -> void:
 
 		check_plants_state(false)
 		check_forges_state()
+		check_radio_state(false)
+		check_nature_sound(false)
 
-func check_plants_state(state_plant:bool) -> void:
+func check_nature_sound(state:bool) -> void:
+	if clock:
+		if clock.audio:
+			if clock.audio.get_stream_paused() == !state:
+				clock.audio.set_stream_paused(state)
+
+func check_plants_state(state:bool) -> void:
 	if farmingManager:
 		if farmingManager.get_children().size() > 0:
 			for plants in farmingManager.get_children():
-				plants.timer.set_paused(state_plant)
-				plants.check_water_timer.set_paused(state_plant)
-				if state_plant:
+				plants.timer.set_paused(state)
+				plants.check_water_timer.set_paused(state)
+				if state:
 					if plants.indicator.visible:
 						if plants.anim.is_playing():
 							plants.anim.pause()
@@ -125,6 +136,42 @@ func check_plants_state(state_plant:bool) -> void:
 					if plants.indicator.visible:
 						if !plants.anim.is_playing():
 							plants.anim.play()
+
+func check_radio_state(state:bool) -> void:
+	if constructionManager:
+		if constructionManager.get_children().size() > 0:
+			for node in constructionManager.get_children():
+				if node:
+					if 'blueprint_id' in node:
+						if node.blueprint_id == 10:
+							match state:
+								true: # pause.paused
+									if 'enabled' in node:
+										if node.enabled:
+											if node.audio_player && node.radio_noise:
+												if !node.audio_player.get_stream_paused():
+													node.audio_player.set_stream_paused(true)
+												if !node.radio_noise.get_stream_paused():
+													node.radio_noise.set_stream_paused(true)
+											if node.particles:
+												if node.particles.speed_scale > 0.0:
+													node.particles.speed_scale = 0.0
+								false:
+									if 'enabled' in node:
+										if node.enabled:
+											if node.audio_player.get_stream_paused():
+												node.audio_player.set_stream_paused(false)
+											if node.radio_noise.get_stream_paused():
+												node.radio_noise.set_stream_paused(false)
+											if node.particles.speed_scale == 0.0:
+												node.particles.speed_scale = 0.5
+										else:
+											if 'start_game_music' in node:
+												if node.start_game_music:
+													if !data.music.is_playing():
+														node.start_game_music = false
+														data.music_cooldown.set_wait_time(30.0) 
+														data.music_cooldown.start()
 
 func check_forges_state() -> void:
 	if constructionManager:
@@ -136,12 +183,12 @@ func check_forges_state() -> void:
 							match paused:
 								true:
 									if node.particles && node.particles.emitting:
-											if node.particles.speed_scale > 0.0:
-												node.particles.speed_scale = 0.0
+										if node.particles.speed_scale > 0.0:
+											node.particles.speed_scale = 0.0
 								false:
 									if node.particles && node.particles.emitting:
-											if node.particles.speed_scale == 0.0:
-												node.particles.speed_scale = 0.5
+										if node.particles.speed_scale == 0.0:
+											node.particles.speed_scale = 0.5
 
 func _check_window() -> void:
 	visible = paused
@@ -151,25 +198,24 @@ func _on_report_bug_button_pressed():
 		if data:
 			if data.has_method('open_url'):
 				data.open_url("https://forms.gle/GiVAMdDLAZFgt9aZA")
-				var audio = AudioStreamPlayer.new()
-				self.add_child(audio)
-				audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-				audio.stream = load('res://assets/sounds/ui/click.ogg')
-				audio.play()
+				_play_sound('ui/click')
 
 func _on_report_bug_button_mouse_entered():
 	if blur.state:
 		if paused:
-			var audio = AudioStreamPlayer.new()
-			self.add_child(audio)
-			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-			audio.stream = load('res://assets/sounds/ui/hover.ogg')
-			audio.play()
+			_play_sound('ui/hover')
 			if cursor:
 				cursor.set_cursor(cursor.states.ACTIVE)
 			
 func _on_report_bug_button_mouse_exited():
 	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+
+func _play_sound(ogg:String) -> void:
+	var audio = AudioStreamPlayer.new()
+	self.add_child(audio)
+	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+	audio.stream = load('res://assets/sounds/'+ogg+'.ogg')
+	audio.play()
 
 func _on_audio_finished(node) -> void:
 	node.queue_free()
