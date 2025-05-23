@@ -58,7 +58,16 @@ func _process(_delta):
 		modes.FARMING:
 			collision.farming_collision_check()
 		modes.PLANTING:
-			collision.planting_collision_check()
+			if inventory.check_item_amount(inventory_item):
+				if inventory.get_item_amount(inventory_item) >= collision.get_children().size():
+					collision.planting_collision_check()
+				else:
+					grid_dimensions.x = 1
+					grid_dimensions.y = 1
+					generate_grid()
+			else:
+				disabled_grid()
+					
 		modes.WATERING:
 			collision.watering_collision_check()
 			if tools\
@@ -152,13 +161,15 @@ func upgrade() -> void:
 	return
 
 func destroy_terrains() -> void:
+	var destroy_terrains_cells = []
 	for c in collision.get_children():
 		var grid_position = tilemap.local_to_map(c.get_global_position())
+		destroy_terrains_cells.append(grid_position)
 		match collision.terrain_check():
 			0:
-				tilemap.set_cells_terrain_connect(collision.road_layer,[grid_position],0,-1)
+				tilemap.set_cells_terrain_connect(collision.road_layer,destroy_terrains_cells,0,-1)
 			1:
-				tilemap.set_cells_terrain_connect(collision.farmland_layer,[grid_position],0,-1)
+				tilemap.set_cells_terrain_connect(collision.farmland_layer,destroy_terrains_cells,0,-1)
 			2:
 				tilemap.set_cells_terrain_connect(collision.watering_layer,[grid_position],0,-1)
 			3:
@@ -168,69 +179,67 @@ func destroy_terrains() -> void:
 func destroy_nature() -> void:
 	for i in collision.get_children():
 		var grid_position = tilemap.local_to_map(i.get_global_position())
-		match collision.nature_check():
-			1:
-				for a in nature.get_children():
-					if grid_position == tilemap.local_to_map(a.position):
-						nature.remove_child(a)
-						a.queue_free()
-				for b in shadows.get_children():
-					if grid_position == tilemap.local_to_map(b.position):
-						shadows.remove_child(b)
-						b.queue_free()
-				tilemap.erase_cell(collision.nature_layer, grid_position) 
-				inventory.add_item(1, randi_range(1,5))
-				play_sound('farming/tree_destroy')
-			2:
-				for a in nature.get_children():
-					if grid_position == tilemap.local_to_map(a.position):
-						nature.remove_child(a)
-						a.queue_free()
-				for b in shadows.get_children():
-					if grid_position == tilemap.local_to_map(b.position):
-						shadows.remove_child(b)
-						b.queue_free()
-				tilemap.erase_cell(collision.nature_layer, grid_position)
-				play_sound('farming/weed_destroy')
-			3:
-				for a in nature.get_children():
-					if grid_position == tilemap.local_to_map(a.position):
-						nature.remove_child(a)
-						a.queue_free()
-				for b in shadows.get_children():
-					if grid_position == tilemap.local_to_map(b.position):
-						shadows.remove_child(b)
-						b.queue_free()
-				tilemap.erase_cell(collision.nature_layer, grid_position) 
-				inventory.add_item(3, randi_range(1,5))
-				if data.check_probability(15):
-					inventory.add_item(5, randi_range(1,2))
-				play_sound('farming/stone_destroy')
-			4:
-				tilemap.erase_cell(collision.crops_layer, grid_position)
-				farmingManager.plant_destroy(grid_position)
-				play_sound('farming/plant_destroy')
+		if i.texture != collision.error:
+			match collision.nature_check():
+				1:
+					for a in nature.get_children():
+						if grid_position == tilemap.local_to_map(a.position):
+							nature.remove_child(a)
+							a.queue_free()
+					for b in shadows.get_children():
+						if grid_position == tilemap.local_to_map(b.position):
+							shadows.remove_child(b)
+							b.queue_free()
+					tilemap.erase_cell(collision.nature_layer, grid_position) 
+					inventory.add_item(1, randi_range(1,5))
+					play_sound('farming/tree_destroy')
+				2:
+					for a in nature.get_children():
+						if grid_position == tilemap.local_to_map(a.position):
+							nature.remove_child(a)
+							a.queue_free()
+					for b in shadows.get_children():
+						if grid_position == tilemap.local_to_map(b.position):
+							shadows.remove_child(b)
+							b.queue_free()
+					tilemap.erase_cell(collision.nature_layer, grid_position)
+					play_sound('farming/weed_destroy')
+				3:
+					for a in nature.get_children():
+						if grid_position == tilemap.local_to_map(a.position):
+							nature.remove_child(a)
+							a.queue_free()
+					for b in shadows.get_children():
+						if grid_position == tilemap.local_to_map(b.position):
+							shadows.remove_child(b)
+							b.queue_free()
+					tilemap.erase_cell(collision.nature_layer, grid_position) 
+					inventory.add_item(3, randi_range(1,5))
+					if data.check_probability(15):
+						inventory.add_item(5, randi_range(1,2))
+					play_sound('farming/stone_destroy')
+				4:
+					tilemap.erase_cell(collision.crops_layer, grid_position)
+					farmingManager.plant_destroy(grid_position)
+					play_sound('farming/plant_destroy')
 
 func farming() -> void:
 	var farming_tile_position = []
-	var collisions_detect = true
 	for i in collision.get_children():
 		var grid_position = tilemap.local_to_map(i.get_global_position())
 		if collision.check_cell(grid_position, collision.road_layer)\
-		&& collision.check_custom_data(grid_position, collision.can_place_dirt_custom_data, collision.road_layer):
+		&& collision.check_custom_data(grid_position, collision.can_place_dirt_custom_data, collision.road_layer)\
+		&& i.texture != collision.error:
 			farming_tile_position.append(grid_position)
-		if i.texture != collision.error:
-			collisions_detect = false
-			break
+
 	if farming_tile_position.size() > 0:
-		if !collisions_detect:
-			tilemap.set_cells_terrain_connect(
-				collision.farmland_layer,
-				farming_tile_position,
-				collision.terrain_set, 
-				collision.farming_terrain
-			)
-			play_sound('farming/farming')
+		tilemap.set_cells_terrain_connect(
+			collision.farmland_layer,
+			farming_tile_position,
+			collision.terrain_set, 
+			collision.farming_terrain
+		)
+		play_sound('farming/farming')
 
 func watering() -> void:
 	for i in collision.get_children():
@@ -253,40 +262,32 @@ func watering() -> void:
 				play_sound('farming/watering_plant')
 
 func planting() -> void:
-	if inventory.check_item_amount(inventory_item):
-		if inventory.get_item_amount(inventory_item) >= collision.get_children().size():
-			for i in collision.get_children():
-				var grid_position = tilemap.local_to_map(i.get_global_position())
-				if main == "Farm":
-					if farmingManager.check_season(plantID):
-						if crops.crops.has(plantID):
-							if collision.check_cell(grid_position, collision.farmland_layer)\
-							&& !collision.check_cell(grid_position, collision.crops_layer)\
-							&& collision.check_custom_data(
-								grid_position, 
-								collision.can_place_seed_custom_data, 
-								collision.farmland_layer
-							):
-								inventory.subject_item(inventory_item, 1)
-								farmingManager.create_plant(plantID, grid_position)
-				else:
-					if crops.crops.has(plantID):
-						if collision.check_cell(grid_position, collision.farmland_layer)\
-						&& !collision.check_cell(grid_position, collision.crops_layer)\
-						&& collision.check_custom_data(
-							grid_position, 
-							collision.can_place_seed_custom_data, 
-							collision.farmland_layer
-						):
-							inventory.subject_item(inventory_item, 1)
-							farmingManager.create_plant(plantID, grid_position)
-				play_sound('farming/planting')
+	for i in collision.get_children():
+		var grid_position = tilemap.local_to_map(i.get_global_position())
+		if main == "Farm":
+			if farmingManager.check_season(plantID):
+				if crops.crops.has(plantID):
+					if collision.check_cell(grid_position, collision.farmland_layer)\
+					&& !collision.check_cell(grid_position, collision.crops_layer)\
+					&& collision.check_custom_data(
+						grid_position, 
+						collision.can_place_seed_custom_data, 
+						collision.farmland_layer
+					):
+						inventory.subject_item(inventory_item, 1)
+						farmingManager.create_plant(plantID, grid_position)
 		else:
-			grid_dimensions.x = 1
-			grid_dimensions.y = 1
-			generate_grid()
-	else:
-		disabled_grid()
+			if crops.crops.has(plantID):
+				if collision.check_cell(grid_position, collision.farmland_layer)\
+				&& !collision.check_cell(grid_position, collision.crops_layer)\
+				&& collision.check_custom_data(
+					grid_position, 
+					collision.can_place_seed_custom_data, 
+					collision.farmland_layer
+				):
+					inventory.subject_item(inventory_item, 1)
+					farmingManager.create_plant(plantID, grid_position)
+		play_sound('farming/planting')
 
 func harvesting() -> void:
 	collision.harvest_check()
@@ -297,7 +298,7 @@ func harvesting() -> void:
 			if storage.object[storage.level]["slots"] - inventory.get_all_items() != 0:
 				if collision.get_harvest(grid_position):
 					var crop_item:int = 0
-					var crop_productivity:Array[int] = []
+					var crop_productivity:Array = []
 					var target_productivity:int = 0
 					if data.check_probability(5):
 						crop_item = crops.crops[harvest]["spoilage"]
@@ -346,11 +347,10 @@ func terrain() -> void:
 		if i.texture != collision.error:
 			positions.append(grid_position)
 	for index in range(len(terrain_required_layer)):
-		if index < terrain_set.size():
-			if positions != []:
-				var layer = terrain_required_layer[index]
-				var terrain_index = terrain_set[index]
-				tilemap.set_cells_terrain_connect(layer, positions, 0, terrain_index)
+		if index < terrain_set.size() && positions.size() > 0:
+			var layer = terrain_required_layer[index]
+			var terrain_index = terrain_set[index]
+			tilemap.set_cells_terrain_connect(layer, positions, 0, terrain_index)
 
 func fertilizer() -> void:
 	if inventory.get_item_amount(inventory_item) >= collision.get_children().size():
