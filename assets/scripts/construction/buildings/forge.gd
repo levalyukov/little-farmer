@@ -158,8 +158,8 @@ func start_melt(oreID:int, oreAmount:int, fuelID:int, fuelAmount:int) -> void:
 
 func _on_timer_timeout():
 	if !pause.paused:
-		if value_process <= 100.0:
-			value_process += 50.0#randf_range(0.01, 5.0)
+		if value_process < 100.0:
+			value_process += randf_range(0.01, 5.0)
 		else:
 			if !isDone:
 				if items.content.has(int(ore_id)):
