@@ -8,34 +8,17 @@ extends Sprite2D
 @onready var timer:Timer = $"../Timer"
 
 var crops:Object = Crops.new()
-var level:int
+var level:int = 0
 
-func _ready():
-	if crops.crops.has("atlas"):
-		if crops.crops["atlas"] is CompressedTexture2D:
-			texture = texture
-		else:
-			data.debug("Atlas is not a CompressedTexture2D.", "error")
-	else:
-		data.debug("No atlas of crops.", "fatal")
-
-func _process(_delta):
-	if plant.plantID != 0:
-		if level == crops.crops[plant.plantID]["growth_level"]\
-		&& plant.condition != plant.phases.growed:
-			plant_increased()
-	else:
-		data.debug("Invalid variable index: " + str(plant.plantID), "error")
-		remove_child(plant)
-		queue_free()
+#	func _ready():
+#		if crops.crops.has("atlas"):
+#			if crops.crops["atlas"] is CompressedTexture2D:
+#				texture = texture
 		
-func rect(id) -> void:
-	if crops.crops[id].has("X")\
-	&& crops.crops[id].has("Y"):
-		region_rect.position.x = crops.crops[id]['X']
-		region_rect.position.y = crops.crops[id]['Y']
-	else:
-		data.debug("The X and Y coordinates cannot be determined.", "error")
+func rect(plant_rect_x:int, plant_rect_y:int) -> void:
+	if plant_rect_x && plant_rect_y:
+		region_rect.position.x = plant_rect_x
+		region_rect.position.y = plant_rect_y
 
 func set_rect(x:int, y:int, timerIsStopped:bool = false) -> void:
 	region_rect.position.x = x
@@ -46,13 +29,21 @@ func set_rect(x:int, y:int, timerIsStopped:bool = false) -> void:
 
 func _on_timer_timeout() -> void:
 	if !pause.paused:
-		if level < crops.crops[plant.plantID]["growth_level"]:
-			region_rect.position.x += 16
-			level += 1
-			plant.check_water(tilemap.local_to_map(self.global_position))
-		else:
+		region_rect.position.x += 16
+		level += 1
+		if level == plant.plant_growth_level_max:
 			plant_increased()
-
+			plant.tilemap.set_cells_terrain_connect(
+				plant.collision.watering_layer,
+				[tilemap.local_to_map(self.global_position)],
+				0,
+				-1
+			)
+		else:
+			plant.check_water(
+				tilemap.local_to_map(self.global_position)
+			)
+			
 func plant_increased():
 	plant.condition = plant.phases.growed
 	timer.stop()
