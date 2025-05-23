@@ -33,9 +33,9 @@ var index:int
 var section:String = "all"
 var opened:bool = false
 var all_items:bool
-var terrains_blueprints:Array[int] = [1,2,3,4,5,6,7,8,9,10,11,12]
-var node_blueprints:Array[int] = [1,2,3,4,5,6,7,8,9,10,11,12]
-var upgrade_blueprints:Array[int] =  [1,2,3,4,5,6,7,8,9,10,11,12]
+var terrains_blueprints:Array[int] = []#[1,2,3,4,5,6,7,8,9,10,11,12]
+var node_blueprints:Array[int] = []#[1,2,3,4,5,6,7,8,9,10,11,12]
+var upgrade_blueprints:Array[int] =  []#[1,2,3,4,5,6,7,8,9,10,11,12]
 
 var items:Object = Items.new()
 var blueprints:Object = BlueprintManager.new()
@@ -57,7 +57,6 @@ func _input(_event):
 		close()
 
 func _process(_delta) -> void:
-	print('test')
 	if visible:
 		# nodes
 		if slots_to_create_nodes.size() > 0 && current_slot_index_nodes < slots_to_create_nodes.size():
