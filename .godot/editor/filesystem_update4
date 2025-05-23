@@ -30,3 +30,4 @@ res://assets/nodes/farming/plant.tscn
 res://assets/scripts/farming/plant.gd
 res://assets/scripts/farming/farming.gd
 res://assets/scripts/farming/crops.gd
+res://assets/scripts/ui/interactive/construct/construct_system.gd
