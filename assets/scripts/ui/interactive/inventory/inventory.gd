@@ -47,12 +47,12 @@ func _ready():
 	reset_data()
 	self.add_child(audio)
 
-	var test_index = 0
-	while inventory_items.size() < 62:
-		test_index += 1
-		inventory_items[test_index] = {}
-		inventory_items[test_index]['amount'] = 1000
-	test_index = 0
+	#	var test_index = 0
+	#	while inventory_items.size() < 62:
+	#		test_index += 1
+	#		inventory_items[test_index] = {}
+	#		inventory_items[test_index]['amount'] = 1000
+	#	test_index = 0
 
 func _input(_event):
 	if Input.is_action_just_pressed("esc")\
@@ -101,7 +101,9 @@ func open() -> void:
 	check_inventory()
 	create_all_items()
 	update_string_capacity()
-	if grid.mode != grid.modes.NOTHING: grid.mode = grid.modes.NOTHING
+	if grid.mode != grid.modes.NOTHING: 
+		grid.mode = grid.modes.NOTHING
+		grid.disabled_grid()
 	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 	if audio:
 		if !audio.is_playing():
@@ -264,37 +266,29 @@ func add_item(id, amount:int = 1) -> void:
 			inventory_items[int(id)] = {"amount": amount}
 		
 func subject_item(id, item_amount:int = 1) -> void:
-	if item.content.has(int(id)):
-		if id is int || id is String:
-			if item_amount != 0:
-				for key in inventory_items:
-					if id is int:
-						if id == int(key):
-							inventory_items[id]["amount"] -= item_amount 
-							check_amount(id)
-					elif id is String:
-						if id == str(key):
-							inventory_items[id]["amount"] -= item_amount 
-							check_amount(id)
+	if id is int || id is String:
+		if item_amount > 0:
+			inventory_items[id]["amount"] -= item_amount 
+			check_amount(id)
 
-		if id is Dictionary:
-			var resources_id = []
-			var amounts = []
-			for items in id:
-				if id[items].has("amount"):
-					if id[items]["amount"] > 0:
-						resources_id.append(items)
-						amounts.append(id[items]["amount"])
+	if id is Dictionary:
+		var resources_id = []
+		var amounts = []
+		for items in id:
+			if id[items].has("amount"):
+				if id[items]["amount"] > 0:
+					resources_id.append(items)
+					amounts.append(id[items]["amount"])
 
-			for idx in range(resources_id.size()):
-				var ids = resources_id[idx]
-				var amount = amounts[idx]
-				if inventory_items.has(int(ids)):
-					check_amount(int(ids))
-					inventory_items[int(ids)]["amount"] -= amount
-				elif inventory_items.has(str(ids)):
-					check_amount(str(ids))
-					inventory_items[str(ids)]["amount"] -= amount
+		for idx in range(resources_id.size()):
+			var ids = resources_id[idx]
+			var amount = amounts[idx]
+			if inventory_items.has(int(ids)):
+				check_amount(int(ids))
+				inventory_items[int(ids)]["amount"] -= amount
+			elif inventory_items.has(str(ids)):
+				check_amount(str(ids))
+				inventory_items[str(ids)]["amount"] -= amount
 
 func remove_item(id) -> void:
 	if inventory_items.has(int(id)):
