@@ -13,18 +13,39 @@ var items:Object = Items.new()
 var crops:Object = Crops.new()
 var season:bool = false
 
-func create_plant(id:int, vector:Vector2i) -> void:
+var atlas_coords = Vector2i(0,3)
+var source_id = 0
+
+var plant_check_watering = crops.crops['check_watering']
+
+func create_plant(plant_id:int, vector:Vector2i) -> void:
 	var plant = plant_node.instantiate()
-	var atlas_coords = Vector2i(0,3)
-	var source_id = 0
-	
+
 	if collision.check_cell(vector, collision.farmland_layer):
+		var plant_caption = crops.crops[plant_id]['caption'] if crops.crops[plant_id].has('caption') && crops.crops[plant_id]['caption'] is String else null
+		var plant_growth_rate = crops.crops[plant_id]['growth_rate'] if crops.crops[plant_id].has('growth_rate') && crops.crops[plant_id]['growth_rate'] is float else null
+		var plant_growth_level = crops.crops[plant_id]['growth_level'] if crops.crops[plant_id].has('growth_level') && crops.crops[plant_id]['growth_level'] is int else null
+		var plant_mortality = crops.crops[plant_id]['mortality'] if crops.crops[plant_id].has('mortality') && crops.crops[plant_id]['mortality'] is int else null
+		var plant_seasons = crops.crops[plant_id]['season'] if crops.crops[plant_id].has('season') && crops.crops[plant_id]['season'] is Array else null
+		var plant_rect_x = crops.crops[plant_id]['X'] if crops.crops[plant_id].has('X') && crops.crops[plant_id]['X'] is int else null
+		var plant_rect_y = crops.crops[plant_id]['Y'] if crops.crops[plant_id].has('Y') && crops.crops[plant_id]['Y'] is int else null
+
 		tilemap.set_cell(collision.crops_layer,vector,source_id,atlas_coords)
 		plant.set_position(tilemap.map_to_local(vector))
 		add_child(plant)
 		plant.z_index = 2
 		plant.name = "plant_1"
-		plant.plant(id)
+		plant.plant(
+			plant_id,
+			plant_caption,
+			plant_growth_rate,
+			plant_check_watering,
+			plant_growth_level,
+			plant_mortality,
+			plant_seasons,
+			plant_rect_x,
+			plant_rect_y
+		)
 		plant.check(vector)
 
 func plant_destroy(vector:Vector2i) -> void:
