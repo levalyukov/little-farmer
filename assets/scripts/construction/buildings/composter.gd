@@ -195,4 +195,4 @@ func _on_timer_timeout():
 		timer.stop()
 		update()
 	else:
-		composting_value += randf_range(0.01, 2.5)
+		composting_value += randf_range(0.01, 5.0)
