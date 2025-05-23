@@ -28,26 +28,28 @@ func _ready():
 	window()
 
 func _process(_delta):
-	if visible:
-		if slots_to_create.size() > 0 && current_slot_index < slots_to_create.size():
-			for i in range(1):
-				if current_slot_index < slots_to_create.size():
-					item_create(slots_to_create[current_slot_index])
-					current_slot_index += 1
-				else:
-					break
-
-		if current_node is Node2D:
-			if current_node.logAmount > 0:
-				logAmount.text = 'x'+str(current_node.logAmount)
-				logIcon.modulate =  Color(1, 1, 1)
-				plankIcon.modulate =  Color(1, 1, 1)
-				plankAmount.text = 'x'+str(current_node.logAmount*5)
+	if visible && (slots_to_create.size() > 0 && current_slot_index < slots_to_create.size()):
+		for i in range(1):
+			if current_slot_index < slots_to_create.size():
+				item_create(slots_to_create[current_slot_index])
+				current_slot_index += 1
 			else:
-				logAmount.text = ''
-				plankAmount.text = ''
-				logIcon.modulate =  Color(0.8, 0.8, 0.8, 0.49)
-				plankIcon.modulate =  Color(0.8, 0.8, 0.8, 0.49)
+				break
+	else:
+		set_process(false)
+
+func update_icon_log() -> void:
+	if current_node:
+		if current_node.logAmount > 0:
+			logAmount.text = 'x'+str(current_node.logAmount)
+			logIcon.modulate =  Color(1, 1, 1)
+			plankIcon.modulate =  Color(1, 1, 1)
+			plankAmount.text = 'x'+str(current_node.logAmount*5)
+		else:
+			logAmount.text = ''
+			plankAmount.text = ''
+			logIcon.modulate =  Color(0.8, 0.8, 0.8, 0.49)
+			plankIcon.modulate =  Color(0.8, 0.8, 0.8, 0.49)
 
 func open(node:Node2D) -> void:
 	opened = true
@@ -59,6 +61,7 @@ func open(node:Node2D) -> void:
 	cutButton.text = tr('sawmill_menu.button')
 	if node:
 		current_node = node
+	window()
 
 func close() -> void:
 	opened = !true
@@ -89,12 +92,20 @@ func _on_close_button_mouse_entered():
 	audio.stream = load('res://assets/sounds/ui/hover.ogg')
 	audio.play()
 
-func item_create(id) -> void:
+func item_create(item_id) -> void:
 	var slot = inventory.node.instantiate()
-	if inventory.inventory_items.has(id):
-		if inventory.inventory_items[id]["amount"] > 0:
+	if inventory.inventory_items.has(item_id):
+		if inventory.inventory_items[item_id]["amount"] > 0:
+			var item_icon = items.content[int(item_id)]["icon"]
+			var item_caption = items.content[int(item_id)]["caption"]
+			var item_amount = inventory.inventory_items[item_id]["amount"]
 			itemsContainer.add_child(slot)
-			slot.set_data(id, inventory.inventory_items[id]["amount"])
+			slot.set_data(
+				item_id, 
+				item_amount,
+				item_icon,
+				item_caption
+			)
 
 func get_menu_inventory() -> void:
 	clear_menu_inventory()
@@ -102,6 +113,7 @@ func get_menu_inventory() -> void:
 		if items.content.has(int(i)):
 			if int(i) == 1:
 				slots_to_create.append(i)
+	set_process(true)
 
 func clear_menu_inventory():
 	if itemsContainer.get_children() != []:
@@ -153,6 +165,7 @@ func _on_cut_button_pressed():
 				current_node.logAmount = 0
 				update_button()
 				get_menu_inventory()
+				update_icon_log()
 
 func _on_cut_button_mouse_entered():
 	if !cutButton.disabled:
