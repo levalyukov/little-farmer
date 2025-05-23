@@ -57,13 +57,13 @@ func collisions_check() -> bool:
 	return true
 
 func nature_check():
+	# ?
 	for grids in get_children():
 		var grid_position = tilemap.local_to_map(grids.get_global_position())
-		# check nature
 		if !check_cell(grid_position, border_collisions):
-			for i in nature.get_children():
-				if grid_position == tilemap.local_to_map(i.position):
-					match data.remove_suffix(i.name):
+			for node in nature.get_children():
+				if grid_position == tilemap.local_to_map(node.get_global_position()):
+					match data.remove_suffix(node.name):
 						'tree':
 							grids.texture = default
 							return 1
@@ -73,39 +73,41 @@ func nature_check():
 						'stone':
 							grids.texture = default
 							return 3
-			# check plants
-			for i in farming.get_children():
-				if grid_position == tilemap.local_to_map(i.position):
+			for node in farming.get_children():
+				if grid_position == tilemap.local_to_map(node.get_global_position()):
 					grids.texture = default
 					return 4
 		grids.texture = error
-		return
 
 func terrain_check():
-	if main == "Farm":
+	if main == "Farm":\
 		for grids in get_children():
 			var grid_position = tilemap.local_to_map(grids.get_global_position())
 			if check_cell(grid_position, road_layer)\
 			&& !check_cell(grid_position, farmland_layer)\
 			&& !check_cell(grid_position, watering_layer)\
 			&& !check_cell(grid_position, crops_layer)\
+			&& !check_cell(grid_position, building_layer)\
 			&& !check_cell(grid_position, border_collisions):
 				grids.texture = default
 				return 0
 			elif check_cell(grid_position, farmland_layer)\
 			&& !check_cell(grid_position, watering_layer)\
 			&& !check_cell(grid_position, crops_layer)\
+			&& !check_cell(grid_position, building_layer)\
 			&& !check_cell(grid_position, border_collisions):
 				grids.texture = default
 				return 1
 			elif check_cell(grid_position, farmland_layer)\
 			&& check_cell(grid_position, watering_layer)\
 			&& !check_cell(grid_position, crops_layer)\
+			&& !check_cell(grid_position, building_layer)\
 			&& !check_cell(grid_position, border_collisions):
 				grids.texture = default
 				return 2
 			elif check_cell(grid_position, coast_layer)\
 			&& check_cell(grid_position, water_layer)\
+			&& !check_cell(grid_position, building_layer)\
 			&& !check_cell(grid_position, border_collisions):
 				grids.texture = default
 				return 3
@@ -139,6 +141,7 @@ func farming_collision_check() -> void:
 		for grids in get_children():
 			var grid_position = tilemap.local_to_map(grids.get_global_position())
 			if check_custom_data(grid_position, can_place_dirt_custom_data, road_layer)\
+			&& !check_cell(grid_position, building_layer)\
 			&& !check_cell(grid_position, farmland_layer):
 				grids.texture = default
 			else:
@@ -190,7 +193,8 @@ func terrain_collision_check(terrain_layer:Array) -> void:
 			var local_position = tilemap.to_local(grids.get_global_position())
 			var grid_position = tilemap.local_to_map(local_position)
 			var collision_found = false
-			if !check_cell(grid_position, border_collisions):
+			if !check_cell(grid_position, border_collisions)\
+			&& !check_cell(grid_position, building_layer):
 				for i in terrain_layer:
 					if check_cell(grid_position, i)\
 					|| !check_cell(grid_position, ground_layer):
@@ -216,6 +220,7 @@ func building_collision_check() -> void:
 			&& !check_cell(grid_position, watering_layer)\
 			&& !check_cell(grid_position, coast_layer)\
 			&& !check_cell(grid_position, water_layer)\
+			&& !check_cell(grid_position, building_layer)\
 			&& !check_cell(grid_position, border_collisions):
 				grids.texture = default
 			else:
@@ -272,8 +277,9 @@ func get_harvest(vector:Vector2i) -> bool:
 		for plant in farming.get_children():
 			if vector == tilemap.local_to_map(plant.position):
 				if data.remove_suffix(plant.name) == "plant":
-					if plant.condition == plant.phases.growed:
-						return true
+					if 'condition' in plant && 'phases' in plant:
+						if plant.condition == plant.phases.growed:
+							return true
 	return false
 
 func get_harvest_id(vector:Vector2i) -> int:
@@ -281,8 +287,9 @@ func get_harvest_id(vector:Vector2i) -> int:
 	|| main == "Greenhouse":
 		for plant in farming.get_children():
 			if data.remove_suffix(plant.name) == "plant":
-				if vector == tilemap.local_to_map(plant.position):
-					return plant.plantID
+				if vector == tilemap.local_to_map(plant.position)\
+				&& 'plant_id' in plant:
+					return plant.plant_id
 	return 0
 
 func check_custom_data(vector:Vector2, custom_data_layer:String, layer:int) -> bool:
