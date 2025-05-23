@@ -153,16 +153,16 @@ func remove_node(node:Node2D, vectors:Array[Vector2i]) -> void:
 	audio.set_pitch_scale(randf_range(0.85, 1.25))
 	audio.play()
 
-	remove_child(node)
-	node.queue_free()
-
 	for child in shadows_node.get_children():
-		if child.name == node.name:
+		if tilemap.local_to_map(child.position) == tilemap.local_to_map(node.position):
 			shadows_node.remove_child(child)
 			child.queue_free()
 
 	for v in vectors:
 		tilemap.set_cell(collision.building_layer, v, -1)
+
+	remove_child(node)
+	node.queue_free()
 
 func _on_audio_finished(node) -> void:
 	node.queue_free()
