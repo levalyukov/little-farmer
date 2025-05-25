@@ -61,7 +61,6 @@ func _ready():
 	set_process(false)
 
 func _process(_delta) -> void:
-	print('true')
 	if visible:
 		if slots_inventory_to_create.size() > 0 && current_inventory_slot_index < slots_inventory_to_create.size():
 			for i in range(1):
