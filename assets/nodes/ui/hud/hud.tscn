@@ -241,26 +241,15 @@ layout_mode = 2
 [node name="AnimationTools" type="AnimationPlayer" parent="Main/Tools"]
 root_node = NodePath("../../..")
 
-[node name="Label2" type="Label" parent="Main"]
-visible = false
-layout_mode = 2
-size_flags_vertical = 8
-text = "Игра в разработке"
-label_settings = SubResource("LabelSettings_6tlru")
-vertical_alignment = 1
-
 [node name="AreaName" type="MarginContainer" parent="Main"]
-visible = false
 layout_mode = 2
 mouse_filter = 2
 script = ExtResource("9_jpol3")
 
 [node name="Label" type="Label" parent="Main/AreaName"]
-visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_vertical = 8
-text = "Игра в разработке"
 label_settings = SubResource("LabelSettings_6tlru")
 vertical_alignment = 1
 
