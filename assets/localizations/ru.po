@@ -370,22 +370,6 @@ msgstr ""
 "улучшения здания становятся доступны новые функции или контент, связанные с "
 "ними."
 
-#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_destroy.tscn
-msgid "ui.tools.destroy_menu"
-msgstr "Меню уничтожения"
-
-#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_trash.tscn
-msgid "ui.tools.terrain_destroy_button"
-msgstr "Уничтожить ландшафт"
-
-#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_axe.tscn
-msgid "ui.tools.nature_destroy_button"
-msgstr "Убрать растения"
-
-#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_pickaxe.tscn
-msgid "ui.tools.buildings_destroy_button"
-msgstr "Снести здание"
-
 #: assets/nodes/ui/hud/elements/tools/button_construction.tscn
 msgid "ui.tools.contruct_menu"
 msgstr "Меню строительства"
@@ -1710,29 +1694,43 @@ msgid "radio_menu.button.next_track"
 msgstr "Следующий"
 
 #: assets/scripts/ui/sawmill_menu.gd
-#| msgid "object.sawmill.caption"
 msgid "sawmill_menu.caption"
 msgstr "Пилостол"
 
 #: assets/scripts/ui/sawmill_menu.gd
-#| msgid "object.sawmill.description"
 msgid "sawmill_menu.description"
 msgstr "Выберите бревно для распилки"
 
 #: assets/scripts/ui/sawmill_menu.gd
-#| msgid "main_menu.credits_button"
 msgid "sawmill_menu.button"
 msgstr "Распилить"
 
 #: assets/scripts/construction/buildings/composter.gd
-#| msgid "object.house.caption"
 msgid "object.composter.caption"
 msgstr "Компостер"
 
 #: assets/scripts/construction/buildings/composter.gd
-#| msgid "object.house.description"
 msgid "object.composter.description"
 msgstr "Ящик для приготовления удобрения"
+
+#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_menu.tscn
+msgid "ui.tools.destroy_menu"
+msgstr "Меню уничтожения"
+
+#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_builds.tscn
+msgid "ui.tools.buildings_destroy_button"
+msgstr "Снести здание"
+
+#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_plant.tscn
+msgid "ui.tools.nature_destroy_button"
+msgstr "Убрать растения"
+
+#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_terrain.tscn
+msgid "ui.tools.terrain_destroy_button"
+msgstr "Уничтожить ландшафт"
+
+#~ msgid "hud.game_saved_title"
+#~ msgstr "Сохранение..."
 
 #~| msgid "main_menu.settings_button"
 #~ msgid "menu.credits_button"
