@@ -23,7 +23,6 @@ func _input(event) -> void:
 			teleport()
 
 func teleport() -> void:
-	GameConfig.game_music = true
 	match main:
 		"Farm":
 			var scene:String = "res://levels/village.tscn"
