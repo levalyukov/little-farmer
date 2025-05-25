@@ -95,6 +95,7 @@ func _ready():
 func open() -> void:
 	anim.play("open")
 	opened = true
+	_strings_update()
 	if !check_path():
 		var data_menu = get_node("/root/"+main+"/GameData")
 		if data_menu:
@@ -124,13 +125,11 @@ func window():
 	if pause:
 		pause.other_menu = opened
 
-func _process(_delta):
-	if visible:
-		if sounds_section.visible:
-			general_sound_label.text = str(general_sound_slider.value)+"%"
-			music_sound_label.text = str(music_sound_slider.value)+"%"
-			nature_sound_label.text = str(nature_sound_slider.value)+"%"
-			radio_sound_label.text = str(radio_sound_slider.value)+"%"
+func _strings_update() -> void:
+	general_sound_label.text = str(general_sound_slider.value)+"%"
+	music_sound_label.text = str(music_sound_slider.value)+"%"
+	nature_sound_label.text = str(nature_sound_slider.value)+"%"
+	radio_sound_label.text = str(radio_sound_slider.value)+"%"
 
 func set_values(content:Dictionary) -> void:
 	if content != {}:
@@ -187,38 +186,22 @@ func _on_graphic_button_pressed():
 	graphic_section.visible = true
 	sounds_section.visible = false
 	control_section.visible = false
-	var audio = AudioStreamPlayer.new()
-	self.add_child(audio)
-	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-	audio.stream = load('res://assets/sounds/ui/click.ogg')
-	audio.play()
+	_play_sound('ui/click')
 
 func _on_sound_button_pressed():
 	graphic_section.visible = false
 	sounds_section.visible = true
 	control_section.visible = false
-	var audio = AudioStreamPlayer.new()
-	self.add_child(audio)
-	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-	audio.stream = load('res://assets/sounds/ui/click.ogg')
-	audio.play()
+	_play_sound('ui/click')
 
 func _on_control_pressed():
 	graphic_section.visible = false
 	sounds_section.visible = false
 	control_section.visible = true
-	var audio = AudioStreamPlayer.new()
-	self.add_child(audio)
-	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-	audio.stream = load('res://assets/sounds/ui/click.ogg')
-	audio.play()
+	_play_sound('ui/click')
 
 func _on_graphic_button_mouse_entered():
-	var audio = AudioStreamPlayer.new()
-	self.add_child(audio)
-	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-	audio.stream = load('res://assets/sounds/ui/hover.ogg')
-	audio.play()
+	_play_sound('ui/hover')
 	if main == "MainMenu":
 		var cursor = get_node('/root/'+main+'/Cursor')
 		if cursor:
@@ -229,11 +212,7 @@ func _on_graphic_button_mouse_entered():
 			cursor.set_cursor(cursor.states.ACTIVE)	
 
 func _on_sound_button_mouse_entered():
-	var audio = AudioStreamPlayer.new()
-	self.add_child(audio)
-	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-	audio.stream = load('res://assets/sounds/ui/hover.ogg')
-	audio.play()
+	_play_sound('ui/hover')
 	if main == "MainMenu":
 		var cursor = get_node('/root/'+main+'/Cursor')
 		if cursor:
@@ -244,11 +223,7 @@ func _on_sound_button_mouse_entered():
 			cursor.set_cursor(cursor.states.ACTIVE)	
 
 func _on_control_mouse_entered():
-	var audio = AudioStreamPlayer.new()
-	self.add_child(audio)
-	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-	audio.stream = load('res://assets/sounds/ui/hover.ogg')
-	audio.play()
+	_play_sound('ui/hover')
 	if main == "MainMenu":
 		var cursor = get_node('/root/'+main+'/Cursor')
 		if cursor:
@@ -278,11 +253,7 @@ func _on_save_changes_button_pressed():
 		if data_menu.has_method('config_save'):
 			data_menu.config_save()
 			GameConfig.apply()
-	var audio = AudioStreamPlayer.new()
-	self.add_child(audio)
-	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-	audio.stream = load('res://assets/sounds/ui/click.ogg')
-	audio.play()
+	_play_sound('ui/click')
 
 func check_path() -> bool:
 	var path = DirAccess.open('user://game')
@@ -293,11 +264,7 @@ func check_path() -> bool:
 	return false
 
 func _on_v_sync_button_mouse_entered():
-	var audio = AudioStreamPlayer.new()
-	self.add_child(audio)
-	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-	audio.stream = load('res://assets/sounds/ui/hover.ogg')
-	audio.play()
+	_play_sound('ui/hover')
 	if main == "MainMenu":
 		var cursor = get_node('/root/'+main+'/Cursor')
 		if cursor:
@@ -308,11 +275,7 @@ func _on_v_sync_button_mouse_entered():
 			cursor.set_cursor(cursor.states.ACTIVE)	
 
 func _on_full_screen_button_mouse_entered():
-	var audio = AudioStreamPlayer.new()
-	self.add_child(audio)
-	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-	audio.stream = load('res://assets/sounds/ui/hover.ogg')
-	audio.play()
+	_play_sound('ui/hover')
 	if main == "MainMenu":
 		var cursor = get_node('/root/'+main+'/Cursor')
 		if cursor:
@@ -323,11 +286,7 @@ func _on_full_screen_button_mouse_entered():
 			cursor.set_cursor(cursor.states.ACTIVE)	
 
 func _on_option_button_mouse_entered():
-	var audio = AudioStreamPlayer.new()
-	self.add_child(audio)
-	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-	audio.stream = load('res://assets/sounds/ui/hover.ogg')
-	audio.play()
+	_play_sound('ui/hover')
 	if main == "MainMenu":
 		var cursor = get_node('/root/'+main+'/Cursor')
 		if cursor:
@@ -338,32 +297,16 @@ func _on_option_button_mouse_entered():
 			cursor.set_cursor(cursor.states.ACTIVE)	
 
 func _on_option_button_pressed():
-	var audio = AudioStreamPlayer.new()
-	self.add_child(audio)
-	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-	audio.stream = load('res://assets/sounds/ui/click.ogg')
-	audio.play()
+	_play_sound('ui/click')
 
 func _on_full_screen_button_pressed():
-	var audio = AudioStreamPlayer.new()
-	self.add_child(audio)
-	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-	audio.stream = load('res://assets/sounds/ui/click.ogg')
-	audio.play()
-
+	_play_sound('ui/click')
+	
 func _on_v_sync_button_pressed():
-	var audio = AudioStreamPlayer.new()
-	self.add_child(audio)
-	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-	audio.stream = load('res://assets/sounds/ui/click.ogg')
-	audio.play()
+	_play_sound('ui/click')
 
 func _on_option_button_item_selected(_index:int):
-	var audio = AudioStreamPlayer.new()
-	self.add_child(audio)
-	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-	audio.stream = load('res://assets/sounds/ui/click.ogg')
-	audio.play()
+	_play_sound('ui/click')
 
 func _on_graphic_button_mouse_exited():
 	if main == "MainMenu":
@@ -445,5 +388,24 @@ func _on_option_button_mouse_exited():
 		if cursor:
 			cursor.set_cursor(cursor.states.DEFAULT)	
 
+func _play_sound(ogg:String) -> void:
+	var audio = AudioStreamPlayer.new()
+	self.add_child(audio)
+	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+	audio.stream = load('res://assets/sounds/'+ogg+'.ogg')
+	audio.play()
+
 func _on_audio_finished(node) -> void:
 	node.queue_free()
+
+func _on_general_volume_slider_value_changed(_value:float):
+	general_sound_label.text = str(general_sound_slider.value)+"%"
+
+func _on_music_volume_slider_value_changed(value:float):
+	music_sound_label.text = str(music_sound_slider.value)+"%"
+
+func _on_nature_volume_slider_value_changed(value:float):
+	nature_sound_label.text = str(nature_sound_slider.value)+"%"
+
+func _on_radio_volume_slider_value_changed(value:float):
+	radio_sound_label.text = str(radio_sound_slider.value)+"%"
