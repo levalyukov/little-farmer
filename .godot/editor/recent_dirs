@@ -1,3 +1,5 @@
+res://assets/scripts
+res://assets/data
 H:/Release/LittleFarmer
 res://assets/localizations
 res://assets/nodes/ui/hud/elements/tools/destroy_menu
@@ -11,7 +13,6 @@ res://assets/resources/world/landscape/summer
 res://assets/scripts/farming
 res://assets/scripts/world
 res://assets/scripts/ui/interactive/trading
-res://assets/data
 res://assets/scripts/ui/interactive/_buildings
 res://assets/scripts/ui/hud/elements
 res://assets/nodes/buildings
@@ -19,4 +20,3 @@ res://assets/nodes/buildings/stall
 res://assets/nodes/ui/hud/elements/tools
 res://assets/nodes/ui/interactive/construct
 res://assets/scripts/ui/hud/tools/destroy_menu
-res://assets/scripts/ui/interactive/mail
