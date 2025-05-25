@@ -114,27 +114,6 @@ func _ready():
 		autosave_timer.set_wait_time(60*1.5)
 		autosave_timer.connect("timeout", Callable(self, "_autosave").bind())
 		autosave_timer.start()
-		# timer (cooldown)
-		self.add_child(music_cooldown)
-		music_cooldown.name = 'MusicCooldownTimer'
-		music_cooldown.connect("timeout", Callable(self, "_on_timer_timeout").bind())
-		# audio stream player
-		self.add_child(music)
-		music.name = 'MusicPlayer'
-		music.bus = 'Music'
-		music.connect("finished", Callable(self, "_on_music_stream_player_finished").bind())
-		if music_cooldown: 
-			if !GameConfig.game_music:
-				if target_wait_time != 0.0:
-					target_wait_time = randf_range(music_wait_cooldown[0], music_wait_cooldown[1])
-					music_cooldown.set_wait_time(target_wait_time) 
-					music_cooldown.start()
-				else:
-					music_cooldown.set_wait_time(target_wait_time - target_left_time) 
-					music_cooldown.start()
-			else:
-				music_cooldown.set_wait_time(music_wait_cooldown[0]) 
-				music_cooldown.start()
 		# Game Load
 		if GameLoader.mode\
 		&& !GameLoader.start:
@@ -305,292 +284,7 @@ func plant_load():
 	load_plant(file.farm)
 
 func load_plant(content_path:String, group:String = ""):
-	if group == "":
-		for i in file_load(content_path):
-			if remove_suffix(i) == 'plant':
-				var node = plant.instantiate()
-				farming.add_child(node)
-				if GameLoader.tracking_plants:
-					GameLoader.timer_farm_plant_stop()
-					if file_load(content_path)[i]["time_left"]-GameLoader.time_left > 0.0\
-					&& file_load(content_path)[i]["condition"] == 1:
-						node.set_data(
-							file_load(content_path)[i]["plant_id"],
-							file_load(content_path)[i]["condition"],
-							file_load(content_path)[i]["degree"],
-							file_load(content_path)[i]["fertilizer"],
-							file_load(content_path)[i]["region_rect.x"],
-							file_load(content_path)[i]["region_rect.y"],
-							file_load(content_path)[i]["growth_level"],
-							string_to_vector(file_load(content_path)[i]["position"]),
-							2,
-							i,
-							file_load(content_path)[i]["time_left"]-GameLoader.time_left,
-							file_load(content_path)[i]["caption"],
-							file_load(content_path)[i]["growth_rate"],
-							file_load(content_path)[i]["check_watering"],
-							file_load(content_path)[i]["growth_level_max"],
-							file_load(content_path)[i]["mortality"],
-							file_load(content_path)[i]["seasons"],
-							file_load(content_path)[i]["rect_x"],
-							file_load(content_path)[i]["rect_y"]
-						)
-					else:
-						if file_load(content_path)[i]["condition"] == 1:
-							node.set_data(
-								file_load(content_path)[i]["plant_id"],
-								file_load(content_path)[i]["condition"],
-								file_load(content_path)[i]["degree"],
-								file_load(content_path)[i]["fertilizer"],
-								file_load(content_path)[i]["region_rect.x"],
-								file_load(content_path)[i]["region_rect.y"],
-								file_load(content_path)[i]["growth_level"],
-								string_to_vector(file_load(content_path)[i]["position"]),
-								2,
-								i,
-								0,
-								file_load(content_path)[i]["caption"],
-								file_load(content_path)[i]["growth_rate"],
-								file_load(content_path)[i]["check_watering"],
-								file_load(content_path)[i]["growth_level_max"],
-								file_load(content_path)[i]["mortality"],
-								file_load(content_path)[i]["seasons"],
-								file_load(content_path)[i]["rect_x"],
-								file_load(content_path)[i]["rect_y"]
-							)
-							node.check_water(
-								tilemap.map_to_local(string_to_vector(file_load(content_path)[i]["position"]))
-							)
-							node.sprite.increase_growth()
-						else:
-							node.set_data(
-								file_load(content_path)[i]["plant_id"],
-								file_load(content_path)[i]["condition"],
-								file_load(content_path)[i]["degree"],
-								file_load(content_path)[i]["fertilizer"],
-								file_load(content_path)[i]["region_rect.x"],
-								file_load(content_path)[i]["region_rect.y"],
-								file_load(content_path)[i]["growth_level"],
-								string_to_vector(file_load(content_path)[i]["position"]),
-								2,
-								i,
-								0,
-								file_load(content_path)[i]["caption"],
-								file_load(content_path)[i]["growth_rate"],
-								file_load(content_path)[i]["check_watering"],
-								file_load(content_path)[i]["growth_level_max"],
-								file_load(content_path)[i]["mortality"],
-								file_load(content_path)[i]["seasons"],
-								file_load(content_path)[i]["rect_x"],
-								file_load(content_path)[i]["rect_y"]
-							)
-				else:
-					node.set_data(
-						file_load(content_path)[i]["plant_id"],
-						file_load(content_path)[i]["condition"],
-						file_load(content_path)[i]["degree"],
-						file_load(content_path)[i]["fertilizer"],
-						file_load(content_path)[i]["region_rect.x"],
-						file_load(content_path)[i]["region_rect.y"],
-						file_load(content_path)[i]["growth_level"],
-						string_to_vector(file_load(content_path)[i]["position"]),
-						2,
-						i,
-						file_load(content_path)[i]["time_left"],
-						file_load(content_path)[i]["caption"],
-						file_load(content_path)[i]["growth_rate"],
-						file_load(content_path)[i]["check_watering"],
-						file_load(content_path)[i]["growth_level_max"],
-						file_load(content_path)[i]["mortality"],
-						file_load(content_path)[i]["seasons"],
-						file_load(content_path)[i]["rect_x"],
-						file_load(content_path)[i]["rect_y"]
-					)
-			if remove_suffix(i) == 'fertilizer':
-				farming.create_fertilizer(
-					file_load(content_path)[i]["fertilizerID"],
-					string_to_vector(file_load(content_path)[i]["position"])
-				)
-		if GameLoader.tracking_plants:
-			GameLoader.tracking_plants = !true
-	else:
-		if file_load(content_path).has(group):
-			for i in file_load(content_path)[group]:
-				if remove_suffix(i) == 'plant':
-					var node = plant.instantiate()
-					farming.add_child(node)
-					if GameLoader.greenhouse_plants != {}:
-						if GameLoader.greenhouse_plants.has(GameLoader.greenhouse_caption):
-							if GameLoader.greenhouse_plants[GameLoader.greenhouse_caption].has('time_left'):
-								if GameLoader.greenhouse_plants[GameLoader.greenhouse_caption]['time_left'] > 0:
-									if file_load(content_path)[group][i]["time_left"]-GameLoader.greenhouse_plants[GameLoader.greenhouse_caption]['time_left'] > 0.0\
-									&& file_load(content_path)[group][i]["condition"] == 1:
-										GameLoader.timer_greenhouse_plant_stop()
-										node.set_data(
-											file_load(content_path)[group][i]["plant_id"],
-											file_load(content_path)[group][i]["condition"],
-											file_load(content_path)[group][i]["degree"],
-											file_load(content_path)[group][i]["fertilizer"],
-											file_load(content_path)[group][i]["region_rect.x"],
-											file_load(content_path)[group][i]["region_rect.y"],
-											file_load(content_path)[group][i]["growth_level"],
-											string_to_vector(file_load(content_path)[group][i]["position"]),
-											2,
-											i,
-											file_load(content_path)[group][i]["time_left"]-GameLoader.greenhouse_plants[GameLoader.greenhouse_caption]['time_left'],
-											file_load(content_path)[group][i]["caption"],
-											file_load(content_path)[group][i]["growth_rate"],
-											file_load(content_path)[group][i]["check_watering"],
-											file_load(content_path)[group][i]["growth_level_max"],
-											file_load(content_path)[group][i]["mortality"],
-											file_load(content_path)[group][i]["seasons"],
-											file_load(content_path)[group][i]["rect_x"],
-											file_load(content_path)[group][i]["rect_y"]
-										)
-									else:
-										if file_load(content_path)[group][i]["condition"] == 1:
-											node.set_data(
-												file_load(content_path)[group][i]["plant_id"],
-												file_load(content_path)[group][i]["condition"],
-												file_load(content_path)[group][i]["degree"],
-												file_load(content_path)[group][i]["fertilizer"],
-												file_load(content_path)[group][i]["region_rect.x"],
-												file_load(content_path)[group][i]["region_rect.y"],
-												file_load(content_path)[group][i]["growth_level"],
-												string_to_vector(file_load(content_path)[group][i]["position"]),
-												2,
-												i,
-												file_load(content_path)[group][i]["time_left"],
-												file_load(content_path)[group][i]["caption"],
-												file_load(content_path)[group][i]["growth_rate"],
-												file_load(content_path)[group][i]["check_watering"],
-												file_load(content_path)[group][i]["growth_level_max"],
-												file_load(content_path)[group][i]["mortality"],
-												file_load(content_path)[group][i]["seasons"],
-												file_load(content_path)[group][i]["rect_x"],
-												file_load(content_path)[group][i]["rect_y"]
-											)
-											node.check_water(
-												tilemap.map_to_local(string_to_vector(file_load(content_path)[group][i]["position"]))
-											)
-											node.sprite.increase_growth()
-										else:
-											node.set_data(
-												file_load(content_path)[group][i]["plant_id"],
-												file_load(content_path)[group][i]["condition"],
-												file_load(content_path)[group][i]["degree"],
-												file_load(content_path)[group][i]["fertilizer"],
-												file_load(content_path)[group][i]["region_rect.x"],
-												file_load(content_path)[group][i]["region_rect.y"],
-												file_load(content_path)[group][i]["growth_level"],
-												string_to_vector(file_load(content_path)[group][i]["position"]),
-												2,
-												i,
-												file_load(content_path)[group][i]["time_left"],
-												file_load(content_path)[group][i]["caption"],
-												file_load(content_path)[group][i]["growth_rate"],
-												file_load(content_path)[group][i]["check_watering"],
-												file_load(content_path)[group][i]["growth_level_max"],
-												file_load(content_path)[group][i]["mortality"],
-												file_load(content_path)[group][i]["seasons"],
-												file_load(content_path)[group][i]["rect_x"],
-												file_load(content_path)[group][i]["rect_y"]
-											)
-								else:
-									node.set_data(
-										file_load(content_path)[group][i]["plant_id"],
-										file_load(content_path)[group][i]["condition"],
-										file_load(content_path)[group][i]["degree"],
-										file_load(content_path)[group][i]["fertilizer"],
-										file_load(content_path)[group][i]["region_rect.x"],
-										file_load(content_path)[group][i]["region_rect.y"],
-										file_load(content_path)[group][i]["growth_level"],
-										string_to_vector(file_load(content_path)[group][i]["position"]),
-										2,
-										i,
-										file_load(content_path)[group][i]["time_left"],
-										file_load(content_path)[group][i]["caption"],
-										file_load(content_path)[group][i]["growth_rate"],
-										file_load(content_path)[group][i]["check_watering"],
-										file_load(content_path)[group][i]["growth_level_max"],
-										file_load(content_path)[group][i]["mortality"],
-										file_load(content_path)[group][i]["seasons"],
-										file_load(content_path)[group][i]["rect_x"],
-										file_load(content_path)[group][i]["rect_y"]
-									)
-							else:
-								node.set_data(
-									file_load(content_path)[group][i]["plant_id"],
-									file_load(content_path)[group][i]["condition"],
-									file_load(content_path)[group][i]["degree"],
-									file_load(content_path)[group][i]["fertilizer"],
-									file_load(content_path)[group][i]["region_rect.x"],
-									file_load(content_path)[group][i]["region_rect.y"],
-									file_load(content_path)[group][i]["growth_level"],
-									string_to_vector(file_load(content_path)[group][i]["position"]),
-									2,
-									i,
-									file_load(content_path)[group][i]["time_left"],
-									file_load(content_path)[group][i]["caption"],
-									file_load(content_path)[group][i]["growth_rate"],
-									file_load(content_path)[group][i]["check_watering"],
-									file_load(content_path)[group][i]["growth_level_max"],
-									file_load(content_path)[group][i]["mortality"],
-									file_load(content_path)[group][i]["seasons"],
-									file_load(content_path)[group][i]["rect_x"],
-									file_load(content_path)[group][i]["rect_y"]
-								)
-						else:
-							node.set_data(
-								file_load(content_path)[group][i]["plant_id"],
-								file_load(content_path)[group][i]["condition"],
-								file_load(content_path)[group][i]["degree"],
-								file_load(content_path)[group][i]["fertilizer"],
-								file_load(content_path)[group][i]["region_rect.x"],
-								file_load(content_path)[group][i]["region_rect.y"],
-								file_load(content_path)[group][i]["growth_level"],
-								string_to_vector(file_load(content_path)[group][i]["position"]),
-								2,
-								i,
-								file_load(content_path)[group][i]["time_left"],
-								file_load(content_path)[group][i]["caption"],
-								file_load(content_path)[group][i]["growth_rate"],
-								file_load(content_path)[group][i]["check_watering"],
-								file_load(content_path)[group][i]["growth_level_max"],
-								file_load(content_path)[group][i]["mortality"],
-								file_load(content_path)[group][i]["seasons"],
-								file_load(content_path)[group][i]["rect_x"],
-								file_load(content_path)[group][i]["rect_y"]
-							)
-					else:
-						node.set_data(
-							file_load(content_path)[group][i]["plant_id"],
-							file_load(content_path)[group][i]["condition"],
-							file_load(content_path)[group][i]["degree"],
-							file_load(content_path)[group][i]["fertilizer"],
-							file_load(content_path)[group][i]["region_rect.x"],
-							file_load(content_path)[group][i]["region_rect.y"],
-							file_load(content_path)[group][i]["growth_level"],
-							string_to_vector(file_load(content_path)[group][i]["position"]),
-							2,
-							i,
-							file_load(content_path)[group][i]["time_left"],
-							file_load(content_path)[group][i]["caption"],
-							file_load(content_path)[group][i]["growth_rate"],
-							file_load(content_path)[group][i]["check_watering"],
-							file_load(content_path)[group][i]["growth_level_max"],
-							file_load(content_path)[group][i]["mortality"],
-							file_load(content_path)[group][i]["seasons"],
-							file_load(content_path)[group][i]["rect_x"],
-							file_load(content_path)[group][i]["rect_y"]
-						)
-
-				if remove_suffix(i) == 'fertilizer':
-					farming.create_fertilizer(
-						file_load(content_path)[group][i]["fertilizerID"],
-						string_to_vector(file_load(content_path)[group][i]["position"])
-					)
-			GameLoader.greenhouse_plants[GameLoader.greenhouse_caption]['time_left'] = 0.0
+	pass
 			
 func load_nature_nodes():
 	nature.clear_all_arrays()
@@ -756,73 +450,72 @@ func load_mailbox() -> void:
 	mailbox.letters_load(file_load(file.mailbox))
 
 func load_buildings() -> void:
-	if file_load(file.buildings) != {}:
-		for i in file_load(file.buildings):
-			if file_load(file.buildings)[i].has("id"):
-				
-				var current_node_name = ''
-				if file_load(file.buildings)[i].has('name'):
-					current_node_name = ''
-				else:
-					current_node_name = i
-				
-				buildings.create_node(
-					file_load(file.buildings)[i]["id"], 
-					string_to_vector(file_load(file.buildings)[i]["position"]),
-					current_node_name
-				)
-				if file_load(file.buildings)[i].has("level"):
-					for node in buildings.get_children():
-						if i == node.name:
-							node.level = file_load(file.buildings)[i]["level"]
-				if file_load(file.buildings)[i].has("sprite_id"):
-					for node in buildings.get_children():
-						if i == node.name:
-							var sprite_id = file_load(file.buildings)[i]["sprite_id"]
-							node.set_sign_sprite(int(sprite_id))
-				if file_load(file.buildings)[i].has("all_collisions"):
-					for node in buildings.get_children():
-						if i == node.name:
-							var target_vectors:Array[Vector2i] = []	
-							for a in file_load(file.buildings)[i]['all_collisions']:
-								target_vectors.append(string_to_vector(a))
-							node.all_collisions = target_vectors
-				if file_load(file.buildings)[i].has("value"):
-					for node in buildings.get_children():
-						if i == node.name:
-							match remove_suffix(i):
-								"composter":
-									if file_load(file.buildings)[i].has("total_items")\
-									&& file_load(file.buildings)[i].has("state"):
-										node.composting = file_load(file.buildings)[i]['state']
-										node.composting_value = file_load(file.buildings)[i]['value']
-										node.update()
-										node.start_compost(file_load(file.buildings)[i]['total_items'])
-								"lamp_post":
-									node.light.visible = file_load(file.buildings)[i]['value']
-									node.update()
-								"forge":
-									if file_load(file.buildings)[i].has("value")\
-									&& file_load(file.buildings)[i].has("inProcessed")\
-									&& file_load(file.buildings)[i].has("isDone")\
-									&& file_load(file.buildings)[i].has("oreID")\
-									&& file_load(file.buildings)[i].has("oreAmount")\
-									&& file_load(file.buildings)[i].has("fuelID")\
-									&& file_load(file.buildings)[i].has("fuelAmount")\
-									&& file_load(file.buildings)[i].has("ignotID")\
-									&& file_load(file.buildings)[i].has("ignotAmount"):
-										if file_load(file.buildings)[i]['inProcessed']:
-											node.value_process = file_load(file.buildings)[i]['value']
-											node.start_melt(
-												file_load(file.buildings)[i]['oreID'],
-												file_load(file.buildings)[i]['oreAmount'],
-												file_load(file.buildings)[i]['fuelID'],
-												file_load(file.buildings)[i]['fuelAmount']
-											)
-										elif file_load(file.buildings)[i]['isDone']:
-											node.isDone = file_load(file.buildings)[i]['isDone']
-											node.ignot_id = file_load(file.buildings)[i]['ignotID']
-											node.ignot_amount = file_load(file.buildings)[i]['ignotAmount']
+	var buildings_data = file_load(file.buildings)
+	var node_map = {}
+	
+	if buildings_data.is_empty(): return
+
+	for key in buildings_data:
+		if buildings_data[key].has('id'):
+			node_map[key] = ''
+			var node = buildings.create_node(
+				buildings_data[key]["id"], 
+				string_to_vector(buildings_data[key]["position"]),
+				key
+			)
+			node_map[key] = node
+	
+	for key in buildings_data:
+		var data = buildings_data[key]
+		var node = node_map.get(key)
+
+		if data.has('all_collisions'):
+			if 'all_collisions' in node:
+				var vectors = data['all_collisions']
+				var vector:Array[Vector2i] = []
+				for v in vectors:
+					vector.append(string_to_vector(v))
+				node.all_collisions = vector
+
+		if data.has('sprite_id'):
+			var sprite_id = data["sprite_id"]
+			if node.has_method("set_sign_sprite"):
+				node.set_sign_sprite(int(sprite_id))
+
+		if data.has('value') && data.has('id'):
+			match data['id']:
+				2:
+					if data.has("total_items")\
+					&& data.has("state"):
+						node.composting = data['state']
+						node.composting_value = data['value']
+						node.update()
+						node.start_compost(data['total_items'])
+				7:
+					node.light.visible = data['value']
+					node.update()
+				9:
+					if data.has("value")\
+					&& data.has("inProcessed")\
+					&& data.has("isDone")\
+					&& data.has("oreID")\
+					&& data.has("oreAmount")\
+					&& data.has("fuelID")\
+					&& data.has("fuelAmount")\
+					&& data.has("ignotID")\
+					&& data.has("ignotAmount"):
+						if data['inProcessed']:
+							node.value_process = data['value']
+							node.start_melt(
+								data['oreID'],
+								data['oreAmount'],
+								data['fuelID'],
+								data['fuelAmount']
+							)
+						elif data['isDone']:
+							node.isDone = data['isDone']
+							node.ignot_id = data['ignotID']
+							node.ignot_amount = data['ignotAmount']
 
 func get_dictionary_content(content:String, group:String = "") -> Dictionary:
 	match content:
@@ -1146,52 +839,6 @@ func get_greenhouse_data() -> Dictionary:
 		'farmlands': collision.get_used_cells(collision.farmland_layer),
 		'waterings': collision.get_used_cells(collision.watering_layer),
 	}
-
-func play_music(dictionary) -> void:
-	if clock:
-		var season = clock.get_season()
-		var part_day = clock.get_part_day()
-		if dictionary.has(season):
-			if dictionary[season].has(part_day):
-				var season_sounds = dictionary[season][part_day]
-				if season_sounds is Array && season_sounds.size() > 0:
-					var index_audio = get_random_audio_index(season_sounds)
-					if index_audio != -1:
-						music.stop()
-						music.stream = ResourceLoader.load(season_sounds[index_audio])
-						if !pause.paused:
-							music.play()
-			else:
-				target_wait_time = randf_range(music_wait_cooldown[0], music_wait_cooldown[1])
-				music_cooldown.set_wait_time(target_wait_time) 
-				music_cooldown.start()
-
-func get_random_audio_index(sounds_array):
-	if sounds_array.size() == 0:
-		return -1
-	var new_index = randi() % sounds_array.size()
-	if sounds_array.size() == 1:
-		if is_valid_sound(sounds_array[0]):
-			return 0
-		else:
-			return -1
-	while true:
-		new_index = randi() % sounds_array.size()
-		if new_index != global_index_audio && is_valid_sound(sounds_array[new_index]):
-			break
-	global_index_audio = new_index
-	return new_index
-
-func is_valid_sound(sound_path) -> bool:
-	if sound_path is String and sound_path.length() > 0:
-		var file_exists = ResourceLoader.exists(sound_path, "AudioStream")
-		return file_exists
-	return false
-
-func _on_timer_timeout() -> void:
-	GameConfig.game_music = false
-	music_cooldown.stop()
-	play_music(music_playlist)
 
 func _on_music_stream_player_finished():
 	if music_cooldown:
