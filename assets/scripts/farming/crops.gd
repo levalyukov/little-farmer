@@ -5,7 +5,6 @@ var crops:Dictionary = {
 	"atlas": load("res://assets/resources/farming/crops.png"),
 	"width": 16,
 	"height": 32,
-	"check_watering": 1,
 	"probability_spoilage": 5,
 	# spring crops
 	1: {
@@ -13,7 +12,7 @@ var crops:Dictionary = {
 		"type" = "vegetable", 
 		"season" = ["spring"],
 		"environment" = "soil",
-		"growth_rate" = 60.0,
+		"growth_rate" = 5.0,
 		"growth_level" = 5,
 		"mortality" = 150,
 		"productivity" = [1,1],
