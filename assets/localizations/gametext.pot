@@ -47,6 +47,11 @@
 # res://assets/scripts/ui/radio_menu.gd
 # res://assets/scripts/ui/sawmill_menu.gd
 # res://assets/scripts/construction/buildings/composter.gd
+# res://assets/nodes/ui/hud/hud.tscn
+# res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_menu.tscn
+# res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_builds.tscn
+# res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_plant.tscn
+# res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_terrain.tscn
 #
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -375,22 +380,6 @@ msgstr ""
 
 #: assets/nodes/ui/interactive/construct/construct_menu.tscn
 msgid "build.description.upgrades"
-msgstr ""
-
-#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_destroy.tscn
-msgid "ui.tools.destroy_menu"
-msgstr ""
-
-#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_trash.tscn
-msgid "ui.tools.terrain_destroy_button"
-msgstr ""
-
-#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_axe.tscn
-msgid "ui.tools.nature_destroy_button"
-msgstr ""
-
-#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_pickaxe.tscn
-msgid "ui.tools.buildings_destroy_button"
 msgstr ""
 
 #: assets/nodes/ui/hud/elements/tools/button_construction.tscn
@@ -1658,4 +1647,20 @@ msgstr ""
 
 #: assets/scripts/construction/buildings/composter.gd
 msgid "object.composter.description"
+msgstr ""
+
+#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_menu.tscn
+msgid "ui.tools.destroy_menu"
+msgstr ""
+
+#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_builds.tscn
+msgid "ui.tools.buildings_destroy_button"
+msgstr ""
+
+#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_plant.tscn
+msgid "ui.tools.nature_destroy_button"
+msgstr ""
+
+#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_terrain.tscn
+msgid "ui.tools.terrain_destroy_button"
 msgstr ""
