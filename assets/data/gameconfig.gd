@@ -1,6 +1,5 @@
 extends Node
 
-var game_music:bool = false
 var language:int = 0
 
 var vsync:bool = false
