@@ -266,10 +266,17 @@ func add_item(id, amount:int = 1) -> void:
 			inventory_items[int(id)] = {"amount": amount}
 		
 func subject_item(id, item_amount:int = 1) -> void:
-	if id is int || id is String:
+	if inventory_items.has(int(id)):
 		if item_amount > 0:
-			inventory_items[id]["amount"] -= item_amount 
-			check_amount(id)
+			check_amount(int(id))
+			var inventory = inventory_items[int(id)]
+			inventory["amount"] -= item_amount 
+
+	if inventory_items.has(str(id)):
+		if item_amount > 0:
+			check_amount(str(id))
+			var inventory = inventory_items[str(id)]
+			inventory["amount"] -= item_amount 
 
 	if id is Dictionary:
 		var resources_id = []
