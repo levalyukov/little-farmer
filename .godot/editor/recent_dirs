@@ -1,5 +1,7 @@
 H:/Release/LittleFarmer
 res://assets/localizations
+res://assets/nodes/ui/hud/elements/tools/destroy_menu
+res://assets/nodes/ui/hud
 res://assets/scripts/construction/buildings
 res://assets/scripts/ui
 res://
@@ -15,8 +17,6 @@ res://assets/scripts/ui/hud/elements
 res://assets/nodes/buildings
 res://assets/nodes/buildings/stall
 res://assets/nodes/ui/hud/elements/tools
-res://assets/nodes/ui/hud/elements/tools/destroy_menu
-res://assets/nodes/ui/hud
 res://assets/nodes/ui/interactive/construct
 res://assets/scripts/ui/hud/tools/destroy_menu
 res://assets/scripts/ui/interactive/mail
