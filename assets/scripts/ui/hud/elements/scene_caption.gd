@@ -15,7 +15,7 @@ const time:int = 5
 
 func show_area_name():
 	state = true
-	label.text = str(get_name_target_scene())
+	#	label.text = str(get_name_target_scene())
 	anim.play("show")
 	timer.wait_time = time
 	timer.start()
@@ -24,17 +24,17 @@ func hide_area_name():
 	anim.play("hide")
 	state = false
 
-func get_name_target_scene() -> String:
-	var scene = get_tree().root.get_child(1).name
-	match scene:
-		"Farm":
-			return tr("farm.scene")
-		"Village":
-			return tr("г. Заречье")
-		"Cemetery":
-			return tr("Кладбище")
-		_:
-			return ""
+#	func get_name_target_scene() -> String:
+#		var scene = get_tree().root.get_child(1).name
+#		match scene:
+#			"Farm":
+#				return tr("farm.scene")
+#			"Village":
+#				return tr("г. Заречье")
+#			"Cemetery":
+#				return tr("Кладбище")
+#			_:
+#				return ""
 
 func check_state():
 	visible = state
