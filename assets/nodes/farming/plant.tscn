@@ -51,8 +51,6 @@ _data = {
 [node name="Plant" type="Node2D"]
 script = ExtResource("1_vh4nl")
 
-[node name="Timer" type="Timer" parent="."]
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -8)
 texture = ExtResource("2_fqbqe")
@@ -65,8 +63,6 @@ z_as_relative = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
 shape = SubResource("RectangleShape2D_0gu1o")
-
-[node name="CheckWaterTimer" type="Timer" parent="."]
 
 [node name="Indicator" type="Sprite2D" parent="."]
 visible = false
@@ -100,7 +96,5 @@ libraries = {
 autoplay = "bubble"
 speed_scale = 0.25
 
-[connection signal="timeout" from="Timer" to="Sprite2D" method="_on_timer_timeout"]
 [connection signal="mouse_entered" from="Collision" to="." method="_on_collision_mouse_entered"]
 [connection signal="mouse_exited" from="Collision" to="." method="_on_collision_mouse_exited"]
-[connection signal="timeout" from="CheckWaterTimer" to="." method="_on_check_water_timer_timeout"]
