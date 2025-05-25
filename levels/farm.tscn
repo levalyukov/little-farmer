@@ -1,7 +1,8 @@
-[gd_scene load_steps=32 format=3 uid="uid://4vypwfxar3e"]
+[gd_scene load_steps=33 format=3 uid="uid://4vypwfxar3e"]
 
 [ext_resource type="Shader" path="res://assets/shaders/pixel.gdshader" id="1_ieipv"]
 [ext_resource type="Script" path="res://assets/data/gamedata.gd" id="2_880lm"]
+[ext_resource type="PackedScene" uid="uid://b1x1lv2m7rbbj" path="res://assets/nodes/music_manager.tscn" id="3_fh0t8"]
 [ext_resource type="Texture2D" uid="uid://yp3bniyf8okh" path="res://assets/resources/world/landscape/summer/ground.png" id="5_c4v1k"]
 [ext_resource type="Texture2D" uid="uid://t43bkganfwc2" path="res://assets/resources/world/landscape/summer/roads.png" id="6_ad63b"]
 [ext_resource type="Texture2D" uid="uid://ct8q5yky1trjp" path="res://assets/resources/world/landscape/summer/farmlands.png" id="7_43u56"]
@@ -2377,6 +2378,8 @@ size = Vector2(48, 48)
 y_sort_enabled = true
 material = SubResource("ShaderMaterial_h27nr")
 script = ExtResource("2_880lm")
+
+[node name="MusicManager" parent="." instance=ExtResource("3_fh0t8")]
 
 [node name="Player" parent="." instance=ExtResource("10_cdmdm")]
 z_index = 1
