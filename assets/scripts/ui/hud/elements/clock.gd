@@ -305,14 +305,14 @@ func _on_timer_timeout() -> void:
 
 func check_light_post(current_time:int):
 	if buildings:
-		for nodes in buildings.get_children():
-			if data:
-				if data.remove_suffix(nodes.name) == 'lamp_post':
+		for node in buildings.get_children():
+			if 'blueprint_id' in node:
+				if node.blueprint_id == 7:
 					if current_time >= lightOn || (current_time < lightOff ):
-						if !nodes.light.visible:
-							nodes.light.visible = true
-							nodes.update()
+						if !node.light.visible:
+							node.light.visible = true
+							node.update()
 					if current_time >= lightOff && current_time < lightOn:
-						if nodes.light.visible:
-							nodes.light.visible = false
-							nodes.update()
+						if node.light.visible:
+							node.light.visible = false
+							node.update()
