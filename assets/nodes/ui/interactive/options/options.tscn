@@ -234,6 +234,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -314,7 +315,6 @@ popup/item_2/text = "options.graphic.FPSLimit_off"
 popup/item_2/id = 2
 
 [node name="SoundVolumeSection" type="ScrollContainer" parent="Menu/Main/HBoxContainer/PageBackground"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -715,3 +715,7 @@ libraries = {
 [connection signal="mouse_entered" from="Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container/FPSLimitMargin/HBoxContainer/MarginContainer/OptionButton" to="." method="_on_option_button_mouse_entered"]
 [connection signal="mouse_exited" from="Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container/FPSLimitMargin/HBoxContainer/MarginContainer/OptionButton" to="." method="_on_option_button_mouse_exited"]
 [connection signal="pressed" from="Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container/FPSLimitMargin/HBoxContainer/MarginContainer/OptionButton" to="." method="_on_option_button_pressed"]
+[connection signal="value_changed" from="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/GeneralVolumeMargin/HBoxContainer/VBoxContainer/GeneralVolumeSlider" to="." method="_on_general_volume_slider_value_changed"]
+[connection signal="value_changed" from="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/MusicVolumeMargin/HBoxContainer/VBoxContainer/MusicVolumeSlider" to="." method="_on_music_volume_slider_value_changed"]
+[connection signal="value_changed" from="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/NatureVolumeMargin/HBoxContainer/VBoxContainer/NatureVolumeSlider" to="." method="_on_nature_volume_slider_value_changed"]
+[connection signal="value_changed" from="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/RadioVolumeMargin/HBoxContainer/VBoxContainer/RadioVolumeSlider" to="." method="_on_radio_volume_slider_value_changed"]
