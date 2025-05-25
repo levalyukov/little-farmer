@@ -16,9 +16,8 @@ var level:int = 0
 #				texture = texture
 		
 func rect(plant_rect_x:int, plant_rect_y:int) -> void:
-	if plant_rect_x && plant_rect_y:
-		region_rect.position.x = plant_rect_x
-		region_rect.position.y = plant_rect_y
+	region_rect.position.x = plant_rect_x
+	region_rect.position.y = plant_rect_y
 
 func set_rect(x:int, y:int, timerIsStopped:bool = false) -> void:
 	region_rect.position.x = x
@@ -33,12 +32,6 @@ func _on_timer_timeout() -> void:
 		level += 1
 		if level == plant.plant_growth_level_max:
 			plant_increased()
-			plant.tilemap.set_cells_terrain_connect(
-				plant.collision.watering_layer,
-				[tilemap.local_to_map(self.global_position)],
-				0,
-				-1
-			)
 		else:
 			plant.check_water(
 				tilemap.local_to_map(self.global_position)
@@ -46,4 +39,12 @@ func _on_timer_timeout() -> void:
 			
 func plant_increased():
 	plant.condition = plant.phases.growed
-	timer.stop()
+	plant.degree = 0
+	plant.timer.stop()
+	plant.check_water_timer.stop()
+	plant.tilemap.set_cells_terrain_connect(
+		plant.collision.watering_layer,
+		[tilemap.local_to_map(self.global_position)],
+		0,
+		-1
+	)
