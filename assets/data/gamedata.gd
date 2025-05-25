@@ -5,6 +5,7 @@ extends Node
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var cycle:Node2D = get_node("/root/"+main+"/Day-Night Cycle")
 @onready var hud:Control = get_node("/root/"+main+"/UI/HUD/GameHud")
+@onready var gamesaved_title:Label = get_node("/root/"+main+"/UI/HUD/GameHud/Main/GameSaved")
 @onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 @onready var notice:Control = get_node("/root/"+main+"/UI/Feedback/Notifications")
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
@@ -24,6 +25,9 @@ extends Node
 
 var music:AudioStreamPlayer = AudioStreamPlayer.new()
 var music_cooldown:Timer = Timer.new()
+
+var autosave_timer:Timer = Timer.new()
+
 var global_index_audio = -1
 var target_left_time:float = 0.0
 var target_wait_time:float = 0.0
@@ -104,6 +108,12 @@ var music_playlist:Dictionary = {
 
 func _ready():
 	if main == "Farm":
+		# Autosave
+		self.add_child(autosave_timer)
+		autosave_timer.name = 'Autosave'
+		autosave_timer.set_wait_time(60*1.5)
+		autosave_timer.connect("timeout", Callable(self, "_autosave").bind())
+		autosave_timer.start()
 		# timer (cooldown)
 		self.add_child(music_cooldown)
 		music_cooldown.name = 'MusicCooldownTimer'
@@ -351,7 +361,7 @@ func load_plant(content_path:String, group:String = ""):
 							node.check_water(
 								tilemap.map_to_local(string_to_vector(file_load(content_path)[i]["position"]))
 							)
-							node.increase_growth()
+							node.sprite.increase_growth()
 						else:
 							node.set_data(
 								file_load(content_path)[i]["plant_id"],
@@ -463,7 +473,7 @@ func load_plant(content_path:String, group:String = ""):
 											node.check_water(
 												tilemap.map_to_local(string_to_vector(file_load(content_path)[group][i]["position"]))
 											)
-											node.increase_growth()
+											node.sprite.increase_growth()
 										else:
 											node.set_data(
 												file_load(content_path)[group][i]["plant_id"],
@@ -1188,3 +1198,6 @@ func _on_music_stream_player_finished():
 		target_wait_time = randf_range(music_wait_cooldown[0], music_wait_cooldown[1])
 		music_cooldown.set_wait_time(target_wait_time) 
 		music_cooldown.start()
+
+func _autosave() -> void:
+	gamesave()
