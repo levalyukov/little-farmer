@@ -8,7 +8,7 @@ extends Camera2D
 
 const camera_speed:float = 1000.0
 const max_offset_distance:float = 150.0
-const center_deadzone_radius_screen:float = 550.0
+const center_deadzone_radius_screen:float = 150.0
 
 const zoom_min:float = 2.0
 const zoom_max:float = 10.0
