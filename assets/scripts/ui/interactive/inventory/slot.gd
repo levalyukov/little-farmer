@@ -102,8 +102,7 @@ func _on_button_pressed():
 							trade_menu.update_button_trade_window()
 					trader_initator.NONE:
 						if trade_menu.initiator == trade_menu.initiators.PLAYER || trade_menu.initiator == trade_menu.initiators.TRADER:
-							var half = round(trade_menu.trade_content[item_id]["item_amount"]/4)
-							trade_menu.remove_item_trade_window(item_id, half)
+							trade_menu.remove_item_trade_window(item_id, round(item_amount/4))
 							if trade_menu.initiator == trade_menu.initiators.TRADER:
 								trade_menu.updates_arrays()
 							trade_menu.update_button_trade_window()
