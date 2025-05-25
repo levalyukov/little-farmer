@@ -368,22 +368,6 @@ msgstr ""
 "These blueprints are used to upgrade specific buildings. After upgrading, "
 "new features or content related to them become available."
 
-#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_destroy.tscn
-msgid "ui.tools.destroy_menu"
-msgstr "Destroy Menu"
-
-#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_trash.tscn
-msgid "ui.tools.terrain_destroy_button"
-msgstr "Destroy Landscape"
-
-#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_axe.tscn
-msgid "ui.tools.nature_destroy_button"
-msgstr "Remove Nature"
-
-#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_pickaxe.tscn
-msgid "ui.tools.buildings_destroy_button"
-msgstr "Demolish Building"
-
 #: assets/nodes/ui/hud/elements/tools/button_construction.tscn
 msgid "ui.tools.contruct_menu"
 msgstr "Build Menu"
@@ -1683,29 +1667,43 @@ msgid "radio_menu.button.next_track"
 msgstr "Next"
 
 #: assets/scripts/ui/sawmill_menu.gd
-#| msgid "object.sawmill.caption"
 msgid "sawmill_menu.caption"
 msgstr "Sawbench"
 
 #: assets/scripts/ui/sawmill_menu.gd
-#| msgid "object.sawmill.description"
 msgid "sawmill_menu.description"
 msgstr "Select a log to process"
 
 #: assets/scripts/ui/sawmill_menu.gd
-#| msgid "main_menu.credits_button"
 msgid "sawmill_menu.button"
 msgstr "Process"
 
 #: assets/scripts/construction/buildings/composter.gd
-#| msgid "object.house.caption"
 msgid "object.composter.caption"
 msgstr "Composter"
 
 #: assets/scripts/construction/buildings/composter.gd
-#| msgid "object.house.description"
 msgid "object.composter.description"
 msgstr "Converts waste into fertilizer for your plants"
+
+#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_menu.tscn
+msgid "ui.tools.destroy_menu"
+msgstr "Destroy Menu"
+
+#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_builds.tscn
+msgid "ui.tools.buildings_destroy_button"
+msgstr "Demolish Building"
+
+#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_plant.tscn
+msgid "ui.tools.nature_destroy_button"
+msgstr "Remove Nature"
+
+#: assets/nodes/ui/hud/elements/tools/destroy_menu/button_terrain.tscn
+msgid "ui.tools.terrain_destroy_button"
+msgstr "Destroy Landscape"
+
+#~ msgid "hud.game_saved_title"
+#~ msgstr "Save..."
 
 #~ msgid "Создать"
 #~ msgstr "Build"
