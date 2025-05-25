@@ -49,18 +49,10 @@ func update():
 			if object.has("idle"):
 				if object["idle"] is CompressedTexture2D:
 					sprite.texture = object["idle"]
-				else:
-					data.debug("'"+str(self.name) + "': 'idle' is not a CompressedTexture2D.", "error")
-			else:
-				data.debug("'"+str(self.name) + "': There is no 'idle' key.", "error")
 		else:
 			if object.has("lighting"):
 				if object["lighting"] is CompressedTexture2D:
 					sprite.texture = object["lighting"]
-				else:
-					data.debug("'"+str(self.name) + "': 'lighting' is not a CompressedTexture2D.", "error")
-			else:
-				data.debug("'"+str(self.name) + "': There is no 'lighting' key.", "error")
 		
 func get_data() -> Dictionary:
 	return {
