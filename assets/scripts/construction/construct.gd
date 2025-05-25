@@ -20,7 +20,7 @@ func get_buildings() -> Dictionary:
 			data_dict[building.name] = building.get_data()
 	return data_dict
 
-func create_node(id:int, vector:Vector2i, node_name:String = "") -> void:
+func create_node(id:int, vector:Vector2i, node_name:String = ""):
 	if blueprints.content.has("nodes"):
 		if blueprints.content["nodes"].has(id):
 			if blueprints.content["nodes"][id].has("config"):
@@ -69,6 +69,7 @@ func create_node(id:int, vector:Vector2i, node_name:String = "") -> void:
 												Vector2i(0,3)
 											)
 								add_child(node)
+								return node
 							else:
 								if blueprints.content["nodes"][id]["config"].has('onlyInstance'):
 									haved = false
@@ -117,6 +118,7 @@ func create_node(id:int, vector:Vector2i, node_name:String = "") -> void:
 														Vector2i(0,3)
 													)
 										add_child(node)
+										return node
 
 func remove_node(node:Node2D, vectors:Array[Vector2i]) -> void:
 	if !self.get_children().has(node): 
