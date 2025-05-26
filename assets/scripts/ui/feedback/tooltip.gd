@@ -1,6 +1,8 @@
 extends Control
  
 @onready var main:String = str(get_tree().root.get_child(2).name)
+@onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
+@onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var container:MarginContainer = $Container
 @onready var label:Label = $Container/MarginContainer/Label
 
@@ -28,13 +30,19 @@ func _process(_delta):
 		set_process(false)
 
 func tooltip(text:String = "") -> void:
-	if text != "":
-		tip = true
-		label.text = text
-		if !visible:
-			set_process(true)
-			visible = true
-	else:
-		tip = false
-		if visible:
-			visible = false
+	if pause:
+		if !pause.paused:
+			if text != "":
+				tip = true
+				label.text = text
+				if !visible:
+					set_process(true)
+					visible = true
+			else:
+				tip = false
+				if visible:
+					visible = false
+		else:
+			tip = false
+			if visible:
+				visible = false
