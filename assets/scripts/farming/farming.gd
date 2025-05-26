@@ -16,9 +16,9 @@ const GROWTH_SPEED:int = 1
 var items:Object = Items.new()
 var crops:Object = Crops.new()
 var plants_map:Dictionary = {}
+var plant_timer = Timer.new()
 
 func _ready():
-	var plant_timer = Timer.new()
 	plant_timer.set_autostart(true)
 	plant_timer.set_wait_time(GROWTH_SPEED)
 	plant_timer.connect('timeout', Callable(self, '_growth_timeout').bind())
@@ -65,15 +65,17 @@ func add_plant(_plant:Node2D, _growth_rate:float, _position:Vector2i, _mortality
 	plants_map[_plant.name]['position'] = _position
 	plants_map[_plant.name]['mortality'] = _mortality
 
-func plant_destroy(vector:Vector2i) -> void:
-	for child in get_children():
-		if vector == tilemap.local_to_map(child.position):
-			if data.remove_suffix(child.name) == "plant"\
-			|| data.remove_suffix(child.name) == "fertilizer":
-				remove_child(child)
-				child.queue_free()
-				if plants_map.has(child.name):
-					plants_map.erase(child.name)
+func plant_destroy(grid_position:Vector2i) -> void:
+	if !plants_map.is_empty():
+		for plant in get_children():
+			if plants_map.has(plant.name):
+				var plant_data = plants_map[plant.name]
+				if plant_data.has('position'):
+					if grid_position == tilemap.local_to_map(plants_map[plant.name]['position']):
+						print(plant)
+						remove_child(plant)
+						plant.queue_free()
+						plants_map.erase(plant.name)
 
 func check_season(id:int) -> bool:
 	var crop_season = crops.crops[id]["season"]
@@ -106,45 +108,60 @@ func _growth_timeout() -> void:
 	if !plants_map.is_empty():
 		for plant_id in plants_map.keys():
 			var plant = plants_map[plant_id]
-			# TODO:
-			# - Переработать систему удобрений
-			# - Сохранение и загрузка растений на ферме
-			# - Сохранение и загрузка растений в теплице
 
-			# ПОЯСНЕНИЕ:
-			# Рост растения. Идет проверка, время роста больше нуля или нет.
-			# Если больше нуля - идет проверка: есть ли на клетке вода или нет:
-			# Нет - растение умирает. Да - растем.
-			# ---
-			# Если все-таки время равно нулю - новый уровень растения. 
-			# growth() <- там есть доп. манипуляции с словарем "plants_map"*, в которой я не уверен, но оно работает
-			# * - лучше переписать в будущем, кто его знает.
-			if plant['node']._condition == plant['node'].PHASES.GROWED\
-			|| plant['node']._condition == plant['node'].PHASES.DEAD:
-				plants_map.erase(plant_id)
-				return
+			#
+			if plant['node']._level >= plant['node']._growth_max:
+				plant['node']._condition = plant['node'].PHASES.GROWED
+				_update_watering_indicator(plant['node'], false)
 
-			if abs(plant['growth_rate'] - GROWTH_SPEED) > 0.0:
-				if collision.check_cell(tilemap.local_to_map(plant['position']), collision.watering_layer):
-					if plant['node']._degree > 0: plant['node']._degree = 0
+			#
+			if plant['node']._condition == plant['node'].PHASES.REQUIRES_WATERING\
+			&& collision.check_cell(tilemap.local_to_map(plant['position']), collision.watering_layer):
+				plant['node']._condition = plant['node'].PHASES.GROWING
+				plant['growth_rate'] = plant['node']._growth_rate
+				_update_watering_indicator(plant['node'], false)
+				plant['node']._degree = 0
+
+			#
+			if plant['node']._condition == plant['node'].PHASES.REQUIRES_WATERING\
+			&& !collision.check_cell(tilemap.local_to_map(plant['position']), collision.watering_layer):
+				plant['node']._degree = min(plant['node']._degree + 1, plant['node']._mortality)
+				if plant['node']._degree == plant['node']._mortality:
+					plant['node']._condition = plant['node'].PHASES.DEAD
+					_update_watering_indicator(plant['node'], false)
+
+			#
+			if plant['node']._condition == plant['node'].PHASES.PLANTED\
+			&& collision.check_cell(tilemap.local_to_map(plant['position']), collision.watering_layer):
+				plant['node']._degree = 0
+				plant['node']._condition = plant['node'].PHASES.GROWING
+
+			# Когда растение только посажено - идет проверка: есть ли вода на определенной ячейке или нет
+			if plant['node']._condition == plant['node'].PHASES.PLANTED\
+			&& !collision.check_cell(tilemap.local_to_map(plant['position']), collision.watering_layer):
+				plant['node']._degree = min(plant['node']._degree + 1, plant['node']._mortality)
+				if plant['node']._degree == plant['node']._mortality:
+					plant['node']._condition = plant['node'].PHASES.DEAD
+					_update_watering_indicator(plant['node'], false)
+
+			#
+			if plant['node']._condition == plant['node'].PHASES.GROWING\
+			&& collision.check_cell(tilemap.local_to_map(plant['position']), collision.watering_layer):
+				if abs(plant['growth_rate'] - GROWTH_SPEED) > 0.0:
 					plant['growth_rate'] = max(plant['growth_rate'] - GROWTH_SPEED, 0.0)
-					if plant['node']._condition == plant['node'].PHASES.REQUIRES_WATERING:
-						_update_watering_indicator(plant['node'], false)
-					plant['node']._condition = plant['node'].PHASES.GROWING
 				else:
-					plant['node']._degree = min(plant['node']._degree + 1, plant['mortality'])
-					if plant['node']._condition != plant['node'].PHASES.PLANTED\
-					&& plant['node']._condition != plant['node'].PHASES.REQUIRES_WATERING: 
-						plant['node']._condition = plant['node'].PHASES.REQUIRES_WATERING
-						_update_watering_indicator(plant['node'], true)
-					if plant['node']._degree == plant['mortality']:
-						plant['node']._condition = plant['node'].PHASES.DEAD
-			else:
-				if !plant['node']._condition == plant['node'].PHASES.REQUIRES_WATERING\
-				&& collision.check_cell(tilemap.local_to_map(plant['position']), collision.watering_layer):
 					plant['node'].growth()
-					plant['growth_rate'] = plant['node']._growth_rate
-	return
+					plant['node']._condition = plant['node'].PHASES.REQUIRES_WATERING
+					if plant['node']._level >= plant['node']._growth_max:
+						plant['node']._condition = plant['node'].PHASES.GROWED
+						return	
+					_update_watering_indicator(plant['node'], true)
+					tilemap.set_cells_terrain_connect(
+						collision.watering_layer,
+						[tilemap.local_to_map(plant['position'])],
+						0,
+						-1
+					)
 
 func _update_watering_indicator(_node:Node2D, _state:bool) -> void:
 	if !_node: return
