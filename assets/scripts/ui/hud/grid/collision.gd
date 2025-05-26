@@ -73,10 +73,12 @@ func nature_check():
 						'stone':
 							grids.texture = default
 							return 3
-			for node in farming.get_children():
-				if grid_position == tilemap.local_to_map(node.get_global_position()):
-					grids.texture = default
-					return 4
+			for plant in farming.get_children():
+				if data.remove_suffix(plant.name) == 'plant':
+					var plant_data = farming.plants_map[plant.name]
+					if grid_position == plant_data['position']:
+						grids.texture = default
+						return 4
 		grids.texture = error
 
 func terrain_check():
@@ -275,10 +277,10 @@ func get_harvest(vector:Vector2i) -> bool:
 	if main == "Farm"\
 	|| main == "Greenhouse":
 		for plant in farming.get_children():
-			if vector == tilemap.local_to_map(plant.position):
-				if data.remove_suffix(plant.name) == "plant":
-					if 'condition' in plant && 'phases' in plant:
-						if plant.condition == plant.phases.growed:
+			if data.remove_suffix(plant.name) == "plant":
+				if vector == tilemap.local_to_map(plant.position):
+					if '_condition' in plant && 'PHASES' in plant:
+						if plant._condition == plant.PHASES.GROWED:
 							return true
 	return false
 
@@ -288,8 +290,8 @@ func get_harvest_id(vector:Vector2i) -> int:
 		for plant in farming.get_children():
 			if data.remove_suffix(plant.name) == "plant":
 				if vector == tilemap.local_to_map(plant.position)\
-				&& 'plant_id' in plant:
-					return plant.plant_id
+				&& '_plant_id' in plant:
+					return plant._plant_id
 	return 0
 
 func check_custom_data(vector:Vector2, custom_data_layer:String, layer:int) -> bool:
