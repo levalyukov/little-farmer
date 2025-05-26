@@ -78,12 +78,8 @@ func growth() -> void:
 		_level = min(_level + 1, _growth_max)
 		sprite.region_rect.position.x = _level * 16
 		tilemap.set_cells_terrain_connect(collision.watering_layer,[tilemap.local_to_map(_position)],0,-1)
-		if _level >= _growth_max:
-			_condition = PHASES.GROWED
-			farming.plants_map.erase(self.name)
 	else:
 		_condition = PHASES.GROWED
-		farming.plants_map.erase(self.name)
 
 func _get_condition_local(condition_type:int) -> String:
 	match condition_type:
