@@ -116,35 +116,25 @@ func close() -> void:
 		check_radio_state(false)
 		check_nature_sound(false)
 
-func check_nature_sound(state:bool) -> void:
+func check_nature_sound(_state:bool) -> void:
 	if clock:
 		if clock.audio:
-			if clock.audio.get_stream_paused() == !state:
-				clock.audio.set_stream_paused(state)
+			if clock.audio.get_stream_paused() == !_state:
+				clock.audio.set_stream_paused(_state)
 
-func check_plants_state(state:bool) -> void:
+func check_plants_state(_state:bool) -> void:
 	if farmingManager:
-		if farmingManager.get_children().size() > 0:
-			for plants in farmingManager.get_children():
-				plants.timer.set_paused(state)
-				plants.check_water_timer.set_paused(state)
-				if state:
-					if plants.indicator.visible:
-						if plants.anim.is_playing():
-							plants.anim.pause()
-				else:
-					if plants.indicator.visible:
-						if !plants.anim.is_playing():
-							plants.anim.play()
+		if farmingManager.plant_timer:
+			farmingManager.plant_timer.set_paused(_state)
 
-func check_radio_state(state:bool) -> void:
+func check_radio_state(_state:bool) -> void:
 	if constructionManager:
 		if constructionManager.get_children().size() > 0:
 			for node in constructionManager.get_children():
 				if node:
 					if 'blueprint_id' in node:
 						if node.blueprint_id == 10:
-							match state:
+							match _state:
 								true: # pause.paused
 									if 'enabled' in node:
 										if node.enabled:
