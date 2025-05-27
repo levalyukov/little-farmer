@@ -271,8 +271,10 @@ func string_to_vector(vector_string:String) -> Vector2i:
 func remove_all_child(parent: Node):
 	erase_cells(collision.crops_layer)
 	for child in parent.get_children():
-		parent.remove_child(child)
-		child.queue_free()
+		if remove_suffix(child.name) == 'plant'\
+		|| remove_suffix(child.name) == 'fertilizer':
+			parent.remove_child(child)
+			child.queue_free()
 
 func erase_cells(layer: int) -> void:
 	var used_cells = tilemap.get_used_cells(layer)
@@ -281,10 +283,57 @@ func erase_cells(layer: int) -> void:
 
 func plant_load():
 	create_cell(get_vector_array(file.vctr_plants, "plants"))
-	load_plant(file.farm)
+	_load_farm_plant(file.farm)
 
-func load_plant(content_path:String, group:String = ""):
-	pass
+func _load_farm_plant(_data:String):
+	var plant_data = file_load(_data)
+
+	if plant_data.is_empty(): return
+
+	for node in plant_data:
+
+		if remove_suffix(node) == 'fertilizer':
+			var fertilizer_id = plant_data[node]['id']
+			var fertilizer_percent = plant_data[node]['percent']
+			var fertilizer_position = string_to_vector(plant_data[node]['position'])
+
+			farming.create_fertilizer(
+				fertilizer_id,
+				fertilizer_percent,
+				fertilizer_position
+			)
+
+		if remove_suffix(node) == 'plant':
+			var plant_id = plant_data[node]['plant_id']
+			var plant_caption = plant_data[node]['caption']
+			var plant_condition = plant_data[node]['condition']
+			var plant_growth_rate = plant_data[node]['growth_rate']
+			var plant_growth_value = plant_data[node]['growth_value']
+			var plant_level = plant_data[node]['level']
+			var plant_level_max = plant_data[node]['level_max']
+			var plant_mortality = plant_data[node]['mortality']
+			var plant_degree = plant_data[node]['degree']
+			var plant_position = string_to_vector(plant_data[node]['position'])
+			var plant_rect_y = plant_data[node]['rect_y']
+			var plant_seasons = plant_data[node]['seasons']
+			var plant_fertilizer_percent = plant_data[node]['fertilizer_percent']
+
+			farming.load_plant(
+				node,
+				plant_id,
+				plant_caption,
+				plant_growth_value,
+				plant_growth_rate,
+				plant_level_max,
+				plant_mortality,
+				plant_seasons,
+				plant_rect_y,
+				plant_condition,
+				plant_level,
+				plant_degree,
+				plant_position,
+				plant_fertilizer_percent,
+			)
 			
 func load_nature_nodes():
 	nature.clear_all_arrays()
@@ -780,71 +829,8 @@ func open_folder_in_explorer(folder_path:String):
 		OS.execute(command, arguments)
 
 # Greenhouse
-func greenhouse_get_data(greenhouseNodeName:String) -> void:
-	GameLoader.greenhouse_caption = greenhouseNodeName
-	var target_path = DirAccess.open("user://game/data/farm/greenhouses")
-	var target_file_read = FileAccess.open("user://game/data/farm/greenhouses/" + str(greenhouseNodeName) + ".json", FileAccess.READ)
-	if target_path:
-		if !target_file_read:
-			if greenhouseNodeName != "":
-				file_save(
-					["user://game/data/farm/greenhouses"],
-					"user://game/data/farm/greenhouses/" + str(greenhouseNodeName) + ".json",
-					get_greenhouse_data()
-				)
-		else:
-			var greenhouse_data = file_load("user://game/data/farm/greenhouses/" + str(greenhouseNodeName) + ".json")
-			if greenhouse_data.has("farmlands"):
-				if greenhouse_data['farmlands'] != []:
-					create_terrains(
-						collision.farmland_layer,
-						get_vector_array(
-							"user://game/data/farm/greenhouses/" + str(greenhouseNodeName) + ".json",
-							"farmlands"
-						),
-						collision.terrain_set,
-						collision.farming_terrain
-					)
-			if greenhouse_data.has("waterings"):
-				if greenhouse_data['waterings'] != []:
-					create_terrains(
-						collision.watering_layer,
-						get_vector_array(
-							"user://game/data/farm/greenhouses/" + str(greenhouseNodeName) + ".json",
-							"waterings"
-						),
-						collision.terrain_set,
-						collision.watering_terrain
-					)
-			if greenhouse_data.has("plants_collisions"):
-				if greenhouse_data['plants_collisions'] != []:
-					create_cell(
-						get_vector_array(
-							"user://game/data/farm/greenhouses/" + str(greenhouseNodeName) + ".json",
-							"plants_collisions"
-						),
-					)
-
-			if greenhouse_data.has("plants"):
-				if greenhouse_data['plants'] != {}:
-					load_plant("user://game/data/farm/greenhouses/" + str(greenhouseNodeName) + ".json", "plants")
-	else:
-		FileSystem.new().Funcs.create_directory("user://game/data/farm/greenhouses")
-		greenhouse_get_data(greenhouseNodeName)
-
-func get_greenhouse_data() -> Dictionary:
-	return {
-		'plants': farming.get_all_plants(),
-		'plants_collisions': collision.get_position_children(farming),
-		'farmlands': collision.get_used_cells(collision.farmland_layer),
-		'waterings': collision.get_used_cells(collision.watering_layer),
-	}
-
-func _on_music_stream_player_finished():
-	if music_cooldown:
-		target_wait_time = randf_range(music_wait_cooldown[0], music_wait_cooldown[1])
-		music_cooldown.set_wait_time(target_wait_time) 
-		music_cooldown.start()
+func greenhouse_get_data(_greenhouse_name:String) -> void:
+	print(_greenhouse_name)
 
 func _autosave() -> void:
 	gamesave()
