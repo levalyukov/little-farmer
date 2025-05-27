@@ -123,8 +123,8 @@ func check_nature_sound(_state:bool) -> void:
 				clock.audio.set_stream_paused(_state)
 
 func check_plants_state(_state:bool) -> void:
-	if farmingManager:
-		if farmingManager.plant_timer:
+	if is_instance_valid(farmingManager):
+		if farmingManager.plant_timer && farmingManager.plant_timer is Timer:
 			farmingManager.plant_timer.set_paused(_state)
 
 func check_radio_state(_state:bool) -> void:
