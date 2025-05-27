@@ -20,6 +20,7 @@ script = ExtResource("1_p6s4c")
 layout_mode = 2
 offset_right = 256.0
 offset_bottom = 64.0
+mouse_filter = 0
 texture = ExtResource("2_kwjvj")
 patch_margin_left = 16
 patch_margin_top = 16
