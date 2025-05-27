@@ -257,7 +257,7 @@ func set_item_trade_window(item_id, slot_arg, amount:int = 1) -> void:
 	var node = inventory.node
 	var slot = node.instantiate()
 	if amount == 0:
-		amount = 5
+		amount = 1
 	match slot_arg:
 		slot.trader_initator.PLAYER:
 			initiator = initiators.PLAYER
