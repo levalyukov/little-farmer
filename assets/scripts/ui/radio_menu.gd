@@ -5,6 +5,7 @@ extends Control
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
+@onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
 
 @onready var header:Label = $NinePatchRect/VBoxContainer/HeaderMargin/Label
 @onready var playNow:Label = $NinePatchRect/VBoxContainer/PlayNowMargin/Label
@@ -236,6 +237,7 @@ func on_userTrack_pressed(index:int):
 		check_game_music()
 
 func open(_node:Node2D) -> void:
+	if tip: tip.tooltip()
 	opened = true
 	node = _node
 	set_stations()
