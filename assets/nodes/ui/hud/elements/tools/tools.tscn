@@ -23,6 +23,7 @@ script = ExtResource("1_htom4")
 layout_mode = 2
 offset_left = -392.0
 offset_top = -88.0
+mouse_filter = 0
 texture = ExtResource("1_ttosw")
 region_rect = Rect2(0, 0, 128, 64)
 patch_margin_left = 12
