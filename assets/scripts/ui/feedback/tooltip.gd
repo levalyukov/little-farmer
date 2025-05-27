@@ -3,6 +3,7 @@ extends Control
 @onready var main:String = str(get_tree().root.get_child(2).name)
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
+@onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
 @onready var container:MarginContainer = $Container
 @onready var label:Label = $Container/MarginContainer/Label
 
@@ -31,7 +32,8 @@ func _process(_delta):
 
 func tooltip(text:String = "") -> void:
 	if pause:
-		if !pause.paused:
+		if !pause.paused\
+		&& grid.mode == grid.modes.NOTHING:
 			if text != "":
 				tip = true
 				label.text = text
