@@ -12,6 +12,7 @@ extends Node2D
 @onready var default:CompressedTexture2D = load("res://assets/resources/ui/interactive/hud/grid/default.png")
 @onready var error:CompressedTexture2D = load("res://assets/resources/ui/interactive/hud/grid/error.png")
 
+var items = Items.new()
 var crops = Crops.new()
 
 const can_place_seed_custom_data:String = "can_place_seeds"
@@ -76,7 +77,7 @@ func nature_check():
 			for plant in farming.get_children():
 				if data.remove_suffix(plant.name) == 'plant':
 					var plant_data = farming.plants_map[plant.name]
-					if grid_position == plant_data['position']:
+					if grid_position == tilemap.local_to_map(plant_data['position']):
 						grids.texture = default
 						return 4
 		grids.texture = error
@@ -244,18 +245,28 @@ func check_fertilizer_cell() -> void:
 func check_fertilizer(vector:Vector2i) -> bool:
 	if farming.get_children().size() > 0:
 		for i in farming.get_children():
-			if vector == tilemap.local_to_map(i.position):
-				if data.remove_suffix(i.name) == "fertilizer":
+			if data.remove_suffix(i.name) == "fertilizer":
+				if vector == tilemap.local_to_map(i.position):
 					return true
 	return false
 
-func get_fertilizer(vector:Vector2i) -> int:
+func get_fertilizer_percent(vector:Vector2i) -> float:
+	var fertilizer_percent = 0.0
 	if farming.get_children().size() > 0:
-		for i in farming.get_children():
-			if vector == tilemap.local_to_map(i.position):
-				if data.remove_suffix(i.name) == "fertilizer":
-					return i.id
-	return 0
+		for f in farming.get_children():
+			if data.remove_suffix(f.name) == "fertilizer":
+				if vector == tilemap.local_to_map(f.position):
+					fertilizer_percent = f._percent
+	return fertilizer_percent
+
+func get_fertilizer_id(vector:Vector2i) -> float:
+	var fertilizer_id = 0.0
+	if farming.get_children().size() > 0:
+		for f in farming.get_children():
+			if data.remove_suffix(f.name) == "fertilizer":
+				if vector == tilemap.local_to_map(f.position):
+					fertilizer_id = f._id
+	return fertilizer_id
 
 func get_shadow(vector:Vector2i) -> Node2D:
 	if main == "Farm"\
@@ -269,8 +280,9 @@ func get_plant(vector:Vector2i) -> bool:
 	if main == "Farm"\
 	|| main == "Greenhouse":
 		for plant in farming.get_children():
-			if vector == tilemap.local_to_map(plant.position):
-				return true
+			if data.remove_suffix(plant.name) == "plant":
+				if vector == tilemap.local_to_map(plant.position):
+					return true
 	return false
 
 func get_harvest(vector:Vector2i) -> bool:
