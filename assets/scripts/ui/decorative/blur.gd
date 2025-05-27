@@ -22,8 +22,10 @@ func _process(_delta):
 	else: value = max(value - speed, MIN)
 	background.material.set_shader_parameter("lod", value)
 	if state && abs(value - MAX) < EPSILON:
+		visible = state
 		set_process(false)
 	elif !state && abs(value - MIN) < EPSILON:
+		visible = state
 		set_process(false)
 
 func blur(bluring:bool) -> void:
