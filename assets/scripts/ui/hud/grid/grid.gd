@@ -20,6 +20,7 @@ extends Node2D
 @onready var mail:Control = get_node("/root/"+main+"/UI/Interactive/Mailbox")
 @onready var collision:Node2D = $GridParent
 
+var items = Items.new()
 var crops = Crops.new()
 var blueprints = BlueprintManager.new()
 var natural_resources = NaturalResources.new()
@@ -265,17 +266,17 @@ func planting() -> void:
 	for i in collision.get_children():
 		var grid_position = tilemap.local_to_map(i.get_global_position())
 		if main == "Farm":
-			if farmingManager.check_season(plantID):
-				if crops.crops.has(plantID):
-					if collision.check_cell(grid_position, collision.farmland_layer)\
-					&& !collision.check_cell(grid_position, collision.crops_layer)\
-					&& collision.check_custom_data(
-						grid_position, 
-						collision.can_place_seed_custom_data, 
-						collision.farmland_layer
-					):
-						inventory.subject_item(inventory_item, 1)
-						farmingManager.create_plant(plantID, grid_position)
+			if crops.crops.has(plantID):
+				if collision.check_cell(grid_position, collision.farmland_layer)\
+				&& !collision.check_cell(grid_position, collision.crops_layer)\
+				&& collision.check_custom_data(
+					grid_position, 
+					collision.can_place_seed_custom_data, 
+					collision.farmland_layer
+				):
+					inventory.subject_item(inventory_item, 1)
+					farmingManager.create_plant(plantID, grid_position)
+					play_sound('farming/planting')
 		else:
 			if crops.crops.has(plantID):
 				if collision.check_cell(grid_position, collision.farmland_layer)\
@@ -287,7 +288,7 @@ func planting() -> void:
 				):
 					inventory.subject_item(inventory_item, 1)
 					farmingManager.create_plant(plantID, grid_position)
-		play_sound('farming/planting')
+					play_sound('farming/planting')
 
 func harvesting() -> void:
 	collision.harvest_check()
@@ -364,8 +365,13 @@ func fertilizer() -> void:
 		for i in collision.get_children():
 			var local_position = tilemap.to_local(i.get_global_position())
 			var grid_position = tilemap.local_to_map(local_position)
+			var fertilize_percent = items.content[inventory_item]['func']['fertilize']
 			if i.texture != collision.error:
-				farmingManager.create_fertilizer(int(inventory_item), grid_position)
+				farmingManager.create_fertilizer(
+					int(inventory_item),
+					fertilize_percent,
+					grid_position
+				)
 				inventory.subject_item(inventory_item, 1)
 	else:
 		disabled_grid()
