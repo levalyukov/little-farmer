@@ -11,6 +11,7 @@ extends Control
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var node:PackedScene = preload("res://assets/nodes/ui/interactive/inventory/slot.tscn")
 @onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
+@onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
 
 @onready var anim:AnimationPlayer = $Animation
 @onready var info:BoxContainer = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer
@@ -109,6 +110,7 @@ func open() -> void:
 		if !audio.is_playing():
 			audio.stream = inventory_sound
 			audio.play()
+	if tip: tip.tooltip()
 	check_window()
 
 func close() -> void:
