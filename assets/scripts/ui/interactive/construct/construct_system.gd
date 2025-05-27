@@ -8,6 +8,7 @@ extends Control
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var building:Node2D = get_node("/root/"+main+"/ConstructionManager")
 @onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
+@onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
 
 @onready var node:PackedScene = load("res://assets/nodes/ui/interactive/construct/blueprint.tscn")
 @onready var scroll_container_info:ScrollContainer = $Main/MainContent/InfoContent/ScrollContainer
@@ -281,6 +282,7 @@ func open() -> void:
 	blur.blur(true)
 	opened = true
 	section = "all"
+	if tip: tip.tooltip()
 	#	check_window()
 	#	set_process(true)
 
