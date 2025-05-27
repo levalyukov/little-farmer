@@ -598,7 +598,7 @@ var content:Dictionary = {
 		"sale": 100,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/fertilizer.png"),
 		"func": {
-			"fertilize": 5.0, # %
+			"fertilize": 25, # %
 		},
 	},
 	62: {
@@ -610,7 +610,7 @@ var content:Dictionary = {
 		"sale": 150,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/high_fertilizer.png"),
 		"func": {
-			"fertilize": 20.0, # %
+			"fertilize": 75, # %
 		},
 	},
 }
