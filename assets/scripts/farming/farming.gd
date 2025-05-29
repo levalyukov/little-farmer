@@ -25,6 +25,16 @@ func _ready():
 	plant_timer.connect('timeout', Callable(self, '_growth_timeout').bind())
 	add_child(plant_timer)
 
+	if GameLoader:
+		if !GameLoader.greenhouses.is_empty()\
+		&& !GameLoader.farm.is_empty()\
+		&& !GameLoader.check_timer():
+			GameLoader.create_outside_timer(main)
+			return
+
+	#if GameLoader.farm_time_left > 0:
+	#	print(GameLoader.farm_time_left)
+
 func create_plant(plant_id:int, mouse_position:Vector2i) -> void:
 	var node = plant_node.instantiate()
 
@@ -34,6 +44,7 @@ func create_plant(plant_id:int, mouse_position:Vector2i) -> void:
 		var plant_growth_level_max = crops.crops[plant_id]['growth_level'] if crops.crops[plant_id].has('growth_level') && crops.crops[plant_id]['growth_level'] is int else null
 		var plant_mortality = crops.crops[plant_id]['mortality'] if crops.crops[plant_id].has('mortality') && crops.crops[plant_id]['mortality'] is int else null
 		var plant_seasons = crops.crops[plant_id]['season'] if crops.crops[plant_id].has('season') && crops.crops[plant_id]['season'] is Array else null
+		var plant_rect_x = crops.crops[plant_id]['X'] if crops.crops[plant_id].has('X') && crops.crops[plant_id]['X'] is int else null
 		var plant_rect_y = crops.crops[plant_id]['Y'] if crops.crops[plant_id].has('Y') && crops.crops[plant_id]['Y'] is int else null
 		var plant_position = tilemap.map_to_local(mouse_position)
 		
@@ -43,7 +54,6 @@ func create_plant(plant_id:int, mouse_position:Vector2i) -> void:
 			plant_fertilize_percent = collision.get_fertilizer_percent(tilemap.local_to_map(plant_position))
 
 		tilemap.set_cell(collision.crops_layer, mouse_position, COORDS_TILE_ID, ATLAS_COORDS)
-		print(plant_growth_rate - (plant_fertilize_percent / 100.0) * plant_growth_rate)
 		add_child(node)
 		node.z_index = 2
 		node.name = "plant_1"
@@ -54,6 +64,7 @@ func create_plant(plant_id:int, mouse_position:Vector2i) -> void:
 			plant_growth_level_max,
 			plant_mortality,
 			plant_seasons,
+			plant_rect_x,
 			plant_rect_y,
 			0,	# Фаза 'Посажено'
 			0,	# Уровень роста
@@ -64,21 +75,22 @@ func create_plant(plant_id:int, mouse_position:Vector2i) -> void:
 		add_plant(node, plant_position)
 
 func load_plant(
-	plant_node_name,
-	plant_id,
-	plant_caption,
-	plant_growth_value,
-	plant_growth_rate,
-	plant_growth_level_max,
-	plant_mortality,
-	plant_seasons,
-	plant_rect_y,
-	plant_condition,
-	plant_growth_level,
-	plant_degree,
-	plant_position,
-	plant_fertilize_percent
-) -> void:
+		plant_node_name,
+		plant_id,
+		plant_caption,
+		plant_growth_value,
+		plant_growth_rate,
+		plant_growth_level_max,
+		plant_mortality,
+		plant_seasons,
+		plant_rect_x,
+		plant_rect_y,
+		plant_condition,
+		plant_growth_level,
+		plant_degree,
+		plant_position,
+		plant_fertilize_percent
+	) -> void:
 	var node = plant_node.instantiate()
 
 	tilemap.set_cell(collision.crops_layer, tilemap.local_to_map(plant_position), COORDS_TILE_ID, ATLAS_COORDS)
@@ -92,6 +104,7 @@ func load_plant(
 		plant_growth_level_max,
 		plant_mortality,
 		plant_seasons,
+		plant_rect_x,
 		plant_rect_y,
 		plant_condition,
 		plant_growth_level,
@@ -138,11 +151,12 @@ func plant_destroy(grid_position:Vector2i) -> void:
 
 # fertilizer
 func create_fertilizer(_fertilize_id:int, _fertilize_percent:int, _position:Vector2i) -> void:
+	var fertilizer = fertilizer_node.instantiate()
+
 	if items.content.has(_fertilize_id):
 		var fertilize_item = items.content[_fertilize_id]
 		if fertilize_item.has('item_type'):
 			if fertilize_item['item_type'] == 'fertilizer':
-				var fertilizer = fertilizer_node.instantiate()
 				add_child(fertilizer)
 				fertilizer.name = "fertilizer_1"
 				fertilizer.z_index = 2
@@ -171,6 +185,9 @@ func _growth_timeout() -> void:
 			if plant['node']._condition == plant['node'].PHASES.REQUIRES_WATERING\
 			&& !collision.check_cell(tilemap.local_to_map(plant['position']), collision.watering_layer):
 				plant['node']._degree = min(plant['node']._degree + 1, plant['node']._mortality)
+				if !_check_watering_indicator(plant['node']):
+					_update_watering_indicator(plant['node'], true)
+
 				if plant['node']._degree == plant['node']._mortality:
 					plant['node']._condition = plant['node'].PHASES.DEAD
 					_update_watering_indicator(plant['node'], false)
@@ -231,6 +248,13 @@ func _update_watering_indicator(_node:Node2D, _state:bool) -> void:
 			if !_node.anim.is_playing(): 
 				_node.anim.play('bubble')
 
+func _check_watering_indicator(_node:Node2D) -> bool:
+	if !_node:
+		return false
+	if _node.indicator.visible:
+		return true
+	return false
+
 func get_all_plants() -> Dictionary:
 	var data_dict = {}
 	for plant in get_children():
@@ -238,3 +262,8 @@ func get_all_plants() -> Dictionary:
 			var child_data = plant.get_data()
 			data_dict[plant.name] = child_data
 	return data_dict
+
+func _exit_tree():
+	GameLoader.farm = plants_map
+	if GameLoader.check_timer():
+		GameLoader.remove_timer()
