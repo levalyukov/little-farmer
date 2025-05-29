@@ -365,7 +365,7 @@ func fertilizer() -> void:
 		for i in collision.get_children():
 			var local_position = tilemap.to_local(i.get_global_position())
 			var grid_position = tilemap.local_to_map(local_position)
-			var fertilize_percent = items.content[inventory_item]['func']['fertilize']
+			var fertilize_percent = items.content[int(inventory_item)]['func']['fertilize']
 			if i.texture != collision.error:
 				farmingManager.create_fertilizer(
 					int(inventory_item),
