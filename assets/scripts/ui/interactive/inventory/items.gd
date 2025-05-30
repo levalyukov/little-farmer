@@ -340,7 +340,7 @@ var content:Dictionary = {
 		"type": 'items.type.harvest',
 		"item_type": "crop",
 		"purchase": 175,
-		"sale": 125,
+		"sale": 100,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/eggplant.png"),
 	},
 	36: {
@@ -358,7 +358,7 @@ var content:Dictionary = {
 		"type": 'items.type.harvest',
 		"item_type": "crop",
 		"purchase": 175,
-		"sale": 125,
+		"sale": 150,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/corn.png"),
 	},
 	38: {
