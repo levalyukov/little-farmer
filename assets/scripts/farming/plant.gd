@@ -25,6 +25,7 @@ var _growth_rate:float = 0.0			# Время роста
 var _growth_max:int = 0					# Максимальный уровень роста
 var _mortality:int = 0					# Смертность
 var _seasons:Array = []					# Сезоны, в которые культура может жить
+var _rect_x:int = 0						# Координата X прямоугольника спрайта
 var _rect_y:int = 0						# Координата Y прямоугольника спрайта
 var _fertilize:float = 0.0				# Процент удобрения
 var _position:Vector2i = Vector2i(0,0)	# Позиция объекта на тайловой карте
@@ -38,6 +39,7 @@ func plant(
 		plant_growth_level_max:int,
 		plant_mortality_value:int,
 		plant_seasons_array:Array, 
+		plant_rect_x:int,
 		plant_rect_y:int,
 		plant_condition:int,
 		plant_level:int,
@@ -52,6 +54,7 @@ func plant(
 	_growth_max = plant_growth_level_max
 	_mortality = plant_mortality_value
 	_seasons = plant_seasons_array
+	_rect_x = plant_rect_x
 	_rect_y = plant_rect_y
 	_fertilize = plant_fertilize_percent
 
@@ -61,12 +64,12 @@ func plant(
 	_position = plant_position
 	self.set_position(_position)
 
-	if plant_growth_value == 0:
-		_growth_value = round(plant_growth_rate - (plant_fertilize_percent / 100.0) * plant_growth_rate)
-	else:
+	if plant_growth_value > 0:
 		_growth_value = plant_growth_value
+	else:
+		_growth_value = round(plant_growth_rate - (plant_fertilize_percent / 100.0) * plant_growth_rate)
 
-	sprite.region_rect.position.x = 0
+	sprite.region_rect.position.x = _rect_x
 	sprite.region_rect.position.y = _rect_y
 
 func growth() -> void:
@@ -105,7 +108,8 @@ func get_data() -> Dictionary:
 		"degree": _degree,
 		"mortality": _mortality,
 		"seasons": _seasons,
-		"rect_y": _rect_y,
+		"rect_x": sprite.region_rect.position.x,
+		"rect_y": sprite.region_rect.position.y,
 	}
 
 func _on_collision_mouse_entered():
