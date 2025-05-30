@@ -134,13 +134,14 @@ func _input(event):
 	&& event.is_pressed()\
 	&& !blur.state\
 	&& greenhouse_open:
-		GameLoader.greenhouse_caption = self.name
+		GameLoader.current_greenhouse = self.name
+		GameLoader._check_greenhouse(self.name)
 		data.gamesave()
 		blackout.blackout(true)
 		blackout.change_scene("res://levels/greenhouse.tscn")
-		GameLoader.timer_greenhouse_plant_stop()
-		GameLoader.tracking_plants = true
-		GameLoader.timer_farm_plant_start()
+		#GameLoader.timer_greenhouse_plant_stop()
+		#GameLoader.tracking_plants = true
+		#GameLoader.timer_farm_plant_start()
 
 	if event is InputEventMouseButton\
 	&& event.button_index == MOUSE_BUTTON_LEFT\
