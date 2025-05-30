@@ -25,27 +25,34 @@ func _ready():
 	plant_timer.connect('timeout', Callable(self, '_growth_timeout').bind())
 	add_child(plant_timer)
 
-	if GameLoader:
-		if !GameLoader.greenhouses.is_empty()\
-		&& !GameLoader.farm.is_empty()\
-		&& !GameLoader.check_timer():
-			GameLoader.create_outside_timer(main)
-			return
+	var _loaded_greenhouses_value = data.file_load(data.file.world)['greenhouses'] if data.file_load(data.file.world).has('greenhouses') else {}
+	var _loaded_farm_value = data.file_load(data.file.world)['plants_map'] if data.file_load(data.file.world).has('plants_map') else 0
+	GameLoader.farm_time_left = _loaded_farm_value
+	GameLoader.greenhouses = _loaded_greenhouses_value
 
-	#if GameLoader.farm_time_left > 0:
-	#	print(GameLoader.farm_time_left)
+	if GameLoader:
+		match main:
+			'Farm':
+				if !GameLoader.greenhouses.is_empty()\
+				&& !GameLoader.check_timer():
+					GameLoader.create_outside_timer(main)
+			_:
+				if !GameLoader.greenhouses.is_empty()\
+				&& !GameLoader.farm.is_empty()\
+				&& !GameLoader.check_timer():
+					GameLoader.create_outside_timer(main)
 
 func create_plant(plant_id:int, mouse_position:Vector2i) -> void:
 	var node = plant_node.instantiate()
 
 	if collision.check_cell(mouse_position, collision.farmland_layer):
-		var plant_caption = crops.crops[plant_id]['caption'] if crops.crops[plant_id].has('caption') && crops.crops[plant_id]['caption'] is String else null
-		var plant_growth_rate = crops.crops[plant_id]['growth_rate'] if crops.crops[plant_id].has('growth_rate') && crops.crops[plant_id]['growth_rate'] is float else null
-		var plant_growth_level_max = crops.crops[plant_id]['growth_level'] if crops.crops[plant_id].has('growth_level') && crops.crops[plant_id]['growth_level'] is int else null
-		var plant_mortality = crops.crops[plant_id]['mortality'] if crops.crops[plant_id].has('mortality') && crops.crops[plant_id]['mortality'] is int else null
-		var plant_seasons = crops.crops[plant_id]['season'] if crops.crops[plant_id].has('season') && crops.crops[plant_id]['season'] is Array else null
-		var plant_rect_x = crops.crops[plant_id]['X'] if crops.crops[plant_id].has('X') && crops.crops[plant_id]['X'] is int else null
-		var plant_rect_y = crops.crops[plant_id]['Y'] if crops.crops[plant_id].has('Y') && crops.crops[plant_id]['Y'] is int else null
+		var plant_caption = crops.crops[plant_id]['caption']
+		var plant_growth_rate = crops.crops[plant_id]['growth_rate']
+		var plant_growth_level_max = crops.crops[plant_id]['growth_level']
+		var plant_mortality = crops.crops[plant_id]['mortality']
+		var plant_seasons = crops.crops[plant_id]['season']
+		var plant_rect_x = crops.crops[plant_id]['X']
+		var plant_rect_y = crops.crops[plant_id]['Y']
 		var plant_position = tilemap.map_to_local(mouse_position)
 		
 		var plant_fertilize_percent = 0
@@ -89,7 +96,7 @@ func load_plant(
 		plant_growth_level,
 		plant_degree,
 		plant_position,
-		plant_fertilize_percent
+		plant_fertilize_percent,
 	) -> void:
 	var node = plant_node.instantiate()
 
@@ -209,10 +216,11 @@ func _growth_timeout() -> void:
 			# Процесс роста растения
 			if plant['node']._condition == plant['node'].PHASES.GROWING\
 			&& collision.check_cell(tilemap.local_to_map(plant['position']), collision.watering_layer):
-				if plant['node']._growth_value > 0:
+				#	print(plant_id, ': ', plant['node']._growth_value)
+				if plant['node']._growth_value != 0:
 					plant['node']._growth_value = max(plant['node']._growth_value - GROWTH_SPEED, 0.0)
 				else:
-					# Если время роста ровна 0.0 - вызываем функцию у узла, чтобы он "вырос"
+					# Если время роста ровна 0.0 - вызываем функцию у узла, чтобы он "подрос"
 					plant['node'].growth()
 					plant['node']._condition = plant['node'].PHASES.REQUIRES_WATERING
 					# Если текущий уровень роста равен или больше максимального уровня роста -
