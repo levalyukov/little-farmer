@@ -30,9 +30,6 @@ func teleport() -> void:
 			GameLoader.mode = false
 			blackout.blackout(true)
 			blackout.change_scene(scene)
-			GameLoader.tracking_plants = true
-			GameLoader.timer_farm_plant_start()
-			data.target_left_time = data.music_cooldown.get_time_left()
 		"Village":
 			var scene:String = "res://levels/farm.tscn"
 			GameLoader.mode = true
@@ -44,13 +41,13 @@ func teleport() -> void:
 			blackout.blackout(true)
 			blackout.change_scene(scene)
 		"Greenhouse":
-			if GameLoader.greenhouse_caption != "":
+			#if GameLoader.greenhouse_caption != "":
 				var scene:String = "res://levels/farm.tscn"
-				data.file_save(
-					["user://game/data/farm/greenhouses"],
-					"user://game/data/farm/greenhouses/" + str(GameLoader.greenhouse_caption) + ".json",
-					data.get_greenhouse_data()
-				)
+				#data.file_save(
+				#	["user://game/data/farm/greenhouses"],
+				#	"user://game/data/farm/greenhouses/" + str(GameLoader.greenhouse_caption) + ".json",
+				#	data.get_greenhouse_data()
+				#)
 				data.file_save([data.path.data], data.file.world, data.get_dictionary_content("world"))
 				data.file_save([data.path.player], data.file.player, data.get_dictionary_content("player"))
 				data.file_save([data.path.player], data.file.inventory, data.get_dictionary_content("inventory"))
@@ -59,9 +56,6 @@ func teleport() -> void:
 				blackout.blackout(true)
 				GameLoader.mode = true
 				blackout.change_scene(scene)
-				if farming.get_children() != []:
-					GameLoader.timer_greenhouse_plant_start()
-				GameLoader.greenhouse_caption = ""
 		_:
 			data.debug("Unknown name of the game scene: "+str(main), "error")
 
