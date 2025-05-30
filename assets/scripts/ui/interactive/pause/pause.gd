@@ -66,6 +66,7 @@ func open() -> void:
 		for timer in GameLoader.get_children():
 			if !timer.is_paused():
 				timer.set_paused(true)
+				
 	if main == 'Farm':
 		for i in get_tree().root.get_child(2).get_children():
 			match i.name:
@@ -78,15 +79,17 @@ func open() -> void:
 			if mailbox.indicator.visible:
 				if mailbox.anim.is_playing():
 					mailbox.anim.stop()
-
-		# For plants
-		check_plants_state(true)
 		# For forges
 		check_forges_state()
 		# For radio
 		check_radio_state(true)
-		# For nature sound
-		check_nature_sound(true)
+	# For nature sound
+	check_nature_sound(true)
+	# For plants
+	check_plants_state(true)
+
+	if GameLoader.check_timer():
+		GameLoader.get_timer().set_paused(true)
 		
 func close() -> void:
 	paused = false
@@ -111,10 +114,12 @@ func close() -> void:
 				if !mailbox.anim.is_playing():
 					mailbox.anim.play()
 
-		check_plants_state(false)
 		check_forges_state()
 		check_radio_state(false)
-		check_nature_sound(false)
+	check_plants_state(false)
+	check_nature_sound(false)
+	if GameLoader.check_timer():
+		GameLoader.get_timer().set_paused(false)
 
 func check_nature_sound(_state:bool) -> void:
 	if clock:
