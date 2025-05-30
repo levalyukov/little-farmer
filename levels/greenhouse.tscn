@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://2s8j08i1d6cj"]
+[gd_scene load_steps=28 format=3 uid="uid://2s8j08i1d6cj"]
 
 [ext_resource type="Script" path="res://assets/data/gamedata.gd" id="1_p5ud0"]
 [ext_resource type="PackedScene" uid="uid://b8eteio2464wo" path="res://assets/nodes/player.tscn" id="2_nv7e5"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" path="res://assets/scripts/world/tilemap.gd" id="16_bnx43"]
 [ext_resource type="Texture2D" uid="uid://in05cj5j74yi" path="res://assets/resources/world/landscape/summer/water.png" id="17_721hs"]
 [ext_resource type="Texture2D" uid="uid://b2cqet80nv2ie" path="res://assets/resources/world/landscape/summer/waterings.png" id="17_nnsex"]
+[ext_resource type="Script" path="res://assets/data/GreenhouseManager.gd" id="19_y3etm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vtsph"]
 size = Vector2(64, 32)
@@ -1641,6 +1642,9 @@ layer_7/tile_data = PackedInt32Array()
 layer_8/name = "seeds"
 layer_8/tile_data = PackedInt32Array()
 script = ExtResource("16_bnx43")
+
+[node name="GreenhouseManager" type="Node2D" parent="."]
+script = ExtResource("19_y3etm")
 
 [connection signal="mouse_entered" from="Teleports/Village/Area2D" to="Teleports/Village" method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Teleports/Village/Area2D" to="Teleports/Village" method="_on_area_2d_mouse_exited"]
