@@ -5,8 +5,6 @@ extends Node
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var cycle:Node2D = get_node("/root/"+main+"/Day-Night Cycle")
 @onready var hud:Control = get_node("/root/"+main+"/UI/HUD/GameHud")
-@onready var gamesaved_title:Label = get_node("/root/"+main+"/UI/HUD/GameHud/Main/GameSaved")
-@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 @onready var notice:Control = get_node("/root/"+main+"/UI/Feedback/Notifications")
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var player:Node2D = get_node("/root/"+main+"/Player")
@@ -20,13 +18,11 @@ extends Node
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
 @onready var farming:Node2D = get_node("/root/"+main+"/FarmingManager")
 @onready var nature:Node2D = get_node("/root/"+main+"/Nature")
-@onready var teleport:Node2D = get_node('/root/'+main+'Teleports/Village')
-@onready var plant:PackedScene = load("res://assets/nodes/farming/plant.tscn")
 
 var music:AudioStreamPlayer = AudioStreamPlayer.new()
 var music_cooldown:Timer = Timer.new()
 
-var autosave_timer:Timer = Timer.new()
+var autosave_timer:Timer
 
 var global_index_audio = -1
 var target_left_time:float = 0.0
@@ -109,22 +105,17 @@ var music_playlist:Dictionary = {
 func _ready():
 	if main == "Farm":
 		# Autosave
-		self.add_child(autosave_timer)
-		autosave_timer.name = 'Autosave'
-		autosave_timer.set_wait_time(60*1.5)
-		autosave_timer.connect("timeout", Callable(self, "_autosave").bind())
-		autosave_timer.start()
+			#	autosave_timer = Timer.new()
+			#	autosave_timer.name = 'Autosave'
+			#	autosave_timer.set_wait_time(60*1.5)
+			#	autosave_timer.connect("timeout", Callable(self, "_autosave").bind())
+			#	autosave_timer.start()
+			#	self.add_child(autosave_timer)
 		# Game Load
 		if GameLoader.mode\
 		&& !GameLoader.start:
 			gameload()
 			GameLoader.mode = false
-			if file_load(file.world):
-				if file_load(file.world).has('greenhouse_data'):
-					if file_load(file.world)['greenhouse_data']:
-						if file_load(file.world)['greenhouse_data'] != {}:
-							GameLoader.greenhouse_plants = file_load(file.world)['greenhouse_data']
-							GameLoader.create_timers()
 			if file_load(file.player):
 				if file_load(file.player).has('tools_level'):
 					if file_load(file.player)['tools_level'].has('water_can'):
@@ -150,7 +141,6 @@ func _ready():
 			load_mailbox()
 			config_load()
 			if main == "Farm": load_buildings()
-			if main == "Greenhouse": greenhouse_get_data(GameLoader.greenhouse_caption)
 			if file_load(file.player):
 				if file_load(file.player).has('tools_level'):
 					if file_load(file.player)['tools_level'].has('water_can'):
@@ -262,7 +252,6 @@ func string_to_vector(vector_string:String) -> Vector2i:
 	var cleaned_str = vector_string.replace("(", "").replace(")", "")
 	var components = cleaned_str.split(",")
 	if components.size() < 2:
-		debug("Invalid vector format: " + vector_string, "error")
 		return Vector2i()
 	var x = components[0].to_int()
 	var y = components[1].to_int()
@@ -314,6 +303,7 @@ func _load_farm_plant(_data:String):
 			var plant_mortality = plant_data[node]['mortality']
 			var plant_degree = plant_data[node]['degree']
 			var plant_position = string_to_vector(plant_data[node]['position'])
+			var plant_rect_x = plant_data[node]['rect_x']
 			var plant_rect_y = plant_data[node]['rect_y']
 			var plant_seasons = plant_data[node]['seasons']
 			var plant_fertilizer_percent = plant_data[node]['fertilizer_percent']
@@ -322,11 +312,12 @@ func _load_farm_plant(_data:String):
 				node,
 				plant_id,
 				plant_caption,
-				plant_growth_value,
+				max(plant_growth_value - GameLoader.farm_time_left, 1),
 				plant_growth_rate,
 				plant_level_max,
 				plant_mortality,
 				plant_seasons,
+				plant_rect_x,
 				plant_rect_y,
 				plant_condition,
 				plant_level,
@@ -334,6 +325,7 @@ func _load_farm_plant(_data:String):
 				plant_position,
 				plant_fertilizer_percent,
 			)
+	GameLoader.farm_time_left = 0 if GameLoader.farm_time_left > 0 else 0
 			
 func load_nature_nodes():
 	nature.clear_all_arrays()
@@ -590,7 +582,8 @@ func get_dictionary_content(content:String, group:String = "") -> Dictionary:
 
 		"world":
 			return {
-				'greenhouse_data': GameLoader.greenhouse_plants,
+				'plants_map': GameLoader.farm_time_left,
+				'greenhouses': GameLoader.greenhouses,
 				"time": {
 					"season": clock.season,
 					"year": clock.year,
@@ -828,9 +821,6 @@ func open_folder_in_explorer(folder_path:String):
 			arguments = [windows_path]
 		OS.execute(command, arguments)
 
-# Greenhouse
-func greenhouse_get_data(_greenhouse_name:String) -> void:
-	print(_greenhouse_name)
-
 func _autosave() -> void:
 	gamesave()
+	print('autosaving...')
