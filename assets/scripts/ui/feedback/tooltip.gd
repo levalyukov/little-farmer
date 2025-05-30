@@ -33,7 +33,8 @@ func _process(_delta):
 func tooltip(text:String = "") -> void:
 	if pause:
 		if !pause.paused\
-		&& grid.mode == grid.modes.NOTHING:
+		&& grid.mode == grid.modes.NOTHING\
+		|| grid.mode == grid.modes.WATERING:
 			if text != "":
 				tip = true
 				label.text = text
