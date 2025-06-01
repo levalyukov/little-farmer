@@ -309,10 +309,16 @@ func harvesting() -> void:
 		var harvest = collision.get_harvest_id(grid_position)
 		if crops.crops.has(harvest) && harvest != 0:
 			if storage.object[storage.level]["slots"] - inventory.get_all_items() != 0:
+
+				var harvest_condition = collision.get_harvest_condition(grid_position)
+				var harvest_level = collision.get_harvest_level(grid_position)
+				var harvest_level_max = collision.get_harvest_level_max(grid_position)
+				
+				var crop_item:int = 0
+				var crop_productivity:Array = []
+				var target_productivity:int = 0
+
 				if collision.get_harvest(grid_position):
-					var crop_item:int = 0
-					var crop_productivity:Array = []
-					var target_productivity:int = 0
 					if data.check_probability(5):
 						crop_item = crops.crops[harvest]["spoilage"]
 						crop_productivity = crops.crops[harvest]["productivity"]
@@ -321,10 +327,15 @@ func harvesting() -> void:
 						crop_item = crops.crops[harvest]["item"]
 						crop_productivity = crops.crops[harvest]["productivity"]
 						target_productivity = randi_range(crop_productivity[0], crop_productivity[1])
-					inventory.add_item(crop_item, target_productivity)
-					tilemap.erase_cell(collision.crops_layer, grid_position)
-					farmingManager.plant_destroy(grid_position)
-					play_sound('farming/harvesting')
+				else:
+					if harvest_condition == 4 && harvest_level > round(harvest_level_max / 2):
+						crop_item = crops.crops[harvest]["spoilage"]
+						crop_productivity = crops.crops[harvest]["productivity"]
+						target_productivity = randi_range(crop_productivity[0], crop_productivity[1])
+				inventory.add_item(crop_item, target_productivity)
+				tilemap.erase_cell(collision.crops_layer, grid_position)
+				farmingManager.plant_destroy(grid_position)
+				play_sound('farming/harvesting')
 			else:
 				notifications.create_notice(tr("grid.harvesting.error.inventory_full"))
 
