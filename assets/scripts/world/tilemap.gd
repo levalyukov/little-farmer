@@ -116,10 +116,3 @@ func set_atlas(season:String) -> void:
 										i.change_sprite(nature.stones_shadow[i.index])
 									if i.type == "weed":
 										i.change_sprite(nature.weeds_shadow[i.index])
-
-				if farming:
-					if farming.get_children() != []:
-						for i in farming.get_children():
-							if i:
-								if i.has_method("check_plant_season"):
-									i.check_plant_season()
