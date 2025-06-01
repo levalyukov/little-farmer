@@ -16,6 +16,9 @@ func _ready():
 	tr('letter.reminder_season_description_autumn_->_winter')
 	tr('letter.reminder_season_description_winter_->_spring')
 
+	tr('letter.start_little_water_header')
+	tr('letter.start_little_water_content')
+
 	tr('npc.dobrynya')	# Names
 	tr('npc.kuzma')		# NPC
 	tr('npc.vance')		# 
