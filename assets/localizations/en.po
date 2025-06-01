@@ -731,6 +731,21 @@ msgstr ""
 "spring seeds available for purchase!"
 
 #: assets/localizations/local.gd
+#| msgid "letter.for_new_player.header"
+msgid "letter.start_little_water_header"
+msgstr "Plants Need Watering"
+
+#: assets/localizations/local.gd
+#| msgid "letter.for_new_player.content"
+msgid "letter.start_little_water_content"
+msgstr ""
+"Hello Farmer!\n"
+"\n"
+"Please don't leave your plants without water for too long - they might die.\n"
+"\n"
+"I heard they're planning to open a well for public use soon."
+
+#: assets/localizations/local.gd
 msgid "npc.dobrynya"
 msgstr "Dobrynya"
 
