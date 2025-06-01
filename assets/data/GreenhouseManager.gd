@@ -122,7 +122,6 @@ func _load_plants(_plant_data:Dictionary) -> void:
 			var _growth_value = _data['growth_value']
 
 			var _greenhouse_value = GameLoader.greenhouses[_greenhouse_name]['time_left'] if GameLoader.greenhouses.has(_greenhouse_name) && GameLoader.greenhouses[_greenhouse_name].has('time_left') else 0
-			print(_greenhouse_value)
 			farming.load_plant(
 				plant,
 				_id,
