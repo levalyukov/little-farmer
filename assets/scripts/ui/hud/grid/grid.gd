@@ -82,6 +82,7 @@ func _process(_delta):
 						+ "/" + 
 						str(tools.water_can_max)
 					)
+
 				else:
 					tip.tooltip(tr('tooltip.empty_water_can') + "!")
 					if !GameLoader.first_empty_water_can:
@@ -91,6 +92,17 @@ func _process(_delta):
 							'letter.public_well_announcement_content',
 							'letter.korney_korneich.signature'
 						)
+
+				if tools.water_can == 25\
+				&& !GameLoader.first_empty_water_can\
+				&& !GameLoader.start_little_water:
+					GameLoader.start_little_water = true
+					mail.letter(
+						'letter.start_little_water_header',
+						'letter.start_little_water_content',
+						'letter.gardener_dobrynya'
+					)
+						
 		modes.HARVESTING:
 			collision.harvest_check()
 		modes.FERTILIZER:
