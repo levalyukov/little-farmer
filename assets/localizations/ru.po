@@ -737,6 +737,22 @@ msgstr ""
 "завтрашнего дня у меня можно приобрести весенние семена."
 
 #: assets/localizations/local.gd
+#| msgid "letter.for_new_player.header"
+msgid "letter.start_little_water_header"
+msgstr "Поливка растений"
+
+#: assets/localizations/local.gd
+#| msgid "letter.for_new_player.content"
+msgid "letter.start_little_water_content"
+msgstr ""
+"Привет, фермер!\n"
+"\n"
+"Пожалуйста, не оставляй на долгое время растения без воды - они могут "
+"погибнуть. \n"
+"\n"
+"Слышал, что в скором времени хотят открыть колодец для общего пользования."
+
+#: assets/localizations/local.gd
 msgid "npc.dobrynya"
 msgstr "Добрыня"
 
