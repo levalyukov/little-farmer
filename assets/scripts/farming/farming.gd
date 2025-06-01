@@ -179,68 +179,79 @@ func _growth_timeout() -> void:
 	if !plants_map.is_empty():
 		for plant_id in plants_map.keys():
 			var plant = plants_map[plant_id]
-			#  Если в ячейке, где находится культура, есть вода - счетчик будет сброшен,
-			# а растение продолжит свой рост с учетом удобрения
-			if plant['node']._condition == plant['node'].PHASES.REQUIRES_WATERING\
-			&& collision.check_cell(tilemap.local_to_map(plant['position']), collision.watering_layer):
-				plant['node']._condition = plant['node'].PHASES.GROWING
-				plant['node']._growth_value = plant['node']._growth_rate - (plant['node']._fertilize / 100.0) * plant['node']._growth_rate
-				_update_watering_indicator(plant['node'], false)
-				plant['node']._degree = 0
-
-			# Если в ячейке, где находится культура, отсутствует вода - культура будет умирать
-			if plant['node']._condition == plant['node'].PHASES.REQUIRES_WATERING\
-			&& !collision.check_cell(tilemap.local_to_map(plant['position']), collision.watering_layer):
-				plant['node']._degree = min(plant['node']._degree + 1, plant['node']._mortality)
-				if !_check_watering_indicator(plant['node']):
-					_update_watering_indicator(plant['node'], true)
-
-				if plant['node']._degree == plant['node']._mortality:
-					plant['node']._condition = plant['node'].PHASES.DEAD
+			var current_season = clock.get_season()
+			# Если сезон сменится - растение погибает вне зависимости от состояния.
+			if _plant_seasons(plant['node'], current_season):
+				#  Если в ячейке, где находится культура, есть вода - счетчик будет сброшен,
+				# а растение продолжит свой рост с учетом удобрения
+				if plant['node']._condition == plant['node'].PHASES.REQUIRES_WATERING\
+				&& collision.check_cell(tilemap.local_to_map(plant['position']), collision.watering_layer):
+					plant['node']._condition = plant['node'].PHASES.GROWING
+					plant['node']._growth_value = plant['node']._growth_rate - (plant['node']._fertilize / 100.0) * plant['node']._growth_rate
 					_update_watering_indicator(plant['node'], false)
+					plant['node']._degree = 0
 
-			# Если игрок посадил в уже политую ячейку - сразу переключаем состояние узла на "растет"
-			if plant['node']._condition == plant['node'].PHASES.PLANTED\
-			&& collision.check_cell(tilemap.local_to_map(plant['position']), collision.watering_layer):
-				plant['node']._degree = 0
-				plant['node']._condition = plant['node'].PHASES.GROWING
-
-			# Когда растение только посажено - идет проверка: есть ли вода на определенной ячейке или нет
-			if plant['node']._condition == plant['node'].PHASES.PLANTED\
-			&& !collision.check_cell(tilemap.local_to_map(plant['position']), collision.watering_layer):
-				plant['node']._degree = min(plant['node']._degree + 1, plant['node']._mortality)
-				if plant['node']._degree == plant['node']._mortality:
-					plant['node']._condition = plant['node'].PHASES.DEAD
-					_update_watering_indicator(plant['node'], false)
-
-			# Процесс роста растения
-			if plant['node']._condition == plant['node'].PHASES.GROWING\
-			&& collision.check_cell(tilemap.local_to_map(plant['position']), collision.watering_layer):
-				#	print(plant_id, ': ', plant['node']._growth_value)
-				if plant['node']._growth_value != 0:
-					plant['node']._growth_value = max(plant['node']._growth_value - GROWTH_SPEED, 0.0)
-				else:
-					# Если время роста ровна 0.0 - вызываем функцию у узла, чтобы он "подрос"
-					plant['node'].growth()
-					# Если текущий уровень роста равен или больше максимального уровня роста -
-					# Прерываем проверку и меняем состояние растения на "вырос"
-					if plant['node']._level >= plant['node']._growth_max:
-						plant['node']._condition = plant['node'].PHASES.GROWED
-						tilemap.set_cells_terrain_connect(
-							collision.watering_layer,
-							[tilemap.local_to_map(plant['position'])],
-							0,
-							-1
-						)
-					else:
-						plant['node']._condition = plant['node'].PHASES.REQUIRES_WATERING
+				# Если в ячейке, где находится культура, отсутствует вода - культура будет умирать
+				if plant['node']._condition == plant['node'].PHASES.REQUIRES_WATERING\
+				&& !collision.check_cell(tilemap.local_to_map(plant['position']), collision.watering_layer):
+					plant['node']._degree = min(plant['node']._degree + 1, plant['node']._mortality)
+					if !_check_watering_indicator(plant['node']):
 						_update_watering_indicator(plant['node'], true)
-						tilemap.set_cells_terrain_connect(
-							collision.watering_layer,
-							[tilemap.local_to_map(plant['position'])],
-							0,
-							-1
-						)
+
+					if plant['node']._degree == plant['node']._mortality:
+						plant['node']._condition = plant['node'].PHASES.DEAD
+						_update_watering_indicator(plant['node'], false)
+
+				# Если игрок посадил в уже политую ячейку - сразу переключаем состояние узла на "растет"
+				if plant['node']._condition == plant['node'].PHASES.PLANTED\
+				&& collision.check_cell(tilemap.local_to_map(plant['position']), collision.watering_layer):
+					plant['node']._degree = 0
+					plant['node']._condition = plant['node'].PHASES.GROWING
+
+				# Когда растение только посажено - идет проверка: есть ли вода на определенной ячейке или нет
+				if plant['node']._condition == plant['node'].PHASES.PLANTED\
+				&& !collision.check_cell(tilemap.local_to_map(plant['position']), collision.watering_layer):
+					plant['node']._degree = min(plant['node']._degree + 1, plant['node']._mortality)
+					if plant['node']._degree == plant['node']._mortality:
+						plant['node']._condition = plant['node'].PHASES.DEAD
+						_update_watering_indicator(plant['node'], false)
+
+				# Процесс роста растения
+				if plant['node']._condition == plant['node'].PHASES.GROWING\
+				&& collision.check_cell(tilemap.local_to_map(plant['position']), collision.watering_layer):
+					#	print(plant_id, ': ', plant['node']._growth_value)
+					if plant['node']._growth_value != 0:
+						plant['node']._growth_value = max(plant['node']._growth_value - GROWTH_SPEED, 0.0)
+					else:
+						# Если время роста ровна 0.0 - вызываем функцию у узла, чтобы он "подрос"
+						plant['node'].growth()
+						# Если текущий уровень роста равен или больше максимального уровня роста -
+						# Прерываем проверку и меняем состояние растения на "вырос"
+						if plant['node']._level >= plant['node']._growth_max:
+							plant['node']._condition = plant['node'].PHASES.GROWED
+							tilemap.set_cells_terrain_connect(
+								collision.watering_layer,
+								[tilemap.local_to_map(plant['position'])],
+								0,
+								-1
+							)
+						else:
+							plant['node']._condition = plant['node'].PHASES.REQUIRES_WATERING
+							_update_watering_indicator(plant['node'], true)
+							tilemap.set_cells_terrain_connect(
+								collision.watering_layer,
+								[tilemap.local_to_map(plant['position'])],
+								0,
+								-1
+							)
+			else:
+				plant['node'].dead()
+
+func _plant_seasons(_node:Node2D, _season:String) -> bool:
+	for _plant_season in _node._seasons:
+		if _plant_season == _season:
+			return true
+	return false
 
 func _update_watering_indicator(_node:Node2D, _state:bool) -> void:
 	if !_node: return
