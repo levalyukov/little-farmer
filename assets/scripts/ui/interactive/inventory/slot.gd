@@ -96,7 +96,7 @@ func _on_button_pressed():
 								trade_menu.update_button_trade_window()
 					trader_initator.TRADER:
 						if trade_menu.initiator == trade_menu.initiators.TRADER || trade_menu.initiator == trade_menu.initiators.NONE:
-							trade_menu.set_item_trade_window(item_id, trader_initator.TRADER, item_amount/4)
+							trade_menu.set_item_trade_window(item_id, trader_initator.TRADER, 5)
 							trade_menu.updates_arrays()
 							trade_menu.get_target_price()
 							trade_menu.update_button_trade_window()
