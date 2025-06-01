@@ -75,9 +75,14 @@ func plant(
 func growth() -> void:
 	if _level < _growth_max:
 		_level = min(_level + 1, _growth_max)
-		sprite.region_rect.position.x = _level * 16
+		sprite.region_rect.position.x = _rect_x + (_level * 16)
 	else:
 		_condition = PHASES.GROWED
+
+func dead() -> void:
+	_condition = PHASES.DEAD
+	sprite.region_rect.position.y = 160
+	sprite.region_rect.position.x = 0
 
 func _get_condition_local(condition_type:int) -> String:
 	match condition_type:
