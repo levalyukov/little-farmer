@@ -4,7 +4,7 @@ const GROWTH_TIME:int = 1
 const MAX_GROWTH_VALUE:int = 300
 
 var start:bool = false
-var mode:bool = !false
+var mode:bool = false
 var modal:bool = false
 
 # Indicators
@@ -13,6 +13,7 @@ var mailbox_indicator:bool = false
 # Letters Triggers
 var first_empty_water_can:bool = false
 var reminder_harvest:bool = false
+var start_little_water:bool = false
 
 # Plants timer
 var current_greenhouse:String
@@ -22,8 +23,6 @@ var _outside_timer:Timer
 
 var farm_time_left:int = 0
 
-func _ready():
-    print(GameLoader)
 
 func create_outside_timer(_name_scene:String) -> void:
     _outside_timer = Timer.new()
