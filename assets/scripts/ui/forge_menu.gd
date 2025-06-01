@@ -300,6 +300,7 @@ func _on_remove_ore_pressed():
 		if ore_id != null:
 			remove_item(ore_id)
 			check_button_state()
+			update_ore_value()
 
 # Removing fuel
 func _on_remove_fuel_pressed():
@@ -307,6 +308,7 @@ func _on_remove_fuel_pressed():
 		if fuel_id != null:
 			remove_item(fuel_id)
 			check_button_state()
+			update_fuel_value()
 #
 func _on_melt_button_pressed():
 	if !target_node.inProcessed:
@@ -343,11 +345,11 @@ func _on_melt_button_pressed():
 					meltButton.text = tr('forge.button.melt')
 					meltButton.disabled = true
 					playerInventoryMargin.visible = true
-					update_forge_state()
 					get_special_items()
 					check_button_state()
 					update_ore_value()
 					update_fuel_value()
+					update_forge_state()
 	_play_sound('ui/click')
 
 # Close
