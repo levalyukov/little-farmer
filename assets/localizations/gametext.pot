@@ -710,6 +710,14 @@ msgid "letter.reminder_season_description_winter_->_spring"
 msgstr ""
 
 #: assets/localizations/local.gd
+msgid "letter.start_little_water_header"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "letter.start_little_water_content"
+msgstr ""
+
+#: assets/localizations/local.gd
 msgid "npc.dobrynya"
 msgstr ""
 
