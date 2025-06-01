@@ -183,8 +183,7 @@ func harvest_check() -> void:
 	|| main == "Greenhouse":
 		for grids in get_children():
 			var grid_position = tilemap.local_to_map(grids.get_global_position())
-			if check_cell(grid_position, crops_layer)\
-			&& get_harvest(grid_position):
+			if check_cell(grid_position, crops_layer):
 				grids.texture = default
 			else:
 				grids.texture = error
@@ -304,6 +303,36 @@ func get_harvest_id(vector:Vector2i) -> int:
 				if vector == tilemap.local_to_map(plant.position)\
 				&& '_plant_id' in plant:
 					return plant._plant_id
+	return 0
+
+func get_harvest_condition(vector:Vector2i) -> int:
+	if main == "Farm"\
+	|| main == "Greenhouse":
+		for plant in farming.get_children():
+			if data.remove_suffix(plant.name) == "plant":
+				if vector == tilemap.local_to_map(plant.position)\
+				&& '_condition' in plant:
+					return plant._condition
+	return 0
+
+func get_harvest_level(vector:Vector2i) -> int:
+	if main == "Farm"\
+	|| main == "Greenhouse":
+		for plant in farming.get_children():
+			if data.remove_suffix(plant.name) == "plant":
+				if vector == tilemap.local_to_map(plant.position)\
+				&& '_level' in plant:
+					return plant._level
+	return 0
+
+func get_harvest_level_max(vector:Vector2i) -> int:
+	if main == "Farm"\
+	|| main == "Greenhouse":
+		for plant in farming.get_children():
+			if data.remove_suffix(plant.name) == "plant":
+				if vector == tilemap.local_to_map(plant.position)\
+				&& '_growth_max' in plant:
+					return plant._growth_max
 	return 0
 
 func check_custom_data(vector:Vector2, custom_data_layer:String, layer:int) -> bool:
