@@ -124,9 +124,10 @@ func _ready():
 				if file_load(file.world).has('letter_triggers'):
 					if file_load(file.world)['letter_triggers'].has('empty_can'):
 						GameLoader.first_empty_water_can = file_load(file.world)['letter_triggers']['empty_can']
-				if file_load(file.world).has('letter_triggers'):
 					if file_load(file.world)['letter_triggers'].has('reminder_harvest'):
 						GameLoader.reminder_harvest = file_load(file.world)['letter_triggers']['reminder_harvest']
+					if file_load(file.world)['letter_triggers'].has('little_water'):
+						GameLoader.start_little_water = file_load(file.world)['letter_triggers']['little_water']
 		# New Game
 		if !GameLoader.mode\
 		&& GameLoader.start:
@@ -523,8 +524,8 @@ func load_buildings() -> void:
 			if node.has_method("set_sign_sprite"):
 				node.set_sign_sprite(int(sprite_id))
 
-		if data.has('value') && data.has('id'):
-			match data['id']:
+		if data.has('value'):
+			match int(data['id']):
 				2:
 					if data.has("total_items")\
 					&& data.has("state"):
@@ -595,6 +596,7 @@ func get_dictionary_content(content:String, group:String = "") -> Dictionary:
 				'letter_triggers': {
 					'empty_can': GameLoader.first_empty_water_can,
 					'reminder_harvest': GameLoader.reminder_harvest,
+					'little_water': GameLoader.start_little_water,
 				},
 			}
 			
@@ -736,6 +738,9 @@ func config_new() -> void:
 			"radio": 50,
 		},
 	}
+
+	file_save([path.data], file.world, get_dictionary_content("world"))
+
 	if target_path:
 		if !target_file:
 			file_save([path.main], file.config, config)
