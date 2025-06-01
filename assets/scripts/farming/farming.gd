@@ -222,7 +222,6 @@ func _growth_timeout() -> void:
 				else:
 					# Если время роста ровна 0.0 - вызываем функцию у узла, чтобы он "подрос"
 					plant['node'].growth()
-					plant['node']._condition = plant['node'].PHASES.REQUIRES_WATERING
 					# Если текущий уровень роста равен или больше максимального уровня роста -
 					# Прерываем проверку и меняем состояние растения на "вырос"
 					if plant['node']._level >= plant['node']._growth_max:
@@ -233,14 +232,15 @@ func _growth_timeout() -> void:
 							0,
 							-1
 						)
-						return	
-					_update_watering_indicator(plant['node'], true)
-					tilemap.set_cells_terrain_connect(
-						collision.watering_layer,
-						[tilemap.local_to_map(plant['position'])],
-						0,
-						-1
-					)
+					else:
+						plant['node']._condition = plant['node'].PHASES.REQUIRES_WATERING
+						_update_watering_indicator(plant['node'], true)
+						tilemap.set_cells_terrain_connect(
+							collision.watering_layer,
+							[tilemap.local_to_map(plant['position'])],
+							0,
+							-1
+						)
 
 func _update_watering_indicator(_node:Node2D, _state:bool) -> void:
 	if !_node: return
