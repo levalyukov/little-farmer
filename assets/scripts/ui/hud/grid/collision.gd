@@ -183,7 +183,8 @@ func harvest_check() -> void:
 	|| main == "Greenhouse":
 		for grids in get_children():
 			var grid_position = tilemap.local_to_map(grids.get_global_position())
-			if check_cell(grid_position, crops_layer):
+			if check_cell(grid_position, crops_layer)\
+			&& get_harvest(grid_position):
 				grids.texture = default
 			else:
 				grids.texture = error
