@@ -23,7 +23,6 @@ var _outside_timer:Timer
 
 var farm_time_left:int = 0
 
-
 func create_outside_timer(_name_scene:String) -> void:
     _outside_timer = Timer.new()
     _outside_timer.set_autostart(true)
