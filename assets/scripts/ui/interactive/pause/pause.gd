@@ -57,8 +57,19 @@ func open() -> void:
 	hud.hud_all_hide()
 	player.check_switch()
 	version.text = "v" + ProjectSettings.get_setting("application/config/version") + "\n(C) Studio Miroro"
-	if has_node("/root/"+main+"/ConstructionManager/Grid"):
+	if grid:
+		grid.mode = grid.modes.NOTHING
 		grid.visible = false
+		grid.set_process(false)
+		grid.destroy_mode = grid.destroy.NOTHING
+		grid.tip.tooltip()
+		grid.plantID = null
+		grid.inventory_item = null
+		grid.id = 0
+		grid.group = ''
+		grid.terrain_set = []
+		grid.terrain_required_layer = []
+		grid.terrain_blocking_layer = []
 	if destroy_menu.opened:
 		destroy_menu.close()
 
