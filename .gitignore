@@ -18,3 +18,4 @@ assets/localizations/en.mo
 *.ctex
 *.scn
 *.cfg
+.godot/editor/filesystem_update4
