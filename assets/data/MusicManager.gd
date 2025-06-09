@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var main:String = str(get_tree().root.get_child(2).name)
+@onready var constructionManager:Node2D = get_node('/root/'+main+'/ConstructionManager')
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 
@@ -69,12 +70,11 @@ func _ready() -> void:
 	_stream.bus = "Music"
 
 func _game_music() -> void:
-	if _stream && !_stream.is_playing():
+	if (_stream && !_stream.is_playing()) && !_radio_is_playing():
 		_distribute_arrays()
 		var _current_arr = _get_current_arr()
 		
-		if _current_arr.is_empty():
-			return
+		if _current_arr.is_empty(): return
 		
 		_new_index = _generate_index(_current_arr)
 		_last_index = _new_index
@@ -86,6 +86,21 @@ func _game_music() -> void:
 	else:
 		_COOLDOWN = randf_range(10.0, 180.0)
 		_timer.wait_time = _COOLDOWN
+
+func _radio_is_playing() -> bool:
+	if constructionManager && constructionManager.get_children().size() > 0:
+		for node in constructionManager.get_children():
+			if node && 'blueprint_id' in node:
+				if node.blueprint_id == 10:
+					if node.radio_noise.is_playing():
+						return true
+	return false
+
+func _is_playing() -> bool:
+	if _stream:
+		if _stream.is_playing():
+			return true
+	return false
 
 func _generate_index(_array:Array) -> int:
 	if _array.size() == 0:
