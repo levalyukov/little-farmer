@@ -16,6 +16,8 @@ extends Control
 @onready var mailbox:Node2D = get_node('/root/'+main+'/ConstructionManager/mailbox')
 @onready var constructionManager:Node2D = get_node('/root/'+main+'/ConstructionManager')
 @onready var farmingManager:Node2D = get_node('/root/'+main+'/FarmingManager')
+@onready var game_music:Node2D = get_node('/root/'+main+'/MusicManager')
+
 @onready var anim:AnimationPlayer = $AnimationPlayer
 @onready var version:Label = $Main/Container/GameVersionMargin/GameVersion
 
@@ -79,13 +81,6 @@ func open() -> void:
 				timer.set_paused(true)
 				
 	if main == 'Farm':
-		for i in get_tree().root.get_child(2).get_children():
-			match i.name:
-				'MusicPlayer':
-					i.set_stream_paused(true)
-				'MusicCooldownTimer':
-					if i.is_paused():
-						i.set_paused(false)
 		if mailbox:
 			if mailbox.indicator.visible:
 				if mailbox.anim.is_playing():
@@ -98,7 +93,8 @@ func open() -> void:
 	check_nature_sound(true)
 	# For plants
 	check_plants_state(true)
-
+	# For game music
+	check_game_music(true)
 	if GameLoader.check_timer():
 		GameLoader.get_timer().set_paused(true)
 		
@@ -113,13 +109,6 @@ func close() -> void:
 			if timer.is_paused():
 				timer.set_paused(!true)
 	if main == 'Farm':
-		for i in get_tree().root.get_child(2).get_children():
-			match i.name:
-				'MusicPlayer':
-					i.set_stream_paused(!true)
-				'MusicCooldownTimer':
-					if !i.is_paused():
-						i.set_paused(true)
 		if mailbox:
 			if mailbox.indicator.visible:
 				if !mailbox.anim.is_playing():
@@ -129,8 +118,13 @@ func close() -> void:
 		check_radio_state(false)
 	check_plants_state(false)
 	check_nature_sound(false)
+	check_game_music(false)
 	if GameLoader.check_timer():
 		GameLoader.get_timer().set_paused(false)
+
+func check_game_music(_state:bool) -> void:
+	if game_music:
+		game_music._stream.set_stream_paused(_state)
 
 func check_nature_sound(_state:bool) -> void:
 	if clock:
