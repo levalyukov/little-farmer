@@ -1,4 +1,3 @@
-res://assets/scripts/ui/interactive/pause/pause.gd
 res://assets/data/MusicManager.gd
 res://levels/farm.tscn
 res://assets/shaders/pixel.gdshader
@@ -10,3 +9,8 @@ res://levels/greenhouse.tscn
 res://levels/menu.tscn
 res://assets/nodes/music_manager.tscn
 res://assets/nodes/farming/plant.tscn
+res://assets/scripts/ui/interactive/pause/pause.gd
+res://assets/scripts/ui/radio_menu.gd
+res://assets/scripts/construction/buildings/radio.gd
+res://assets/scripts/ui/interactive/construct/construct_system.gd
+res://assets/data/gameloader.gd
