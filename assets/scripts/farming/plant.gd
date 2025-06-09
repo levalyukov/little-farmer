@@ -69,7 +69,9 @@ func plant(
 	else:
 		_growth_value = round(plant_growth_rate - (plant_fertilize_percent / 100.0) * plant_growth_rate)
 
-	sprite.region_rect.position.x = _rect_x
+	var _current_level = _level if _level > 1 else 0
+
+	sprite.region_rect.position.x = _rect_x + (_current_level * 16)
 	sprite.region_rect.position.y = _rect_y
 
 func growth() -> void:
@@ -113,8 +115,8 @@ func get_data() -> Dictionary:
 		"degree": _degree,
 		"mortality": _mortality,
 		"seasons": _seasons,
-		"rect_x": sprite.region_rect.position.x,
-		"rect_y": sprite.region_rect.position.y,
+		"rect_x": _rect_x,
+		"rect_y": _rect_y,
 	}
 
 func _on_collision_mouse_entered():
