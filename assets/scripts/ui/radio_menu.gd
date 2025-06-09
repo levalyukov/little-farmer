@@ -6,6 +6,7 @@ extends Control
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 @onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
+@onready var game_music:Node2D = get_node('/root/'+main+'/MusicManager')
 
 @onready var header:Label = $NinePatchRect/VBoxContainer/HeaderMargin/Label
 @onready var playNow:Label = $NinePatchRect/VBoxContainer/PlayNowMargin/Label
@@ -34,22 +35,6 @@ var stream_position:float = 0.0
 var stopped:bool = false
 var stations:Dictionary = {
 	'station.radio_cultura.caption': {
-		'captions': [
-
-			'Странник в облаках',
-			'Без названия',
-			'Не грусти!',
-			'Где-то в облаках',
-			'Фермерский быт',
-			'Утренний ветерок',
-			'В даль реки',
-			'Я когда-то Вас любил',
-			'Ручеёк',
-			'Идиллия',
-			'Пыльные записки',
-			'Вселенная',
-
-		],
 		'tracks': [
 			'res://assets/sounds/music/radio/track#1.ogg',
 			'res://assets/sounds/music/radio/track#2.ogg',
@@ -63,12 +48,13 @@ var stations:Dictionary = {
 			'res://assets/sounds/music/radio/track#10.ogg',
 			'res://assets/sounds/music/radio/track#11.ogg',
 			'res://assets/sounds/music/radio/track#12.ogg',
+			'res://assets/sounds/music/radio/track#13.ogg',
+			'res://assets/sounds/music/radio/track#14.ogg',
 		]
 	},
 }
 
 var current_station_name:String = ''
-var stations_audios_captions = []
 var stations_audios = []
 var station_audio_index:int = 0
 
@@ -158,16 +144,11 @@ func on_station_pressed(stationName:String):
 				node.repeat = true
 				stations_audios = []
 				if stations.has(stationName):
-					if stations[stationName].has('captions'):
-						if stations[stationName]['captions'] is Array && stations[stationName]['captions'].size() > 0:
-							for i in stations[stationName]['captions']:
-								stations_audios_captions.append(i)
+					if stations[stationName]['tracks'] is Array && stations[stationName]['tracks'].size() > 0:
+						for i in stations[stationName]['tracks']:
+							stations_audios.append(i)
 
-						if stations[stationName]['tracks'] is Array && stations[stationName]['tracks'].size() > 0:
-							for i in stations[stationName]['tracks']:
-								stations_audios.append(i)
-
-				if stations_audios.size() > 0 && stations_audios_captions.size() > 0 :
+				if stations_audios.size() > 0:
 					if node:
 						station_audio_index = randi() % stations_audios.size()
 						current_station_name = stationName
@@ -423,16 +404,9 @@ func set_radio_track_name() -> void:
 	playNow.text = tr(current_station_name)
 
 func check_game_music() -> void:
-	if node:
-		if node.enabled:
-			if node.radio_noise.is_playing():
-				if main == 'Farm':
-					for i in get_tree().root.get_child(2).get_children():
-						if i.name == 'MusicPlayer' && i is AudioStreamPlayer:
-							i.stop()
-						if i.name == 'MusicCooldownTimer' && i is Timer:
-							if !i.is_paused():
-								i.set_paused(true)
+	if game_music:
+		if game_music._is_playing():
+			game_music._stream.stop()
 
 func _play_sound(path_ogg:String) -> void:
 	var audio = AudioStreamPlayer.new()
