@@ -197,7 +197,7 @@ func _on_report_bug_button_pressed():
 	if visible:
 		if data:
 			if data.has_method('open_url'):
-				data.open_url("https://forms.gle/GiVAMdDLAZFgt9aZA")
+				data.open_url("https://forms.yandex.ru/u/6849b9e6eb614671e9b865c7/")
 				_play_sound('ui/click')
 
 func _on_report_bug_button_mouse_entered():
