@@ -41,27 +41,21 @@ func teleport() -> void:
 			blackout.blackout(true)
 			blackout.change_scene(scene)
 		"Greenhouse":
-			#if GameLoader.greenhouse_caption != "":
-				var scene:String = "res://levels/farm.tscn"
-				#data.file_save(
-				#	["user://game/data/farm/greenhouses"],
-				#	"user://game/data/farm/greenhouses/" + str(GameLoader.greenhouse_caption) + ".json",
-				#	data.get_greenhouse_data()
-				#)
-				data.file_save([data.path.data], data.file.world, data.get_dictionary_content("world"))
-				data.file_save([data.path.player], data.file.player, data.get_dictionary_content("player"))
-				data.file_save([data.path.player], data.file.inventory, data.get_dictionary_content("inventory"))
-				data.file_save([data.path.player], data.file.blueprints, data.get_dictionary_content("blueprints"))
-				data.file_save([data.path.player], data.file.mailbox, data.get_dictionary_content("mailbox"))
-				blackout.blackout(true)
-				GameLoader.mode = true
-				blackout.change_scene(scene)
-		_:
-			data.debug("Unknown name of the game scene: "+str(main), "error")
+			var scene:String = "res://levels/farm.tscn"
+			data.file_save([data.path.data], data.file.world, data.get_dictionary_content("world"))
+			data.file_save([data.path.player], data.file.player, data.get_dictionary_content("player"))
+			data.file_save([data.path.player], data.file.inventory, data.get_dictionary_content("inventory"))
+			data.file_save([data.path.player], data.file.blueprints, data.get_dictionary_content("blueprints"))
+			data.file_save([data.path.player], data.file.mailbox, data.get_dictionary_content("mailbox"))
+			blackout.blackout(true)
+			GameLoader.mode = true
+			blackout.change_scene(scene)
 
 func _on_area_2d_mouse_entered():
 	if !blur.state\
-	&& round(tablet.global_position.distance_to(player.global_position)) < 100: teleporting = true
+	&& round(player.global_position.distance_to(tablet.global_position)) < 100: 
+		teleporting = true
 
 func _on_area_2d_mouse_exited():
-	if !blur.state: teleporting = false
+	if !blur.state: 
+		teleporting = false
