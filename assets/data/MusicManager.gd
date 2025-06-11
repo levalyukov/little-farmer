@@ -58,7 +58,7 @@ var _winter_night_music = []
 
 
 func _ready() -> void:
-	_COOLDOWN = randf_range(10.0, 180.0)
+	_COOLDOWN = randf_range(60.0, 480.0)
 	_timer = Timer.new()
 	_timer.set_autostart(true)
 	_timer.wait_time = _COOLDOWN
@@ -84,7 +84,7 @@ func _game_music() -> void:
 			_stream.stream = stream
 			_stream.play()
 	else:
-		_COOLDOWN = randf_range(10.0, 180.0)
+		_COOLDOWN = randf_range(60.0, 480.0)
 		_timer.wait_time = _COOLDOWN
 
 func _radio_is_playing() -> bool:
