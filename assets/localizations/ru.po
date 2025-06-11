@@ -1504,7 +1504,7 @@ msgstr "Обычный компост"
 
 #: assets/localizations/local.gd
 msgid "items.basic_compost.description"
-msgstr "Ускоряет время роста растения на 5%. Удобрять перед посевом"
+msgstr "Ускоряет время роста растения на 25%. Удобрять перед посевом"
 
 #: assets/localizations/local.gd
 msgid "items.type.fertilizer"
@@ -1516,7 +1516,7 @@ msgstr "Высококачественный компост"
 
 #: assets/localizations/local.gd
 msgid "items.premium_compost.description"
-msgstr "Ускоряет время роста растения на 20%. Удобрять перед посевом"
+msgstr "Ускоряет время роста растения на 75%. Удобрять перед посевом"
 
 #: assets/localizations/local.gd
 msgid "crops.carrot"
