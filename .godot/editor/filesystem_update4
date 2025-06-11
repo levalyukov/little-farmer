@@ -1,5 +1,6 @@
+res://assets/data/MusicManager.gd
+res://assets/scripts/ui/interactive/_main_menu/menu.gd
 res://assets/scripts/ui/interactive/pause/pause.gd
-res://assets/scripts/ui/interactive/construct/construct_system.gd
 res://levels/farm.tscn
 res://assets/shaders/pixel.gdshader
 res://assets/resources/world/gradients/summer.tres
@@ -10,11 +11,5 @@ res://levels/greenhouse.tscn
 res://levels/menu.tscn
 res://assets/nodes/music_manager.tscn
 res://assets/nodes/farming/plant.tscn
-res://assets/data/gameloader.gd
-res://assets/scripts/construction/buildings/radio.gd
-res://assets/scripts/ui/radio_menu.gd
-res://assets/data/MusicManager.gd
-res://assets/scripts/world/teleports.gd
-res://assets/data/gamedata.gd
-res://assets/scripts/ui/hud/grid/grid.gd
-res://assets/scripts/ui/interactive/inventory/inventory.gd
+res://assets/nodes/ui/interactive/construct/construct_menu.tscn
+res://assets/nodes/ui/interactive/pause/pause.tscn
