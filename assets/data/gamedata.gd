@@ -105,12 +105,12 @@ var music_playlist:Dictionary = {
 func _ready():
 	if main == "Farm":
 		# Autosave
-			#	autosave_timer = Timer.new()
-			#	autosave_timer.name = 'Autosave'
-			#	autosave_timer.set_wait_time(60*1.5)
-			#	autosave_timer.connect("timeout", Callable(self, "_autosave").bind())
-			#	autosave_timer.start()
-			#	self.add_child(autosave_timer)
+		autosave_timer = Timer.new()
+		autosave_timer.name = 'Autosave'
+		autosave_timer.set_wait_time(60*1.5)
+		autosave_timer.connect("timeout", Callable(self, "_autosave").bind())
+		autosave_timer.start()
+		self.add_child(autosave_timer)
 		# Game Load
 		if GameLoader.mode\
 		&& !GameLoader.start:
