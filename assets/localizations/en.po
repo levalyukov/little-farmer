@@ -1477,7 +1477,7 @@ msgstr "Basic Compost"
 
 #: assets/localizations/local.gd
 msgid "items.basic_compost.description"
-msgstr "Accelerates plant growth by 5%. Apply before planting"
+msgstr "Accelerates plant growth by 25%. Apply before planting"
 
 #: assets/localizations/local.gd
 msgid "items.type.fertilizer"
@@ -1489,7 +1489,7 @@ msgstr "Premium Compost"
 
 #: assets/localizations/local.gd
 msgid "items.premium_compost.description"
-msgstr "Accelerates plant growth by 20%. Apply before planting"
+msgstr "Accelerates plant growth by 75%. Apply before planting"
 
 #: assets/localizations/local.gd
 msgid "crops.carrot"
