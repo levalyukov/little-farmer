@@ -8,6 +8,9 @@ extends Node2D
 const ATTEMPT_MAX = 10
 
 var _COOLDOWN:float
+const _COOLDOWN_MIN:float = 30.0
+const _COOLDOWN_MAX:float = 180.0
+
 var _timer:Timer
 var _stream:AudioStreamPlayer
 
@@ -58,7 +61,7 @@ var _winter_night_music = []
 
 
 func _ready() -> void:
-	_COOLDOWN = randf_range(60.0, 480.0)
+	_COOLDOWN = randf_range(_COOLDOWN_MIN, _COOLDOWN_MAX)
 	_timer = Timer.new()
 	_timer.set_autostart(true)
 	_timer.wait_time = _COOLDOWN
@@ -84,7 +87,7 @@ func _game_music() -> void:
 			_stream.stream = stream
 			_stream.play()
 	else:
-		_COOLDOWN = randf_range(60.0, 480.0)
+		_COOLDOWN = randf_range(_COOLDOWN_MIN, _COOLDOWN_MAX)
 		_timer.wait_time = _COOLDOWN
 
 func _radio_is_playing() -> bool:
@@ -123,7 +126,6 @@ func _distribute_arrays() -> void:
 	if _playlist.is_empty(): return
 
 	var _clock_season = clock.get_season()
-
 	if _playlist.has(_clock_season):
 		if _playlist[_clock_season].has('day') && !_playlist[_clock_season]['day'].is_empty():
 			var _playlist_day = _playlist[_clock_season]['day']
@@ -146,25 +148,20 @@ func _distribute_arrays() -> void:
 						_winter_day_music.append(song)
 
 		if _playlist[_clock_season].has('night') && !_playlist[_clock_season]['night'].is_empty():
-
 			var _playlist_night = _playlist[_clock_season]['night']
-
 			match _clock_season:
 				'spring':
 					_spring_night_music = []
 					for song in _playlist_night:
 						_spring_night_music.append(song)
-						
 				'summer':
 					_summer_night_music = []
 					for song in _playlist_night:
 						_summer_night_music.append(song)
-						
 				'autumn':
 					_autumn_night_music = []
 					for song in _playlist_night:
 						_autumn_day_music.append(song)
-						
 				'winter':
 					_winter_night_music = []
 					for song in _playlist_night:
