@@ -22,15 +22,15 @@ func _process(_delta):
 	else: value = max(value - speed, MIN)
 	background.material.set_shader_parameter("lod", value)
 	if state && abs(value - MAX) < EPSILON:
-		visible = state
 		set_process(false)
 	elif !state && abs(value - MIN) < EPSILON:
-		visible = state
+		visible = false
 		set_process(false)
 
 func blur(bluring:bool) -> void:
 	set_process(true)
 	state = bluring
+	if bluring: visible = state
 	if has_node("/root/"+main+"/UI/HUD/GameHud"):
 		if state:
 			hud.hud_all_hide()
