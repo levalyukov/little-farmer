@@ -19,3 +19,5 @@ assets/localizations/en.mo
 *.scn
 *.cfg
 .godot/editor/filesystem_update4
+*.oggvorbisstr
+*.import
