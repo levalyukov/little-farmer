@@ -4,29 +4,41 @@ extends Control
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
+
+@onready var background:NinePatchRect = $Container/Background
 @onready var container:MarginContainer = $Container
 @onready var label:Label = $Container/MarginContainer/Label
 
-var tip:bool
-var mouse_binding_global:bool = false
-const threshold:int = 100
-
 func _process(_delta):
 	if self.visible:
-		var viewport_size = get_viewport_rect().size
-		var screen_width = viewport_size.x
-		var node_global_pos = get_global_mouse_position()
-		var node_size = get_size()
-		var right_edge = node_global_pos.x + node_size.x
-		if right_edge > screen_width - threshold:
-			mouse_binding_global = false
-		else:
-			mouse_binding_global = true
+		var _viewport_size = get_viewport_rect().size
+		var _screen_width = _viewport_size.x
+		var _mouse_global_pos = get_global_mouse_position()
+		var _right_edge_x = _mouse_global_pos.x
+		var _right_edge_y = _mouse_global_pos.y
 
-		if mouse_binding_global:
-			position = get_global_mouse_position()
+		var _threshold_x = background.size.x
+		var _threshold_y = background.size.y
+
+		if _right_edge_x > _screen_width - _threshold_x && !(_right_edge_y < _threshold_y):
+			position = Vector2(
+					get_global_mouse_position().x - container.size.x, 
+					get_global_mouse_position().y
+				)
+
+		elif _right_edge_y < _threshold_y && !(_right_edge_x > _screen_width - _threshold_x):
+			position = Vector2(
+					get_global_mouse_position().x, 
+					get_global_mouse_position().y + container.size.y + 32
+				)
+
+		elif (_right_edge_y < _threshold_y) && (_right_edge_x > _screen_width - _threshold_x):
+			position = Vector2(
+					get_global_mouse_position().x - container.size.x, 
+					get_global_mouse_position().y + container.size.y + 32
+				)
 		else:
-			position = Vector2(get_global_mouse_position().x - container.size.x, get_global_mouse_position().y)
+			position = get_global_mouse_position()
 	else:
 		set_process(false)
 
@@ -36,16 +48,13 @@ func tooltip(text:String = "") -> void:
 		&& grid.mode == grid.modes.NOTHING\
 		|| grid.mode == grid.modes.WATERING:
 			if text != "":
-				tip = true
 				label.text = text
 				if !visible:
 					set_process(true)
 					visible = true
 			else:
-				tip = false
 				if visible:
 					visible = false
 		else:
-			tip = false
 			if visible:
 				visible = false
