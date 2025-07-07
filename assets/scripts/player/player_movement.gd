@@ -1,25 +1,48 @@
 extends CharacterBody2D
 
-const camera_speed:int = 5
-const speed:int = 150
+const SMOOTHING_SPEED:int = 5
+const SPEED:int = 150
+const THRESHOLD:int = 100
+
 var direction:Vector2 = Vector2.ZERO
 var switch:bool = true
 
+var mouseMovement:bool = true
+
 func _process(_delta):
-	direction = Input.get_vector("a", "d", "w", "s")
-	if direction != Vector2.ZERO\
-	&& !switch:
-		$Camera2D.position_smoothing_speed = camera_speed
-	
+	if !mouseMovement:
+		direction = Input.get_vector("a", "d", "w", "s")
+		if direction != Vector2.ZERO\
+		&& !switch:
+			$Camera2D.position_smoothing_speed = SMOOTHING_SPEED
+
 func check_switch() -> void:
 	if switch:
 		$Camera2D.position_smoothing_speed = 0
 	else: 
-		$Camera2D.position_smoothing_speed = camera_speed
+		$Camera2D.position_smoothing_speed = SMOOTHING_SPEED
 		
 func _physics_process(_delta):
-	if !switch:
-		velocity = direction * speed
-		move_and_slide()
-	else:
-		velocity = Vector2.ZERO
+	if !switch && !mouseMovement:
+		velocity = direction * SPEED
+
+	if mouseMovement:
+		var _viewport_size = get_viewport_rect().size
+		var _mouse_position = get_viewport().get_mouse_position()
+
+		direction = Vector2i.ZERO
+
+		var center_threshold = THRESHOLD * 2.5
+		var center_x = _viewport_size.x / 2
+		var center_y = _viewport_size.y / 2
+
+		if !(_mouse_position.x > center_x - center_threshold\
+		&& _mouse_position.x < center_x + center_threshold\
+		&& _mouse_position.y > center_y - center_threshold\
+		&& _mouse_position.y < center_y + center_threshold):
+			if _mouse_position.x > _viewport_size.x - THRESHOLD: direction.x = 1
+			if _mouse_position.x < THRESHOLD: direction.x = -1
+			if _mouse_position.y < THRESHOLD: direction.y = -1
+			if _mouse_position.y > _viewport_size.y - THRESHOLD: direction.y = 1
+		velocity = direction * SPEED
+	move_and_slide()
