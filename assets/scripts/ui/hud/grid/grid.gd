@@ -4,7 +4,7 @@ extends Node2D
 @onready var data:Node = get_node("/root/"+main)
 @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
 @onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
-@onready var nature:Node2D = get_node("/root/"+main+"/Nature")
+@onready var nature:Node2D = get_node("/root/"+main+"/NatureManager")
 @onready var destroy_menu:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/DestroyMenuMargin/DestroyMenu")
 @onready var tools:HBoxContainer = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools")
 @onready var notifications:Control = get_node("/root/"+main+"/UI/Feedback/Notifications")
