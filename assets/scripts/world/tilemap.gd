@@ -5,7 +5,7 @@ extends TileMap
 @onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
 @onready var farming:Node2D = get_node("/root/"+main+"/FarmingManager")
 @onready var buildings:Node = get_node("/root/"+main+"/ConstructionManager")
-@onready var nature:Node2D = get_node("/root/"+main+"/Nature")
+@onready var nature:Node2D = get_node("/root/"+main+"/NatureManager")
 @onready var canvas:CanvasGroup = get_node("/root/"+main+"/ShadowManager/CanvasGroup")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
@@ -94,7 +94,7 @@ func set_atlas(season:String) -> void:
 				if nature:
 					if nature.get_children() != []:
 						nature.clear_all_arrays()
-						nature.new_texture()
+						nature._set_new_sprites()
 						for node in nature.get_children(): 
 							if node:
 								if node.has_method('change_texture'):
