@@ -243,11 +243,9 @@ func item_create(id) -> void:
 		last_slot.queue_free()
 
 func update_string_capacity() -> void:
-	if has_node("/root/"+main+"/ConstructionManager"):
-		if has_node("/root/"+main+"/ConstructionManager/storage"):
-			if storage.object.has(storage.level) && storage.object[storage.level].has("slots"):
-				list.text = tr("inventory.available_slots") + ": " + str(get_all_items()) + "/" + str(storage.object[storage.level]["slots"])
-				list.visible = true
+	if storage && storage.object.has(storage.level) && storage.object[storage.level].has("slots"):
+		list.text = tr("inventory.available_slots") + ": " + str(get_all_items()) + "/" + str(storage.object[storage.level]["slots"])
+		list.visible = true
 
 func get_all_items() -> int:
 	var item_count:int = 0
