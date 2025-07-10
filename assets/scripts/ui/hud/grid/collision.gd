@@ -3,7 +3,7 @@ extends Node2D
 @onready var main = str(get_tree().root.get_child(2).name)
 @onready var data = get_node("/root/"+main)
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
-@onready var nature:Node2D = get_node("/root/"+main+"/Nature")
+@onready var nature:Node2D = get_node("/root/"+main+"/NatureManager")
 @onready var farming:Node2D = get_node("/root/"+main+"/FarmingManager")
 @onready var buildings:Node2D = get_node("/root/"+main+"/ConstructionManager")
 @onready var shadows:Node = get_node("/root/"+main+"/ShadowManager/CanvasGroup")
