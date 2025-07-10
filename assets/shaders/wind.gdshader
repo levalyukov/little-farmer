@@ -2,7 +2,7 @@ shader_type canvas_item;
 
 uniform bool render_noise = false;
 uniform sampler2D noise_texture : repeat_enable; // set in inspector
-uniform float amplitude : hint_range(0.0, 0.5, 0.01) = 0.2;
+uniform float amplitude : hint_range(0.0, 0.5, 0.001) = 0.2;
 uniform float time_scale : hint_range(0.0, 5.0, 0.01) = 0.04;
 uniform float noise_scale : hint_range(0.0, 2.0, 0.0001) = 0.001;
 uniform float rotation_strength : hint_range(0.0, 5.0, 0.1) = 1;
