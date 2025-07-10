@@ -14,7 +14,7 @@ func _on_pressed() -> void:
 			if main == "Farm":
 				if visible:
 					data.gamesave()
-			blackout.change_scene("res://levels/menu.tscn")
+			blackout.change_scene("res://levels/menu.tscn", 3)
 			var audio = AudioStreamPlayer.new()
 			self.add_child(audio)
 			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
