@@ -15,9 +15,11 @@ extends MarginContainer
 var data_path = DirAccess.open('user://game/data')
 var farm_path = DirAccess.open('user://game/data/farm')
 # farm path
+
 var nature_file = FileAccess.open('user://game/data/nature.json', FileAccess.READ)
 var world_file = FileAccess.open('user://game/data/world.json', FileAccess.READ)
 # farm path files
+
 var farm_main_file = FileAccess.open('user://game/data/farm/farm.json', FileAccess.READ)
 var farm_buildings_file = FileAccess.open('user://game/data/farm/buildings.json', FileAccess.READ)
 var farm_vectors_path = DirAccess.open('user://game/data/farm/vectors')
@@ -27,6 +29,7 @@ var vectors_plants_file = FileAccess.open('user://game/data/farm/vectors/plants.
 var vectors_roads_file = FileAccess.open('user://game/data/farm/vectors/roads.json', FileAccess.READ)
 var vectors_waterings_file = FileAccess.open('user://game/data/farm/vectors/waterings.json', FileAccess.READ)
 var vectors_water_file = FileAccess.open('user://game/data/farm/vectors/water.json', FileAccess.READ)
+
 # player
 var player_path = DirAccess.open('user://game/data/player')
 var blueprints_file = FileAccess.open('user://game/data/player/blueprints.json', FileAccess.READ)
@@ -47,20 +50,18 @@ var buttonSettingsText:String = tr('main_menu.settings_button')
 var buttonQuitText:String = tr('main_menu.quit_buttin')
 var creditsText:String = tr('main_menu.credits')
 
-@onready var music:AudioStreamPlayer = $AudioStreamPlayer
-@onready var music_cooldown:Timer = $Timer
+@onready var _menu_music:AudioStreamPlayer
+@onready var _menu_music_cooldown:Timer
 
 var clicked:bool = false
-var game_music:Array[String] = [
+var _playlist:Array[String] = [
 	'res://assets/sounds/music/flp/spring/music#1.ogg',
 ]
 
 
 func _ready():
-	play_music(game_music)
-	self.add_child(music_cooldown)
-	if music: music.bus = 'Music'
-	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+	_initilize_music()
+	cursor.set_cursor(cursor.states.DEFAULT)
 	blackout.blackout(false)
 	version.text = "v" + ProjectSettings.get_setting("application/config/version")
 	# Game Countinue
@@ -89,10 +90,16 @@ func _ready():
 	if gamedata:
 		if gamedata.has_method('config_load'):
 			gamedata.config_load()
-			GameConfig.apply()
-	await get_tree().create_timer(0.25).timeout
-	if !GameLoader.modal:
-		modal_create()
+			#	SettingsManager.settings_apply()
+
+func _initilize_music() -> void:
+	_menu_music = AudioStreamPlayer.new()
+	_menu_music_cooldown = Timer.new()
+	self.add_child(_menu_music)
+	self.add_child(_menu_music_cooldown)
+	_menu_music.name = "MenuMusic"
+	_menu_music.bus = 'Music'
+	_play_music(_playlist)
 
 func _on_continue_button_pressed():
 	if !clicked:
@@ -102,11 +109,7 @@ func _on_continue_button_pressed():
 			GameLoader.mode = true
 			GameLoader.start = false
 			blackout.change_scene("res://levels/farm.tscn")
-		var audio = AudioStreamPlayer.new()
-		self.add_child(audio)
-		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-		audio.stream = load('res://assets/sounds/ui/click.ogg')
-		audio.play()
+		_play_sound('ui/click')
 		if cursor:
 			cursor.set_cursor(cursor.states.DEFAULT)
 
@@ -118,11 +121,7 @@ func _on_new_game_button_pressed():
 			GameLoader.mode = false
 			GameLoader.start = true
 			blackout.change_scene("res://levels/farm.tscn")
-		var audio = AudioStreamPlayer.new()
-		self.add_child(audio)
-		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-		audio.stream = load('res://assets/sounds/ui/click.ogg')
-		audio.play()
+		_play_sound('ui/click')
 		if cursor:
 			cursor.set_cursor(cursor.states.DEFAULT)
 
@@ -130,33 +129,27 @@ func _on_options_button_pressed():
 	if !clicked:
 		blur.blur(true)
 		options.open()
-		var audio = AudioStreamPlayer.new()
-		self.add_child(audio)
-		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-		audio.stream = load('res://assets/sounds/ui/click.ogg')
-		audio.play()
+		_play_sound('ui/click')
 		if cursor:
 			cursor.set_cursor(cursor.states.DEFAULT)
+
+func _on_credits_button_pressed():
+	if !clicked:
+		_play_sound("ui/click")
+		clicked = true
+		modal.modal_create(
+			tr('main_menu.modal.credits_header'),
+			tr('main_menu.modal.credits_content'),
+			tr('main_menu.modal.credits_button')
+		)
 
 func _on_exit_button_pressed():
 	if !clicked:
 		get_tree().quit() 
 
-func modal_create() -> void:
-	clicked = true
-	modal.modal_create(
-		tr("modal.early_version_header"),
-		tr("modal.early_version_description"),
-		tr('modal.modal_early_version_button')
-	)
-
 func _on_continue_button_mouse_entered():
 	if !clicked && !countinue_game_button.disabled:
-		var audio = AudioStreamPlayer.new()
-		self.add_child(audio)
-		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-		audio.stream = load('res://assets/sounds/ui/hover.ogg')
-		audio.play()
+		_play_sound('ui/hover')
 		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 
 func _on_continue_button_mouse_exited():
@@ -164,11 +157,7 @@ func _on_continue_button_mouse_exited():
 
 func _on_new_game_button_mouse_entered():
 	if !clicked:
-		var audio = AudioStreamPlayer.new()
-		self.add_child(audio)
-		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-		audio.stream = load('res://assets/sounds/ui/hover.ogg')
-		audio.play()
+		_play_sound('ui/hover')
 		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 
 func _on_new_game_button_mouse_exited():
@@ -176,62 +165,42 @@ func _on_new_game_button_mouse_exited():
 
 func _on_settings_button_mouse_entered():
 	if !clicked:
-		var audio = AudioStreamPlayer.new()
-		self.add_child(audio)
-		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-		audio.stream = load('res://assets/sounds/ui/hover.ogg')
-		audio.play()
-		if cursor:
-			cursor.set_cursor(cursor.states.ACTIVE)
+		_play_sound('ui/hover')
+		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 
 func _on_settings_button_mouse_exited():
-	if cursor:
-		cursor.set_cursor(cursor.states.DEFAULT)
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
 func _on_exit_button_mouse_entered():
 	if !clicked:
-		var audio = AudioStreamPlayer.new()
-		self.add_child(audio)
-		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-		audio.stream = load('res://assets/sounds/ui/hover.ogg')
-		audio.play()
-		if cursor:
-			cursor.set_cursor(cursor.states.ACTIVE)
-
+		_play_sound('ui/hover')
+		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 
 func _on_exit_button_mouse_exited():
-	if cursor:
-		cursor.set_cursor(cursor.states.DEFAULT)
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
-func _on_audio_finished(node) -> void:
-	node.queue_free()
+func _on_audio_finished(_node) -> void:
+	_node.queue_free()
 
-
-func play_music(array:Array[String]) -> void:
+func _play_music(array:Array[String]) -> void:
 	var audio = array[randi() % array.size()]
-	music.stop()
-	music.stream = ResourceLoader.load(audio)
-	music.play()
+	_menu_music.stop()
+	_menu_music.stream = ResourceLoader.load(audio)
+	_menu_music.play()
 
-func _on_audio_stream_player_finished():
-	if music_cooldown:
-		music_cooldown.set_wait_time(30.0) 
-		music_cooldown.start()
+func _play_sound(_path:String) -> void:
+	var audio = AudioStreamPlayer.new()
+	self.add_child(audio)
+	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+	audio.stream = load('res://assets/sounds/'+_path+'.ogg')
+	audio.play()
 
-func _on_timer_timeout():
-	music_cooldown.stop()
-	play_music(game_music)
+func _on_audio_stream_player_finished() -> void:
+	_menu_music_cooldown.set_wait_time(30.0) 
+	_menu_music_cooldown.start()
 
-func _on_credits_button_pressed():
-	if !clicked:
-		var audio = AudioStreamPlayer.new()
-		self.add_child(audio)
-		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-		audio.stream = load('res://assets/sounds/ui/hover.ogg')
-		audio.play()
-		clicked = true
-		modal.modal_create(
-			tr('main_menu.modal.credits_header'),
-			tr('main_menu.modal.credits_content'),
-			tr('main_menu.modal.credits_button')
-		)
+func _on_timer_timeout() -> void:
+	_menu_music_cooldown.stop()
+	_play_music(_playlist)
+
+
