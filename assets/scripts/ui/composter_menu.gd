@@ -119,8 +119,8 @@ func update_compost_items() -> void:
 			clear_compost_items()
 			for item_id in current_node.compost_items:
 				var item_amount = current_node.compost_items[item_id]["amount"]
-				var item_icon = items.content[item_id]['icon']
-				var item_caption = items.content[item_id]['caption']
+				var item_icon = items.content[int(item_id)]['icon']
+				var item_caption = items.content[int(item_id)]['caption']
 				item_create(item_id, item_amount, item_icon, item_caption, 1, itemsForCompostContainer)
 
 func item_create(item_id, item_amount, item_icon, item_caption, compost_type, container) -> void:
