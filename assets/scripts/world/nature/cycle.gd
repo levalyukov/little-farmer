@@ -40,8 +40,7 @@ func _process(delta):
 		cycle()
 
 func cycle() -> void:
-	if !pause.paused\
-	&& !blackout.blackouted:
+	if !pause.paused:
 		if gradient_texture && gradient_texture.gradient:
 			var shifted_progress:float
 			if time_passed >= day_start && time_passed < day_end:
