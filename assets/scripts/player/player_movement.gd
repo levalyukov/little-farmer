@@ -11,8 +11,9 @@ var mouseMovement:bool = true
 var mouseOutside:bool = false
 
 func _ready():
-	get_viewport().connect("mouse_entered", Callable(self, "_mouse_enter").bind())
-	get_viewport().connect("mouse_exited", Callable(self, "_mouse_exit").bind())
+	if mouseMovement:
+		get_viewport().connect("mouse_entered", Callable(self, "_mouse_enter").bind())
+		get_viewport().connect("mouse_exited", Callable(self, "_mouse_exit").bind())
 
 func _process(_delta):
 	if !mouseMovement:
