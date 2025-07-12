@@ -8,7 +8,7 @@ var direction:Vector2 = Vector2.ZERO
 var switch:bool = true
 
 var mouseMovement:bool = true
-var mouseOutside:bool = false
+var mouseOutside:bool = true
 
 func _ready():
 	if mouseMovement:
