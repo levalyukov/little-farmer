@@ -182,7 +182,7 @@ func _growth_timeout() -> void:
 			var current_season = clock.get_season()
 			# Если сезон сменится - растение погибает вне зависимости от состояния.
 			if _plant_seasons(plant['node'], current_season):
-				#  Если в ячейке, где находится культура, есть вода - счетчик будет сброшен,
+				# Если в ячейке, где находится культура, есть вода - счетчик будет сброшен,
 				# а растение продолжит свой рост с учетом удобрения
 				if plant['node']._condition == plant['node'].PHASES.REQUIRES_WATERING\
 				&& collision.check_cell(tilemap.local_to_map(plant['position']), collision.watering_layer):
@@ -249,7 +249,10 @@ func _growth_timeout() -> void:
 
 func _plant_seasons(_node:Node2D, _season:String) -> bool:
 	for _plant_season in _node._seasons:
-		if _plant_season == _season:
+		if main != "Greenhouse":
+			if _plant_season == _season:
+				return true
+		else:
 			return true
 	return false
 
