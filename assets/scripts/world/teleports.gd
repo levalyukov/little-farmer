@@ -12,16 +12,6 @@ extends Node2D
 @onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 var teleporting:bool
 
-func _input(event) -> void:
-	if tablet:
-		if event is InputEventMouseButton\
-		&& event.button_index == MOUSE_BUTTON_LEFT\
-		&& event.is_pressed()\
-		&& teleporting\
-		&& grid.mode == grid.modes.NOTHING\
-		&& !blur.state:
-			teleport()
-
 func teleport() -> void:
 	match main:
 		"Farm":
@@ -30,6 +20,7 @@ func teleport() -> void:
 			GameLoader.mode = false
 			blackout.blackout(true)
 			blackout.change_scene(scene)
+			
 		"Village":
 			var scene:String = "res://levels/farm.tscn"
 			GameLoader.mode = true
@@ -40,6 +31,7 @@ func teleport() -> void:
 			data.file_save([data.path.player], data.file.mailbox, data.get_dictionary_content("mailbox"))
 			blackout.blackout(true)
 			blackout.change_scene(scene)
+			
 		"Greenhouse":
 			var scene:String = "res://levels/farm.tscn"
 			data.file_save([data.path.data], data.file.world, data.get_dictionary_content("world"))
@@ -51,11 +43,5 @@ func teleport() -> void:
 			GameLoader.mode = true
 			blackout.change_scene(scene)
 
-func _on_area_2d_mouse_entered():
-	if !blur.state\
-	&& round(player.global_position.distance_to(tablet.global_position)) < 100: 
-		teleporting = true
-
-func _on_area_2d_mouse_exited():
-	if !blur.state: 
-		teleporting = false
+func _on_area_2d_body_entered(_body:Node2D):
+	teleport()
