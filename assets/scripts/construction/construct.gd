@@ -22,23 +22,24 @@ func get_buildings() -> Dictionary:
 
 func create_node(id:int, vector:Vector2i, node_name:String = ""):
 	if blueprints.content.has("nodes"):
-		if blueprints.content["nodes"].has(id):
-			if blueprints.content["nodes"][id].has("config"):
-				if blueprints.content["nodes"][id]["config"].has("name"):
-					if blueprints.content["nodes"][id]["config"].has("node"):
-						if blueprints.content["nodes"][id]["config"].has("area"):
-							if (blueprints.content["nodes"][id]["config"].has('onlyInstance') && !blueprints.content["nodes"][id]["config"]['onlyInstance'])\
-							|| (!blueprints.content["nodes"][id]["config"].has('onlyInstance')):
-								var node = blueprints.content["nodes"][id]["config"]["node"].instantiate()
+		var _blueprint = blueprints.content["nodes"]
+		if _blueprint.has(id):
+			if _blueprint[id].has("config"):
+				if _blueprint[id]["config"].has("name"):
+					if _blueprint[id]["config"].has("node"):
+						if _blueprint[id]["config"].has("area"):
+							if (_blueprint[id]["config"].has('onlyInstance') && !_blueprint[id]["config"]['onlyInstance'])\
+							|| (!_blueprint[id]["config"].has('onlyInstance')):
+								var node = _blueprint[id]["config"]["node"].instantiate()
 								node.set_position(tilemap.map_to_local(vector))
 								
 								node.name = _generate_unique_name(node_name)
 								node.blueprint_id = id
-								if blueprints.content["nodes"][id]["config"].has("shadow"):
-									if blueprints.content["nodes"][id]["config"]["shadow"] is PackedScene:
+								if _blueprint[id]["config"].has("shadow"):
+									if _blueprint[id]["config"]["shadow"] is PackedScene:
 										shadows.create_shadow_node(
 											node.name,
-											blueprints.content["nodes"][id]["config"]["shadow"],
+											_blueprint[id]["config"]["shadow"],
 											vector
 										)
 
@@ -56,8 +57,8 @@ func create_node(id:int, vector:Vector2i, node_name:String = ""):
 										all_collisions.append(tilemap.local_to_map(i.get_global_position()))
 									node.all_collisions = all_collisions
 								else:
-									for x in range(blueprints.content["nodes"][id]["config"]["area"].x):
-										for y in range(blueprints.content["nodes"][id]["config"]["area"].y):
+									for x in range(_blueprint[id]["config"]["area"].x):
+										for y in range(_blueprint[id]["config"]["area"].y):
 											tilemap.set_cell(
 												collision.building_layer, 
 												tilemap.local_to_map(
@@ -72,22 +73,22 @@ func create_node(id:int, vector:Vector2i, node_name:String = ""):
 								add_child(node)
 								return node
 							else:
-								if blueprints.content["nodes"][id]["config"].has('onlyInstance'):
+								if _blueprint[id]["config"].has('onlyInstance'):
 									haved = false
 									for x in self.get_children():
 										if data.remove_suffix(x.name) == node_name:
 											haved = true
 											break
 									if !haved:
-										var node = blueprints.content["nodes"][id]["config"]["node"].instantiate()
+										var node = _blueprint[id]["config"]["node"].instantiate()
 										node.set_position(tilemap.map_to_local(vector))
 
 										node.blueprint_id = id
-										if blueprints.content["nodes"][id]["config"].has("shadow"):
-											if blueprints.content["nodes"][id]["config"]["shadow"] is PackedScene:
+										if _blueprint[id]["config"].has("shadow"):
+											if _blueprint[id]["config"]["shadow"] is PackedScene:
 												shadows.create_shadow_node(
 													node.name,
-													blueprints.content["nodes"][id]["config"]["shadow"],
+													_blueprint[id]["config"]["shadow"],
 													vector
 												)
 
@@ -105,8 +106,8 @@ func create_node(id:int, vector:Vector2i, node_name:String = ""):
 												all_collisions.append(tilemap.local_to_map(i.get_global_position()))
 											node.all_collisions = all_collisions
 										else:
-											for x in range(blueprints.content["nodes"][id]["config"]["area"].x):
-												for y in range(blueprints.content["nodes"][id]["config"]["area"].y):
+											for x in range(_blueprint[id]["config"]["area"].x):
+												for y in range(_blueprint[id]["config"]["area"].y):
 													tilemap.set_cell(
 														collision.building_layer, 
 														tilemap.local_to_map(
@@ -126,12 +127,12 @@ func remove_node(node:Node2D, vectors:Array[Vector2i]) -> void:
 		return
 
 	var blueprint_id = node.blueprint_id
-	if !blueprints.content.has("nodes") || !blueprints.content["nodes"].has(blueprint_id): 
+	var _blueprint = blueprints.content
+	if !_blueprint.has("nodes") || !blueprints.content['nodes'].has(blueprint_id): 
 		return
 
-	var config = blueprints.content["nodes"][blueprint_id].get("config", {})
-	if config.is_empty(): 
-		return
+	var config = _blueprint['nodes'][blueprint_id].get("config", {})
+	if config.is_empty(): return
 
 	var resources = config.get("resources", {})
 	var required_resources_id = []

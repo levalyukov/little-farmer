@@ -11,13 +11,14 @@ var tree_node = preload("res://assets/nodes/world/tree.tscn")
 var stone_node = preload("res://assets/nodes/world/stone.tscn")
 var weed_node = preload("res://assets/nodes/world/weed.tscn")
 
-const tree_func_calls:int = 150 * 5
-const stone_func_calls:int = 100 * 5
-const weed_func_calls:int = 275 * 3
+const _tree_func_calls:int = 150 * 5
+const _stone_func_calls:int = 100 * 5
+const _weed_func_calls:int = 275 * 3
 
-var all_vectors:Array[Vector2i] = []
-var occuped_cells:Array[Vector2i] = []
-var occuped_cells_removed:bool = false
+const _big_stone_func_calls:int = 1
+
+var _all_vectors:Array[Vector2i] = []
+var _occuped_cells_removed:bool = false
 
 var _trees:Array[CompressedTexture2D] = []
 var _stones:Array[CompressedTexture2D] = []
@@ -73,19 +74,19 @@ func clear_all_arrays() -> void:
 	_weed_sprite_value = 0
 
 func create_new_nature():
-	all_vectors = tilemap.get_used_cells(0)
+	_all_vectors = tilemap.get_used_cells(0)
 	check_aviabled_vectors()
-	while _weed_func_called < weed_func_calls:
+	while _weed_func_called < _weed_func_calls:
 		_weed_func_called+=1
 		_create_nature(weed_node, "weed", _weeds, _weeds_shadow)
 
 	check_aviabled_vectors()
-	while _stone_func_called < stone_func_calls:
+	while _stone_func_called < _stone_func_calls:
 		_stone_func_called+=1
 		_create_nature(stone_node, "stone", _stones, _stones_shadow)
 
 	check_aviabled_vectors()
-	while _tree_func_called < tree_func_calls:
+	while _tree_func_called < _tree_func_calls:
 		_tree_func_called+=1
 		_create_nature(tree_node, "tree", _trees, _trees_shadow)
 
@@ -151,22 +152,22 @@ func load_nature(
 				)
 
 func set_random_position() -> Vector2i:
-	if all_vectors.size() == 0: return Vector2i()
-	var random_index = randi() % all_vectors.size()
-	var target_position = all_vectors[random_index]
-	all_vectors.remove_at(random_index) 
+	if _all_vectors.size() == 0: return Vector2i()
+	var random_index = randi() % _all_vectors.size()
+	var target_position = _all_vectors[random_index]
+	_all_vectors.remove_at(random_index) 
 	return target_position
 
 func check_aviabled_vectors():
 	if tilemap:
-		occuped_cells_removed = false
+		_occuped_cells_removed = false
 		var all_occuped_cells:Array[Vector2i] = tilemap.get_used_cells(collision.road_layer)
 		all_occuped_cells += tilemap.get_used_cells(collision.nature_layer)
 		if all_occuped_cells.size() > 0:
 			for cell in all_occuped_cells:
-				if all_vectors.has(cell):
-					all_vectors.erase(cell)
-					occuped_cells_removed = true
+				if _all_vectors.has(cell):
+					_all_vectors.erase(cell)
+					_occuped_cells_removed = true
 
 func get_all_nature() -> Dictionary:
 	var data_dict = {}

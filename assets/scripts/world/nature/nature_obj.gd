@@ -20,14 +20,10 @@ func change_texture(target_sprite:CompressedTexture2D) -> void:
 
 func set_health():
 	match data.remove_suffix(self.name):
-		"weed":
-			health = 1
-		"tree":
-			health = 3
-		"stone":
-			health = 2
-		_:
-			health = 1
+		"weed": health = 1
+		"tree": health = 3
+		"stone": health = 2
+		_: health = 1
 
 func get_data():
 	return {
