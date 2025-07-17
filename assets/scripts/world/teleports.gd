@@ -44,4 +44,5 @@ func teleport() -> void:
 			blackout.change_scene(scene)
 
 func _on_area_2d_body_entered(_body:Node2D):
-	teleport()
+	if !blur.state && grid.mode == grid.modes.NOTHING:
+		teleport()
