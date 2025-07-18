@@ -78,7 +78,7 @@ var content:Dictionary = {
 			"trade_info" = {
 				"caption" = "blueprints.composter_blueprint.caption",
 				"description" = "blueprints.composter_blueprint.description",
-				"price" = 750
+				"price" = 500
 			}
 		},
 		3: {
@@ -98,7 +98,7 @@ var content:Dictionary = {
 			"trade_info" = {
 				"caption" = "blueprints.well_blueprint.caption",
 				"description" = "blueprints.well_blueprint.description",
-				"price" = 1000
+				"price" = 750
 			}
 		},
 		4: {
@@ -119,7 +119,7 @@ var content:Dictionary = {
 			"trade_info" = {
 				"caption" = "blueprints.barn_blueprint.caption",
 				"description" = "blueprints.barn_blueprint.description",
-				"price" = 5000
+				"price" = 2500
 			}
 		},
 		5: {
@@ -141,7 +141,7 @@ var content:Dictionary = {
 			"trade_info" = {
 				"caption" = "blueprints.silo_blueprint.caption",
 				"description" = "blueprints.silo_blueprint.description",
-				"price" = 2500
+				"price" = 1500
 			}
 		},
 		6: {
@@ -161,7 +161,7 @@ var content:Dictionary = {
 			"trade_info" = {
 				"caption" = "blueprints.greenhouse_blueprint.caption",
 				"description" = "blueprints.greenhouse_blueprint.description",
-				"price" = 20000
+				"price" = 10000
 			}
 		},
 		7: {
@@ -182,7 +182,7 @@ var content:Dictionary = {
 			"trade_info" = {
 				"caption" = "blueprints.lantern_post_blueprints.caption",
 				"description" = "blueprints.lantern_post_blueprints.description",
-				"price" = 1000
+				"price" = 500
 			}
 		},
 		8: {
@@ -202,7 +202,7 @@ var content:Dictionary = {
 			"trade_info" = {
 				"caption" = "blueprints.stone_path_blueprint.caption",
 				"description" = "blueprints.stone_path_blueprint.description",
-				"price" = 500
+				"price" = 250
 			}
 		},
 		9: {
@@ -241,7 +241,7 @@ var content:Dictionary = {
 			"trade_info" = {
 				"caption" = "blueprints.radio_blueprint.caption",
 				"description" = "blueprints.radio_blueprint.description",
-				"price" = 7500
+				"price" = 1250
 			}
 		},
 		11: {
@@ -262,7 +262,28 @@ var content:Dictionary = {
 			"trade_info" = {
 				"caption" = "blueprints.sawbench_blueprint.caption",
 				"description" = "blueprints.sawbench_blueprint.description",
-				"price" = 1500
+				"price" = 1000
+			}
+		},
+		12: {
+			"caption" = "blueprints.fence.caption",
+			"description" = "blueprints.fence.description",
+			"icon" = load("res://assets/resources/buildings/fence/icon.png"),
+			"config" = {
+				"name" = "fence",
+				"node" = load("res://assets/nodes/buildings/fence.tscn"),
+				"shadow" = load("res://assets/nodes/buildings/fence_shadow.tscn"),
+				"area" = Vector2i(1,1),
+				"resources" = {
+					1:{"amount": 2},
+					2:{"amount": 1},
+				}
+			},
+
+			"trade_info" = {
+				"caption" = "blueprints.fence_blueprint.caption",
+				"description" = "blueprints.fence_blueprint.description",
+				"price" = 250
 			}
 		},
 		#	6: {
