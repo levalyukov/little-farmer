@@ -8,7 +8,7 @@ var content:Dictionary = {
 		1: {
 			"caption" = "blueprints.path.caption",
 			"description" = 'blueprints.path.description',
-			"icon" = load("res://assets/resources/ui/interactive/construct/roads.png"),
+			"icon" = preload("res://assets/resources/ui/interactive/construct/roads.png"),
 			"config" = {
 				"terrain" = [0],
 				"required_layer" = [1],
@@ -24,7 +24,7 @@ var content:Dictionary = {
 		2: {
 			"caption" = "blueprints.water_body.caption",
 			"description" = 'blueprints.water_body.description',
-			"icon" = load("res://assets/resources/ui/interactive/construct/water.png"),
+			"icon" = preload("res://assets/resources/ui/interactive/construct/water.png"),
 			"config" = {
 				"terrain" = [3,4],
 				"required_layer" = [3,5],
@@ -43,11 +43,11 @@ var content:Dictionary = {
 		1: {
 			"caption" = "blueprints.wooden_sign.caption",
 			"description" = "blueprints.wooden_sign.description",
-			"icon" = load("res://assets/resources/buildings/sign/summer/object_0.png"),
+			"icon" = preload("res://assets/resources/buildings/sign/summer/object_0.png"),
 			"config" = {
 				"name" = "sign",
-				"node" = load("res://assets/nodes/buildings/sign.tscn"),
-				"shadow" = load("res://assets/nodes/buildings/sign_shadow.tscn"),
+				"node" = preload("res://assets/nodes/buildings/sign.tscn"),
+				"shadow" = preload("res://assets/nodes/buildings/sign_shadow.tscn"),
 				"area" = Vector2i(1,1),
 				"resources" = {
 					1:{"amount": 1},
@@ -64,11 +64,11 @@ var content:Dictionary = {
 		2: {
 			"caption" = "blueprints.composter.caption",
 			"description" = "blueprints.composter.description",
-			"icon" = load("res://assets/resources/buildings/composter/idle_0.png"),
+			"icon" = preload("res://assets/resources/buildings/composter/idle_0.png"),
 			"config" = {
 				"name" = "composter",
-				"node" = load("res://assets/nodes/buildings/composter.tscn"),
-				"shadow" = load("res://assets/nodes/buildings/composter_shadow.tscn"),
+				"node" = preload("res://assets/nodes/buildings/composter.tscn"),
+				"shadow" = preload("res://assets/nodes/buildings/composter_shadow.tscn"),
 				"area" = Vector2i(1,1),
 				"resources" = {
 					2:{"amount": 25},
@@ -84,11 +84,11 @@ var content:Dictionary = {
 		3: {
 			"caption" = "blueprints.well.caption",
 			"description" = "blueprints.well.description",
-			"icon" = load("res://assets/resources/buildings/well/icon.png"),
+			"icon" = preload("res://assets/resources/buildings/well/icon.png"),
 			"config" = {
 				"name" = "well",
-				"node" = load("res://assets/nodes/buildings/well/well.tscn"),
-				"shadow" = load("res://assets/nodes/buildings/well/well_shadow.tscn"),
+				"node" = preload("res://assets/nodes/buildings/well/well.tscn"),
+				"shadow" = preload("res://assets/nodes/buildings/well/well_shadow.tscn"),
 				"area" = Vector2i(2,2),
 				"resources" = {
 					3:{"amount": 50},
@@ -104,11 +104,11 @@ var content:Dictionary = {
 		4: {
 			"caption" = "blueprints.barn.caption",
 			"description" = "blueprints.barn.description",
-			"icon" = load("res://assets/resources/buildings/stall/level_1/summer/object_0.png"),
+			"icon" = preload("res://assets/resources/buildings/stall/level_1/summer/object_0.png"),
 			"config" = {
 				"name" = "animal_stall",
-				"node" = load("res://assets/nodes/buildings/stall/animal_stall.tscn"),
-				"shadow" = load("res://assets/nodes/buildings/stall/animal_stall_shadow.tscn"),
+				"node" = preload("res://assets/nodes/buildings/stall/animal_stall.tscn"),
+				"shadow" = preload("res://assets/nodes/buildings/stall/animal_stall_shadow.tscn"),
 				"area" = Vector2i(3,2),
 				"resources" = {
 					1:{"amount": 100},
@@ -125,11 +125,11 @@ var content:Dictionary = {
 		5: {
 			"caption" = "blueprints.silo.caption",
 			"description" = "blueprints.silo.description",
-			"icon" = load("res://assets/resources/buildings/silo/level_1/summer/object_0.png"),
+			"icon" = preload("res://assets/resources/buildings/silo/level_1/summer/object_0.png"),
 			"config" = {
 				"name" = "silo",
-				"node" = load("res://assets/nodes/buildings/silo/silo.tscn"),
-				"shadow" = load("res://assets/nodes/buildings/silo/silo_shadow.tscn"),
+				"node" = preload("res://assets/nodes/buildings/silo/silo.tscn"),
+				"shadow" = preload("res://assets/nodes/buildings/silo/silo_shadow.tscn"),
 				"area" = Vector2i(2,2),
 				"resources" = {
 					1:{"amount": 100},
@@ -147,11 +147,11 @@ var content:Dictionary = {
 		6: {
 			"caption" = "blueprints.greenhouse.caption",
 			"description" = "blueprints.greenhouse.description",
-			"icon" = load("res://assets/resources/buildings/greenhouse/level_1/summer/object_0.png"),
+			"icon" = preload("res://assets/resources/buildings/greenhouse/level_1/summer/object_0.png"),
 			"config" = {
 				"name" = "greenhouse",
-				"node" = load("res://assets/nodes/buildings/greenhouse/greenhouse.tscn"),
-				"shadow" = load("res://assets/nodes/buildings/greenhouse/greenhouse_shadow.tscn"),
+				"node" = preload("res://assets/nodes/buildings/greenhouse/greenhouse.tscn"),
+				"shadow" = preload("res://assets/nodes/buildings/greenhouse/greenhouse_shadow.tscn"),
 				"area" = Vector2i(3,3),
 				"resources" = {
 					11:{"amount": 25}
@@ -167,11 +167,11 @@ var content:Dictionary = {
 		7: {
 			"caption" = "blueprints.lantern_post.caption",
 			"description" = "blueprints.lantern_post.description",
-			"icon" = load("res://assets/resources/buildings/lamp_post/object_1.png"),
+			"icon" = preload("res://assets/resources/buildings/lamp_post/object_1.png"),
 			"config" = {
 				"name" = "lamp_post",
-				"node" = load("res://assets/nodes/buildings/lamp_post.tscn"),
-				"shadow" = load("res://assets/nodes/buildings/lamp_post_shadow.tscn"),
+				"node" = preload("res://assets/nodes/buildings/lamp_post.tscn"),
+				"shadow" = preload("res://assets/nodes/buildings/lamp_post_shadow.tscn"),
 				"area" = Vector2i(1,1),
 				"resources" = {
 					1:{"amount": 1},
@@ -188,11 +188,11 @@ var content:Dictionary = {
 		8: {
 			"caption" = "blueprints.stone_path.caption",
 			"description" = "blueprints.stone_path.description",
-			"icon" = load("res://assets/resources/buildings/path_of_large_stones/object_0.png"),
+			"icon" = preload("res://assets/resources/buildings/path_of_large_stones/object_0.png"),
 			"config" = {
 				"name" = "lamp_post",
-				"node" = load("res://assets/nodes/buildings/path_of_large_stones.tscn"),
-				"shadow" = load("res://assets/nodes/buildings/path_of_large_stones_shadow.tscn"),
+				"node" = preload("res://assets/nodes/buildings/path_of_large_stones.tscn"),
+				"shadow" = preload("res://assets/nodes/buildings/path_of_large_stones_shadow.tscn"),
 				"area" = Vector2i(1,1),
 				"resources" = {
 					4:{"amount": 5},
@@ -208,11 +208,11 @@ var content:Dictionary = {
 		9: {
 			"caption" = "blueprints.stone_forge.caption",
 			"description" = "blueprints.stone_forge.description",
-			"icon" = load("res://assets/resources/buildings/stone_oven/object_0.png"),
+			"icon" = preload("res://assets/resources/buildings/stone_oven/object_0.png"),
 			"config" = {
 				"name" = "forge",
-				"node" = load("res://assets/nodes/buildings/forge.tscn"),
-				"shadow" = load("res://assets/nodes/buildings/forge_shadow.tscn"),
+				"node" = preload("res://assets/nodes/buildings/forge.tscn"),
+				"shadow" = preload("res://assets/nodes/buildings/forge_shadow.tscn"),
 				"area" = Vector2i(1,1),
 				"resources" = {
 					3:{"amount": 50},
@@ -229,11 +229,11 @@ var content:Dictionary = {
 		10: {
 			"caption" = "blueprints.radio.caption",
 			"description" = "blueprints.radio.description",
-			"icon" = load("res://assets/resources/buildings/radio/obj_0.png"),
+			"icon" = preload("res://assets/resources/buildings/radio/obj_0.png"),
 			"config" = {
 				"name" = "radio",
-				"node" = load("res://assets/nodes/buildings/radio.tscn"),
-				"shadow" = load("res://assets/nodes/buildings/radio_shadow.tscn"),
+				"node" = preload("res://assets/nodes/buildings/radio.tscn"),
+				"shadow" = preload("res://assets/nodes/buildings/radio_shadow.tscn"),
 				"area" = Vector2i(1,1),
 				"onlyInstance" = true,
 			},
@@ -247,11 +247,11 @@ var content:Dictionary = {
 		11: {
 			"caption" = "blueprints.sawbench.caption",
 			"description" = "blueprints.sawbench.description",
-			"icon" = load("res://assets/resources/buildings/sawmill/obj_0.png"),
+			"icon" = preload("res://assets/resources/buildings/sawmill/obj_0.png"),
 			"config" = {
 				"name" = "sawmill",
-				"node" = load("res://assets/nodes/buildings/sawmill.tscn"),
-				"shadow" = load("res://assets/nodes/buildings/sawmill_shadow.tscn"),
+				"node" = preload("res://assets/nodes/buildings/sawmill.tscn"),
+				"shadow" = preload("res://assets/nodes/buildings/sawmill_shadow.tscn"),
 				"area" = Vector2i(1,1),
 				"resources" = {
 					1:{"amount": 5},
@@ -268,11 +268,11 @@ var content:Dictionary = {
 		12: {
 			"caption" = "blueprints.fence.caption",
 			"description" = "blueprints.fence.description",
-			"icon" = load("res://assets/resources/buildings/fence/icon.png"),
+			"icon" = preload("res://assets/resources/buildings/fence/icon.png"),
 			"config" = {
 				"name" = "fence",
-				"node" = load("res://assets/nodes/buildings/fence.tscn"),
-				"shadow" = load("res://assets/nodes/buildings/fence_shadow.tscn"),
+				"node" = preload("res://assets/nodes/buildings/fence.tscn"),
+				"shadow" = preload("res://assets/nodes/buildings/fence_shadow.tscn"),
 				"area" = Vector2i(1,1),
 				"resources" = {
 					1:{"amount": 2},
@@ -286,14 +286,35 @@ var content:Dictionary = {
 				"price" = 250
 			}
 		},
+		13: {
+			"caption" = "blueprints.alveare.caption",
+			"description" = "blueprints.alveare.description",
+			"icon" = preload("res://assets/resources/buildings/alveare/alveare_summer.png"),
+			"config" = {
+				"name" = "alveare",
+				"node" = preload("res://assets/nodes/buildings/alveare.tscn"),
+				"shadow" = preload("res://assets/nodes/buildings/alveare_shadow.tscn"),
+				"area" = Vector2i(1,1),
+				"resources" = {
+					2:{"amount": 25},
+					6:{"amount": 2},
+				}
+			},
+
+			"trade_info" = {
+				"caption" = "blueprints.fence_blueprint.caption",
+				"description" = "blueprints.fence_blueprint.description",
+				"price" = 750
+			}
+		}
 		#	6: {
 		#		"caption" = "Новогодняя ёлка",
 		#		"description" = "С Новым Годом!",
-		#		"icon" = load("res://assets/resources/buildings/christmass_tree/icon.png"),
+		#		"icon" = preload("res://assets/resources/buildings/christmass_tree/icon.png"),
 		#		"config" = {
 		#			"name" = "christmas_tree",
-		#			"node" = load("res://assets/nodes/buildings/christmas_tree/christmas_tree.tscn"),
-		#			"shadow" = load("res://assets/nodes/buildings/christmas_tree/christmas_tree_shadow.tscn"),
+		#			"node" = preload("res://assets/nodes/buildings/christmas_tree/christmas_tree.tscn"),
+		#			"shadow" = preload("res://assets/nodes/buildings/christmas_tree/christmas_tree_shadow.tscn"),
 		#			"area" = Vector2i(1,1),
 		#			"resources" = {}
 		#		}
