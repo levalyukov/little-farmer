@@ -6,14 +6,14 @@ extends Control
 var lang:int = 0
 
 func _ready():
-	set_language(lang)
+	set_new_language(lang)
 
 func change_language() -> void:
 	lang = (lang + 1) % languages.size()
 	TranslationServer.set_locale(languages[lang])
 	GameConfig.language = lang
 
-func set_language(value:int) -> void:
+func set_new_language(value:int) -> void:
 	lang = value
 	TranslationServer.set_locale(languages[lang])
 
