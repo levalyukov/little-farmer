@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4b8pidybd81o"]
+
+[ext_resource type="Script" path="res://assets/scripts/construction/buildings/beehive.gd" id="1_37b2x"]
+[ext_resource type="Texture2D" uid="uid://f7f5qayyjygo" path="res://assets/resources/buildings/beehive/beehive_summer.png" id="2_rptr5"]
+[ext_resource type="Texture2D" uid="uid://8875s7x2wtpd" path="res://assets/resources/ui/bubble.png" id="3_gltlp"]
+[ext_resource type="Texture2D" uid="uid://iulrc41kt8yo" path="res://assets/resources/buildings/beehive/icon.png" id="4_st28m"]
+
+[node name="Alveare" type="Node2D"]
+script = ExtResource("1_37b2x")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("2_rptr5")
+
+[node name="Indicator" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.784314)
+z_index = 100
+position = Vector2(0, -27)
+texture = ExtResource("3_gltlp")
+
+[node name="TextureRect" type="TextureRect" parent="Indicator"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -14.0
+offset_top = -13.0
+offset_right = -2.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("4_st28m")
+expand_mode = 2
+stretch_mode = 5

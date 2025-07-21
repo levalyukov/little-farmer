@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bn61al4bx0ho1"]
+
+[ext_resource type="Texture2D" uid="uid://crgyh7ulfqxv2" path="res://assets/resources/buildings/beehive/beehive_shadow.png" id="1_ahnk5"]
+
+[node name="alveare_shadow" type="Node2D"]
+
+[node name="AlveareShadow" type="Sprite2D" parent="."]
+texture = ExtResource("1_ahnk5")
