@@ -17,7 +17,6 @@ extends Control
 @onready var info:BoxContainer = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer
 @onready var scroll_info:ScrollContainer = $Main/HBoxContainer/ItemContent/ScrollContainer
 @onready var slots:GridContainer = $Main/HBoxContainer/InventoryContent/Panel/MarginContainer/ScrollContainer/MarginContainer/GridContainer
-@onready var scroll_slots:ScrollContainer = $Main/HBoxContainer/InventoryContent/ScrollContainer
 
 @onready var icon:TextureRect = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/ItemIconContainer/TextureRect
 @onready var caption:Label = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/HeaderContainer/Header
@@ -48,12 +47,12 @@ func _ready():
 	reset_data()
 	self.add_child(audio)
 
-	#	var test_index = 0
-	#	while inventory_items.size() < 62:
-	#		test_index += 1
-	#		inventory_items[test_index] = {}
-	#		inventory_items[test_index]['amount'] = 1000
-	#	test_index = 0
+	var test_index = 0
+	while inventory_items.size() < 100:
+		test_index += 1
+		inventory_items[str(test_index)] = {}
+		inventory_items[str(test_index)]['amount'] = 1000
+	test_index = 0
 
 func _input(_event):
 	if Input.is_action_just_pressed("esc")\
@@ -171,10 +170,23 @@ func get_data(index) -> void:
 			#		specifications_margin.visible = false
 
 			if item.content[int(index)].has("type"):
-				if item.content[int(index)]["type"] is String:
+				if item.content[int(index)]["type"] is Array:
 					type.visible = true
-					type.text = "\n" + tr("inventory.tip.item_type") + ": " + tr(item.content[int(index)]["type"]) + "\n"
+					var item_types = item.content[int(index)]["type"]
+					
+					type.text = "\n" + tr("inventory.tip.item_type") + ": "
+
+					var index_str:int = 0
+					for i in item_types:
+						index_str += 1
+						type.text += tr(str(i))
+						if index_str == item_types.size()-1:
+							type.text += ', '
+					type.text += '\n'
+					index_str = 0
+					
 					check_item_type(item.content[int(index)]["item_type"])
+
 					if inventory_items[index]["amount"] > item.maximum:
 						type.text += "\n" + tr("inventory.tip.total_items") + ": " + str(
 							balance.format(inventory_items[index]["amount"])
@@ -358,39 +370,40 @@ func update_inventory_content() -> void:
 #			_:
 #				return ""
 
-func check_item_type(i_type:String) -> void:
+func check_item_type(i_type:Array) -> void:
 	if main == "Farm"\
 	|| main == "Greenhouse":
-		match i_type:
-			"seeds":
-				button_index = item_type.SEEDS
-				button.visible = true
-				if item.content[int(item_index)].has('crop'):
-					var crop = item.content[int(item_index)]['crop']
-					var crop_season = crops.crops[crop]['season']
-					for i in crop_season:
-						if main == "Farm":
-							if i == clock.get_season():
-								button.text = tr("inventory.button.plant_seeds")
-								button.disabled = false
-								break
+		for x in i_type:
+			match x:
+				"seeds":
+					button_index = item_type.SEEDS
+					button.visible = true
+					if item.content[int(item_index)].has('crop'):
+						var crop = item.content[int(item_index)]['crop']
+						var crop_season = crops.crops[crop]['season']
+						for i in crop_season:
+							if main == "Farm":
+								if i == clock.get_season():
+									button.text = tr("inventory.button.plant_seeds")
+									button.disabled = false
+									break
+								else:
+									button.text = tr("inventory.button.wrong_season")
+									button.disabled = !false
+									break
 							else:
-								button.text = tr("inventory.button.wrong_season")
-								button.disabled = !false
-								break
-						else:
-							if main == "Greenhouse":
-								button.text = tr("inventory.button.plant_seeds")
-								button.disabled = false
-								break
-			"fertilizer":
-				button_index = item_type.FERTILIZER
-				button.visible = true
-				button.text = tr("inventory.button.fertilize")
-				button.disabled = false
-			_:
-				button_index = item_type.NOTHING
-				button.visible = false
+								if main == "Greenhouse":
+									button.text = tr("inventory.button.plant_seeds")
+									button.disabled = false
+									break
+				"fertilizer":
+					button_index = item_type.FERTILIZER
+					button.visible = true
+					button.text = tr("inventory.button.fertilize")
+					button.disabled = false
+				_:
+					button_index = item_type.NOTHING
+					button.visible = false
 
 func _on_button_pressed():
 	var items = Items.new().content
