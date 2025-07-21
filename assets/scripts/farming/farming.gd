@@ -20,9 +20,9 @@ var crops:Object = Crops.new()
 var plants_map:Dictionary = {}
 var plant_timer:Timer
 
-const BEEHIVE_SPRING_MAX:int = 5#180
-const BEEHIVE_SUMMER_MAX:int = 5#60
-const BEEHIVE_AUTUMN_MAX:int = 5#120
+const BEEHIVE_SPRING_MAX:int = 180 * 1.5
+const BEEHIVE_SUMMER_MAX:int = 60 * 1.5
+const BEEHIVE_AUTUMN_MAX:int = 120 * 1.5
 var beehives_map:Dictionary = {}
 var beehive_timer:Timer
 
@@ -290,25 +290,25 @@ func _beehive_timeout() -> void:
 			var _current_season = clock.get_season()
 			var _beehive = beehives_map[beehive_id]
 			var BEEHIVE_VALUE_MAX:int = 0
+			
+			# Пчелы не активны зимой
+			if _current_season != "winter":
+				# В зависимости от сезона пчелы будут продуктивнее делать мед.
+				if BEEHIVE_VALUE_MAX == 0:
+					match _current_season:
+						"spring": BEEHIVE_VALUE_MAX = BEEHIVE_SPRING_MAX
+						"summer": BEEHIVE_VALUE_MAX = BEEHIVE_SUMMER_MAX
+						"autumn": BEEHIVE_VALUE_MAX = BEEHIVE_AUTUMN_MAX
 
-			if BEEHIVE_VALUE_MAX == 0:
-				match _current_season:
-					"spring": BEEHIVE_VALUE_MAX = BEEHIVE_SPRING_MAX
-					"summer": BEEHIVE_VALUE_MAX = BEEHIVE_SUMMER_MAX
-					"autumn": BEEHIVE_VALUE_MAX = BEEHIVE_AUTUMN_MAX
-					_:
+				if !_beehive['node'].honeyReady && min(_beehive['node'].value + GROWTH_SPEED, BEEHIVE_VALUE_MAX) < BEEHIVE_VALUE_MAX:
+						_beehive['node'].value = min(_beehive['node'].value + GROWTH_SPEED, BEEHIVE_VALUE_MAX)
+				else:
+					if !_beehive['node'].honeyReady:
+						_beehive['node'].honeyReady = true
 						_beehive['node'].value = 0
-						_beehive['node']._update_sound()
-						beehive_timer.stop()
-						return
-
-			if !_beehive['node'].honeyReady && min(_beehive['node'].value + GROWTH_SPEED, BEEHIVE_VALUE_MAX) < BEEHIVE_VALUE_MAX:
-					_beehive['node'].value = min(_beehive['node'].value + GROWTH_SPEED, BEEHIVE_VALUE_MAX)
+						_beehive['node']._update_indicator()
 			else:
-				if !_beehive['node'].honeyReady:
-					_beehive['node'].honeyReady = true
-					_beehive['node'].value = 0
-					_beehive['node']._update_indicator()
+				_beehive['node']._update_sound()
 
 func _plant_seasons(_node:Node2D, _season:String) -> bool:
 	for _plant_season in _node._seasons:
