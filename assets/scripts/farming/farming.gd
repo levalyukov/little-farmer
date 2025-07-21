@@ -7,6 +7,7 @@ extends Node2D
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
 @onready var plant_node:PackedScene = load("res://assets/nodes/farming/plant.tscn")
 @onready var fertilizer_node:PackedScene = load("res://assets/nodes/farming/fertilizer.tscn")
+@onready var dead_plant_altas:CompressedTexture2D = preload('res://assets/resources/farming/crops.png')
 
 const ATLAS_COORDS = Vector2i(0,3)
 const COORDS_TILE_ID:int = 0
@@ -15,15 +16,19 @@ const GROWTH_SPEED:int = 1
 
 var items:Object = Items.new()
 var crops:Object = Crops.new()
+
 var plants_map:Dictionary = {}
 var plant_timer:Timer
 
+const BEEHIVE_SPRING_MAX:int = 5#180
+const BEEHIVE_SUMMER_MAX:int = 5#60
+const BEEHIVE_AUTUMN_MAX:int = 5#120
+var beehives_map:Dictionary = {}
+var beehive_timer:Timer
+
 func _ready():
-	plant_timer = Timer.new()
-	plant_timer.set_autostart(true)
-	plant_timer.wait_time = GROWTH_SPEED
-	plant_timer.connect('timeout', Callable(self, '_growth_timeout').bind())
-	add_child(plant_timer)
+	_plant_init()
+	_beehive_init()
 
 	var _loaded_greenhouses_value = data.file_load(data.file.world)['greenhouses'] if data.file_load(data.file.world).has('greenhouses') else {}
 	var _loaded_farm_value = data.file_load(data.file.world)['plants_map'] if data.file_load(data.file.world).has('plants_map') else 0
@@ -42,6 +47,20 @@ func _ready():
 				&& !GameLoader.check_timer():
 					GameLoader.create_outside_timer(main)
 
+func _plant_init() -> void:
+	plant_timer = Timer.new()
+	plant_timer.set_autostart(true)
+	plant_timer.wait_time = GROWTH_SPEED
+	plant_timer.connect('timeout', Callable(self, '_growth_timeout').bind())
+	add_child(plant_timer)
+
+func _beehive_init() -> void:
+	beehive_timer = Timer.new()
+	beehive_timer.set_autostart(true)
+	beehive_timer.wait_time = GROWTH_SPEED
+	beehive_timer.connect('timeout', Callable(self, '_beehive_timeout').bind())
+	add_child(beehive_timer)
+
 func create_plant(plant_id:int, mouse_position:Vector2i) -> void:
 	var node = plant_node.instantiate()
 
@@ -54,7 +73,6 @@ func create_plant(plant_id:int, mouse_position:Vector2i) -> void:
 		var plant_rect_x = crops.crops[plant_id]['X']
 		var plant_rect_y = crops.crops[plant_id]['Y']
 		var plant_position = tilemap.map_to_local(mouse_position)
-		
 		var plant_fertilize_percent = 0
 
 		if collision.check_fertilizer(tilemap.local_to_map(plant_position)):
@@ -128,6 +146,25 @@ func add_plant(_plant:Node2D, _position:Vector2i) -> void:
 	plants_map[_plant.name]['node'] = _plant
 	plants_map[_plant.name]['position'] = _position
 
+func add_beehive(_beehive:Node2D, _position:Vector2i) -> void:
+	if !_beehive: return
+	beehives_map[_beehive.name] = {}
+	beehives_map[_beehive.name]['node'] = _beehive
+	beehives_map[_beehive.name]['position'] = _position
+
+func change_beehive_state(_beehive_name:String, _new_value:int, _honey:bool) -> void:
+	if beehives_map.has(_beehive_name):
+		var new_beehive = beehives_map[_beehive_name]
+		new_beehive['node'].value = _new_value
+		new_beehive['node'].honeyReady = _honey
+
+func remove_beehive(_beehive_name:String) -> void:
+	if beehives_map.has(_beehive_name):
+		beehives_map.erase(_beehive_name)
+
+func has_beehive(_beehive_name:String) -> bool:
+	return beehives_map.has(_beehive_name)
+
 func plant_destroy(grid_position:Vector2i) -> void:
 	var plant_for_delete = []
 	var fertilize_for_delete = []
@@ -159,7 +196,6 @@ func plant_destroy(grid_position:Vector2i) -> void:
 # fertilizer
 func create_fertilizer(_fertilize_id:int, _fertilize_percent:int, _position:Vector2i) -> void:
 	var fertilizer = fertilizer_node.instantiate()
-
 	if items.content.has(_fertilize_id):
 		var fertilize_item = items.content[_fertilize_id]
 		if fertilize_item.has('item_type'):
@@ -194,7 +230,7 @@ func _growth_timeout() -> void:
 				# Если в ячейке, где находится культура, отсутствует вода - культура будет умирать
 				if plant['node']._condition == plant['node'].PHASES.REQUIRES_WATERING\
 				&& !collision.check_cell(tilemap.local_to_map(plant['position']), collision.watering_layer):
-					plant['node']._degree = min(plant['node']._degree + 1, plant['node']._mortality)
+					plant['node']._degree = min(plant['node']._degree + GROWTH_SPEED, plant['node']._mortality)
 					if !_check_watering_indicator(plant['node']):
 						_update_watering_indicator(plant['node'], true)
 
@@ -211,7 +247,7 @@ func _growth_timeout() -> void:
 				# Когда растение только посажено - идет проверка: есть ли вода на определенной ячейке или нет
 				if plant['node']._condition == plant['node'].PHASES.PLANTED\
 				&& !collision.check_cell(tilemap.local_to_map(plant['position']), collision.watering_layer):
-					plant['node']._degree = min(plant['node']._degree + 1, plant['node']._mortality)
+					plant['node']._degree = min(plant['node']._degree + GROWTH_SPEED, plant['node']._mortality)
 					if plant['node']._degree == plant['node']._mortality:
 						plant['node']._condition = plant['node'].PHASES.DEAD
 						_update_watering_indicator(plant['node'], false)
@@ -245,15 +281,41 @@ func _growth_timeout() -> void:
 								-1
 							)
 			else:
+				plant['node'].sprite.texture = dead_plant_altas
 				plant['node'].dead()
+
+func _beehive_timeout() -> void:
+	if !beehives_map.is_empty():
+		for beehive_id in beehives_map.keys():
+			var _current_season = clock.get_season()
+			var _beehive = beehives_map[beehive_id]
+			var BEEHIVE_VALUE_MAX:int = 0
+
+			if BEEHIVE_VALUE_MAX == 0:
+				match _current_season:
+					"spring": BEEHIVE_VALUE_MAX = BEEHIVE_SPRING_MAX
+					"summer": BEEHIVE_VALUE_MAX = BEEHIVE_SUMMER_MAX
+					"autumn": BEEHIVE_VALUE_MAX = BEEHIVE_AUTUMN_MAX
+					_:
+						_beehive['node'].value = 0
+						_beehive['node']._update_sound()
+						beehive_timer.stop()
+						return
+
+			if !_beehive['node'].honeyReady && min(_beehive['node'].value + GROWTH_SPEED, BEEHIVE_VALUE_MAX) < BEEHIVE_VALUE_MAX:
+					_beehive['node'].value = min(_beehive['node'].value + GROWTH_SPEED, BEEHIVE_VALUE_MAX)
+			else:
+				if !_beehive['node'].honeyReady:
+					_beehive['node'].honeyReady = true
+					_beehive['node'].value = 0
+					_beehive['node']._update_indicator()
 
 func _plant_seasons(_node:Node2D, _season:String) -> bool:
 	for _plant_season in _node._seasons:
 		if main != "Greenhouse":
 			if _plant_season == _season:
 				return true
-		else:
-			return true
+		else: return true
 	return false
 
 func _update_watering_indicator(_node:Node2D, _state:bool) -> void:
