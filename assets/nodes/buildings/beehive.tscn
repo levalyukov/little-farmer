@@ -1,9 +1,52 @@
-[gd_scene load_steps=5 format=3 uid="uid://c4b8pidybd81o"]
+[gd_scene load_steps=10 format=3 uid="uid://c4b8pidybd81o"]
 
 [ext_resource type="Script" path="res://assets/scripts/construction/buildings/beehive.gd" id="1_37b2x"]
 [ext_resource type="Texture2D" uid="uid://f7f5qayyjygo" path="res://assets/resources/buildings/beehive/beehive_summer.png" id="2_rptr5"]
 [ext_resource type="Texture2D" uid="uid://8875s7x2wtpd" path="res://assets/resources/ui/bubble.png" id="3_gltlp"]
-[ext_resource type="Texture2D" uid="uid://iulrc41kt8yo" path="res://assets/resources/buildings/beehive/icon.png" id="4_st28m"]
+[ext_resource type="Texture2D" uid="uid://x55eykvqb52j" path="res://assets/resources/ui/interactive/inventory/items/own_production/honey.png" id="4_i7yj2"]
+[ext_resource type="AudioStream" uid="uid://d1mqstenjyuha" path="res://assets/sounds/buildings/bees_buzzing.ogg" id="5_l2q5i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s3ws7"]
+size = Vector2(16, 24)
+
+[sub_resource type="Animation" id="Animation_xldy4"]
+resource_name = "new_animation"
+length = 0.3
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Indicator:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -27), Vector2(0, -29), Vector2(0, -27)]
+}
+
+[sub_resource type="Animation" id="Animation_k2n1q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Indicator:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -25)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oja43"]
+_data = {
+"RESET": SubResource("Animation_k2n1q"),
+"new_animation": SubResource("Animation_xldy4")
+}
 
 [node name="Alveare" type="Node2D"]
 script = ExtResource("1_37b2x")
@@ -13,9 +56,10 @@ position = Vector2(0, -8)
 texture = ExtResource("2_rptr5")
 
 [node name="Indicator" type="Sprite2D" parent="."]
+visible = false
 self_modulate = Color(1, 1, 1, 0.784314)
 z_index = 100
-position = Vector2(0, -27)
+position = Vector2(0, -25)
 texture = ExtResource("3_gltlp")
 
 [node name="TextureRect" type="TextureRect" parent="Indicator"]
@@ -32,6 +76,27 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
-texture = ExtResource("4_st28m")
+texture = ExtResource("4_i7yj2")
 expand_mode = 2
 stretch_mode = 5
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_s3ws7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_oja43")
+}
+speed_scale = 0.25
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_l2q5i")
+autoplay = true
+max_distance = 32.0
+bus = &"Nature"
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
