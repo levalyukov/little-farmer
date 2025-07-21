@@ -287,13 +287,13 @@ var content:Dictionary = {
 			}
 		},
 		13: {
-			"caption" = "blueprints.alveare.caption",
-			"description" = "blueprints.alveare.description",
-			"icon" = preload("res://assets/resources/buildings/alveare/alveare_summer.png"),
+			"caption" = "blueprints.beehive.caption",
+			"description" = "blueprints.beehive.description",
+			"icon" = preload("res://assets/resources/buildings/beehive/beehive_summer.png"),
 			"config" = {
-				"name" = "alveare",
-				"node" = preload("res://assets/nodes/buildings/alveare.tscn"),
-				"shadow" = preload("res://assets/nodes/buildings/alveare_shadow.tscn"),
+				"name" = "beehive",
+				"node" = preload("res://assets/nodes/buildings/beehive.tscn"),
+				"shadow" = preload("res://assets/nodes/buildings/beehive_shadow.tscn"),
 				"area" = Vector2i(1,1),
 				"resources" = {
 					2:{"amount": 25},
@@ -302,8 +302,8 @@ var content:Dictionary = {
 			},
 
 			"trade_info" = {
-				"caption" = "blueprints.fence_blueprint.caption",
-				"description" = "blueprints.fence_blueprint.description",
+				"caption" = "blueprints.beehive_blueprint.caption",
+				"description" = "blueprints.beehive_blueprint.description",
 				"price" = 750
 			}
 		}
