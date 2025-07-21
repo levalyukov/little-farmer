@@ -7,16 +7,14 @@ const THRESHOLD:int = 50
 var direction:Vector2 = Vector2.ZERO
 var switch:bool = true
 
-var mouseMovement:bool = true
 var mouseOutside:bool = true
 
 func _ready():
-	if mouseMovement:
-		get_viewport().connect("mouse_entered", Callable(self, "_mouse_enter").bind())
-		get_viewport().connect("mouse_exited", Callable(self, "_mouse_exit").bind())
+	get_viewport().connect("mouse_entered", Callable(self, "_mouse_enter").bind())
+	get_viewport().connect("mouse_exited", Callable(self, "_mouse_exit").bind())
 
 func _process(_delta):
-	if !mouseMovement:
+	if GameConfig.movementType == 1:
 		direction = Input.get_vector("a", "d", "w", "s")
 		if direction != Vector2.ZERO\
 		&& !switch:
@@ -30,10 +28,10 @@ func check_switch() -> void:
 		
 func _physics_process(_delta):
 	if !switch:
-		if !mouseMovement:
+		if GameConfig.movementType == 1:
 			velocity = direction * SPEED
 		
-		if mouseMovement:
+		if GameConfig.movementType == 0:
 			if !mouseOutside:
 				var _viewport_size = get_viewport_rect().size
 				var _mouse_position = get_viewport().get_mouse_position()

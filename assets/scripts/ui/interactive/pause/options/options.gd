@@ -68,6 +68,7 @@ var soundsRadioText:String = tr('options.sounds.radio')
 @onready var controlCameraZoomLabel:Label = $Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/CameraZoomButton/MarginContainer/HBoxContainer/InputsName
 @onready var controlScreenshotLabel:Label = $Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ScreenshotButton/MarginContainer/HBoxContainer/InputsName
 
+@onready var controlMovementOptionButton:OptionButton = $Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ChangeMovement/HBoxContainer/MarginContainer/ChangeMovementOption
 @onready var controlMovementInputLabel:Label = $Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/MovementButton/MarginContainer/HBoxContainer/Inputs
 @onready var controlInteractInputLabel:Label = $Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/InteractiveButton/MarginContainer/HBoxContainer/Inputs
 @onready var controlInventoryInputLabel:Label = $Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/InventoryButton/MarginContainer/HBoxContainer/Inputs
@@ -80,6 +81,9 @@ var controlInventoryText:String = tr('options.control.inventory')
 var controlCameraZoomText:String = tr('options.control.zoom')
 var controlScreenshotText:String = tr('options.control.screenshot')
 
+var controlMovementOptionButtonTextItem_1:String = tr('options.control.mouse')
+var controlMovementOptionButtonTextItem_2:String = tr('options.control.keyboard')
+var controlMovementChangeInputText:String = tr('options.control.movement')
 var controlMovementInputText:String = tr('options.control.movement_input')
 var controlInteractInputText:String = tr('options.control.interact_input')
 var controlInventoryInputText:String = tr('options.control.inventory_input')
@@ -135,38 +139,45 @@ func set_values(content:Dictionary) -> void:
 	if content != {}:
 		# Graphic
 		if content.has("graphic"):
-			if content['graphic'].has("fps_limit"):
-				GameConfig.fps_limit = content['graphic']['fps_limit']
-				fps_limit.selected = content['graphic']['fps_limit']
-			if content['graphic'].has("fullscreen"):
-				GameConfig.fullscreen = content['graphic']['fullscreen']
-				fullscreen.button_pressed = content['graphic']['fullscreen']
-			if content['graphic'].has("v-sync"):
-				GameConfig.vsync = content['graphic']['v-sync']
-				vsync.button_pressed = content['graphic']['v-sync']
+			var graphic = content['graphic']
+			if graphic.has("fps_limit"):
+				GameConfig.fps_limit = graphic['fps_limit']
+				fps_limit.selected = graphic['fps_limit']
+			if graphic.has("fullscreen"):
+				GameConfig.fullscreen = graphic['fullscreen']
+				fullscreen.button_pressed = graphic['fullscreen']
+			if graphic.has("v-sync"):
+				GameConfig.vsync = graphic['v-sync']
+				vsync.button_pressed = graphic['v-sync']
 		# Sound
 		if content.has("sounds"):
-			if content['sounds'].has("general"):
-				GameConfig.general = content['sounds']['general']
-				general_sound_slider.value = content['sounds']['general']
-			if content['sounds'].has("music"):
-				GameConfig.music = content['sounds']['music']
-				music_sound_slider.value = content['sounds']['music']
-			if content['sounds'].has("nature"):
-				GameConfig.nature = content['sounds']['nature']
-				nature_sound_slider.value = content['sounds']['nature']
-			if content['sounds'].has("radio"):
-				GameConfig.radio = content['sounds']['radio']
-				radio_sound_slider.value = content['sounds']['radio']
+			var sounds = content['sounds']
+			if sounds.has("general"):
+				GameConfig.general = sounds['general']
+				general_sound_slider.value = sounds['general']
+			if sounds.has("music"):
+				GameConfig.music = sounds['music']
+				music_sound_slider.value = sounds['music']
+			if sounds.has("nature"):
+				GameConfig.nature = sounds['nature']
+				nature_sound_slider.value = sounds['nature']
+			if sounds.has("radio"):
+				GameConfig.radio = sounds['radio']
+				radio_sound_slider.value = sounds['radio']
 		if content.has('language'):
 			GameConfig.language = content['language']
 			match main:
 				'MainMenu':
-					var languageButton = get_node('/root/'+main+'/Menu/Options/Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons/ChangeLanguageButton')
-					languageButton.set_language(GameConfig.language)
+					buttonLanguage.set_new_language(GameConfig.language)
 				_:
-					var languageButton = get_node('/root/'+main+'/UI/Interactive/Options/Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons/ChangeLanguageButton')
-					languageButton.set_language(GameConfig.language)
+					buttonLanguage.set_new_language(GameConfig.language)
+		
+		# Control
+		if content.has('control'):
+			var control = content['control']
+			if control.has('movementType'):
+				GameConfig.movementType = control['movementType']
+				controlMovementOptionButton.button_pressed = control['movementType']
 
 func _saving() -> void:
 	# Graphic
@@ -178,6 +189,8 @@ func _saving() -> void:
 	GameConfig.music = int(music_sound_slider.value)
 	GameConfig.nature = int(nature_sound_slider.value)
 	GameConfig.radio = int(radio_sound_slider.value)
+	# Control
+	GameConfig.movementType = controlMovementOptionButton.selected
 
 # -- -- --
 # Buttons

@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/pause/options/options.gd" id="1_cadvs"]
 [ext_resource type="Theme" uid="uid://btsx1m2p0i620" path="res://assets/resources/theme.tres" id="1_nnyn0"]
-[ext_resource type="Texture2D" uid="uid://dtkym5bhfhpb" path="res://assets/resources/ui/menu_background.png" id="2_l7a0s"]
-[ext_resource type="Texture2D" uid="uid://c3yf44sxb8a8o" path="res://assets/resources/ui/menu_background_middle.png" id="4_tqjim"]
+[ext_resource type="Texture2D" uid="uid://vu80xmcywd5d" path="res://assets/resources/ui/menu_background.png" id="2_l7a0s"]
+[ext_resource type="Texture2D" uid="uid://dv65xuqiywrv1" path="res://assets/resources/ui/menu_background_middle.png" id="4_tqjim"]
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/pause/options/buttons/language.gd" id="4_vbh1p"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_opmpa"]
@@ -222,6 +222,7 @@ patch_margin_right = 8
 patch_margin_bottom = 8
 
 [node name="GraphicSection" type="ScrollContainer" parent="Menu/Main/HBoxContainer/PageBackground"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -486,7 +487,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="ControlSection" type="ScrollContainer" parent="Menu/Main/HBoxContainer/PageBackground"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -528,6 +528,38 @@ label_settings = SubResource("LabelSettings_opmpa")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
+
+[node name="ChangeMovement" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ChangeMovement"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ChangeMovement/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ChangeMovement/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "options.control.movementType"
+
+[node name="ChangeMovementOption" type="OptionButton" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ChangeMovement/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 16
+item_count = 2
+selected = 1
+popup/item_0/text = "options.control.mouse"
+popup/item_0/id = 0
+popup/item_1/text = "options.control.keyboard"
+popup/item_1/id = 1
 
 [node name="MovementButton" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container"]
 layout_mode = 2
@@ -719,3 +751,7 @@ libraries = {
 [connection signal="value_changed" from="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/MusicVolumeMargin/HBoxContainer/VBoxContainer/MusicVolumeSlider" to="." method="_on_music_volume_slider_value_changed"]
 [connection signal="value_changed" from="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/NatureVolumeMargin/HBoxContainer/VBoxContainer/NatureVolumeSlider" to="." method="_on_nature_volume_slider_value_changed"]
 [connection signal="value_changed" from="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/RadioVolumeMargin/HBoxContainer/VBoxContainer/RadioVolumeSlider" to="." method="_on_radio_volume_slider_value_changed"]
+[connection signal="item_selected" from="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ChangeMovement/HBoxContainer/MarginContainer/ChangeMovementOption" to="." method="_on_option_button_item_selected"]
+[connection signal="mouse_entered" from="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ChangeMovement/HBoxContainer/MarginContainer/ChangeMovementOption" to="." method="_on_option_button_mouse_entered"]
+[connection signal="mouse_exited" from="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ChangeMovement/HBoxContainer/MarginContainer/ChangeMovementOption" to="." method="_on_option_button_mouse_exited"]
+[connection signal="pressed" from="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ChangeMovement/HBoxContainer/MarginContainer/ChangeMovementOption" to="." method="_on_option_button_pressed"]
