@@ -30,27 +30,29 @@ var value:int = 0
 
 var _UIAudio:AudioStreamPlayer
 
-var _texture:Dictionary = {
-	'spring': {
-		'default': preload("res://assets/resources/buildings/beehive/beehive_spring.png"),
-		'hover': preload("res://assets/resources/buildings/beehive/beehive_spring_hover.png"),
-		'delete': preload("res://assets/resources/buildings/beehive/beehive_spring_delete.png")
-	},
-	'summer': {
-		'default': preload("res://assets/resources/buildings/beehive/beehive_summer.png"),
-		'hover': preload("res://assets/resources/buildings/beehive/beehive_summer_hover.png"),
-		'delete': preload("res://assets/resources/buildings/beehive/beehive_summer_delete.png")
-	},
-	'autumn': {
-		'default': preload("res://assets/resources/buildings/beehive/beehive_autumn.png"),
-		'hover': preload("res://assets/resources/buildings/beehive/beehive_autumn_hover.png"),
-		'delete': preload("res://assets/resources/buildings/beehive/beehive_autumn_delete.png")
-	},
-	'winter': {
-		'default': preload("res://assets/resources/buildings/beehive/beehive_winter.png"),
-		'hover': preload("res://assets/resources/buildings/beehive/beehive_winter_hover.png"),
-		'delete': preload("res://assets/resources/buildings/beehive/beehive_winter_delete.png")
-	},
+var object:Dictionary = {
+	"seasons": {
+		'spring': {
+			'default': preload("res://assets/resources/buildings/beehive/beehive_spring.png"),
+			'hover': preload("res://assets/resources/buildings/beehive/beehive_spring_hover.png"),
+			'delete': preload("res://assets/resources/buildings/beehive/beehive_spring_delete.png")
+		},
+		'summer': {
+			'default': preload("res://assets/resources/buildings/beehive/beehive_summer.png"),
+			'hover': preload("res://assets/resources/buildings/beehive/beehive_summer_hover.png"),
+			'delete': preload("res://assets/resources/buildings/beehive/beehive_summer_delete.png")
+		},
+		'autumn': {
+			'default': preload("res://assets/resources/buildings/beehive/beehive_autumn.png"),
+			'hover': preload("res://assets/resources/buildings/beehive/beehive_autumn_hover.png"),
+			'delete': preload("res://assets/resources/buildings/beehive/beehive_autumn_delete.png")
+		},
+		'winter': {
+			'default': preload("res://assets/resources/buildings/beehive/beehive_winter.png"),
+			'hover': preload("res://assets/resources/buildings/beehive/beehive_winter_hover.png"),
+			'delete': preload("res://assets/resources/buildings/beehive/beehive_winter_delete.png")
+		},
+	}
 }
 
 
@@ -59,7 +61,7 @@ func _ready():
 	_UIAudio.stream = preload('res://assets/sounds/buildings/beehive_honey.ogg')
 	self.add_child(_UIAudio)
 
-	if _texture: if _texture.has(clock.get_season()): _sprite.texture = _texture[clock.get_season()]["default"]
+	if object: if object["seasons"].has(clock.get_season()): _sprite.texture = object["seasons"][clock.get_season()]["default"]
 	farming.add_beehive(self, tilemap.local_to_map(self.position))
 	_update_sound()
 	_update_indicator()
@@ -102,11 +104,17 @@ func _update_sound() -> void:
 	else: 
 		_sound.play()
 
+func update() -> void:
+	if clock:
+		var new_season = clock.get_season()
+		if object["seasons"].has(new_season) && object["seasons"][new_season].has("default"):
+			_sprite.texture = object["seasons"][new_season]["default"]
+
 func _on_area_2d_mouse_exited():
 	if destroyMode: destroyMode = !true
-	if _texture.has(clock.get_season()):
-		if _texture[clock.get_season()]["default"] is CompressedTexture2D:
-			_sprite.texture = _texture[clock.get_season()]["default"]
+	if object["seasons"].has(clock.get_season()):
+		if object["seasons"][clock.get_season()]["default"] is CompressedTexture2D:
+			_sprite.texture = object["seasons"][clock.get_season()]["default"]
 			hovered = false
 	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 	if tip: if tip.visible: tip.tooltip()
@@ -116,18 +124,25 @@ func _on_area_2d_mouse_entered():
 	&& grid.mode == grid.modes.NOTHING:
 		if buttonDestroy.destroyMode:
 			destroyMode = true
-			if _texture.has(clock.get_season()):
-				if _texture[clock.get_season()].has("delete") && _texture[clock.get_season()]["delete"] is CompressedTexture2D:
-					_sprite.texture = _texture[clock.get_season()]["delete"]
+			if object["seasons"].has(clock.get_season()):
+				if object["seasons"][clock.get_season()].has("delete") && object["seasons"][clock.get_season()]["delete"] is CompressedTexture2D:
+					_sprite.texture = object["seasons"][clock.get_season()]["delete"]
 		else:
 			hovered = true
-			_sprite.texture = _texture[clock.get_season()]["hover"]
+			_sprite.texture = object["seasons"][clock.get_season()]["hover"]
 			if tip: if !tip.visible: tip.tooltip(
 				tr('object.beehive.caption') + "\n" +
-				""
+				_get_beehive_description()
 				)
 		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 	
+func _get_beehive_description() -> String:
+	match clock.get_season():
+		"spring": return tr("object.beehive_spring.description")
+		"summer": return tr("object.beehive_summer.description")
+		"autumn": return tr("object.beehive_autumn.description")
+		_: return tr("object.beehive_winter.description")
+
 func get_data() -> Dictionary:
 	return {
 		"position": tilemap.local_to_map(self.position),

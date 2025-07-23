@@ -276,7 +276,6 @@ var content:Dictionary = {
 				"area" = Vector2i(1,1),
 				"resources" = {
 					1:{"amount": 2},
-					2:{"amount": 1},
 				}
 			},
 

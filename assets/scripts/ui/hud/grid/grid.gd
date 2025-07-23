@@ -63,8 +63,7 @@ func _process(_delta):
 				if inventory.get_item_amount(inventory_item) >= collision.get_children().size():
 					collision.planting_collision_check()
 				else:
-					grid_dimensions.x = 1
-					grid_dimensions.y = 1
+					grid_dimensions = Vector2i(1,1)
 					generate_grid()
 			else:
 				disabled_grid()
@@ -106,7 +105,14 @@ func _process(_delta):
 		modes.HARVESTING:
 			collision.harvest_check()
 		modes.FERTILIZER:
-			collision.check_fertilizer_cell()
+			if inventory.check_item_amount(inventory_item):
+				if inventory.get_item_amount(inventory_item) >= collision.get_children().size():
+					collision.check_fertilizer_cell()
+				else:
+					grid_dimensions = Vector2i(1,1)
+					generate_grid()
+			else:
+				disabled_grid()
 		modes.BUILD:
 			collision.building_collision_check()
 		modes.TERRAIN_SET:
@@ -194,7 +200,7 @@ func destroy_nature() -> void:
 		var grid_position = tilemap.local_to_map(i.get_global_position())
 		if i.texture != collision.error:
 			match collision.nature_check():
-				1:
+				1:	# Small Tree
 					for a in nature.get_children():
 						if grid_position == tilemap.local_to_map(a.position):
 							nature.remove_child(a)
@@ -206,7 +212,7 @@ func destroy_nature() -> void:
 					tilemap.erase_cell(collision.nature_layer, grid_position) 
 					inventory.add_item(1, randi_range(1,5))
 					play_sound('farming/tree_destroy')
-				2:
+				2:	# Weeds
 					for a in nature.get_children():
 						if grid_position == tilemap.local_to_map(a.position):
 							nature.remove_child(a)
@@ -217,7 +223,7 @@ func destroy_nature() -> void:
 							b.queue_free()
 					tilemap.erase_cell(collision.nature_layer, grid_position)
 					play_sound('farming/weed_destroy')
-				3:
+				3:	# Stone
 					for a in nature.get_children():
 						if grid_position == tilemap.local_to_map(a.position):
 							nature.remove_child(a)
@@ -231,7 +237,7 @@ func destroy_nature() -> void:
 					if data.check_probability(15):
 						inventory.add_item(5, randi_range(1,2))
 					play_sound('farming/stone_destroy')
-				4:
+				4:	# Plant
 					tilemap.erase_cell(collision.crops_layer, grid_position)
 					farmingManager.plant_destroy(grid_position)
 					play_sound('farming/plant_destroy')
@@ -375,20 +381,17 @@ func terrain() -> void:
 			tilemap.set_cells_terrain_connect(layer, positions, 0, terrain_index)
 
 func fertilizer() -> void:
-	if inventory.get_item_amount(inventory_item) >= collision.get_children().size():
-		for i in collision.get_children():
-			var local_position = tilemap.to_local(i.get_global_position())
-			var grid_position = tilemap.local_to_map(local_position)
-			var fertilize_percent = items.content[int(inventory_item)]['func']['fertilize']
-			if i.texture != collision.error:
-				farmingManager.create_fertilizer(
-					int(inventory_item),
-					fertilize_percent,
-					grid_position
-				)
-				inventory.subject_item(inventory_item, 1)
-	else:
-		disabled_grid()
+	for i in collision.get_children():
+		var local_position = tilemap.to_local(i.get_global_position())
+		var grid_position = tilemap.local_to_map(local_position)
+		var fertilize_percent = items.content[int(inventory_item)]['func']['fertilize']
+		if i.texture != collision.error:
+			farmingManager.create_fertilizer(
+				int(inventory_item),
+				fertilize_percent,
+				grid_position
+			)
+			inventory.subject_item(inventory_item, 1)
 
 func disabled_grid() -> void:
 	hud.hud_all_show()

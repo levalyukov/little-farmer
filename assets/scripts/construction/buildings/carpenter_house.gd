@@ -66,29 +66,15 @@ func update():
 				if object["seasons"][season].has("default"):
 					if object["seasons"][season]["default"] is CompressedTexture2D:
 						sprite.texture = object["seasons"][season]["default"]
-						self.set_position(tilemap.map_to_local(Vector2i(21,-3)))
-					else:
-						data.debug("'"+str(self.name) + "': 'default' is not a CompressedTexture2D.", "error")
-			else:
-				data.debug("'"+str(self.name) + "': There is no '" + str(season) + "' key in the 'seasons' group.", "error")
 		else:
 			if object.has("default"):
 				if object["default"] is CompressedTexture2D:
 					sprite.texture = object["default"]
-					self.set_position(tilemap.map_to_local(Vector2i(21,-3)))
-				else:
-					data.debug("'"+str(self.name) + "': 'default' is not a CompressedTexture2D.", "error")
-			else:
-				data.debug("'"+str(self.name) + "': There is no 'default' key.", "error")
-
 func update_shadow() -> void:
 	if visible:
 		if object.has("shadow"):
 			if object["shadow"] is CompressedTexture2D:
 				canvas.create_shadow("carpenter_shadow", object["shadow"], tilemap.local_to_map(position))
-			else:
-				data.debug("'"+str(self.name) + "': It is not possible to create a game shadow of an object because the sprite is not of the 'CompressedTexture2D' type.", "error")
-
 func _process(_delta) -> void:
 	if pause.paused:
 		if chimney.speed_scale > 0:
@@ -127,10 +113,6 @@ func _on_area_2d_mouse_entered() -> void:
 				if object.has("hovered"):
 					if object["hovered"] is CompressedTexture2D:
 						sprite.texture = object["hovered"]
-					else:
-						data.debug("'"+str(self.name) + "': 'hovered' is not a CompressedTexture2D.", "error")
-				else:
-					data.debug("'"+str(self.name) + "': There is no 'hovered' key.", "error")
 			tip.tooltip(
 					str(tr('object.carpenter_house.caption'))
 				)

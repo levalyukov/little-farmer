@@ -2,14 +2,19 @@ extends Node
 
 var language:int = 0
 
+# Graphic
 var vsync:bool = false
 var fullscreen:bool = true
 var fps_limit:int = true
-    
+
+# Sounds
 var general:int = 100
 var music:int = 25
 var nature:int = 50
 var radio:int = 75
+
+# Control
+var movementType:int = 1
 
 func apply():
     #   --- V-Sync

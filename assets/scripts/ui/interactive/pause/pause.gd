@@ -95,6 +95,7 @@ func open() -> void:
 	check_plants_state(true)
 	# For game music
 	check_game_music(true)
+	check_buildings(!false)
 	if GameLoader.check_timer():
 		GameLoader.get_timer().set_paused(true)
 		
@@ -119,8 +120,9 @@ func close() -> void:
 	check_plants_state(false)
 	check_nature_sound(false)
 	check_game_music(false)
-	if GameLoader.check_timer():
-		GameLoader.get_timer().set_paused(false)
+	check_buildings(false)
+	if GameLoader.check_timer(): GameLoader.get_timer().set_paused(false)
+	if game_music: game_music._radio_playing = game_music._radio_is_playing()
 
 func check_game_music(_state:bool) -> void:
 	if game_music:
@@ -136,6 +138,15 @@ func check_plants_state(_state:bool) -> void:
 	if is_instance_valid(farmingManager):
 		if farmingManager.plant_timer && farmingManager.plant_timer is Timer:
 			farmingManager.plant_timer.set_paused(_state)
+
+func check_buildings(_state:bool) -> void:
+	if constructionManager:
+		if constructionManager.get_children().size() > 0:
+			for node in constructionManager.get_children():
+				if node && 'blueprint_id' in node:
+					match node.blueprint_id:
+						13:
+							node._sound.set_stream_paused(_state)
 
 func check_radio_state(_state:bool) -> void:
 	if constructionManager:

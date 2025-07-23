@@ -20,7 +20,7 @@ var _new_index = 0
 var _playlist = {
 	'spring': {
 		'day': [
-			'res://assets/sounds/music/flp/spring/music#1.ogg',
+			#	'res://assets/sounds/music/flp/spring/music#1.ogg',
 			'res://assets/sounds/music/flp/spring/music#2.ogg',
 			'res://assets/sounds/music/flp/spring/music#3.ogg'
 		],
@@ -59,6 +59,7 @@ var _autumn_night_music = []
 var _winter_day_music = []
 var _winter_night_music = []
 
+var _radio_playing:bool = false
 
 func _ready() -> void:
 	_COOLDOWN = randf_range(_COOLDOWN_MIN, _COOLDOWN_MAX)
@@ -73,7 +74,8 @@ func _ready() -> void:
 	_stream.bus = "Music"
 
 func _game_music() -> void:
-	if (_stream && !_stream.is_playing()) && !_radio_is_playing():
+	_radio_playing = _radio_is_playing()
+	if (_stream && !_stream.is_playing()) && !_radio_playing && !pause.paused:
 		_distribute_arrays()
 		var _current_arr = _get_current_arr()
 		
@@ -83,9 +85,11 @@ func _game_music() -> void:
 		_last_index = _new_index
 		
 		var stream = load(_current_arr[_new_index])
-		if stream:
-			_stream.stream = stream
-			_stream.play()
+
+		if !_radio_playing:
+			if stream:
+				_stream.stream = stream
+				_stream.play()
 	else:
 		_COOLDOWN = randf_range(_COOLDOWN_MIN, _COOLDOWN_MAX)
 		_timer.wait_time = _COOLDOWN
@@ -95,7 +99,7 @@ func _radio_is_playing() -> bool:
 		for node in constructionManager.get_children():
 			if node && 'blueprint_id' in node:
 				if node.blueprint_id == 10:
-					if node.radio_noise.is_playing():
+					if node.audio_player.is_playing():
 						return true
 	return false
 
@@ -113,13 +117,11 @@ func _generate_index(_array:Array) -> int:
 	
 	var new_idx
 	var attempt = 0
-	
 	while attempt < ATTEMPT_MAX:
 		new_idx = randi() % _array.size()
 		if new_idx != _last_index:
 			break
 		attempt += 1
-	
 	return new_idx
 
 func _distribute_arrays() -> void:
@@ -191,4 +193,5 @@ func _get_current_arr() -> Array:
 			if _day_part == "day":
 				return _winter_day_music
 			return _winter_night_music
+
 	return []

@@ -3,7 +3,7 @@ extends Node
 const GROWTH_TIME:int = 1
 const MAX_GROWTH_VALUE:int = 300
 
-var start:bool = false
+var start:bool = !false
 var mode:bool = false
 var modal:bool = false
 

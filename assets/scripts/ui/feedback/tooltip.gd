@@ -44,14 +44,12 @@ func _process(_delta):
 
 func tooltip(text:String = "") -> void:
 	if (pause && !pause.paused)\
-	&& (grid.mode == grid.modes.NOTHING)\
+	&& (grid.mode == grid.modes.NOTHING || grid.mode == grid.modes.WATERING)\
 	&& !pause.other_menu:
 		if text != "":
 			label.text = text
 			if !visible:
 				set_process(true)
 				visible = true
-		else:
-			if visible: visible = false
-	else:
-		if visible: visible = false
+		else: if visible: visible = false
+	else: if visible: visible = false

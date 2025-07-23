@@ -33,20 +33,11 @@ var _position:Vector2i = Vector2i(0,0)	# Позиция объекта на та
 var _growth_value:int = 0				# Значение, с которым 'farming.gd' манипулирует для роста растений
 
 func plant(
-		plant_id:int,
-		plant_caption:String,
-		plant_growth_rate:float,
-		plant_growth_level_max:int,
-		plant_mortality_value:int,
-		plant_seasons_array:Array, 
-		plant_rect_x:int,
-		plant_rect_y:int,
-		plant_condition:int,
-		plant_level:int,
-		plant_degree:int,
-		plant_position:Vector2i,
-		plant_fertilize_percent:int,
-		plant_growth_value:int = 0
+		plant_id:int, plant_caption:String, plant_growth_rate:float,
+		plant_growth_level_max:int, plant_mortality_value:int, plant_seasons_array:Array, 
+		plant_rect_x:int, plant_rect_y:int, plant_condition:int,
+		plant_level:int, plant_degree:int, plant_position:Vector2i,
+		plant_fertilize_percent:int, plant_growth_value:int = 0
 	) -> void:
 	_plant_id = plant_id
 	_caption = plant_caption
@@ -69,9 +60,10 @@ func plant(
 	else:
 		_growth_value = round(plant_growth_rate - (plant_fertilize_percent / 100.0) * plant_growth_rate)
 
-	var _current_level = _level if _level > 1 else 0
+	# ? к чему эта переменная? -->
+	#	? var _current_level = _level if _level > 1 else 0 -
 
-	sprite.region_rect.position.x = _rect_x + (_current_level * 16)
+	sprite.region_rect.position.x = _rect_x + (_level * 16)
 	sprite.region_rect.position.y = _rect_y
 
 func growth() -> void:

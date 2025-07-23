@@ -90,7 +90,7 @@ func _ready():
 	if gamedata:
 		if gamedata.has_method('config_load'):
 			gamedata.config_load()
-			#	SettingsManager.settings_apply()
+			GameConfig.apply()
 
 func _initilize_music() -> void:
 	_menu_music = AudioStreamPlayer.new()

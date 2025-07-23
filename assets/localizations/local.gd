@@ -87,6 +87,16 @@ func _ready():
 	tr('blueprints.sawbench.description')
 	tr('blueprints.sawbench_blueprint.caption')
 	tr('blueprints.sawbench_blueprint.description')
+
+	tr('blueprints.fence.caption')
+	tr('blueprints.fence.description')
+	tr('blueprints.fence_blueprint.caption')
+	tr('blueprints.fence_blueprint.description')
+
+	tr('blueprints.beehive.caption')
+	tr('blueprints.beehive.description')
+	tr('blueprints.beehive_blueprint.caption')
+	tr('blueprints.beehive_blueprint.description')
 	# All Items
 	
 	#	items.type.building_materials
@@ -283,6 +293,11 @@ func _ready():
 
 	tr('items.premium_compost.caption')
 	tr('items.premium_compost.description')
+
+	# items.type.items.type.own_production
+	tr('items.honey.caption')
+	tr('items.honey.description')
+	tr('items.type.own_production')
 
 	# 	Crops
 	# Spring

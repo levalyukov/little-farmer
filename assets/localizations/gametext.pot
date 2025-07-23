@@ -52,6 +52,7 @@
 # res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_builds.tscn
 # res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_plant.tscn
 # res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_terrain.tscn
+# res://assets/scripts/construction/buildings/beehive.gd
 #
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -81,18 +82,6 @@ msgstr ""
 
 #: levels/menu.tscn
 msgid "main_menu.credits"
-msgstr ""
-
-#: levels/menu.tscn
-msgid "modal.early_version_header"
-msgstr ""
-
-#: levels/menu.tscn
-msgid "modal.early_version_description"
-msgstr ""
-
-#: levels/menu.tscn
-msgid "modal.modal_early_version_button"
 msgstr ""
 
 #: levels/menu.tscn
@@ -184,6 +173,14 @@ msgid "options.control.screenshot"
 msgstr ""
 
 #: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.control.mouse"
+msgstr ""
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.control.keyboard"
+msgstr ""
+
+#: assets/nodes/ui/interactive/options/options.tscn
 msgid "options.control.movement_input"
 msgstr ""
 
@@ -201,6 +198,10 @@ msgstr ""
 
 #: assets/nodes/ui/interactive/options/options.tscn
 msgid "options.control.screenshot_input"
+msgstr ""
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.control.movementType"
 msgstr ""
 
 #: assets/nodes/ui/interactive/pause/pause.tscn
@@ -938,6 +939,38 @@ msgid "blueprints.sawbench_blueprint.description"
 msgstr ""
 
 #: assets/localizations/local.gd
+msgid "blueprints.fence.caption"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "blueprints.fence.description"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "blueprints.fence_blueprint.caption"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "blueprints.fence_blueprint.description"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "blueprints.beehive.caption"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "blueprints.beehive.description"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "blueprints.beehive_blueprint.caption"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "blueprints.beehive_blueprint.description"
+msgstr ""
+
+#: assets/localizations/local.gd
 msgid "items.log.caption"
 msgstr ""
 
@@ -1450,6 +1483,18 @@ msgid "items.premium_compost.description"
 msgstr ""
 
 #: assets/localizations/local.gd
+msgid "items.honey.caption"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "items.honey.description"
+msgstr ""
+
+#: assets/localizations/local.gd
+msgid "items.type.own_production"
+msgstr ""
+
+#: assets/localizations/local.gd
 msgid "crops.carrot"
 msgstr ""
 
@@ -1671,4 +1716,24 @@ msgstr ""
 
 #: assets/nodes/ui/hud/elements/tools/destroy_menu/button_terrain.tscn
 msgid "ui.tools.terrain_destroy_button"
+msgstr ""
+
+#: assets/scripts/construction/buildings/beehive.gd
+msgid "object.beehive.caption"
+msgstr ""
+
+#: assets/scripts/construction/buildings/beehive.gd
+msgid "object.beehive_spring.description"
+msgstr ""
+
+#: assets/scripts/construction/buildings/beehive.gd
+msgid "object.beehive_summer.description"
+msgstr ""
+
+#: assets/scripts/construction/buildings/beehive.gd
+msgid "object.beehive_autumn.description"
+msgstr ""
+
+#: assets/scripts/construction/buildings/beehive.gd
+msgid "object.beehive_winter.description"
 msgstr ""

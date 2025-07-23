@@ -70,25 +70,23 @@ func set_atlas(season:String) -> void:
 						for node in buildings.get_children():
 							if node:
 								if node.has_method("get_data"):
-									if node.object.has(node.level):
-										if node.object[node.level].has("seasons"):
-											if node.object[node.level]["seasons"].has(season):
-												if node.object[node.level]["seasons"][season].has("default")\
-												&& node.object[node.level]["seasons"][season].has("hovered"):
-													node.update()
+									if 'level' in node:
+										if node.object.has(node.level):
+											if node.object[node.level].has("seasons"):
+												if node.object[node.level]["seasons"].has(season):
+													if node.object[node.level]["seasons"][season].has("default"):
+														node.update()
 									else:
 										if node.has_method("update"):
 											if node.object.has("seasons"):
 												if node.object["seasons"].has(season):
-													if node.object["seasons"][season].has("default")\
-													&& node.object["seasons"][season].has("hovered"):
+													if node.object["seasons"][season].has("default"):
 														node.update()
 								else:
 									if node.has_method("update"):
 										if node.object.has("seasons"):
 											if node.object["seasons"].has(season):
-												if node.object["seasons"][season].has("default")\
-												&& node.object["seasons"][season].has("hovered"):
+												if node.object["seasons"][season].has("default"):
 													node.update()
 
 				if nature:
@@ -99,11 +97,11 @@ func set_atlas(season:String) -> void:
 							if node:
 								if node.has_method('change_texture'):
 									if data.remove_suffix(node.name) == "tree":
-										node.change_texture(nature.trees[node.index])
+										node.change_texture(nature._trees[node.index])
 									if data.remove_suffix(node.name) == "stone":
-										node.change_texture(nature.stones[node.index])
+										node.change_texture(nature._stones[node.index])
 									if data.remove_suffix(node.name) == "weed":
-										node.change_texture(nature.weeds[node.index])
+										node.change_texture(nature._weeds[node.index])
 
 				if canvas:
 					if canvas.get_children() != []:
@@ -111,8 +109,8 @@ func set_atlas(season:String) -> void:
 							if i:
 								if i.has_method("is_nature_shadow"):
 									if i.type == "tree":
-										i.change_sprite(nature.trees_shadow[i.index])
+										i.change_sprite(nature._trees_shadow[i.index])
 									if i.type == "stone":
-										i.change_sprite(nature.stones_shadow[i.index])
+										i.change_sprite(nature._stones_shadow[i.index])
 									if i.type == "weed":
-										i.change_sprite(nature.weeds_shadow[i.index])
+										i.change_sprite(nature._weeds_shadow[i.index])

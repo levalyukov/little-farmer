@@ -9,6 +9,7 @@ extends Node2D
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
+
 const max_distance:int = 250
 var haved:bool = false
 var blueprints = BlueprintManager.new()

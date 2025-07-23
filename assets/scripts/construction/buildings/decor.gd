@@ -4,7 +4,9 @@ extends Sprite2D
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var canvas:Node = get_node("/root/"+main+"/ShadowManager")
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
+
 @export var sprites_caption:String = ''
+@export var hasSeasonSprite:bool = false
 
 func _ready():
 	if self:

@@ -12,7 +12,7 @@ extends Node2D
 var blueprint_id:int = 0
 var destroyMode:bool = false
 var all_collisions:Array[Vector2i] = []
-var level:int = 0
+
 var object:Dictionary = {
     'idle' = load('res://assets/resources/buildings/path_of_large_stones/object_0.png'),
     'delete' = load('res://assets/resources/buildings/path_of_large_stones/object_1.png')

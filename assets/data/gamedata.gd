@@ -17,7 +17,7 @@ extends Node
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
 @onready var farming:Node2D = get_node("/root/"+main+"/FarmingManager")
-@onready var nature:Node2D = get_node("/root/"+main+"/Nature")
+@onready var nature:Node2D = get_node("/root/"+main+"/NatureManager")
 
 var music:AudioStreamPlayer = AudioStreamPlayer.new()
 var music_cooldown:Timer = Timer.new()
@@ -330,20 +330,20 @@ func _load_farm_plant(_data:String):
 			
 func load_nature_nodes():
 	nature.clear_all_arrays()
-	nature.new_texture()
+	nature._set_new_sprites()
 	var natures = file_load(file.nature)
 	if natures != {}:
 		for i in natures:
 			match natures[i]["type"]:
 				"stone":
-					nature.load_natural_obj(
+					nature.load_nature(
 						nature.stone_node, 
 						str(i), 
-						nature.stones[natures[i]["sprite_index"]], 
+						nature._stones[natures[i]["sprite_index"]], 
 						natures[i]["sprite_index"],
 						string_to_vector(natures[i]["position"]),
 						natures[i]["health"],
-						nature.stones_shadow[natures[i]["sprite_index"]],
+						nature._stones_shadow[natures[i]["sprite_index"]],
 					)
 					tilemap.set_cell(
 						collision.nature_layer, 
@@ -354,14 +354,14 @@ func load_nature_nodes():
 						Vector2i(0, 3)
 					)
 				"tree":
-					nature.load_natural_obj(
+					nature.load_nature(
 						nature.tree_node, 
 						str(i), 
-						nature.trees[natures[i]["sprite_index"]], 
+						nature._trees[natures[i]["sprite_index"]], 
 						natures[i]["sprite_index"],
 						string_to_vector(natures[i]["position"]),
 						natures[i]["health"],
-						nature.trees_shadow[natures[i]["sprite_index"]],
+						nature._trees_shadow[natures[i]["sprite_index"]],
 					)
 					tilemap.set_cell(
 						collision.nature_layer, 
@@ -372,14 +372,14 @@ func load_nature_nodes():
 						Vector2i(0, 3)
 					)
 				"weed":
-					nature.load_natural_obj(
+					nature.load_nature(
 						nature.weed_node, 
 						str(i), 
-						nature.weeds[natures[i]["sprite_index"]], 
+						nature._weeds[natures[i]["sprite_index"]], 
 						natures[i]["sprite_index"],
 						string_to_vector(natures[i]["position"]),
 						natures[i]["health"],
-						nature.weeds_shadow[natures[i]["sprite_index"]],
+						nature._weeds_shadow[natures[i]["sprite_index"]],
 					)
 					tilemap.set_cell(
 						collision.nature_layer, 
@@ -389,8 +389,6 @@ func load_nature_nodes():
 						0, 
 						Vector2i(0, 3)
 					)
-				_:
-					pass
 
 func vectors_load():
 	create_terrains(
@@ -526,17 +524,17 @@ func load_buildings() -> void:
 
 		if data.has('value'):
 			match int(data['id']):
-				2:
+				2:	# composter
 					if data.has("total_items")\
 					&& data.has("state"):
 						node.composting = data['state']
 						node.composting_value = data['value']
 						node.update()
 						node.start_compost(data['total_items'])
-				7:
+				7:	# light
 					node.light.visible = data['value']
 					node.update()
-				9:
+				9:	# forge
 					if data.has("value")\
 					&& data.has("inProcessed")\
 					&& data.has("isDone")\
@@ -558,6 +556,10 @@ func load_buildings() -> void:
 							node.isDone = data['isDone']
 							node.ignot_id = data['ignotID']
 							node.ignot_amount = data['ignotAmount']
+				13:	# beehive
+					if data.has("value")\
+					&& data.has("honey_ready"):
+						farming.change_beehive_state(key, data['value'], data['honey_ready'])
 
 func get_dictionary_content(content:String, group:String = "") -> Dictionary:
 	match content:
@@ -764,6 +766,9 @@ func config_save() -> void:
 				"nature": GameConfig.nature,
 				"radio": GameConfig.radio,
 			},
+			"control": {
+				"movementType": GameConfig.movementType
+			}
 		}
 		file_save([path.main], file.config, config)
 	else:
@@ -780,6 +785,9 @@ func config_save() -> void:
 				"nature": 50,
 				"radio": 50,
 			},
+			"control": {
+				"movementType": 1
+			}
 		}
 		FileSystem.new().Funcs.create_directory(path.main)
 		file_save([path.main], file.config, config)
@@ -791,7 +799,7 @@ func config_load() -> void:
 		get_node("/root/"+main+"/Menu/Options").set_values(file_load(file.config))
 
 func start_newgame() -> void:
-	nature.create_start_nature()
+	nature.create_new_nature()
 	config_new()
 	config_load()
 	await get_tree().create_timer(2.5).timeout
@@ -801,7 +809,12 @@ func start_newgame() -> void:
 		'letter.for_new_player.signature',
 		500,
 		{
-			13:{"amount":42},
+			13:{"amount": 3},
+			15:{"amount": 3},
+			14:{"amount": 2},
+			16:{"amount": 1},
+			61:{"amount": 2},
+			62:{"amount": 1},
 		}
 	)
 

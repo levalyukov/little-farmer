@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://763kkvsba8hk"]
 
 [ext_resource type="Script" path="res://assets/scripts/farming/plant.gd" id="1_vh4nl"]
-[ext_resource type="Texture2D" uid="uid://dj1b5aexd5fug" path="res://assets/resources/farming/crops.png" id="2_fqbqe"]
+[ext_resource type="Texture2D" uid="uid://dana3q174dtwa" path="res://assets/resources/farming/crops.png" id="2_fqbqe"]
 [ext_resource type="Script" path="res://assets/scripts/farming/growth.gd" id="3_2xp2i"]
-[ext_resource type="Texture2D" uid="uid://dvw3xm1oamp11" path="res://assets/resources/ui/bubble.png" id="4_r6ff1"]
-[ext_resource type="Texture2D" uid="uid://bxggfkdp2kijv" path="res://assets/resources/ui/interactive/drop_water.png" id="5_rxqxx"]
+[ext_resource type="Texture2D" uid="uid://8875s7x2wtpd" path="res://assets/resources/ui/bubble.png" id="4_r6ff1"]
+[ext_resource type="Texture2D" uid="uid://d2fyvr7m4b4mh" path="res://assets/resources/ui/interactive/drop_water.png" id="5_rxqxx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0gu1o"]
 size = Vector2(12, 12)
@@ -55,7 +55,7 @@ script = ExtResource("1_vh4nl")
 position = Vector2(0, -8)
 texture = ExtResource("2_fqbqe")
 region_enabled = true
-region_rect = Rect2(0, 0, 16, 32)
+region_rect = Rect2(96, 32, 16, 32)
 script = ExtResource("3_2xp2i")
 
 [node name="Collision" type="Area2D" parent="."]

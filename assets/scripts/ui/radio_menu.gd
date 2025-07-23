@@ -50,6 +50,9 @@ var stations:Dictionary = {
 			'res://assets/sounds/music/radio/track#12.ogg',
 			'res://assets/sounds/music/radio/track#13.ogg',
 			'res://assets/sounds/music/radio/track#14.ogg',
+			'res://assets/sounds/music/radio/track#15.ogg',
+			'res://assets/sounds/music/radio/track#16.ogg',
+			'res://assets/sounds/music/radio/track#17.ogg',
 		]
 	},
 }

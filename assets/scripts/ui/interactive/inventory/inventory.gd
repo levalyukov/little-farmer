@@ -47,12 +47,12 @@ func _ready():
 	reset_data()
 	self.add_child(audio)
 
-	var test_index = 0
-	while inventory_items.size() < 100:
-		test_index += 1
-		inventory_items[str(test_index)] = {}
-		inventory_items[str(test_index)]['amount'] = 1000
-	test_index = 0
+	#	var test_index = 0
+	#	while inventory_items.size() < 100:
+	#		test_index += 1
+	#		inventory_items[str(test_index)] = {}
+	#		inventory_items[str(test_index)]['amount'] = 1000
+	#	test_index = 0
 
 func _input(_event):
 	if Input.is_action_just_pressed("esc")\
@@ -179,7 +179,7 @@ func get_data(index) -> void:
 					var index_str:int = 0
 					for i in item_types:
 						index_str += 1
-						type.text += tr(str(i))
+						type.text += tr(i)
 						if index_str == item_types.size()-1:
 							type.text += ', '
 					type.text += '\n'

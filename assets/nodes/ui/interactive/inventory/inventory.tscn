@@ -1,11 +1,11 @@
 [gd_scene load_steps=17 format=3 uid="uid://cjkwsdkyksvs3"]
 
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/inventory/inventory.gd" id="1_kyoeu"]
-[ext_resource type="Texture2D" uid="uid://belyhiespc6hj" path="res://assets/resources/ui/interactive/inventory/slots_panel.png" id="2_dkp81"]
-[ext_resource type="Texture2D" uid="uid://dtkym5bhfhpb" path="res://assets/resources/ui/menu_background.png" id="3_1if62"]
+[ext_resource type="Texture2D" uid="uid://btkl0jumqa7k" path="res://assets/resources/ui/interactive/inventory/slots_panel.png" id="2_dkp81"]
+[ext_resource type="Texture2D" uid="uid://vu80xmcywd5d" path="res://assets/resources/ui/menu_background.png" id="3_1if62"]
 [ext_resource type="Theme" uid="uid://btsx1m2p0i620" path="res://assets/resources/theme.tres" id="5_d6wwu"]
-[ext_resource type="Texture2D" uid="uid://idrcmhx6mgfv" path="res://assets/resources/ui/button_close_default.png" id="6_2b8lo"]
-[ext_resource type="Texture2D" uid="uid://baklqd1yo23jy" path="res://assets/resources/ui/button_close_hover.png" id="7_hkruc"]
+[ext_resource type="Texture2D" uid="uid://chvr2vye24gyg" path="res://assets/resources/ui/button_close_default.png" id="6_2b8lo"]
+[ext_resource type="Texture2D" uid="uid://bmyijjvc3gmj8" path="res://assets/resources/ui/button_close_hover.png" id="7_hkruc"]
 
 [sub_resource type="Theme" id="Theme_1fwai"]
 
@@ -212,6 +212,7 @@ size_flags_vertical = 0
 columns = 5
 
 [node name="Label" type="Label" parent="Main/HBoxContainer/InventoryContent"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 2
 text = "inventory.available_slots"

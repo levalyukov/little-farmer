@@ -177,7 +177,7 @@ func set_values(content:Dictionary) -> void:
 			var control = content['control']
 			if control.has('movementType'):
 				GameConfig.movementType = control['movementType']
-				controlMovementOptionButton.button_pressed = control['movementType']
+				controlMovementOptionButton.selected = control['movementType']
 
 func _saving() -> void:
 	# Graphic

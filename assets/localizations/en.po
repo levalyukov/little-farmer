@@ -38,27 +38,6 @@ msgid "main_menu.credits"
 msgstr "Developed by Studio Miroro ❤"
 
 #: levels/menu.tscn
-msgid "modal.early_version_header"
-msgstr "Welcome!"
-
-#: levels/menu.tscn
-msgid "modal.early_version_description"
-msgstr ""
-"The game is currently in early access, so you may \n"
-"encounter bugs/errors, unstable mechanics, or incomplete content.\n"
-"\n"
-"If you discover a bug, glitch, or notice that a mechanic is \n"
-"not functioning properly, please use the \"Report an Issue\"\n"
-" button in the pause menu.\n"
-"\n"
-"Thank you for joining us during this early stage of development!\n"
-"We appreciate your support as we refine the experience."
-
-#: levels/menu.tscn
-msgid "modal.modal_early_version_button"
-msgstr "OK"
-
-#: levels/menu.tscn
 msgid "main_menu.modal.credits_header"
 msgstr "Credits"
 
@@ -165,6 +144,14 @@ msgid "options.control.screenshot"
 msgstr "Screenshot"
 
 #: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.control.mouse"
+msgstr "Mouse"
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.control.keyboard"
+msgstr "Keyboard"
+
+#: assets/nodes/ui/interactive/options/options.tscn
 msgid "options.control.movement_input"
 msgstr "WASD"
 
@@ -183,6 +170,10 @@ msgstr "MMB"
 #: assets/nodes/ui/interactive/options/options.tscn
 msgid "options.control.screenshot_input"
 msgstr "F2"
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.control.movementType"
+msgstr "Way of Move"
 
 #: assets/nodes/ui/interactive/pause/pause.tscn
 msgid "pause.continue_button"
@@ -725,12 +716,10 @@ msgstr ""
 "spring seeds available for purchase!"
 
 #: assets/localizations/local.gd
-#| msgid "letter.for_new_player.header"
 msgid "letter.start_little_water_header"
 msgstr "Plants Need Watering"
 
 #: assets/localizations/local.gd
-#| msgid "letter.for_new_player.content"
 msgid "letter.start_little_water_content"
 msgstr ""
 "Hello Farmer!\n"
@@ -969,6 +958,39 @@ msgstr "Sawbench Blueprint"
 #: assets/localizations/local.gd
 msgid "blueprints.sawbench_blueprint.description"
 msgstr "Use to turn logs into planks quickly"
+
+#: assets/localizations/local.gd
+msgid "blueprints.fence.caption"
+msgstr "Wood Fence"
+
+#: assets/localizations/local.gd
+msgid "blueprints.fence.description"
+msgstr "Decorative fencing for your plot"
+
+#: assets/localizations/local.gd
+msgid "blueprints.fence_blueprint.caption"
+msgstr "Fence Blueprint"
+
+#: assets/localizations/local.gd
+msgid "blueprints.fence_blueprint.description"
+msgstr "Allows you to build wooden fences on your plot"
+
+#: assets/localizations/local.gd
+msgid "blueprints.beehive.caption"
+msgstr "Beehive"
+
+#: assets/localizations/local.gd
+msgid "blueprints.beehive.description"
+msgstr "A beehive for producing homegrown honey"
+
+#: assets/localizations/local.gd
+msgid "blueprints.beehive_blueprint.caption"
+msgstr "Beehive Blueprint"
+
+#: assets/localizations/local.gd
+msgid "blueprints.beehive_blueprint.description"
+msgstr ""
+"Set up an entire apiary on your land and produce your own homegrown honey"
 
 #: assets/localizations/local.gd
 msgid "items.log.caption"
@@ -1486,6 +1508,21 @@ msgid "items.premium_compost.description"
 msgstr "Accelerates plant growth by 75%. Apply before planting"
 
 #: assets/localizations/local.gd
+#| msgid "items.stone.caption"
+msgid "items.honey.caption"
+msgstr "Homemade honey"
+
+#: assets/localizations/local.gd
+#| msgid "items.stone.description"
+msgid "items.honey.description"
+msgstr "Sweet, viscous product produced by bees from nectar."
+
+#: assets/localizations/local.gd
+#| msgid "items.pepper.caption"
+msgid "items.type.own_production"
+msgstr "Product Own Production"
+
+#: assets/localizations/local.gd
 msgid "crops.carrot"
 msgstr "Carrot"
 
@@ -1710,6 +1747,52 @@ msgstr "Remove Nature"
 #: assets/nodes/ui/hud/elements/tools/destroy_menu/button_terrain.tscn
 msgid "ui.tools.terrain_destroy_button"
 msgstr "Destroy Landscape"
+
+#: assets/scripts/construction/buildings/beehive.gd
+msgid "object.beehive.caption"
+msgstr "Beehive"
+
+#: assets/scripts/construction/buildings/beehive.gd
+msgid "object.beehive_spring.description"
+msgstr ""
+"Bees awaken from their winter \n"
+"slumber and begin their first nectar-gathering flights."
+
+#: assets/scripts/construction/buildings/beehive.gd
+msgid "object.beehive_summer.description"
+msgstr ""
+"At the height of summer, bees work tirelessly, \n"
+"carrying nectar and pollen back to the hive."
+
+#: assets/scripts/construction/buildings/beehive.gd
+msgid "object.beehive_autumn.description"
+msgstr ""
+"Bees finish gathering honey and ready \n"
+"the hive for winter, processing their final stores."
+
+#: assets/scripts/construction/buildings/beehive.gd
+msgid "object.beehive_winter.description"
+msgstr ""
+"In the winter cold, bees doze in a tight cluster, \n"
+"conserving energy and warmth until spring."
+
+#~ msgid "modal.early_version_header"
+#~ msgstr "Welcome!"
+
+#~ msgid "modal.early_version_description"
+#~ msgstr ""
+#~ "The game is currently in early access, so you may \n"
+#~ "encounter bugs/errors, unstable mechanics, or incomplete content.\n"
+#~ "\n"
+#~ "If you discover a bug, glitch, or notice that a mechanic is \n"
+#~ "not functioning properly, please use the \"Report an Issue\"\n"
+#~ " button in the pause menu.\n"
+#~ "\n"
+#~ "Thank you for joining us during this early stage of development!\n"
+#~ "We appreciate your support as we refine the experience."
+
+#~ msgid "modal.modal_early_version_button"
+#~ msgstr "OK"
 
 #~ msgid "hud.game_saved_title"
 #~ msgstr "Save..."

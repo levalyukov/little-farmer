@@ -11,17 +11,14 @@
 [ext_resource type="Script" path="res://assets/scripts/world/teleports.gd" id="11_guis6"]
 [ext_resource type="PackedScene" uid="uid://cjxf5fki0vra2" path="res://assets/nodes/world/day-night.tscn" id="12_ut2ww"]
 [ext_resource type="PackedScene" uid="uid://boitxnv4ptxu6" path="res://assets/nodes/ui/ui.tscn" id="13_0q8u5"]
-[ext_resource type="Texture2D" uid="uid://yp3bniyf8okh" path="res://assets/resources/world/landscape/summer/ground.png" id="14_us5wm"]
-[ext_resource type="Texture2D" uid="uid://t43bkganfwc2" path="res://assets/resources/world/landscape/summer/roads.png" id="15_5pw4s"]
-[ext_resource type="Texture2D" uid="uid://ct8q5yky1trjp" path="res://assets/resources/world/landscape/summer/farmlands.png" id="16_7f7f1"]
-[ext_resource type="Texture2D" uid="uid://ccr3ke5gtg4s8" path="res://assets/resources/world/landscape/summer/coasts.png" id="16_abjgl"]
+[ext_resource type="Texture2D" uid="uid://b76t3eldamplh" path="res://assets/resources/world/landscape/summer/ground.png" id="14_us5wm"]
+[ext_resource type="Texture2D" uid="uid://bf8k2il4noii5" path="res://assets/resources/world/landscape/summer/roads.png" id="15_5pw4s"]
+[ext_resource type="Texture2D" uid="uid://d28g3qf340ub" path="res://assets/resources/world/landscape/summer/farmlands.png" id="16_7f7f1"]
+[ext_resource type="Texture2D" uid="uid://b8qfybr3p0nm3" path="res://assets/resources/world/landscape/summer/coasts.png" id="16_abjgl"]
 [ext_resource type="Script" path="res://assets/scripts/world/tilemap.gd" id="16_bnx43"]
-[ext_resource type="Texture2D" uid="uid://in05cj5j74yi" path="res://assets/resources/world/landscape/summer/water.png" id="17_721hs"]
-[ext_resource type="Texture2D" uid="uid://b2cqet80nv2ie" path="res://assets/resources/world/landscape/summer/waterings.png" id="17_nnsex"]
+[ext_resource type="Texture2D" uid="uid://c2rhb63lrolgd" path="res://assets/resources/world/landscape/summer/water.png" id="17_721hs"]
+[ext_resource type="Texture2D" uid="uid://bg6qyk751ky3x" path="res://assets/resources/world/landscape/summer/waterings.png" id="17_nnsex"]
 [ext_resource type="Script" path="res://assets/data/GreenhouseManager.gd" id="19_y3etm"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vtsph"]
-size = Vector2(64, 32)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0xt3b"]
 texture = ExtResource("14_us5wm")
@@ -1579,6 +1576,9 @@ sources/3 = SubResource("TileSetAtlasSource_dd002")
 sources/4 = SubResource("TileSetAtlasSource_7baxs")
 sources/5 = SubResource("TileSetAtlasSource_r0wdi")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_snkov"]
+size = Vector2(32, 15.5)
+
 [node name="Greenhouse" type="Node2D"]
 script = ExtResource("1_p5ud0")
 
@@ -1602,19 +1602,6 @@ visible = false
 position = Vector2(33, 120)
 
 [node name="FarmingManager" parent="." instance=ExtResource("10_14mju")]
-
-[node name="Teleports" type="Node" parent="."]
-
-[node name="Village" type="Node2D" parent="Teleports"]
-z_index = 6
-z_as_relative = false
-script = ExtResource("11_guis6")
-
-[node name="Area2D" type="Area2D" parent="Teleports/Village"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Teleports/Village/Area2D"]
-position = Vector2(32, 112)
-shape = SubResource("RectangleShape2D_vtsph")
 
 [node name="Day-Night Cycle" parent="." instance=ExtResource("12_ut2ww")]
 
@@ -1646,5 +1633,17 @@ script = ExtResource("16_bnx43")
 [node name="GreenhouseManager" type="Node2D" parent="."]
 script = ExtResource("19_y3etm")
 
-[connection signal="mouse_entered" from="Teleports/Village/Area2D" to="Teleports/Village" method="_on_area_2d_mouse_entered"]
-[connection signal="mouse_exited" from="Teleports/Village/Area2D" to="Teleports/Village" method="_on_area_2d_mouse_exited"]
+[node name="Teleports" type="Node" parent="."]
+
+[node name="Village" type="Node2D" parent="Teleports"]
+z_index = 6
+z_as_relative = false
+script = ExtResource("11_guis6")
+
+[node name="Area2D" type="Area2D" parent="Teleports/Village"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Teleports/Village/Area2D"]
+position = Vector2(32, 112.25)
+shape = SubResource("RectangleShape2D_snkov")
+
+[connection signal="body_entered" from="Teleports/Village/Area2D" to="Teleports/Village" method="_on_area_2d_body_entered"]

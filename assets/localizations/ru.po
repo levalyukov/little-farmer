@@ -39,27 +39,6 @@ msgid "main_menu.credits"
 msgstr "Разработано Studio Miroro ❤"
 
 #: levels/menu.tscn
-msgid "modal.early_version_header"
-msgstr "Добро пожаловать!"
-
-#: levels/menu.tscn
-msgid "modal.early_version_description"
-msgstr ""
-"Игра находится в раннем доступе, поэтому Вы можете\n"
-"столкнуться с багами/ошибками, нестабильной \n"
-"работой механик и неполным контентом. \n"
-"\n"
-"Если Вы нашли баг, недочет или какая-то механика \n"
-"перестала корректно работать, используйте кнопку \n"
-"в меню паузы «Сообщить об ошибке».\n"
-"\n"
-"Спасибо, что присоединились к нам на этом этапе разработки!"
-
-#: levels/menu.tscn
-msgid "modal.modal_early_version_button"
-msgstr "Хорошо"
-
-#: levels/menu.tscn
 msgid "main_menu.modal.credits_header"
 msgstr "Титры"
 
@@ -165,6 +144,14 @@ msgid "options.control.screenshot"
 msgstr "Скриншот"
 
 #: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.control.mouse"
+msgstr "Мышь"
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.control.keyboard"
+msgstr "WASD"
+
+#: assets/nodes/ui/interactive/options/options.tscn
 msgid "options.control.movement_input"
 msgstr "WASD"
 
@@ -183,6 +170,10 @@ msgstr "СКМ"
 #: assets/nodes/ui/interactive/options/options.tscn
 msgid "options.control.screenshot_input"
 msgstr "F2"
+
+#: assets/nodes/ui/interactive/options/options.tscn
+msgid "options.control.movementType"
+msgstr "Камера"
 
 #: assets/nodes/ui/interactive/pause/pause.tscn
 msgid "pause.continue_button"
@@ -731,12 +722,10 @@ msgstr ""
 "завтрашнего дня у меня можно приобрести весенние семена."
 
 #: assets/localizations/local.gd
-#| msgid "letter.for_new_player.header"
 msgid "letter.start_little_water_header"
 msgstr "Поливка растений"
 
 #: assets/localizations/local.gd
-#| msgid "letter.for_new_player.content"
 msgid "letter.start_little_water_content"
 msgstr ""
 "Привет, фермер!\n"
@@ -987,6 +976,38 @@ msgstr "Чертеж пилостола"
 #: assets/localizations/local.gd
 msgid "blueprints.sawbench_blueprint.description"
 msgstr "При помощи пилостола можно быстро распилить бревна на доски"
+
+#: assets/localizations/local.gd
+msgid "blueprints.fence.caption"
+msgstr "Забор"
+
+#: assets/localizations/local.gd
+msgid "blueprints.fence.description"
+msgstr "Декоративное ограждения для вашего участка."
+
+#: assets/localizations/local.gd
+msgid "blueprints.fence_blueprint.caption"
+msgstr "Чертеж забора"
+
+#: assets/localizations/local.gd
+msgid "blueprints.fence_blueprint.description"
+msgstr "Позволяет строить деревянные ограждения на вашем участке."
+
+#: assets/localizations/local.gd
+msgid "blueprints.beehive.caption"
+msgstr "Улей"
+
+#: assets/localizations/local.gd
+msgid "blueprints.beehive.description"
+msgstr "Домик для пчел, которые производят домашний мёд."
+
+#: assets/localizations/local.gd
+msgid "blueprints.beehive_blueprint.caption"
+msgstr "Чертеж улья"
+
+#: assets/localizations/local.gd
+msgid "blueprints.beehive_blueprint.description"
+msgstr "Разбейте на своем участке целую пасеку и производите домашний мёд!"
 
 #: assets/localizations/local.gd
 msgid "items.log.caption"
@@ -1513,6 +1534,18 @@ msgid "items.premium_compost.description"
 msgstr "Ускоряет время роста растения на 75%. Удобрять перед посевом"
 
 #: assets/localizations/local.gd
+msgid "items.honey.caption"
+msgstr "Домашний мёд"
+
+#: assets/localizations/local.gd
+msgid "items.honey.description"
+msgstr "Сладкий, вязкий продукт, вырабатываемый пчелами из нектара."
+
+#: assets/localizations/local.gd
+msgid "items.type.own_production"
+msgstr "Товар Собственного Производства"
+
+#: assets/localizations/local.gd
 msgid "crops.carrot"
 msgstr "Морковь"
 
@@ -1738,6 +1771,62 @@ msgstr "Убрать растения"
 #: assets/nodes/ui/hud/elements/tools/destroy_menu/button_terrain.tscn
 msgid "ui.tools.terrain_destroy_button"
 msgstr "Уничтожить ландшафт"
+
+#: assets/scripts/construction/buildings/beehive.gd
+msgid "object.beehive.caption"
+msgstr "Улей"
+
+#: assets/scripts/construction/buildings/beehive.gd
+msgid "object.beehive_spring.description"
+msgstr ""
+"Пчелы пробуждаются от зимнего сна \n"
+"и начинают первые вылеты за нектаром."
+
+#: assets/scripts/construction/buildings/beehive.gd
+msgid "object.beehive_summer.description"
+msgstr ""
+"В разгар сезона пчелы трудятся не \n"
+"покладая крыльев, нося в улей нектар и пыльцу."
+
+#: assets/scripts/construction/buildings/beehive.gd
+msgid "object.beehive_autumn.description"
+msgstr ""
+"Пчелы заканчивают медосбор и готовят \n"
+"улей к холодам, консервируя последние запасы."
+
+#: assets/scripts/construction/buildings/beehive.gd
+msgid "object.beehive_winter.description"
+msgstr ""
+"В морозы пчелы дремлют в \n"
+"тесном клубке, экономя силы и тепло до весны."
+
+#, fuzzy
+#~| msgid "blueprints.barn.caption"
+#~ msgid "blueprints.alveare.caption"
+#~ msgstr "Хлев"
+
+#, fuzzy
+#~| msgid "blueprints.barn.description"
+#~ msgid "blueprints.alveare.description"
+#~ msgstr "Место для содержания скота"
+
+#~ msgid "modal.early_version_header"
+#~ msgstr "Добро пожаловать!"
+
+#~ msgid "modal.early_version_description"
+#~ msgstr ""
+#~ "Игра находится в раннем доступе, поэтому Вы можете\n"
+#~ "столкнуться с багами/ошибками, нестабильной \n"
+#~ "работой механик и неполным контентом. \n"
+#~ "\n"
+#~ "Если Вы нашли баг, недочет или какая-то механика \n"
+#~ "перестала корректно работать, используйте кнопку \n"
+#~ "в меню паузы «Сообщить об ошибке».\n"
+#~ "\n"
+#~ "Спасибо, что присоединились к нам на этом этапе разработки!"
+
+#~ msgid "modal.modal_early_version_button"
+#~ msgstr "Хорошо"
 
 #~ msgid "hud.game_saved_title"
 #~ msgstr "Сохранение..."

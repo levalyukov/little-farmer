@@ -1,11 +1,28 @@
-[gd_scene load_steps=3 format=3 uid="uid://1cerbmfbqid"]
+[gd_scene load_steps=7 format=3 uid="uid://1cerbmfbqid"]
 
 [ext_resource type="Script" path="res://assets/scripts/world/nature/nature_obj.gd" id="1_r40df"]
-[ext_resource type="Texture2D" uid="uid://biaoqgl1773hf" path="res://assets/resources/world/trees/winter/tree_1.png" id="1_tm38x"]
+[ext_resource type="Shader" path="res://assets/shaders/wind.gdshader" id="2_3hrw5"]
+[ext_resource type="Texture2D" uid="uid://b3hryqa3r3yj0" path="res://assets/resources/world/trees/summer/tree_1.png" id="3_fopxe"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_32gnv"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_uchiv"]
+noise = SubResource("FastNoiseLite_32gnv")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sy0sw"]
+shader = ExtResource("2_3hrw5")
+shader_parameter/render_noise = false
+shader_parameter/amplitude = 0.05
+shader_parameter/time_scale = 0.04
+shader_parameter/noise_scale = 0.001
+shader_parameter/rotation_strength = 1.0
+shader_parameter/rotation_pivot = Vector2(0.55, 0.75)
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_uchiv")
 
 [node name="Tree" type="Node2D"]
 script = ExtResource("1_r40df")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_sy0sw")
 position = Vector2(0, -16)
-texture = ExtResource("1_tm38x")
+texture = ExtResource("3_fopxe")
