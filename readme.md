@@ -1,10 +1,10 @@
 # Little Farmer
 
-**Little Farmer** is a 2D farm simulator with a top view.
+**Little Farmer** is a 2D farm simulator with a top view. Relaxing Farming Simulator. Immerse yourself in an atmosphere of calm and creativity!
 
 ![screenshot_1](https://sun9-41.userapi.com/s/v1/if2/1M5Xf6QBYWbyS_9UTPkmq_ekYFabyo8dObE_GEX4kfruqaU_qlzxkCxDRni8hh295BSJ96Ztf381deTVQ-T_DD22.jpg?quality=95&as=32x17,48x25,72x38,108x57,160x84,240x126,360x189,480x252,540x284,640x336,720x379,1080x568,1280x673&from=bu&cs=1280x0)
 
-**Project status**: Under development
+**Project status**: [Released](https://vkplay.ru/play/game/little-farmer/)
 
 ## Key Features
 
