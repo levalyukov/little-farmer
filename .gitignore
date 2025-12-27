@@ -21,3 +21,4 @@ assets/localizations/en.mo
 .godot/editor/filesystem_update4
 *.oggvorbisstr
 *.import
+/.godot
