@@ -65,8 +65,7 @@ func _process(_delta):
 				else:
 					grid_dimensions = Vector2i(1,1)
 					generate_grid()
-			else:
-				disabled_grid()
+			else: disabled_grid()
 					
 		modes.WATERING:
 			collision.watering_collision_check()
@@ -134,36 +133,19 @@ func _input(event):
 				match mode:
 					modes.DESTROY:
 						match destroy_mode:
-							destroy.TERRAINS:
-								destroy_terrains()
-							destroy.NATURE:
-								destroy_nature()
-
-					modes.FARMING:
-						farming()
-
-					modes.WATERING:
-						watering()
-
-					modes.PLANTING:
-						planting()
-
-					modes.HARVESTING:
-						harvesting()
-
+							destroy.TERRAINS:destroy_terrains()
+							destroy.NATURE:destroy_nature()
+					modes.FARMING:farming()
+					modes.WATERING:watering()
+					modes.PLANTING:planting()
+					modes.HARVESTING:harvesting()
 					modes.BUILD:
 						var global_mouse_position = get_global_mouse_position()
 						var tile_position = tilemap.local_to_map(global_mouse_position)
 						building(tile_position)
-
-					modes.TERRAIN_SET:
-						terrain()
-
-					modes.UPGRADE:
-						upgrade()
-
-					modes.FERTILIZER:
-						fertilizer()
+					modes.TERRAIN_SET:terrain()
+					modes.UPGRADE:upgrade()
+					modes.FERTILIZER:fertilizer()
 			else:
 				disabled_grid()
 

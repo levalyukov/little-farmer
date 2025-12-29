@@ -1,17 +1,16 @@
-[gd_scene load_steps=26 format=3 uid="uid://dd01cpmdrnrbt"]
+[gd_scene load_steps=25 format=3 uid="uid://dd01cpmdrnrbt"]
 
 [ext_resource type="Script" path="res://assets/scripts/ui/forge_menu.gd" id="1_m0ga3"]
 [ext_resource type="Theme" uid="uid://btsx1m2p0i620" path="res://assets/resources/theme.tres" id="2_3m6bk"]
-[ext_resource type="Texture2D" uid="uid://dtkym5bhfhpb" path="res://assets/resources/ui/menu_background.png" id="3_0ehhf"]
-[ext_resource type="Texture2D" uid="uid://c3yf44sxb8a8o" path="res://assets/resources/ui/menu_background_middle.png" id="4_8sbfe"]
-[ext_resource type="Texture2D" uid="uid://cdxqxalncqobp" path="res://assets/resources/ui/menu_background_secondary.png" id="5_1l6l6"]
-[ext_resource type="Texture2D" uid="uid://dbloprrhbnsew" path="res://assets/resources/ui/interactive/inventory/items/resources/copper_ore.png" id="6_q6hc4"]
-[ext_resource type="Texture2D" uid="uid://bi3yf8j3kyg6b" path="res://assets/resources/ui/interactive/inventory/items/resources/coal.png" id="7_a8ptl"]
-[ext_resource type="Texture2D" uid="uid://djjw12u5emhjd" path="res://assets/resources/ui/interactive/stone_over_icon.png" id="8_nymge"]
-[ext_resource type="Texture2D" uid="uid://co1wwd0jmy6bl" path="res://assets/resources/ui/interactive/inventory/items/resources/copper_ingot.png" id="9_vk7il"]
-[ext_resource type="PackedScene" uid="uid://do4e681e4p00n" path="res://assets/nodes/ui/interactive/inventory/slot.tscn" id="10_gca0t"]
-[ext_resource type="Texture2D" uid="uid://idrcmhx6mgfv" path="res://assets/resources/ui/button_close_default.png" id="10_lm7ir"]
-[ext_resource type="Texture2D" uid="uid://baklqd1yo23jy" path="res://assets/resources/ui/button_close_hover.png" id="11_3ddf3"]
+[ext_resource type="Texture2D" uid="uid://xawi3wfa2nr" path="res://assets/resources/ui/menu_background.png" id="3_0ehhf"]
+[ext_resource type="Texture2D" uid="uid://lnugitusjfrv" path="res://assets/resources/ui/menu_background_middle.png" id="4_8sbfe"]
+[ext_resource type="Texture2D" uid="uid://dbiuqxuroik25" path="res://assets/resources/ui/menu_background_secondary.png" id="5_1l6l6"]
+[ext_resource type="Texture2D" uid="uid://dry2prdtb4mcs" path="res://assets/resources/ui/interactive/inventory/items/resources/copper_ore.png" id="6_q6hc4"]
+[ext_resource type="Texture2D" uid="uid://ba0ccvx3bluj8" path="res://assets/resources/ui/interactive/inventory/items/resources/coal.png" id="7_a8ptl"]
+[ext_resource type="Texture2D" uid="uid://wxpbvi2xxp5f" path="res://assets/resources/ui/interactive/stone_over_icon.png" id="8_nymge"]
+[ext_resource type="Texture2D" uid="uid://dbdhtkdh10meg" path="res://assets/resources/ui/interactive/inventory/items/resources/copper_ingot.png" id="9_vk7il"]
+[ext_resource type="Texture2D" uid="uid://bfourek6duls8" path="res://assets/resources/ui/button_close_default.png" id="10_lm7ir"]
+[ext_resource type="Texture2D" uid="uid://yrltk755fjqj" path="res://assets/resources/ui/button_close_hover.png" id="11_3ddf3"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ta3p3"]
 
@@ -377,66 +376,6 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 6
 columns = 5
-
-[node name="Slot" parent="Panel/VBox/PlayerInventory/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("10_gca0t")]
-layout_mode = 2
-
-[node name="Slot2" parent="Panel/VBox/PlayerInventory/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("10_gca0t")]
-layout_mode = 2
-
-[node name="Slot3" parent="Panel/VBox/PlayerInventory/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("10_gca0t")]
-layout_mode = 2
-
-[node name="Slot4" parent="Panel/VBox/PlayerInventory/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("10_gca0t")]
-layout_mode = 2
-
-[node name="Slot5" parent="Panel/VBox/PlayerInventory/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("10_gca0t")]
-layout_mode = 2
-
-[node name="Slot6" parent="Panel/VBox/PlayerInventory/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("10_gca0t")]
-layout_mode = 2
-
-[node name="Slot7" parent="Panel/VBox/PlayerInventory/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("10_gca0t")]
-layout_mode = 2
-
-[node name="Slot8" parent="Panel/VBox/PlayerInventory/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("10_gca0t")]
-layout_mode = 2
-
-[node name="Slot9" parent="Panel/VBox/PlayerInventory/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("10_gca0t")]
-layout_mode = 2
-
-[node name="Slot10" parent="Panel/VBox/PlayerInventory/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("10_gca0t")]
-layout_mode = 2
-
-[node name="Slot11" parent="Panel/VBox/PlayerInventory/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("10_gca0t")]
-layout_mode = 2
-
-[node name="Slot12" parent="Panel/VBox/PlayerInventory/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("10_gca0t")]
-layout_mode = 2
-
-[node name="Slot13" parent="Panel/VBox/PlayerInventory/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("10_gca0t")]
-layout_mode = 2
-
-[node name="Slot14" parent="Panel/VBox/PlayerInventory/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("10_gca0t")]
-layout_mode = 2
-
-[node name="Slot15" parent="Panel/VBox/PlayerInventory/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("10_gca0t")]
-layout_mode = 2
-
-[node name="Slot16" parent="Panel/VBox/PlayerInventory/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("10_gca0t")]
-layout_mode = 2
-
-[node name="Slot17" parent="Panel/VBox/PlayerInventory/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("10_gca0t")]
-layout_mode = 2
-
-[node name="Slot18" parent="Panel/VBox/PlayerInventory/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("10_gca0t")]
-layout_mode = 2
-
-[node name="Slot19" parent="Panel/VBox/PlayerInventory/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("10_gca0t")]
-layout_mode = 2
-
-[node name="Slot20" parent="Panel/VBox/PlayerInventory/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("10_gca0t")]
-layout_mode = 2
 
 [node name="CloseButton" type="Button" parent="."]
 layout_mode = 1

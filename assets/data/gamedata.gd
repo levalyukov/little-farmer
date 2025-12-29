@@ -21,13 +21,10 @@ extends Node
 
 var music:AudioStreamPlayer = AudioStreamPlayer.new()
 var music_cooldown:Timer = Timer.new()
-
 var autosave_timer:Timer
-
 var global_index_audio = -1
 var target_left_time:float = 0.0
 var target_wait_time:float = 0.0
-
 const music_wait_cooldown:Array[float] = [60.0, 120.0]
 
 const path:Dictionary = {
@@ -383,11 +380,8 @@ func load_nature_nodes():
 					)
 					tilemap.set_cell(
 						collision.nature_layer, 
-						string_to_vector(
-							natures[i]["position"]
-							), 
-						0, 
-						Vector2i(0, 3)
+						string_to_vector(natures[i]["position"]), 
+						0, Vector2i(0, 3)
 					)
 
 func vectors_load():

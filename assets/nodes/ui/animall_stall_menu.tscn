@@ -1,0 +1,280 @@
+[gd_scene load_steps=18 format=3 uid="uid://brkc54uu3pb7a"]
+
+[ext_resource type="Theme" uid="uid://btsx1m2p0i620" path="res://assets/resources/theme.tres" id="1_t5vit"]
+[ext_resource type="Script" path="res://assets/scripts/ui/animall_stall_menu.gd" id="2_dryix"]
+[ext_resource type="Texture2D" uid="uid://xawi3wfa2nr" path="res://assets/resources/ui/menu_background.png" id="2_ygnoh"]
+[ext_resource type="Texture2D" uid="uid://lnugitusjfrv" path="res://assets/resources/ui/menu_background_middle.png" id="3_dqsaw"]
+[ext_resource type="Texture2D" uid="uid://c4bs1dg3vjffi" path="res://assets/resources/buildings/stall/level_1/summer/object_0.png" id="3_f0dge"]
+[ext_resource type="Texture2D" uid="uid://b11i2j562y636" path="res://assets/resources/ui/interactive/inventory/close_default.png" id="6_vgn86"]
+[ext_resource type="Texture2D" uid="uid://b37uka0sqy2ox" path="res://assets/resources/ui/interactive/inventory/close_hover.png" id="7_6ndj7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xetcs"]
+font_size = 22
+outline_size = 1
+
+[sub_resource type="Animation" id="Animation_ycfgj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_imx28"]
+resource_name = "close"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_check_window"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_syr0q"]
+resource_name = "open"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_check_window"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1h506"]
+_data = {
+"RESET": SubResource("Animation_ycfgj"),
+"close": SubResource("Animation_imx28"),
+"open": SubResource("Animation_syr0q")
+}
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xi5eo"]
+texture = ExtResource("6_vgn86")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ve6ml"]
+texture = ExtResource("7_6ndj7")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1g8g0"]
+texture = ExtResource("7_6ndj7")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8n5l4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_10deh"]
+
+[node name="AnimallStallMenu" type="Control"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_t5vit")
+script = ExtResource("2_dryix")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -384.0
+offset_top = -214.5
+offset_right = 384.0
+offset_bottom = 214.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="NinePatchRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_right = 10
+
+[node name="StallInfo" type="NinePatchRect" parent="NinePatchRect/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_t5vit")
+texture = ExtResource("2_ygnoh")
+region_rect = Rect2(0, 0, 128, 64)
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+
+[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect/HBoxContainer/MarginContainer2/StallInfo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/HBoxContainer/MarginContainer2/StallInfo/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect/HBoxContainer/MarginContainer2/StallInfo/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="AnimalInfoContainer" type="VBoxContainer" parent="NinePatchRect/HBoxContainer/MarginContainer2/StallInfo/MarginContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer3" type="MarginContainer" parent="NinePatchRect/HBoxContainer/MarginContainer2/StallInfo/MarginContainer/HBoxContainer/MarginContainer/AnimalInfoContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 17
+
+[node name="TextureRect" type="TextureRect" parent="NinePatchRect/HBoxContainer/MarginContainer2/StallInfo/MarginContainer/HBoxContainer/MarginContainer/AnimalInfoContainer/MarginContainer3"]
+custom_minimum_size = Vector2(0, 128)
+layout_mode = 2
+texture = ExtResource("3_f0dge")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect/HBoxContainer/MarginContainer2/StallInfo/MarginContainer/HBoxContainer/MarginContainer/AnimalInfoContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Label" type="Label" parent="NinePatchRect/HBoxContainer/MarginContainer2/StallInfo/MarginContainer/HBoxContainer/MarginContainer/AnimalInfoContainer/MarginContainer"]
+layout_mode = 2
+text = "Stall Name"
+label_settings = SubResource("LabelSettings_xetcs")
+horizontal_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="NinePatchRect/HBoxContainer/MarginContainer2/StallInfo/MarginContainer/HBoxContainer/MarginContainer/AnimalInfoContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="NinePatchRect/HBoxContainer/MarginContainer2/StallInfo/MarginContainer/HBoxContainer/MarginContainer/AnimalInfoContainer/MarginContainer2"]
+layout_mode = 2
+text = "Stall Name"
+
+[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+
+[node name="NinePatchRect" type="NinePatchRect" parent="NinePatchRect/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("3_dqsaw")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+
+[node name="ScrollContainer" type="ScrollContainer" parent="NinePatchRect/HBoxContainer/MarginContainer/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 16.0
+offset_right = -8.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect/HBoxContainer/MarginContainer/NinePatchRect/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/HBoxContainer/MarginContainer/NinePatchRect/ScrollContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1h506")
+}
+
+[node name="CloseButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 368.0
+offset_top = -233.0
+offset_right = 400.0
+offset_bottom = -201.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_xi5eo")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ve6ml")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_1g8g0")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_8n5l4")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_10deh")
+
+[connection signal="mouse_entered" from="CloseButton" to="." method="_on_close_button_mouse_entered"]
+[connection signal="mouse_exited" from="CloseButton" to="." method="_on_close_button_mouse_exited"]
+[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

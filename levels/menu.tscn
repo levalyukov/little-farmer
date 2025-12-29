@@ -6,12 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://c16oacn0qg214" path="res://assets/nodes/ui/decorative/blur.tscn" id="2_jinr7"]
 [ext_resource type="PackedScene" uid="uid://bhadiamik4ev0" path="res://assets/nodes/ui/interactive/options/options.tscn" id="2_m3gij"]
 [ext_resource type="PackedScene" uid="uid://b51o72a5t51k6" path="res://assets/nodes/ui/modal.tscn" id="3_m8me6"]
-[ext_resource type="Texture2D" uid="uid://b4l18blctmy2d" path="res://logo.png" id="5_k5cee"]
-[ext_resource type="Texture2D" uid="uid://brtj7xcaejt4j" path="res://assets/resources/ui/button_default.png" id="6_uq7gr"]
+[ext_resource type="Texture2D" uid="uid://8a8etgv8q0b7" path="res://logo.png" id="5_k5cee"]
+[ext_resource type="Texture2D" uid="uid://wx85e5dgxor3" path="res://assets/resources/ui/button_default.png" id="6_uq7gr"]
 [ext_resource type="Script" path="res://assets/data/gamedata.gd" id="7_7q651"]
-[ext_resource type="Texture2D" uid="uid://casql1v61pvu8" path="res://assets/resources/ui/button_hover.png" id="7_ioe06"]
-[ext_resource type="Texture2D" uid="uid://bpjqxxt25etdc" path="res://assets/resources/ui/button_pressed.png" id="8_qn8sj"]
-[ext_resource type="Texture2D" uid="uid://dssjna2ogusu7" path="res://assets/resources/ui/button_disabled.png" id="9_er6dx"]
+[ext_resource type="Texture2D" uid="uid://gfefh7s35hv4" path="res://assets/resources/ui/button_hover.png" id="7_ioe06"]
+[ext_resource type="Texture2D" uid="uid://cmw1jplx3tyg5" path="res://assets/resources/ui/button_pressed.png" id="8_qn8sj"]
+[ext_resource type="Texture2D" uid="uid://dt848bhd75gat" path="res://assets/resources/ui/button_disabled.png" id="9_er6dx"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nneai"]
 texture = ExtResource("6_uq7gr")

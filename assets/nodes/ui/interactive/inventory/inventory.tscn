@@ -1,11 +1,11 @@
 [gd_scene load_steps=17 format=3 uid="uid://cjkwsdkyksvs3"]
 
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/inventory/inventory.gd" id="1_kyoeu"]
-[ext_resource type="Texture2D" uid="uid://btkl0jumqa7k" path="res://assets/resources/ui/interactive/inventory/slots_panel.png" id="2_dkp81"]
-[ext_resource type="Texture2D" uid="uid://vu80xmcywd5d" path="res://assets/resources/ui/menu_background.png" id="3_1if62"]
+[ext_resource type="Texture2D" uid="uid://bln0bb6o2faoy" path="res://assets/resources/ui/interactive/inventory/slots_panel.png" id="2_dkp81"]
+[ext_resource type="Texture2D" uid="uid://xawi3wfa2nr" path="res://assets/resources/ui/menu_background.png" id="3_1if62"]
 [ext_resource type="Theme" uid="uid://btsx1m2p0i620" path="res://assets/resources/theme.tres" id="5_d6wwu"]
-[ext_resource type="Texture2D" uid="uid://chvr2vye24gyg" path="res://assets/resources/ui/button_close_default.png" id="6_2b8lo"]
-[ext_resource type="Texture2D" uid="uid://bmyijjvc3gmj8" path="res://assets/resources/ui/button_close_hover.png" id="7_hkruc"]
+[ext_resource type="Texture2D" uid="uid://bfourek6duls8" path="res://assets/resources/ui/button_close_default.png" id="6_2b8lo"]
+[ext_resource type="Texture2D" uid="uid://yrltk755fjqj" path="res://assets/resources/ui/button_close_hover.png" id="7_hkruc"]
 
 [sub_resource type="Theme" id="Theme_1fwai"]
 
@@ -249,8 +249,8 @@ alignment = 1
 [node name="ItemIconContainer" type="MarginContainer" parent="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_constants/margin_top = 25
-theme_override_constants/margin_bottom = 25
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 16
 
 [node name="TextureRect" type="TextureRect" parent="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/ItemIconContainer"]
 custom_minimum_size = Vector2(128, 128)
@@ -261,9 +261,9 @@ stretch_mode = 5
 
 [node name="HeaderContainer" type="MarginContainer" parent="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 25
-theme_override_constants/margin_right = 25
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 8
 
 [node name="Header" type="Label" parent="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/HeaderContainer"]
 layout_mode = 2
@@ -273,9 +273,9 @@ autowrap_mode = 3
 
 [node name="ContentContainer" type="MarginContainer" parent="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 25
-theme_override_constants/margin_right = 25
-theme_override_constants/margin_bottom = 15
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 4
 
 [node name="Content" type="Label" parent="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/ContentContainer"]
 layout_mode = 2
@@ -283,34 +283,33 @@ autowrap_mode = 3
 
 [node name="Specifications" type="MarginContainer" parent="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 25
-theme_override_constants/margin_right = 25
-theme_override_constants/margin_bottom = 15
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 16
 
 [node name="Specifications" type="Label" parent="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/Specifications"]
 layout_mode = 2
 autowrap_mode = 3
 
-[node name="Type" type="MarginContainer" parent="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 25
-theme_override_constants/margin_right = 25
-theme_override_constants/margin_bottom = 15
-
-[node name="Type" type="Label" parent="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/Type"]
-layout_mode = 2
-autowrap_mode = 3
-
 [node name="ButtonContainer" type="MarginContainer" parent="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 25
-theme_override_constants/margin_right = 25
-theme_override_constants/margin_bottom = 25
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
 
 [node name="Button" type="Button" parent="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/ButtonContainer"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 text_overrun_behavior = 3
+
+[node name="Type" type="MarginContainer" parent="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 8
+
+[node name="Type" type="Label" parent="Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/Type"]
+layout_mode = 2
+autowrap_mode = 3
 
 [node name="Close" type="Button" parent="Main"]
 layout_mode = 1

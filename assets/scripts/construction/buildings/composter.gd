@@ -146,8 +146,7 @@ func _on_area_2d_mouse_entered() -> void:
 								if object[level]["state"]['idle'].has("hovered"):
 									if object[level]["state"]['idle']["hovered"] is CompressedTexture2D:
 										sprite.texture = object[level]["state"]['idle']["hovered"]
-				if tip:
-					tip.tooltip(tr('object.composter.caption') + "\n" +tr('object.composter.description'))
+				if tip: tip.tooltip(tr('object.composter.caption') + "\n" +tr('object.composter.description'))
 	if buttonDestroy.destroyMode:
 		if !blur.state:
 			destroyMode = true

@@ -2,11 +2,11 @@
 
 [ext_resource type="Theme" uid="uid://btsx1m2p0i620" path="res://assets/resources/theme.tres" id="1_lwl15"]
 [ext_resource type="Script" path="res://assets/scripts/ui/composter_menu.gd" id="1_mfits"]
-[ext_resource type="Texture2D" uid="uid://dtkym5bhfhpb" path="res://assets/resources/ui/menu_background.png" id="2_f1nod"]
-[ext_resource type="Texture2D" uid="uid://cdxqxalncqobp" path="res://assets/resources/ui/menu_background_secondary.png" id="4_ie67r"]
+[ext_resource type="Texture2D" uid="uid://xawi3wfa2nr" path="res://assets/resources/ui/menu_background.png" id="2_f1nod"]
+[ext_resource type="Texture2D" uid="uid://dbiuqxuroik25" path="res://assets/resources/ui/menu_background_secondary.png" id="4_ie67r"]
 [ext_resource type="PackedScene" uid="uid://do4e681e4p00n" path="res://assets/nodes/ui/interactive/inventory/slot.tscn" id="5_6w8mo"]
-[ext_resource type="Texture2D" uid="uid://idrcmhx6mgfv" path="res://assets/resources/ui/button_close_default.png" id="6_kh2u4"]
-[ext_resource type="Texture2D" uid="uid://baklqd1yo23jy" path="res://assets/resources/ui/button_close_hover.png" id="7_3ky4q"]
+[ext_resource type="Texture2D" uid="uid://bfourek6duls8" path="res://assets/resources/ui/button_close_default.png" id="6_kh2u4"]
+[ext_resource type="Texture2D" uid="uid://yrltk755fjqj" path="res://assets/resources/ui/button_close_hover.png" id="7_3ky4q"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_qqi7s"]
 font_size = 20

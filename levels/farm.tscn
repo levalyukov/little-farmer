@@ -1,14 +1,14 @@
-[gd_scene load_steps=32 format=3 uid="uid://4vypwfxar3e"]
+[gd_scene load_steps=35 format=3 uid="uid://4vypwfxar3e"]
 
 [ext_resource type="Shader" path="res://assets/shaders/pixel.gdshader" id="1_ieipv"]
 [ext_resource type="Script" path="res://assets/data/gamedata.gd" id="2_880lm"]
 [ext_resource type="PackedScene" uid="uid://b1x1lv2m7rbbj" path="res://assets/nodes/music_manager.tscn" id="3_fh0t8"]
-[ext_resource type="Texture2D" uid="uid://b76t3eldamplh" path="res://assets/resources/world/landscape/summer/ground.png" id="5_c4v1k"]
-[ext_resource type="Texture2D" uid="uid://bf8k2il4noii5" path="res://assets/resources/world/landscape/summer/roads.png" id="6_ad63b"]
-[ext_resource type="Texture2D" uid="uid://d28g3qf340ub" path="res://assets/resources/world/landscape/summer/farmlands.png" id="7_43u56"]
-[ext_resource type="Texture2D" uid="uid://bg6qyk751ky3x" path="res://assets/resources/world/landscape/summer/waterings.png" id="8_ntwho"]
-[ext_resource type="Texture2D" uid="uid://b8qfybr3p0nm3" path="res://assets/resources/world/landscape/summer/coasts.png" id="9_u8hhj"]
-[ext_resource type="Texture2D" uid="uid://c2rhb63lrolgd" path="res://assets/resources/world/landscape/summer/water.png" id="10_3vivs"]
+[ext_resource type="Texture2D" uid="uid://do3btrrrteyou" path="res://assets/resources/world/landscape/summer/ground.png" id="5_c4v1k"]
+[ext_resource type="Texture2D" uid="uid://eohf0cxupt5g" path="res://assets/resources/world/landscape/summer/roads.png" id="6_ad63b"]
+[ext_resource type="Texture2D" uid="uid://crs5ewpbkcnlp" path="res://assets/resources/world/landscape/summer/farmlands.png" id="7_43u56"]
+[ext_resource type="Texture2D" uid="uid://dchyi8f2y3eqq" path="res://assets/resources/world/landscape/summer/waterings.png" id="8_ntwho"]
+[ext_resource type="Texture2D" uid="uid://6qppce3bkfrq" path="res://assets/resources/world/landscape/summer/coasts.png" id="9_u8hhj"]
+[ext_resource type="Texture2D" uid="uid://cs6d5plvabdeq" path="res://assets/resources/world/landscape/summer/water.png" id="10_3vivs"]
 [ext_resource type="PackedScene" uid="uid://b8eteio2464wo" path="res://assets/nodes/player.tscn" id="10_cdmdm"]
 [ext_resource type="PackedScene" uid="uid://bwlehntoq3tyf" path="res://assets/nodes/world/shadow.tscn" id="11_goxrj"]
 [ext_resource type="PackedScene" uid="uid://nxd73p36nfqi" path="res://assets/nodes/buildings/construction_manager.tscn" id="12_33ekf"]
@@ -19,6 +19,8 @@
 [ext_resource type="PackedScene" uid="uid://d0hq20gmqku1b" path="res://assets/nodes/buildings/storage.tscn" id="15_c85oq"]
 [ext_resource type="PackedScene" uid="uid://dcgfhx6lnhmtf" path="res://assets/nodes/buildings/tablet.tscn" id="16_4vo5f"]
 [ext_resource type="Script" path="res://assets/scripts/world/tilemap.gd" id="16_jqh5x"]
+[ext_resource type="PackedScene" uid="uid://b0wwd8c3hkfbu" path="res://assets/nodes/animals/chicken.tscn" id="19_62kpt"]
+[ext_resource type="Script" path="res://assets/data/animalmanager.gd" id="19_fdr4t"]
 [ext_resource type="PackedScene" uid="uid://cjxf5fki0vra2" path="res://assets/nodes/world/day-night.tscn" id="19_mbw1w"]
 [ext_resource type="PackedScene" uid="uid://boitxnv4ptxu6" path="res://assets/nodes/ui/ui.tscn" id="21_bfx7a"]
 [ext_resource type="Script" path="res://assets/scripts/world/teleports.gd" id="43_511qs"]
@@ -2371,6 +2373,21 @@ sources/5 = SubResource("TileSetAtlasSource_wl8jg")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hhb1c"]
 size = Vector2(32, 48)
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nybnf"]
+lifetime_randomness = 0.1
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(640, 1, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(0, 0, 0)
+gravity = Vector3(-0.75, 6, 0)
+radial_accel_min = -2.25
+radial_accel_max = 6.5
+scale_min = 0.5
+scale_max = 3.75
+anim_speed_min = 0.08
+anim_speed_max = 1.0
+
 [node name="Farm" type="Node2D"]
 y_sort_enabled = true
 material = SubResource("ShaderMaterial_h27nr")
@@ -2445,6 +2462,16 @@ position = Vector2(360, 32)
 [node name="tablet" parent="ConstructionManager" instance=ExtResource("16_4vo5f")]
 position = Vector2(744, 88)
 
+[node name="AnimalManager" type="Node2D" parent="."]
+z_index = 2
+y_sort_enabled = true
+script = ExtResource("19_fdr4t")
+
+[node name="Chicken" parent="AnimalManager" instance=ExtResource("19_62kpt")]
+position = Vector2(280, 72)
+animalName = "Жопа моей души"
+SPEED = 14
+
 [node name="FarmingManager" parent="." instance=ExtResource("13_r3a4n")]
 
 [node name="Teleports" type="Node" parent="."]
@@ -2461,6 +2488,21 @@ position = Vector2(752, 104)
 shape = SubResource("RectangleShape2D_hhb1c")
 
 [node name="Day-Night Cycle" parent="." instance=ExtResource("19_mbw1w")]
+position = Vector2(714, 11)
+
+[node name="Snowfall" type="CanvasLayer" parent="."]
+
+[node name="Day-Night Cycle2" parent="Snowfall" instance=ExtResource("19_mbw1w")]
+position = Vector2(714, 11)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Snowfall"]
+position = Vector2(714, -16)
+emitting = false
+amount = 8192
+process_material = SubResource("ParticleProcessMaterial_nybnf")
+lifetime = 24.0
+interpolate = false
+fract_delta = false
 
 [node name="UI" parent="." instance=ExtResource("21_bfx7a")]
 

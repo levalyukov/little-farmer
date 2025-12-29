@@ -1,11 +1,13 @@
-[gd_scene load_steps=22 format=3 uid="uid://boitxnv4ptxu6"]
+[gd_scene load_steps=24 format=3 uid="uid://boitxnv4ptxu6"]
 
 [ext_resource type="PackedScene" uid="uid://cyl6jw0huwvk6" path="res://assets/nodes/ui/interactive/pause/pause.tscn" id="1_i05ju"]
 [ext_resource type="PackedScene" uid="uid://bhadiamik4ev0" path="res://assets/nodes/ui/interactive/options/options.tscn" id="2_o0hgi"]
 [ext_resource type="PackedScene" uid="uid://cjkwsdkyksvs3" path="res://assets/nodes/ui/interactive/inventory/inventory.tscn" id="3_e1ua5"]
 [ext_resource type="PackedScene" uid="uid://cwtsqme5qki8s" path="res://assets/nodes/ui/interactive/mail/mail.tscn" id="5_2qvs7"]
+[ext_resource type="PackedScene" uid="uid://eiyxqts4j14o" path="res://assets/nodes/ui/animal_control_ui.tscn" id="5_5oxdu"]
 [ext_resource type="PackedScene" uid="uid://6crcq5l76di3" path="res://assets/nodes/ui/blueprints_shop.tscn" id="5_67fpr"]
 [ext_resource type="PackedScene" uid="uid://b5tuskicjx2nd" path="res://assets/nodes/ui/sawmill_menu.tscn" id="5_fj7fg"]
+[ext_resource type="PackedScene" uid="uid://brkc54uu3pb7a" path="res://assets/nodes/ui/animall_stall_menu.tscn" id="5_iumkr"]
 [ext_resource type="PackedScene" uid="uid://bhttqneedglon" path="res://assets/nodes/ui/radio_menu.tscn" id="5_ugixp"]
 [ext_resource type="PackedScene" uid="uid://dnx4bgw5l7ktf" path="res://assets/nodes/ui/interactive/_buildings/sign/sign_menu.tscn" id="6_ha8vt"]
 [ext_resource type="PackedScene" uid="uid://ddp2h6ryjofvt" path="res://assets/nodes/ui/hud/cursor.tscn" id="7_6eima"]
@@ -40,6 +42,12 @@ mouse_filter = 2
 
 [node name="Interactive" type="Node" parent="."]
 
+[node name="AnimallStallMenu" parent="Interactive" instance=ExtResource("5_iumkr")]
+visible = false
+
+[node name="AnimalControlUI" parent="Interactive" instance=ExtResource("5_5oxdu")]
+visible = false
+
 [node name="BlueprintsShop" parent="Interactive" instance=ExtResource("5_67fpr")]
 visible = false
 
@@ -64,6 +72,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="Options" parent="Interactive" instance=ExtResource("2_o0hgi")]
+visible = false
 
 [node name="Inventory" parent="Interactive" instance=ExtResource("3_e1ua5")]
 visible = false
@@ -100,7 +109,6 @@ offset_top = 720.0
 offset_bottom = 720.0
 
 [node name="Notifications" parent="Feedback" instance=ExtResource("12_3qrnm")]
-visible = false
 mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

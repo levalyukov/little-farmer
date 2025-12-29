@@ -9,6 +9,7 @@ extends Node2D
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
+@onready var animalManager:Node2D = get_node("/root/"+main+"/AnimalManager")
 
 const max_distance:int = 250
 var haved:bool = false
@@ -72,6 +73,10 @@ func create_node(id:int, vector:Vector2i, node_name:String = ""):
 												Vector2i(0,3)
 											)
 								add_child(node)
+								if animalManager:
+									match id:
+										4: animalManager.add_spawn(node);
+										_: pass
 								return node
 							else:
 								if _blueprint[id]["config"].has('onlyInstance'):

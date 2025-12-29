@@ -17,7 +17,6 @@ extends Control
 
 const maximum = 9999
 
-
 enum trader_initator {NONE, PLAYER, TRADER}
 var trader_arg:int = 0
 var compost_type:int = 0

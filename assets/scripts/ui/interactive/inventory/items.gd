@@ -633,5 +633,106 @@ var content:Dictionary = {
 		"purchase": 175,
 		"sale": 125,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/own_production/honey.png"),
-	}
+	},
+
+	# Gifts
+	65: {
+		"caption": "items.small_new_years_gift.caption", 
+		"description": "items.small_new_years_gift.description", 
+		"type": ["items.type.gift"],
+		"item_type": ["gift"],
+		"purchase": 30,
+		"sale": 0,
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/gifts/small_gift_0.png"),
+	},
+
+	66: {
+		"caption": "items.regular_new_years_gift.caption", 
+		"description": "items.regular_new_years_gift.description", 
+		"type": ["items.type.gift"],
+		"item_type": ["gift"],
+		"purchase": 30,
+		"sale": 0,
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/gifts/regular_gift_0.png"),
+	},
+
+	67: {
+		"caption": "items.big_new_years_gift.caption", 
+		"description": "items.big_new_years_gift.description", 
+		"type": ["items.type.gift"],
+		"item_type": ["gift"],
+		"purchase": 30,
+		"sale": 0,
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/gifts/big_gift_0.png"),
+	},
+
+	68: {
+		"caption": "items.small_new_years_gift.caption", 
+		"description": "items.small_new_years_gift.description", 
+		"type": ["items.type.gift"],
+		"item_type": ["gift"],
+		"purchase": 30,
+		"sale": 0,
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/gifts/small_gift_1.png"),
+	},
+
+	69: {
+		"caption": "items.regular_new_years_gift.caption", 
+		"description": "items.regular_new_years_gift.description", 
+		"type": ["items.type.gift"],
+		"item_type": ["gift"],
+		"purchase": 30,
+		"sale": 0,
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/gifts/regular_gift_1.png"),
+	},
+
+	70: {
+		"caption": "items.big_new_years_gift.caption", 
+		"description": "items.big_new_years_gift.description", 
+		"type": ["items.type.gift"],
+		"item_type": ["gift"],
+		"purchase": 30,
+		"sale": 0,
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/gifts/big_gift_1.png"),
+	},
+
+	71: {
+		"caption": "items.small_new_years_gift.caption", 
+		"description": "items.small_new_years_gift.description", 
+		"type": ["items.type.gift"],
+		"item_type": ["gift"],
+		"purchase": 30,
+		"sale": 0,
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/gifts/small_gift_2.png"),
+	},
+
+	72: {
+		"caption": "items.regular_new_years_gift.caption", 
+		"description": "items.regular_new_years_gift.description", 
+		"type": ["items.type.gift"],
+		"item_type": ["gift"],
+		"purchase": 30,
+		"sale": 0,
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/gifts/regular_gift_2.png"),
+	},
+
+	73: {
+		"caption": "items.big_new_years_gift.caption", 
+		"description": "items.big_new_years_gift.description", 
+		"type": ["items.type.gift"],
+		"item_type": ["gift"],
+		"purchase": 30,
+		"sale": 0,
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/gifts/big_gift_2.png"),
+	},
+
+	74: {
+		"caption": "items.chicken_egg.caption", 
+		"description": "items.chicken_egg.description", 
+		"type": ["items.type.own_production"],
+		"item_type": ["own_production"],
+		"purchase": 30,
+		"sale": 0,
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/own_production/chicken_egg.png"),
+	},
 }

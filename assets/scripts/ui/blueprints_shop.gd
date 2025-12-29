@@ -57,10 +57,7 @@ func _process(_delta) -> void:
 					if check_construct_array('nodes', slots_to_create_nodes[current_slot_index_nodes]):
 						if blueprints.content['nodes'][slots_to_create_nodes[current_slot_index_nodes]].has('trade_info'):
 							if blueprints.content['nodes'][slots_to_create_nodes[current_slot_index_nodes]]['trade_info'].has('caption'):
-								blueprint.disabled_button(
-									true, 
-									tr('blueprints_shop.available')
-									)
+								blueprint.disabled_button(true, tr('blueprints_shop.available'))
 					current_slot_index_nodes += 1
 				else:
 					break
@@ -74,10 +71,7 @@ func _process(_delta) -> void:
 					if check_construct_array('terrains', slots_to_create_terrains[current_slot_index_terrains]):
 						if blueprints.content['terrains'][slots_to_create_terrains[current_slot_index_terrains]].has('trade_info'):
 							if blueprints.content['terrains'][slots_to_create_terrains[current_slot_index_terrains]]['trade_info'].has('caption'):
-								blueprint.disabled_button(
-									true, 
-									tr('blueprints_shop.available')
-									)
+								blueprint.disabled_button(true, tr('blueprints_shop.available'))
 					current_slot_index_terrains += 1
 				else:
 					break
@@ -93,10 +87,7 @@ func _process(_delta) -> void:
 						if check_construct_array('ugprades', slots_to_create_upgrade[current_slot_index_upgrade]):
 							if blueprints.content['terrains'][slots_to_create_upgrade[current_slot_index_upgrade]].has('trade_info'):
 								if blueprints.content['terrains'][slots_to_create_upgrade[current_slot_index_upgrade]]['trade_info'].has('caption'):
-									blueprint.disabled_button(
-										true, 
-										tr('blueprints_shop.available')
-										)
+									blueprint.disabled_button(true, tr('blueprints_shop.available'))
 						current_slot_index_upgrade += 1
 				else:
 					break
@@ -319,109 +310,58 @@ func set_start_info() -> void:
 	blueprintsIcon.visible = !true
 
 func _on_close_button_pressed():
-	var audio = AudioStreamPlayer.new()
-	self.add_child(audio)
-	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-	audio.stream = load('res://assets/sounds/ui/click.ogg')
-	audio.play()
-	close()
+	_audio_play("click")
 
 func _on_close_button_mouse_entered():
-	var audio = AudioStreamPlayer.new()
-	self.add_child(audio)
-	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-	audio.stream = load('res://assets/sounds/ui/hover.ogg')
-	audio.play()
+	_audio_play("hover")
 
 func _on_button_all_blueprints_pressed():
 	if section != 'all':
 		section = 'all'
 		update_nav_menu()
 		get_blueprints()
-		var audio = AudioStreamPlayer.new()
-		self.add_child(audio)
-		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-		audio.stream = load('res://assets/sounds/ui/click.ogg')
-		audio.play()
+		_audio_play("click")
 
 func _on_button_all_blueprints_mouse_entered():
-	if section != 'all':
-		var audio = AudioStreamPlayer.new()
-		self.add_child(audio)
-		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-		audio.stream = load('res://assets/sounds/ui/hover.ogg')
-		audio.play()
+	if section != 'all': _audio_play("hover")
 
 func _on_button_buildings_pressed():
 	if section != 'nodes':
 		section = 'nodes'
 		update_nav_menu()
 		get_blueprints()
-		var audio = AudioStreamPlayer.new()
-		self.add_child(audio)
-		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-		audio.stream = load('res://assets/sounds/ui/click.ogg')
-		audio.play()
+		_audio_play("click")
 
 func _on_button_buildings_mouse_entered():
-	if section != 'nodes':
-		var audio = AudioStreamPlayer.new()
-		self.add_child(audio)
-		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-		audio.stream = load('res://assets/sounds/ui/hover.ogg')
-		audio.play()
+	if section != 'nodes': _audio_play("hover")
 
 func _on_button_landscape_pressed():
 	if section != 'terrains':
 		section = 'terrains'
 		update_nav_menu()
 		get_blueprints()
-		var audio = AudioStreamPlayer.new()
-		self.add_child(audio)
-		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-		audio.stream = load('res://assets/sounds/ui/click.ogg')
-		audio.play()
+		_audio_play("click")
 
 func _on_button_landscape_mouse_entered():
 	if section != 'terrains':
-		var audio = AudioStreamPlayer.new()
-		self.add_child(audio)
-		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-		audio.stream = load('res://assets/sounds/ui/hover.ogg')
-		audio.play()
+		_audio_play("hover")
 
 func _on_button_upgrades_pressed():
 	if section != 'upgrades':
 		section = 'upgrades'
 		update_nav_menu()
 		get_blueprints()
-		var audio = AudioStreamPlayer.new()
-		self.add_child(audio)
-		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-		audio.stream = load('res://assets/sounds/ui/click.ogg')
-		audio.play()
+		_audio_play("hover")
 
 func _on_button_upgrades_mouse_entered():
 	if section != 'upgrades':
-		var audio = AudioStreamPlayer.new()
-		self.add_child(audio)
-		audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-		audio.stream = load('res://assets/sounds/ui/hover.ogg')
-		audio.play()
+		_audio_play("hover")
 
 func _on_button_pressed():
 	if blueprintsBuy.visible:
 		if !blueprintsBuy.disabled:
-			var audio = AudioStreamPlayer.new()
-			var buy_audio = AudioStreamPlayer.new()
-			self.add_child(audio)
-			self.add_child(buy_audio)
-			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-			buy_audio.connect("finished", Callable(self, "_on_audio_finished").bind(buy_audio))
-			audio.stream = load('res://assets/sounds/ui/click.ogg')
-			buy_audio.stream = load('res://assets/sounds/ui/trade.ogg')
-			audio.play()
-			buy_audio.play()
+			_audio_play("click")
+			_audio_play("trade")
 			construct.add_blueprint(blueprint_index, blueprint_section)
 			balance.remove_money(blueprint_price)
 			get_blueprints()
@@ -430,11 +370,14 @@ func _on_button_pressed():
 func _on_button_mouse_entered():
 	if blueprintsBuy.visible:
 		if !blueprintsBuy.disabled:
-			var audio = AudioStreamPlayer.new()
-			self.add_child(audio)
-			audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-			audio.stream = load('res://assets/sounds/ui/hover.ogg')
-			audio.play()
+			_audio_play("hover")
+
+func _audio_play(_ogg:String) -> void:
+	var audio = AudioStreamPlayer.new()
+	self.add_child(audio)
+	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
+	audio.stream = load('res://assets/sounds/ui/'+_ogg+'.ogg')
+	audio.play()
 
 func _on_audio_finished(audio) -> void:
 	audio.queue_free()

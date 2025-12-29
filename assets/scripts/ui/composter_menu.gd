@@ -103,10 +103,8 @@ func remove_item_compost(id, amount:int = 1) -> void:
 						if current_node.compost_items[id]["amount"] == 1:
 							current_node.compost_items.erase(id)
 						else:
-							if amount > 0:
-								current_node.compost_items[id]["amount"] -= amount
-							else:
-								current_node.compost_items[id]["amount"] -= 1
+							if amount > 0: current_node.compost_items[id]["amount"] -= amount
+							else: current_node.compost_items[id]["amount"] -= 1
 					update_compost_items()
 
 func clear_compost_items() -> void:
@@ -128,12 +126,7 @@ func item_create(item_id, item_amount, item_icon, item_caption, compost_type, co
 	if inventory.inventory_items.has(item_id):
 		if inventory.inventory_items[item_id]["amount"] > 0:
 			container.add_child(slot)
-			slot.set_data(
-					item_id, 
-					item_amount,
-					item_icon,
-					item_caption
-				)
+			slot.set_data(item_id, item_amount,item_icon,item_caption)
 			slot.compost_type = compost_type
 
 func get_compost_state() -> void:
@@ -155,12 +148,12 @@ func check_state_button() -> void:
 
 func get_compost_items() -> void:
 	remove_all_inventory_items()
-	items_id_to_create = []
-	items_amount_to_create = []
+	items_id_to_create.clear()
+	items_amount_to_create.clear()
 	for item_id in inventory.inventory_items:
 		if items.content.has(int(item_id)):
 			if items.content[int(item_id)].has("item_type"):
-				if items.content[int(item_id)]["item_type"] == "compost":
+				if items.content[int(item_id)]["item_type"].has("compost"):
 					if inventory.inventory_items[item_id].has("amount"):
 						var item_icon = items.content[int(item_id)]["icon"]
 						var item_caption = items.content[int(item_id)]["caption"]

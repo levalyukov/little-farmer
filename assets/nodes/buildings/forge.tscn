@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://ctp6kk825l53r"]
 
 [ext_resource type="Script" path="res://assets/scripts/construction/buildings/forge.gd" id="1_6tio0"]
-[ext_resource type="Texture2D" uid="uid://jgh8pvlwcj88" path="res://assets/resources/buildings/stone_oven/object_0.png" id="2_d5ybi"]
-[ext_resource type="Texture2D" uid="uid://1r8kos7xjwxc" path="res://assets/resources/buildings/house/smoke.png" id="3_na051"]
-[ext_resource type="Texture2D" uid="uid://bmm3sn5q3j181" path="res://assets/resources/world/light.webp" id="4_i5ji5"]
+[ext_resource type="Texture2D" uid="uid://jvodm2mmo1dc" path="res://assets/resources/buildings/stone_oven/object_0.png" id="2_d5ybi"]
+[ext_resource type="Texture2D" uid="uid://d3w7arx0y3ycb" path="res://assets/resources/buildings/house/smoke.png" id="3_na051"]
+[ext_resource type="Texture2D" uid="uid://w5bynf1ko5cx" path="res://assets/resources/world/light.webp" id="4_i5ji5"]
 
 [sub_resource type="Curve" id="Curve_vc5du"]
 max_value = 200.0

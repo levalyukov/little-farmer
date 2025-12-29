@@ -2,13 +2,13 @@ import os
 import shutil
 
 import_dir = "./.import"
-extensions = [".cfg", ".tscn-", ".tmp", ".save", ".dmp", ".ctex", ".import", ".oggvorbisstr"]
+extensions = [".cfg", ".tscn-", ".tmp", ".save", ".dmp", ".ctex", ".import", ".oggvorbisstr", "uid", ".cache"]
 protected_files = [
     "global_script_class_cache.cfg", 
     "project_metadata.cfg", 
     "script_editor_cache.cfg", 
     "editor_layout.cfg"
-    ]
+]
 
 if os.path.exists(import_dir):
     shutil.rmtree(import_dir)

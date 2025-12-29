@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0wwd8c3hkfbu"]
+
+[ext_resource type="Script" path="res://assets/scripts/animals/chicken.gd" id="1_8dccr"]
+[ext_resource type="Texture2D" uid="uid://bbngxaytra70u" path="res://assets/resources/animal/chicken/chicken-0/movement-vertical.png" id="2_7s1wk"]
+[ext_resource type="Texture2D" uid="uid://bbyvy61pgsmgv" path="res://assets/resources/animal/chicken/chicken-0/shadow.png" id="3_ci7b3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mige8"]
+size = Vector2(26.3582, 143.264)
+
+[node name="Chicken" type="CharacterBody2D"]
+y_sort_enabled = true
+script = ExtResource("1_8dccr")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.196078)
+texture = ExtResource("3_ci7b3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
+texture = ExtResource("2_7s1wk")
+region_enabled = true
+region_rect = Rect2(0, 16, 16, 16)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.5
+autostart = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 2.38419e-07)
+scale = Vector2(0.607021, -0.111682)
+shape = SubResource("RectangleShape2D_mige8")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_shape_entered" from="Area2D" to="." method="_on_area_2d_area_shape_entered"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

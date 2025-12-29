@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://b6yctk4o25kkc"]
 
 [ext_resource type="Script" path="res://assets/scripts/construction/buildings/mailbox.gd" id="1_oykw7"]
-[ext_resource type="Texture2D" uid="uid://v6bilqo320lh" path="res://assets/resources/buildings/mailbox/summer/object_0.png" id="2_5f1x6"]
-[ext_resource type="Texture2D" uid="uid://8875s7x2wtpd" path="res://assets/resources/ui/bubble.png" id="2_gjqta"]
-[ext_resource type="Texture2D" uid="uid://dp3tulsm1l56e" path="res://assets/resources/buildings/mailbox/icn.png" id="4_co8da"]
+[ext_resource type="Texture2D" uid="uid://camjsop2qdgcs" path="res://assets/resources/buildings/mailbox/summer/object_0.png" id="2_5f1x6"]
+[ext_resource type="Texture2D" uid="uid://b3msu2c5mlsp6" path="res://assets/resources/ui/bubble.png" id="2_gjqta"]
+[ext_resource type="Texture2D" uid="uid://bclfab7hj0ysi" path="res://assets/resources/buildings/mailbox/icn.png" id="4_co8da"]
 
 [sub_resource type="Animation" id="Animation_4nybi"]
 length = 0.001

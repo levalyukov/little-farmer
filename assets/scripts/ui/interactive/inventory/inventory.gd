@@ -27,8 +27,6 @@ extends Control
 @onready var button:Button = $Main/HBoxContainer/ItemContent/ScrollContainer/VBoxContainer/ButtonContainer/Button
 @onready var list:Label = $Main/HBoxContainer/InventoryContent/Label
 
-var inventory_sound = preload('res://assets/sounds/ui/inventory.ogg')
-
 var item = Items.new()
 var crops = Crops.new()
 var audio = AudioStreamPlayer.new()
@@ -39,7 +37,7 @@ var opened:bool = false
 var item_index
 var button_index:int
 var inventory_items:Dictionary = {}
-enum item_type {NOTHING, SEEDS, FERTILIZER}
+enum item_type {NOTHING, SEEDS, FERTILIZER, GIFT}
 
 func _ready():
 	set_process(false)
@@ -47,29 +45,25 @@ func _ready():
 	reset_data()
 	self.add_child(audio)
 
-	#	var test_index = 0
-	#	while inventory_items.size() < 100:
-	#		test_index += 1
-	#		inventory_items[str(test_index)] = {}
-	#		inventory_items[str(test_index)]['amount'] = 1000
-	#	test_index = 0
+	var test_index = 0
+	while inventory_items.size() < 100:
+		test_index += 1
+		inventory_items[str(test_index)] = {}
+		inventory_items[str(test_index)]['amount'] = 1000
+	test_index = 0
 
 func _input(_event):
 	if Input.is_action_just_pressed("esc")\
 	&& blur.state\
 	&& !pause.paused\
-	&& opened:
-		close()
+	&& opened: close()
 
 	if Input.is_action_just_pressed("tab"):
 		if !blur.state\
 		&& !pause.paused\
 		&& !pause.other_menu\
-		&& !opened:
-			open()
-		else:
-			if opened:
-				close()
+		&& !opened: open()
+		else: if opened: close()
 
 func inventory_update():
 	var remove_items = []
@@ -107,7 +101,7 @@ func open() -> void:
 	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 	if audio:
 		if !audio.is_playing():
-			audio.stream = inventory_sound
+			audio.stream = preload('res://assets/sounds/ui/inventory.ogg')
 			audio.play()
 	if tip: tip.tooltip()
 	check_window()
@@ -401,17 +395,18 @@ func check_item_type(i_type:Array) -> void:
 					button.visible = true
 					button.text = tr("inventory.button.fertilize")
 					button.disabled = false
+				"gift":
+					button_index = item_type.GIFT
+					button.visible = true
+					button.text = tr("inventory.button.open_gift")
+					button.disabled = false
 				_:
 					button_index = item_type.NOTHING
 					button.visible = false
 
 func _on_button_pressed():
 	var items = Items.new().content
-	var _audio = AudioStreamPlayer.new()
-	self.add_child(_audio)
-	_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
-	_audio.stream = preload('res://assets/sounds/ui/click.ogg')
-	_audio.play()
+	_audio_play("hover")
 	match button_index:
 		item_type.SEEDS:
 			close()
@@ -423,10 +418,8 @@ func _on_button_pressed():
 					grid.plantID = items[int(item_index)]["crop"]
 					grid.mode = grid.modes.PLANTING
 					grid.visible = true
-				else:
-					data.debug("The 'crop' key does not exist", "error")
-			else:
-				data.debug("The numerical ID (" + item_index + ") of this crop is missing in the main file crops.gd", "error")
+				else: data.debug("The 'crop' key does not exist", "error")
+			else: data.debug("The numerical ID (" + item_index + ") of this crop is missing in the main file crops.gd", "error")
 		item_type.FERTILIZER:
 			close()
 			grid.generate_grid()
@@ -434,8 +427,24 @@ func _on_button_pressed():
 			grid.inventory_item = item_index
 			grid.mode = grid.modes.FERTILIZER
 			grid.visible = true
+		item_type.GIFT:
+			_audio_play("gift");
+			_open_gift(item_index);
 		_:
 			pass
+
+func _open_gift(_id) -> void:
+	# Big gifts
+	if int(_id) in [67,70,73]:
+		subject_item(_id)
+
+	# Regular gifts
+	if int(_id) in [66,69,72]:
+		subject_item(_id)
+
+	# Small gifts	
+	if int(_id) in [65,68,71]:
+		subject_item(_id)
 
 func check_window() -> void:
 	visible = opened
@@ -445,19 +454,11 @@ func check_window() -> void:
 func _on_close_pressed():
 	if opened:
 		close()
-		var _audio = AudioStreamPlayer.new()
-		self.add_child(_audio)
-		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
-		_audio.stream = preload('res://assets/sounds/ui/click.ogg')
-		_audio.play()
+		_audio_play("click")
 
 func _on_close_mouse_entered():
 	if opened:
-		var _audio = AudioStreamPlayer.new()
-		self.add_child(_audio)
-		_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
-		_audio.stream = preload('res://assets/sounds/ui/hover.ogg')
-		_audio.play()
+		_audio_play("hover")
 		if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 
 func _on_close_mouse_exited():
@@ -466,16 +467,19 @@ func _on_close_mouse_exited():
 func _on_button_mouse_entered():
 	if visible:
 		if !button.disabled:
-			var _audio = AudioStreamPlayer.new()
-			self.add_child(_audio)
-			_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
-			_audio.stream = preload('res://assets/sounds/ui/hover.ogg')
-			_audio.play()
+			_audio_play("hover")
 			if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 
 func _on_button_mouse_exited():
 	if !button.disabled:
 		if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+
+func _audio_play(_ogg:String) -> void:
+	var _audio = AudioStreamPlayer.new()
+	self.add_child(_audio)
+	_audio.connect("finished", Callable(self, "_on_audio_finished").bind(_audio))
+	_audio.stream = load('res://assets/sounds/ui/'+_ogg+'.ogg')
+	_audio.play()
 
 func _on_audio_finished(_audio) -> void:
 	_audio.queue_free()

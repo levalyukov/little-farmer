@@ -10,6 +10,7 @@ extends Control
 @onready var tilemap:TileMap = get_node("/root/"+main+"/Tilemap")
 @onready var mail:Control = get_node("/root/"+main+"/UI/Interactive/Mailbox")
 @onready var buildings:Node2D = get_node('/root/'+main+'/ConstructionManager')
+@onready var snowfall:CanvasLayer = get_node("/root/"+main+"/Snowfall")
 
 @onready var sprite:CompressedTexture2D = preload("res://assets/resources/ui/interactive/hud/clock.png")
 @onready var icon:TextureRect = $Margin/HBoxContainer/Icon/TextureRect
@@ -70,7 +71,7 @@ var day:int = 0
 var hour:int = 7
 var minute:int = 0
 
-var season:int = 0
+var season:int = 1
 const season_change:int = 1
 const seasons:Array[String] = [
 	"spring", "summer", 
@@ -78,10 +79,10 @@ const seasons:Array[String] = [
 ]
 
 var weeks = [
-		tr("clock.monday"), tr("clock.tuesday"), tr("clock.wednesday"), 
-		tr("clock.thursday"), tr("clock.friday"), tr("clock.saturday"), 
-		tr("clock.sunday")
-	]
+	tr("clock.monday"), tr("clock.tuesday"), tr("clock.wednesday"), 
+	tr("clock.thursday"), tr("clock.friday"), tr("clock.saturday"), 
+	tr("clock.sunday")
+]
 
 func _ready():
 	tilemap.set_atlas(seasons[season])

@@ -2,11 +2,11 @@
 
 [ext_resource type="Theme" uid="uid://btsx1m2p0i620" path="res://assets/resources/theme.tres" id="1_60ydy"]
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/construct/construct_system.gd" id="1_qwoah"]
-[ext_resource type="Texture2D" uid="uid://dtkym5bhfhpb" path="res://assets/resources/ui/menu_background.png" id="2_soc6x"]
+[ext_resource type="Texture2D" uid="uid://xawi3wfa2nr" path="res://assets/resources/ui/menu_background.png" id="2_soc6x"]
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/construct/crafting.gd" id="3_s0fee"]
-[ext_resource type="Texture2D" uid="uid://c3yf44sxb8a8o" path="res://assets/resources/ui/menu_background_middle.png" id="4_riphk"]
-[ext_resource type="Texture2D" uid="uid://idrcmhx6mgfv" path="res://assets/resources/ui/button_close_default.png" id="6_jstj2"]
-[ext_resource type="Texture2D" uid="uid://baklqd1yo23jy" path="res://assets/resources/ui/button_close_hover.png" id="7_fcva7"]
+[ext_resource type="Texture2D" uid="uid://lnugitusjfrv" path="res://assets/resources/ui/menu_background_middle.png" id="4_riphk"]
+[ext_resource type="Texture2D" uid="uid://bfourek6duls8" path="res://assets/resources/ui/button_close_default.png" id="6_jstj2"]
+[ext_resource type="Texture2D" uid="uid://yrltk755fjqj" path="res://assets/resources/ui/button_close_hover.png" id="7_fcva7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rp300"]
 

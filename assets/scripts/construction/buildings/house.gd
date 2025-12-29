@@ -47,7 +47,7 @@ func _ready():
 	update()
 	update_shadow()
 
-func update():
+func update() -> void:
 	if clock:
 		if object.has(level):
 			if object[level].has("seasons"):

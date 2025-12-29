@@ -14,6 +14,11 @@ extends Node2D
 @onready var buttonDestroy:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
 @onready var sprite:Sprite2D = $Sprite2D
 
+@onready var animalMenu:Control = get_node("/root/"+main+"/UI/Interactive/AnimallStallMenu")
+@onready var animalManager:Node2D = get_node("/root/"+main+"/AnimalManager")
+@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
+
+var opened:bool = false;
 var destroyMode:bool = false
 var all_collisions:Array[Vector2i] = []
 var level:int = 1
@@ -46,10 +51,9 @@ var object:Dictionary = {
 	},
 }
 
-func _ready():
-	update()
+func _ready() -> void: update()
 
-func update():
+func update() -> void:
 	if object.has(level):
 		if object[level].has("seasons"):
 			var season = clock.get_season()
@@ -57,7 +61,7 @@ func update():
 				if object[level]["seasons"][season].has("default"):
 					sprite.texture = object[level]["seasons"][season]["default"]
 
-func _change_sprite(type:bool):
+func _change_sprite(type:bool) -> void:
 	if type:
 		var distance = round(global_position.distance_to(player.global_position))
 		if grid.mode == grid.modes.NOTHING && distance < buildings.max_distance:
@@ -79,21 +83,29 @@ func _change_sprite(type:bool):
 				if object[level]["seasons"].has(season):
 					if object[level]["seasons"][season].has("default"):
 						sprite.texture = object[level]["seasons"][season]["default"]
-			else:
-				data.debug("There is no key at index " + str(level) + ".", "error")
-		else:
-			data.debug("Index " + str(level) + " is not in the dictionary.", "error")
-		if tip:
-			tip.tooltip("")
+			else: data.debug("There is no key at index " + str(level) + ".", "error")
+		else: data.debug("Index " + str(level) + " is not in the dictionary.", "error")
+		if tip: tip.tooltip("")
 
-func _input(event):
+func _input(event) -> void:
 	if event is InputEventMouseButton\
 	&& event.button_index == MOUSE_BUTTON_LEFT\
 	&& event.is_pressed()\
 	&& !blur.state\
 	&& destroyMode\
 	&& buttonDestroy.destroyMode:
-		buildings.remove_node(self, all_collisions)
+		if buildings: buildings.remove_node(self, all_collisions)
+		if animalManager: animalManager.remove_spawn();
+
+	if event is InputEventMouseButton\
+	&& event.button_index == MOUSE_BUTTON_LEFT\
+	&& event.is_pressed()\
+	&& !blur.state\
+	&& !destroyMode\
+	&& opened\
+	&& !buttonDestroy.destroyMode:
+		if animalMenu: animalMenu.open(self);
+		if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 
 func get_data() -> Dictionary:
 	if object.has(level):
@@ -105,11 +117,14 @@ func get_data() -> Dictionary:
 		}
 	return {}
 	
-func _on_area_2d_mouse_entered():
+func _on_area_2d_mouse_entered() -> void:
+	if cursor: cursor.set_cursor(cursor.states.ACTIVE)
 	if !blur.state\
 	&& grid.mode == grid.modes.NOTHING\
 	&& !buttonDestroy.destroyMode:
 		_change_sprite(true)
+		opened = true;
+
 	if !blur.state\
 	&& grid.mode == grid.modes.NOTHING\
 	&& buttonDestroy.destroyMode:
@@ -122,7 +137,8 @@ func _on_area_2d_mouse_entered():
 						if object[level]["seasons"][season]["delete"] is CompressedTexture2D:
 							sprite.texture = object[level]["seasons"][season]["delete"]
 
-func _on_area_2d_mouse_exited():
+func _on_area_2d_mouse_exited() -> void:
 	_change_sprite(false)
-	if destroyMode:
-		destroyMode = !true
+	if opened: opened = false;
+	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
+	if destroyMode: destroyMode = !true

@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://drwgxtbhd00mq"]
 
-[ext_resource type="Texture2D" uid="uid://bra8e03ooftsi" path="res://assets/resources/buildings/radio/obj_0.png" id="1_8gu6o"]
+[ext_resource type="Texture2D" uid="uid://c5a28id172ffr" path="res://assets/resources/buildings/radio/obj_0.png" id="1_8gu6o"]
 [ext_resource type="Script" path="res://assets/scripts/construction/buildings/radio.gd" id="1_kdrd7"]
-[ext_resource type="Texture2D" uid="uid://catb4up4bdk25" path="res://assets/resources/buildings/radio/note.png" id="3_r3vyp"]
-[ext_resource type="AudioStream" uid="uid://3qqqvjr6v1tb" path="res://assets/sounds/ui/radio.ogg" id="4_rmosd"]
+[ext_resource type="Texture2D" uid="uid://o5f804uorqu8" path="res://assets/resources/buildings/radio/note.png" id="3_r3vyp"]
+[ext_resource type="AudioStream" uid="uid://cy2s0ijc2supg" path="res://assets/sounds/ui/radio.ogg" id="4_rmosd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pgwjt"]
 size = Vector2(16, 16)
@@ -25,8 +25,8 @@ spread = 179.3
 gravity = Vector2(0.25, -50)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-volume_db = 5.0
-max_distance = 512.0
+volume_db = -2.75
+max_distance = 1000.0
 bus = &"Radio"
 
 [node name="RadioNoise" type="AudioStreamPlayer2D" parent="."]

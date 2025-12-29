@@ -2,28 +2,29 @@
 
 [sub_resource type="AudioEffectLowPassFilter" id="AudioEffectLowPassFilter_h662j"]
 resource_name = "LowPassFilter"
-cutoff_hz = 2750.0
-resonance = 1.0
+cutoff_hz = 2700.0
+resonance = 0.75
 
 [sub_resource type="AudioEffectHighPassFilter" id="AudioEffectHighPassFilter_2mcuu"]
 resource_name = "HighPassFilter"
-cutoff_hz = 750.0
+cutoff_hz = 500.0
+resonance = 0.75
 
 [sub_resource type="AudioEffectAmplify" id="AudioEffectAmplify_di3kx"]
 resource_name = "Amplify"
-volume_db = 5.0
+volume_db = 10.0
 
 [sub_resource type="AudioEffectReverb" id="AudioEffectReverb_8kk3l"]
 resource_name = "Reverb"
 room_size = 0.5
-damping = 0.6
 spread = 0.5
 dry = 0.5
 wet = 0.0
 
 [sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_f5lr4"]
 resource_name = "Compressor"
-release_ms = 100.0
+gain = 4.5
+sidechain = &"Music"
 
 [sub_resource type="AudioEffectStereoEnhance" id="AudioEffectStereoEnhance_4kq28"]
 resource_name = "StereoEnhance"

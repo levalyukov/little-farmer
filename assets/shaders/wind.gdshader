@@ -10,7 +10,7 @@ uniform vec2 rotation_pivot = vec2(0.5, 1);
 varying vec2 world_position;
 
 void vertex(){
-    world_position = (MODEL_MATRIX * vec4(VERTEX, 0.0, 1.0)).xy;
+	world_position = (MODEL_MATRIX * vec4(VERTEX, 0.0, 1.0)).xy;
 }
 
 vec2 get_sample_pos(vec2 pos, float scale, float offset) {

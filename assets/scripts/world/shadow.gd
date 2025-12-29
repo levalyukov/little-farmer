@@ -48,8 +48,7 @@ func create_shadow_nature(
 
 func create_shadow(shadow_name:String, shadow_texture:CompressedTexture2D, shadow_position:Vector2i, flipH:bool = false) -> void:
 	if shadow_texture is CompressedTexture2D:
-		if shadow_name == "":
-			shadow_name = "shadow"
+		if shadow_name == "":shadow_name = "shadow"
 		var shadow = Sprite2D.new()
 		shadow.name = shadow_name
 		shadow.texture = shadow_texture

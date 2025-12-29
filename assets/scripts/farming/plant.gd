@@ -2,7 +2,6 @@ extends Node2D
 
 @onready var main:String = str(get_tree().root.get_child(2).name)
 @onready var tip:Control = get_node("/root/"+main+"/UI/Feedback/Tooltip")
-# Дети
 @onready var sprite:Sprite2D = $Sprite2D
 @onready var indicator:Sprite2D = $Indicator
 @onready var anim:AnimationPlayer = $AnimationPlayer

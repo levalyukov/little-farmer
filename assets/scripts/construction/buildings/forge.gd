@@ -120,9 +120,7 @@ func _on_area_2d_mouse_entered():
 						if object[level]['hovered_work'] is CompressedTexture2D:
 							sprite.texture = object[level]['hovered_work']
 				if tip:
-					tip.tooltip(
-						str(tr('object.forge.caption')) + "\n" + str(tr('object.forge.description'))
-					)
+					tip.tooltip(str(tr('object.forge.caption')) + "\n" + str(tr('object.forge.description')))
 
 		if !stoneMenuOpen:
 			stoneMenuOpen = true
