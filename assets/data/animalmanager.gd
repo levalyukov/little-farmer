@@ -5,7 +5,7 @@ extends Node2D
 @onready var balance:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Balance")
 
 @export var animals:Dictionary = {};
-const MAX_DISTANCE:int = 200;
+const MAX_DISTANCE:int = 100;
 enum ANIMAL_TYPE {CHICKEN, COW};
 var animalStalls:Array[Object];
 var animalsConfig:Dictionary = {
@@ -27,7 +27,6 @@ func add_animal(animal:Object, house:Object) -> void:
 	if !animals.has(animal.name):
 		animals[animal.name] = {};
 		animals[animal.name]["node"] = animal;
-		animals[animal.name]["house_node"] = house;
 		animals[animal.name]["name"] = animal.animalName;
 		animals[animal.name]["house"] = house.name;
 	else: animals[animal.name]["house"] = house.name;
@@ -44,14 +43,13 @@ func get_animal(animal:Object) -> Dictionary:
 			"name": animals[animal.name]["name"],
 			"house": animals[animal.name]["house"],
 			"node": animals[animal.name]["node"],
-			"house_node": animals[animal.name]["house_node"]
 		};
 	return content;
 
 func has_animal(animal:Object) -> bool:
 	return animals.has(animal.name);
 
-# Добавить постройку как место для животных
+# Добавляет постройку как место для животных
 func add_spawn(spawn:Object) -> void:
 	if !spawn: return;
 	if animalStalls.has(spawn): return;
@@ -71,5 +69,11 @@ func get_animals_by_spawn(_spawn:Object) -> Dictionary:
 	return content;
 
 func remove_spawn(_spawn:Object) -> void:
-	if _spawn:
-		pass
+	if !_spawn: return;
+	var _animals = get_animals_by_spawn(_spawn);
+	print(animals)
+	for i in _animals: 
+		_animals[i]["house"] = "";
+		_animals[i]["node"].update_spawn();
+	animalStalls.erase(_spawn);
+	
