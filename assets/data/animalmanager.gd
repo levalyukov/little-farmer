@@ -3,6 +3,7 @@ extends Node2D
 # --- Animals Manager ---
 @onready var main:String = str(get_tree().root.get_child(2).name)
 @onready var balance:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Balance")
+@onready var animalTimer:Timer = $AnimalTimer
 
 @export var animals:Dictionary = {};
 const MAX_DISTANCE:int = 100;
@@ -77,3 +78,12 @@ func remove_spawn(_spawn:Object) -> void:
 		_animals[i]["node"].update_spawn();
 	animalStalls.erase(_spawn);
 	
+
+# В хлевах и будущих постройках такого же типа появляется их тип ресурса:
+# - Куры - яйца (1 курица = 1 яйцо)
+# - ///
+func _on_animal_timer_timeout(): 
+	if animalStalls.size() == 0: return;
+
+	for i in animalStalls:
+		i.get_animal_resource();
