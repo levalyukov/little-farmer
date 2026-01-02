@@ -19,7 +19,6 @@ script = ExtResource("1_6ghsa")
 shape = SubResource("RectangleShape2D_chqfy")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3, 3)
 limit_smoothed = true
 position_smoothing_enabled = true
 script = ExtResource("3_kqeun")

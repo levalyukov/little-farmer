@@ -18,6 +18,7 @@ extends Node
 @onready var collision:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid/GridParent")
 @onready var farming:Node2D = get_node("/root/"+main+"/FarmingManager")
 @onready var nature:Node2D = get_node("/root/"+main+"/NatureManager")
+@onready var animals:Node2D = get_node("/root/"+main+"/AnimalManager")
 
 var music:AudioStreamPlayer = AudioStreamPlayer.new()
 var music_cooldown:Timer = Timer.new()
@@ -33,6 +34,7 @@ const path:Dictionary = {
 	player = "user://game/data/player",
 	farm = "user://game/data/farm",
 	vectors = "user://game/data/farm/vectors",
+	animals = "users://game/data/farm/animals"
 }
 
 const file:Dictionary = {
@@ -46,6 +48,7 @@ const file:Dictionary = {
 	blueprints = "user://game/data/player/blueprints.json",
 	inventory = "user://game/data/player/inventory.json",
 	mailbox = "user://game/data/player/mailbox.json",
+	animals = "user://game/data/farm/animals.json",
 	# vectors
 	vctr_roads = "user://game/data/farm/vectors/roads.json",
 	vctr_farmlands = "user://game/data/farm/vectors/farmlands.json",
@@ -231,7 +234,7 @@ func get_key(path_file:String, key:String, group:String = ""):
 			if container.has(key):
 				return container[key]
 	else:
-		if target_file.has(key):
+		if target_file.has(key): 
 			return target_file[key]
 	return {}
 
@@ -639,6 +642,9 @@ func get_dictionary_content(content:String, group:String = "") -> Dictionary:
 			
 		"mailbox":
 			return mailbox.get_letters()
+
+		"animals":
+			return animals.get_animals();
 
 		_:
 			return {}

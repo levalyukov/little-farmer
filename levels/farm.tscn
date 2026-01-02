@@ -2468,9 +2468,12 @@ y_sort_enabled = true
 script = ExtResource("19_fdr4t")
 
 [node name="Chicken" parent="AnimalManager" instance=ExtResource("19_62kpt")]
-position = Vector2(280, 72)
-animalName = "Жопа моей души"
+position = Vector2(219, 107)
+animalName = "Клуша"
 SPEED = 14
+
+[node name="AnimalTimer" type="Timer" parent="AnimalManager"]
+autostart = true
 
 [node name="FarmingManager" parent="." instance=ExtResource("13_r3a4n")]
 
@@ -2490,12 +2493,12 @@ shape = SubResource("RectangleShape2D_hhb1c")
 [node name="Day-Night Cycle" parent="." instance=ExtResource("19_mbw1w")]
 position = Vector2(714, 11)
 
-[node name="Snowfall" type="CanvasLayer" parent="."]
+[node name="Particles" type="CanvasLayer" parent="."]
 
-[node name="Day-Night Cycle2" parent="Snowfall" instance=ExtResource("19_mbw1w")]
+[node name="Day-Night Cycle2" parent="Particles" instance=ExtResource("19_mbw1w")]
 position = Vector2(714, 11)
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="Snowfall"]
+[node name="Snowfall" type="GPUParticles2D" parent="Particles"]
 position = Vector2(714, -16)
 emitting = false
 amount = 8192
@@ -2506,4 +2509,5 @@ fract_delta = false
 
 [node name="UI" parent="." instance=ExtResource("21_bfx7a")]
 
+[connection signal="timeout" from="AnimalManager/AnimalTimer" to="AnimalManager" method="_on_animal_timer_timeout"]
 [connection signal="body_entered" from="Teleports/Village/Area2D" to="Teleports/Village" method="_on_area_2d_body_entered"]

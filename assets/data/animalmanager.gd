@@ -30,6 +30,9 @@ func add_animal(animal:Object, house:Object) -> void:
 		animals[animal.name]["node"] = animal;
 		animals[animal.name]["name"] = animal.animalName;
 		animals[animal.name]["house"] = house.name;
+		animals[animal.name]["time"] = 14;#1440; # игрок должен подождать целый с ее появления день чтобы курица снесла яйцо.
+		animals[animal.name]["resource"] = false;
+		animals[animal.name]["mother"] = false; # Наседка
 	else: animals[animal.name]["house"] = house.name;
 
 func remove_animal(animal:Object) -> void:
@@ -44,6 +47,9 @@ func get_animal(animal:Object) -> Dictionary:
 			"name": animals[animal.name]["name"],
 			"house": animals[animal.name]["house"],
 			"node": animals[animal.name]["node"],
+			"time": animals[animal.name]["time"],
+			"resource": animals[animal.name]["resource"],
+			"mother": animals[animal.name]["mother"]
 		};
 	return content;
 
@@ -72,12 +78,10 @@ func get_animals_by_spawn(_spawn:Object) -> Dictionary:
 func remove_spawn(_spawn:Object) -> void:
 	if !_spawn: return;
 	var _animals = get_animals_by_spawn(_spawn);
-	print(animals)
 	for i in _animals: 
 		_animals[i]["house"] = "";
 		_animals[i]["node"].update_spawn();
 	animalStalls.erase(_spawn);
-	
 
 # В хлевах и будущих постройках такого же типа появляется их тип ресурса:
 # - Куры - яйца (1 курица = 1 яйцо)
@@ -85,5 +89,10 @@ func remove_spawn(_spawn:Object) -> void:
 func _on_animal_timer_timeout(): 
 	if animalStalls.size() == 0: return;
 
-	for i in animalStalls:
-		i.get_animal_resource();
+	for i in animals:
+		if !animals[i]["mother"] && !animals[i]["resource"]:
+			if animals[i]["time"]-1 != 0: animals[i]["time"]-=1;
+			else: 
+				animals[i]["resource"] = true;
+				if animalStalls.size() > 0:
+					for j in animalStalls: j.get_animal_resource();

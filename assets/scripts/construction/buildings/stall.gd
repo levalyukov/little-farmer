@@ -11,13 +11,18 @@ extends Node2D
 @onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid") 
 @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
 @onready var canvas:Node = get_node("/root/"+main+"/ShadowManager")
+@onready var inventory:Control = get_node("/root/"+main+"/UI/Interactive/Inventory")
 @onready var buttonDestroy:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Tools/Tool/MarginContainer/MarginContainer/HBoxContainer/ButtonDestroyMenu")
+@onready var animations:AnimationPlayer = $AnimationPlayer
+@onready var indicator:Node2D = $Indicator
 @onready var sprite:Sprite2D = $Sprite2D
 
 @onready var animalMenu:Control = get_node("/root/"+main+"/UI/Interactive/AnimallStallMenu")
 @onready var animalManager:Node2D = get_node("/root/"+main+"/AnimalManager")
 @onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
 
+var hovered:bool = false ; # Состояние мышки
+var animalResources:bool = false # я хз как назвать эту переменную, но это флаг для того чтобы можно собрать животные ресурсы: яйца, молоко и т.д.
 var opened:bool = false;
 var destroyMode:bool = false
 var all_collisions:Array[Vector2i] = []
@@ -51,7 +56,19 @@ var object:Dictionary = {
 	},
 }
 
-func _ready() -> void: update()
+func get_animal_resource() -> void:
+	if !inventory: 	return;
+	if !animations: return;
+	if !indicator: 	return;
+
+	if !animalResources: 
+		animalResources = true;
+		indicator.visible = true;
+		animations.play("bubble");
+
+func _ready() -> void: 
+	if indicator.visible: indicator.visible = false; 
+	update(); 
 
 func update() -> void:
 	if object.has(level):
@@ -91,11 +108,37 @@ func _input(event) -> void:
 	if event is InputEventMouseButton\
 	&& event.button_index == MOUSE_BUTTON_LEFT\
 	&& event.is_pressed()\
+	&& grid.mode == grid.modes.NOTHING\
+	&& !blur.state\
+	&& hovered:
+		if inventory && animalManager:
+			if self in animalManager.get_spawns():
+				if animalManager.get_animals_by_spawn(self).size() == 0: 
+					animalResources = false;
+					if indicator.visible: indicator.visible = false;
+					if animations: animations.stop();
+					return;
+				
+				var value:int = 0;
+				var _animals = animalManager.get_animals_by_spawn(self);
+				for i in _animals: 
+					_animals[i]["time"] = 14;
+					_animals[i]["resource"] = false;
+					value+=1;
+					
+				inventory.add_item(74,value);
+				animalResources = false;
+				if indicator.visible: indicator.visible = false;
+				if animations: animations.stop();
+
+	if event is InputEventMouseButton\
+	&& event.button_index == MOUSE_BUTTON_LEFT\
+	&& event.is_pressed()\
 	&& !blur.state\
 	&& destroyMode\
 	&& buttonDestroy.destroyMode:
+		if animalManager: animalManager.remove_spawn(self);
 		if buildings: buildings.remove_node(self, all_collisions)
-		if animalManager: animalManager.remove_spawn();
 
 	if event is InputEventMouseButton\
 	&& event.button_index == MOUSE_BUTTON_LEFT\
@@ -119,8 +162,18 @@ func get_data() -> Dictionary:
 	
 func _on_area_2d_mouse_entered() -> void:
 	if cursor: cursor.set_cursor(cursor.states.ACTIVE)
+
 	if !blur.state\
 	&& grid.mode == grid.modes.NOTHING\
+	&& !buttonDestroy.destroyMode\
+	&& animalResources\
+	&& !opened:
+		_change_sprite(true)
+		hovered = true;
+
+	if !blur.state\
+	&& grid.mode == grid.modes.NOTHING\
+	&& !animalResources\
 	&& !buttonDestroy.destroyMode:
 		_change_sprite(true)
 		opened = true;
@@ -139,6 +192,7 @@ func _on_area_2d_mouse_entered() -> void:
 
 func _on_area_2d_mouse_exited() -> void:
 	_change_sprite(false)
+	if hovered: hovered = false;
 	if opened: opened = false;
 	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
 	if destroyMode: destroyMode = !true

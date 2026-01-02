@@ -735,4 +735,14 @@ var content:Dictionary = {
 		"sale": 0,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/own_production/chicken_egg.png"),
 	},
+
+	75: {
+		"caption": "items.chicken_egg.caption", 
+		"description": "items.chicken_egg.description", 
+		"type": ["items.type.own_production"],
+		"item_type": ["own_production"],
+		"purchase": 30,
+		"sale": 0,
+		"icon": preload("res://assets/resources/ui/interactive/inventory/items/own_production/brown_chicken_egg.png"),
+	},
 }

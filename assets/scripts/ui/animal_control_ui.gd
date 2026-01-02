@@ -55,7 +55,7 @@ func _get_all_stalls() -> void:
     var button = animalButton.instantiate();
     animalButtonContainer.add_child(button);
     if button.buttonSource: button.buttonSource.connect("pressed", Callable(self, "_change_spawn").bind(currentAnimal,i))
-    if i.sprite: button.change_icon(i.sprite.get_texture());
+    if i: if i.sprite: button.change_icon(i.sprite.get_texture()); #! Fix this
     
     if animalManager.get_animal(currentAnimal).size() > 0:
       if animalManager.get_animal(currentAnimal).has("house"):
@@ -71,6 +71,7 @@ func _change_spawn(_animal:Object, _spawn:Object) -> void:
   if !_spawn: return;
 
   animalManager.add_animal(_animal, _spawn);
+  _animal.update_spawn();
   if notice: notice.create_notice(animalManager.get_animal(_animal)["name"]+" "+tr("animal.notice.has_been_moved"));
   close();
 
