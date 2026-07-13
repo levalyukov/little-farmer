@@ -18,7 +18,7 @@ animal_manager.gd
 **Пример:**
 ```gd
 func update_spawn() -> void:
-	currentSpawn = get_spawn(animalManager.get_animal(self)["house"])
+	current_spawn = get_spawn(animal_manager.get_animal(self)["house"])
 ```
 
 ## Переменные 
