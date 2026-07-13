@@ -4,7 +4,15 @@
 
 > *В вашем распоряжении заброшенный земельный участок размером 56x36 клеток. Развивайте, украшайте и вдохновляйтесь — здесь нет правил, только ваша фантазия!*
 
-Little Farmer - 2D Top-Down пиксельная симулятор фермерства, разработанная на игровом движке Godot v4.2.1 при помощи `GDScript`.
+Little Farmer - 2D Top-Down пиксельная симулятор фермерства, разработанная на игровом движке Godot при помощи `GDScript`.
+
+## Инструментарий
+
+- Игровой движок: [Godot v4.2.1](https://godotengine.org/download/archive/4.2.1-stable/)
+- Графический редактор: [Aseprite](https://aseprite.org/)
+- Редактор кода: [Visual Studio Code](https://code.visualstudio.com/)
+- Музыкальный редактор: [Fl Studio 12](https://www.image-line.com/)
+
 
 ## Управление
 
