@@ -2,8 +2,9 @@
 
 <br/>
 
-You have at your disposal an abandoned land plot measuring 56x36 squares. Develop it, beautify it, and be inspired - there are no rules here, only your imagination.
+> *В вашем распоряжении заброшенный земельный участок размером 56x36 клеток. Развивайте, украшайте и вдохновляйтесь — здесь нет правил, только ваша фантазия!*
 
+Little Farmer - 2D Top-Down пиксельная симулятор фермерства, разработанная на игровом движке Godot v4.2.1 при помощи `GDScript`.
 ## Приобрести
 
 | <a href="https://vkplay.ru/play/game/little-farmer/"><img src=".docs/assets/vkplay.png" width=256><a/>  | <a href="https://gamejolt.com/games/littler-farmer/929201"><img src=".docs/assets/gamejolt.png" width=256><a/> | <a href="https://miroro.itch.io/little-farmer"><img src=".docs/assets/itchio.png" width=256><a/> |
@@ -13,5 +14,3 @@ You have at your disposal an abandoned land plot measuring 56x36 squares. Develo
 ## Документация
 
 Полноценная документация по каждой механике есть в отдельном разделе [.docs/](.docs/).
-
-<p align=center> Лицензия <a href="https://github.com/levalyukov/little-farmer/blob/farmer/license">GPL-3.0</a> </p>
