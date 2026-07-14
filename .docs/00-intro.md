@@ -13,7 +13,6 @@ Little Farmer - 2D Top-Down пиксельная симулятор фермер
 - Редактор кода: [Visual Studio Code](https://code.visualstudio.com/)
 - Музыкальный редактор: [Fl Studio 12](https://www.image-line.com/)
 
-
 ## Управление
 
 | Кнопка        | Действие       |
