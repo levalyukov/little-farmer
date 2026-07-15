@@ -12,10 +12,12 @@ func blackout(state:bool, speed:float = 0.5) -> void:
 		true:
 			anim.play("blackout")
 			anim.speed_scale = speed
+			self.mouse_filter = MOUSE_FILTER_STOP
 			
 		false:
 			anim.play("blackout_reset")
 			anim.speed_scale = speed
+			self.mouse_filter = MOUSE_FILTER_IGNORE
 
 func change_color(colouring:Color, default_clear_color:bool = false):
 	if typeof(colouring) == TYPE_COLOR:
