@@ -45,7 +45,6 @@ var stamina:int = 100
 
 ```gdscript
 @onready var button:Button = $Button
-@onready var cursor:Cursor = $Cursor
 
 func hello_world() -> void:
 	button.pressed.connect(_button_hover)
