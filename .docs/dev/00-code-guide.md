@@ -32,9 +32,9 @@ func update_spawn() -> void:
 const SPEED:int = 15
 const TEXTURES:Dictionary = \
 {
-	0: preload("/assets/player/idle.png"),
-	1: preload("/assets/player/walk.png"),
-	2: preload("/assets/player/run.png")
+	0: preload("res://assets/player/idle.png"),
+	1: preload("res://assets/player/walk.png"),
+	2: preload("res://assets/player/run.png")
 }
 
 var hp:int = 100
