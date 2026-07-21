@@ -1,17 +1,11 @@
-[gd_scene load_steps=31 format=3 uid="uid://cfg7cs8a8gogo"]
+[gd_scene load_steps=25 format=3 uid="uid://cfg7cs8a8gogo"]
 
-[ext_resource type="PackedScene" uid="uid://3w6lj8hrhrxx" path="res://assets/nodes/ui/decorative/blackout.tscn" id="1_3ae63"]
-[ext_resource type="PackedScene" uid="uid://ddp2h6ryjofvt" path="res://assets/nodes/ui/hud/cursor.tscn" id="1_omrn7"]
-[ext_resource type="Script" path="res://assets/scripts/ui/interactive/_main_menu/menu.gd" id="1_x8tav"]
-[ext_resource type="PackedScene" uid="uid://c16oacn0qg214" path="res://assets/nodes/ui/decorative/blur.tscn" id="2_jinr7"]
-[ext_resource type="PackedScene" uid="uid://bhadiamik4ev0" path="res://assets/nodes/ui/interactive/options/options.tscn" id="2_m3gij"]
-[ext_resource type="PackedScene" uid="uid://b51o72a5t51k6" path="res://assets/nodes/ui/modal.tscn" id="3_m8me6"]
-[ext_resource type="Texture2D" uid="uid://8a8etgv8q0b7" path="res://logo.png" id="5_k5cee"]
-[ext_resource type="Texture2D" uid="uid://wx85e5dgxor3" path="res://assets/resources/ui/button_default.png" id="6_uq7gr"]
-[ext_resource type="Script" path="res://assets/data/gamedata.gd" id="7_7q651"]
-[ext_resource type="Texture2D" uid="uid://gfefh7s35hv4" path="res://assets/resources/ui/button_hover.png" id="7_ioe06"]
-[ext_resource type="Texture2D" uid="uid://cmw1jplx3tyg5" path="res://assets/resources/ui/button_pressed.png" id="8_qn8sj"]
-[ext_resource type="Texture2D" uid="uid://dt848bhd75gat" path="res://assets/resources/ui/button_disabled.png" id="9_er6dx"]
+[ext_resource type="Script" path="res://assets/scripts/menu/menu.gd" id="1_x8tav"]
+[ext_resource type="Texture2D" uid="uid://bgam1jdbmck3c" path="res://logo.png" id="6_tn0f5"]
+[ext_resource type="Texture2D" uid="uid://dfnl2bnmkvsdg" path="res://assets/resources/ui/button_default.png" id="6_uq7gr"]
+[ext_resource type="Texture2D" uid="uid://che3o5el4ph1g" path="res://assets/resources/ui/button_hover.png" id="7_ioe06"]
+[ext_resource type="Texture2D" uid="uid://wud38yeu3b7d" path="res://assets/resources/ui/button_pressed.png" id="8_qn8sj"]
+[ext_resource type="Texture2D" uid="uid://bwhtsbq8jwfk3" path="res://assets/resources/ui/button_disabled.png" id="9_er6dx"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nneai"]
 texture = ExtResource("6_uq7gr")
@@ -126,26 +120,6 @@ grow_vertical = 2
 mouse_filter = 0
 script = ExtResource("1_x8tav")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-
-[node name="Timer" type="Timer" parent="."]
-
-[node name="Menu" type="CanvasLayer" parent="."]
-
-[node name="Options" parent="Menu" instance=ExtResource("2_m3gij")]
-anchors_preset = 15
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="Modal" parent="Menu" instance=ExtResource("3_m8me6")]
-
-[node name="Blackout" parent="." instance=ExtResource("1_3ae63")]
-layout_mode = 2
-
-[node name="Cursor" parent="." instance=ExtResource("1_omrn7")]
-
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 2
 color = Color(0.784314, 0.623529, 0.521569, 1)
@@ -169,7 +143,7 @@ custom_minimum_size = Vector2(512, 256)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-texture = ExtResource("5_k5cee")
+texture = ExtResource("6_tn0f5")
 stretch_mode = 5
 
 [node name="ButtonsMargin" type="MarginContainer" parent="MenuContent/VContainer"]
@@ -198,7 +172,7 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_o3muj")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_xtslb")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_vqost")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_y23j3")
-text = "main_menu.countinue_game_button"
+text = "menu.continue"
 
 [node name="NewGameMargin" type="MarginContainer" parent="MenuContent/VContainer/ButtonsMargin/Buttons"]
 layout_mode = 2
@@ -213,7 +187,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_8657f")
 theme_override_styles/hover = SubResource("StyleBoxTexture_qco8a")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_8pg3f")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_63r1u")
-text = "main_menu.new_game_button"
+text = "menu.newgame"
 
 [node name="SettingsMargin" type="MarginContainer" parent="MenuContent/VContainer/ButtonsMargin/Buttons"]
 layout_mode = 2
@@ -228,7 +202,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_dif7q")
 theme_override_styles/hover = SubResource("StyleBoxTexture_phoql")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_udmmo")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_embk8")
-text = "main_menu.settings_button"
+text = "menu.settings"
 
 [node name="CreditsMargin" type="MarginContainer" parent="MenuContent/VContainer/ButtonsMargin/Buttons"]
 layout_mode = 2
@@ -243,7 +217,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_dif7q")
 theme_override_styles/hover = SubResource("StyleBoxTexture_phoql")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_udmmo")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_embk8")
-text = "main_menu.credits_button"
+text = "menu.credits"
 
 [node name="ExitMargin" type="MarginContainer" parent="MenuContent/VContainer/ButtonsMargin/Buttons"]
 layout_mode = 2
@@ -258,7 +232,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_7pi30")
 theme_override_styles/hover = SubResource("StyleBoxTexture_u7keh")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_dq66j")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_gtq0s")
-text = "main_menu.quit_buttin"
+text = "menu.quit"
 
 [node name="FooterMargin" type="MarginContainer" parent="MenuContent/VContainer"]
 layout_mode = 2
@@ -270,29 +244,6 @@ layout_mode = 2
 [node name="Version" type="Label" parent="MenuContent/VContainer/FooterMargin/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+text = "menu.version"
 label_settings = SubResource("LabelSettings_eema0")
 horizontal_alignment = 1
-
-[node name="Blur" parent="." instance=ExtResource("2_jinr7")]
-layout_mode = 2
-
-[node name="GameData" type="Node2D" parent="."]
-script = ExtResource("7_7q651")
-
-[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="mouse_entered" from="MenuContent/VContainer/ButtonsMargin/Buttons/ContinueMargin/ContinueButton" to="." method="_on_continue_button_mouse_entered"]
-[connection signal="mouse_exited" from="MenuContent/VContainer/ButtonsMargin/Buttons/ContinueMargin/ContinueButton" to="." method="_on_continue_button_mouse_exited"]
-[connection signal="pressed" from="MenuContent/VContainer/ButtonsMargin/Buttons/ContinueMargin/ContinueButton" to="." method="_on_continue_button_pressed"]
-[connection signal="mouse_entered" from="MenuContent/VContainer/ButtonsMargin/Buttons/NewGameMargin/NewGameButton" to="." method="_on_new_game_button_mouse_entered"]
-[connection signal="mouse_exited" from="MenuContent/VContainer/ButtonsMargin/Buttons/NewGameMargin/NewGameButton" to="." method="_on_new_game_button_mouse_exited"]
-[connection signal="pressed" from="MenuContent/VContainer/ButtonsMargin/Buttons/NewGameMargin/NewGameButton" to="." method="_on_new_game_button_pressed"]
-[connection signal="mouse_entered" from="MenuContent/VContainer/ButtonsMargin/Buttons/SettingsMargin/SettingsButton" to="." method="_on_settings_button_mouse_entered"]
-[connection signal="mouse_exited" from="MenuContent/VContainer/ButtonsMargin/Buttons/SettingsMargin/SettingsButton" to="." method="_on_settings_button_mouse_exited"]
-[connection signal="pressed" from="MenuContent/VContainer/ButtonsMargin/Buttons/SettingsMargin/SettingsButton" to="." method="_on_options_button_pressed"]
-[connection signal="mouse_entered" from="MenuContent/VContainer/ButtonsMargin/Buttons/CreditsMargin/CreditsButton" to="." method="_on_settings_button_mouse_entered"]
-[connection signal="mouse_exited" from="MenuContent/VContainer/ButtonsMargin/Buttons/CreditsMargin/CreditsButton" to="." method="_on_settings_button_mouse_exited"]
-[connection signal="pressed" from="MenuContent/VContainer/ButtonsMargin/Buttons/CreditsMargin/CreditsButton" to="." method="_on_credits_button_pressed"]
-[connection signal="mouse_entered" from="MenuContent/VContainer/ButtonsMargin/Buttons/ExitMargin/ExitButton" to="." method="_on_exit_button_mouse_entered"]
-[connection signal="mouse_exited" from="MenuContent/VContainer/ButtonsMargin/Buttons/ExitMargin/ExitButton" to="." method="_on_exit_button_mouse_exited"]
-[connection signal="pressed" from="MenuContent/VContainer/ButtonsMargin/Buttons/ExitMargin/ExitButton" to="." method="_on_exit_button_pressed"]
