@@ -1,232 +1,95 @@
 extends Control
 
-@onready var main = str(get_tree().root.get_child(2).name)
-@onready var data:Node2D = get_node("/root/"+main)
-@onready var ui:CanvasLayer = get_node("/root/"+main+"/UI")
-@onready var hud:Control = get_node("/root/"+main+"/UI/HUD/GameHud")
-@onready var destroy_menu:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/DestroyMenuMargin/DestroyMenu")
-@onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
-@onready var options:Control = get_node("/root/"+main+"/UI/Interactive/Options")
-@onready var blackout:Control = get_node("/root/"+main+"/UI/Decorative/Blackout")
-@onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
-@onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
-@onready var zoom:Camera2D = get_node("/root/"+main+"/Player/Camera2D")
-@onready var player:CharacterBody2D = get_node("/root/"+main+"/Player")
-@onready var cursor:Node2D = get_node("/root/"+main+"/UI/HUD/Cursor")
-@onready var mailbox:Node2D = get_node('/root/'+main+'/ConstructionManager/mailbox')
-@onready var constructionManager:Node2D = get_node('/root/'+main+'/ConstructionManager')
-@onready var farmingManager:Node2D = get_node('/root/'+main+'/FarmingManager')
-@onready var game_music:Node2D = get_node('/root/'+main+'/MusicManager')
+# =============================================================================================
+# (pause.gd)
+# =============================================================================================
+# Скрипт меню паузы
+#
+# ЗОНА ОТВЕТСТВЕННОСТИ:
+# - Открытие игровые настроек
+# - Перенаправление на кнопку на формой заполнения бага
+# - Сохранение и выход из игры
+#
+# ЗАВИСИМОСТИ:
+# - Utils - вспомогательные методы
+# - UIManager - взаимодействие с пользовательским интерфейсом
+# - AnimationPlayer - для плавного появления и скрытие интерфейса методом изменении модуляции
+#
+# =============================================================================================
 
-@onready var anim:AnimationPlayer = $AnimationPlayer
-@onready var version:Label = $Main/Container/GameVersionMargin/GameVersion
+@onready var anim:AnimationPlayer 	= $Animation
+@onready var resume:Button 			= $Main/Container/CountinueButtonMargin/CountinueButton
+@onready var settings:Button 		= $Main/Container/SettingsButtonMargin/SettingsButton
+@onready var report:Button 			= $Main/Container/ReportBugButtonMargin/ReportBugButton
+@onready var exit:Button 			= $Main/Container/ExitButtonMargin/ExitButton
 
-@onready var buttonCountinue:Button = $Main/Container/CountinueButtonMargin/CountinueButton
-@onready var buttonSettings:Button = $Main/Container/SettingsButtonMargin/SettingsButton
-@onready var buttonBugReport:Button = $Main/Container/ReportBugButtonMargin/ReportBugButton
-@onready var buttonExit:Button = $Main/Container/ExitButtonMargin/ExitButton
+func _ready() -> void:
+	_button_init()
+	self.visible = false
+	anim.animation_finished.connect(_anim_is_finished)
+	open()
 
-var paused:bool
-var other_menu:bool
-
-func _ready():
-	player.switch = true
-	player.check_switch()
-	await get_tree().create_timer(0.75).timeout
-	blackout.blackout(false)
-	player.switch = true
-	zoom.is_zooming = false
-	zoom.is_changing_zoom = true
-	await get_tree().create_timer(0.25).timeout
-	hud.hud_all_show()
-	player.switch = false
-	player.check_switch()
-	clock.clock_update()
-	_check_window()
-
-func _input(_event):
-	if Input.is_action_just_pressed("esc"):
-		if !other_menu:
-			if !paused:
-				open()
-			else:
-				close()
+func _input(_event: InputEvent) -> void:
+	if Input.is_action_just_pressed("esc") \
+	&& abs(self.modulate.a) == 1.0:
+		close()
 
 func open() -> void:
-	paused = true
-	anim.play("open")
-	blur.blur(true)
-	hud.hud_all_hide()
-	player.check_switch()
-	version.text = "v" + ProjectSettings.get_setting("application/config/version") + "\n(C) Studio Miroro"
-	if grid:
-		grid.mode = grid.modes.NOTHING
-		grid.visible = false
-		grid.set_process(false)
-		grid.destroy_mode = grid.destroy.NOTHING
-		grid.tip.tooltip()
-		grid.plantID = null
-		grid.inventory_item = null
-		grid.id = 0
-		grid.group = ''
-		grid.terrain_set = []
-		grid.terrain_required_layer = []
-		grid.terrain_blocking_layer = []
-	if destroy_menu.opened:
-		destroy_menu.close()
+	self.visible = true
+	UIManager.blur.blur(true)
+	anim.play("show")
 
-	if GameLoader.get_children() != []:
-		for timer in GameLoader.get_children():
-			if !timer.is_paused():
-				timer.set_paused(true)
-				
-	if main == 'Farm':
-		if mailbox:
-			if mailbox.indicator.visible:
-				if mailbox.anim.is_playing():
-					mailbox.anim.stop()
-		# For forges
-		check_forges_state()
-		# For radio
-		check_radio_state(true)
-	# For nature sound
-	check_nature_sound(true)
-	# For plants
-	check_plants_state(true)
-	# For game music
-	check_game_music(true)
-	check_buildings(!false)
-	if GameLoader.check_timer():
-		GameLoader.get_timer().set_paused(true)
-		
 func close() -> void:
-	paused = false
-	anim.play("close")
-	blur.blur(false)
-	hud.hud_all_show()
-	player.check_switch()
-	if GameLoader.get_children() != []:
-		for timer in GameLoader.get_children():
-			if timer.is_paused():
-				timer.set_paused(!true)
-	if main == 'Farm':
-		if mailbox:
-			if mailbox.indicator.visible:
-				if !mailbox.anim.is_playing():
-					mailbox.anim.play()
+	UIManager.ui_add(UIManager.MENUS.HUD)
+	UIManager.blur.blur(false)
+	anim.play("hide")
 
-		check_forges_state()
-		check_radio_state(false)
-	check_plants_state(false)
-	check_nature_sound(false)
-	check_game_music(false)
-	check_buildings(false)
-	if GameLoader.check_timer(): GameLoader.get_timer().set_paused(false)
-	if game_music: game_music._radio_playing = game_music._radio_is_playing()
+func _button_init() -> void:
+	resume.pressed.connect(
+		func() -> void:
+			close()
+	)
 
-func check_game_music(_state:bool) -> void:
-	if game_music:
-		game_music._stream.set_stream_paused(_state)
+	settings.pressed.connect(
+		func() -> void:
+			UIManager.ui_add(UIManager.MENUS.OPTIONS)
+			UIManager.ui_remove(self)
+	)
 
-func check_nature_sound(_state:bool) -> void:
-	if clock:
-		if clock.audio:
-			if clock.audio.get_stream_paused() == !_state:
-				clock.audio.set_stream_paused(_state)
+	report.pressed.connect(
+		func() -> void:
+			Utils.open_url("https://www.youtube.com/watch?v=gAsNvXDsrGA")
+	)
 
-func check_plants_state(_state:bool) -> void:
-	if is_instance_valid(farmingManager):
-		if farmingManager.plant_timer && farmingManager.plant_timer is Timer:
-			farmingManager.plant_timer.set_paused(_state)
+	exit.pressed.connect(
+		func() -> void:
+			if is_instance_valid(UIManager.blackout):
+				UIManager.blackout.anim.animation_finished.connect(
+					func(animation_name: String) -> void:
+						if animation_name != "show":
+							GameData.save()
+							get_tree().change_scene_to_file("res://levels/menu.tscn")
+							UIManager.blur.blur(false)
+							UIManager.ui_remove(self)
+				, CONNECT_ONE_SHOT)
+				UIManager.blackout.blackout(true)
+	)
 
-func check_buildings(_state:bool) -> void:
-	if constructionManager:
-		if constructionManager.get_children().size() > 0:
-			for node in constructionManager.get_children():
-				if node && 'blueprint_id' in node:
-					match node.blueprint_id:
-						13:
-							node._sound.set_stream_paused(_state)
+	resume.pressed.connect(UIManager._button_pressed)
+	settings.pressed.connect(UIManager._button_pressed)
+	report.pressed.connect(UIManager._button_pressed)
+	exit.pressed.connect(UIManager._button_pressed)
 
-func check_radio_state(_state:bool) -> void:
-	if constructionManager:
-		if constructionManager.get_children().size() > 0:
-			for node in constructionManager.get_children():
-				if node:
-					if 'blueprint_id' in node:
-						if node.blueprint_id == 10:
-							match _state:
-								true: # pause.paused
-									if 'enabled' in node:
-										if node.enabled:
-											if node.audio_player && node.radio_noise:
-												if !node.audio_player.get_stream_paused():
-													node.audio_player.set_stream_paused(true)
-												if !node.radio_noise.get_stream_paused():
-													node.radio_noise.set_stream_paused(true)
-											if node.particles:
-												if node.particles.speed_scale > 0.0:
-													node.particles.speed_scale = 0.0
-								false:
-									if 'enabled' in node:
-										if node.enabled:
-											if node.audio_player.get_stream_paused():
-												node.audio_player.set_stream_paused(false)
-											if node.radio_noise.get_stream_paused():
-												node.radio_noise.set_stream_paused(false)
-											if node.particles.speed_scale == 0.0:
-												node.particles.speed_scale = 0.5
-										else:
-											if 'start_game_music' in node:
-												if node.start_game_music:
-													if !data.music.is_playing():
-														node.start_game_music = false
-														data.music_cooldown.set_wait_time(30.0) 
-														data.music_cooldown.start()
+	resume.mouse_entered.connect(UIManager._button_hovered)
+	settings.mouse_entered.connect(UIManager._button_hovered)
+	report.mouse_entered.connect(UIManager._button_hovered)
+	exit.mouse_entered.connect(UIManager._button_hovered)
 
-func check_forges_state() -> void:
-	if constructionManager:
-		if constructionManager.get_children().size() > 0:
-			for node in constructionManager.get_children():
-				if node:
-					if 'blueprint_id' in node:
-						if node.blueprint_id == 9:
-							match paused:
-								true:
-									if node.particles && node.particles.emitting:
-										if node.particles.speed_scale > 0.0:
-											node.particles.speed_scale = 0.0
-								false:
-									if node.particles && node.particles.emitting:
-										if node.particles.speed_scale == 0.0:
-											node.particles.speed_scale = 0.5
-
-func _check_window() -> void:
-	visible = paused
-
-func _on_report_bug_button_pressed():
-	if visible:
-		if data:
-			if data.has_method('open_url'):
-				data.open_url("https://forms.yandex.ru/u/6849b9e6eb614671e9b865c7/")
-				_play_sound('ui/click')
-
-func _on_report_bug_button_mouse_entered():
-	if blur.state:
-		if paused:
-			_play_sound('ui/hover')
-			if cursor:
-				cursor.set_cursor(cursor.states.ACTIVE)
-			
-func _on_report_bug_button_mouse_exited():
-	if cursor: cursor.set_cursor(cursor.states.DEFAULT)
-
-func _play_sound(ogg:String) -> void:
-	var audio = AudioStreamPlayer.new()
-	self.add_child(audio)
-	audio.connect("finished", Callable(self, "_on_audio_finished").bind(audio))
-	audio.stream = load('res://assets/sounds/'+ogg+'.ogg')
-	audio.play()
-
-func _on_audio_finished(node) -> void:
-	node.queue_free()
+	resume.mouse_exited.connect(UIManager._button_exited)
+	settings.mouse_exited.connect(UIManager._button_exited)
+	report.mouse_exited.connect(UIManager._button_exited)
+	exit.mouse_exited.connect(UIManager._button_exited)
+	
+func _anim_is_finished(anim_name: String) -> void:
+	if anim_name != "show":
+		UIManager.ui_remove(self)
