@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://vjfw7amj4pn5"]
-
-[ext_resource type="Script" path="res://assets/scripts/world/nature/cloud_spawner.gd" id="1_knbkg"]
-
-[node name="CloudSpawner" type="Timer"]
-script = ExtResource("1_knbkg")
-
-[connection signal="timeout" from="." to="." method="_on_timeout"]

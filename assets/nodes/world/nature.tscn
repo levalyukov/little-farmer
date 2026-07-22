@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://tdiipbf1hqx2"]
-
-[ext_resource type="Script" path="res://assets/scripts/world/nature/nature.gd" id="1_4s318"]
-
-[node name="NatureManager" type="Node2D"]
-y_sort_enabled = true
-script = ExtResource("1_4s318")
