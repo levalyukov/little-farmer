@@ -7,8 +7,9 @@
 Little Farmer - 2D Top-Down пиксельная симулятор фермерства, разработанная на игровом движке Godot v4.2.1 при помощи `GDScript`.
 
 > [!CAUTION]
-> Проект находится в состоянии глобального рефакторинга. Большая часть механик может не работать. Спасибо за понимание
-> The project is in a state of global refactoring. Most of the mechanics may not work. Thanks for understanding
+> Проект находится в состоянии глобального рефакторинга. Большая часть механик может не работать. Спасибо за понимание. 
+>
+> The project is in a state of global refactoring. Most of the mechanics may not work. Thanks for understanding.
 
 ## Документация
 
