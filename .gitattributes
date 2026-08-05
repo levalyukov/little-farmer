@@ -1,12 +1,1 @@
 * text=auto
-
-assets/scripts/* -linguist-vendored
-assets/scripts/* -linguist-documentation
-assets/scripts/* linguist-detectable=true
-*.gd linguist-language=GDScript
-
-*.py linguist-total-override
-*.hpp linguist-total-override
-*.cpp linguist-total-override
-
-*.gdshader linguist-documentation=true
