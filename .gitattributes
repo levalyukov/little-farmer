@@ -1,13 +1,16 @@
 * text=auto
 
+*.gd linguist-language=GDScript
 *.py linguist-language=Python
 *.md linguist-language=Markdown
 *.hpp linguist-language=C++
 *.cpp linguist-language=C++
 
+*.gd linguist-language=true
 *.py linguist-language=true
 *.md linguist-language=true
 *.hpp linguist-language=true
 *.cpp linguist-detectable=true
 
+*.md linguist-detectable=true
 *.gdshader linguist-documentation=true
