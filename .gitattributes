@@ -13,4 +13,6 @@
 *.cpp linguist-detectable=true
 
 *.md linguist-detectable=true
+*.gd linguist-detectable=true
+*.gd -text
 *.gdshader linguist-documentation=true
