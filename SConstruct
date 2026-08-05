@@ -28,31 +28,36 @@ elif env["platform"] in ["linux", "macos"]:
         ]
     )
 
-SOURCES = Glob("src/*.cpp")
+sources = []
+
+for root, dirs, files in os.walk("src"):
+    for file in files:
+        if file.endswith(".cpp"):
+            sources.append(os.path.join(root, file))
 
 if env["platform"] == "macos":
     library = env.SharedLibrary(
         OUTPUT+"libgdexample.{}.{}.framework/libgdexample.{}.{}".format(
             env["platform"], env["target"], env["platform"], env["target"]
         ),
-        source=SOURCES,
+        source=sources,
     )
     
 elif env["platform"] == "ios":
     if env["ios_simulator"]:
         library = env.StaticLibrary(
             OUTPUT+"libgdexample.{}.{}.simulator.a".format(env["platform"], env["target"]),
-            source=SOURCES,
+            source=sources,
         )
     else:
         library = env.StaticLibrary(
             OUTPUT+"libgdexample.{}.{}.a".format(env["platform"], env["target"]),
-            source=SOURCES,
+            source=sources,
         )
 else:
     library = env.SharedLibrary(
         OUTPUT+"libgdexample{}{}".format(env["suffix"], env["SHLIBSUFFIX"]),
-        source=SOURCES,
+        source=sources,
     )
 
 Default(library)
