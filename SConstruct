@@ -2,42 +2,57 @@
 import os
 import sys
 
+FILES = "src/"
+OUTPUT = "modules/"
+
 env = SConscript("godot-cpp/SConstruct")
+env.Append(CPPPATH=[FILES], CCFLAGS=[])
 
-# For reference:
-# - CCFLAGS are compilation flags shared between C and C++
-# - CFLAGS are for C-specific compilation flags
-# - CXXFLAGS are for C++-specific compilation flags
-# - CPPFLAGS are for pre-processor flags
-# - CPPDEFINES are for pre-processor defines
-# - LINKFLAGS are for linking flags
+if env["platform"] == "windows":
+    env.Append(
+        CCFLAGS=[
+            "/std:c++17", "/permissive-", "/external:I", "godot-cpp/include", 
+            "/external:I", "godot-cpp/gen/include", "/external:W0", "/external:templates-"
+        ]
+    )
 
-# tweak this if you want to use different folders, or more folders, to store your source code in.
-env.Append(CPPPATH=["src/"])
-sources = Glob("src/*.cpp")
+elif env["platform"] in ["linux", "macos"]:
+    env.Append(
+        CCFLAGS=[
+            "-std=c++17", "-Wall", "-Wextra", "-Werror", "-Wpedantic",
+            "-Wshadow", "-Wconversion", "-Wsign-conversion", "-Wold-style-cast", 
+            "-Wunused", "-Wcast-align", "-Wformat=2", "-Wlogical-op", "-Wmissing-declarations",
+            "-Woverloaded-virtual", "-Wctor-dtor-privacy", "-Wnon-virtual-dtor", "-Wnull-dereference",
+            "-Wdouble-promotion","-Wduplicated-branches","-Wduplicated-cond","-fstack-protector-strong",
+            "-D_FORTIFY_SOURCE=3", "-isystem", "godot-cpp/include", "-isystem", "godot-cpp/gen/include"
+        ]
+    )
+
+SOURCES = Glob("src/*.cpp")
 
 if env["platform"] == "macos":
     library = env.SharedLibrary(
-        "demo/bin/libgdexample.{}.{}.framework/libgdexample.{}.{}".format(
+        OUTPUT+"libgdexample.{}.{}.framework/libgdexample.{}.{}".format(
             env["platform"], env["target"], env["platform"], env["target"]
         ),
-        source=sources,
+        source=SOURCES,
     )
+    
 elif env["platform"] == "ios":
     if env["ios_simulator"]:
         library = env.StaticLibrary(
-            "demo/bin/libgdexample.{}.{}.simulator.a".format(env["platform"], env["target"]),
-            source=sources,
+            OUTPUT+"libgdexample.{}.{}.simulator.a".format(env["platform"], env["target"]),
+            source=SOURCES,
         )
     else:
         library = env.StaticLibrary(
-            "demo/bin/libgdexample.{}.{}.a".format(env["platform"], env["target"]),
-            source=sources,
+            OUTPUT+"libgdexample.{}.{}.a".format(env["platform"], env["target"]),
+            source=SOURCES,
         )
 else:
     library = env.SharedLibrary(
-        "demo/bin/libgdexample{}{}".format(env["suffix"], env["SHLIBSUFFIX"]),
-        source=sources,
+        OUTPUT+"libgdexample{}{}".format(env["suffix"], env["SHLIBSUFFIX"]),
+        source=SOURCES,
     )
 
 Default(library)
