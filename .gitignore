@@ -1,29 +1,27 @@
 # Godot-specific ignores
-.import/
 export.cfg
 export_presets.cfg
-
-# Imported translations (automatically generated from CSV files)
 *.translation
-
-# Mono-specific ignores
-.mono/
-data_*/
-/.vscode
-assets/localizations/main.pot
-assets/localizations/ru.mo
-assets/localizations/en.mo
+*.pot
+*.mo
+*.mo
 *.md5
 *.tmp
 *.ctex
 *.scn
 *.cfg
-.godot/editor/filesystem_update4
-*.oggvorbisstr
-*.import
-/.godot
 *.dll
 *.obj
 *.exp
 *.lib
 *.dblite
+*.oggvorbisstr
+*.import
+
+/.godot
+__pycache__
+.mono/
+data_*/
+/.vscode
+.import/
+.godot/editor/filesystem_update4

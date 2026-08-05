@@ -12,7 +12,7 @@
 *.hpp linguist-language=true
 *.cpp linguist-detectable=true
 
+*.gd -text
 *.md linguist-detectable=true
 *.gd linguist-detectable=true
-*.gd -text
 *.gdshader linguist-documentation=true
