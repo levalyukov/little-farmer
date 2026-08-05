@@ -13,7 +13,7 @@ Little Farmer - 2D Top-Down пиксельная симулятор фермер
 
 ## Инструментарий
 
-- Игровой движок: [Godot v4.2.1](https://godotengine.org/download/archive/4.2.1-stable/)
+- Игровой движок: [Godot v4.2.2](https://godotengine.org/download/archive/4.2.2-stable/)
 - Графический редактор: [Aseprite](https://aseprite.org/)
 - Редактор кода: [Visual Studio Code](https://code.visualstudio.com/)
 - Музыкальный редактор: [Fl Studio 12](https://www.image-line.com/)
