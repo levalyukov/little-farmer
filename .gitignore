@@ -22,3 +22,8 @@ assets/localizations/en.mo
 *.oggvorbisstr
 *.import
 /.godot
+*.dll
+*.obj
+*.exp
+*.lib
+*.dblite
