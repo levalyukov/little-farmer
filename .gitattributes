@@ -1,4 +1,4 @@
-*.gd linguist-language=GDScript
+*.gd linguist-language=gdscript
 *.py linguist-language=Python
 *.md linguist-language=Markdown
 *.hpp linguist-language=C++
