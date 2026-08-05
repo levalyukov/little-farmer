@@ -8,7 +8,7 @@ def format() -> None:
     subprocess.call(["clang-format", "-i", f"{MODULES}*.cpp", f"{MODULES}*.hpp"], shell=True)
 
     gdscripts_files = []
-    for (dirpath, filenames) in os.walk(SCRIPTS):
+    for (dirpath, dirnames, filenames) in os.walk(SCRIPTS):
         for filename in filenames:
             gdscripts_files.append(os.path.join(dirpath, filename))
 
