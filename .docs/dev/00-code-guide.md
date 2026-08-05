@@ -1,6 +1,12 @@
-# Стиль написания кода
+# Стиль написания кодаs
 
 Для читабельного вида и интуитивного понятного код всегда пишется в едином стиле.
+
+При помощи python-скрипта `helper.py` Вы можете запустить проверку на синтаксических ошибки, а также отформатировать код.
+
+```py
+py helper.py
+```
 
 ## GDScript
 
@@ -29,16 +35,23 @@ func update_spawn() -> void:
 
 **Пример:**
 ```gdscript
-const SPEED:int = 15
-const TEXTURES:Dictionary = \
-{
+const SPEED: int = 15
+const TEXTURES: Dictionary = {
 	0: preload("res://assets/player/idle.png"),
 	1: preload("res://assets/player/walk.png"),
 	2: preload("res://assets/player/run.png")
 }
 
-var hp:int = 100
-var stamina:int = 100
+var hp: int = 100
+var stamina: int = 100
+```
+
+### Перечисления
+
+Название перечисление пишется в `PascalCase`.
+
+```gdscript
+enum Phases {PLANTED, GROWING, REQUIRES_WATERING, GROWED, DEAD}
 ```
 
 ### Сигналы
@@ -46,7 +59,7 @@ var stamina:int = 100
 Настрого запрещается подключать сигналы через фильтр сигналов. Исключительно через код.
 
 ```gdscript
-@onready var button:Button = $Button
+@onready var button: Button = $Button
 
 func hello_world() -> void:
 	button.pressed.connect(_button_hover)
@@ -68,18 +81,14 @@ func _button_hover() -> void:
 #
 # ЗОНА ОТВЕТСТВЕННОСТИ:
 # - 
-# - 
-# - 
 #
 # ОСНОВНОЙ ФУНКЦИОНАЛ:
 # -
-# -
-# - 
 #
 # ЗАВИСИМОСТИ:
 # - 
-# - 
-# - 
-#
 # =============================================================================================
 ```
+
+## C++
+
