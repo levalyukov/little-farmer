@@ -3,8 +3,8 @@ from helper import *
 MODULES = "src/"
 SCRIPTS = "assets/scripts/"
 
-def format() -> None:
-    subprocess.call(["clang-format", "-i", f"{MODULES}*.cpp", f"{MODULES}*.hpp"], shell=True)
+def linter() -> None:
+    subprocess.call(["clang-format", "--dry-run", "--Werror", f"{MODULES}*.cpp", f"{MODULES}*.hpp"], shell=True)
 
     gdscripts_files = []
     for (dirpath, dirnames, filenames) in os.walk(SCRIPTS):
@@ -13,7 +13,7 @@ def format() -> None:
 
     if len(gdscripts_files) > 0:
         for gd in gdscripts_files:
-            subprocess.call(["gdformat", gd], shell=True)
+            subprocess.call(["gdlint", gd], shell=True)
 
 if __name__ == "__main__":
     print("Nice try!...")

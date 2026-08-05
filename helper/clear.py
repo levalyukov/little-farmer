@@ -1,5 +1,4 @@
-import os
-import shutil
+from helper import *
 
 IMPORT = "./.import"
 EXTENSIONS = [".cfg", ".tscn-", ".tmp", ".save", ".dmp", ".ctex", ".import", ".oggvorbisstr", "uid", ".cache"]

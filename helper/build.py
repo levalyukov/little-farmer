@@ -1,5 +1,4 @@
-import sys
-import subprocess
+from helper import *
 
 platform = ""
 
