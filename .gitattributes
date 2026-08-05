@@ -3,3 +3,9 @@
 *.md linguist-language=Markdown
 *.hpp linguist-language=C++
 *.cpp linguist-language=C++
+
+*.gd linguist-language=true
+*.py linguist-language=true
+*.md linguist-language=true
+*.hpp linguist-language=true
+*.cpp linguist-detectable=true
