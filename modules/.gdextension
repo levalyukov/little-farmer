@@ -6,7 +6,8 @@ reloadable              = true
 
 [icons]
 
-PlantManager = "res://assets/resources/modules/plant.png"
+FarmingManager = "res://assets/resources/modules/farming.png"
+BuildManager = "res://assets/resources/modules/build.png"
 
 [libraries]
 
