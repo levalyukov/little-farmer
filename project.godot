@@ -24,8 +24,11 @@ buses/default_bus_layout="res://audio.tres"
 
 [autoload]
 
-GameConfig="*res://assets/data/gameconfig.gd"
-GameLoader="*res://assets/data/gameloader.gd"
+GameData="*res://assets/data/gamedata.gd"
+SoundManager="*res://assets/data/sound_manager.gd"
+Settings="*res://assets/data/settings.gd"
+Utils="*res://assets/data/utils.gd"
+UIManager="*res://assets/nodes/ui/ui.tscn"
 
 [debug]
 
