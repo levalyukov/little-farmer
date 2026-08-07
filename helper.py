@@ -25,11 +25,11 @@ def main() -> None:
         command = input("Select the command: ")
         print() # Разделитель
         match command:
-            case "build"  | "1":    build()
-            case "format" | "2":    format()
-            case "linter" | "3":    linter()
-            case "clear"  | "4":    clear()
-            case "exit"   | "0" | "e":   break
+            case "1" | "build" : build()
+            case "2" | "format": format()
+            case "3" | "linter": linter()
+            case "4" | "clear" : clear()
+            case "0" | "exit" | "e": break
             case _: print("Error: Unknown command")
 
 if __name__ == "__main__":

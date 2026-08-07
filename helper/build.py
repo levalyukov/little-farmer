@@ -10,8 +10,8 @@ def build() -> None:
         case _:         print("Error: Unknown platform!")
 
     if platform != "":
-        print(f"Flags: platform={platform}, bits=64")
-        subprocess.run(["scons", f"platform={platform}", "bits=64"], shell=True)
+        print(f"Flags: platform={platform}")
+        subprocess.run(["scons", f"platform={platform}"], shell=True)
 
 if __name__ == "__main__":
     print("Nice try!...")
