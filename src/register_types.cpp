@@ -18,8 +18,6 @@ void initialize_modules(ModuleInitializationLevel p_level)
         /* Managers */
         godot::ClassDB::register_class<FarmingManager>();
         godot::ClassDB::register_class<BuildManager>();
-        /* Nodes -- */
-        godot::ClassDB::register_class<Building>();
     }
 }
 

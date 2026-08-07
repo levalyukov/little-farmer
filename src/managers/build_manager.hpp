@@ -1,6 +1,7 @@
 #pragma once
-#ifndef BUILD_MANAGER_MODULE_HPP
+#ifndef BUILD_MANAGER_HPP
 
+#include <stdbool.h>
 #include <godot_cpp/classes/node.hpp>
 #include <godot_cpp/variant/dictionary.hpp>
 #include "../nodes/building.hpp"
@@ -10,12 +11,8 @@ class BuildManager : public godot::Node
     GDCLASS(BuildManager, Node)
 
   	public:
-    	BuildManager(void);
-    	~BuildManager();
-
-		bool add_build(void);
-		godot::Building* get_build(unsigned int index) const;
-		bool remove_build(void);
+		bool add_building(Building* building);
+		bool remove_building(Building* building);
 
 		inline unsigned int get_max_distance(void) const
 		{
@@ -23,21 +20,21 @@ class BuildManager : public godot::Node
 		};
 
 	private:
-		godot::Dictionary container;
-		const unsigned int MAX_DISTANCE = 250U;
+		godot::Array container;
+		const unsigned int MAX_DISTANCE = 250;
 
 	protected:
 		static void _bind_methods(void);
 
-		inline godot::Dictionary get_dictionary(void) const 
+		inline godot::Array get_dictionary(void) const 
 		{
 			return container;
 		};
 
-		inline void set_dictionary(godot::Dictionary content) 
+		inline void set_dictionary(godot::Array content) 
 		{
 			container = content;
 		};
 };
 
-#endif //! BUILD_MANAGER_MODULE_HPP
+#endif // BUILD_MANAGER_HPP

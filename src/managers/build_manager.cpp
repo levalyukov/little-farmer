@@ -8,7 +8,7 @@ void BuildManager::_bind_methods(void)
     godot::ClassDB::add_property(
         "BuildManager", 
         godot::PropertyInfo(
-            godot::Variant::DICTIONARY, 
+            godot::Variant::ARRAY, 
             "Buildings"
         ),
         "set_build_container", 
@@ -16,25 +16,37 @@ void BuildManager::_bind_methods(void)
     );
 }
 
-BuildManager::BuildManager(void) 
-{}
-
-BuildManager::~BuildManager(void) 
-{}
-
-bool BuildManager::add_build(void)
+bool BuildManager::add_building(Building* building)
 {
-    bool flag = false;
+    bool flag = true;
+
+    if (!building)
+    {
+        flag = false;
+    }
+
+    if (flag)
+    {
+        container.append(building);
+        this->add_child(building);
+    }
+    
     return flag;
 }
 
-godot::Building* BuildManager::get_build(const unsigned int index) const
+bool BuildManager::remove_building(Building* building)
 {
-    return container.has(index) ? godot::Object::cast_to<godot::Building>(container[index]) : nullptr;
-}
+    bool flag = true;
+    if (!building)
+    {
+        flag = false;
+    }
 
-bool BuildManager::remove_build(void)
-{
-    bool flag = false;
+    if (flag && container.has(building))
+    {
+        this->remove_child(building);
+        container.erase(building);
+    }
+
     return flag;
 }

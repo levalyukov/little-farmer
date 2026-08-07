@@ -1,4 +1,5 @@
 #pragma once
+#ifndef FARMING_MANAGER_HPP
 
 #include <godot_cpp/classes/node.hpp>
 
@@ -13,3 +14,5 @@ class FarmingManager : public godot::Node
 	protected:
 		static void _bind_methods();
 };
+
+#endif // FARMING_MANAGER_HPP
