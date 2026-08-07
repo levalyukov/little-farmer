@@ -5,14 +5,17 @@
 
 class FarmingManager : public godot::Node
 {
-    GDCLASS(FarmingManager, Node)
+    GDCLASS(FarmingManager, godot::Node)
 
   	public:
     	FarmingManager(void);
     	~FarmingManager();
 
+	private:
+		godot::Dictionary container;
+
 	protected:
-		static void _bind_methods();
+		static void _bind_methods(void);
 };
 
 #endif // FARMING_MANAGER_HPP

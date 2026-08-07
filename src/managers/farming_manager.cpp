@@ -1,7 +1,12 @@
 #include "farming_manager.hpp"
 
-void FarmingManager::_bind_methods() {}
+void FarmingManager::_bind_methods(void) 
+{}
 
-FarmingManager::FarmingManager() {}
+FarmingManager::FarmingManager(void) 
+{}
 
-FarmingManager::~FarmingManager() {}
+FarmingManager::~FarmingManager() 
+{
+    container.clear();
+}
