@@ -32,7 +32,6 @@
 class BuildManager : public godot::Node
 {
     GDCLASS(BuildManager, Node)
-
   	public:
 		enum GridModes 
 		{
@@ -43,7 +42,7 @@ class BuildManager : public godot::Node
 			HARVESTING	= 4,
 			BUILD		= 5
 		};
-
+		
 		BuildManager(void);
 		~BuildManager();
 
