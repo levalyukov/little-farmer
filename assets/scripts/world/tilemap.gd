@@ -1,116 +1,146 @@
 extends TileMap
 
-@onready var main = str(get_tree().root.get_child(2).name)
-@onready var data = get_node("/root/"+main)
-@onready var blur:Control = get_node("/root/"+main+"/UI/Decorative/Blur")
-@onready var farming:Node2D = get_node("/root/"+main+"/FarmingManager")
-@onready var buildings:Node = get_node("/root/"+main+"/ConstructionManager")
-@onready var nature:Node2D = get_node("/root/"+main+"/NatureManager")
-@onready var canvas:CanvasGroup = get_node("/root/"+main+"/ShadowManager/CanvasGroup")
-@onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
-@onready var grid:Node2D = get_node("/root/"+main+"/ConstructionManager/Grid")
+# =============================================================================================
+# (tilemap.gd)
+# =============================================================================================
+# Менеджер тайловой карты
+#
+# ЗОНА ОТВЕТСТВЕННОСТИ:
+# - Обновление текстур слоев тайловой карты в зависимости от времени года.
+#
+# ОСНОВНОЙ ФУНКЦИОНАЛ:
+# - update_atlas()
+#
+# ЗАВИСИМОСТИ:
+# - building_manager -
+# - nature_manager -
+# - shadow_manager -
+#
+# =============================================================================================
 
-var SEASON_ATLAS = {
-	"spring": {
-		"ground": load("res://assets/resources/world/landscape/spring/ground.png"),
-		"roads": load("res://assets/resources/world/landscape/spring/roads.png"),
-		"farmlands": load("res://assets/resources/world/landscape/spring/farmlands.png"),
-		"waterings": load("res://assets/resources/world/landscape/spring/waterings.png"),
-		"coasts": load("res://assets/resources/world/landscape/spring/coasts.png"),
-		"water": load("res://assets/resources/world/landscape/spring/water.png"),
-	},
-	"summer": {
-		"ground": load("res://assets/resources/world/landscape/summer/ground.png"),
-		"roads": load("res://assets/resources/world/landscape/summer/roads.png"),
-		"farmlands": load("res://assets/resources/world/landscape/summer/farmlands.png"),
-		"waterings": load("res://assets/resources/world/landscape/summer/waterings.png"),
-		"coasts": load("res://assets/resources/world/landscape/summer/coasts.png"),
-		"water": load("res://assets/resources/world/landscape/summer/water.png"),
-	},
-	"autumn": {
-		"ground": load("res://assets/resources/world/landscape/autumn/ground.png"),
-		"roads": load("res://assets/resources/world/landscape/autumn/roads.png"),
-		"farmlands": load("res://assets/resources/world/landscape/autumn/farmlands.png"),
-		"waterings": load("res://assets/resources/world/landscape/autumn/waterings.png"),
-		"coasts": load("res://assets/resources/world/landscape/autumn/coasts.png"),
-		"water": load("res://assets/resources/world/landscape/autumn/water.png"),
-	},
-	"winter": {
-		"ground": load("res://assets/resources/world/landscape/winter/ground.png"),
-		"roads": load("res://assets/resources/world/landscape/winter/roads.png"),
-		"farmlands": load("res://assets/resources/world/landscape/winter/farmlands.png"),
-		"waterings": load("res://assets/resources/world/landscape/winter/waterings.png"),
-		"coasts": load("res://assets/resources/world/landscape/winter/coasts.png"),
-		"water": load("res://assets/resources/world/landscape/winter/water.png"),
-	},
+#@export var build_manager: BuildManager
+
+const LAYERS: Dictionary = {
+	GROUND = 0,
+	ROAD = 1,
+	NATURE = 2,
+	COAST = 3,
+	AQUATIC = 4,
+	WATER = 5,
+	FARMLAND = 6,
+	WATERING = 7,
+	CROPS = 8,
+	BUILDING = 9,
+	GAME_BORDER = 10
 }
 
-func set_atlas(season:String) -> void:
-	if SEASON_ATLAS.has(season):
-		if SEASON_ATLAS[season].has("ground")\
-		&& SEASON_ATLAS[season].has("roads")\
-		&& SEASON_ATLAS[season].has("farmlands")\
-		&& SEASON_ATLAS[season].has("waterings")\
-		&& SEASON_ATLAS[season].has("coasts")\
-		&& SEASON_ATLAS[season].has("water"):
-			if SEASON_ATLAS[season]["ground"] is CompressedTexture2D\
-			&& SEASON_ATLAS[season]["roads"] is CompressedTexture2D\
-			&& SEASON_ATLAS[season]["farmlands"] is CompressedTexture2D\
-			&& SEASON_ATLAS[season]["waterings"] is CompressedTexture2D\
-			&& SEASON_ATLAS[season]["coasts"] is CompressedTexture2D\
-			&& SEASON_ATLAS[season]["water"] is CompressedTexture2D:
-				tile_set.get_source(0).texture = SEASON_ATLAS[season]["ground"]
-				tile_set.get_source(1).texture = SEASON_ATLAS[season]["roads"]
-				tile_set.get_source(2).texture = SEASON_ATLAS[season]["farmlands"]
-				tile_set.get_source(3).texture = SEASON_ATLAS[season]["waterings"]
-				tile_set.get_source(4).texture = SEASON_ATLAS[season]["coasts"]
-				tile_set.get_source(5).texture = SEASON_ATLAS[season]["water"]
-				if buildings:
-					if buildings.get_children() != []:
-						for node in buildings.get_children():
-							if node:
-								if node.has_method("get_data"):
-									if 'level' in node:
-										if node.object.has(node.level):
-											if node.object[node.level].has("seasons"):
-												if node.object[node.level]["seasons"].has(season):
-													if node.object[node.level]["seasons"][season].has("default"):
-														node.update()
-									else:
-										if node.has_method("update"):
-											if node.object.has("seasons"):
-												if node.object["seasons"].has(season):
-													if node.object["seasons"][season].has("default"):
-														node.update()
-								else:
-									if node.has_method("update"):
-										if node.object.has("seasons"):
-											if node.object["seasons"].has(season):
-												if node.object["seasons"][season].has("default"):
-													node.update()
+const TERRAINS: Dictionary = {ROADS = 0, FARMING = 1, WATERING = 2, COAST = 3, WATER = 4}
 
-				if nature:
-					if nature.get_children() != []:
-						nature.clear_all_arrays()
-						nature._set_new_sprites()
-						for node in nature.get_children(): 
-							if node:
-								if node.has_method('change_texture'):
-									if data.remove_suffix(node.name) == "tree":
-										node.change_texture(nature._trees[node.index])
-									if data.remove_suffix(node.name) == "stone":
-										node.change_texture(nature._stones[node.index])
-									if data.remove_suffix(node.name) == "weed":
-										node.change_texture(nature._weeds[node.index])
+const ATLAS: Dictionary = {
+	"spring":
+	{
+		0: preload("res://assets/resources/world/landscape/spring/ground.png"),
+		1: preload("res://assets/resources/world/landscape/spring/roads.png"),
+		2: preload("res://assets/resources/world/landscape/spring/farmlands.png"),
+		3: preload("res://assets/resources/world/landscape/spring/waterings.png"),
+		4: preload("res://assets/resources/world/landscape/spring/coasts.png"),
+		5: preload("res://assets/resources/world/landscape/spring/water.png")
+	},
+	"summer":
+	{
+		0: preload("res://assets/resources/world/landscape/summer/ground.png"),
+		1: preload("res://assets/resources/world/landscape/summer/roads.png"),
+		2: preload("res://assets/resources/world/landscape/summer/farmlands.png"),
+		3: preload("res://assets/resources/world/landscape/summer/waterings.png"),
+		4: preload("res://assets/resources/world/landscape/summer/coasts.png"),
+		5: preload("res://assets/resources/world/landscape/summer/water.png")
+	},
+	"autumn":
+	{
+		0: preload("res://assets/resources/world/landscape/autumn/ground.png"),
+		1: preload("res://assets/resources/world/landscape/autumn/roads.png"),
+		2: preload("res://assets/resources/world/landscape/autumn/farmlands.png"),
+		3: preload("res://assets/resources/world/landscape/autumn/waterings.png"),
+		4: preload("res://assets/resources/world/landscape/autumn/coasts.png"),
+		5: preload("res://assets/resources/world/landscape/autumn/water.png")
+	},
+	"winter":
+	{
+		0: preload("res://assets/resources/world/landscape/winter/ground.png"),
+		1: preload("res://assets/resources/world/landscape/winter/roads.png"),
+		2: preload("res://assets/resources/world/landscape/winter/farmlands.png"),
+		3: preload("res://assets/resources/world/landscape/winter/waterings.png"),
+		4: preload("res://assets/resources/world/landscape/winter/coasts.png"),
+		5: preload("res://assets/resources/world/landscape/winter/water.png")
+	}
+}
 
-				if canvas:
-					if canvas.get_children() != []:
-						for i in canvas.get_children():
-							if i:
-								if i.has_method("is_nature_shadow"):
-									if i.type == "tree":
-										i.change_sprite(nature._trees_shadow[i.index])
-									if i.type == "stone":
-										i.change_sprite(nature._stones_shadow[i.index])
-									if i.type == "weed":
-										i.change_sprite(nature._weeds_shadow[i.index])
+
+func update_atlas(season: String) -> void:
+	if ATLAS.has(season):
+		if (
+			ATLAS[season].has(0)
+			&& ATLAS[season].has(1)
+			&& ATLAS[season].has(2)
+			&& ATLAS[season].has(3)
+			&& ATLAS[season].has(4)
+			&& ATLAS[season].has(5)
+			&& ATLAS[season][0] is CompressedTexture2D
+			&& ATLAS[season][1] is CompressedTexture2D
+			&& ATLAS[season][2] is CompressedTexture2D
+			&& ATLAS[season][3] is CompressedTexture2D
+			&& ATLAS[season][4] is CompressedTexture2D
+			&& ATLAS[season][5] is CompressedTexture2D
+		):
+			tile_set.get_source(0).texture = ATLAS[season][0]
+			tile_set.get_source(1).texture = ATLAS[season][1]
+			tile_set.get_source(2).texture = ATLAS[season][2]
+			tile_set.get_source(3).texture = ATLAS[season][3]
+			tile_set.get_source(4).texture = ATLAS[season][4]
+			tile_set.get_source(5).texture = ATLAS[season][5]
+
+			# if building_manager && !building_manager.get_children().is_empty():
+			# 	for node in building_manager.get_children():
+			# 		if node.has_method("get_data"):
+			# 			if 'level' in node:
+			# 				if node.object.has(node.level)\
+			# 				&& node.object[node.level].has("seasons")\
+			# 				&& node.object[node.level]["seasons"].has(season)\
+			# 				&& node.object[node.level]["seasons"][season].has("default"):
+			# 					node.update()
+			# 			else:
+			# 				if node.has_method("update")\
+			# 				&& node.object.has("seasons")\
+			# 				&& node.object["seasons"].has(season)\
+			# 				&& node.object["seasons"][season].has("default"):
+			# 					node.update()
+			# 		else:
+			# 			if node.has_method("update")\
+			# 			&& node.TEXTURES.has("seasons")\
+			# 			&& node.TEXTURES["seasons"].has(season)\
+			# 			&& node.TEXTURES["seasons"][season].has("default"):
+			# 				node.update()
+
+			# if nature_manager && nature_manager.get_children() != []:
+			# 	nature_manager.clear_all_arrays()
+			# 	nature_manager._set_new_sprites()
+			# 	for nature in nature_manager.get_children():
+			# 		if nature.has_method('change_texture'):
+			# 			match Utils.remove_suffix(nature.name):
+			# 				"tree":
+			# 					nature.change_texture(nature_manager._trees[nature.index])
+			# 				"stone":
+			# 					nature.change_texture(nature_manager._stones[nature.index])
+			# 				"weed":
+			# 					nature.change_texture(nature_manager._weeds[nature.index])
+
+			# if shadow_manager && shadow_manager.get_children() != []:
+			# 	for shadow in shadow_manager.get_children():
+			# 		if shadow.has_method("is_nature_shadow"):
+			# 			match shadow.type:
+			# 				"tree":
+			# 					shadow.change_sprite(nature_manager._trees_shadow[shadow.index])
+			# 				"stone":
+			# 					shadow.change_sprite(nature_manager._stones_shadow[shadow.index])
+			# 				"weed":
+			# 					shadow.change_sprite(nature_manager._weeds_shadow[shadow.index])
