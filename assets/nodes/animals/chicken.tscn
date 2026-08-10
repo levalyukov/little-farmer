@@ -1,21 +1,30 @@
 [gd_scene load_steps=5 format=3 uid="uid://b0wwd8c3hkfbu"]
 
-[ext_resource type="Script" path="res://assets/scripts/animals/chicken.gd" id="1_8dccr"]
+[ext_resource type="Script" path="res://assets/scripts/entity/animal.gd" id="1_8dccr"]
 [ext_resource type="Texture2D" uid="uid://bbngxaytra70u" path="res://assets/resources/animal/chicken/chicken-0/movement-vertical.png" id="2_7s1wk"]
 [ext_resource type="Texture2D" uid="uid://bbyvy61pgsmgv" path="res://assets/resources/animal/chicken/chicken-0/shadow.png" id="3_ci7b3"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mige8"]
-size = Vector2(26.3582, 143.264)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_juhdu"]
+size = Vector2(26.3582, 40.4097)
 
 [node name="Chicken" type="CharacterBody2D"]
+light_mask = 256
+visibility_layer = 256
 y_sort_enabled = true
+collision_layer = 2
+collision_mask = 2
+motion_mode = 1
 script = ExtResource("1_8dccr")
 
 [node name="Shadow" type="Sprite2D" parent="."]
 modulate = Color(0, 0, 0, 0.196078)
+light_mask = 256
+visibility_layer = 256
 texture = ExtResource("3_ci7b3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+light_mask = 256
+visibility_layer = 256
 y_sort_enabled = true
 texture = ExtResource("2_7s1wk")
 region_enabled = true
@@ -26,14 +35,16 @@ wait_time = 2.5
 autostart = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-max_distance = 32.0
+MAX_DISTANCE = 32.0
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, 2.38419e-07)
-scale = Vector2(0.607021, -0.111682)
-shape = SubResource("RectangleShape2D_mige8")
+light_mask = 256
+visibility_layer = 256
+position = Vector2(1, 0)
+scale = Vector2(0.607021, 0.408318)
+shape = SubResource("RectangleShape2D_juhdu")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="area_shape_entered" from="Area2D" to="." method="_on_area_2d_area_shape_entered"]

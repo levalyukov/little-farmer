@@ -1,0 +1,83 @@
+extends MarginContainer
+
+# =============================================================================================
+# (menu.gd)
+# =============================================================================================
+# Инициализация главного меню игры
+#
+# ЗОНА ОТВЕТСТВЕННОСТИ:
+# - Инициализация кнопок и перевода
+# - Инициализация фоновой музыки в главном меню
+#
+# ОСНОВНОЙ ФУНКЦИОНАЛ:
+# - buttons_init() - Инициализация кнопок (подключение к сигналам, подготовка перевода)
+#
+# =============================================================================================
+
+@onready var resume: 	Button 	= $MenuContent/VContainer/ButtonsMargin/Buttons/ContinueMargin/ContinueButton
+@onready var newgame: 	Button 	= $MenuContent/VContainer/ButtonsMargin/Buttons/NewGameMargin/NewGameButton
+@onready var settings: 	Button 	= $MenuContent/VContainer/ButtonsMargin/Buttons/SettingsMargin/SettingsButton
+@onready var credits: 	Button 	= $MenuContent/VContainer/ButtonsMargin/Buttons/CreditsMargin/CreditsButton
+@onready var exit: 		Button 	= $MenuContent/VContainer/ButtonsMargin/Buttons/ExitMargin/ExitButton
+@onready var version: 	Label 	= $MenuContent/VContainer/FooterMargin/VBoxContainer/Version
+
+var countinue_text: String = tr("menu.countinue")
+var newgame_text: String = tr("menu.newgame")
+var settings_text: String = tr("menu.settings")
+var quit_text: String = tr("menu.quit")
+var credits_text: String = tr("menu.credits")
+
+
+func _ready() -> void:
+	GameData.settings_load()
+	UIManager.cursor.set_cursor(UIManager.cursor.STATES.DEFAULT)
+	UIManager.blackout.blackout(false)
+
+	resume.disabled = false if DirAccess.open("user://game/data") else true
+	version.text = "v" + str(ProjectSettings.get_setting("application/config/version"))
+
+	buttons_init()
+
+
+func buttons_init() -> void:
+	if !resume || !newgame \
+	|| !settings || !credits || !exit:
+		return
+
+	resume.text = countinue_text
+	newgame.text = newgame_text
+	settings.text = settings_text
+	credits.text = credits_text
+	exit.text = quit_text
+
+	resume.mouse_entered.connect(UIManager.button_hovered.bind(resume.disabled))
+	newgame.mouse_entered.connect(UIManager.button_hovered)
+	settings.mouse_entered.connect(UIManager.button_hovered)
+	credits.mouse_entered.connect(UIManager.button_hovered)
+	exit.mouse_entered.connect(UIManager.button_hovered)
+
+	resume.mouse_exited.connect(UIManager.button_exited)
+	newgame.mouse_exited.connect(UIManager.button_exited)
+	settings.mouse_exited.connect(UIManager.button_exited)
+	credits.mouse_exited.connect(UIManager.button_exited)
+	exit.mouse_exited.connect(UIManager.button_exited)
+
+	resume.pressed.connect(func() -> void: pass)
+
+	newgame.pressed.connect(
+		func() -> void:
+			UIManager.blackout.anim.animation_finished.connect(
+				func(_animation_scene: String) -> void: get_tree().change_scene_to_file("res://levels/farm.tscn"),
+				CONNECT_ONE_SHOT
+			)
+			UIManager.blackout.blackout(true)
+	)
+
+	settings.pressed.connect(func() -> void: UIManager.ui_add(UIManager.MENUS.OPTIONS))
+	credits.pressed.connect(func() -> void: UIManager.ui_add(UIManager.MENUS.CREDITS))
+	exit.pressed.connect(func() -> void: get_tree().quit())
+
+	resume.pressed.connect(UIManager.button_pressed)
+	newgame.pressed.connect(UIManager.button_pressed)
+	settings.pressed.connect(UIManager.button_pressed)
+	credits.pressed.connect(UIManager.button_pressed)

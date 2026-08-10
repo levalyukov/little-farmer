@@ -1,0 +1,723 @@
+[gd_scene load_steps=10 format=3 uid="uid://ddoa1ef8ubtan"]
+
+[ext_resource type="Theme" uid="uid://btsx1m2p0i620" path="res://assets/resources/theme.tres" id="1_v8nia"]
+[ext_resource type="Script" path="res://assets/scripts/ui/menu/settings.gd" id="2_mqfsk"]
+[ext_resource type="Texture2D" uid="uid://xawi3wfa2nr" path="res://assets/resources/ui/menu_background.png" id="3_sjtvb"]
+[ext_resource type="Texture2D" uid="uid://lnugitusjfrv" path="res://assets/resources/ui/menu_background_middle.png" id="4_orjow"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_opmpa"]
+font_size = 20
+outline_size = 1
+
+[sub_resource type="Animation" id="Animation_sgo1o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_lecmr"]
+resource_name = "hide"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"window"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_8a3am"]
+resource_name = "show"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"window"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bw4sn"]
+_data = {
+"RESET": SubResource("Animation_sgo1o"),
+"hide": SubResource("Animation_lecmr"),
+"show": SubResource("Animation_8a3am")
+}
+
+[node name="Settings" type="Control"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_v8nia")
+script = ExtResource("2_mqfsk")
+
+[node name="Menu" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -192.0
+offset_right = 320.0
+offset_bottom = 192.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_sjtvb")
+region_rect = Rect2(0, 0, 128, 64)
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+
+[node name="Main" type="MarginContainer" parent="Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main"]
+layout_mode = 2
+
+[node name="Panel" type="MarginContainer" parent="Menu/Main/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Main/HBoxContainer/Panel"]
+layout_mode = 2
+
+[node name="MainContent" type="ScrollContainer" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_right = 4
+
+[node name="SectionsButtons" type="VBoxContainer" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="GraphicButton" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 16
+text = "options.graphic"
+
+[node name="SoundButton" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 16
+text = "options.sounds"
+
+[node name="ControlButton" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 16
+text = "options.control"
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_right = 4
+
+[node name="MenuButtons" type="VBoxContainer" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+alignment = 2
+
+[node name="ChangeLanguage" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 16
+text = "options.game_language"
+
+[node name="Confirm" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 16
+text = "options.save_changes"
+
+[node name="PageBackground" type="NinePatchRect" parent="Menu/Main/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+texture = ExtResource("4_orjow")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="GraphicSection" type="ScrollContainer" parent="Menu/Main/HBoxContainer/PageBackground"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Container" type="VBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+
+[node name="HeaderMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container/HeaderMargin"]
+layout_mode = 2
+text = "options.graphic"
+label_settings = SubResource("LabelSettings_opmpa")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VSyncMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 4
+
+[node name="VSyncButton" type="CheckButton" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container/VSyncMargin"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "options.graphic.vsync"
+
+[node name="FullScreenMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 4
+
+[node name="FullScreenButton" type="CheckButton" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container/FullScreenMargin"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "options.graphic.fullScreen"
+
+[node name="FPSLimitMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container/FPSLimitMargin"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container/FPSLimitMargin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container/FPSLimitMargin/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "options.graphic.FPSLimit"
+
+[node name="OptionButton" type="OptionButton" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container/FPSLimitMargin/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 16
+item_count = 3
+selected = 2
+popup/item_0/text = "30"
+popup/item_0/id = 0
+popup/item_1/text = "60"
+popup/item_1/id = 1
+popup/item_2/text = "options.graphic.FPSLimit_off"
+popup/item_2/id = 2
+
+[node name="SoundVolumeSection" type="ScrollContainer" parent="Menu/Main/HBoxContainer/PageBackground"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Container" type="VBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+
+[node name="HeaderMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/HeaderMargin"]
+layout_mode = 2
+text = "options.sounds"
+label_settings = SubResource("LabelSettings_opmpa")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GeneralVolumeMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/GeneralVolumeMargin"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/GeneralVolumeMargin/HBoxContainer"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_constants/margin_right = 8
+
+[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/GeneralVolumeMargin/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "options.sounds.overall"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/GeneralVolumeMargin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="GeneralVolumeLabel" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/GeneralVolumeMargin/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+
+[node name="GeneralVolumeSlider" type="HSlider" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/GeneralVolumeMargin/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MusicVolumeMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/MusicVolumeMargin"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/MusicVolumeMargin/HBoxContainer"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_constants/margin_right = 8
+
+[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/MusicVolumeMargin/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "options.sounds.music"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/MusicVolumeMargin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MusicVolumeLabel" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/MusicVolumeMargin/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+
+[node name="MusicVolumeSlider" type="HSlider" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/MusicVolumeMargin/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NatureVolumeMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/NatureVolumeMargin"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/NatureVolumeMargin/HBoxContainer"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_constants/margin_right = 8
+
+[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/NatureVolumeMargin/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "options.sounds.nature"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/NatureVolumeMargin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NatureVolumeLabel" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/NatureVolumeMargin/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+
+[node name="NatureVolumeSlider" type="HSlider" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/NatureVolumeMargin/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RadioVolumeMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/RadioVolumeMargin"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/RadioVolumeMargin/HBoxContainer"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_constants/margin_right = 8
+
+[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/RadioVolumeMargin/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "options.sounds.radio"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/RadioVolumeMargin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RadioVolumeLabel" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/RadioVolumeMargin/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+
+[node name="RadioVolumeSlider" type="HSlider" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/RadioVolumeMargin/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ControlSection" type="ScrollContainer" parent="Menu/Main/HBoxContainer/PageBackground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Container" type="VBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+
+[node name="HeaderMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/HeaderMargin"]
+layout_mode = 2
+text = "options.control"
+label_settings = SubResource("LabelSettings_opmpa")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ChangeMovement" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ChangeMovement"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ChangeMovement/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ChangeMovement/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "options.control.movementType"
+
+[node name="ChangeMovementOption" type="OptionButton" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ChangeMovement/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 16
+item_count = 2
+selected = 1
+popup/item_0/text = "options.control.mouse"
+popup/item_0/id = 0
+popup/item_1/text = "options.control.keyboard"
+popup/item_1/id = 1
+
+[node name="MovementButton" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="Button" type="Button" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/MovementButton"]
+layout_mode = 2
+alignment = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/MovementButton"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/MovementButton/MarginContainer"]
+layout_mode = 2
+
+[node name="InputsName" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/MovementButton/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "options.control.movement"
+
+[node name="Inputs" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/MovementButton/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "options.control.movement_input"
+horizontal_alignment = 2
+
+[node name="InteractiveButton" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="Button" type="Button" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/InteractiveButton"]
+layout_mode = 2
+alignment = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/InteractiveButton"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/InteractiveButton/MarginContainer"]
+layout_mode = 2
+
+[node name="InputsName" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/InteractiveButton/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "options.control.interact"
+
+[node name="Inputs" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/InteractiveButton/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "options.control.interact_input"
+horizontal_alignment = 2
+
+[node name="InventoryButton" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="Button" type="Button" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/InventoryButton"]
+layout_mode = 2
+alignment = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/InventoryButton"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/InventoryButton/MarginContainer"]
+layout_mode = 2
+
+[node name="InputsName" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/InventoryButton/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "options.control.inventory"
+
+[node name="Inputs" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/InventoryButton/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "options.control.inventory_input"
+horizontal_alignment = 2
+
+[node name="CameraZoomButton" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="Button" type="Button" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/CameraZoomButton"]
+layout_mode = 2
+alignment = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/CameraZoomButton"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/CameraZoomButton/MarginContainer"]
+layout_mode = 2
+
+[node name="InputsName" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/CameraZoomButton/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "options.control.zoom"
+
+[node name="Inputs" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/CameraZoomButton/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "options.control.zoom_input"
+horizontal_alignment = 2
+
+[node name="ScreenshotButton" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="Button" type="Button" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ScreenshotButton"]
+layout_mode = 2
+alignment = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ScreenshotButton"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ScreenshotButton/MarginContainer"]
+layout_mode = 2
+
+[node name="InputsName" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ScreenshotButton/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "options.control.screenshot"
+
+[node name="Inputs" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ScreenshotButton/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "options.control.screenshot_input"
+horizontal_alignment = 2
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bw4sn")
+}
+
+[connection signal="mouse_entered" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons/ControlButton" to="." method="_on_control_mouse_entered"]
+[connection signal="mouse_exited" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons/ControlButton" to="." method="_on_control_mouse_exited"]
+[connection signal="pressed" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons/ControlButton" to="." method="_on_control_pressed"]
+[connection signal="value_changed" from="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/GeneralVolumeMargin/HBoxContainer/VBoxContainer/GeneralVolumeSlider" to="." method="_on_general_volume_slider_value_changed"]

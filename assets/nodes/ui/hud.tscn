@@ -1,0 +1,430 @@
+[gd_scene load_steps=20 format=3 uid="uid://c50737uagx074"]
+
+[ext_resource type="Shader" path="res://assets/shaders/pixel.gdshader" id="1_6tghq"]
+[ext_resource type="Script" path="res://assets/scripts/ui/hud/hud.gd" id="2_6exmq"]
+[ext_resource type="Texture2D" uid="uid://xawi3wfa2nr" path="res://assets/resources/ui/menu_background.png" id="3_tpt07"]
+[ext_resource type="Texture2D" uid="uid://3dy58taxdk3l" path="res://assets/resources/ui/interactive/hud/balance.png" id="4_6snci"]
+[ext_resource type="Texture2D" uid="uid://bickhg0c5alsb" path="res://assets/resources/ui/interactive/hud/clock.png" id="5_2xls5"]
+[ext_resource type="Texture2D" uid="uid://bx1ritr2qjq8" path="res://assets/resources/ui/big_button_default.png" id="6_ptflr"]
+[ext_resource type="Texture2D" uid="uid://d3m1qyupb8huo" path="res://assets/resources/ui/big_button_hover.png" id="7_5mbwr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lbeot"]
+shader = ExtResource("1_6tghq")
+
+[sub_resource type="LabelSettings" id="LabelSettings_ndn7m"]
+font_size = 18
+
+[sub_resource type="LabelSettings" id="LabelSettings_686lw"]
+font_size = 18
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xa3n2"]
+texture = ExtResource("6_ptflr")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a7ups"]
+texture = ExtResource("7_5mbwr")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s8cn6"]
+texture = ExtResource("6_ptflr")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dwt7u"]
+texture = ExtResource("6_ptflr")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rve4q"]
+
+[sub_resource type="Animation" id="Animation_188c6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_euhjk"]
+resource_name = "hide"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_f8ho1"]
+resource_name = "show"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wmd0c"]
+_data = {
+"RESET": SubResource("Animation_188c6"),
+"hide": SubResource("Animation_euhjk"),
+"show": SubResource("Animation_f8ho1")
+}
+
+[node name="HUD" type="Control"]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_lbeot")
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_6exmq")
+
+[node name="Main" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Bars" type="HBoxContainer" parent="Main"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Balance" type="Control" parent="Main/Bars"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+
+[node name="Panel" type="NinePatchRect" parent="Main/Bars/Balance"]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 64.0
+mouse_filter = 0
+texture = ExtResource("3_tpt07")
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="Margin" type="MarginContainer" parent="Main/Bars/Balance"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 10.0
+offset_right = 244.0
+offset_bottom = 52.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Main/Bars/Balance/Margin"]
+layout_mode = 2
+
+[node name="Icon" type="MarginContainer" parent="Main/Bars/Balance/Margin/HBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Main/Bars/Balance/Margin/HBoxContainer/Icon"]
+layout_mode = 2
+texture = ExtResource("4_6snci")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Main/Bars/Balance/Margin"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="MarginContainer" parent="Main/Bars/Balance/Margin/HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_right = 4
+
+[node name="Label" type="Label" parent="Main/Bars/Balance/Margin/HBoxContainer2/Label"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+label_settings = SubResource("LabelSettings_ndn7m")
+horizontal_alignment = 2
+
+[node name="Time" type="Control" parent="Main/Bars"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+
+[node name="Panel" type="NinePatchRect" parent="Main/Bars/Time"]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 64.0
+mouse_filter = 0
+texture = ExtResource("3_tpt07")
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="Margin" type="MarginContainer" parent="Main/Bars/Time"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 10.0
+offset_right = 244.0
+offset_bottom = 52.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Main/Bars/Time/Margin"]
+layout_mode = 2
+
+[node name="Icon" type="MarginContainer" parent="Main/Bars/Time/Margin/HBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Main/Bars/Time/Margin/HBoxContainer/Icon"]
+layout_mode = 2
+texture = ExtResource("5_2xls5")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Main/Bars/Time/Margin"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="MarginContainer" parent="Main/Bars/Time/Margin/HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_right = 4
+
+[node name="Label" type="Label" parent="Main/Bars/Time/Margin/HBoxContainer2/Label"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+label_settings = SubResource("LabelSettings_686lw")
+horizontal_alignment = 2
+
+[node name="Debug" type="Control" parent="Main/Bars"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="Label" type="Label" parent="Main/Bars/Debug"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+horizontal_alignment = 2
+
+[node name="Tools" type="HBoxContainer" parent="Main"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+alignment = 2
+
+[node name="Control" type="Control" parent="Main/Tools"]
+layout_mode = 2
+
+[node name="Panel" type="NinePatchRect" parent="Main/Tools/Control"]
+layout_mode = 0
+offset_left = -392.0
+offset_top = -88.0
+mouse_filter = 0
+texture = ExtResource("3_tpt07")
+region_rect = Rect2(0, 0, 128, 64)
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+
+[node name="MarginContainer" type="MarginContainer" parent="Main/Tools/Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -380.0
+offset_top = -76.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Main/Tools/Control/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Main/Tools/Control/MarginContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Destroy" type="Control" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="Main" type="MarginContainer" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Destroy"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Destroy/Main"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_xa3n2")
+theme_override_styles/hover = SubResource("StyleBoxTexture_a7ups")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_s8cn6")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_dwt7u")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rve4q")
+
+[node name="Margin" type="MarginContainer" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Destroy/Main"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Icon" type="TextureRect" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Destroy/Main/Margin"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Farming" type="Control" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="Main" type="MarginContainer" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Farming"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Farming/Main"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_xa3n2")
+theme_override_styles/hover = SubResource("StyleBoxTexture_a7ups")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_s8cn6")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_dwt7u")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rve4q")
+
+[node name="Margin" type="MarginContainer" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Farming/Main"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Icon" type="TextureRect" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Farming/Main/Margin"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Watering" type="Control" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="Main" type="MarginContainer" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Watering"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Watering/Main"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_xa3n2")
+theme_override_styles/hover = SubResource("StyleBoxTexture_a7ups")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_s8cn6")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_dwt7u")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rve4q")
+
+[node name="Margin" type="MarginContainer" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Watering/Main"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Icon" type="TextureRect" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Watering/Main/Margin"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Harvest" type="Control" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="Main" type="MarginContainer" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Harvest"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Harvest/Main"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_xa3n2")
+theme_override_styles/hover = SubResource("StyleBoxTexture_a7ups")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_s8cn6")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_dwt7u")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rve4q")
+
+[node name="Margin" type="MarginContainer" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Harvest/Main"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Icon" type="TextureRect" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Harvest/Main/Margin"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Build" type="Control" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 0
+
+[node name="Main" type="MarginContainer" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Build"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Build/Main"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_xa3n2")
+theme_override_styles/hover = SubResource("StyleBoxTexture_a7ups")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_s8cn6")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_dwt7u")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rve4q")
+
+[node name="Margin" type="MarginContainer" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Build/Main"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Icon" type="TextureRect" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Build/Main/Margin"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wmd0c")
+}

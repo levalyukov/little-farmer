@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://dws5y3cpemj45"]
 
-[ext_resource type="Texture2D" uid="uid://csh2lwf6e8ypx" path="res://assets/resources/buildings/farmer_house/obj_0.png" id="1_0jw1l"]
+[ext_resource type="Texture2D" uid="uid://caw1tndhdltg5" path="res://assets/resources/buildings/farmer_house/obj_0.png" id="1_0jw1l"]
 [ext_resource type="Script" path="res://assets/scripts/construction/buildings/farmer_house.gd" id="1_32hld"]
-[ext_resource type="Texture2D" uid="uid://1r8kos7xjwxc" path="res://assets/resources/buildings/house/smoke.png" id="2_666hg"]
+[ext_resource type="Texture2D" uid="uid://d3w7arx0y3ycb" path="res://assets/resources/buildings/house/smoke.png" id="2_666hg"]
 
 [sub_resource type="Curve" id="Curve_qsy5x"]
 max_value = 200.0

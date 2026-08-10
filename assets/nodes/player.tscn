@@ -1,24 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://b8eteio2464wo"]
+[gd_scene load_steps=5 format=3 uid="uid://b8eteio2464wo"]
 
-[ext_resource type="Script" path="res://assets/scripts/player/player_movement.gd" id="1_6ghsa"]
+[ext_resource type="Script" path="res://assets/scripts/world/player.gd" id="1_6ghsa"]
 [ext_resource type="Shader" path="res://assets/shaders/pixel.gdshader" id="1_7c5dj"]
-[ext_resource type="Script" path="res://assets/scripts/player/zoom.gd" id="3_kqeun"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pktnx"]
 shader = ExtResource("1_7c5dj")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_chqfy"]
-size = Vector2(16, 16)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hix8k"]
+size = Vector2(16, 15.5)
 
 [node name="Player" type="CharacterBody2D"]
 material = SubResource("ShaderMaterial_pktnx")
 position = Vector2(494, 255)
+motion_mode = 1
 script = ExtResource("1_6ghsa")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_chqfy")
+position = Vector2(2, 1)
+shape = SubResource("RectangleShape2D_hix8k")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 limit_smoothed = true
 position_smoothing_enabled = true
-script = ExtResource("3_kqeun")

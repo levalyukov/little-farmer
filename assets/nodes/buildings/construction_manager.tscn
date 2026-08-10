@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://nxd73p36nfqi"]
+[gd_scene load_steps=3 format=3 uid="uid://4vwo8jiej2wm"]
 
-[ext_resource type="Script" path="res://assets/scripts/construction/construct.gd" id="1_8rh46"]
+[ext_resource type="Script" path="res://assets/scripts/managers/build.gd" id="1_8rh46"]
 [ext_resource type="PackedScene" uid="uid://dhiifehp4845g" path="res://assets/nodes/grid.tscn" id="2_s3k81"]
 
 [node name="ConstructionManager" type="Node2D"]

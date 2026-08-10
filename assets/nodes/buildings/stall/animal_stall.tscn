@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c06vvkgkvvlfq"]
+[gd_scene load_steps=12 format=3 uid="uid://c06vvkgkvvlfq"]
 
 [ext_resource type="Script" path="res://assets/scripts/construction/buildings/stall.gd" id="1_6f341"]
 [ext_resource type="Texture2D" uid="uid://c4bs1dg3vjffi" path="res://assets/resources/buildings/stall/level_1/summer/object_0.png" id="2_iipeb"]
@@ -11,6 +11,9 @@ shader = ExtResource("2_rlc4j")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i2ecp"]
 size = Vector2(511.149, 606.989)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ikxc"]
+size = Vector2(8.40625, 7.875)
 
 [sub_resource type="Animation" id="Animation_nsh0g"]
 length = 0.001
@@ -67,7 +70,9 @@ scale = Vector2(0.0939061, 0.0939061)
 shape = SubResource("RectangleShape2D_i2ecp")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
-[node name="AnimalArea" type="Area2D" parent="."]
+[node name="Door" type="CollisionShape2D" parent="Collision"]
+position = Vector2(16, 28)
+shape = SubResource("RectangleShape2D_7ikxc")
 
 [node name="Indicator" type="Sprite2D" parent="."]
 self_modulate = Color(1, 1, 1, 0.784314)
@@ -93,7 +98,7 @@ libraries = {
 }
 speed_scale = 0.25
 
+[connection signal="body_entered" from="Collision" to="." method="_on_collision_body_entered"]
+[connection signal="body_shape_entered" from="Collision" to="." method="_on_collision_body_shape_entered"]
 [connection signal="mouse_entered" from="Collision" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Collision" to="." method="_on_area_2d_mouse_exited"]
-[connection signal="body_entered" from="AnimalArea" to="." method="_on_animal_area_body_entered"]
-[connection signal="body_exited" from="AnimalArea" to="." method="_on_animal_area_body_exited"]

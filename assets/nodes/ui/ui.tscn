@@ -1,130 +1,15 @@
-[gd_scene load_steps=24 format=3 uid="uid://boitxnv4ptxu6"]
+[gd_scene load_steps=5 format=3 uid="uid://boitxnv4ptxu6"]
 
-[ext_resource type="PackedScene" uid="uid://cyl6jw0huwvk6" path="res://assets/nodes/ui/interactive/pause/pause.tscn" id="1_i05ju"]
-[ext_resource type="PackedScene" uid="uid://bhadiamik4ev0" path="res://assets/nodes/ui/interactive/options/options.tscn" id="2_o0hgi"]
-[ext_resource type="PackedScene" uid="uid://cjkwsdkyksvs3" path="res://assets/nodes/ui/interactive/inventory/inventory.tscn" id="3_e1ua5"]
-[ext_resource type="PackedScene" uid="uid://cwtsqme5qki8s" path="res://assets/nodes/ui/interactive/mail/mail.tscn" id="5_2qvs7"]
-[ext_resource type="PackedScene" uid="uid://eiyxqts4j14o" path="res://assets/nodes/ui/animal_control_ui.tscn" id="5_5oxdu"]
-[ext_resource type="PackedScene" uid="uid://6crcq5l76di3" path="res://assets/nodes/ui/blueprints_shop.tscn" id="5_67fpr"]
-[ext_resource type="PackedScene" uid="uid://b5tuskicjx2nd" path="res://assets/nodes/ui/sawmill_menu.tscn" id="5_fj7fg"]
-[ext_resource type="PackedScene" uid="uid://brkc54uu3pb7a" path="res://assets/nodes/ui/animall_stall_menu.tscn" id="5_iumkr"]
-[ext_resource type="PackedScene" uid="uid://bhttqneedglon" path="res://assets/nodes/ui/radio_menu.tscn" id="5_ugixp"]
-[ext_resource type="PackedScene" uid="uid://dnx4bgw5l7ktf" path="res://assets/nodes/ui/interactive/_buildings/sign/sign_menu.tscn" id="6_ha8vt"]
-[ext_resource type="PackedScene" uid="uid://ddp2h6ryjofvt" path="res://assets/nodes/ui/hud/cursor.tscn" id="7_6eima"]
-[ext_resource type="PackedScene" uid="uid://bpmceytvqnc7d" path="res://assets/nodes/ui/interactive/construct/construct_menu.tscn" id="8_bjlhe"]
-[ext_resource type="PackedScene" uid="uid://3w6lj8hrhrxx" path="res://assets/nodes/ui/decorative/blackout.tscn" id="8_i72j4"]
-[ext_resource type="PackedScene" uid="uid://c16oacn0qg214" path="res://assets/nodes/ui/decorative/blur.tscn" id="9_2s43p"]
-[ext_resource type="PackedScene" uid="uid://c50737uagx074" path="res://assets/nodes/ui/hud/hud.tscn" id="10_046e5"]
-[ext_resource type="PackedScene" uid="uid://b51o72a5t51k6" path="res://assets/nodes/ui/modal.tscn" id="10_a5quq"]
-[ext_resource type="PackedScene" uid="uid://dkmgvs1mpa0pi" path="res://assets/nodes/ui/trade_menu.tscn" id="10_tqfvj"]
-[ext_resource type="PackedScene" uid="uid://dqq3yhv1irugg" path="res://assets/nodes/ui/dialog_window.tscn" id="11_egk03"]
-[ext_resource type="PackedScene" uid="uid://dmrj3nbdfyut" path="res://assets/nodes/ui/feedback/tooltip.tscn" id="11_r363a"]
-[ext_resource type="PackedScene" uid="uid://cipgdxgpuslcv" path="res://assets/nodes/ui/feedback/notifications/notifications.tscn" id="12_3qrnm"]
-[ext_resource type="PackedScene" uid="uid://b02tx1nhggapw" path="res://assets/nodes/ui/composter_menu.tscn" id="12_q63jo"]
-[ext_resource type="PackedScene" uid="uid://dd01cpmdrnrbt" path="res://assets/nodes/ui/forge_menu.tscn" id="14_btd4p"]
-[ext_resource type="Script" path="res://assets/data/fps.gd" id="21_jmujd"]
+[ext_resource type="Script" path="res://assets/scripts/ui/ui.gd" id="1_eeogf"]
+[ext_resource type="PackedScene" uid="uid://c16oacn0qg214" path="res://assets/nodes/ui/blur.tscn" id="2_dm0en"]
+[ext_resource type="PackedScene" uid="uid://ddp2h6ryjofvt" path="res://assets/nodes/ui/cursor.tscn" id="2_hx65p"]
+[ext_resource type="PackedScene" uid="uid://3w6lj8hrhrxx" path="res://assets/nodes/ui/blackout.tscn" id="3_owyue"]
 
-[node name="UI" type="CanvasLayer"]
+[node name="UIManager" type="CanvasLayer"]
+script = ExtResource("1_eeogf")
 
-[node name="Decorative" type="Node" parent="."]
+[node name="Blur" parent="." instance=ExtResource("2_dm0en")]
 
-[node name="Blur" parent="Decorative" instance=ExtResource("9_2s43p")]
+[node name="Cursor" parent="." instance=ExtResource("2_hx65p")]
 
-[node name="Blackout" parent="Decorative" instance=ExtResource("8_i72j4")]
-
-[node name="HUD" type="Node" parent="."]
-
-[node name="Cursor" parent="HUD" instance=ExtResource("7_6eima")]
-
-[node name="GameHud" parent="HUD" instance=ExtResource("10_046e5")]
-z_index = 1
-mouse_filter = 2
-
-[node name="Interactive" type="Node" parent="."]
-
-[node name="AnimallStallMenu" parent="Interactive" instance=ExtResource("5_iumkr")]
-visible = false
-
-[node name="AnimalControlUI" parent="Interactive" instance=ExtResource("5_5oxdu")]
-visible = false
-
-[node name="BlueprintsShop" parent="Interactive" instance=ExtResource("5_67fpr")]
-visible = false
-
-[node name="SawmillMenu" parent="Interactive" instance=ExtResource("5_fj7fg")]
-visible = false
-
-[node name="RadioMenu" parent="Interactive" instance=ExtResource("5_ugixp")]
-visible = false
-
-[node name="StoneOvenMenu" parent="Interactive" instance=ExtResource("14_btd4p")]
-visible = false
-
-[node name="Pause" parent="Interactive" instance=ExtResource("1_i05ju")]
-visible = false
-z_index = 2
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="Options" parent="Interactive" instance=ExtResource("2_o0hgi")]
-visible = false
-
-[node name="Inventory" parent="Interactive" instance=ExtResource("3_e1ua5")]
-visible = false
-
-[node name="ConstructMenu" parent="Interactive" instance=ExtResource("8_bjlhe")]
-visible = false
-
-[node name="Mailbox" parent="Interactive" instance=ExtResource("5_2qvs7")]
-visible = false
-
-[node name="TradeMenu" parent="Interactive" instance=ExtResource("10_tqfvj")]
-visible = false
-
-[node name="DialogWindow" parent="Interactive" instance=ExtResource("11_egk03")]
-visible = false
-
-[node name="ComposterMenu" parent="Interactive" instance=ExtResource("12_q63jo")]
-visible = false
-
-[node name="BuildingsMenu" type="Node" parent="Interactive"]
-
-[node name="SignMenu" parent="Interactive/BuildingsMenu" instance=ExtResource("6_ha8vt")]
-visible = false
-
-[node name="Feedback" type="Node" parent="."]
-
-[node name="Modal" parent="Feedback" instance=ExtResource("10_a5quq")]
-visible = false
-
-[node name="Tooltip" parent="Feedback" instance=ExtResource("11_r363a")]
-visible = false
-z_index = 1
-offset_top = 720.0
-offset_bottom = 720.0
-
-[node name="Notifications" parent="Feedback" instance=ExtResource("12_3qrnm")]
-mouse_filter = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="."]
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 55.0
-grow_horizontal = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
-
-[node name="Label" type="Label" parent="MarginContainer"]
-layout_mode = 2
-text = "fps"
-horizontal_alignment = 2
-script = ExtResource("21_jmujd")
+[node name="Blackout" parent="." instance=ExtResource("3_owyue")]
