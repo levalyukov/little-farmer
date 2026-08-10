@@ -14,7 +14,7 @@ def clear() -> None:
         shutil.rmtree(IMPORT)
         print(f"Removed: {IMPORT}")
 
-    for root, dirs, files in os.walk("."):
+    for (root, dirs, files) in os.walk("."):
         for file in files:
             if file in PROTECTED:
                 print(f"Protected file, not removed: {file}")

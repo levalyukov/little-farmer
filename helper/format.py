@@ -1,11 +1,8 @@
 from helper import *
 
-MODULES = "src/"
 SCRIPTS = "assets/scripts/"
 
 def format() -> None:
-    subprocess.call(["clang-format", "-i", f"{MODULES}*.cpp", f"{MODULES}*.hpp"], shell=True)
-
     gdscripts_files = []
     for (dirpath, dirnames, filenames) in os.walk(SCRIPTS):
         for filename in filenames:
