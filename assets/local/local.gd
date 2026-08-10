@@ -1,5 +1,8 @@
 extends Node
 
+# Единый файл для всех строк в игре. 
+# Нужно для того чтобы без проблем Godot собрал в оди .pot файл.
+
 func _ready():
 	tr('letter.for_new_player.header')		# Letter
 	tr('letter.for_new_player.content')		# For
