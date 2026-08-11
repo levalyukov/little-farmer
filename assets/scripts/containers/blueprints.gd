@@ -1,7 +1,7 @@
-class_name BlueprintManager
+extends Node
 
 # ===================================================================
-# BlueprintManager (blueprints.gd)
+# BlueprintsManager (blueprints.gd)
 # ===================================================================
 # Является главным хранилищем всех игровых чертежей: постройки,
 # местности, улучшения и так далее.
@@ -14,8 +14,6 @@ class_name BlueprintManager
 #
 # ===================================================================
 
-
-enum BlueprintsType {BUILDINGS, TERRAINS}
 const BLUEPRINTS:Dictionary = \
 {
 	BlueprintsType.BUILDINGS:
@@ -24,7 +22,17 @@ const BLUEPRINTS:Dictionary = \
 		{
 			"title": "blueprint.well.title",
 			"description": "blueprint.well.description",
+			"icon": preload("res://assets/resources/buildings/well/icon.png"),
 			"node": preload("res://assets/nodes/buildings/well/well.tscn"),
+			"size": Vector2i(2,2)
+		},
+
+		1:
+		{
+			"title": "blueprint.animal_stall.title",
+			"description": "blueprint.animal_stall.description",
+			"icon": preload("res://assets/resources/buildings/stall/level_1/summer/object_0.png"),
+			"node": preload("res://assets/nodes/buildings/stall/animal_stall.tscn"),
 			"size": Vector2i(2,2)
 		}
 	},
@@ -33,15 +41,28 @@ const BLUEPRINTS:Dictionary = \
 	{
 		0:
 		{
-			"title": "blueprint.well.title",
+			"title": "blueprint.roads.title",
 			"description": "blueprint.well.description",
-			"node": preload("res://assets/nodes/buildings/stall/animal_stall.tscn"),
+			"icon": preload("res://assets/resources/ui/interactive/construct/roads.png"),
+			"layer": [],
 			"size": Vector2i(2,2)
-		}
+		},
+
+		1:
+		{
+			"title": "blueprint.water.title",
+			"description": "blueprint.well.description",
+			"icon": preload("res://assets/resources/ui/interactive/construct/water.png"),
+			"layer": [],
+			"size": Vector2i(2,2)
+		},
 	}
 }
 
-func blueprints_get(type:BlueprintsType, id:int) -> Dictionary:
+enum BlueprintsType {BUILDINGS, TERRAINS}
+
+
+func blueprint_get(type:BlueprintsType, id:int) -> Dictionary:
 	var data:Dictionary = {}
 
 	if BLUEPRINTS[type].has(id):

@@ -1,12 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bvni4lqcsb5yv"]
+[gd_scene load_steps=3 format=3 uid="uid://bvni4lqcsb5yv"]
 
-[ext_resource type="Script" path="res://assets/scripts/construction/buildings/well.gd" id="1_qqv8s"]
-[ext_resource type="Texture2D" uid="uid://b5mu1et67jbln" path="res://assets/resources/buildings/well/level_1/summer/object_0.png" id="2_xaufe"]
+[ext_resource type="Texture2D" uid="uid://ca3yh3378kmav" path="res://assets/resources/buildings/well/level_1/summer/object_0.png" id="2_xaufe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i3oxc"]
 
 [node name="well" type="Node2D"]
-script = ExtResource("1_qqv8s")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(8, 6)
