@@ -25,62 +25,99 @@ extends Control
 @onready var confirm:Button = $Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button
 @onready var exit:Button = $Exit
 
-const BLUEPRINT_ICON:CompressedTexture2D = preload("res://assets/resources/ui/interactive/construct/blueprint.png")
-var page_index:int = 0
+enum Pages {ALL = -1, BUILDINGS, TERRAINS}
+const ICON:CompressedTexture2D = preload("res://assets/resources/ui/interactive/construct/blueprint.png")
+
+var page_index:Pages = Pages.ALL
+
 var sections:Array[String] = [
 	tr("build_menu.all_blueprints"),
 	tr("build_menu.buildings"),
 	tr("build_menu.terrains")
 ]
 
+
 func _ready() -> void:
 	_init_buttons()
-	_init_blueprints()
+	_update_page()
 	_open()
 
 
-func _init_blueprints() -> void:
-	var blueprints:Dictionary = PlayerControl.player_get()
+func _update_page() -> void:
+	if !container.get_children().is_empty():
+		for child in container.get_children():
+			container.remove_child(child)
+			child.queue_free()
+	
+	if PlayerControl.blueprints.has(page_index):
+		if PlayerControl.blueprints[page_index].is_empty():
+			_label_emtpy_create()
+			return
 
-	if !blueprints.is_empty() && !blueprints["blueprints"].is_empty():
-		for index in blueprints["blueprints"]:
-			var parent:Control = Control.new()
-			var external_margin:MarginContainer = MarginContainer.new()
-			var internal_margin:MarginContainer = MarginContainer.new()
-			var button:Button = Button.new()
-			var hcontainer:HBoxContainer = HBoxContainer.new()
-			var icon:TextureRect = TextureRect.new()
-			var label:Label = Label.new()
+		for i in PlayerControl.blueprints[page_index]:
+			_button_blueprint_create(BlueprintsManager.blueprint_get(int(page_index), i))
 
-			parent.size_flags_horizontal = Control.SIZE_EXPAND_FILL | Control.SIZE_FILL
+	else:
+		for id in PlayerControl.blueprints:
+			if !PlayerControl.blueprints[id].is_empty():
+				for j in PlayerControl.blueprints[id]:
+					_button_blueprint_create(BlueprintsManager.blueprint_get(id, j))
 
-			external_margin.mouse_filter = Control.MOUSE_FILTER_IGNORE
-			internal_margin.mouse_filter = Control.MOUSE_FILTER_IGNORE
-			hcontainer.mouse_filter = Control.MOUSE_FILTER_IGNORE
-			icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
-			external_margin.set_anchors_preset(PRESET_TOP_WIDE)
-			external_margin.add_theme_constant_override("margin_right",4)
-			internal_margin.add_theme_constant_override("margin_right", 8)
-			internal_margin.add_theme_constant_override("margin_left", 8)
-			internal_margin.add_theme_constant_override("margin_top", 8)
-			internal_margin.add_theme_constant_override("margin_bottom", 8)
-			icon.set_stretch_mode(TextureRect.STRETCH_KEEP_ASPECT_CENTERED)
-			icon.set_custom_minimum_size(Vector2i(48,48))
-			icon.texture = BLUEPRINT_ICON
-			label.text = "????????????????"
-			button.pressed.connect(UIManager.button_pressed)
-			button.mouse_entered.connect(UIManager.button_hovered)
-			button.mouse_exited.connect(UIManager.button_exited)
+func _button_blueprint_create(data:Dictionary) -> Control:
+	if data.is_empty():
+		return null
 
-			container.add_child(parent)
-			parent.add_child(external_margin)
-			external_margin.add_child(button)
-			external_margin.add_child(internal_margin)
-			internal_margin.add_child(hcontainer)
-			hcontainer.add_child(icon)
-			hcontainer.add_child(label)
+	var parent:Control = Control.new()
+	var external_margin:MarginContainer = MarginContainer.new()
+	var internal_margin:MarginContainer = MarginContainer.new()
+	var button:Button = Button.new()
+	var hcontainer:HBoxContainer = HBoxContainer.new()
+	var icon:TextureRect = TextureRect.new()
+	var label:Label = Label.new()
 
-			parent.set_custom_minimum_size(Vector2i(0,64))
+	parent.set_custom_minimum_size(Vector2i(0,64))
+	parent.size_flags_horizontal = Control.SIZE_EXPAND_FILL | Control.SIZE_FILL
+	external_margin.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	external_margin.set_anchors_preset(PRESET_TOP_WIDE)
+	external_margin.add_theme_constant_override("margin_right",4)
+	internal_margin.add_theme_constant_override("margin_right", 8)
+	internal_margin.add_theme_constant_override("margin_left", 8)
+	internal_margin.add_theme_constant_override("margin_top", 8)
+	internal_margin.add_theme_constant_override("margin_bottom", 8)
+
+	hcontainer.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	internal_margin.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+	icon.set_stretch_mode(TextureRect.STRETCH_KEEP_ASPECT_CENTERED)
+	icon.set_custom_minimum_size(Vector2i(48,48))
+
+	button.pressed.connect(UIManager.button_pressed)
+	button.mouse_entered.connect(UIManager.button_hovered)
+	button.mouse_exited.connect(UIManager.button_exited)
+
+	icon.texture = data["icon"] if data.has("icon") && data["icon"] is CompressedTexture2D else ICON
+	label.text = data["title"] if data.has("title") && data["title"] is String else "????????????????"
+
+	container.add_child(parent)
+	parent.add_child(external_margin)
+	external_margin.add_child(button)
+	external_margin.add_child(internal_margin)
+	internal_margin.add_child(hcontainer)
+	hcontainer.add_child(icon)
+	hcontainer.add_child(label)
+
+	return parent
+
+func _label_emtpy_create() -> void:
+	var label:Label = Label.new()
+
+	label.text = "Пустота..."
+	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	label.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	container.add_child(label)
 
 
 func _init_buttons() -> void:
@@ -111,7 +148,16 @@ func _init_buttons() -> void:
 		for index in sections.size():
 			var button:Button = Button.new()
 			button.text = sections[index]
-			button.pressed.connect(func() -> void: page_index = index)
+
+			button.pressed.connect(
+				func() -> void: 
+					match index:
+						1: page_index = Pages.BUILDINGS
+						2: page_index = Pages.TERRAINS
+						_: page_index = Pages.ALL
+					_update_page()
+			)
+
 			button.pressed.connect(UIManager.button_pressed)
 			button.mouse_entered.connect(UIManager.button_hovered)
 			button.mouse_exited.connect(UIManager.button_exited)
