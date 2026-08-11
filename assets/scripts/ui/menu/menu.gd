@@ -9,9 +9,6 @@ extends MarginContainer
 # - Инициализация кнопок и перевода
 # - Инициализация фоновой музыки в главном меню
 #
-# ОСНОВНОЙ ФУНКЦИОНАЛ:
-# - buttons_init() - Инициализация кнопок (подключение к сигналам, подготовка перевода)
-#
 # =============================================================================================
 
 @onready var resume: 	Button 	= $MenuContent/VContainer/ButtonsMargin/Buttons/ContinueMargin/ContinueButton
@@ -21,11 +18,11 @@ extends MarginContainer
 @onready var exit: 		Button 	= $MenuContent/VContainer/ButtonsMargin/Buttons/ExitMargin/ExitButton
 @onready var version: 	Label 	= $MenuContent/VContainer/FooterMargin/VBoxContainer/Version
 
-var countinue_text: String = tr("menu.countinue")
-var newgame_text: String = tr("menu.newgame")
-var settings_text: String = tr("menu.settings")
-var quit_text: String = tr("menu.quit")
-var credits_text: String = tr("menu.credits")
+var countinue_text: String 		= tr("menu.countinue")
+var newgame_text: String 		= tr("menu.newgame")
+var settings_text: String 		= tr("menu.settings")
+var quit_text: String 			= tr("menu.quit")
+var credits_text: String 		= tr("menu.credits")
 
 
 func _ready() -> void:
@@ -33,23 +30,18 @@ func _ready() -> void:
 	UIManager.cursor.set_cursor(UIManager.cursor.STATES.DEFAULT)
 	UIManager.blackout.blackout(false)
 
-	resume.disabled = false if DirAccess.open("user://game/data") else true
 	version.text = "v" + str(ProjectSettings.get_setting("application/config/version"))
 
-	buttons_init()
+	_init_buttons()
 
 
-func buttons_init() -> void:
-	if !resume || !newgame \
-	|| !settings || !credits || !exit:
-		return
-
+func _init_buttons() -> void:
 	resume.text = countinue_text
 	newgame.text = newgame_text
 	settings.text = settings_text
 	credits.text = credits_text
 	exit.text = quit_text
-
+	
 	resume.mouse_entered.connect(UIManager.button_hovered.bind(resume.disabled))
 	newgame.mouse_entered.connect(UIManager.button_hovered)
 	settings.mouse_entered.connect(UIManager.button_hovered)
@@ -62,7 +54,8 @@ func buttons_init() -> void:
 	credits.mouse_exited.connect(UIManager.button_exited)
 	exit.mouse_exited.connect(UIManager.button_exited)
 
-	resume.pressed.connect(func() -> void: pass)
+	resume.disabled = false if DirAccess.open("user://game/data") else true
+	resume.pressed.connect(func() -> void: pass) #! Изменить функционал после добавления загрузки данных
 
 	newgame.pressed.connect(
 		func() -> void:

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://assets/scripts/construction/buildings/fountan.gd" id="1_akrtl"]
 [ext_resource type="Texture2D" uid="uid://cl4qlpxci62vv" path="res://assets/resources/buildings/fountan/obj_0.png" id="2_rmqd1"]
-[ext_resource type="AudioStream" uid="uid://rof26p0vw833" path="res://assets/sounds/buildings/fountain.mp3" id="3_jmlsg"]
+[ext_resource type="AudioStream" uid="uid://rof26p0vw833" path="res://assets/sounds/buildings/buildings/fountain.mp3" id="3_jmlsg"]
 
 [node name="fountain" type="Node2D"]
 script = ExtResource("1_akrtl")

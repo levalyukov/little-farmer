@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://xawi3wfa2nr" path="res://assets/resources/ui/menu_background.png" id="3_l3854"]
 [ext_resource type="Texture2D" uid="uid://dbiuqxuroik25" path="res://assets/resources/ui/menu_background_secondary.png" id="4_jyngy"]
 [ext_resource type="Texture2D" uid="uid://lnugitusjfrv" path="res://assets/resources/ui/menu_background_middle.png" id="4_rjjme"]
-[ext_resource type="PackedScene" uid="uid://do4e681e4p00n" path="res://assets/nodes/ui/buildings/inventory/slot.tscn" id="6_68ngf"]
+[ext_resource type="PackedScene" uid="uid://do4e681e4p00n" path="res://assets/nodes/ui/windows/inventory/slot.tscn" id="6_68ngf"]
 [ext_resource type="Texture2D" uid="uid://bfourek6duls8" path="res://assets/resources/ui/button_close_default.png" id="6_j3wo8"]
 [ext_resource type="Texture2D" uid="uid://yrltk755fjqj" path="res://assets/resources/ui/button_close_hover.png" id="7_c5le2"]
 

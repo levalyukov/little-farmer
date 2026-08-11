@@ -45,53 +45,49 @@ extends Control
 
 func _ready() -> void:
 	GameData.settings_load()
-	_button_init()
-	values_init()
+	_init_buttons()
+	_init_values()
 	anim.animation_finished.connect(_anim_is_finished)
 
-	open()
+	UIManager.blur.blur(true)
+	anim.play("show")
+	self.visible = true
 
 
-func _button_init() -> void:
-	if !graphic || !sounds || !control\
-	|| !confirm || !language:
-		printerr("Buttons it's null: ", 
-			graphic, sounds, control, confirm, language)
-		return
-
-	graphic.pressed.connect(section_change.bind(0))
+func _init_buttons() -> void:
+	graphic.pressed.connect(_change_section.bind(0))
 	graphic.pressed.connect(UIManager.button_pressed)
 	graphic.mouse_entered.connect(UIManager.button_hovered)
 	graphic.mouse_exited.connect(UIManager.button_exited)
 
-	sounds.pressed.connect(section_change.bind(1))
+	sounds.pressed.connect(_change_section.bind(1))
 	sounds.pressed.connect(UIManager.button_pressed)
 	sounds.mouse_entered.connect(UIManager.button_hovered)
 	sounds.mouse_exited.connect(UIManager.button_exited)
 
-	control.pressed.connect(section_change.bind(2))
+	control.pressed.connect(_change_section.bind(2))
 	control.pressed.connect(UIManager.button_pressed)
 	control.mouse_entered.connect(UIManager.button_hovered)
 	control.mouse_exited.connect(UIManager.button_exited)
 
-	confirm.pressed.connect(close)
+	confirm.pressed.connect(_close)
 	confirm.pressed.connect(UIManager.button_pressed)
 	confirm.mouse_entered.connect(UIManager.button_hovered)
 	confirm.mouse_exited.connect(UIManager.button_exited)
 
-	language.pressed.connect(language_change)
+	language.pressed.connect(_change_language)
 	language.pressed.connect(UIManager.button_pressed)
 	language.mouse_entered.connect(UIManager.button_hovered)
 	language.mouse_exited.connect(UIManager.button_exited)
 
 
-func values_init() -> void:
-	graphic_init()
-	sounds_init()
-	control_init()
+func _init_values() -> void:
+	_init_graphic()
+	_init_sounds()
+	_init_control()
 
 
-func graphic_init() -> void:
+func _init_graphic() -> void:
 	graphic_vsync.button_pressed = Settings.vsync
 	graphic_fullscreen.button_pressed = Settings.fullscreen
 	graphic_fps.selected = Settings.fps
@@ -121,16 +117,13 @@ func graphic_init() -> void:
 		func(index: int) -> void:
 			Settings.fps = index
 			match index:
-				0:
-					Engine.max_fps = 30
-				1:
-					Engine.max_fps = 60
-				_:
-					Engine.max_fps = Settings.MAX_FPS
+				0: Engine.max_fps = 30
+				1: Engine.max_fps = 60
+				_: Engine.max_fps = Settings.MAX_FPS
 	)
 
 
-func sounds_init() -> void:
+func _init_sounds() -> void:
 	sounds_general_label.text = str(Settings.general_volume) + "%"
 	sounds_music_label.text = str(Settings.music_volume) + "%"
 	sounds_nature_label.text = str(Settings.nature_volume) + "%"
@@ -193,7 +186,7 @@ func sounds_init() -> void:
 	)
 
 
-func control_init() -> void:
+func _init_control() -> void:
 	control_movement.pressed.connect(
 		func() -> void:
 			SoundManager.play_sound("ui/click")
@@ -202,13 +195,12 @@ func control_init() -> void:
 	)
 
 	control_movement.item_selected.connect(func(value: int) -> void: Settings.movement_type = value)
-
 	control_movement.mouse_entered.connect(UIManager.button_hovered)
 	control_movement.mouse_exited.connect(UIManager.button_exited)
 	control_movement.selected = Settings.movement_type
 
 
-func section_change(section_id: int) -> void:
+func _change_section(section_id: int) -> void:
 	match section_id:
 		0:  # Graphic
 			graphic_section.visible = true
@@ -224,18 +216,12 @@ func section_change(section_id: int) -> void:
 			control_section.visible = true
 
 
-func language_change() -> void:
+func _change_language() -> void:
 	Settings.language = (Settings.language + 1) % Settings.LANGUAGES_KEYS.size()
 	TranslationServer.set_locale(Settings.LANGUAGES_KEYS[Settings.language])
 
 
-func open() -> void:
-	UIManager.blur.blur(true)
-	anim.play("show")
-	self.visible = true
-
-
-func close() -> void:
+func _close() -> void:
 	GameData.settings_save()
 	UIManager.blur.blur(false)
 	anim.play("hide")

@@ -42,18 +42,14 @@ var debug_mode:bool = true
 
 
 func _ready() -> void:
-	self.visible = true
+	if !is_instance_valid(UIManager.build):
+		printerr("The build manager is NULL.")
+		return
 
-	set_process(true) if debug_mode else set_process(false)
-
-	anim.animation_finished.connect(
-		func(animation_name: String) -> void:
-			if animation_name != "show":
-				UIManager.ui_remove(self)
-	)
-
-	anim.play("show")
 	_button_init()
+	_debug_init()
+	_open()
+
 
 func _process(_delta:float) -> void:
 	if debug_mode:
@@ -61,6 +57,11 @@ func _process(_delta:float) -> void:
 		+ '\nRAM: %d MB' % (OS.get_static_memory_usage() / 1024 / 1024) 		\
 		+ "\nCPU: " + str(Performance.get_monitor(Performance.TIME_PROCESS)) 	\
 		+ "\nVulkan: " + str(RenderingServer.get_video_adapter_api_version())
+
+
+func _debug_init() -> void:
+	set_process(true) if debug_mode else set_process(false)
+
 
 func _button_init() -> void:
 	destroy_icon.texture = ICONS[0] 	if ICONS[0] is CompressedTexture2D else null
@@ -71,32 +72,32 @@ func _button_init() -> void:
 
 	destroy.pressed.connect(
 		func() -> void:
-			if UIManager.build:
-				UIManager.build.grid_add(UIManager.build.GridModes.DESTROY)
+			UIManager.build.grid_add(UIManager.build.GridModes.DESTROY)
 			_close()
 	)
 	
 	farming.pressed.connect(
 		func() -> void:
-			if UIManager.build:
-				UIManager.build.grid_add(UIManager.build.GridModes.FARMING)
+			UIManager.build.grid_add(UIManager.build.GridModes.FARMING)
 			_close()
 	)
 	watering.pressed.connect(
 		func() -> void:
-			if UIManager.build:
-				UIManager.build.grid_add(UIManager.build.GridModes.WATERING)
+			UIManager.build.grid_add(UIManager.build.GridModes.WATERING)
 			_close()
 	)
 	
 	harvest.pressed.connect(
 		func() -> void:
-			if UIManager.build:
-				UIManager.build.grid_add(UIManager.build.GridModes.HARVESTING)
+			UIManager.build.grid_add(UIManager.build.GridModes.HARVESTING)
 			_close()
 	)
 	
-	build.pressed.connect(func() -> void: _close())
+	build.pressed.connect(
+		func() -> void: 
+			UIManager.ui_add(UIManager.MENUS.BUILD)
+			_close()
+	)
 	
 	destroy.pressed.connect(UIManager.button_pressed)
 	farming.pressed.connect(UIManager.button_pressed)
@@ -116,6 +117,15 @@ func _button_init() -> void:
 	harvest.mouse_exited.connect(UIManager.button_exited)
 	build.mouse_exited.connect(UIManager.button_exited)
 
+
+func _open() -> void:
+	self.visible = true	
+	anim.animation_finished.connect(
+		func(animation_name: String) -> void:
+			if animation_name != "show":
+				UIManager.ui_remove(self)
+	)
+	anim.play("show")
 
 func _close() -> void:
 	anim.play("hide")

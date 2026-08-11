@@ -31,7 +31,9 @@ const MENUS: Dictionary = {
 	PAUSE 	= preload("res://assets/nodes/ui/menu/pause.tscn"),
 	OPTIONS = preload("res://assets/nodes/ui/menu/settings.tscn"),
 	CREDITS = preload("res://assets/nodes/ui/menu/credits.tscn"),
-	HUD 	= preload("res://assets/nodes/ui/hud.tscn")
+	
+	HUD 	= preload("res://assets/nodes/ui/hud/hud.tscn"),
+	BUILD 	= preload("res://assets/nodes/ui/windows/build/build_menu.tscn")
 }
 
 

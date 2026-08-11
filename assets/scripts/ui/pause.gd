@@ -28,28 +28,28 @@ func _ready() -> void:
 	_button_init()
 	self.visible = false
 	anim.animation_finished.connect(_anim_is_finished)
-	open()
+	_open()
 
 
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("esc") && abs(self.modulate.a) == 1.0:
-		close()
+		_close()
 
 
-func open() -> void:
+func _open() -> void:
 	self.visible = true
 	UIManager.blur.blur(true)
 	anim.play("show")
 
 
-func close() -> void:
+func _close() -> void:
 	UIManager.ui_add(UIManager.MENUS.HUD)
 	UIManager.blur.blur(false)
 	anim.play("hide")
 
 
 func _button_init() -> void:
-	resume.pressed.connect(func() -> void: close())
+	resume.pressed.connect(func() -> void: _close())
 
 	settings.pressed.connect(
 		func() -> void:

@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://dnx4bgw5l7ktf"]
 
-[ext_resource type="Script" path="res://assets/scripts/ui/windows/sign_menu.gd" id="1_8jjn8"]
+[ext_resource type="Script" path="res://assets/scripts/ui/windows/buildings/sign_menu.gd" id="1_8jjn8"]
 [ext_resource type="Theme" uid="uid://btsx1m2p0i620" path="res://assets/resources/theme.tres" id="1_fg38j"]
 [ext_resource type="Texture2D" uid="uid://xawi3wfa2nr" path="res://assets/resources/ui/menu_background.png" id="2_b31s5"]
 [ext_resource type="Texture2D" uid="uid://dbiuqxuroik25" path="res://assets/resources/ui/menu_background_secondary.png" id="3_m0rnc"]

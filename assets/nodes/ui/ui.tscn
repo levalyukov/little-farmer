@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://assets/scripts/ui/ui.gd" id="1_eeogf"]
 [ext_resource type="PackedScene" uid="uid://c16oacn0qg214" path="res://assets/nodes/ui/blur.tscn" id="2_dm0en"]
-[ext_resource type="PackedScene" uid="uid://ddp2h6ryjofvt" path="res://assets/nodes/ui/cursor.tscn" id="2_hx65p"]
+[ext_resource type="PackedScene" uid="uid://ddp2h6ryjofvt" path="res://assets/nodes/ui/hud/cursor.tscn" id="2_hx65p"]
 [ext_resource type="PackedScene" uid="uid://3w6lj8hrhrxx" path="res://assets/nodes/ui/blackout.tscn" id="3_owyue"]
 
 [node name="UIManager" type="CanvasLayer"]

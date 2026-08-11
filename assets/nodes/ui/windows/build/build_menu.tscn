@@ -1,16 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://bpmceytvqnc7d"]
+[gd_scene load_steps=16 format=3 uid="uid://bpmceytvqnc7d"]
 
 [ext_resource type="Theme" uid="uid://btsx1m2p0i620" path="res://assets/resources/theme.tres" id="1_60ydy"]
-[ext_resource type="Script" path="res://assets/scripts/ui/interactive/construct/construct_system.gd" id="1_qwoah"]
+[ext_resource type="Script" path="res://assets/scripts/ui/windows/build_menu.gd" id="1_qwoah"]
 [ext_resource type="Texture2D" uid="uid://xawi3wfa2nr" path="res://assets/resources/ui/menu_background.png" id="2_soc6x"]
-[ext_resource type="Script" path="res://assets/scripts/ui/interactive/construct/crafting.gd" id="3_s0fee"]
 [ext_resource type="Texture2D" uid="uid://lnugitusjfrv" path="res://assets/resources/ui/menu_background_middle.png" id="4_riphk"]
 [ext_resource type="Texture2D" uid="uid://bfourek6duls8" path="res://assets/resources/ui/button_close_default.png" id="6_jstj2"]
 [ext_resource type="Texture2D" uid="uid://yrltk755fjqj" path="res://assets/resources/ui/button_close_hover.png" id="7_fcva7"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rp300"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u1dor"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1x12y"]
 font_size = 22
@@ -43,7 +38,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_1drgd"]
-resource_name = "close"
+resource_name = "hide"
 length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -57,23 +52,9 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"check_window"
-}]
-}
 
 [sub_resource type="Animation" id="Animation_p55vt"]
-resource_name = "open"
+resource_name = "show"
 length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -87,29 +68,15 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"check_window"
-}]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_k6ua4"]
 _data = {
 "RESET": SubResource("Animation_bduf1"),
-"close": SubResource("Animation_1drgd"),
-"open": SubResource("Animation_p55vt")
+"hide": SubResource("Animation_1drgd"),
+"show": SubResource("Animation_p55vt")
 }
 
-[node name="ConstructMenu" type="Control"]
+[node name="BuildMenu" type="Control"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 3
 anchors_preset = 8
@@ -154,26 +121,6 @@ grow_vertical = 2
 [node name="NavMenu" type="HBoxContainer" parent="Main/ScrollContainer"]
 layout_mode = 2
 
-[node name="ButtonAllBlueprints" type="Button" parent="Main/ScrollContainer/NavMenu"]
-layout_mode = 2
-theme_override_styles/focus = SubResource("StyleBoxEmpty_rp300")
-alignment = 0
-
-[node name="ButtonBuildings" type="Button" parent="Main/ScrollContainer/NavMenu"]
-layout_mode = 2
-theme_override_styles/focus = SubResource("StyleBoxEmpty_u1dor")
-alignment = 0
-
-[node name="ButtonLandscape" type="Button" parent="Main/ScrollContainer/NavMenu"]
-layout_mode = 2
-theme_override_styles/focus = SubResource("StyleBoxEmpty_rp300")
-alignment = 0
-
-[node name="ButtonUpgrades" type="Button" parent="Main/ScrollContainer/NavMenu"]
-layout_mode = 2
-theme_override_styles/focus = SubResource("StyleBoxEmpty_u1dor")
-alignment = 0
-
 [node name="MainContent" type="HBoxContainer" parent="Main"]
 layout_mode = 1
 anchors_preset = 8
@@ -200,6 +147,8 @@ size_flags_vertical = 3
 
 [node name="GridContainer" type="GridContainer" parent="Main/MainContent/BlueprintsContent/ScrollContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="InfoContent" type="NinePatchRect" parent="Main/MainContent"]
 custom_minimum_size = Vector2(358, 0)
@@ -290,9 +239,8 @@ theme_override_constants/margin_bottom = 24
 [node name="Button" type="Button" parent="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-script = ExtResource("3_s0fee")
 
-[node name="Close" type="Button" parent="."]
+[node name="Exit" type="Button" parent="."]
 layout_mode = 1
 offset_left = 352.0
 offset_top = -232.0
@@ -303,26 +251,7 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_lib7x")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_4psms")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_v1u7g")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="Animation" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_k6ua4")
 }
-
-[connection signal="mouse_entered" from="Main/ScrollContainer/NavMenu/ButtonAllBlueprints" to="." method="_on_button_all_blueprints_mouse_entered"]
-[connection signal="mouse_exited" from="Main/ScrollContainer/NavMenu/ButtonAllBlueprints" to="." method="_on_button_all_blueprints_mouse_exited"]
-[connection signal="pressed" from="Main/ScrollContainer/NavMenu/ButtonAllBlueprints" to="." method="_on_button_all_blueprints_pressed"]
-[connection signal="mouse_entered" from="Main/ScrollContainer/NavMenu/ButtonBuildings" to="." method="_on_button_buildings_mouse_entered"]
-[connection signal="mouse_exited" from="Main/ScrollContainer/NavMenu/ButtonBuildings" to="." method="_on_button_buildings_mouse_exited"]
-[connection signal="pressed" from="Main/ScrollContainer/NavMenu/ButtonBuildings" to="." method="_on_button_buildings_pressed"]
-[connection signal="mouse_entered" from="Main/ScrollContainer/NavMenu/ButtonLandscape" to="." method="_on_button_landscape_mouse_entered"]
-[connection signal="mouse_exited" from="Main/ScrollContainer/NavMenu/ButtonLandscape" to="." method="_on_button_landscape_mouse_exited"]
-[connection signal="pressed" from="Main/ScrollContainer/NavMenu/ButtonLandscape" to="." method="_on_button_landscape_pressed"]
-[connection signal="mouse_entered" from="Main/ScrollContainer/NavMenu/ButtonUpgrades" to="." method="_on_button_upgrades_mouse_entered"]
-[connection signal="mouse_exited" from="Main/ScrollContainer/NavMenu/ButtonUpgrades" to="." method="_on_button_upgrades_mouse_exited"]
-[connection signal="pressed" from="Main/ScrollContainer/NavMenu/ButtonUpgrades" to="." method="_on_button_upgrades_pressed"]
-[connection signal="mouse_entered" from="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button" to="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button" to="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button" method="_on_mouse_exited"]
-[connection signal="pressed" from="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button" to="Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button" method="_on_pressed"]
-[connection signal="mouse_entered" from="Close" to="." method="_on_close_mouse_entered"]
-[connection signal="mouse_exited" from="Close" to="." method="_on_close_mouse_exited"]
-[connection signal="pressed" from="Close" to="." method="_on_close_pressed"]

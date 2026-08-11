@@ -1,4 +1,8 @@
 Label
+TextureRect
+MarginContainer
+HBoxContainer
+Button
 Control
 Node
 Node2D
@@ -8,6 +12,3 @@ Sprite2D
 AnimationTree
 CollisionShape2D
 GPUParticles2D
-AnimationPlayer
-Timer
-AudioStreamPlayer2D

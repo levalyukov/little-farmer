@@ -1,18 +1,20 @@
 extends Node
 class_name Items
 
-const maximum:int = 9999
-var content:Dictionary = {
-	1: {
-		"caption": "items.log.caption", 
-		"description": "items.log.description", 
-		"type": ["items.type.building_materials"], #
+const maximum: int = 9999
+var content: Dictionary = {
+	1:
+	{
+		"caption": "items.log.caption",
+		"description": "items.log.description",
+		"type": ["items.type.building_materials"],  #
 		"item_type": ["building_materials"],
 		"purchase": 30,
 		"sale": 5,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/resources/log.png"),
 	},
-	2: {
+	2:
+	{
 		"caption": "items.plank.caption",
 		"description": "items.plank.description",
 		"type": ["items.type.building_materials"],
@@ -21,7 +23,8 @@ var content:Dictionary = {
 		"sale": 15,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/resources/plank.png"),
 	},
-	3: {
+	3:
+	{
 		"caption": "items.stone.caption",
 		"description": "items.stone.description",
 		"type": ["items.type.building_materials"],
@@ -30,7 +33,8 @@ var content:Dictionary = {
 		"sale": 5,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/resources/stone.png"),
 	},
-	4: {
+	4:
+	{
 		"caption": "items.cobblestone.caption",
 		"description": "items.cobblestone.description",
 		"type": ["items.type.building_materials"],
@@ -39,7 +43,8 @@ var content:Dictionary = {
 		"sale": 10,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/resources/cobblestone.png"),
 	},
-	5: {
+	5:
+	{
 		"caption": "items.coal.caption",
 		"description": "items.coal.description",
 		"type": ["items.type.ores"],
@@ -48,7 +53,8 @@ var content:Dictionary = {
 		"sale": 5,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/resources/coal.png"),
 	},
-	6: {
+	6:
+	{
 		"caption": "items.copper_ore.caption",
 		"description": "items.copper_ore.description",
 		"type": ["items.type.ores"],
@@ -58,7 +64,8 @@ var content:Dictionary = {
 		"sale": 10,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/resources/copper_ore.png"),
 	},
-	7: {
+	7:
+	{
 		"caption": "items.iron_ore.caption",
 		"description": "items.iron_ore.description",
 		"type": ["items.type.ores"],
@@ -68,7 +75,8 @@ var content:Dictionary = {
 		"sale": 10,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/resources/iron_ore.png"),
 	},
-	8: {
+	8:
+	{
 		"caption": "items.bauxite_ore.caption",
 		"description": "items.bauxite_ore.description",
 		"type": ["items.type.ores"],
@@ -78,7 +86,8 @@ var content:Dictionary = {
 		"sale": 125,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/resources/bauxite_ore.png"),
 	},
-	9: {
+	9:
+	{
 		"caption": "items.copper_ingot.caption",
 		"description": "items.copper_ingot.description",
 		"type": ["items.type.building_materials"],
@@ -87,7 +96,8 @@ var content:Dictionary = {
 		"sale": 100,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/resources/copper_ingot.png"),
 	},
-	10: {
+	10:
+	{
 		"caption": "items.iron_ingot.caption",
 		"description": "items.iron_ingot.description",
 		"type": ["items.type.building_materials"],
@@ -96,7 +106,8 @@ var content:Dictionary = {
 		"sale": 150,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/resources/iron_ingot.png"),
 	},
-	11: {
+	11:
+	{
 		"caption": "items.aluminum_ingot.caption",
 		"description": "items.aluminum_ingot.description",
 		"type": ["items.type.building_materials"],
@@ -115,7 +126,8 @@ var content:Dictionary = {
 	#		"icon": preload("res://assets/resources/ui/interactive/inventory/items/resources/aluminum_ingot.png"),
 	#	},
 	# seeds_packets
-	13: {
+	13:
+	{
 		"caption": "items.carrot_seeds.caption",
 		"description": "items.carrot_seeds.description",
 		#	"specifications": {
@@ -123,147 +135,161 @@ var content:Dictionary = {
 		#		"productivity": "carrot.productivity"),
 		#		"conditions": "carrot.conditions"),
 		#	},
-		"type": ['items.type.seeds'],
+		"type": ["items.type.seeds"],
 		"item_type": ["seeds"],
 		"purchase": 15,
 		"sale": 5,
 		"crop": 1,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds_packets/packet_1.png"),
 	},
-	14: {
+	14:
+	{
 		"caption": "items.potato_seeds.caption",
 		"description": "items.potato_seeds.description",
-		"type": ['items.type.seeds'],
+		"type": ["items.type.seeds"],
 		"item_type": ["seeds"],
 		"purchase": 40,
 		"sale": 10,
 		"crop": 2,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds_packets/packet_2.png"),
 	},
-	15: {
+	15:
+	{
 		"caption": "items.radish_seeds.caption",
 		"description": "items.radish_seeds.description",
-		"type": ['items.type.seeds'],
+		"type": ["items.type.seeds"],
 		"item_type": ["seeds"],
 		"purchase": 25,
 		"sale": 5,
 		"crop": 3,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds_packets/packet_3.png"),
 	},
-	16: {
+	16:
+	{
 		"caption": "items.cabbage_seeds.caption",
 		"description": "items.cabbage_seeds.description",
-		"type": ['items.type.seeds'],
+		"type": ["items.type.seeds"],
 		"item_type": ["seeds"],
 		"purchase": 60,
 		"sale": 25,
 		"crop": 4,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds_packets/packet_4.png"),
 	},
-	17: {
+	17:
+	{
 		"caption": "items.onion_seeds.caption",
 		"description": "items.onion_seeds.description",
-		"type": ['items.type.seeds'],
+		"type": ["items.type.seeds"],
 		"item_type": ["seeds"],
 		"purchase": 35,
 		"sale": 15,
 		"crop": 5,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds_packets/packet_5.png"),
 	},
-	18: {
+	18:
+	{
 		"caption": "items.cucumber_seeds.caption",
 		"description": "items.cucumber_seeds.description",
-		"type": ['items.type.seeds'],
+		"type": ["items.type.seeds"],
 		"item_type": ["seeds"],
 		"purchase": 25,
 		"sale": 5,
 		"crop": 6,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds_packets/packet_6.png"),
 	},
-	19: {
+	19:
+	{
 		"caption": "items.tomato_seeds.caption",
 		"description": "items.tomato_seeds.description",
-		"type": ['items.type.seeds'],
+		"type": ["items.type.seeds"],
 		"item_type": ["seeds"],
 		"purchase": 40,
 		"sale": 20,
 		"crop": 7,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds_packets/packet_7.png"),
 	},
-	20: {
+	20:
+	{
 		"caption": "items.eggplant_seeds.caption",
 		"description": "items.eggplant_seeds.description",
-		"type": ['items.type.seeds'],
+		"type": ["items.type.seeds"],
 		"item_type": ["seeds"],
 		"purchase": 50,
 		"sale": 25,
 		"crop": 8,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds_packets/packet_8.png"),
 	},
-	21: {
+	21:
+	{
 		"caption": "items.pepper_seeds.caption",
 		"description": "items.pepper_seeds.description",
-		"type": ['items.type.seeds'],
+		"type": ["items.type.seeds"],
 		"item_type": ["seeds"],
 		"purchase": 30,
 		"sale": 15,
 		"crop": 9,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds_packets/packet_9.png"),
 	},
-	22: {
+	22:
+	{
 		"caption": "items.corn_seeds.caption",
 		"description": "items.corn_seeds.description",
-		"type": ['items.type.seeds'],
+		"type": ["items.type.seeds"],
 		"item_type": ["seeds"],
 		"purchase": 75,
 		"sale": 30,
 		"crop": 10,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds_packets/packet_10.png"),
 	},
-	23: {
+	23:
+	{
 		"caption": "items.parsnip_seeds.caption",
 		"description": "items.parsnip_seeds.description",
-		"type": ['items.type.seeds'],
+		"type": ["items.type.seeds"],
 		"item_type": ["seeds"],
 		"purchase": 20,
 		"sale": 5,
 		"crop": 11,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds_packets/packet_11.png"),
 	},
-	24: {
+	24:
+	{
 		"caption": "items.garlic_seeds.caption",
 		"description": "items.garlic_seeds.description",
-		"type": ['items.type.seeds'],
+		"type": ["items.type.seeds"],
 		"item_type": ["seeds"],
 		"purchase": 35,
 		"sale": 15,
 		"crop": 12,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds_packets/packet_12.png"),
 	},
-	25: {
+	25:
+	{
 		"caption": "items.beet_seeds.caption",
 		"description": "items.beet_seeds.description",
-		"type": ['items.type.seeds'],
+		"type": ["items.type.seeds"],
 		"item_type": ["seeds"],
 		"purchase": 45,
 		"sale": 25,
 		"crop": 13,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds_packets/packet_13.png"),
 	},
-	26: {
+	26:
+	{
 		"caption": "items.turnip_seeds.caption",
 		"description": "items.turnip_seeds.description",
-		"type": ['items.type.seeds'],
+		"type": ["items.type.seeds"],
 		"item_type": ["seeds"],
 		"purchase": 50,
 		"sale": 25,
 		"crop": 14,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds_packets/packet_14.png"),
 	},
-	27: {
+	27:
+	{
 		"caption": "items.bean_seeds.caption",
 		"description": "items.bean_seeds.description",
-		"type": ['items.type.seeds'],
+		"type": ["items.type.seeds"],
 		"item_type": ["seeds"],
 		"purchase": 60,
 		"sale": 30,
@@ -271,325 +297,359 @@ var content:Dictionary = {
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/seeds_packets/packet_15.png"),
 	},
 	# crops
-	28: {
+	28:
+	{
 		"caption": "items.carrot.caption",
 		"description": "items.carrot.description",
-		"type": ['items.type.harvest'],
+		"type": ["items.type.harvest"],
 		"item_type": ["crop"],
 		"purchase": 50,
 		"sale": 25,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/carrot.png"),
 	},
-	29: {
+	29:
+	{
 		"caption": "items.potato.caption",
 		"description": "items.potato.description",
-		"type": ['items.type.harvest'],
+		"type": ["items.type.harvest"],
 		"item_type": ["crop"],
 		"purchase": 75,
 		"sale": 50,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/potato.png"),
 	},
-	30: {
+	30:
+	{
 		"caption": "items.radish.caption",
 		"description": "items.radish.description",
-		"type": ['items.type.harvest'],
+		"type": ["items.type.harvest"],
 		"item_type": ["crop"],
 		"purchase": 75,
 		"sale": 35,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/radish.png"),
 	},
-	31: {
+	31:
+	{
 		"caption": "items.cabbage.caption",
 		"description": "items.cabbage.description",
-		"type": ['items.type.harvest'],
+		"type": ["items.type.harvest"],
 		"item_type": ["crop"],
 		"purchase": 125,
 		"sale": 80,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/cabbage.png"),
 	},
-	32: {
+	32:
+	{
 		"caption": "items.onion.caption",
 		"description": "items.onion.description",
-		"type": ['items.type.harvest'],
+		"type": ["items.type.harvest"],
 		"item_type": ["crop"],
 		"purchase": 100,
 		"sale": 75,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/onion.png"),
 	},
-	33: {
+	33:
+	{
 		"caption": "items.cucumber.caption",
 		"description": "items.cucumber.description",
-		"type": ['items.type.harvest'],
+		"type": ["items.type.harvest"],
 		"item_type": ["crop"],
 		"purchase": 100,
 		"sale": 75,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/cucumber.png"),
 	},
-	34: {
+	34:
+	{
 		"caption": "items.tomato.caption",
 		"description": "items.tomato.description",
-		"type": ['items.type.harvest'],
+		"type": ["items.type.harvest"],
 		"item_type": ["crop"],
 		"purchase": 110,
 		"sale": 80,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/tomato.png"),
 	},
-	35: {
+	35:
+	{
 		"caption": "items.eggplant.caption",
 		"description": "items.eggplant.description",
-		"type": ['items.type.harvest'],
+		"type": ["items.type.harvest"],
 		"item_type": ["crop"],
 		"purchase": 175,
 		"sale": 100,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/eggplant.png"),
 	},
-	36: {
+	36:
+	{
 		"caption": "items.pepper.caption",
 		"description": "items.pepper.description",
-		"type": ['items.type.harvest'],
+		"type": ["items.type.harvest"],
 		"item_type": ["crop"],
 		"purchase": 105,
 		"sale": 70,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/pepper.png"),
 	},
-	37: {
+	37:
+	{
 		"caption": "items.corn.caption",
 		"description": "items.corn.description",
-		"type": ['items.type.harvest'],
+		"type": ["items.type.harvest"],
 		"item_type": ["crop"],
 		"purchase": 175,
 		"sale": 150,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/corn.png"),
 	},
-	38: {
+	38:
+	{
 		"caption": "items.parsnip.caption",
 		"description": "items.parsnip.description",
-		"type": ['items.type.harvest'],
+		"type": ["items.type.harvest"],
 		"item_type": ["crop"],
 		"purchase": 90,
 		"sale": 65,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/parships.png"),
 	},
-	39: {
+	39:
+	{
 		"caption": "items.garlic.caption",
 		"description": "items.garlic.description",
-		"type": ['items.type.harvest'],
+		"type": ["items.type.harvest"],
 		"item_type": ["crop"],
 		"purchase": 115,
 		"sale": 80,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/garlic.png"),
 	},
-	40: {
+	40:
+	{
 		"caption": "items.beet.caption",
 		"description": "items.beet.description",
-		"type": ['items.type.harvest'],
+		"type": ["items.type.harvest"],
 		"item_type": ["crop"],
 		"purchase": 125,
 		"sale": 90,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/beet.png"),
 	},
-	41: {
+	41:
+	{
 		"caption": "items.turnip.caption",
 		"description": "items.turnip.description",
-		"type": ['items.type.harvest'],
+		"type": ["items.type.harvest"],
 		"item_type": ["crop"],
 		"purchase": 100,
 		"sale": 75,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/turnip.png"),
 	},
-	42: {
+	42:
+	{
 		"caption": "items.bean.caption",
 		"description": "items.bean.description",
-		"type": ['items.type.harvest'],
+		"type": ["items.type.harvest"],
 		"item_type": ["crop"],
 		"purchase": 115,
 		"sale": 90,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/crops/greenbeen.png"),
 	},
 	# spoiled crops
-	43: {
+	43:
+	{
 		"caption": "items.rotten_carrot.caption",
 		"description": "items.rotten_carrot.description",
 		"type": ["items.type.waste"],
 		"item_type": ["compost"],
-		"decay": 1, # seconds
+		"decay": 1,  # seconds
 		"purchase": 25,
 		"sale": 5,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_1.png"),
 	},
-	44: {
+	44:
+	{
 		"caption": "items.rotten_potato.caption",
 		"description": "items.rotten_potato.description",
 		"type": ["items.type.waste"],
 		"item_type": ["compost"],
-		"decay": 1, # seconds
+		"decay": 1,  # seconds
 		"purchase": 25,
 		"sale": 5,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_2.png"),
 	},
-	45: {
+	45:
+	{
 		"caption": "items.rotten_radish.caption",
 		"description": "items.rotten_radish.description",
 		"type": ["items.type.waste"],
 		"item_type": ["compost"],
-		"decay": 1, # seconds
+		"decay": 1,  # seconds
 		"purchase": 25,
 		"sale": 5,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_3.png"),
 	},
-	46: {
+	46:
+	{
 		"caption": "items.rotten_cabbage.caption",
 		"description": "items.rotten_cabbage.description",
 		"type": ["items.type.waste"],
 		"item_type": ["compost"],
-		"decay": 1, # seconds
+		"decay": 1,  # seconds
 		"purchase": 25,
 		"sale": 5,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_4.png"),
 	},
-	47: {
+	47:
+	{
 		"caption": "items.rotten_onion.caption",
 		"description": "items.rotten_onion.description",
 		"type": ["items.type.waste"],
 		"item_type": ["compost"],
-		"decay": 1, # seconds
+		"decay": 1,  # seconds
 		"purchase": 25,
 		"sale": 5,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_5.png"),
 	},
-	48: {
+	48:
+	{
 		"caption": "items.rotten_cucumber.caption",
 		"description": "items.rotten_cucumber.description",
 		"type": ["items.type.waste"],
 		"item_type": ["compost"],
-		"decay": 1, # seconds
+		"decay": 1,  # seconds
 		"purchase": 25,
 		"sale": 5,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_6.png"),
 	},
-	49: {
+	49:
+	{
 		"caption": "items.rotten_tomato.caption",
 		"description": "items.rotten_tomato.description",
 		"type": ["items.type.waste"],
 		"item_type": ["compost"],
-		"decay": 1, # seconds
+		"decay": 1,  # seconds
 		"purchase": 25,
 		"sale": 5,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_7.png"),
 	},
-	50: {
+	50:
+	{
 		"caption": "items.rotten_eggplant.caption",
 		"description": "items.rotten_eggplant.description",
 		"type": ["items.type.waste"],
 		"item_type": ["compost"],
-		"decay": 1, # seconds
+		"decay": 1,  # seconds
 		"purchase": 25,
 		"sale": 5,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_8.png"),
 	},
-	51: {
+	51:
+	{
 		"caption": "items.rotten_pepper.caption",
 		"description": "items.rotten_pepper.description",
 		"type": ["items.type.waste"],
 		"item_type": ["compost"],
-		"decay": 1, # seconds
+		"decay": 1,  # seconds
 		"purchase": 25,
 		"sale": 5,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_9.png"),
 	},
-	52: {
+	52:
+	{
 		"caption": "items.rotten_corn.caption",
 		"description": "items.rotten_corn.description",
 		"type": ["items.type.waste"],
 		"item_type": ["compost"],
-		"decay": 1, # seconds
+		"decay": 1,  # seconds
 		"purchase": 25,
 		"sale": 5,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_10.png"),
 	},
-	53: {
+	53:
+	{
 		"caption": "items.rotten_parsnip.caption",
 		"description": "items.rotten_parsnip.description",
 		"type": ["items.type.waste"],
 		"item_type": ["compost"],
-		"decay": 1, # seconds
+		"decay": 1,  # seconds
 		"purchase": 25,
 		"sale": 5,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_11.png"),
 	},
-	54: {
+	54:
+	{
 		"caption": "items.rotten_garlic.caption",
 		"description": "items.rotten_garlic.description",
 		"type": ["items.type.waste"],
 		"item_type": ["compost"],
-		"decay": 1, # seconds
+		"decay": 1,  # seconds
 		"purchase": 25,
 		"sale": 5,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_12.png"),
 	},
-	55: {
+	55:
+	{
 		"caption": "items.rotten_beet.caption",
 		"description": "items.rotten_beet.description",
 		"type": ["items.type.waste"],
 		"item_type": ["compost"],
-		"decay": 1, # seconds
+		"decay": 1,  # seconds
 		"purchase": 25,
 		"sale": 5,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_13.png"),
 	},
-	56: {
+	56:
+	{
 		"caption": "items.rotten_turnip.caption",
 		"description": "items.rotten_turnip.description",
 		"type": ["items.type.waste"],
 		"item_type": ["compost"],
-		"decay": 1, # seconds
+		"decay": 1,  # seconds
 		"purchase": 25,
 		"sale": 5,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_14.png"),
 	},
-	57: {
+	57:
+	{
 		"caption": "items.rotten_beans.caption",
 		"description": "items.rotten_beans.description",
 		"type": ["items.type.waste"],
 		"item_type": ["compost"],
-		"decay": 1, # seconds
+		"decay": 1,  # seconds
 		"purchase": 25,
 		"sale": 5,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/spoilages/crop_15.png"),
 	},
 	# trash
-	58: {
+	58:
+	{
 		"caption": "items.crop_residue.caption",
 		"description": "items.crop_residue.description",
 		"type": ["items.type.waste"],
 		"item_type": ["compost"],
-		"decay": 1, # seconds
+		"decay": 1,  # seconds
 		"purchase": 25,
 		"sale": 5,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/trash/trash_1.png"),
 	},
-	59: {
+	59:
+	{
 		"caption": "items.broken_branch.caption",
 		"description": "items.broken_branch.description",
 		"type": ["items.type.waste"],
 		"item_type": ["compost"],
-		"decay": 1, # seconds
+		"decay": 1,  # seconds
 		"purchase": 25,
 		"sale": 5,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/trash/trash_2.png"),
 	},
-	60: {
+	60:
+	{
 		"caption": "items.weeds.caption",
 		"description": "items.weeds.description",
 		"type": ["items.type.waste"],
 		"item_type": ["compost"],
-		"decay": 1, # seconds
+		"decay": 1,  # seconds
 		"purchase": 25,
 		"sale": 5,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/trash/trash_2.png"),
 	},
 	# Compost
-	61: {
+	61:
+	{
 		"caption": "items.basic_compost.caption",
 		"description": "items.basic_compost.description",
 		"type": ["items.type.fertilizer"],
@@ -597,11 +657,13 @@ var content:Dictionary = {
 		"purchase": 150,
 		"sale": 100,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/fertilizer.png"),
-		"func": {
-			"fertilize": 25, # %
+		"func":
+		{
+			"fertilize": 25,  # %
 		},
 	},
-	62: {
+	62:
+	{
 		"caption": "items.premium_compost.caption",
 		"description": "items.premium_compost.description",
 		"type": ["items.type.fertilizer"],
@@ -609,11 +671,13 @@ var content:Dictionary = {
 		"purchase": 250,
 		"sale": 150,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/high_fertilizer.png"),
-		"func": {
-			"fertilize": 75, # %
+		"func":
+		{
+			"fertilize": 75,  # %
 		},
 	},
-	63: {
+	63:
+	{
 		"caption": "items.sawdust.caption",
 		"description": "items.sawdust.description",
 		"type": ["items.type.building_materials", "items.type.waste", "items.type.fertilizer"],
@@ -621,11 +685,13 @@ var content:Dictionary = {
 		"purchase": 250,
 		"sale": 150,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/crops/tomato.png"),
-		"func": {
-			"fertilize": 5, # %
+		"func":
+		{
+			"fertilize": 5,  # %
 		},
 	},
-	64: {
+	64:
+	{
 		"caption": "items.honey.caption",
 		"description": "items.honey.description",
 		"type": ["items.type.own_production"],
@@ -634,111 +700,111 @@ var content:Dictionary = {
 		"sale": 125,
 		"icon": load("res://assets/resources/ui/interactive/inventory/items/own_production/honey.png"),
 	},
-
 	# Gifts
-	65: {
-		"caption": "items.small_new_years_gift.caption", 
-		"description": "items.small_new_years_gift.description", 
+	65:
+	{
+		"caption": "items.small_new_years_gift.caption",
+		"description": "items.small_new_years_gift.description",
 		"type": ["items.type.gift"],
 		"item_type": ["gift"],
 		"purchase": 30,
 		"sale": 0,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/gifts/small_gift_0.png"),
 	},
-
-	66: {
-		"caption": "items.regular_new_years_gift.caption", 
-		"description": "items.regular_new_years_gift.description", 
+	66:
+	{
+		"caption": "items.regular_new_years_gift.caption",
+		"description": "items.regular_new_years_gift.description",
 		"type": ["items.type.gift"],
 		"item_type": ["gift"],
 		"purchase": 30,
 		"sale": 0,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/gifts/regular_gift_0.png"),
 	},
-
-	67: {
-		"caption": "items.big_new_years_gift.caption", 
-		"description": "items.big_new_years_gift.description", 
+	67:
+	{
+		"caption": "items.big_new_years_gift.caption",
+		"description": "items.big_new_years_gift.description",
 		"type": ["items.type.gift"],
 		"item_type": ["gift"],
 		"purchase": 30,
 		"sale": 0,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/gifts/big_gift_0.png"),
 	},
-
-	68: {
-		"caption": "items.small_new_years_gift.caption", 
-		"description": "items.small_new_years_gift.description", 
+	68:
+	{
+		"caption": "items.small_new_years_gift.caption",
+		"description": "items.small_new_years_gift.description",
 		"type": ["items.type.gift"],
 		"item_type": ["gift"],
 		"purchase": 30,
 		"sale": 0,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/gifts/small_gift_1.png"),
 	},
-
-	69: {
-		"caption": "items.regular_new_years_gift.caption", 
-		"description": "items.regular_new_years_gift.description", 
+	69:
+	{
+		"caption": "items.regular_new_years_gift.caption",
+		"description": "items.regular_new_years_gift.description",
 		"type": ["items.type.gift"],
 		"item_type": ["gift"],
 		"purchase": 30,
 		"sale": 0,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/gifts/regular_gift_1.png"),
 	},
-
-	70: {
-		"caption": "items.big_new_years_gift.caption", 
-		"description": "items.big_new_years_gift.description", 
+	70:
+	{
+		"caption": "items.big_new_years_gift.caption",
+		"description": "items.big_new_years_gift.description",
 		"type": ["items.type.gift"],
 		"item_type": ["gift"],
 		"purchase": 30,
 		"sale": 0,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/gifts/big_gift_1.png"),
 	},
-
-	71: {
-		"caption": "items.small_new_years_gift.caption", 
-		"description": "items.small_new_years_gift.description", 
+	71:
+	{
+		"caption": "items.small_new_years_gift.caption",
+		"description": "items.small_new_years_gift.description",
 		"type": ["items.type.gift"],
 		"item_type": ["gift"],
 		"purchase": 30,
 		"sale": 0,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/gifts/small_gift_2.png"),
 	},
-
-	72: {
-		"caption": "items.regular_new_years_gift.caption", 
-		"description": "items.regular_new_years_gift.description", 
+	72:
+	{
+		"caption": "items.regular_new_years_gift.caption",
+		"description": "items.regular_new_years_gift.description",
 		"type": ["items.type.gift"],
 		"item_type": ["gift"],
 		"purchase": 30,
 		"sale": 0,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/gifts/regular_gift_2.png"),
 	},
-
-	73: {
-		"caption": "items.big_new_years_gift.caption", 
-		"description": "items.big_new_years_gift.description", 
+	73:
+	{
+		"caption": "items.big_new_years_gift.caption",
+		"description": "items.big_new_years_gift.description",
 		"type": ["items.type.gift"],
 		"item_type": ["gift"],
 		"purchase": 30,
 		"sale": 0,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/gifts/big_gift_2.png"),
 	},
-
-	74: {
-		"caption": "items.chicken_egg.caption", 
-		"description": "items.chicken_egg.description", 
+	74:
+	{
+		"caption": "items.chicken_egg.caption",
+		"description": "items.chicken_egg.description",
 		"type": ["items.type.own_production"],
 		"item_type": ["own_production"],
 		"purchase": 30,
 		"sale": 0,
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/own_production/chicken_egg.png"),
 	},
-
-	75: {
-		"caption": "items.chicken_egg.caption", 
-		"description": "items.chicken_egg.description", 
+	75:
+	{
+		"caption": "items.chicken_egg.caption",
+		"description": "items.chicken_egg.description",
 		"type": ["items.type.own_production"],
 		"item_type": ["own_production"],
 		"purchase": 30,

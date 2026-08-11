@@ -1,5 +1,7 @@
 shader_type canvas_item;
 
+/*  */
+
 uniform bool render_noise = false;
 uniform sampler2D noise_texture : repeat_enable; // set in inspector
 uniform float amplitude : hint_range(0.0, 0.5, 0.001) = 0.2;
@@ -9,17 +11,20 @@ uniform float rotation_strength : hint_range(0.0, 5.0, 0.1) = 1;
 uniform vec2 rotation_pivot = vec2(0.5, 1);
 varying vec2 world_position;
 
-void vertex(){
+void vertex()
+{
 	world_position = (MODEL_MATRIX * vec4(VERTEX, 0.0, 1.0)).xy;
 }
 
-vec2 get_sample_pos(vec2 pos, float scale, float offset) {
+vec2 get_sample_pos(vec2 pos, float scale, float offset) 
+{
 	pos *= scale;
 	pos += offset;
 	return pos;
 }
 
-vec2 rotate_vec(vec2 vec, vec2 pivot, float rotation) {
+vec2 rotate_vec(vec2 vec, vec2 pivot, float rotation) 
+{
 	float cosa = cos(rotation);
 	float sina = sin(rotation);
 	vec -= pivot;
@@ -29,7 +34,8 @@ vec2 rotate_vec(vec2 vec, vec2 pivot, float rotation) {
 	) + pivot;
 }
 
-void fragment() {
+void fragment() 
+{
 	// get noise from texture
 	vec2 noise_sample_pos = get_sample_pos(world_position, noise_scale, TIME * time_scale);
 	float noise_amount = texture(noise_texture, noise_sample_pos).r - 0.5f;
@@ -46,7 +52,8 @@ void fragment() {
 	COLOR = texture(TEXTURE, result_uvs);
 
 	// optional, preview noise texture for debugging
-	if (render_noise) {
+	if (render_noise) 
+	{
 		vec4 noise_color = texture(noise_texture, noise_sample_pos);
 		COLOR = noise_color;
 	}

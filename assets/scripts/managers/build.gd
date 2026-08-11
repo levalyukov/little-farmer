@@ -21,7 +21,7 @@ class_name BuildManager extends Node
 @export var tilemap: TileMap
 
 const MAX_DISTANCE: int = 250
-const GRID: PackedScene = preload("res://assets/nodes/grid.tscn")
+const GRID: PackedScene = preload("res://assets/nodes/buildings/grid.tscn")
 
 enum GridModes 
 { 

@@ -2,13 +2,13 @@
 
 [ext_resource type="Theme" uid="uid://btsx1m2p0i620" path="res://assets/resources/theme.tres" id="1_62sx0"]
 [ext_resource type="Texture2D" uid="uid://xawi3wfa2nr" path="res://assets/resources/ui/menu_background.png" id="2_hja71"]
-[ext_resource type="Script" path="res://assets/scripts/ui/windows/sawmill_menu.gd" id="2_ljk7x"]
+[ext_resource type="Script" path="res://assets/scripts/ui/windows/buildings/sawmill_menu.gd" id="2_ljk7x"]
 [ext_resource type="Texture2D" uid="uid://lnugitusjfrv" path="res://assets/resources/ui/menu_background_middle.png" id="3_viji6"]
 [ext_resource type="Texture2D" uid="uid://dbiuqxuroik25" path="res://assets/resources/ui/menu_background_secondary.png" id="4_yk2wk"]
 [ext_resource type="Texture2D" uid="uid://qmtj51l0crac" path="res://assets/resources/ui/interactive/inventory/items/resources/log.png" id="5_l24x3"]
 [ext_resource type="Texture2D" uid="uid://dmitr5sfi03ns" path="res://assets/resources/buildings/sawmill/arrow.png" id="6_sllom"]
 [ext_resource type="Texture2D" uid="uid://bex7txb0m5v0u" path="res://assets/resources/ui/interactive/inventory/items/resources/plank.png" id="7_veltc"]
-[ext_resource type="PackedScene" uid="uid://do4e681e4p00n" path="res://assets/nodes/ui/buildings/inventory/slot.tscn" id="9_l12ed"]
+[ext_resource type="PackedScene" uid="uid://do4e681e4p00n" path="res://assets/nodes/ui/windows/inventory/slot.tscn" id="9_l12ed"]
 [ext_resource type="Texture2D" uid="uid://bfourek6duls8" path="res://assets/resources/ui/button_close_default.png" id="10_ldke1"]
 [ext_resource type="Texture2D" uid="uid://yrltk755fjqj" path="res://assets/resources/ui/button_close_hover.png" id="11_jvpmq"]
 

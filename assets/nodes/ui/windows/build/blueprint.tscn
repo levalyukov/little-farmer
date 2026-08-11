@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cps3s5crjjsv1"]
 
 [ext_resource type="Script" path="res://assets/scripts/ui/interactive/construct/blueprint.gd" id="1_70af1"]
-[ext_resource type="Texture2D" uid="uid://dr6xnk23nhgry" path="res://assets/resources/ui/interactive/construct/default.png" id="2_365nr"]
+[ext_resource type="Texture2D" uid="uid://dr6xnk23nhgry" path="res://assets/resources/ui/interactive/construct/blueprint.png" id="2_365nr"]
 
 [node name="Blueprint" type="Control"]
 custom_minimum_size = Vector2(340, 64)

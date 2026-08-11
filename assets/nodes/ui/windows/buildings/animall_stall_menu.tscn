@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://brkc54uu3pb7a"]
 
 [ext_resource type="Theme" uid="uid://btsx1m2p0i620" path="res://assets/resources/theme.tres" id="1_t5vit"]
-[ext_resource type="Script" path="res://assets/scripts/ui/windows/animall_stall_menu.gd" id="2_dryix"]
+[ext_resource type="Script" path="res://assets/scripts/ui/windows/buildings/animall_stall_menu.gd" id="2_dryix"]
 [ext_resource type="Texture2D" uid="uid://xawi3wfa2nr" path="res://assets/resources/ui/menu_background.png" id="2_ygnoh"]
 [ext_resource type="Texture2D" uid="uid://lnugitusjfrv" path="res://assets/resources/ui/menu_background_middle.png" id="3_dqsaw"]
 [ext_resource type="Texture2D" uid="uid://c4bs1dg3vjffi" path="res://assets/resources/buildings/stall/level_1/summer/object_0.png" id="3_f0dge"]

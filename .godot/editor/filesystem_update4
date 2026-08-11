@@ -1,7 +1,8 @@
-res://levels/menu.tscn
-res://assets/resources/theme.tres
-res://assets/shaders/pixel.gdshader
-res://assets/shaders/blur.gdshader
-res://assets/shaders/wind.gdshader
-res://assets/nodes/ui/hud.tscn
-res://assets/nodes/player.tscn
+res://assets/scripts/ui/interactive/construct/blueprints.gd
+res://assets/scripts/managers/build.gd
+res://assets/scripts/ui/windows/build_menu.gd
+res://assets/scripts/ui/interactive/construct/crafting.gd
+res://assets/scripts/ui/menu/menu.gd
+res://assets/scripts/ui/menu/settings.gd
+res://assets/scripts/ui/windows/buildings/sawmill_menu.gd
+res://assets/scripts/ui/menu/credits.gd
