@@ -10,7 +10,7 @@ extends Node
 # - Корректное обращение к главному хранилищу чертежей
 #
 # ОСНОВНОЙ ФУНКЦИОНАЛ:
-# - 
+# - blueprint_get(type, id) - Возвращает данные об постройке, если существует
 #
 # ===================================================================
 
@@ -24,6 +24,7 @@ const BLUEPRINTS:Dictionary = \
 			"description": "blueprint.well.description",
 			"icon": preload("res://assets/resources/buildings/well/icon.png"),
 			"node": preload("res://assets/nodes/buildings/well/well.tscn"),
+			"time": 120.00,
 			"size": Vector2i(2,2)
 		},
 
@@ -33,6 +34,7 @@ const BLUEPRINTS:Dictionary = \
 			"description": "blueprint.animal_stall.description",
 			"icon": preload("res://assets/resources/buildings/stall/level_1/summer/object_0.png"),
 			"node": preload("res://assets/nodes/buildings/stall/animal_stall.tscn"),
+			"time": 120.00,
 			"size": Vector2i(2,2)
 		}
 	},
