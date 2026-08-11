@@ -6,10 +6,8 @@ extends Control
 # Управление UI-окном для работы с чертежами и постройками на ферме.
 #
 # ЗОНА ОТВЕТСТВЕННОСТИ:
-# - 
-#
-# ОСНОВНОЙ ФУНКЦИОНАЛ:
-# -
+# - Создание возможность выбирать изученные чертежи игроком
+# - Переход в режим стройки выбранного чертежа
 #
 # ЗАВИСИМОСТИ:
 # - Utils - вспомогательные методы
@@ -19,8 +17,15 @@ extends Control
 # ===================================================================
 
 @onready var anim:AnimationPlayer = $Animation
-
 @onready var navmenu:BoxContainer = $Main/ScrollContainer/NavMenu
+
+@onready var node_icon:TextureRect = $Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/IconContainer/TextureRect
+@onready var node_title:Label = $Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/HeaderContainer/Header
+@onready var node_description:Label = $Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/DescriptionContainer/Description
+@onready var node_resources:Label = $Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ResourcesContainer/Resources
+@onready var node_time:Label = $Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/TimeContainer/Time
+@onready var node_confirm:Button = $Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button
+
 @onready var container:GridContainer = $Main/MainContent/BlueprintsContent/ScrollContainer/GridContainer
 @onready var confirm:Button = $Main/MainContent/InfoContent/ScrollContainer/VBoxContainer/ButtonContainer/Button
 @onready var exit:Button = $Exit
@@ -92,6 +97,11 @@ func _button_blueprint_create(data:Dictionary) -> Control:
 	icon.set_stretch_mode(TextureRect.STRETCH_KEEP_ASPECT_CENTERED)
 	icon.set_custom_minimum_size(Vector2i(48,48))
 
+	button.pressed.connect(
+		func() -> void:
+			_info_set(data)
+	)
+
 	button.pressed.connect(UIManager.button_pressed)
 	button.mouse_entered.connect(UIManager.button_hovered)
 	button.mouse_exited.connect(UIManager.button_exited)
@@ -108,6 +118,19 @@ func _button_blueprint_create(data:Dictionary) -> Control:
 	hcontainer.add_child(label)
 
 	return parent
+
+
+func _info_set(data:Dictionary) -> void:
+	if data.is_empty():
+		return
+
+	node_icon.texture 	= data["icon"] if data.has("icon") && data["icon"] is CompressedTexture2D else null
+	node_title.text = data["title"] if data.has("title") && data["title"] is String else "??????"
+	node_description.text = data["description"] if data.has("description") && data["description"] is String else ""
+	# node_resources
+	node_time.text = str(data["time"]) if data.has("time") && data["time"] is float else str(0.00)
+	# node_confirm
+
 
 func _label_emtpy_create() -> void:
 	var label:Label = Label.new()
