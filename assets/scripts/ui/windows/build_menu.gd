@@ -44,6 +44,7 @@ var sections:Array[String] = [
 
 func _ready() -> void:
 	_init_buttons()
+	_info_clear()
 	_update_page()
 	_open()
 
@@ -59,16 +60,19 @@ func _update_page() -> void:
 			_label_emtpy_create()
 			return
 
-		for i in PlayerControl.blueprints[page_index]:
-			_button_blueprint_create(BlueprintsManager.blueprint_get(int(page_index), i))
+		for id in PlayerControl.blueprints[page_index]:
+			_button_blueprint_create(page_index, id)
 
 	else:
-		for id in PlayerControl.blueprints:
-			if !PlayerControl.blueprints[id].is_empty():
-				for j in PlayerControl.blueprints[id]:
-					_button_blueprint_create(BlueprintsManager.blueprint_get(id, j))
+		for type in PlayerControl.blueprints:
+			if !PlayerControl.blueprints[type].is_empty():
+				for id in PlayerControl.blueprints[type]:
+					_button_blueprint_create(type, id)
 
-func _button_blueprint_create(data:Dictionary) -> Control:
+
+func _button_blueprint_create(blueprint_type:int, blueprint_id:int) -> Control:
+	var data:Dictionary = BlueprintsManager.blueprint_get(blueprint_type, blueprint_id);
+
 	if data.is_empty():
 		return null
 
@@ -99,7 +103,7 @@ func _button_blueprint_create(data:Dictionary) -> Control:
 
 	button.pressed.connect(
 		func() -> void:
-			_info_set(data)
+			_info_set(data, blueprint_type, blueprint_id)
 	)
 
 	button.pressed.connect(UIManager.button_pressed)
@@ -120,22 +124,72 @@ func _button_blueprint_create(data:Dictionary) -> Control:
 	return parent
 
 
-func _info_set(data:Dictionary) -> void:
+func _info_set(data:Dictionary, blueprint_type:int, blueprint_id:int = 0) -> void:
 	if data.is_empty():
 		return
+
+	var total_time:float = data["time"]/60.0 if data.has("time") && data["time"] is float else 0.00
 
 	node_icon.texture 	= data["icon"] if data.has("icon") && data["icon"] is CompressedTexture2D else null
 	node_title.text = data["title"] if data.has("title") && data["title"] is String else "??????"
 	node_description.text = data["description"] if data.has("description") && data["description"] is String else ""
-	# node_resources
-	node_time.text = str(data["time"]) if data.has("time") && data["time"] is float else str(0.00)
-	# node_confirm
+
+	if data.has("resources") \
+	&& !data["resources"].is_empty()\
+	&& data["resources"] is Dictionary:
+		node_resources.text = ""
+		if !node_resources.visible:
+			node_resources.visible = true
+
+		for type in data["resources"]:
+			for id in data["resources"][type]:
+				var item:Dictionary = Items.items_get(type, id)
+				var amount:int = data["resources"][type][id]["amount"]\
+				if (data["resources"][type][id].has("amount") \
+				&& data["resources"][type][id]["amount"] is int) else 0
+				if !item.is_empty() && amount > 0:
+					node_resources.text += "• " + item["title"] + " (" + ("0" + "/" + str(amount)) + ")\n"
+
+	else:
+		node_resources.text = ""
+		node_resources.visible = false
+
+	node_time.text = tr("build_menu.build_total_time")+": "+str(total_time)
+
+	if !node_confirm.visible:
+		node_confirm.text = "build_menu.button.apply"
+		node_confirm.visible = true
+		node_confirm.disabled = false
+
+		if node_confirm.pressed.is_connected(_button_build):
+			node_confirm.pressed.disconnect(_button_build)
+		
+		node_confirm.pressed.connect(_button_build.bind(blueprint_type, blueprint_id))
+
+
+func _button_build(blueprint_type:int, blueprint_id:int) -> void:
+	var scene:Node = get_tree().current_scene
+	if is_instance_valid(scene.build):
+		scene.build.grid_add(scene.build.GridModes.BUILD)
+
+	_close()
+
+
+func _info_clear() -> void:
+	node_icon.texture = null
+	node_title.text = ""
+	node_description.text = ""
+	node_resources.text = ""
+	node_time.text = ""
+
+	if node_confirm.visible:
+		node_confirm.text = ""
+		node_confirm.visible = false
 
 
 func _label_emtpy_create() -> void:
 	var label:Label = Label.new()
-
-	label.text = "Пустота..."
+	label.text = tr("build_menu.empty")
 	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	label.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
