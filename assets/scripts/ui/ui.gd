@@ -23,11 +23,10 @@ extends CanvasLayer
 @onready var blur: BlurEffect = $Blur
 @onready var blackout: BlackoutEffect = $Blackout
 
-var build: BuildManager = null
-
 var ui: Dictionary = {}
 
-const MENUS: Dictionary = {
+const MENUS: Dictionary = \
+{
 	PAUSE 	= preload("res://assets/nodes/ui/menu/pause.tscn"),
 	OPTIONS = preload("res://assets/nodes/ui/menu/settings.tscn"),
 	CREDITS = preload("res://assets/nodes/ui/menu/credits.tscn"),
@@ -58,6 +57,7 @@ func ui_get(node_name: String) -> Control:
 	var node: Control = null
 	if ui.has(node_name):
 		node = ui[node_name]
+
 	return node
 
 

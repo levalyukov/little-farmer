@@ -9,7 +9,6 @@ func _input(event: InputEvent) -> void:
 		UIManager.ui_remove(UIManager.ui_get("HUD"))
 
 func _ready() -> void:
-	UIManager.build = self.build
 	UIManager.ui_add(UIManager.MENUS.HUD)
 	UIManager.blackout.blackout(false)
 

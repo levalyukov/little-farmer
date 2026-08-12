@@ -1,176 +1,89 @@
 extends Node2D
 
-@onready var build: BuildManager = get_parent()
-@onready var sprite: Sprite2D = $Sprite2D
+@onready var build: BuildManager = get_tree().current_scene.build
+@onready var tilemap: TileMap = get_tree().current_scene.tilemap
 
 const GRID_NORMAL: CompressedTexture2D = preload("res://assets/resources/ui/interactive/hud/grid/default.png")
 const GRID_ERROR: CompressedTexture2D = preload("res://assets/resources/ui/interactive/hud/grid/error.png")
 
-var mode: int = 0
-var code: int = 0
+var mode: BuildManager.GridModes = BuildManager.GridModes.NOTHING
+var size:Vector2i = Vector2i(4,4)
+var layer_id: int = 0
 
 
-func _input(event):
+func _ready() -> void:
+	if (!is_instance_valid(build) && !is_instance_valid(tilemap)):
+		self.set_process(false)
+		return
+
+	_init_size()
+
+
+func _input(event) -> void:
 	if (
-		event is InputEventMouseButton
-		&& event.pressed
-		&& event.button_index == MOUSE_BUTTON_LEFT
-		&& sprite.texture != GRID_ERROR
+		event is InputEventMouseButton &&
+		event.pressed && 
+		event.button_index == MOUSE_BUTTON_LEFT
 	):
-		action()
+		_action()
 
 
 func _process(_delta: float) -> void:
-	movement()
-	collision_check()
+	_movement()
+	_collision_check()
 
 
-func movement() -> void:
-	if is_instance_valid(build) && is_instance_valid(build.tilemap):
-		set_position(build.tilemap.map_to_local(build.tilemap.local_to_map(build.tilemap.get_global_mouse_position())))
+func _movement() -> void:
+	self.set_position(tilemap.map_to_local(tilemap.local_to_map(tilemap.get_global_mouse_position())))
 
-
-func collision_check() -> void:
-	if !is_instance_valid(build)\
-	&& !is_instance_valid(build.tilemap):
-		code = -1
+func _init_size() -> void:
+	if (
+		size.x > build.MAX_GRID_SIZE.x &&
+		size.y > build.MAX_GRID_SIZE.y
+	):
 		return
 
-	sprite.texture = GRID_ERROR
+	for x in size.x:
+		for y in size.y:
+			var sprite:Sprite2D = Sprite2D.new()
+			sprite.texture = GRID_ERROR
+			sprite.position = Vector2i(x*16,y*16)
+			self.add_child(sprite)
+			
+
+func _action() -> void:
 	match mode:
 		build.GridModes.DESTROY:
-			#! Мне все равно не нравится этот вариант перебора слоев...
-
-			if (
-				build.tilemap.get_cell_source_id(
-					build.tilemap.LAYERS.WATERING, build.tilemap.local_to_map(self.global_position)
-				)
-				!= -1
-			):
-				sprite.texture = GRID_NORMAL
-				code = build.tilemap.LAYERS.WATERING
-				return
-
-			if (
-				build.tilemap.get_cell_source_id(
-					build.tilemap.LAYERS.FARMLAND, build.tilemap.local_to_map(self.global_position)
-				)
-				!= -1
-			):
-				sprite.texture = GRID_NORMAL
-				code = build.tilemap.LAYERS.FARMLAND
-				return
-
-			if (
-				build.tilemap.get_cell_source_id(
-					build.tilemap.LAYERS.ROAD, build.tilemap.local_to_map(self.global_position)
-				)
-				!= -1
-			):
-				sprite.texture = GRID_NORMAL
-				code = build.tilemap.LAYERS.ROAD
+			for grid in self.get_children():
+				if tilemap.get_cell_source_id(layer_id, tilemap.local_to_map(grid.global_position)) != -1:
+					tilemap.set_cells_terrain_connect(layer_id, [tilemap.local_to_map(grid.global_position)], 0, -1)
 
 		build.GridModes.FARMING:
-			if (
-				(
-					build.tilemap.get_cell_source_id(
-						build.tilemap.LAYERS.ROAD, build.tilemap.local_to_map(self.global_position)
+			var grid_positions:Array[Vector2i] = []
+
+			for grid in self.get_children():
+				if (
+					tilemap.get_cell_source_id(
+						tilemap.LAYERS.FARMLAND, tilemap.local_to_map(grid.global_position)
 					)
-					!= -1
+					== -1 && grid.texture != GRID_ERROR
+				):
+					grid_positions.append(tilemap.local_to_map(grid.global_position))
+			
+			if !grid_positions.is_empty():
+				tilemap.set_cells_terrain_connect(
+					tilemap.LAYERS.FARMLAND,
+					grid_positions, 0, 
+					tilemap.TERRAINS.FARMING
 				)
-				&& (
-					build.tilemap.get_cell_source_id(
-						build.tilemap.LAYERS.FARMLAND, build.tilemap.local_to_map(self.global_position)
-					)
-					== -1
-				)
-				&& (
-					build
-					. tilemap
-					. get_cell_tile_data(build.tilemap.LAYERS.ROAD, build.tilemap.local_to_map(self.global_position))
-					. get_custom_data("can_place_dirt")
-				)
-			):
-				sprite.texture = GRID_NORMAL
 
-		build.GridModes.FERTILIZER:
-			code = 1
-
-		build.GridModes.WATERING:
-			if (
-				(
-					build.tilemap.get_cell_source_id(
-						build.tilemap.LAYERS.FARMLAND, build.tilemap.local_to_map(self.global_position)
-					)
-					!= -1
-				)
-				&& (
-					build.tilemap.get_cell_source_id(
-						build.tilemap.LAYERS.WATERING, build.tilemap.local_to_map(self.global_position)
-					)
-					== -1
-				)
-			):
-				sprite.texture = GRID_NORMAL
-
-		build.GridModes.HARVESTING:
-			code = 1
-
-		build.GridModes.BUILD:
-			code = 1
-
-		_:
-			code = -1
-
-
-func action() -> void:
-	if !is_instance_valid(build.tilemap):
-		return
-
-	match mode:
-		build.GridModes.DESTROY:
-			if build.tilemap.get_cell_source_id(code, build.tilemap.local_to_map(self.global_position)) != -1:
-				build.tilemap.set_cells_terrain_connect(code, [build.tilemap.local_to_map(self.global_position)], 0, -1)
-
-		build.GridModes.FARMING:
-			if (
-				build.tilemap.get_cell_source_id(
-					build.tilemap.LAYERS.FARMLAND, build.tilemap.local_to_map(self.global_position)
-				)
-				== -1
-			):
-				build.tilemap.set_cells_terrain_connect(
-					build.tilemap.LAYERS.FARMLAND,
-					[build.tilemap.local_to_map(self.global_position)],
-					0,
-					build.tilemap.TERRAINS.FARMING
-				)
-			SoundManager.play_sound("farming/farming")
+				SoundManager.play_sound("farming/farming")
 
 		build.GridModes.FERTILIZER:
 			pass
 
 		build.GridModes.WATERING:
-			if (
-				(
-					build.tilemap.get_cell_source_id(
-						build.tilemap.LAYERS.FARMLAND, build.tilemap.local_to_map(self.global_position)
-					)
-					!= -1
-				)
-				&& (
-					build.tilemap.get_cell_source_id(
-						build.tilemap.LAYERS.WATERING, build.tilemap.local_to_map(self.global_position)
-					)
-					== -1
-				)
-			):
-				build.tilemap.set_cells_terrain_connect(
-					build.tilemap.LAYERS.WATERING,
-					[build.tilemap.local_to_map(self.global_position)],
-					0,
-					build.tilemap.TERRAINS.WATERING
-				)
+			
 			SoundManager.play_sound("farming/watering")
 
 		build.GridModes.HARVESTING:
@@ -178,3 +91,97 @@ func action() -> void:
 
 		build.GridModes.BUILD:
 			pass
+
+
+func _collision_check() -> void:
+	if (
+		!is_instance_valid(build) && 
+		!is_instance_valid(tilemap)
+	):
+		layer_id = -1
+		return
+
+	for grid in self.get_children():
+		#! Мне все равно не нравится этот вариант перебора слоев...
+		grid.texture = GRID_ERROR
+
+		match mode:
+			BuildManager.GridModes.DESTROY:
+				if (
+					tilemap.get_cell_source_id(
+						tilemap.LAYERS.WATERING, tilemap.local_to_map(grid.global_position)
+					)
+					!= -1
+				):
+					grid.texture = GRID_NORMAL
+					layer_id = tilemap.LAYERS.WATERING
+					return
+
+				if (
+					tilemap.get_cell_source_id(
+						tilemap.LAYERS.FARMLAND, tilemap.local_to_map(grid.global_position)
+					)
+					!= -1
+				):
+					grid.texture = GRID_NORMAL
+					layer_id = tilemap.LAYERS.FARMLAND
+					return
+
+				if (
+					tilemap.get_cell_source_id(
+						tilemap.LAYERS.ROAD, tilemap.local_to_map(grid.global_position)
+					)
+					!= -1
+				):
+					grid.texture = GRID_NORMAL
+					layer_id = tilemap.LAYERS.ROAD
+
+			BuildManager.GridModes.FARMING:
+				if (
+					(
+						tilemap.get_cell_source_id(
+							tilemap.LAYERS.ROAD, tilemap.local_to_map(grid.global_position)
+						)
+						!= -1
+					)
+					&& (
+						tilemap.get_cell_source_id(
+							tilemap.LAYERS.FARMLAND, tilemap.local_to_map(grid.global_position)
+						)
+						== -1
+					)
+					&& (
+						tilemap
+						. get_cell_tile_data(tilemap.LAYERS.ROAD, tilemap.local_to_map(grid.global_position))
+						. get_custom_data("can_place_dirt")
+					)
+				):
+					grid.texture = GRID_NORMAL
+
+		# 	BuildManager.GridModes.FERTILIZER:
+		# 		layer_id = 1
+
+		# 	BuildManager.GridModes.WATERING:
+		# 		if (
+		# 			(
+		# 				tilemap.get_cell_source_id(
+		# 					tilemap.LAYERS.FARMLAND, tilemap.local_to_map(self.global_position)
+		# 				)
+		# 				!= -1
+		# 			)
+		# 			&& (
+		# 				tilemap.get_cell_source_id(
+		# 					tilemap.LAYERS.WATERING, tilemap.local_to_map(self.global_position)
+		# 				)
+		# 				== -1
+		# 			)
+		# 		):
+		# 			sprite.texture = GRID_NORMAL
+
+		# 	BuildManager.GridModes.HARVESTING:
+		# 		layer_id = 1
+
+		# 	BuildManager.GridModes.BUILD:
+		# 		layer_id = 1
+
+			_: layer_id = -1

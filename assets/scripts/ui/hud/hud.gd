@@ -38,11 +38,11 @@ const ICONS: Dictionary = {
 	4: preload("res://assets/resources/ui/interactive/hud/tools/hammer.png")
 }
 
-var debug_mode:bool = true
+var debug_mode:bool = false
 
 
 func _ready() -> void:
-	if !is_instance_valid(UIManager.build):
+	if !is_instance_valid(get_tree().current_scene.build):
 		printerr("The build manager is NULL.")
 		return
 
@@ -64,6 +64,8 @@ func _debug_init() -> void:
 
 
 func _button_init() -> void:
+	var scene:Node = get_tree().current_scene
+
 	destroy_icon.texture = ICONS[0] 	if ICONS[0] is CompressedTexture2D else null
 	farming_icon.texture = ICONS[1] 	if ICONS[1] is CompressedTexture2D else null
 	watering_icon.texture = ICONS[2] 	if ICONS[2] is CompressedTexture2D else null
@@ -72,24 +74,24 @@ func _button_init() -> void:
 
 	destroy.pressed.connect(
 		func() -> void:
-			UIManager.build.grid_add(UIManager.build.GridModes.DESTROY)
+			scene.build.grid_add(scene.build.GridModes.DESTROY)
 			_close()
 	)
 	
 	farming.pressed.connect(
 		func() -> void:
-			UIManager.build.grid_add(UIManager.build.GridModes.FARMING)
+			scene.build.grid_add(scene.build.GridModes.FARMING)
 			_close()
 	)
 	watering.pressed.connect(
 		func() -> void:
-			UIManager.build.grid_add(UIManager.build.GridModes.WATERING)
+			scene.build.grid_add(scene.build.GridModes.WATERING)
 			_close()
 	)
 	
 	harvest.pressed.connect(
 		func() -> void:
-			UIManager.build.grid_add(UIManager.build.GridModes.HARVESTING)
+			scene.build.grid_add(scene.build.GridModes.HARVESTING)
 			_close()
 	)
 	
