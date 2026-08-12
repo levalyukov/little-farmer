@@ -1,11 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dhiifehp4845g"]
+[gd_scene load_steps=2 format=3 uid="uid://dhiifehp4845g"]
 
 [ext_resource type="Script" path="res://assets/scripts/buildings/grid.gd" id="1_nff1s"]
-[ext_resource type="Texture2D" uid="uid://wnmnw1uh1vy6" path="res://assets/resources/ui/interactive/hud/grid/default.png" id="2_ji61k"]
 
 [node name="Grid" type="Node2D"]
 z_index = 9
 script = ExtResource("1_nff1s")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_ji61k")
