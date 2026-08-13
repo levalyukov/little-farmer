@@ -14,28 +14,41 @@ extends Node
 #
 # ===================================================================
 
-const BLUEPRINTS:Dictionary = \
+var blueprints:Dictionary = \
 {
 	BlueprintsType.BUILDINGS:
 	{
 		0:
 		{
-			"title": "blueprint.well.title",
-			"description": "blueprint.well.description",
+			"title": tr("blueprint.well.title"),
+			"description": tr("blueprint.well.description"),
 			"icon": preload("res://assets/resources/buildings/well/icon.png"),
 			"node": preload("res://assets/nodes/buildings/well/well.tscn"),
-			"time": 120.00,
-			"size": Vector2i(2,2)
+			"time": 753.00,
+			"size": Vector2i(2,2),
+			"resources":
+			{
+				Items.ItemsType.MATERIALS:
+				{
+					1:{"amount": 100},
+					2:{"amount": 100},
+					3:{"amount": 100}
+				}
+			}
 		},
 
 		1:
 		{
-			"title": "blueprint.animal_stall.title",
-			"description": "blueprint.animal_stall.description",
+			"title": tr("blueprint.animal_stall.title"),
+			"description": tr("blueprint.animal_stall.description"),
 			"icon": preload("res://assets/resources/buildings/stall/level_1/summer/object_0.png"),
 			"node": preload("res://assets/nodes/buildings/stall/animal_stall.tscn"),
 			"time": 120.00,
-			"size": Vector2i(2,2)
+			"size": Vector2i(3,2),
+			"resources":
+			{
+					
+			}
 		}
 	},
 
@@ -43,8 +56,8 @@ const BLUEPRINTS:Dictionary = \
 	{
 		0:
 		{
-			"title": "blueprint.roads.title",
-			"description": "blueprint.well.description",
+			"title": tr("blueprint.roads.title"),
+			"description": tr("blueprint.well.description"),
 			"icon": preload("res://assets/resources/ui/interactive/construct/roads.png"),
 			"layer": [],
 			"size": Vector2i(2,2)
@@ -52,8 +65,8 @@ const BLUEPRINTS:Dictionary = \
 
 		1:
 		{
-			"title": "blueprint.water.title",
-			"description": "blueprint.well.description",
+			"title": tr("blueprint.water.title"),
+			"description": tr("blueprint.well.description"),
 			"icon": preload("res://assets/resources/ui/interactive/construct/water.png"),
 			"layer": [],
 			"size": Vector2i(2,2)
@@ -64,10 +77,14 @@ const BLUEPRINTS:Dictionary = \
 enum BlueprintsType {BUILDINGS, TERRAINS}
 
 
+func _ready() -> void:
+	blueprints.make_read_only()
+
+
 func blueprint_get(type:BlueprintsType, id:int) -> Dictionary:
 	var data:Dictionary = {}
 
-	if BLUEPRINTS[type].has(id):
-		data.merge(BLUEPRINTS[type][id])
+	if blueprints[type].has(id):
+		data.merge(blueprints[type][id])
 	
 	return data
