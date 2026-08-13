@@ -18,10 +18,9 @@ class_name BuildManager extends Node
 #
 # ===================================================================
 
-@export var tilemap: TileMap
-
 const MAX_DISTANCE: int = 250
-const GRID: PackedScene = preload("res://assets/nodes/buildings/grid.tscn")
+const MAX_GRID_SIZE:Vector2i = Vector2i(16,16)
+const GRID:PackedScene = preload("res://assets/nodes/buildings/grid.tscn")
 
 enum GridModes 
 { 
@@ -33,10 +32,10 @@ enum GridModes
 	BUILD 
 }
 
-var buildings: Dictionary = {}
+var buildings: Dictionary
 
 
-func _input(event) -> void:
+func _input(event:InputEvent) -> void:
 	if (
 		((event is InputEventMouseButton) && (event.pressed) && ((event.button_index) == MOUSE_BUTTON_RIGHT))
 		|| ((event.is_action_pressed("esc")) && (buildings.has(GRID.get_state().get_node_name(0))))
@@ -50,14 +49,35 @@ func _input(event) -> void:
 				UIManager.ui_add(UIManager.MENUS.HUD)
 
 
-func grid_add(mode: GridModes) -> void:
+func grid_add(mode: BuildManager.GridModes, size: Vector2i = Vector2i(1,1)) -> Node2D:
+	var grid:Node2D = null
+
+	if !(size.x > 0 && size.y > 0) || !(size.x <= MAX_GRID_SIZE.x && size.y <= MAX_GRID_SIZE.y):
+		printerr("Incorrect grid size.")
+		return
+
 	if !(buildings.has(GRID.get_state().get_node_name(0))):
 		var node = GRID.instantiate()
 		buildings[node.name] = node
-		self.add_child(node)
+		node.size = size
 		node.mode = mode
+		self.add_child(node)
+		grid = node
+
+	return grid
 
 
-func build_add(_id: int) -> void:
-	pass
-	# var building = BlueprintManager.CONTENT["buildings"][id]
+func build_add(node:Node2D, position:Vector2i) -> void:
+	if !node:
+		printerr("Node is null.")
+		return
+
+	buildings[node.name] = node
+	print(buildings)
+	# node.position = position
+
+
+func build_remove(node:Node2D) -> bool:
+	var flag:bool = false
+
+	return flag
