@@ -10,16 +10,24 @@ var mode: BuildManager.GridModes = BuildManager.GridModes.NOTHING
 var size:Vector2i = Vector2i(4,4)
 var layer_id: int = 0
 
+var node:PackedScene = null
+var terrain:Array[int] = []
+
 
 func _ready() -> void:
-	if (!is_instance_valid(build) && !is_instance_valid(tilemap)):
+	if (
+		!is_instance_valid(build) && 
+		!is_instance_valid(tilemap)
+	):
+		printerr("BuildManager or TileMap is NULL: ", 
+			"\n\t", build, "\n\t", tilemap)
 		self.set_process(false)
 		return
 
-	_init_size()
+	update_grid()
 
 
-func _input(event) -> void:
+func _input(event:InputEvent) -> void:
 	if (
 		event is InputEventMouseButton &&
 		event.pressed && 
@@ -36,12 +44,17 @@ func _process(_delta: float) -> void:
 func _movement() -> void:
 	self.set_position(tilemap.map_to_local(tilemap.local_to_map(tilemap.get_global_mouse_position())))
 
-func _init_size() -> void:
+func update_grid() -> void:
 	if (
 		size.x > build.MAX_GRID_SIZE.x &&
 		size.y > build.MAX_GRID_SIZE.y
 	):
 		return
+
+	if !self.get_children().is_empty():
+		for child in self.get_children():
+			self.remove_child(child)
+			child.queue_free()
 
 	for x in size.x:
 		for y in size.y:
@@ -83,14 +96,43 @@ func _action() -> void:
 			pass
 
 		build.GridModes.WATERING:
-			
-			SoundManager.play_sound("farming/watering")
+			var grid_positions:Array[Vector2i] = []
+
+			for grid in self.get_children():
+				if (
+					tilemap.get_cell_source_id(
+						tilemap.LAYERS.WATERING, tilemap.local_to_map(grid.global_position)
+					)
+					== -1 && grid.texture != GRID_ERROR
+				):
+					grid_positions.append(tilemap.local_to_map(grid.global_position))
+
+			if !grid_positions.is_empty():
+				tilemap.set_cells_terrain_connect(
+					tilemap.LAYERS.WATERING,
+					grid_positions, 0, 
+					tilemap.TERRAINS.WATERING
+				)
+
+				SoundManager.play_sound("farming/watering")
 
 		build.GridModes.HARVESTING:
 			pass
 
 		build.GridModes.BUILD:
-			pass
+			var grid_positions:Array[Vector2i] = []
+
+			for grid in self.get_children():
+				if (tilemap.get_cell_source_id(
+						tilemap.LAYERS.BUILDING, tilemap.local_to_map(grid.global_position)
+					) != -1 || grid.texture == GRID_ERROR):
+						grid_positions.clear()
+						break
+				grid_positions.append(tilemap.local_to_map(grid.global_position))
+			
+			if !grid_positions.is_empty():
+				build.build_add(self.node.instantiate(), tilemap.local_to_map(self.global_position))
+				SoundManager.play_sound("building/build")
 
 
 func _collision_check() -> void:
@@ -161,27 +203,30 @@ func _collision_check() -> void:
 		# 	BuildManager.GridModes.FERTILIZER:
 		# 		layer_id = 1
 
-		# 	BuildManager.GridModes.WATERING:
-		# 		if (
-		# 			(
-		# 				tilemap.get_cell_source_id(
-		# 					tilemap.LAYERS.FARMLAND, tilemap.local_to_map(self.global_position)
-		# 				)
-		# 				!= -1
-		# 			)
-		# 			&& (
-		# 				tilemap.get_cell_source_id(
-		# 					tilemap.LAYERS.WATERING, tilemap.local_to_map(self.global_position)
-		# 				)
-		# 				== -1
-		# 			)
-		# 		):
-		# 			sprite.texture = GRID_NORMAL
+			BuildManager.GridModes.WATERING:
+				if (
+					(
+						tilemap.get_cell_source_id(
+							tilemap.LAYERS.FARMLAND, tilemap.local_to_map(grid.global_position)
+						)
+						!= -1
+					)
+					&& (
+						tilemap.get_cell_source_id(
+							tilemap.LAYERS.WATERING, tilemap.local_to_map(grid.global_position)
+						)
+						== -1
+					)
+				):
+					grid.texture = GRID_NORMAL
 
 		# 	BuildManager.GridModes.HARVESTING:
 		# 		layer_id = 1
 
-		# 	BuildManager.GridModes.BUILD:
-		# 		layer_id = 1
+			BuildManager.GridModes.BUILD:
+				if tilemap.get_cell_source_id(
+					tilemap.LAYERS.BUILDING, tilemap.local_to_map(grid.global_position)
+				) == -1:
+					grid.texture = GRID_NORMAL
 
 			_: layer_id = -1
