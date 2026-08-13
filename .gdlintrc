@@ -1,0 +1,6 @@
+disable:
+    - unused-argument
+    - trailing-whitespace
+    - class-definitions-order
+
+max-line-length: 120
