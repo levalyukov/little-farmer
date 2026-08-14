@@ -17,18 +17,18 @@ extends Control
 
 @onready var anim: AnimationPlayer = $Animation
 
-@onready var destroy: Button = $Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Destroy/Main/Button
-@onready var farming: Button = $Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Farming/Main/Button
-@onready var watering: Button = $Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Watering/Main/Button
-@onready var harvest: Button = $Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Harvest/Main/Button
-@onready var build: Button = $Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Build/Main/Button
-@onready var destroy_icon: TextureRect = $Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Destroy/Main/Margin/Icon
-@onready var farming_icon: TextureRect = $Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Farming/Main/Margin/Icon
-@onready var watering_icon: TextureRect = $Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Watering/Main/Margin/Icon
-@onready var harvest_texture: TextureRect = $Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Harvest/Main/Margin/Icon
-@onready var build_icon: TextureRect = $Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Build/Main/Margin/Icon
+@onready var destroy: Button = $Main/Tools/Control/Margin/Margin/HBox/Destroy/Main/Button
+@onready var farming: Button = $Main/Tools/Control/Margin/Margin/HBox/Farming/Main/Button
+@onready var watering: Button = $Main/Tools/Control/Margin/Margin/HBox/Watering/Main/Button
+@onready var harvest: Button = $Main/Tools/Control/Margin/Margin/HBox/Harvest/Main/Button
+@onready var build: Button = $Main/Tools/Control/Margin/Margin/HBox/Build/Main/Button
+@onready var destroy_icon: TextureRect = $Main/Tools/Control/Margin/Margin/HBox/Destroy/Main/Margin/Icon
+@onready var farming_icon: TextureRect = $Main/Tools/Control/Margin/Margin/HBox/Farming/Main/Margin/Icon
+@onready var watering_icon: TextureRect = $Main/Tools/Control/Margin/Margin/HBox/Watering/Main/Margin/Icon
+@onready var harvest_texture: TextureRect = $Main/Tools/Control/Margin/Margin/HBox/Harvest/Main/Margin/Icon
+@onready var build_icon: TextureRect = $Main/Tools/Control/Margin/Margin/HBox/Build/Main/Margin/Icon
 
-@onready var debug:Label = $Main/Bars/Debug/Label
+@onready var debug: Label = $Main/Bars/Debug/Label
 
 const ICONS: Dictionary = {
 	0: preload("res://assets/resources/ui/interactive/hud/tools/trash.png"),
@@ -38,12 +38,12 @@ const ICONS: Dictionary = {
 	4: preload("res://assets/resources/ui/interactive/hud/tools/hammer.png")
 }
 
-var debug_mode:bool = false
+var debug_mode: bool = !false
 
 
 func _ready() -> void:
 	if !is_instance_valid(get_tree().current_scene.build):
-		printerr("The build manager is NULL.")
+		printerr("BuildManager is NULL.")
 		return
 
 	_button_init()
@@ -51,12 +51,17 @@ func _ready() -> void:
 	_open()
 
 
-func _process(_delta:float) -> void:
+func _process(_delta: float) -> void:
 	if debug_mode:
-		debug.text = 'FPS: ' + str(Engine.get_frames_per_second()) 				\
-		+ '\nRAM: %d MB' % (OS.get_static_memory_usage() / 1024 / 1024) 		\
-		+ "\nCPU: " + str(Performance.get_monitor(Performance.TIME_PROCESS)) 	\
-		+ "\nVulkan: " + str(RenderingServer.get_video_adapter_api_version())
+		debug.text = (
+			"FPS: "
+			+ str(Engine.get_frames_per_second())
+			+ "\nRAM: %d MB" % (OS.get_static_memory_usage() / 1024 / 1024)
+			+ "\nCPU: "
+			+ str(Performance.get_monitor(Performance.TIME_PROCESS))
+			+ "\nVulkan: "
+			+ str(RenderingServer.get_video_adapter_api_version())
+		)
 
 
 func _debug_init() -> void:
@@ -64,20 +69,20 @@ func _debug_init() -> void:
 
 
 func _button_init() -> void:
-	var scene:Node = get_tree().current_scene
+	var scene: Node = get_tree().current_scene
 
-	destroy_icon.texture = ICONS[0] 	if ICONS[0] is CompressedTexture2D else null
-	farming_icon.texture = ICONS[1] 	if ICONS[1] is CompressedTexture2D else null
-	watering_icon.texture = ICONS[2] 	if ICONS[2] is CompressedTexture2D else null
-	harvest_texture.texture = ICONS[3] 	if ICONS[3] is CompressedTexture2D else null
-	build_icon.texture = ICONS[4] 		if ICONS[4] is CompressedTexture2D else null
+	destroy_icon.texture = ICONS[0] if ICONS[0] is CompressedTexture2D else null
+	farming_icon.texture = ICONS[1] if ICONS[1] is CompressedTexture2D else null
+	watering_icon.texture = ICONS[2] if ICONS[2] is CompressedTexture2D else null
+	harvest_texture.texture = ICONS[3] if ICONS[3] is CompressedTexture2D else null
+	build_icon.texture = ICONS[4] if ICONS[4] is CompressedTexture2D else null
 
 	destroy.pressed.connect(
 		func() -> void:
 			scene.build.grid_add(scene.build.GridModes.DESTROY)
 			_close()
 	)
-	
+
 	farming.pressed.connect(
 		func() -> void:
 			scene.build.grid_add(scene.build.GridModes.FARMING)
@@ -88,19 +93,19 @@ func _button_init() -> void:
 			scene.build.grid_add(scene.build.GridModes.WATERING)
 			_close()
 	)
-	
+
 	harvest.pressed.connect(
 		func() -> void:
 			scene.build.grid_add(scene.build.GridModes.HARVESTING)
 			_close()
 	)
-	
+
 	build.pressed.connect(
-		func() -> void: 
+		func() -> void:
 			UIManager.ui_add(UIManager.MENUS.BUILD)
 			_close()
 	)
-	
+
 	destroy.pressed.connect(UIManager.button_pressed)
 	farming.pressed.connect(UIManager.button_pressed)
 	watering.pressed.connect(UIManager.button_pressed)
@@ -121,13 +126,14 @@ func _button_init() -> void:
 
 
 func _open() -> void:
-	self.visible = true	
+	self.visible = true
 	anim.animation_finished.connect(
 		func(animation_name: String) -> void:
 			if animation_name != "show":
 				UIManager.ui_remove(self)
 	)
 	anim.play("show")
+
 
 func _close() -> void:
 	anim.play("hide")
