@@ -31,6 +31,7 @@ Utils="*res://assets/scripts/managers/utils.gd"
 UIManager="*res://assets/nodes/ui/ui.tscn"
 PlayerControl="*res://assets/scripts/managers/player_control.gd"
 BlueprintsManager="*res://assets/scripts/containers/blueprints.gd"
+Items="*res://assets/scripts/containers/items.gd"
 
 [debug]
 
