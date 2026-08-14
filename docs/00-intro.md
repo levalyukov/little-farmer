@@ -32,8 +32,6 @@ Little Farmer - 2D Top-Down пиксельная симулятор фермер
 
 ```bash
 little-farmer/
-├── .docs/                  # <- Вы здесь
-│   └── dev/                # Документация для разработчиков
 ├── assets/
 │   ├── data/               # Глобальные данные и функции
 │   ├── local/              # Локализация 
@@ -42,7 +40,9 @@ little-farmer/
 │   ├── scripts/            # Скрипты
 │   ├── shaders/            # Шейдеры Godot
 │   └── sounds/             # Игровые звуки и музыка
-├── levels/
+├── docs/                   # <- Вы здесь
+│   └── dev/                # Документация для разработчиков
+├── levels/                 # Игровые локации
 │   ├── farm.tscn           # Ферма
 │   ├── menu.tscn           # Главное меню
 │   ├── greenhouse.tscn     # Теплица
