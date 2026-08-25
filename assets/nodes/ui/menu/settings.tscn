@@ -39,20 +39,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"window"
-}]
-}
 
 [sub_resource type="Animation" id="Animation_8a3am"]
 resource_name = "show"
@@ -68,20 +54,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"window"
-}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bw4sn"]
@@ -137,79 +109,79 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main"]
+[node name="HBox" type="HBoxContainer" parent="Menu/Main"]
 layout_mode = 2
 
-[node name="Panel" type="MarginContainer" parent="Menu/Main/HBoxContainer"]
+[node name="Panel" type="MarginContainer" parent="Menu/Main/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Main/HBoxContainer/Panel"]
+[node name="VBox" type="VBoxContainer" parent="Menu/Main/HBox/Panel"]
 layout_mode = 2
 
-[node name="MainContent" type="ScrollContainer" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer"]
+[node name="MainContent" type="ScrollContainer" parent="Menu/Main/HBox/Panel/VBox"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent"]
+[node name="Margin" type="MarginContainer" parent="Menu/Main/HBox/Panel/VBox/MainContent"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_right = 4
 
-[node name="SectionsButtons" type="VBoxContainer" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer"]
+[node name="SectionsButtons" type="VBoxContainer" parent="Menu/Main/HBox/Panel/VBox/MainContent/Margin"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="GraphicButton" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons"]
+[node name="GraphicButton" type="Button" parent="Menu/Main/HBox/Panel/VBox/MainContent/Margin/SectionsButtons"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 16
 text = "options.graphic"
 
-[node name="SoundButton" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons"]
+[node name="SoundButton" type="Button" parent="Menu/Main/HBox/Panel/VBox/MainContent/Margin/SectionsButtons"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 16
 text = "options.sounds"
 
-[node name="ControlButton" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons"]
+[node name="ControlButton" type="Button" parent="Menu/Main/HBox/Panel/VBox/MainContent/Margin/SectionsButtons"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 16
 text = "options.control"
 
-[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer"]
+[node name="Margin" type="MarginContainer" parent="Menu/Main/HBox/Panel/VBox"]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_right = 4
 
-[node name="MenuButtons" type="VBoxContainer" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer"]
+[node name="MenuButtons" type="VBoxContainer" parent="Menu/Main/HBox/Panel/VBox/Margin"]
 layout_mode = 2
 size_flags_vertical = 10
 alignment = 2
 
-[node name="ChangeLanguage" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons"]
+[node name="ChangeLanguage" type="Button" parent="Menu/Main/HBox/Panel/VBox/Margin/MenuButtons"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 16
 text = "options.game_language"
 
-[node name="Confirm" type="Button" parent="Menu/Main/HBoxContainer/Panel/VBoxContainer/MarginContainer/MenuButtons"]
+[node name="Confirm" type="Button" parent="Menu/Main/HBox/Panel/VBox/Margin/MenuButtons"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 16
 text = "options.save_changes"
 
-[node name="PageBackground" type="NinePatchRect" parent="Menu/Main/HBoxContainer"]
+[node name="Content" type="NinePatchRect" parent="Menu/Main/HBox"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -219,8 +191,7 @@ patch_margin_top = 8
 patch_margin_right = 8
 patch_margin_bottom = 8
 
-[node name="GraphicSection" type="ScrollContainer" parent="Menu/Main/HBoxContainer/PageBackground"]
-visible = false
+[node name="Graphic" type="ScrollContainer" parent="Menu/Main/HBox/Content"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -232,7 +203,7 @@ offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection"]
+[node name="Margin" type="MarginContainer" parent="Menu/Main/HBox/Content/Graphic"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -241,63 +212,63 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="Container" type="VBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer"]
+[node name="Container" type="VBoxContainer" parent="Menu/Main/HBox/Content/Graphic/Margin"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 2
 
-[node name="HeaderMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container"]
+[node name="Header" type="MarginContainer" parent="Menu/Main/HBox/Content/Graphic/Margin/Container"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 2
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container/HeaderMargin"]
+[node name="Label" type="Label" parent="Menu/Main/HBox/Content/Graphic/Margin/Container/Header"]
 layout_mode = 2
 text = "options.graphic"
 label_settings = SubResource("LabelSettings_opmpa")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VSyncMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container"]
+[node name="VSync" type="MarginContainer" parent="Menu/Main/HBox/Content/Graphic/Margin/Container"]
 layout_mode = 2
 theme_override_constants/margin_bottom = 4
 
-[node name="VSyncButton" type="CheckButton" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container/VSyncMargin"]
+[node name="VSync" type="CheckButton" parent="Menu/Main/HBox/Content/Graphic/Margin/Container/VSync"]
 custom_minimum_size = Vector2(55, 55)
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "options.graphic.vsync"
 
-[node name="FullScreenMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container"]
+[node name="FullScreen" type="MarginContainer" parent="Menu/Main/HBox/Content/Graphic/Margin/Container"]
 layout_mode = 2
 theme_override_constants/margin_bottom = 4
 
-[node name="FullScreenButton" type="CheckButton" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container/FullScreenMargin"]
+[node name="FullScreen" type="CheckButton" parent="Menu/Main/HBox/Content/Graphic/Margin/Container/FullScreen"]
 custom_minimum_size = Vector2(55, 55)
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "options.graphic.fullScreen"
 
-[node name="FPSLimitMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container"]
+[node name="FPS" type="MarginContainer" parent="Menu/Main/HBox/Content/Graphic/Margin/Container"]
 layout_mode = 2
 theme_override_constants/margin_bottom = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container/FPSLimitMargin"]
+[node name="HBox" type="HBoxContainer" parent="Menu/Main/HBox/Content/Graphic/Margin/Container/FPS"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container/FPSLimitMargin/HBoxContainer"]
+[node name="Margin" type="MarginContainer" parent="Menu/Main/HBox/Content/Graphic/Margin/Container/FPS/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container/FPSLimitMargin/HBoxContainer/MarginContainer"]
+[node name="Label" type="Label" parent="Menu/Main/HBox/Content/Graphic/Margin/Container/FPS/HBox/Margin"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "options.graphic.FPSLimit"
 
-[node name="OptionButton" type="OptionButton" parent="Menu/Main/HBoxContainer/PageBackground/GraphicSection/MarginContainer/Container/FPSLimitMargin/HBoxContainer/MarginContainer"]
+[node name="OptionButton" type="OptionButton" parent="Menu/Main/HBox/Content/Graphic/Margin/Container/FPS/HBox/Margin"]
 custom_minimum_size = Vector2(55, 55)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -311,7 +282,7 @@ popup/item_1/id = 1
 popup/item_2/text = "options.graphic.FPSLimit_off"
 popup/item_2/id = 2
 
-[node name="SoundVolumeSection" type="ScrollContainer" parent="Menu/Main/HBoxContainer/PageBackground"]
+[node name="Sounds" type="ScrollContainer" parent="Menu/Main/HBox/Content"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -324,7 +295,7 @@ offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection"]
+[node name="Margin" type="MarginContainer" parent="Menu/Main/HBox/Content/Sounds"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -333,12 +304,12 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="Container" type="VBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer"]
+[node name="Container" type="VBoxContainer" parent="Menu/Main/HBox/Content/Sounds/Margin"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 2
 
-[node name="HeaderMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container"]
+[node name="Header" type="MarginContainer" parent="Menu/Main/HBox/Content/Sounds/Margin/Container"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -347,142 +318,143 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 20
 
-[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/HeaderMargin"]
+[node name="Label" type="Label" parent="Menu/Main/HBox/Content/Sounds/Margin/Container/Header"]
 layout_mode = 2
 text = "options.sounds"
 label_settings = SubResource("LabelSettings_opmpa")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GeneralVolumeMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container"]
+[node name="General" type="MarginContainer" parent="Menu/Main/HBox/Content/Sounds/Margin/Container"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/GeneralVolumeMargin"]
+[node name="HBox" type="HBoxContainer" parent="Menu/Main/HBox/Content/Sounds/Margin/Container/General"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/GeneralVolumeMargin/HBoxContainer"]
+[node name="Margin" type="MarginContainer" parent="Menu/Main/HBox/Content/Sounds/Margin/Container/General/HBox"]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_constants/margin_right = 8
 
-[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/GeneralVolumeMargin/HBoxContainer/MarginContainer"]
+[node name="Label" type="Label" parent="Menu/Main/HBox/Content/Sounds/Margin/Container/General/HBox/Margin"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "options.sounds.overall"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/GeneralVolumeMargin/HBoxContainer"]
+[node name="VBox" type="VBoxContainer" parent="Menu/Main/HBox/Content/Sounds/Margin/Container/General/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="GeneralVolumeLabel" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/GeneralVolumeMargin/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Menu/Main/HBox/Content/Sounds/Margin/Container/General/HBox/VBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 
-[node name="GeneralVolumeSlider" type="HSlider" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/GeneralVolumeMargin/HBoxContainer/VBoxContainer"]
+[node name="Slider" type="HSlider" parent="Menu/Main/HBox/Content/Sounds/Margin/Container/General/HBox/VBox"]
 layout_mode = 2
 
-[node name="MusicVolumeMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container"]
+[node name="Music" type="MarginContainer" parent="Menu/Main/HBox/Content/Sounds/Margin/Container"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/MusicVolumeMargin"]
+[node name="HBox" type="HBoxContainer" parent="Menu/Main/HBox/Content/Sounds/Margin/Container/Music"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/MusicVolumeMargin/HBoxContainer"]
+[node name="Margin" type="MarginContainer" parent="Menu/Main/HBox/Content/Sounds/Margin/Container/Music/HBox"]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_constants/margin_right = 8
 
-[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/MusicVolumeMargin/HBoxContainer/MarginContainer"]
+[node name="Label" type="Label" parent="Menu/Main/HBox/Content/Sounds/Margin/Container/Music/HBox/Margin"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "options.sounds.music"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/MusicVolumeMargin/HBoxContainer"]
+[node name="VBox" type="VBoxContainer" parent="Menu/Main/HBox/Content/Sounds/Margin/Container/Music/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MusicVolumeLabel" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/MusicVolumeMargin/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Menu/Main/HBox/Content/Sounds/Margin/Container/Music/HBox/VBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 
-[node name="MusicVolumeSlider" type="HSlider" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/MusicVolumeMargin/HBoxContainer/VBoxContainer"]
+[node name="Slider" type="HSlider" parent="Menu/Main/HBox/Content/Sounds/Margin/Container/Music/HBox/VBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="NatureVolumeMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container"]
+[node name="Nature" type="MarginContainer" parent="Menu/Main/HBox/Content/Sounds/Margin/Container"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/NatureVolumeMargin"]
+[node name="HBox" type="HBoxContainer" parent="Menu/Main/HBox/Content/Sounds/Margin/Container/Nature"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/NatureVolumeMargin/HBoxContainer"]
+[node name="Margin" type="MarginContainer" parent="Menu/Main/HBox/Content/Sounds/Margin/Container/Nature/HBox"]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_constants/margin_right = 8
 
-[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/NatureVolumeMargin/HBoxContainer/MarginContainer"]
+[node name="Label" type="Label" parent="Menu/Main/HBox/Content/Sounds/Margin/Container/Nature/HBox/Margin"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "options.sounds.nature"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/NatureVolumeMargin/HBoxContainer"]
+[node name="VBox" type="VBoxContainer" parent="Menu/Main/HBox/Content/Sounds/Margin/Container/Nature/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="NatureVolumeLabel" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/NatureVolumeMargin/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Menu/Main/HBox/Content/Sounds/Margin/Container/Nature/HBox/VBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 
-[node name="NatureVolumeSlider" type="HSlider" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/NatureVolumeMargin/HBoxContainer/VBoxContainer"]
+[node name="Slider" type="HSlider" parent="Menu/Main/HBox/Content/Sounds/Margin/Container/Nature/HBox/VBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="RadioVolumeMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container"]
+[node name="Radio" type="MarginContainer" parent="Menu/Main/HBox/Content/Sounds/Margin/Container"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/RadioVolumeMargin"]
+[node name="HBox" type="HBoxContainer" parent="Menu/Main/HBox/Content/Sounds/Margin/Container/Radio"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/RadioVolumeMargin/HBoxContainer"]
+[node name="Margin" type="MarginContainer" parent="Menu/Main/HBox/Content/Sounds/Margin/Container/Radio/HBox"]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_constants/margin_right = 8
 
-[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/RadioVolumeMargin/HBoxContainer/MarginContainer"]
+[node name="Label" type="Label" parent="Menu/Main/HBox/Content/Sounds/Margin/Container/Radio/HBox/Margin"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "options.sounds.radio"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/RadioVolumeMargin/HBoxContainer"]
+[node name="VBox" type="VBoxContainer" parent="Menu/Main/HBox/Content/Sounds/Margin/Container/Radio/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="RadioVolumeLabel" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/RadioVolumeMargin/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Menu/Main/HBox/Content/Sounds/Margin/Container/Radio/HBox/VBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 
-[node name="RadioVolumeSlider" type="HSlider" parent="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/RadioVolumeMargin/HBoxContainer/VBoxContainer"]
+[node name="Slider" type="HSlider" parent="Menu/Main/HBox/Content/Sounds/Margin/Container/Radio/HBox/VBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ControlSection" type="ScrollContainer" parent="Menu/Main/HBoxContainer/PageBackground"]
+[node name="Control" type="ScrollContainer" parent="Menu/Main/HBox/Content"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -494,7 +466,7 @@ offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection"]
+[node name="Margin" type="MarginContainer" parent="Menu/Main/HBox/Content/Control"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -503,12 +475,12 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="Container" type="VBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer"]
+[node name="Container" type="VBoxContainer" parent="Menu/Main/HBox/Content/Control/Margin"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 2
 
-[node name="HeaderMargin" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container"]
+[node name="Header" type="MarginContainer" parent="Menu/Main/HBox/Content/Control/Margin/Container"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -517,34 +489,34 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 20
 
-[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/HeaderMargin"]
+[node name="Label" type="Label" parent="Menu/Main/HBox/Content/Control/Margin/Container/Header"]
 layout_mode = 2
 text = "options.control"
 label_settings = SubResource("LabelSettings_opmpa")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ChangeMovement" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container"]
+[node name="MoveType" type="MarginContainer" parent="Menu/Main/HBox/Content/Control/Margin/Container"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ChangeMovement"]
+[node name="HBox" type="HBoxContainer" parent="Menu/Main/HBox/Content/Control/Margin/Container/MoveType"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ChangeMovement/HBoxContainer"]
+[node name="Margin" type="MarginContainer" parent="Menu/Main/HBox/Content/Control/Margin/Container/MoveType/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ChangeMovement/HBoxContainer/MarginContainer"]
+[node name="Label" type="Label" parent="Menu/Main/HBox/Content/Control/Margin/Container/MoveType/HBox/Margin"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "options.control.movementType"
 
-[node name="ChangeMovementOption" type="OptionButton" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ChangeMovement/HBoxContainer/MarginContainer"]
+[node name="Button" type="OptionButton" parent="Menu/Main/HBox/Content/Control/Margin/Container/MoveType/HBox/Margin"]
 custom_minimum_size = Vector2(55, 55)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -556,157 +528,157 @@ popup/item_0/id = 0
 popup/item_1/text = "options.control.keyboard"
 popup/item_1/id = 1
 
-[node name="MovementButton" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container"]
+[node name="Movement" type="MarginContainer" parent="Menu/Main/HBox/Content/Control/Margin/Container"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="Button" type="Button" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/MovementButton"]
+[node name="Button" type="Button" parent="Menu/Main/HBox/Content/Control/Margin/Container/Movement"]
 layout_mode = 2
 alignment = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/MovementButton"]
+[node name="Margin" type="MarginContainer" parent="Menu/Main/HBox/Content/Control/Margin/Container/Movement"]
 layout_mode = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/MovementButton/MarginContainer"]
+[node name="HBox" type="HBoxContainer" parent="Menu/Main/HBox/Content/Control/Margin/Container/Movement/Margin"]
 layout_mode = 2
 
-[node name="InputsName" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/MovementButton/MarginContainer/HBoxContainer"]
+[node name="InputsName" type="Label" parent="Menu/Main/HBox/Content/Control/Margin/Container/Movement/Margin/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "options.control.movement"
 
-[node name="Inputs" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/MovementButton/MarginContainer/HBoxContainer"]
+[node name="Inputs" type="Label" parent="Menu/Main/HBox/Content/Control/Margin/Container/Movement/Margin/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "options.control.movement_input"
 horizontal_alignment = 2
 
-[node name="InteractiveButton" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container"]
+[node name="Interactive" type="MarginContainer" parent="Menu/Main/HBox/Content/Control/Margin/Container"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="Button" type="Button" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/InteractiveButton"]
+[node name="Button" type="Button" parent="Menu/Main/HBox/Content/Control/Margin/Container/Interactive"]
 layout_mode = 2
 alignment = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/InteractiveButton"]
+[node name="Margin" type="MarginContainer" parent="Menu/Main/HBox/Content/Control/Margin/Container/Interactive"]
 layout_mode = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/InteractiveButton/MarginContainer"]
+[node name="HBox" type="HBoxContainer" parent="Menu/Main/HBox/Content/Control/Margin/Container/Interactive/Margin"]
 layout_mode = 2
 
-[node name="InputsName" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/InteractiveButton/MarginContainer/HBoxContainer"]
+[node name="InputsName" type="Label" parent="Menu/Main/HBox/Content/Control/Margin/Container/Interactive/Margin/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "options.control.interact"
 
-[node name="Inputs" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/InteractiveButton/MarginContainer/HBoxContainer"]
+[node name="Inputs" type="Label" parent="Menu/Main/HBox/Content/Control/Margin/Container/Interactive/Margin/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "options.control.interact_input"
 horizontal_alignment = 2
 
-[node name="InventoryButton" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container"]
+[node name="Inventory" type="MarginContainer" parent="Menu/Main/HBox/Content/Control/Margin/Container"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="Button" type="Button" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/InventoryButton"]
+[node name="Button" type="Button" parent="Menu/Main/HBox/Content/Control/Margin/Container/Inventory"]
 layout_mode = 2
 alignment = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/InventoryButton"]
+[node name="Margin" type="MarginContainer" parent="Menu/Main/HBox/Content/Control/Margin/Container/Inventory"]
 layout_mode = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/InventoryButton/MarginContainer"]
+[node name="HBox" type="HBoxContainer" parent="Menu/Main/HBox/Content/Control/Margin/Container/Inventory/Margin"]
 layout_mode = 2
 
-[node name="InputsName" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/InventoryButton/MarginContainer/HBoxContainer"]
+[node name="InputsName" type="Label" parent="Menu/Main/HBox/Content/Control/Margin/Container/Inventory/Margin/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "options.control.inventory"
 
-[node name="Inputs" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/InventoryButton/MarginContainer/HBoxContainer"]
+[node name="Inputs" type="Label" parent="Menu/Main/HBox/Content/Control/Margin/Container/Inventory/Margin/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "options.control.inventory_input"
 horizontal_alignment = 2
 
-[node name="CameraZoomButton" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container"]
+[node name="Camera" type="MarginContainer" parent="Menu/Main/HBox/Content/Control/Margin/Container"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="Button" type="Button" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/CameraZoomButton"]
+[node name="Button" type="Button" parent="Menu/Main/HBox/Content/Control/Margin/Container/Camera"]
 layout_mode = 2
 alignment = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/CameraZoomButton"]
+[node name="Margin" type="MarginContainer" parent="Menu/Main/HBox/Content/Control/Margin/Container/Camera"]
 layout_mode = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/CameraZoomButton/MarginContainer"]
+[node name="HBox" type="HBoxContainer" parent="Menu/Main/HBox/Content/Control/Margin/Container/Camera/Margin"]
 layout_mode = 2
 
-[node name="InputsName" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/CameraZoomButton/MarginContainer/HBoxContainer"]
+[node name="InputsName" type="Label" parent="Menu/Main/HBox/Content/Control/Margin/Container/Camera/Margin/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "options.control.zoom"
 
-[node name="Inputs" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/CameraZoomButton/MarginContainer/HBoxContainer"]
+[node name="Inputs" type="Label" parent="Menu/Main/HBox/Content/Control/Margin/Container/Camera/Margin/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "options.control.zoom_input"
 horizontal_alignment = 2
 
-[node name="ScreenshotButton" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container"]
+[node name="Screenshot" type="MarginContainer" parent="Menu/Main/HBox/Content/Control/Margin/Container"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="Button" type="Button" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ScreenshotButton"]
+[node name="Button" type="Button" parent="Menu/Main/HBox/Content/Control/Margin/Container/Screenshot"]
 layout_mode = 2
 alignment = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ScreenshotButton"]
+[node name="Margin" type="MarginContainer" parent="Menu/Main/HBox/Content/Control/Margin/Container/Screenshot"]
 layout_mode = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ScreenshotButton/MarginContainer"]
+[node name="HBox" type="HBoxContainer" parent="Menu/Main/HBox/Content/Control/Margin/Container/Screenshot/Margin"]
 layout_mode = 2
 
-[node name="InputsName" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ScreenshotButton/MarginContainer/HBoxContainer"]
+[node name="InputsName" type="Label" parent="Menu/Main/HBox/Content/Control/Margin/Container/Screenshot/Margin/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "options.control.screenshot"
 
-[node name="Inputs" type="Label" parent="Menu/Main/HBoxContainer/PageBackground/ControlSection/MarginContainer/Container/ScreenshotButton/MarginContainer/HBoxContainer"]
+[node name="Inputs" type="Label" parent="Menu/Main/HBox/Content/Control/Margin/Container/Screenshot/Margin/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "options.control.screenshot_input"
@@ -717,7 +689,7 @@ libraries = {
 "": SubResource("AnimationLibrary_bw4sn")
 }
 
-[connection signal="mouse_entered" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons/ControlButton" to="." method="_on_control_mouse_entered"]
-[connection signal="mouse_exited" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons/ControlButton" to="." method="_on_control_mouse_exited"]
-[connection signal="pressed" from="Menu/Main/HBoxContainer/Panel/VBoxContainer/MainContent/MarginContainer/SectionsButtons/ControlButton" to="." method="_on_control_pressed"]
-[connection signal="value_changed" from="Menu/Main/HBoxContainer/PageBackground/SoundVolumeSection/MarginContainer/Container/GeneralVolumeMargin/HBoxContainer/VBoxContainer/GeneralVolumeSlider" to="." method="_on_general_volume_slider_value_changed"]
+[connection signal="mouse_entered" from="Menu/Main/HBox/Panel/VBox/MainContent/Margin/SectionsButtons/ControlButton" to="." method="_on_control_mouse_entered"]
+[connection signal="mouse_exited" from="Menu/Main/HBox/Panel/VBox/MainContent/Margin/SectionsButtons/ControlButton" to="." method="_on_control_mouse_exited"]
+[connection signal="pressed" from="Menu/Main/HBox/Panel/VBox/MainContent/Margin/SectionsButtons/ControlButton" to="." method="_on_control_pressed"]
+[connection signal="value_changed" from="Menu/Main/HBox/Content/Sounds/Margin/Container/General/HBox/VBox/Slider" to="." method="_on_general_volume_slider_value_changed"]
