@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://brjqhsu0vlwer"]
-
-[ext_resource type="Texture2D" uid="uid://b5q7am7u1ns7v" path="res://assets/resources/buildings/well/well_shadow.png" id="1_ei3lj"]
-
-[node name="WellShadow" type="Node2D"]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(8, 4)
-texture = ExtResource("1_ei3lj")

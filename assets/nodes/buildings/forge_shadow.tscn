@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bqxfqhu8siq18"]
-
-[ext_resource type="Texture2D" uid="uid://sbkfvkf625yn" path="res://assets/resources/buildings/stone_oven/shadow.png" id="1_d5edg"]
-
-[node name="stone_oven_shadow" type="Node2D"]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_d5edg")

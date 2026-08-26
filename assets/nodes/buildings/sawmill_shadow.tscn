@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bhk7l6tbnuwpa"]
-
-[ext_resource type="Texture2D" uid="uid://dcqbhtjgfaiiq" path="res://assets/resources/buildings/sawmill/shadow.png" id="1_cpw8g"]
-
-[node name="sawmill_shadow" type="Node2D"]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_cpw8g")

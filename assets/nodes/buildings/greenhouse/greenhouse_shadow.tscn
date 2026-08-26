@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dvleiio88486n"]
-
-[ext_resource type="Texture2D" uid="uid://dt2kb05ku4bnv" path="res://assets/resources/buildings/greenhouse/level_1/shadow.png" id="1_evofe"]
-
-[node name="greenhouse_shadow" type="Node2D"]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(16, 24)
-texture = ExtResource("1_evofe")

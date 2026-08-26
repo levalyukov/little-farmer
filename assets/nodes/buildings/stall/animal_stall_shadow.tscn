@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4nd3skxi6j3x"]
-
-[ext_resource type="Texture2D" uid="uid://cdfujkydnid06" path="res://assets/resources/buildings/stall/level_1/shadow.png" id="1_ro22w"]
-
-[node name="AnimalStallShadow" type="Node2D"]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(16, -2)
-texture = ExtResource("1_ro22w")

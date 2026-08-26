@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://g6ajjwus2kvu"]
-
-[ext_resource type="Texture2D" uid="uid://pl737kj57kpl" path="res://assets/resources/buildings/christmass_tree/shadow.png" id="1_ujh1x"]
-
-[node name="christmas_tree_shadow" type="Node2D"]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -16)
-texture = ExtResource("1_ujh1x")

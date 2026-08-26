@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://d13mlbhd0bei5"]
-
-[ext_resource type="Texture2D" uid="uid://bi1re1e670ax0" path="res://assets/resources/buildings/lamp_post/shadow.png" id="1_prywj"]
-
-[node name="lamp_post_shadow" type="Node2D"]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_prywj")
