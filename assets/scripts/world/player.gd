@@ -1,24 +1,8 @@
 extends CharacterBody2D
 
-# =============================================================================================
-# (player_movement.gd)
-# =============================================================================================
-# Модуль передвижения камеры игрока
-#
-# ЗОНА ОТВЕТСТВЕННОСТИ:
-# - Передвижение камеры при помощи клавиш (по умолчанию WASD) или мышью
-# - Управление зумом камеры
-#
-# ЗАВИСИМОСТИ:
-# - Camera2D - передвижение камеры по игровой карте
-# - Settings - проверка флагов типа передвижения (клавиатура или мышь)
-# - UIManager - проверка на открытые активных интерфейсов
-#
-# =============================================================================================
-
 @onready var camera: Camera2D = $Camera2D
 
-const SPEED: int = 150
+const MOVEMENT_SPEED: int = 150
 const THRESHOLD: int = 50
 
 const CAMERA_MIN: float = 2.0
@@ -42,11 +26,12 @@ func _ready() -> void:
 	get_viewport().mouse_entered.connect(func() -> void: mouse_outside = false)
 	get_viewport().mouse_exited.connect(func() -> void: mouse_outside = true)
 
-	if (!UIManager || !Settings):
+	if !UIManager || !Settings:
 		set_process(false)
 		set_physics_process(false)
 
-func _process(delta:float) -> void:
+
+func _physics_process(delta: float) -> void:
 	if camera && Settings.movement_type:
 		direction = Input.get_vector("a", "d", "w", "s")
 
@@ -55,11 +40,9 @@ func _process(delta:float) -> void:
 
 		handle_zoom(delta)
 
-
-func _physics_process(_delta) -> void:
 	if !UIManager.blur.state && !stop_flag:
 		if Settings.movement_type:
-			velocity = direction * SPEED
+			velocity = direction * MOVEMENT_SPEED
 
 		if !Settings.movement_type:
 			if !mouse_outside:
@@ -85,14 +68,14 @@ func _physics_process(_delta) -> void:
 					if mouse_position.y > viewport_size.y - THRESHOLD:
 						direction.y = 1
 
-				velocity = direction * SPEED
+				velocity = direction * MOVEMENT_SPEED
 			else:
 				velocity = Vector2i.ZERO
 
 		move_and_slide()
 
 
-func handle_zoom(delta:float) -> void:
+func handle_zoom(delta: float) -> void:
 	if !UIManager.blur.state && !zooming_flag:
 		if Input.is_action_just_released("mouse wheel up"):
 			if current_zoom < CAMERA_MAX:
