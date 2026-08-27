@@ -1,9 +1,12 @@
 [gd_scene load_steps=9 format=3 uid="uid://b6yctk4o25kkc"]
 
-[ext_resource type="Script" path="res://assets/scripts/construction/buildings/mailbox.gd" id="1_oykw7"]
-[ext_resource type="Texture2D" uid="uid://camjsop2qdgcs" path="res://assets/resources/buildings/mailbox/summer/object_0.png" id="2_5f1x6"]
+[ext_resource type="Script" path="res://assets/scripts/buildings/mailbox.gd" id="1_c17c6"]
 [ext_resource type="Texture2D" uid="uid://b3msu2c5mlsp6" path="res://assets/resources/ui/bubble.png" id="2_gjqta"]
+[ext_resource type="Texture2D" uid="uid://camjsop2qdgcs" path="res://assets/resources/buildings/mailbox/summer/sprite.png" id="2_gxys7"]
 [ext_resource type="Texture2D" uid="uid://bclfab7hj0ysi" path="res://assets/resources/buildings/mailbox/icn.png" id="4_co8da"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_djas3"]
+size = Vector2(16, 16)
 
 [sub_resource type="Animation" id="Animation_4nybi"]
 length = 0.001
@@ -44,22 +47,23 @@ _data = {
 "bubble": SubResource("Animation_ugfmg")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_djas3"]
-size = Vector2(16, 32)
-
-[node name="mailbox" type="Node2D"]
-y_sort_enabled = true
+[node name="Mailbox" type="Node2D"]
 position = Vector2(0, -3)
-script = ExtResource("1_oykw7")
+script = ExtResource("1_c17c6")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../Indicator")
-libraries = {
-"": SubResource("AnimationLibrary_3ox4t")
-}
-speed_scale = 0.25
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 11)
+texture = ExtResource("2_gxys7")
+
+[node name="Collision" type="Area2D" parent="."]
+position = Vector2(8, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
+position = Vector2(-8, 3)
+shape = SubResource("RectangleShape2D_djas3")
 
 [node name="Indicator" type="Sprite2D" parent="."]
+visible = false
 self_modulate = Color(1, 1, 1, 0.784314)
 z_index = 100
 position = Vector2(0, -5)
@@ -76,16 +80,9 @@ texture = ExtResource("4_co8da")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2(8, 16)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-8, -5)
-shape = SubResource("RectangleShape2D_djas3")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, 11)
-texture = ExtResource("2_5f1x6")
-
-[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
-[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
+[node name="Animation" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Indicator")
+libraries = {
+"": SubResource("AnimationLibrary_3ox4t")
+}
+speed_scale = 0.25
