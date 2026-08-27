@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://dkff5xvqcxcdu"]
 
 [ext_resource type="Shader" path="res://assets/shaders/pixel.gdshader" id="1_hinp5"]
-[ext_resource type="Script" path="res://assets/scripts/construction/buildings/house.gd" id="2_71141"]
-[ext_resource type="Texture2D" uid="uid://cqttx1gr6fcum" path="res://assets/resources/buildings/house/summer/level_1/object_0.png" id="3_28liv"]
+[ext_resource type="Script" path="res://assets/scripts/buildings/house.gd" id="2_u3gme"]
+[ext_resource type="Texture2D" uid="uid://cqttx1gr6fcum" path="res://assets/resources/buildings/house/summer/sprite.png" id="3_am05s"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dobrp"]
 shader = ExtResource("1_hinp5")
@@ -11,26 +11,22 @@ shader = ExtResource("1_hinp5")
 shader = ExtResource("1_hinp5")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lj4nn"]
-size = Vector2(508.487, 519.136)
+size = Vector2(508.487, 340.766)
 
-[node name="house" type="Node2D"]
+[node name="House" type="Node2D"]
 y_sort_enabled = true
 material = SubResource("ShaderMaterial_dobrp")
-script = ExtResource("2_71141")
+script = ExtResource("2_u3gme")
 
-[node name="Area2D" type="Area2D" parent="."]
-z_as_relative = false
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_am05s")
+
+[node name="Collision" type="Area2D" parent="."]
 material = SubResource("ShaderMaterial_dnuuj")
 position = Vector2(0, 7)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0.124996, -6.375)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
+position = Vector2(0.124996, 1)
 scale = Vector2(0.0939061, 0.0939061)
 shape = SubResource("RectangleShape2D_lj4nn")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("3_28liv")
-
-[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
-[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
