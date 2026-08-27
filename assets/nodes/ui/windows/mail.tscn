@@ -1,0 +1,289 @@
+[gd_scene load_steps=17 format=3 uid="uid://cwtsqme5qki8s"]
+
+[ext_resource type="Theme" uid="uid://btsx1m2p0i620" path="res://assets/resources/theme.tres" id="1_2in2g"]
+[ext_resource type="Script" path="res://assets/scripts/ui/windows/mailbox_ui.gd" id="2_ntgqj"]
+[ext_resource type="Texture2D" uid="uid://bfourek6duls8" path="res://assets/resources/ui/button_close_default.png" id="3_0w8bq"]
+[ext_resource type="Texture2D" uid="uid://xawi3wfa2nr" path="res://assets/resources/ui/menu_background.png" id="3_h5p5w"]
+[ext_resource type="Texture2D" uid="uid://bln0bb6o2faoy" path="res://assets/resources/ui/interactive/inventory/slots_panel.png" id="4_16vtx"]
+[ext_resource type="Texture2D" uid="uid://yrltk755fjqj" path="res://assets/resources/ui/button_close_hover.png" id="4_w8miy"]
+[ext_resource type="Texture2D" uid="uid://dbiuqxuroik25" path="res://assets/resources/ui/menu_background_secondary.png" id="6_bcxsm"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_y2ytc"]
+font_size = 24
+outline_size = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lxsij"]
+texture = ExtResource("3_0w8bq")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5e2qd"]
+texture = ExtResource("4_w8miy")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e1a1c"]
+texture = ExtResource("4_w8miy")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xebdo"]
+
+[sub_resource type="Animation" id="Animation_c0gri"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_fayjw"]
+resource_name = "hide"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_12d1e"]
+resource_name = "show"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2yx45"]
+_data = {
+"RESET": SubResource("Animation_c0gri"),
+"hide": SubResource("Animation_fayjw"),
+"show": SubResource("Animation_12d1e")
+}
+
+[node name="Mailbox" type="Control"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_2in2g")
+script = ExtResource("2_ntgqj")
+
+[node name="Panel" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -366.0
+offset_top = -216.0
+offset_right = 369.0
+offset_bottom = 216.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_h5p5w")
+region_rect = Rect2(0, 0, 128, 64)
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 20
+
+[node name="HBox" type="HBoxContainer" parent="Panel"]
+custom_minimum_size = Vector2(350, 350)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -351.5
+offset_top = -200.0
+offset_right = 352.5
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Letters" type="NinePatchRect" parent="Panel/HBox"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Scroll" type="ScrollContainer" parent="Panel/HBox/Letters"]
+custom_minimum_size = Vector2(344, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Grid" type="GridContainer" parent="Panel/HBox/Letters/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Content" type="NinePatchRect" parent="Panel/HBox"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+texture = ExtResource("4_16vtx")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="Container" type="ScrollContainer" parent="Panel/HBox/Content"]
+layout_mode = 2
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 342.0
+offset_bottom = 392.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 3
+
+[node name="VBox" type="VBoxContainer" parent="Panel/HBox/Content/Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+
+[node name="Title" type="MarginContainer" parent="Panel/HBox/Content/Container/VBox"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 12
+
+[node name="Label" type="Label" parent="Panel/HBox/Content/Container/VBox/Title"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_y2ytc")
+horizontal_alignment = 1
+
+[node name="Description" type="MarginContainer" parent="Panel/HBox/Content/Container/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="Label" type="Label" parent="Panel/HBox/Content/Container/VBox/Description"]
+layout_mode = 2
+
+[node name="Author" type="MarginContainer" parent="Panel/HBox/Content/Container/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Label" type="Label" parent="Panel/HBox/Content/Container/VBox/Author"]
+layout_mode = 2
+
+[node name="ItemsContainer" type="MarginContainer" parent="Panel/HBox/Content/Container/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Panel" type="NinePatchRect" parent="Panel/HBox/Content/Container/VBox/ItemsContainer"]
+layout_mode = 2
+texture = ExtResource("6_bcxsm")
+region_rect = Rect2(0, 0, 128, 64)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="VBox" type="VBoxContainer" parent="Panel/HBox/Content/Container/VBox/ItemsContainer"]
+layout_mode = 2
+
+[node name="Money" type="MarginContainer" parent="Panel/HBox/Content/Container/VBox/ItemsContainer/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="RichTextLabel" parent="Panel/HBox/Content/Container/VBox/ItemsContainer/VBox/Money"]
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="Items" type="MarginContainer" parent="Panel/HBox/Content/Container/VBox/ItemsContainer/VBox"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 10
+
+[node name="Grid" type="GridContainer" parent="Panel/HBox/Content/Container/VBox/ItemsContainer/VBox/Items"]
+layout_mode = 2
+columns = 4
+
+[node name="Collect" type="MarginContainer" parent="Panel/HBox/Content/Container/VBox/ItemsContainer/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 10
+
+[node name="Button" type="Button" parent="Panel/HBox/Content/Container/VBox/ItemsContainer/VBox/Collect"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+text = "mail.button.get_all_items"
+
+[node name="ManipulationButtons" type="MarginContainer" parent="Panel/HBox/Content/Container/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 24
+
+[node name="MailRemove" type="Button" parent="Panel/HBox/Content/Container/VBox/ManipulationButtons"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+text = "mail.button.letter_remove"
+
+[node name="Close" type="Button" parent="."]
+custom_minimum_size = Vector2(32, 2)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 353.0
+offset_top = -236.0
+offset_right = 385.0
+offset_bottom = -204.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_lxsij")
+theme_override_styles/hover = SubResource("StyleBoxTexture_5e2qd")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_e1a1c")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xebdo")
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2yx45")
+}
