@@ -44,6 +44,12 @@ func _input(event: InputEvent) -> void:
 	):
 		UIManager.ui_remove(UIManager.ui_get(UIManager.MENUS.HUD.get_state().get_node_name(0)))
 		UIManager.ui_add(UIManager.MENUS.MAILBOX)
+		
+		if TEXTURES.has(cycle.season_id) && TEXTURES[cycle.season_id] is CompressedTexture2D:
+			sprite.texture = TEXTURES[cycle.season_id]
+			
+		if UIManager.cursor:
+			UIManager.cursor.set_cursor(UIManager.cursor.STATES.DEFAULT)
 
 
 func _collision_mouse_entered() -> void:

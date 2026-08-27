@@ -32,7 +32,7 @@ func _ready() -> void:
 	remove.text = tr("mailbox.delete_letter.button")
 	remove.pressed.connect(
 		func() -> void:
-			PlayerControl.mailbox.erase(self.letter_index)
+			Letters.remove_letter(self.letter_index)
 			update()
 	)
 
