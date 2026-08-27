@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://c06vvkgkvvlfq"]
+
+[ext_resource type="Script" path="res://assets/scripts/buildings/animal_stall.gd" id="1_gn1gf"]
+[ext_resource type="Texture2D" uid="uid://c4bs1dg3vjffi" path="res://assets/resources/buildings/stall/summer/sprite.png" id="2_xxx07"]
+
+[sub_resource type="Shader" id="Shader_7tfsf"]
+code = "shader_type canvas_item;
+
+void fragment()
+{
+
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rll0v"]
+shader = SubResource("Shader_7tfsf")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i2ecp"]
+size = Vector2(511.149, 340.766)
+
+[node name="AnimalStall" type="Node2D"]
+script = ExtResource("1_gn1gf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_rll0v")
+position = Vector2(16, -2)
+texture = ExtResource("2_xxx07")
+
+[node name="Collision" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
+position = Vector2(16, 8)
+scale = Vector2(0.0939061, 0.0939061)
+shape = SubResource("RectangleShape2D_i2ecp")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
