@@ -1,11 +1,12 @@
 extends Node
 
-const ACTIONS:Array[StringName] = ["left", "right", "up", "down", "mwu", "mwd"]
+const ACTIONS: Array[StringName] = ["left", "right", "up", "down", "mwu", "mwd"]
 const FILES: Dictionary = {SETTINGS = "user://settings.json"}
 
 
 func _ready() -> void:
 	_setup_input_actions()
+
 
 func save() -> void:
 	pass
@@ -34,19 +35,19 @@ func _setup_input_actions() -> void:
 		if !InputMap.has_action(action):
 			InputMap.add_action(action)
 
-	var key_left:InputEventKey 			= InputEventKey.new()
-	var key_right:InputEventKey 		= InputEventKey.new()
-	var key_up:InputEventKey 			= InputEventKey.new()
-	var key_down:InputEventKey 			= InputEventKey.new()
-	var key_mwu:InputEventMouseButton 	= InputEventMouseButton.new()
-	var key_mwd:InputEventMouseButton 	= InputEventMouseButton.new()
+	var key_left: InputEventKey = InputEventKey.new()
+	var key_right: InputEventKey = InputEventKey.new()
+	var key_up: InputEventKey = InputEventKey.new()
+	var key_down: InputEventKey = InputEventKey.new()
+	var key_mwu: InputEventMouseButton = InputEventMouseButton.new()
+	var key_mwd: InputEventMouseButton = InputEventMouseButton.new()
 
-	key_left.physical_keycode 	= KEY_A
-	key_right.physical_keycode 	= KEY_D
-	key_up.physical_keycode 	= KEY_W
-	key_down.physical_keycode 	= KEY_S
-	key_mwu.button_index		= MOUSE_BUTTON_WHEEL_UP
-	key_mwd.button_index		= MOUSE_BUTTON_WHEEL_DOWN
+	key_left.physical_keycode = KEY_A
+	key_right.physical_keycode = KEY_D
+	key_up.physical_keycode = KEY_W
+	key_down.physical_keycode = KEY_S
+	key_mwu.button_index = MOUSE_BUTTON_WHEEL_UP
+	key_mwd.button_index = MOUSE_BUTTON_WHEEL_DOWN
 
 	InputMap.action_add_event(ACTIONS[0], key_left)
 	InputMap.action_add_event(ACTIONS[1], key_right)
