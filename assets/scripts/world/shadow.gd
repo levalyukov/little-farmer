@@ -11,7 +11,7 @@ func _ready() -> void:
 	self.self_modulate = SELF_MODULATE
 
 
-func shadow_add(texture: CompressedTexture2D, pos: Vector2i) -> void:
+func shadow_add(texture: CompressedTexture2D, pos: Vector2i) -> Sprite2D:
 	if !texture:
 		printerr("Texture is NULL.")
 		return
@@ -20,3 +20,5 @@ func shadow_add(texture: CompressedTexture2D, pos: Vector2i) -> void:
 	sprite.texture = texture
 	sprite.set_position(pos)
 	self.add_child(sprite)
+
+	return sprite

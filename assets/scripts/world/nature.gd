@@ -267,10 +267,14 @@ func _create_nature_node(
 	if node_type != NatureType.STONE:
 		sprite.material = shader
 
-	shadow.shadow_add(
+	var shadow_node:Sprite2D = shadow.shadow_add(
 		SHADOWS[node_type][cycle.season_id][random]if SHADOWS[node_type] is Dictionary else SHADOWS[node_type][random],
 		tilemap.map_to_local(node_position)
 	)
+
+	if shadow_node:
+		shadow_node.material = shader
+	
 
 	parent.z_index = tilemap.Layers.NATURE
 	parent.set_position(tilemap.map_to_local(node_position))
