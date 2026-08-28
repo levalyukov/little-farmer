@@ -20,18 +20,20 @@ config/icon="res://icon.png"
 
 [audio]
 
-buses/default_bus_layout="res://audio.tres"
+buses/default_bus_layout="res://assets/sounds/audio.tres"
 
 [autoload]
 
 GameData="*res://assets/scripts/managers/data.gd"
 SoundManager="*res://assets/scripts/managers/sounds.gd"
-Settings="*res://assets/scripts/managers/settings_manager.gd"
+Settings="*res://assets/scripts/managers/settings.gd"
 Utils="*res://assets/scripts/managers/utils.gd"
 UIManager="*res://assets/nodes/ui/ui.tscn"
 PlayerControl="*res://assets/scripts/managers/player_control.gd"
-BlueprintsManager="*res://assets/scripts/containers/blueprints.gd"
+Letters="*res://assets/scripts/containers/letters.gd"
+Blueprints="*res://assets/scripts/containers/blueprints.gd"
 Items="*res://assets/scripts/containers/items.gd"
+Inventory="*res://assets/scripts/managers/inventory.gd"
 
 [debug]
 
@@ -70,78 +72,9 @@ texture={
 "roughness/src_normal": ""
 }
 
-[input]
-
-w={
-"deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":87,"key_label":0,"unicode":0,"echo":false,"script":null)
-]
-}
-s={
-"deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":83,"key_label":0,"unicode":115,"echo":false,"script":null)
-]
-}
-a={
-"deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":65,"key_label":0,"unicode":97,"echo":false,"script":null)
-]
-}
-d={
-"deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":68,"key_label":0,"unicode":0,"echo":false,"script":null)
-]
-}
-esc={
-"deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"echo":false,"script":null)
-]
-}
-tab={
-"deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194306,"key_label":0,"unicode":0,"echo":false,"script":null)
-]
-}
-"mouse wheel up"={
-"deadzone": 0.5,
-"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":4,"canceled":false,"pressed":false,"double_click":false,"script":null)
-]
-}
-"mouse wheel down"={
-"deadzone": 0.5,
-"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":5,"canceled":false,"pressed":false,"double_click":false,"script":null)
-]
-}
-space={
-"deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":32,"key_label":0,"unicode":32,"echo":false,"script":null)
-]
-}
-shift={
-"deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194325,"key_label":0,"unicode":0,"echo":false,"script":null)
-]
-}
-f2={
-"deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194333,"key_label":0,"unicode":0,"echo":false,"script":null)
-]
-}
-f1={
-"deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194332,"key_label":0,"unicode":0,"echo":false,"script":null)
-]
-}
-r={
-"deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":82,"key_label":0,"unicode":114,"echo":false,"script":null)
-]
-}
-
 [internationalization]
 
 locale/translation_remaps={}
-locale/translations=PackedStringArray("res://assets/localizations/en.po", "res://assets/localizations/ru.po")
 locale/translations_pot_files=PackedStringArray("res://levels/menu.tscn", "res://assets/nodes/ui/interactive/options/options.tscn", "res://assets/nodes/ui/interactive/pause/pause.tscn", "res://assets/scripts/ui/interactive/inventory/inventory.gd", "res://assets/scripts/ui/interactive/mail/mail.gd", "res://assets/nodes/ui/interactive/construct/construct_menu.tscn", "res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_destroy.tscn", "res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_trash.tscn", "res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_axe.tscn", "res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_pickaxe.tscn", "res://assets/nodes/ui/hud/elements/tools/button_construction.tscn", "res://assets/nodes/ui/hud/elements/tools/button_farming.tscn", "res://assets/nodes/ui/hud/elements/tools/button_harvesting.tscn", "res://assets/nodes/ui/hud/elements/tools/button_watering.tscn", "res://assets/scripts/construction/buildings/storage.gd", "res://assets/scripts/construction/buildings/house.gd", "res://assets/scripts/construction/buildings/mailbox.gd", "res://assets/scripts/ui/hud/elements/clock.gd", "res://assets/scripts/construction/buildings/stall.gd", "res://assets/scripts/construction/buildings/silo.gd", "res://assets/scripts/construction/buildings/sign.gd", "res://assets/scripts/construction/buildings/well.gd", "res://assets/scripts/construction/buildings/greenhouse.gd", "res://assets/scripts/construction/buildings/public_well.gd", "res://assets/scripts/construction/buildings/sawmill.gd", "res://assets/scripts/construction/buildings/tablet.gd", "res://assets/scripts/construction/buildings/traderHouse.gd", "res://assets/scripts/construction/buildings/carpenter_house.gd", "res://assets/scripts/construction/buildings/blacksmith_house.gd", "res://assets/scripts/construction/buildings/big_farm_house.gd", "res://assets/scripts/construction/buildings/farmer_house.gd", "res://assets/scripts/farming/plant.gd", "res://assets/scripts/construction/buildings/forge.gd", "res://assets/scripts/ui/interactive/_buildings/sign_menu.gd", "res://assets/scripts/ui/forge_menu.gd", "res://assets/data/gamedata.gd", "res://assets/scripts/ui/interactive/trading/trade_system.gd", "res://assets/scripts/world/npc.gd", "res://assets/localizations/local.gd", "res://assets/scripts/construction/buildings/fisherman_house.gd", "res://assets/scripts/ui/blueprints_shop.gd", "res://assets/scripts/farming/crops.gd", "res://assets/scripts/ui/hud/grid/grid.gd", "res://assets/scripts/ui/composter_menu.gd", "res://assets/scripts/ui/interactive/inventory/items.gd", "res://assets/scripts/ui/radio_menu.gd", "res://assets/scripts/ui/sawmill_menu.gd", "res://assets/scripts/construction/buildings/composter.gd", "res://assets/nodes/ui/hud/hud.tscn", "res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_menu.tscn", "res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_builds.tscn", "res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_plant.tscn", "res://assets/nodes/ui/hud/elements/tools/destroy_menu/button_terrain.tscn", "res://assets/scripts/construction/buildings/beehive.gd")
 
 [rendering]
