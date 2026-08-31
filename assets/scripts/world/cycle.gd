@@ -1,66 +1,89 @@
-extends CanvasModulate
+class_name WorldCycle extends CanvasModulate
 
-# @onready var main:String = str(get_tree().root.get_child(3).name)
-# @onready var pause:Control = get_node("/root/"+main+"/UI/Interactive/Pause")
-# @onready var blackout:Control = get_node("/root/"+main+"/UI/Decorative/Blackout")
-# @onready var clock:Control = get_node("/root/"+main+"/UI/HUD/GameHud/Main/Bars/Clock")
-# @export var gradient_texture:GradientTexture1D
+@onready var cycle: WorldCycle = get_tree().current_scene.cycle
+@onready var tilemap: TileMap = get_tree().current_scene.tilemap
+@onready var nature: NatureManager = get_tree().current_scene.nature
 
-# @onready var time_passed:float = clock.hour * 60.0
-# const real_seconds_per_game_minute:float = 8.0 / 10.0
-# const game_day_duration:float = 1440.0
-# const day_start:float = 300.0
-# const day_end:float = 1080.0
-# var value:float
-#   const gradients:Dictionary = {
-#   	"spring": preload('res://assets/resources/world/gradients/summer.tres'),
-#   	"summer": preload('res://assets/resources/world/gradients/summer.tres'),
-#   	"autumn": preload('res://assets/resources/world/gradients/summer.tres'),
-#   	"winter": preload('res://assets/resources/world/gradients/summer.tres'),
-#   }
-#
-#
-#   func _ready():
-#       match clock.get_season():
-#           "spring":
-#               gradient_texture = gradients["spring"]
-#           "summer":
-#               gradient_texture = gradients["summer"]
-#           "autumn":
-#               gradient_texture = gradients["autumn"]
-#           "winter":
-#               gradient_texture = gradients["winter"]
-#           _:
-#               return
+enum Season { SPRING, SUMMER, AUTUMN, WINTER }
+const GRADIENTS: Dictionary = {
+	Season.SPRING: preload("res://assets/resources/world/gradients/summer.tres"),
+	Season.SUMMER: preload("res://assets/resources/world/gradients/summer.tres"),
+	Season.AUTUMN: preload("res://assets/resources/world/gradients/summer.tres"),
+	Season.WINTER: preload("res://assets/resources/world/gradients/summer.tres")
+}
 
-# func _process(delta):
-# 	if !pause.paused:
-# 		time_passed += (delta / real_seconds_per_game_minute)
-# 		time_passed = fmod(time_passed, game_day_duration)
-# 		cycle()
+const DAYLIGHT: Dictionary = {
+	Season.SPRING: {"day_start": 5, "day_end": 17},
+	Season.SUMMER: {"day_start": 4, "day_end": 18},
+	Season.AUTUMN: {"day_start": 6, "day_end": 17},
+	Season.WINTER: {"day_start": 8, "day_end": 18}
+}
 
-# func cycle() -> void:
-# 	if !pause.paused:
-# 		if gradient_texture && gradient_texture.gradient:
-# 			var shifted_progress:float
-# 			if time_passed >= day_start && time_passed < day_end:
-# 				shifted_progress = (time_passed - day_start) / (day_end - day_start)
-# 				value = 1.0 - shifted_progress
-# 			else:
-# 				if time_passed < day_start:
-# 					shifted_progress = (time_passed + game_day_duration - day_end) / (day_start + game_day_duration - day_end)
-# 				else:
-# 					shifted_progress = (time_passed - day_end) / (day_start + game_day_duration - day_end)
-# 				value = shifted_progress
+const CYCLE_SPEED: float = 4
+const MAX_MINUTE: int = 6
+const MAX_HOURS: int = 24
+const MAX_DAYS: int = 7
 
-# 			if time_passed >= day_start && time_passed < day_end:
-# 				value = (sin(value * PI) + 1.0) / 2.0
-# 			else:
-# 				value = (1.0 - sin(value * PI)) / 2.0
-# 			color = gradient_texture.gradient.sample(value)
+var hours: int = 7
+var minuts: int = 0
+var day: int = 1
 
-# func set_cycle_value(passed:float) -> void:
-# 	time_passed = passed * 60.0
+var season_id: Season = Season.SPRING
 
-# func get_cycle_value() -> float:
-# 	return value
+signal datetime_changed(days, hours, minuts)
+
+
+func _ready() -> void:
+	if !is_instance_valid(cycle):
+		printerr("World cycle is NULL.")
+		return
+
+	var timer: Timer = Timer.new()
+	timer.autostart = true
+	timer.one_shot = false
+	timer.wait_time = CYCLE_SPEED
+	timer.timeout.connect(_timeout)	
+	self.add_child(timer)
+
+
+func _timeout() -> void:
+	# -------------------------------
+	# Мне прям вообще не нравится 
+	# такой способ, но есть что есть. 
+	# -------------------------------
+
+	if self.minuts + 1 < MAX_MINUTE:
+		self.minuts += 1
+	else:
+		self.minuts = 0
+		if self.hours + 1 > MAX_HOURS - 1:
+			self.hours = 0
+
+			if self.day + 1 < MAX_DAYS + 1:
+				self.day += 1
+			else:
+				self.day = 1
+
+				match self.season_id:
+					#! Один из странных решений, но оно работает.
+					Season.SPRING:
+						self.season_id = Season.SUMMER
+						tilemap.update_atlas(self.season_id)
+						nature.update_wind()
+					Season.SUMMER:
+						self.season_id = Season.AUTUMN
+						tilemap.update_atlas(self.season_id)
+						nature.update_wind()
+					Season.AUTUMN:
+						self.season_id = Season.WINTER
+						tilemap.update_atlas(self.season_id)
+						nature.update_wind()
+					Season.WINTER:
+						self.season_id = Season.SPRING
+						tilemap.update_atlas(self.season_id)
+						nature.update_wind()
+
+		else:
+			self.hours += 1
+
+	datetime_changed.emit(self.day, self.hours, self.minuts)
