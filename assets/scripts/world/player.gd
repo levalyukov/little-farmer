@@ -33,8 +33,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if camera && Settings.movement_type:
-		direction = Input.get_vector("a", "d", "w", "s")
-
+		direction = Input.get_vector("left", "right", "up", "down")
 		if !stop_flag && direction != Vector2.ZERO:
 			camera.position_smoothing_speed = CAMERA_SMOOTHING_SPEED
 
@@ -46,18 +45,17 @@ func _physics_process(delta: float) -> void:
 
 		if !Settings.movement_type:
 			if !mouse_outside:
-				var viewport_size = get_viewport_rect().size
-				var mouse_position = get_viewport().get_mouse_position()
-				var center_threshold = THRESHOLD * 2.5
-				var center_x = viewport_size.x / 2
-				var center_y = viewport_size.y / 2
+				var viewport_size: Vector2 = get_viewport_rect().size
+				var mouse_position: Vector2 = get_viewport().get_mouse_position()
+				var center_threshold: float = THRESHOLD * 2.5
+				var center: Vector2 = Vector2(viewport_size.x / 2, viewport_size.y / 2)
 
 				direction = Vector2i.ZERO
 				if !(
-					mouse_position.x > center_x - center_threshold
-					&& mouse_position.x < center_x + center_threshold
-					&& mouse_position.y > center_y - center_threshold
-					&& mouse_position.y < center_y + center_threshold
+					mouse_position.x > center.x - center_threshold
+					&& mouse_position.x < center.x + center_threshold
+					&& mouse_position.y > center.y - center_threshold
+					&& mouse_position.y < center.y + center_threshold
 				):
 					if mouse_position.x > viewport_size.x - THRESHOLD:
 						direction.x = 1
@@ -77,13 +75,13 @@ func _physics_process(delta: float) -> void:
 
 func handle_zoom(delta: float) -> void:
 	if !UIManager.blur.state && !zooming_flag:
-		if Input.is_action_just_released("mouse wheel up"):
+		if Input.is_action_just_released("mwu"):
 			if current_zoom < CAMERA_MAX:
 				target_zoom = min(current_zoom + CAMERA_INCREMENT, CAMERA_MAX)
 				is_changing_zoom = true
 				SoundManager.play_sound("ui/zoom")
 
-		if Input.is_action_just_released("mouse wheel down"):
+		if Input.is_action_just_released("mwd"):
 			if current_zoom > CAMERA_MIN:
 				target_zoom = max(current_zoom - CAMERA_INCREMENT, CAMERA_MIN)
 				is_changing_zoom = true
