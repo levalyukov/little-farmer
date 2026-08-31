@@ -11,7 +11,7 @@ extends Control
 @onready var confirm: Button = $Window/HBoxContainer/ItemContent/ScrollContainer/VBox/ButtonContainer/Button
 @onready var type: Label = $Window/HBoxContainer/ItemContent/ScrollContainer/VBox/Type/Type
 
-const SLOT_SIZE: Vector2i = Vector2i(64, 64)
+const INVENTORY_SLOT_SIZE: Vector2i = Vector2i(64, 64)
 
 
 func _ready() -> void:
@@ -19,7 +19,12 @@ func _ready() -> void:
 	close.pressed.connect(UIManager.button_pressed)
 	close.mouse_entered.connect(UIManager.button_hovered)
 	close.mouse_exited.connect(UIManager.button_exited)
-	anim.animation_finished.connect(_anim_is_finished)
+	anim.animation_finished.connect(
+		func(anim_name: StringName) -> void:
+			if anim_name != "show":
+				UIManager.add_ui(UIManager.MENUS.HUD)
+				UIManager.remove_ui(self)
+	)
 
 	UIManager.blur.blur(true)
 	SoundManager.play_sound("ui/inventory")
@@ -61,9 +66,9 @@ func _slot_create(item_id: int, item_value: int) -> Control:
 	var value: Label = Label.new()
 	var data: Dictionary = Items.get_item(item_id)
 
-	parent.set_custom_minimum_size(SLOT_SIZE)
-	button.set_custom_minimum_size(SLOT_SIZE)
-	sprite.set_custom_minimum_size(SLOT_SIZE)
+	parent.set_custom_minimum_size(INVENTORY_SLOT_SIZE)
+	button.set_custom_minimum_size(INVENTORY_SLOT_SIZE)
+	sprite.set_custom_minimum_size(INVENTORY_SLOT_SIZE)
 	sprite.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	sprite.texture = data["icon"] if data.has("icon") && data["icon"] is CompressedTexture2D else null
 	value.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -93,9 +98,3 @@ func _slot_create(item_id: int, item_value: int) -> Control:
 func _close() -> void:
 	UIManager.blur.blur(false)
 	anim.play("hide")
-
-
-func _anim_is_finished(anim_name: String) -> void:
-	if anim_name != "show":
-		UIManager.ui_add(UIManager.MENUS.HUD)
-		UIManager.ui_remove(self)
