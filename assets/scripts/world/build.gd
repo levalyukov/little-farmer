@@ -31,7 +31,7 @@ func _ready():
 	var mailbox: Node2D = MAILBOX.instantiate()
 	var storage: Node2D = STORAGE.instantiate()
 
-	if (house && mailbox && storage) && house is Node2D && mailbox is Node2D && storage is Node2D:
+	if (house && mailbox && storage) && (house is Node2D && mailbox is Node2D && storage is Node2D):
 		buildings[HOUSE.get_state().get_node_name(0)] = house
 		buildings[MAILBOX.get_state().get_node_name(0)] = mailbox
 		buildings[STORAGE.get_state().get_node_name(0)] = storage
@@ -50,18 +50,12 @@ func _ready():
 
 		if house_sprite && house_sprite is Sprite2D:
 			shadow.shadow_add(HOUSE_SHADOW, house.position + house_sprite.position)
-		else:
-			printerr("House shadow sprite is NULL.")
 
 		if mailbox_sprite && house_sprite is Sprite2D:
 			shadow.shadow_add(MAILBOX_SHADOW, mailbox.position + mailbox_sprite.position)
-		else:
-			printerr("Mailbox shadow sprite is NULL.")
 
 		if storage_sprite && house_sprite is Sprite2D:
 			shadow.shadow_add(STORAGE_SHADOW, storage.position + storage_sprite.position)
-		else:
-			printerr("Storage shadow sprite is NULL.")
 
 
 func _input(event: InputEvent) -> void:
@@ -75,7 +69,7 @@ func _input(event: InputEvent) -> void:
 				self.remove_child(grid)
 				grid.queue_free()
 				buildings.erase(GRID.get_state().get_node_name(0))
-				UIManager.ui_add(UIManager.MENUS.HUD)
+				UIManager.add_ui(UIManager.MENUS.HUD)
 				set_process_input(false)
 
 
@@ -115,13 +109,9 @@ func build_add(node: Node2D, shadow_texture: CompressedTexture2D, position: Vect
 	building = node
 	buildings[node.name] = node
 
-	var sprite: Sprite2D = building.get_node("Sprite2D")
-
-	(
+	var sprite: Node = building.get_node("Sprite2D")
+	if sprite && sprite is Sprite2D:
 		self.shadow.shadow_add(shadow_texture, building.position + sprite.position)
-		if sprite
-		else printerr("Sprite of the node is NULL.")
-	)
 
 	return building
 
