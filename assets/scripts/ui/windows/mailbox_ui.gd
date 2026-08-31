@@ -27,7 +27,12 @@ func _ready() -> void:
 	close.pressed.connect(UIManager.button_pressed)
 	close.mouse_entered.connect(UIManager.button_hovered)
 	close.mouse_exited.connect(UIManager.button_exited)
-	anim.animation_finished.connect(_anim_is_finished)
+	anim.animation_finished.connect(
+		func(anim_name: StringName) -> void:
+			if anim_name != "show":
+				UIManager.add_ui(UIManager.MENUS.HUD)
+				UIManager.remove_ui(self)
+	)
 
 	remove.text = tr("mailbox.delete_letter.button")
 	remove.pressed.connect(
@@ -277,9 +282,3 @@ func _update_letter_buttons() -> void:
 func _close() -> void:
 	UIManager.blur.blur(false)
 	anim.play("hide")
-
-
-func _anim_is_finished(anim_name: String) -> void:
-	if anim_name != "show":
-		UIManager.ui_add(UIManager.MENUS.HUD)
-		UIManager.ui_remove(self)
