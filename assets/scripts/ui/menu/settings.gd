@@ -31,7 +31,13 @@ func _ready() -> void:
 	GameData.settings_load()
 	_init_buttons()
 	_init_values()
-	anim.animation_finished.connect(_anim_is_finished)
+	anim.animation_finished.connect(
+		func(anim_name: StringName) -> void:
+			if anim_name != "show":
+				if get_tree().current_scene.name != "MainMenu":
+					UIManager.add_ui(UIManager.MENUS.PAUSE)
+				UIManager.remove_ui(self)
+	)
 
 	UIManager.blur.blur(true)
 	anim.play("show")
@@ -212,10 +218,3 @@ func _close() -> void:
 	GameData.settings_save()
 	UIManager.blur.blur(false)
 	anim.play("hide")
-
-
-func _anim_is_finished(anim_name: String) -> void:
-	if anim_name != "show":
-		if get_tree().current_scene.name != "MainMenu":
-			UIManager.ui_add(UIManager.MENUS.PAUSE)
-		UIManager.ui_remove(self)
