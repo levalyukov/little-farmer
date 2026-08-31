@@ -94,6 +94,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("2_6exmq")
 
 [node name="Main" type="MarginContainer" parent="."]
@@ -118,6 +119,7 @@ mouse_filter = 2
 [node name="Balance" type="Control" parent="Main/Bars"]
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Panel" type="NinePatchRect" parent="Main/Bars/Balance"]
 layout_mode = 0
@@ -166,6 +168,7 @@ horizontal_alignment = 2
 [node name="Time" type="Control" parent="Main/Bars"]
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Panel" type="NinePatchRect" parent="Main/Bars/Time"]
 layout_mode = 0
@@ -246,7 +249,7 @@ patch_margin_top = 12
 patch_margin_right = 12
 patch_margin_bottom = 12
 
-[node name="MarginContainer" type="MarginContainer" parent="Main/Tools/Control"]
+[node name="Margin" type="MarginContainer" parent="Main/Tools/Control"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -260,23 +263,23 @@ offset_bottom = -12.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="Main/Tools/Control/MarginContainer"]
+[node name="Margin" type="MarginContainer" parent="Main/Tools/Control/Margin"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Main/Tools/Control/MarginContainer/MarginContainer"]
+[node name="HBox" type="HBoxContainer" parent="Main/Tools/Control/Margin/Margin"]
 layout_mode = 2
 
-[node name="Destroy" type="Control" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer"]
+[node name="Destroy" type="Control" parent="Main/Tools/Control/Margin/Margin/HBox"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
-[node name="Main" type="MarginContainer" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Destroy"]
+[node name="Main" type="MarginContainer" parent="Main/Tools/Control/Margin/Margin/HBox/Destroy"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Button" type="Button" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Destroy/Main"]
+[node name="Button" type="Button" parent="Main/Tools/Control/Margin/Margin/HBox/Destroy/Main"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_xa3n2")
@@ -285,7 +288,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_s8cn6")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_dwt7u")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_rve4q")
 
-[node name="Margin" type="MarginContainer" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Destroy/Main"]
+[node name="Margin" type="MarginContainer" parent="Main/Tools/Control/Margin/Margin/HBox/Destroy/Main"]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 5
@@ -293,22 +296,22 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Icon" type="TextureRect" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Destroy/Main/Margin"]
+[node name="Icon" type="TextureRect" parent="Main/Tools/Control/Margin/Margin/HBox/Destroy/Main/Margin"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Farming" type="Control" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer"]
+[node name="Farming" type="Control" parent="Main/Tools/Control/Margin/Margin/HBox"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
-[node name="Main" type="MarginContainer" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Farming"]
+[node name="Main" type="MarginContainer" parent="Main/Tools/Control/Margin/Margin/HBox/Farming"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Button" type="Button" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Farming/Main"]
+[node name="Button" type="Button" parent="Main/Tools/Control/Margin/Margin/HBox/Farming/Main"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_xa3n2")
@@ -317,7 +320,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_s8cn6")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_dwt7u")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_rve4q")
 
-[node name="Margin" type="MarginContainer" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Farming/Main"]
+[node name="Margin" type="MarginContainer" parent="Main/Tools/Control/Margin/Margin/HBox/Farming/Main"]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 5
@@ -325,21 +328,21 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Icon" type="TextureRect" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Farming/Main/Margin"]
+[node name="Icon" type="TextureRect" parent="Main/Tools/Control/Margin/Margin/HBox/Farming/Main/Margin"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Watering" type="Control" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer"]
+[node name="Watering" type="Control" parent="Main/Tools/Control/Margin/Margin/HBox"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
-[node name="Main" type="MarginContainer" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Watering"]
+[node name="Main" type="MarginContainer" parent="Main/Tools/Control/Margin/Margin/HBox/Watering"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Button" type="Button" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Watering/Main"]
+[node name="Button" type="Button" parent="Main/Tools/Control/Margin/Margin/HBox/Watering/Main"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_xa3n2")
@@ -348,7 +351,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_s8cn6")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_dwt7u")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_rve4q")
 
-[node name="Margin" type="MarginContainer" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Watering/Main"]
+[node name="Margin" type="MarginContainer" parent="Main/Tools/Control/Margin/Margin/HBox/Watering/Main"]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 5
@@ -356,21 +359,21 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Icon" type="TextureRect" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Watering/Main/Margin"]
+[node name="Icon" type="TextureRect" parent="Main/Tools/Control/Margin/Margin/HBox/Watering/Main/Margin"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Harvest" type="Control" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer"]
+[node name="Harvest" type="Control" parent="Main/Tools/Control/Margin/Margin/HBox"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
-[node name="Main" type="MarginContainer" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Harvest"]
+[node name="Main" type="MarginContainer" parent="Main/Tools/Control/Margin/Margin/HBox/Harvest"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Button" type="Button" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Harvest/Main"]
+[node name="Button" type="Button" parent="Main/Tools/Control/Margin/Margin/HBox/Harvest/Main"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_xa3n2")
@@ -379,7 +382,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_s8cn6")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_dwt7u")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_rve4q")
 
-[node name="Margin" type="MarginContainer" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Harvest/Main"]
+[node name="Margin" type="MarginContainer" parent="Main/Tools/Control/Margin/Margin/HBox/Harvest/Main"]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 5
@@ -387,23 +390,23 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Icon" type="TextureRect" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Harvest/Main/Margin"]
+[node name="Icon" type="TextureRect" parent="Main/Tools/Control/Margin/Margin/HBox/Harvest/Main/Margin"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Build" type="Control" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer"]
+[node name="Build" type="Control" parent="Main/Tools/Control/Margin/Margin/HBox"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 0
 
-[node name="Main" type="MarginContainer" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Build"]
+[node name="Main" type="MarginContainer" parent="Main/Tools/Control/Margin/Margin/HBox/Build"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Button" type="Button" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Build/Main"]
+[node name="Button" type="Button" parent="Main/Tools/Control/Margin/Margin/HBox/Build/Main"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_xa3n2")
@@ -412,7 +415,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_s8cn6")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_dwt7u")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_rve4q")
 
-[node name="Margin" type="MarginContainer" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Build/Main"]
+[node name="Margin" type="MarginContainer" parent="Main/Tools/Control/Margin/Margin/HBox/Build/Main"]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 5
@@ -420,7 +423,7 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Icon" type="TextureRect" parent="Main/Tools/Control/MarginContainer/MarginContainer/HBoxContainer/Build/Main/Margin"]
+[node name="Icon" type="TextureRect" parent="Main/Tools/Control/Margin/Margin/HBox/Build/Main/Margin"]
 layout_mode = 2
 mouse_filter = 2
 
