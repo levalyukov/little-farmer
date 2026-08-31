@@ -33,7 +33,7 @@ func _ready() -> void:
 
 
 func _collision_mouse_entered() -> void:
-	if !UIManager.ui_get("HUD"):
+	if !UIManager.get_ui("HUD"):
 		return
 
 	if HOVERED.has(cycle.season_id) && HOVERED[cycle.season_id] is CompressedTexture2D:
@@ -44,7 +44,7 @@ func _collision_mouse_entered() -> void:
 
 
 func _collision_mouse_exited() -> void:
-	if !UIManager.ui_get("HUD"):
+	if !UIManager.get_ui("HUD"):
 		return
 
 	if TEXTURES.has(cycle.season_id) && TEXTURES[cycle.season_id] is CompressedTexture2D:

@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var time: WorldCycle
+@export var cycle: WorldCycle
 @export var tilemap: TileMap
 @export var build: BuildManager
 @export var nature: NatureManager
@@ -9,19 +9,22 @@ extends Node2D
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("esc") && !UIManager.blur.state:
-		UIManager.ui_add(UIManager.MENUS.PAUSE)
-		UIManager.ui_remove(UIManager.ui_get("HUD"))
+		UIManager.add_ui(UIManager.MENUS.PAUSE)
+		UIManager.remove_ui(UIManager.get_ui("HUD"))
 
 	if event.is_action_pressed("tab") && !UIManager.blur.state:
-		UIManager.ui_get("HUD")._close()
-		UIManager.ui_add(UIManager.MENUS.INVENTORY)
+		if UIManager.get_ui("HUD"):
+			UIManager.get_ui("HUD").close()
+		UIManager.add_ui(UIManager.MENUS.INVENTORY)
 
 
 func _ready() -> void:
-	UIManager.ui_add(UIManager.MENUS.HUD)
+	UIManager.add_ui(UIManager.MENUS.HUD)
 	UIManager.blackout.blackout(false)
-	tilemap.update_atlas(time.season_id)
+	tilemap.update_atlas(cycle.season_id)
+
+	nature.spawn()
 
 
 func _exit_tree() -> void:
-	UIManager.ui_remove(UIManager.ui_get("HUD"))
+	UIManager.remove_ui(UIManager.get_ui("HUD"))

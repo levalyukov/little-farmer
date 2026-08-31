@@ -42,18 +42,18 @@ func _input(event: InputEvent) -> void:
 		&& !UIManager.blur.state
 		&& event.button_index == MOUSE_BUTTON_LEFT
 	):
-		UIManager.ui_remove(UIManager.ui_get(UIManager.MENUS.HUD.get_state().get_node_name(0)))
-		UIManager.ui_add(UIManager.MENUS.MAILBOX)
-		
+		UIManager.remove_ui(UIManager.get_ui(UIManager.MENUS.HUD.get_state().get_node_name(0)))
+		UIManager.add_ui(UIManager.MENUS.MAILBOX)
+
 		if TEXTURES.has(cycle.season_id) && TEXTURES[cycle.season_id] is CompressedTexture2D:
 			sprite.texture = TEXTURES[cycle.season_id]
-			
+
 		if UIManager.cursor:
 			UIManager.cursor.set_cursor(UIManager.cursor.STATES.DEFAULT)
 
 
 func _collision_mouse_entered() -> void:
-	if !UIManager.ui_get("HUD"):
+	if !UIManager.get_ui("HUD"):
 		return
 
 	self.mouse_entered = true
@@ -68,7 +68,7 @@ func _collision_mouse_entered() -> void:
 func _collision_mouse_exited() -> void:
 	self.mouse_entered = false
 
-	if !UIManager.ui_get("HUD"):
+	if !UIManager.get_ui("HUD"):
 		return
 
 	if TEXTURES.has(cycle.season_id) && TEXTURES[cycle.season_id] is CompressedTexture2D:

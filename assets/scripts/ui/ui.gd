@@ -1,59 +1,56 @@
 extends CanvasLayer
 
-# =============================================================================================
-# UIManager (ui.gd)
-# =============================================================================================
-# Центральный модуль управления пользовательским интерфейсом.
-#
-# ЗОНА ОТВЕТСТВЕННОСТИ:
-# - Создание и удаление пользовательского интерфейса
-#
-# ОСНОВНОЙ ФУНКЦИОНАЛ:
-# - ui_add(object) - Добавление пользовательского интерфейса в контейнер UI, если нету
-# - ui_remove(object) - Удаление ПИ из контейнера UI
-#
-# ЗАВИСИМОСТИ:
-# - Cursor - Курсор игрока
-# - Blur - Размытие фона
-# - Blackout - Затемнение экрана для плавного эффекта перехода
-#
-# =============================================================================================
-
 @onready var cursor: Cursor = $Cursor
 @onready var blur: BlurEffect = $Blur
 @onready var blackout: BlackoutEffect = $Blackout
 
-var ui: Dictionary = {}
-
-const MENUS: Dictionary = \
-{
-	PAUSE 	= preload("res://assets/nodes/ui/menu/pause.tscn"),
+const MENUS: Dictionary = {
+	PAUSE = preload("res://assets/nodes/ui/menu/pause.tscn"),
 	OPTIONS = preload("res://assets/nodes/ui/menu/settings.tscn"),
 	CREDITS = preload("res://assets/nodes/ui/menu/credits.tscn"),
-	
-	HUD 	= preload("res://assets/nodes/ui/hud/hud.tscn"),
-	BUILD 	= preload("res://assets/nodes/ui/windows/build/build_menu.tscn")
+	HUD = preload("res://assets/nodes/ui/hud/hud.tscn"),
+	BUILD = preload("res://assets/nodes/ui/windows/build_menu.tscn"),
+	INVENTORY = preload("res://assets/nodes/ui/windows/inventory.tscn"),
+	MAILBOX = preload("res://assets/nodes/ui/windows/mail.tscn")
 }
 
+var ui: Dictionary
 
-func ui_add(object: PackedScene) -> void:
-	var node = object.instantiate()
-	if !ui.has(node.name):
+
+func add_ui(object: PackedScene, only: bool = true) -> Control:
+	var node: Control = object.instantiate()
+
+	if !(get_tree().current_scene is Node2D):
+		return null
+
+	if only:
+		if !ui.has(node.name):
+			ui[node.name] = node
+			self.add_child(node)
+		else:
+			node = null
+	else:
+		self.add_child(node, true)
 		ui[node.name] = node
-		self.add_child(node)
+
+	return node
 
 
-func ui_remove(node: Control) -> void:
+func remove_ui(node: Control) -> bool:
+	var flag: bool = true
+
 	if !node:
-		return
+		flag = false
 
-	if ui.has(node.name):
+	if flag && ui.has(node.name):
 		ui.erase(node.name)
 		self.remove_child(node)
 		node.queue_free()
 
+	return flag
 
-func ui_get(node_name: String) -> Control:
+
+func get_ui(node_name: String) -> Control:
 	var node: Control = null
 	if ui.has(node_name):
 		node = ui[node_name]
