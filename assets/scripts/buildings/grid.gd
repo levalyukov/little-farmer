@@ -123,18 +123,15 @@ func _action() -> void:
 					printerr("Node for build is NULL.")
 					return
 
-				for pos in grid_positions:
-					tilemap.set_cell(
-						tilemap.Layers.BUILDING, pos, tilemap.SourcesAtlas.GROUND, tilemap.BUILDING_COLLISION
-					)
-
-				var building: Node2D = build.build_add(
+				if build.build_add(
 					self.node["node"].instantiate(), self.node["shadow"], tilemap.local_to_map(self.global_position)
-				)
-
-				if !building:
+				):
+					for vector in grid_positions:
+						tilemap.set_cell(
+							tilemap.Layers.BUILDING, vector, tilemap.SourcesAtlas.GROUND, tilemap.NODE_COLLISION
+						)
+				else:
 					printerr("Node is NULL.")
-					return
 
 				SoundManager.play_sound("building/build")
 
@@ -208,6 +205,10 @@ func _collision_check() -> void:
 				if (
 					(
 						tilemap.get_cell_source_id(tilemap.Layers.BUILDING, tilemap.local_to_map(grid.global_position))
+						== -1
+					)
+					&& (
+						tilemap.get_cell_source_id(tilemap.Layers.NATURE, tilemap.local_to_map(grid.global_position))
 						== -1
 					)
 					&& (

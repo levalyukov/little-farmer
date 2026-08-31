@@ -180,7 +180,7 @@ const SHADOWS: Dictionary = {
 	]
 }
 
-const NOISE_COEFFICIENT:float = 0.05
+const NOISE_COEFFICIENT: Array[float] = [0.025, 0.03, 0.06, 0.004]
 const SHADER_SOURCE: Shader = preload("res://assets/shaders/wind.gdshader")
 const MAX_TREE: int = 700
 const MAX_BUSH: int = 100
@@ -188,10 +188,10 @@ const MAX_WEED: int = 1500
 const MAX_STONE: int = 400
 
 var tiles: Array[Vector2i] = []
-var shader:ShaderMaterial = _setup_wind_shader()
+var shader: ShaderMaterial = _setup_wind_shader()
 
 
-func spawn() -> void:
+func _ready() -> void:
 	if !is_instance_valid(tilemap):
 		printerr("TileMap is NULL.")
 		return
@@ -200,6 +200,14 @@ func spawn() -> void:
 		printerr("ShadowManager is NULL.")
 		return
 
+	update_wind()
+
+
+func update_wind() -> void:
+	self.shader.set_shader_parameter("amplitude", NOISE_COEFFICIENT[cycle.season_id])
+
+
+func spawn() -> void:
 	self.tiles = _get_free_tiles()
 	_create_tree()
 	_create_weed()
@@ -219,7 +227,6 @@ func _create_tree() -> void:
 func _create_nature_node(
 	node_type: NatureType, node_position: Vector2i, node_sprite_offset: Vector2i = Vector2i(0, 0)
 ) -> Node2D:
-
 	# ------------------------------------------------------
 	# Тут нужно пояснение: здесь проверка на соостветствие
 	# размеров массивов для корректной выборки спрайта тени.
@@ -230,6 +237,9 @@ func _create_nature_node(
 	#
 	# Уродливое решение? Да, но я ничего лучшего не придумал,
 	# зато работает, но позже нужно это переделать...
+	#
+	# P.S. №1 Эта проверка чисто защита от дураков и от меня,
+	# ибо работает даже без этой проверки, но я параноик.
 	# ------------------------------------------------------
 
 	if TEXTURES[node_type] is Dictionary && SHADOWS[node_type] is Dictionary:
@@ -263,18 +273,20 @@ func _create_nature_node(
 
 	sprite.position.x += node_sprite_offset.x
 	sprite.position.y += node_sprite_offset.y
-	
-	if node_type != NatureType.STONE:
-		sprite.material = shader
 
-	var shadow_node:Sprite2D = shadow.shadow_add(
-		SHADOWS[node_type][cycle.season_id][random]if SHADOWS[node_type] is Dictionary else SHADOWS[node_type][random],
+	var shadow_node: Sprite2D = shadow.shadow_add(
+		SHADOWS[node_type][cycle.season_id][random] if SHADOWS[node_type] is Dictionary else SHADOWS[node_type][random],
 		tilemap.map_to_local(node_position)
 	)
 
-	if shadow_node:
-		shadow_node.material = shader
-	
+	if node_type != NatureType.STONE:
+		sprite.material = self.shader
+		shadow_node.material = self.shader
+
+	tilemap.set_cell(
+		tilemap.Layers.NATURE, node_position, 
+		tilemap.SourcesAtlas.GROUND, tilemap.NODE_COLLISION
+	)
 
 	parent.z_index = tilemap.Layers.NATURE
 	parent.set_position(tilemap.map_to_local(node_position))
@@ -318,16 +330,16 @@ func _get_free_tiles() -> Array[Vector2i]:
 
 	return map
 
+
 func _setup_wind_shader() -> ShaderMaterial:
-	var shader_material:ShaderMaterial = ShaderMaterial.new()
-	var noise_texture:NoiseTexture2D = NoiseTexture2D.new()
-	var noise:FastNoiseLite = FastNoiseLite.new() 
+	var shader_material: ShaderMaterial = ShaderMaterial.new()
+	var noise_texture: NoiseTexture2D = NoiseTexture2D.new()
+	var noise: FastNoiseLite = FastNoiseLite.new()
 
 	noise.noise_type = FastNoiseLite.TYPE_PERLIN
 	noise_texture.noise = noise
 
 	shader_material.shader = SHADER_SOURCE
-	shader_material.set_shader_parameter("amplitude", NOISE_COEFFICIENT)
 	shader_material.set_shader_parameter("noise_texture", noise_texture)
 
 	return shader_material
