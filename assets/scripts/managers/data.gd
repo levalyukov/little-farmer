@@ -1,7 +1,7 @@
 extends Node
 
-const ACTIONS: Array[StringName] = ["left", "right", "up", "down", "mwu", "mwd"]
 const FILES: Dictionary = {SETTINGS = "user://settings.json"}
+const ACTIONS: Array[StringName] = ["left", "right", "up", "down", "mwu", "mwd", "esc", "tab"]
 
 
 func _ready() -> void:
@@ -39,6 +39,9 @@ func _setup_input_actions() -> void:
 	var key_right: InputEventKey = InputEventKey.new()
 	var key_up: InputEventKey = InputEventKey.new()
 	var key_down: InputEventKey = InputEventKey.new()
+	var key_esc: InputEventKey = InputEventKey.new()
+	var key_tab: InputEventKey = InputEventKey.new()
+
 	var key_mwu: InputEventMouseButton = InputEventMouseButton.new()
 	var key_mwd: InputEventMouseButton = InputEventMouseButton.new()
 
@@ -46,6 +49,8 @@ func _setup_input_actions() -> void:
 	key_right.physical_keycode = KEY_D
 	key_up.physical_keycode = KEY_W
 	key_down.physical_keycode = KEY_S
+	key_esc.physical_keycode = KEY_ESCAPE
+	key_tab.physical_keycode = KEY_TAB
 	key_mwu.button_index = MOUSE_BUTTON_WHEEL_UP
 	key_mwd.button_index = MOUSE_BUTTON_WHEEL_DOWN
 
@@ -55,3 +60,5 @@ func _setup_input_actions() -> void:
 	InputMap.action_add_event(ACTIONS[3], key_down)
 	InputMap.action_add_event(ACTIONS[4], key_mwu)
 	InputMap.action_add_event(ACTIONS[5], key_mwd)
+	InputMap.action_add_event(ACTIONS[6], key_esc)
+	InputMap.action_add_event(ACTIONS[7], key_tab)
