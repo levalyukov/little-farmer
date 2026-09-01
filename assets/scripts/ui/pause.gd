@@ -8,10 +8,17 @@ extends Control
 
 
 func _ready() -> void:
-	_button_init()
+	_init_button()
 	self.visible = false
-	anim.animation_finished.connect(_anim_is_finished)
-	_open()
+	anim.animation_finished.connect(
+		func(anim_name: StringName) -> void:
+			if anim_name != "show":
+				UIManager.remove_ui(self)
+	)
+
+	self.visible = true
+	UIManager.blur.blur(true)
+	anim.play("show")
 
 
 func _input(_event: InputEvent) -> void:
@@ -19,25 +26,19 @@ func _input(_event: InputEvent) -> void:
 		_close()
 
 
-func _open() -> void:
-	self.visible = true
-	UIManager.blur.blur(true)
-	anim.play("show")
-
-
 func _close() -> void:
-	UIManager.ui_add(UIManager.MENUS.HUD)
+	UIManager.add_ui(UIManager.MENUS.HUD)
 	UIManager.blur.blur(false)
 	anim.play("hide")
 
 
-func _button_init() -> void:
+func _init_button() -> void:
 	resume.pressed.connect(func() -> void: _close())
 
 	settings.pressed.connect(
 		func() -> void:
-			UIManager.ui_add(UIManager.MENUS.OPTIONS)
-			UIManager.ui_remove(self)
+			UIManager.add_ui(UIManager.MENUS.OPTIONS)
+			UIManager.remove_ui(self)
 	)
 
 	report.pressed.connect(func() -> void: Utils.open_url("https://www.youtube.com/watch?v=gAsNvXDsrGA"))
@@ -51,7 +52,7 @@ func _button_init() -> void:
 							GameData.save()
 							get_tree().change_scene_to_file("res://levels/menu.tscn")
 							UIManager.blur.blur(false)
-							UIManager.ui_remove(self),
+							UIManager.remove_ui(self),
 					CONNECT_ONE_SHOT
 				)
 				UIManager.blackout.blackout(true)
@@ -71,8 +72,3 @@ func _button_init() -> void:
 	settings.mouse_exited.connect(UIManager.button_exited)
 	report.mouse_exited.connect(UIManager.button_exited)
 	exit.mouse_exited.connect(UIManager.button_exited)
-
-
-func _anim_is_finished(anim_name: String) -> void:
-	if anim_name != "show":
-		UIManager.ui_remove(self)
