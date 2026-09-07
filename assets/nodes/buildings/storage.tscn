@@ -1,7 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://d0hq20gmqku1b"]
+[gd_scene load_steps=6 format=3 uid="uid://d0hq20gmqku1b"]
 
 [ext_resource type="Script" path="res://assets/scripts/buildings/storage.gd" id="1_74efr"]
+[ext_resource type="Shader" path="res://assets/shaders/highlight.gdshader" id="2_7n81l"]
 [ext_resource type="Texture2D" uid="uid://srm6ebuns20i" path="res://assets/resources/buildings/storage/summer/sprite.png" id="2_i3d7u"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bhpdp"]
+shader = ExtResource("2_7n81l")
+shader_parameter/highligth = false
+shader_parameter/destroy = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k60yw"]
 size = Vector2(16, 16)
@@ -10,6 +16,7 @@ size = Vector2(16, 16)
 script = ExtResource("1_74efr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_bhpdp")
 position = Vector2(0, 8)
 texture = ExtResource("2_i3d7u")
 

@@ -1,9 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://b6yctk4o25kkc"]
+[gd_scene load_steps=11 format=3 uid="uid://b6yctk4o25kkc"]
 
 [ext_resource type="Script" path="res://assets/scripts/buildings/mailbox.gd" id="1_c17c6"]
 [ext_resource type="Texture2D" uid="uid://b3msu2c5mlsp6" path="res://assets/resources/ui/bubble.png" id="2_gjqta"]
-[ext_resource type="Texture2D" uid="uid://camjsop2qdgcs" path="res://assets/resources/buildings/mailbox/summer/sprite.png" id="2_gxys7"]
+[ext_resource type="Shader" path="res://assets/shaders/highlight.gdshader" id="2_tdpmq"]
+[ext_resource type="Texture2D" uid="uid://camjsop2qdgcs" path="res://assets/resources/buildings/mailbox/summer.png" id="3_rdtxu"]
 [ext_resource type="Texture2D" uid="uid://bclfab7hj0ysi" path="res://assets/resources/buildings/mailbox/icn.png" id="4_co8da"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xnqf6"]
+shader = ExtResource("2_tdpmq")
+shader_parameter/highligth = false
+shader_parameter/destroy = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_djas3"]
 size = Vector2(16, 16)
@@ -52,8 +58,9 @@ position = Vector2(0, -3)
 script = ExtResource("1_c17c6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_xnqf6")
 position = Vector2(0, 11)
-texture = ExtResource("2_gxys7")
+texture = ExtResource("3_rdtxu")
 
 [node name="Collision" type="Area2D" parent="."]
 position = Vector2(8, 16)
@@ -63,7 +70,6 @@ position = Vector2(-8, 3)
 shape = SubResource("RectangleShape2D_djas3")
 
 [node name="Indicator" type="Sprite2D" parent="."]
-visible = false
 self_modulate = Color(1, 1, 1, 0.784314)
 z_index = 100
 position = Vector2(0, -5)

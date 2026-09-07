@@ -1,18 +1,13 @@
 [gd_scene load_steps=6 format=3 uid="uid://c06vvkgkvvlfq"]
 
 [ext_resource type="Script" path="res://assets/scripts/buildings/animal_stall.gd" id="1_gn1gf"]
-[ext_resource type="Texture2D" uid="uid://c4bs1dg3vjffi" path="res://assets/resources/buildings/stall/summer/sprite.png" id="2_xxx07"]
-
-[sub_resource type="Shader" id="Shader_7tfsf"]
-code = "shader_type canvas_item;
-
-void fragment()
-{
-
-}"
+[ext_resource type="Shader" path="res://assets/shaders/highlight.gdshader" id="2_6dcml"]
+[ext_resource type="Texture2D" uid="uid://c4bs1dg3vjffi" path="res://assets/resources/buildings/stall/summer.png" id="3_f4j5x"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rll0v"]
-shader = SubResource("Shader_7tfsf")
+shader = ExtResource("2_6dcml")
+shader_parameter/highligth = false
+shader_parameter/destroy = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i2ecp"]
 size = Vector2(511.149, 340.766)
@@ -23,7 +18,7 @@ script = ExtResource("1_gn1gf")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_rll0v")
 position = Vector2(16, -2)
-texture = ExtResource("2_xxx07")
+texture = ExtResource("3_f4j5x")
 
 [node name="Collision" type="Area2D" parent="."]
 
