@@ -1,7 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://bvni4lqcsb5yv"]
+[gd_scene load_steps=6 format=3 uid="uid://bvni4lqcsb5yv"]
 
 [ext_resource type="Script" path="res://assets/scripts/buildings/well.gd" id="1_itava"]
-[ext_resource type="Texture2D" uid="uid://ca3yh3378kmav" path="res://assets/resources/buildings/well/summer/sprite.png" id="2_nvtfv"]
+[ext_resource type="Shader" path="res://assets/shaders/highlight.gdshader" id="2_rtq73"]
+[ext_resource type="Texture2D" uid="uid://ca3yh3378kmav" path="res://assets/resources/buildings/well/summer.png" id="3_56wmd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xyes8"]
+resource_local_to_scene = true
+shader = ExtResource("2_rtq73")
+shader_parameter/highligth = false
+shader_parameter/destroy = false
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qlxg4"]
 height = 20.0
@@ -10,14 +17,12 @@ height = 20.0
 script = ExtResource("1_itava")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_xyes8")
 position = Vector2(8, 8)
-texture = ExtResource("2_nvtfv")
+texture = ExtResource("3_56wmd")
 
 [node name="Collision" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
 position = Vector2(8, 11)
 shape = SubResource("CapsuleShape2D_qlxg4")
-
-[connection signal="mouse_entered" from="Collision" to="." method="_on_area_2d_mouse_entered"]
-[connection signal="mouse_exited" from="Collision" to="." method="_on_area_2d_mouse_exited"]
