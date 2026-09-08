@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var build: BuildManager = get_tree().current_scene.build
+@onready var nature: NatureManager = get_tree().current_scene.nature
 @onready var tilemap: TileMap = get_tree().current_scene.tilemap
 
 const GRID_NORMAL: CompressedTexture2D = preload("res://assets/resources/ui/interactive/hud/grid/default.png")
@@ -15,8 +16,8 @@ var terrain: Array[int] = []
 
 
 func _ready() -> void:
-	if !is_instance_valid(build) || !is_instance_valid(tilemap):
-		printerr("BuildManager or TileMap is NULL: ", "\n\t", build, "\n\t", tilemap)
+	if !is_instance_valid(build) || !is_instance_valid(tilemap) || !is_instance_valid(nature):
+		printerr("BuildManager or TileMap or Nature is NULL: ", "\n\t", build, "\n\t", tilemap, "\n\t", nature)
 		self.set_process(false)
 		return
 
@@ -60,6 +61,9 @@ func _action() -> void:
 			for grid in self.get_children():
 				if tilemap.get_cell_source_id(layer_id, tilemap.local_to_map(grid.global_position)) != -1:
 					tilemap.set_cells_terrain_connect(layer_id, [tilemap.local_to_map(grid.global_position)], 0, -1)
+
+				if layer_id == tilemap.Layers.NATURE:
+					nature.remove_nature_node(tilemap.local_to_map(grid.global_position))
 
 		build.GridModes.FARMING:
 			var grid_positions: Array[Vector2i] = []
@@ -116,6 +120,7 @@ func _action() -> void:
 				):
 					grid_positions.clear()
 					break
+
 				grid_positions.append(tilemap.local_to_map(grid.global_position))
 
 			if !grid_positions.is_empty():
@@ -163,6 +168,11 @@ func _collision_check() -> void:
 					layer_id = tilemap.Layers.FARMLAND
 					return
 
+				if tilemap.get_cell_source_id(tilemap.Layers.NATURE, tilemap.local_to_map(grid.global_position)) != -1:
+					grid.texture = GRID_NORMAL
+					layer_id = tilemap.Layers.NATURE
+					return
+
 				if tilemap.get_cell_source_id(tilemap.Layers.ROAD, tilemap.local_to_map(grid.global_position)) != -1:
 					grid.texture = GRID_NORMAL
 					layer_id = tilemap.Layers.ROAD
@@ -205,6 +215,10 @@ func _collision_check() -> void:
 				if (
 					(
 						tilemap.get_cell_source_id(tilemap.Layers.BUILDING, tilemap.local_to_map(grid.global_position))
+						== -1
+					)
+					&& (
+						tilemap.get_cell_source_id(tilemap.Layers.FARMLAND, tilemap.local_to_map(grid.global_position))
 						== -1
 					)
 					&& (
