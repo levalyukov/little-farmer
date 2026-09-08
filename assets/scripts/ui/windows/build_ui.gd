@@ -25,12 +25,21 @@ func _ready() -> void:
 	_init_buttons()
 	_info_clear()
 	update()
-	_open()
+
+	anim.animation_finished.connect(
+		func(anim_name: StringName) -> void:
+			if anim_name != "show":
+				UIManager.remove_ui(self)
+	)
+	UIManager.blur.blur(true)
+	anim.play("show")
 
 
 func update() -> void:
-	if PlayerControl.blueprints[Blueprints.BlueprintsType.BUILDINGS].is_empty()	\
-	|| PlayerControl.blueprints[Blueprints.BlueprintsType.TERRAINS].is_empty()	:
+	if (
+		PlayerControl.blueprints[Blueprints.BlueprintsType.BUILDINGS].is_empty()
+		|| PlayerControl.blueprints[Blueprints.BlueprintsType.TERRAINS].is_empty()
+	):
 		node_title.text = tr("build_menu.empty.title")
 		return
 
@@ -262,12 +271,6 @@ func _init_buttons() -> void:
 			navmenu.add_child(button)
 
 
-func _open() -> void:
-	anim.animation_finished.connect(_anim_is_finished)
-	UIManager.blur.blur(true)
-	anim.play("show")
-
-
 func _close(without_hud: bool = false) -> void:
 	if navmenu && !navmenu.get_children().is_empty():
 		for button in navmenu.get_children():
@@ -275,12 +278,7 @@ func _close(without_hud: bool = false) -> void:
 			button.queue_free()
 
 	if !without_hud:
-		UIManager.ui_add(UIManager.MENUS.HUD)
+		UIManager.add_ui(UIManager.MENUS.HUD)
 
 	UIManager.blur.blur(false)
 	anim.play("hide")
-
-
-func _anim_is_finished(anim_name: String) -> void:
-	if anim_name != "show":
-		UIManager.ui_remove(self)
