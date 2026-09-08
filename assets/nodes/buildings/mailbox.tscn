@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bclfab7hj0ysi" path="res://assets/resources/buildings/mailbox/icn.png" id="4_co8da"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xnqf6"]
+resource_local_to_scene = true
 shader = ExtResource("2_tdpmq")
 shader_parameter/highligth = false
 shader_parameter/destroy = false

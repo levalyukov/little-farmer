@@ -11,13 +11,6 @@ const TEXTURES: Dictionary = {
 	3: preload("res://assets/resources/buildings/storage/winter/sprite.png")
 }
 
-const HOVERED: Dictionary = {
-	0: preload("res://assets/resources/buildings/storage/spring/hover.png"),
-	1: preload("res://assets/resources/buildings/storage/summer/hover.png"),
-	2: preload("res://assets/resources/buildings/storage/autumn/hover.png"),
-	3: preload("res://assets/resources/buildings/storage/winter/hover.png")
-}
-
 var mouse_entered: bool = false
 
 
@@ -45,8 +38,8 @@ func _input(event: InputEvent) -> void:
 		UIManager.remove_ui(UIManager.get_ui(UIManager.MENUS.HUD.get_state().get_node_name(0)))
 		UIManager.add_ui(UIManager.MENUS.INVENTORY)
 
-		if TEXTURES.has(cycle.season_id) && TEXTURES[cycle.season_id] is CompressedTexture2D:
-			sprite.texture = TEXTURES[cycle.season_id]
+		if sprite.material:
+			sprite.material.set_shader_parameter("highligth", false)
 
 		if UIManager.cursor:
 			UIManager.cursor.set_cursor(UIManager.cursor.STATES.DEFAULT)
@@ -58,8 +51,8 @@ func _collision_mouse_entered() -> void:
 
 	self.mouse_entered = true
 
-	if HOVERED.has(cycle.season_id) && HOVERED[cycle.season_id] is CompressedTexture2D:
-		sprite.texture = HOVERED[cycle.season_id]
+	if sprite.material:
+		sprite.material.set_shader_parameter("highligth", true)
 
 	if UIManager.cursor:
 		UIManager.cursor.set_cursor(UIManager.cursor.STATES.ACTIVE)
@@ -71,8 +64,8 @@ func _collision_mouse_exited() -> void:
 	if !UIManager.get_ui("HUD"):
 		return
 
-	if TEXTURES.has(cycle.season_id) && TEXTURES[cycle.season_id] is CompressedTexture2D:
-		sprite.texture = TEXTURES[cycle.season_id]
+	if sprite.material:
+		sprite.material.set_shader_parameter("highligth", false)
 
 	if UIManager.cursor:
 		UIManager.cursor.set_cursor(UIManager.cursor.STATES.DEFAULT)

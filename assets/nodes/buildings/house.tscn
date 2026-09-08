@@ -9,6 +9,7 @@
 shader = ExtResource("1_hinp5")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y4ige"]
+resource_local_to_scene = true
 shader = ExtResource("3_ckcxm")
 shader_parameter/highligth = false
 shader_parameter/destroy = false

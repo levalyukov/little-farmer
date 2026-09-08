@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://srm6ebuns20i" path="res://assets/resources/buildings/storage/summer/sprite.png" id="2_i3d7u"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bhpdp"]
+resource_local_to_scene = true
 shader = ExtResource("2_7n81l")
 shader_parameter/highligth = false
 shader_parameter/destroy = false
