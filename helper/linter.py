@@ -11,6 +11,3 @@ def linter() -> None:
     if len(gdscripts_files) > 0:
         for gd in gdscripts_files:
             subprocess.call(["gdlint", gd], shell=True)
-
-if __name__ == "__main__":
-    print("Nice try!...")

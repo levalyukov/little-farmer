@@ -24,6 +24,3 @@ def clear() -> None:
                 file_path = os.path.join(root, file)
                 os.remove(file_path)
                 print(f"Removed: {file_path}")
-
-if __name__ == "__main__":
-    print("Nice try!...")
