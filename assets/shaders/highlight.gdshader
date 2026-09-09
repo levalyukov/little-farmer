@@ -14,15 +14,6 @@ void fragment()
     vec4 color = vec4(0,0,0,0);
     if (highligth)
     {
-        if (!destroy)
-        {
-            color = HOVER;
-        }
-        else 
-        {
-            color = DELETE;
-        }
-
-        COLOR = texture(TEXTURE,UV) + color;
+        COLOR = texture(TEXTURE,UV) + ((!destroy) ? HOVER : DELETE);
     }
 }
