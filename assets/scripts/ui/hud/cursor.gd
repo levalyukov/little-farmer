@@ -1,18 +1,5 @@
 class_name Cursor extends Node2D
 
-# =============================================================================================
-#  (cursor.gd)
-# =============================================================================================
-# Меняет системную мышь на игровую текстуру
-#
-# ЗОНА ОТВЕТСТВЕННОСТИ:
-# - Смена состояния игрового курсора
-#
-# ОСНОВНОЙ ФУНКЦИОНАЛ:
-# - set_cursor(new_state:STATES) - смена состояния курсора
-#
-# =============================================================================================
-
 enum STATES { DEFAULT, ACTIVE }
 const CURSOR: Dictionary = {
 	STATES.DEFAULT:
@@ -20,7 +7,6 @@ const CURSOR: Dictionary = {
 		"static": preload("res://assets/resources/ui/interactive/hud/cursor/cursor_static.png"),
 		"active": preload("res://assets/resources/ui/interactive/hud/cursor/cursor_active.png"),
 	},
-	
 	STATES.ACTIVE:
 	{
 		"static": preload("res://assets/resources/ui/interactive/hud/cursor/clicked_default.png"),
