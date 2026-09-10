@@ -1,28 +1,17 @@
 extends MarginContainer
 
-# =============================================================================================
-# (menu.gd)
-# =============================================================================================
-# Инициализация главного меню игры
-#
-# ЗОНА ОТВЕТСТВЕННОСТИ:
-# - Инициализация кнопок и перевода
-# - Инициализация фоновой музыки в главном меню
-#
-# =============================================================================================
+@onready var resume: Button = $MenuContent/VContainer/ButtonsMargin/Buttons/ContinueMargin/ContinueButton
+@onready var newgame: Button = $MenuContent/VContainer/ButtonsMargin/Buttons/NewGameMargin/NewGameButton
+@onready var settings: Button = $MenuContent/VContainer/ButtonsMargin/Buttons/SettingsMargin/SettingsButton
+@onready var credits: Button = $MenuContent/VContainer/ButtonsMargin/Buttons/CreditsMargin/CreditsButton
+@onready var exit: Button = $MenuContent/VContainer/ButtonsMargin/Buttons/ExitMargin/ExitButton
+@onready var version: Label = $MenuContent/VContainer/FooterMargin/VBoxContainer/Version
 
-@onready var resume: 	Button 	= $MenuContent/VContainer/ButtonsMargin/Buttons/ContinueMargin/ContinueButton
-@onready var newgame: 	Button 	= $MenuContent/VContainer/ButtonsMargin/Buttons/NewGameMargin/NewGameButton
-@onready var settings: 	Button 	= $MenuContent/VContainer/ButtonsMargin/Buttons/SettingsMargin/SettingsButton
-@onready var credits: 	Button 	= $MenuContent/VContainer/ButtonsMargin/Buttons/CreditsMargin/CreditsButton
-@onready var exit: 		Button 	= $MenuContent/VContainer/ButtonsMargin/Buttons/ExitMargin/ExitButton
-@onready var version: 	Label 	= $MenuContent/VContainer/FooterMargin/VBoxContainer/Version
-
-var countinue_text: String 		= tr("menu.countinue")
-var newgame_text: String 		= tr("menu.newgame")
-var settings_text: String 		= tr("menu.settings")
-var quit_text: String 			= tr("menu.quit")
-var credits_text: String 		= tr("menu.credits")
+var countinue_text: String = tr("menu.countinue")
+var newgame_text: String = tr("menu.newgame")
+var settings_text: String = tr("menu.settings")
+var quit_text: String = tr("menu.quit")
+var credits_text: String = tr("menu.credits")
 
 
 func _ready() -> void:
@@ -41,13 +30,12 @@ func _init_buttons() -> void:
 	settings.text = settings_text
 	credits.text = credits_text
 	exit.text = quit_text
-	
+
 	resume.mouse_entered.connect(UIManager.button_hovered.bind(resume.disabled))
 	newgame.mouse_entered.connect(UIManager.button_hovered)
 	settings.mouse_entered.connect(UIManager.button_hovered)
 	credits.mouse_entered.connect(UIManager.button_hovered)
 	exit.mouse_entered.connect(UIManager.button_hovered)
-
 	resume.mouse_exited.connect(UIManager.button_exited)
 	newgame.mouse_exited.connect(UIManager.button_exited)
 	settings.mouse_exited.connect(UIManager.button_exited)
@@ -55,7 +43,7 @@ func _init_buttons() -> void:
 	exit.mouse_exited.connect(UIManager.button_exited)
 
 	resume.disabled = false if DirAccess.open("user://game/data") else true
-	resume.pressed.connect(func() -> void: pass) #! Изменить функционал после добавления загрузки данных
+	resume.pressed.connect(func() -> void: pass)  #! Изменить функционал после добавления загрузки данных
 
 	newgame.pressed.connect(
 		func() -> void:
@@ -66,8 +54,8 @@ func _init_buttons() -> void:
 			UIManager.blackout.blackout(true)
 	)
 
-	settings.pressed.connect(func() -> void: UIManager.ui_add(UIManager.MENUS.OPTIONS))
-	credits.pressed.connect(func() -> void: UIManager.ui_add(UIManager.MENUS.CREDITS))
+	settings.pressed.connect(func() -> void: UIManager.add_ui(UIManager.MENUS.OPTIONS))
+	credits.pressed.connect(func() -> void: UIManager.add_ui(UIManager.MENUS.CREDITS))
 	exit.pressed.connect(func() -> void: get_tree().quit())
 
 	resume.pressed.connect(UIManager.button_pressed)
