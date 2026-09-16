@@ -1,24 +1,16 @@
-[gd_scene load_steps=28 format=3 uid="uid://2s8j08i1d6cj"]
+[gd_scene load_steps=20 format=3 uid="uid://2s8j08i1d6cj"]
 
-[ext_resource type="Script" path="res://assets/data/gamedata.gd" id="1_p5ud0"]
-[ext_resource type="PackedScene" uid="uid://b8eteio2464wo" path="res://assets/nodes/player.tscn" id="2_nv7e5"]
-[ext_resource type="PackedScene" uid="uid://bwlehntoq3tyf" path="res://assets/nodes/world/shadow.tscn" id="3_ii4yf"]
-[ext_resource type="PackedScene" uid="uid://tdiipbf1hqx2" path="res://assets/nodes/world/nature.tscn" id="4_s34u5"]
-[ext_resource type="PackedScene" uid="uid://nxd73p36nfqi" path="res://assets/nodes/buildings/construction_manager.tscn" id="5_i00bg"]
-[ext_resource type="PackedScene" uid="uid://d0hq20gmqku1b" path="res://assets/nodes/buildings/storage.tscn" id="8_17ixa"]
-[ext_resource type="PackedScene" uid="uid://dcgfhx6lnhmtf" path="res://assets/nodes/buildings/tablet.tscn" id="9_ai7ij"]
-[ext_resource type="PackedScene" uid="uid://c826d7h6kf28k" path="res://assets/nodes/farming/farming_manager.tscn" id="10_14mju"]
+[ext_resource type="Script" path="res://assets/scripts/managers/data.gd" id="1_p5ud0"]
+[ext_resource type="PackedScene" uid="uid://b8eteio2464wo" path="res://assets/nodes/world/player.tscn" id="2_nv7e5"]
 [ext_resource type="Script" path="res://assets/scripts/world/teleports.gd" id="11_guis6"]
-[ext_resource type="PackedScene" uid="uid://cjxf5fki0vra2" path="res://assets/nodes/world/day-night.tscn" id="12_ut2ww"]
 [ext_resource type="PackedScene" uid="uid://boitxnv4ptxu6" path="res://assets/nodes/ui/ui.tscn" id="13_0q8u5"]
-[ext_resource type="Texture2D" uid="uid://b76t3eldamplh" path="res://assets/resources/world/landscape/summer/ground.png" id="14_us5wm"]
-[ext_resource type="Texture2D" uid="uid://bf8k2il4noii5" path="res://assets/resources/world/landscape/summer/roads.png" id="15_5pw4s"]
-[ext_resource type="Texture2D" uid="uid://d28g3qf340ub" path="res://assets/resources/world/landscape/summer/farmlands.png" id="16_7f7f1"]
-[ext_resource type="Texture2D" uid="uid://b8qfybr3p0nm3" path="res://assets/resources/world/landscape/summer/coasts.png" id="16_abjgl"]
+[ext_resource type="Texture2D" uid="uid://do3btrrrteyou" path="res://assets/resources/world/landscape/summer/ground.png" id="14_us5wm"]
+[ext_resource type="Texture2D" uid="uid://eohf0cxupt5g" path="res://assets/resources/world/landscape/summer/roads.png" id="15_5pw4s"]
+[ext_resource type="Texture2D" uid="uid://crs5ewpbkcnlp" path="res://assets/resources/world/landscape/summer/farmlands.png" id="16_7f7f1"]
+[ext_resource type="Texture2D" uid="uid://6qppce3bkfrq" path="res://assets/resources/world/landscape/summer/coasts.png" id="16_abjgl"]
 [ext_resource type="Script" path="res://assets/scripts/world/tilemap.gd" id="16_bnx43"]
-[ext_resource type="Texture2D" uid="uid://c2rhb63lrolgd" path="res://assets/resources/world/landscape/summer/water.png" id="17_721hs"]
-[ext_resource type="Texture2D" uid="uid://bg6qyk751ky3x" path="res://assets/resources/world/landscape/summer/waterings.png" id="17_nnsex"]
-[ext_resource type="Script" path="res://assets/data/GreenhouseManager.gd" id="19_y3etm"]
+[ext_resource type="Texture2D" uid="uid://cs6d5plvabdeq" path="res://assets/resources/world/landscape/summer/water.png" id="17_721hs"]
+[ext_resource type="Texture2D" uid="uid://dchyi8f2y3eqq" path="res://assets/resources/world/landscape/summer/waterings.png" id="17_nnsex"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0xt3b"]
 texture = ExtResource("14_us5wm")
@@ -1585,35 +1577,18 @@ script = ExtResource("1_p5ud0")
 [node name="Player" parent="." instance=ExtResource("2_nv7e5")]
 z_index = 1
 z_as_relative = false
-position = Vector2(32, 32)
-
-[node name="ShadowManager" parent="." instance=ExtResource("3_ii4yf")]
-
-[node name="Nature" parent="." instance=ExtResource("4_s34u5")]
-
-[node name="ConstructionManager" parent="." instance=ExtResource("5_i00bg")]
-
-[node name="storage" parent="ConstructionManager" instance=ExtResource("8_17ixa")]
-visible = false
-position = Vector2(360, 32)
-
-[node name="tablet" parent="ConstructionManager" instance=ExtResource("9_ai7ij")]
-visible = false
-position = Vector2(33, 120)
-
-[node name="FarmingManager" parent="." instance=ExtResource("10_14mju")]
-
-[node name="Day-Night Cycle" parent="." instance=ExtResource("12_ut2ww")]
+position = Vector2(62, 63)
 
 [node name="UI" parent="." instance=ExtResource("13_0q8u5")]
 
 [node name="Tilemap" type="TileMap" parent="."]
+position = Vector2(32, 32)
 tile_set = SubResource("TileSet_ijyqb")
 format = 2
 layer_0/name = "grounds"
 layer_0/tile_data = PackedInt32Array(458752, 65536, 3, 458753, 65536, 3, 458754, 65536, 3, 458755, 65536, 3, -131075, 65536, 3, -65539, 65536, 3, -3, 65536, 3, 65533, 65536, 3, 131069, 65536, 3, 196605, 65536, 3, 262141, 65536, 3, 327677, 65536, 3, 393213, 65536, 3, 458749, 65536, 3, 393217, 589825, 2, 393218, 589825, 2, 458750, 65536, 3, 458751, 65536, 3, 393216, 65536, 3, 393219, 65536, 3, 393220, 65536, 3, 393221, 65536, 3, 393222, 65536, 3, 327686, 65536, 3, 262150, 65536, 3, 196614, 65536, 3, 131078, 65536, 3, 65542, 65536, 3, 6, 65536, 3, -65530, 65536, 3, -131066, 65536, 3, -196602, 65536, 3, -196603, 65536, 3, -196604, 65536, 3, -196605, 65536, 3, -196606, 65536, 3, -196607, 65536, 3, -196608, 65536, 3, -131073, 65536, 3, -131074, 65536, 3)
 layer_1/name = "roads"
-layer_1/tile_data = PackedInt32Array(327682, 589825, 2, 327681, 589825, 2, 327680, 589825, 2, 393215, 589825, 2, 327683, 589825, 2, 327684, 589825, 2, 327685, 589825, 2, 393214, 589825, 2, -65538, 589825, 2, -2, 589825, 2, 65534, 589825, 2, 131070, 589825, 2, 196606, 589825, 2, 262142, 589825, 2, 327678, 589825, 2, -65537, 589825, 2, -1, 589825, 2, 65535, 589825, 2, 131071, 589825, 2, 196607, 589825, 2, 262143, 589825, 2, 327679, 589825, 2, -131072, 589825, 2, -65536, 589825, 2, 0, 589825, 2, 65536, 589825, 2, 131072, 589825, 2, 196608, 589825, 2, 262144, 589825, 2, -131071, 589825, 2, -65535, 589825, 2, 1, 589825, 2, 65537, 589825, 2, 131073, 589825, 2, 196609, 589825, 2, 262145, 589825, 2, -131070, 589825, 2, -65534, 589825, 2, 2, 589825, 2, 65538, 589825, 2, 131074, 589825, 2, 196610, 589825, 2, 262146, 589825, 2, -131069, 589825, 2, -65533, 589825, 2, 3, 589825, 2, 65539, 589825, 2, 131075, 589825, 2, 196611, 589825, 2, 262147, 589825, 2, -131068, 589825, 2, -65532, 589825, 2, 4, 589825, 2, 65540, 589825, 2, 131076, 589825, 2, 196612, 589825, 2, 262148, 589825, 2, -131067, 589825, 2, -65531, 589825, 2, 5, 589825, 2, 65541, 589825, 2, 131077, 589825, 2, 196613, 589825, 2, 262149, 589825, 2)
+layer_1/tile_data = PackedInt32Array(327682, 589825, 2, 327681, 589825, 2, 327683, 589825, 2, 1, 589825, 2, 65537, 589825, 2, 131073, 589825, 2, 196609, 589825, 2, 262145, 589825, 2, 2, 589825, 2, 65538, 589825, 2, 131074, 589825, 2, 196610, 589825, 2, 262146, 589825, 2, 3, 589825, 2, 65539, 589825, 2, 131075, 589825, 2, 196611, 589825, 2, 262147, 589825, 2, 4, 589825, 2, 65540, 589825, 2, 131076, 589825, 2, 196612, 589825, 2, 262148, 589825, 2, 5, 589825, 2, 65541, 589825, 2, 131077, 589825, 2, 196613, 589825, 2, 262149, 589825, 2, 327685, 589825, 2, 327684, 589825, 2, -65538, 589825, 2, -2, 589825, 2, 65534, 589825, 2, 131070, 589825, 2, 196606, 589825, 2, 262142, 589825, 2, 327678, 589825, 2, 393214, 589825, 2, 393215, 589825, 2, 327679, 589825, 2, 262143, 589825, 2, 196607, 589825, 2, 131071, 589825, 2, 65535, 589825, 2, -1, 589825, 2, -65537, 589825, 2, -131072, 589825, 2, -131071, 589825, 2, -131070, 589825, 2, -131069, 589825, 2, -131068, 589825, 2, -131067, 589825, 2, -65531, 589825, 2, -65532, 589825, 2, -65533, 589825, 2, -65534, 589825, 2, -65535, 589825, 2, -65536, 589825, 2, 0, 589825, 2, 65536, 589825, 2, 131072, 589825, 2, 196608, 589825, 2, 262144, 589825, 2, 327680, 589825, 2)
 layer_2/name = "natural"
 layer_2/tile_data = PackedInt32Array()
 layer_3/name = "coast"
@@ -1630,9 +1605,6 @@ layer_8/name = "seeds"
 layer_8/tile_data = PackedInt32Array()
 script = ExtResource("16_bnx43")
 
-[node name="GreenhouseManager" type="Node2D" parent="."]
-script = ExtResource("19_y3etm")
-
 [node name="Teleports" type="Node" parent="."]
 
 [node name="Village" type="Node2D" parent="Teleports"]
@@ -1643,7 +1615,7 @@ script = ExtResource("11_guis6")
 [node name="Area2D" type="Area2D" parent="Teleports/Village"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Teleports/Village/Area2D"]
-position = Vector2(32, 112.25)
+position = Vector2(64, 136)
 shape = SubResource("RectangleShape2D_snkov")
 
 [connection signal="body_entered" from="Teleports/Village/Area2D" to="Teleports/Village" method="_on_area_2d_body_entered"]
