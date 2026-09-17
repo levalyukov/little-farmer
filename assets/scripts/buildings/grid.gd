@@ -235,6 +235,3 @@ func _collision_check() -> void:
 					)
 				):
 					grid.texture = GRID_NORMAL
-
-			_:
-				self.layer_id = -1
