@@ -2,6 +2,7 @@ extends Node2D
 
 @export var cycle: WorldCycle
 @export var tilemap: TileMap
+@export var farm: FarmingManager
 @export var build: BuildManager
 @export var nature: NatureManager
 @export var shadow: ShadowManager
