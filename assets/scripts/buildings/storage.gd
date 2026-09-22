@@ -38,27 +38,17 @@ func _ready() -> void:
 				):
 					UIManager.remove_ui(UIManager.get_ui(UIManager.MENUS.HUD.get_state().get_node_name(0)))
 					UIManager.add_ui(UIManager.MENUS.INVENTORY)
-					UIManager.cursor.set_cursor(UIManager.cursor.STATES.DEFAULT)
 					sprite.material.set_shader_parameter("highligth", false)
 		)
 
-		collision.mouse_entered.connect(_collision_mouse_entered)
-		collision.mouse_exited.connect(_collision_mouse_exited)
+		collision.mouse_entered.connect(
+			func()->void:
+				if UIManager.get_ui("HUD") && sprite.material:
+					sprite.material.set_shader_parameter("highligth", true)
+		)
 
-
-func _collision_mouse_entered() -> void:
-	if !UIManager.get_ui("HUD"):
-		return
-
-	if sprite.material:
-		sprite.material.set_shader_parameter("highligth", true)
-	UIManager.cursor.set_cursor(UIManager.cursor.STATES.ACTIVE)
-
-
-func _collision_mouse_exited() -> void:
-	if !UIManager.get_ui("HUD"):
-		return
-
-	if sprite.material:
-		sprite.material.set_shader_parameter("highligth", false)
-	UIManager.cursor.set_cursor(UIManager.cursor.STATES.DEFAULT)
+		collision.mouse_exited.connect(
+			func()->void:
+				if UIManager.get_ui("HUD") && sprite.material:
+					sprite.material.set_shader_parameter("highligth", false)
+		)
