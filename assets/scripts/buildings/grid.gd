@@ -1,5 +1,6 @@
 extends Node2D
 
+@onready var farm: FarmingManager = get_tree().current_scene.farm
 @onready var build: BuildManager = get_tree().current_scene.build
 @onready var nature: NatureManager = get_tree().current_scene.nature
 @onready var tilemap: TileMap = get_tree().current_scene.tilemap
@@ -11,7 +12,23 @@ var mode: BuildManager.GridModes
 var size: Vector2i = Vector2i(4, 4)
 var layer_id: int = 0
 
+#* -------------------------------
+# * Данные для создания,
+# * игрового объекта,
+# * которая содержит в себя:
+# *
+# * var node:Dictionary = \
+# * {
+# * 	"node": node,
+# * 	"shadow": shadow
+# * }
+# *
+# * Где:
+# * node 	- PackedScene
+# * shadow 	- CompressedTexture2D
+#* -------------------------------
 var node: Dictionary = {}
+var plant: Dictionary = {}
 var terrain: Array[int] = []
 
 
@@ -57,7 +74,7 @@ func update_grid() -> void:
 
 func _action() -> void:
 	match mode:
-		build.GridModes.DESTROY:
+		BuildManager.GridModes.DESTROY:
 			for grid in self.get_children():
 				if grid.texture == GRID_ERROR:
 					return
@@ -67,7 +84,7 @@ func _action() -> void:
 						self.layer_id, [tilemap.local_to_map(grid.global_position)], 0, -1
 					)
 
-		build.GridModes.FARMING:
+		BuildManager.GridModes.FARMING:
 			var grid_positions: Array[Vector2i] = []
 
 			for grid in self.get_children():
@@ -84,10 +101,10 @@ func _action() -> void:
 				tilemap.set_cells_terrain_connect(tilemap.Layers.FARMLAND, grid_positions, 0, tilemap.Terrains.FARMING)
 				SoundManager.play_sound("farming/farming")
 
-		build.GridModes.FERTILIZER:
+		BuildManager.GridModes.FERTILIZER:
 			pass
 
-		build.GridModes.WATERING:
+		BuildManager.GridModes.WATERING:
 			var grid_positions: Array[Vector2i] = []
 
 			for grid in self.get_children():
@@ -102,13 +119,25 @@ func _action() -> void:
 
 			if !grid_positions.is_empty():
 				tilemap.set_cells_terrain_connect(tilemap.Layers.WATERING, grid_positions, 0, tilemap.Terrains.WATERING)
-
 				SoundManager.play_sound("farming/watering")
 
-		build.GridModes.HARVESTING:
-			pass
+		BuildManager.GridModes.HARVESTING:
+			for grid in self.get_children():
+				var crop:Node2D = farm.get_plant_by_coords(tilemap.local_to_map(grid.global_position))
+				if crop && grid.texture != GRID_ERROR:
+					var crop_data:Dictionary = Crops.get_crop(crop.id)
+					if crop_data.is_empty() || !(
+						crop_data.has("item_value") && crop_data["item_id"]
+					):
+						return
 
-		build.GridModes.BUILD:
+					Inventory.add_item(crop_data["item_id"], 
+						randi_range(crop_data["item_value"].x, crop_data["item_value"].y))
+					farm.remove_plant(crop)
+					tilemap.erase_cell(tilemap.Layers.CROPS, tilemap.local_to_map(grid.global_position))
+					SoundManager.play_sound("farming/harvesting")
+
+		BuildManager.GridModes.BUILD:
 			var grid_positions: Array[Vector2i] = []
 
 			for grid in self.get_children():
@@ -129,8 +158,11 @@ func _action() -> void:
 					printerr("Node for build is NULL.")
 					return
 
-				if build.build_add(
-					self.node["node"].instantiate(), self.node["shadow"], tilemap.local_to_map(self.global_position)
+				if build.add_build(
+					self.node["node"].instantiate(),
+					self.node["shadow"],
+					tilemap.local_to_map(self.global_position),
+					grid_positions
 				):
 					for vector in grid_positions:
 						tilemap.set_cell(
@@ -141,7 +173,21 @@ func _action() -> void:
 
 				SoundManager.play_sound("building/build")
 
-		build.GridModes.TERRAIN:
+		BuildManager.GridModes.PLANT:
+			for grid in self.get_children():
+				if grid.texture != GRID_ERROR:
+					var crop: Node2D = farm.add_plant(plant, tilemap.local_to_map(grid.global_position))
+					if crop:
+						tilemap.set_cell(
+							tilemap.Layers.CROPS,
+							tilemap.local_to_map(grid.global_position),
+							tilemap.SourcesAtlas.GROUND,
+							tilemap.NODE_COLLISION
+						)
+
+						SoundManager.play_sound("farming/planting")
+
+		BuildManager.GridModes.TERRAIN:
 			print("Hello, World!")
 
 
@@ -156,6 +202,14 @@ func _collision_check() -> void:
 
 		match mode:
 			BuildManager.GridModes.DESTROY:
+				if (
+					tilemap.get_cell_source_id(tilemap.Layers.BUILDING, tilemap.local_to_map(grid.global_position))
+					!= -1
+				):
+					grid.texture = GRID_NORMAL
+					self.layer_id = tilemap.Layers.BUILDING
+					return
+
 				if (
 					tilemap.get_cell_source_id(tilemap.Layers.WATERING, tilemap.local_to_map(grid.global_position))
 					!= -1
@@ -212,8 +266,13 @@ func _collision_check() -> void:
 				):
 					grid.texture = GRID_NORMAL
 
-			# 	BuildManager.GridModes.HARVESTING:
-			# 		self.layer_id = 1
+			BuildManager.GridModes.HARVESTING:
+				var crop:Node2D = farm.get_plant_by_coords(tilemap.local_to_map(grid.global_position))
+				if (
+					tilemap.get_cell_source_id(tilemap.Layers.CROPS, tilemap.local_to_map(grid.global_position))
+					!= -1 && (crop && crop.growed)
+				):
+					grid.texture = GRID_NORMAL
 
 			BuildManager.GridModes.BUILD:
 				if (
@@ -231,6 +290,25 @@ func _collision_check() -> void:
 					)
 					&& (
 						tilemap.get_cell_source_id(tilemap.Layers.BORDERS, tilemap.local_to_map(grid.global_position))
+						== -1
+					)
+					&& (
+						tilemap.get_cell_source_id(
+							tilemap.Layers.STATIC_NODES, tilemap.local_to_map(grid.global_position)
+						)
+						== -1
+					)
+				):
+					grid.texture = GRID_NORMAL
+
+			BuildManager.GridModes.PLANT:
+				if (
+					(
+						tilemap.get_cell_source_id(tilemap.Layers.FARMLAND, tilemap.local_to_map(grid.global_position))
+						!= -1
+					)
+					&& (
+						tilemap.get_cell_source_id(tilemap.Layers.CROPS, tilemap.local_to_map(grid.global_position))
 						== -1
 					)
 				):
