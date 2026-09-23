@@ -26,7 +26,7 @@ var crops: Dictionary = {
 		"growth": 1.0,
 		"level": 5,
 		"coords": Vector2i(0, 0),
-		"item_id": 28,
+		"item_id": 5,
 		"spoilage_id": 43,
 		"item_value": Vector2i(1,1),
 	},
