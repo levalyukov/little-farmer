@@ -124,12 +124,6 @@ func _init_button() -> void:
 	harvest.mouse_entered.connect(UIManager.button_hovered)
 	building.mouse_entered.connect(UIManager.button_hovered)
 
-	destroy.mouse_exited.connect(UIManager.button_exited)
-	farming.mouse_exited.connect(UIManager.button_exited)
-	watering.mouse_exited.connect(UIManager.button_exited)
-	harvest.mouse_exited.connect(UIManager.button_exited)
-	building.mouse_exited.connect(UIManager.button_exited)
-
 
 func close() -> void:
 	anim.play("hide")

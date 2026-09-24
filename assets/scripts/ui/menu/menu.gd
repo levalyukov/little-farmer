@@ -16,7 +16,6 @@ var credits_text: String = tr("menu.credits")
 
 func _ready() -> void:
 	GameData.settings_load()
-	UIManager.cursor.set_cursor(UIManager.cursor.STATES.DEFAULT)
 	UIManager.blackout.blackout(false)
 	version.text = "v" + str(ProjectSettings.get_setting("application/config/version"))
 
@@ -35,11 +34,6 @@ func _init_buttons() -> void:
 	settings.mouse_entered.connect(UIManager.button_hovered)
 	credits.mouse_entered.connect(UIManager.button_hovered)
 	exit.mouse_entered.connect(UIManager.button_hovered)
-	resume.mouse_exited.connect(UIManager.button_exited)
-	newgame.mouse_exited.connect(UIManager.button_exited)
-	settings.mouse_exited.connect(UIManager.button_exited)
-	credits.mouse_exited.connect(UIManager.button_exited)
-	exit.mouse_exited.connect(UIManager.button_exited)
 
 	resume.disabled = false if DirAccess.open("user://game/data") else true
 	resume.pressed.connect(func() -> void: pass)  #! Изменить функционал после добавления загрузки данных

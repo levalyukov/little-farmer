@@ -48,27 +48,22 @@ func _init_buttons() -> void:
 	graphic.pressed.connect(_change_section.bind(0))
 	graphic.pressed.connect(UIManager.button_pressed)
 	graphic.mouse_entered.connect(UIManager.button_hovered)
-	graphic.mouse_exited.connect(UIManager.button_exited)
 
 	sounds.pressed.connect(_change_section.bind(1))
 	sounds.pressed.connect(UIManager.button_pressed)
 	sounds.mouse_entered.connect(UIManager.button_hovered)
-	sounds.mouse_exited.connect(UIManager.button_exited)
 
 	control.pressed.connect(_change_section.bind(2))
 	control.pressed.connect(UIManager.button_pressed)
 	control.mouse_entered.connect(UIManager.button_hovered)
-	control.mouse_exited.connect(UIManager.button_exited)
 
 	confirm.pressed.connect(_close)
 	confirm.pressed.connect(UIManager.button_pressed)
 	confirm.mouse_entered.connect(UIManager.button_hovered)
-	confirm.mouse_exited.connect(UIManager.button_exited)
 
 	language.pressed.connect(_change_language)
 	language.pressed.connect(UIManager.button_pressed)
 	language.mouse_entered.connect(UIManager.button_hovered)
-	language.mouse_exited.connect(UIManager.button_exited)
 
 
 func _init_values() -> void:
@@ -83,13 +78,10 @@ func _init_graphic() -> void:
 	graphic_fps.selected = Settings.fps
 	graphic_vsync.pressed.connect(UIManager.button_pressed)
 	graphic_vsync.mouse_entered.connect(UIManager.button_hovered)
-	graphic_vsync.mouse_exited.connect(UIManager.button_exited)
 	graphic_fullscreen.pressed.connect(UIManager.button_pressed)
 	graphic_fullscreen.mouse_entered.connect(UIManager.button_hovered)
-	graphic_fullscreen.mouse_exited.connect(UIManager.button_exited)
 	graphic_fps.pressed.connect(UIManager.button_pressed)
 	graphic_fps.mouse_entered.connect(UIManager.button_hovered)
-	graphic_fps.mouse_exited.connect(UIManager.button_exited)
 
 	graphic_vsync.toggled.connect(
 		func(value: bool) -> void:
@@ -137,11 +129,6 @@ func _init_sounds() -> void:
 	sounds_nature_slider.mouse_entered.connect(UIManager.button_hovered)
 	sounds_radio_slider.mouse_entered.connect(UIManager.button_hovered)
 
-	sounds_general_slider.mouse_exited.connect(UIManager.button_exited)
-	sounds_music_slider.mouse_exited.connect(UIManager.button_exited)
-	sounds_nature_slider.mouse_exited.connect(UIManager.button_exited)
-	sounds_radio_slider.mouse_exited.connect(UIManager.button_exited)
-
 	sounds_general_slider.value_changed.connect(
 		func(value: float) -> void:
 			Settings.general_volume = int(value)
@@ -180,16 +167,10 @@ func _init_sounds() -> void:
 
 
 func _init_control() -> void:
-	control_move.pressed.connect(
-		func() -> void:
-			SoundManager.play_sound("ui/click")
-			if is_instance_valid(UIManager.cursor):
-				UIManager.cursor.set_cursor(UIManager.cursor.STATES.DEFAULT)
-	)
+	control_move.pressed.connect(func() -> void: SoundManager.play_sound("ui/click"))
 
 	control_move.item_selected.connect(func(value: int) -> void: Settings.movement_type = value)
 	control_move.mouse_entered.connect(UIManager.button_hovered)
-	control_move.mouse_exited.connect(UIManager.button_exited)
 	control_move.selected = Settings.movement_type
 
 

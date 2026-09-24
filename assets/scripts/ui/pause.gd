@@ -69,8 +69,3 @@ func _init_button() -> void:
 	settings.mouse_entered.connect(UIManager.button_hovered)
 	report.mouse_entered.connect(UIManager.button_hovered)
 	exit.mouse_entered.connect(UIManager.button_hovered)
-
-	resume.mouse_exited.connect(UIManager.button_exited)
-	settings.mouse_exited.connect(UIManager.button_exited)
-	report.mouse_exited.connect(UIManager.button_exited)
-	exit.mouse_exited.connect(UIManager.button_exited)

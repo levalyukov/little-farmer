@@ -98,7 +98,6 @@ func _button_blueprint_create(blueprint_type: int, blueprint_id: int) -> Control
 
 	button.pressed.connect(UIManager.button_pressed)
 	button.mouse_entered.connect(UIManager.button_hovered)
-	button.mouse_exited.connect(UIManager.button_exited)
 
 	icon.texture = data["icon"] if data.has("icon") && data["icon"] is CompressedTexture2D else ICON
 	label.text = data["title"] if data.has("title") && data["title"] is String else "????????????????"
@@ -237,16 +236,9 @@ func _init_buttons() -> void:
 				UIManager.button_hovered()
 	)
 
-	confirm.mouse_exited.connect(
-		func() -> void:
-			if confirm.visible && !confirm.disabled:
-				UIManager.button_exited()
-	)
-
 	exit.pressed.connect(func() -> void: _close())
 	exit.pressed.connect(UIManager.button_pressed)
 	exit.mouse_entered.connect(UIManager.button_hovered)
-	exit.mouse_exited.connect(UIManager.button_exited)
 
 	if navmenu && navmenu.get_children().is_empty() && !sections.is_empty():
 		for index in sections.size():
@@ -267,7 +259,6 @@ func _init_buttons() -> void:
 
 			button.pressed.connect(UIManager.button_pressed)
 			button.mouse_entered.connect(UIManager.button_hovered)
-			button.mouse_exited.connect(UIManager.button_exited)
 			navmenu.add_child(button)
 
 

@@ -26,7 +26,6 @@ func _ready() -> void:
 	close.pressed.connect(_close)
 	close.pressed.connect(UIManager.button_pressed)
 	close.mouse_entered.connect(UIManager.button_hovered)
-	close.mouse_exited.connect(UIManager.button_exited)
 	anim.animation_finished.connect(
 		func(anim_name: StringName) -> void:
 			if anim_name != "show":
@@ -43,7 +42,6 @@ func _ready() -> void:
 
 	remove.pressed.connect(UIManager.button_pressed)
 	remove.mouse_entered.connect(UIManager.button_hovered)
-	remove.mouse_exited.connect(UIManager.button_exited)
 
 	collect.text = tr("mailbox.collect_items.button")
 	collect.pressed.connect(
@@ -66,8 +64,6 @@ func _ready() -> void:
 
 	collect.pressed.connect(UIManager.button_pressed)
 	collect.mouse_entered.connect(UIManager.button_hovered)
-	collect.mouse_exited.connect(UIManager.button_exited)
-
 	UIManager.blur.blur(true)
 	SoundManager.play_sound("ui/mailbox")
 	anim.play("show")
@@ -152,7 +148,6 @@ func _button_letter(letter_id: int) -> Control:
 	)
 	button.pressed.connect(UIManager.button_pressed)
 	button.mouse_entered.connect(UIManager.button_hovered)
-	button.mouse_exited.connect(UIManager.button_exited)
 
 	parent.add_child(external_margin)
 	external_margin.add_child(button)
@@ -232,7 +227,6 @@ func _create_button_item(texture: CompressedTexture2D, amount: int) -> Control:
 
 	button.pressed.connect(UIManager.button_pressed)
 	button.mouse_entered.connect(UIManager.button_hovered)
-	button.mouse_exited.connect(UIManager.button_exited)
 
 	parent.add_child(button)
 	parent.add_child(margin)

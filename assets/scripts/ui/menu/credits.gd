@@ -12,7 +12,6 @@ func _ready() -> void:
 
 	button.pressed.connect(close)
 	button.mouse_entered.connect(_button_hovered)
-	button.mouse_exited.connect(_button_exited)
 	anim.animation_finished.connect(
 		func(anim_name: StringName) -> void:
 			if anim_name != "show":
@@ -28,14 +27,7 @@ func close() -> void:
 	UIManager.blur.blur(false)
 	anim.play("hide")
 	SoundManager.play_sound("ui/click")
-	UIManager.cursor.set_cursor(UIManager.cursor.STATES.DEFAULT)
 
 
 func _button_hovered() -> void:
 	SoundManager.play_sound("ui/hover")
-	UIManager.cursor.set_cursor(UIManager.cursor.STATES.ACTIVE)
-
-
-func _button_exited() -> void:
-	SoundManager.play_sound("ui/hover")
-	UIManager.cursor.set_cursor(UIManager.cursor.STATES.DEFAULT)

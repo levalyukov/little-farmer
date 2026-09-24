@@ -57,14 +57,8 @@ func get_ui(node_name: String) -> Control:
 
 func button_pressed() -> void:
 	SoundManager.play_sound("ui/click")
-	UIManager.cursor.set_cursor(UIManager.cursor.STATES.DEFAULT)
 
 
 func button_hovered(disabled: bool = false) -> void:
 	if !disabled:
 		SoundManager.play_sound("ui/hover")
-		UIManager.cursor.set_cursor(UIManager.cursor.STATES.ACTIVE)
-
-
-func button_exited() -> void:
-	UIManager.cursor.set_cursor(UIManager.cursor.STATES.DEFAULT)
