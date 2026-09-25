@@ -123,16 +123,15 @@ func _action() -> void:
 
 		BuildManager.GridModes.HARVESTING:
 			for grid in self.get_children():
-				var crop:Node2D = farm.get_plant_by_coords(tilemap.local_to_map(grid.global_position))
+				var crop: Node2D = farm.get_plant_by_coords(tilemap.local_to_map(grid.global_position))
 				if crop && grid.texture != GRID_ERROR:
-					var crop_data:Dictionary = Crops.get_crop(crop.id)
-					if crop_data.is_empty() || !(
-						crop_data.has("item_value") && crop_data["item_id"]
-					):
+					var crop_data: Dictionary = Crops.get_crop(crop.id)
+					if crop_data.is_empty() || !(crop_data.has("item_value") && crop_data["item_id"]):
 						return
 
-					Inventory.add_item(crop_data["item_id"], 
-						randi_range(crop_data["item_value"].x, crop_data["item_value"].y))
+					Inventory.add_item(
+						crop_data["item_id"], randi_range(crop_data["item_value"].x, crop_data["item_value"].y)
+					)
 					farm.remove_plant(crop)
 					tilemap.erase_cell(tilemap.Layers.CROPS, tilemap.local_to_map(grid.global_position))
 					SoundManager.play_sound("farming/harvesting")
@@ -267,10 +266,10 @@ func _collision_check() -> void:
 					grid.texture = GRID_NORMAL
 
 			BuildManager.GridModes.HARVESTING:
-				var crop:Node2D = farm.get_plant_by_coords(tilemap.local_to_map(grid.global_position))
+				var crop: Node2D = farm.get_plant_by_coords(tilemap.local_to_map(grid.global_position))
 				if (
-					tilemap.get_cell_source_id(tilemap.Layers.CROPS, tilemap.local_to_map(grid.global_position))
-					!= -1 && (crop && crop.growed)
+					tilemap.get_cell_source_id(tilemap.Layers.CROPS, tilemap.local_to_map(grid.global_position)) != -1
+					&& (crop && crop.growed)
 				):
 					grid.texture = GRID_NORMAL
 

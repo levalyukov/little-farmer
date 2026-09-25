@@ -27,23 +27,26 @@ func _ready() -> void:
 
 	if collision:
 		collision.mouse_entered.connect(
-			func()->void:
+			func() -> void:
 				if sprite.material:
 					sprite.material.set_shader_parameter(
-						"destroy", build.buildings.has("Grid") && build.buildings["Grid"].mode == BuildManager.GridModes.DESTROY
+						"destroy",
+						build.buildings.has("Grid") && build.buildings["Grid"].mode == BuildManager.GridModes.DESTROY
 					)
 					sprite.material.set_shader_parameter(
 						"highligth",
 						(
-							(build.buildings.has("Grid") && build.buildings["Grid"].mode == BuildManager.GridModes.DESTROY)
+							(
+								build.buildings.has("Grid")
+								&& build.buildings["Grid"].mode == BuildManager.GridModes.DESTROY
+							)
 							|| UIManager.get_ui("HUD")
 						)
 					)
 		)
 		collision.mouse_exited.connect(
-			func()->void:
+			func() -> void:
 				if sprite.material:
 					sprite.material.set_shader_parameter("destroy", false)
 					sprite.material.set_shader_parameter("highligth", false)
 		)
-		
