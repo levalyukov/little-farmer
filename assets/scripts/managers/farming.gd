@@ -27,13 +27,13 @@ func growth() -> void:
 		return
 
 	for plant in plants:
-		var data:Dictionary = plants[plant]
+		var data: Dictionary = plants[plant]
 
 		if data["has_grown"] || data["watering"]:
 			continue
 
-		if data["rate"]+1 >= data["growth"]:
-			if data["current_level"]+1 >= data["max_level"]:
+		if data["rate"] + 1 >= data["growth"]:
+			if data["current_level"] + 1 >= data["max_level"]:
 				data["rate"] = 0
 				data["current_level"] = data["max_level"]
 				data["has_grown"] = true
@@ -41,15 +41,15 @@ func growth() -> void:
 				data["node"].update()
 			else:
 				data["rate"] = 0
-				data["current_level"]+=1
+				data["current_level"] += 1
 				data["node"].update()
 		else:
-			data["rate"]+=1
+			data["rate"] += 1
 
 
 func add_plant(data: Dictionary, pos: Vector2i) -> Node2D:
-	var plant:Node2D = PLANT_NODE.instantiate()
-	var sprite:Node = plant.get_node("Sprite2D")
+	var plant: Node2D = PLANT_NODE.instantiate()
+	var sprite: Node = plant.get_node("Sprite2D")
 
 	if sprite && sprite is Sprite2D:
 		sprite.region_rect.position.x = data["coords"].x
@@ -62,7 +62,7 @@ func add_plant(data: Dictionary, pos: Vector2i) -> Node2D:
 	plant.position = tilemap.map_to_local(pos)
 	self.add_child(plant, true)
 
-	plants[plant.name]= {}
+	plants[plant.name] = {}
 
 	#* {
 	#* 		node			<- Сам узел для манипуляции со спрайтом
@@ -86,8 +86,9 @@ func add_plant(data: Dictionary, pos: Vector2i) -> Node2D:
 
 	return plant
 
-func get_plant_by_coords(coords:Vector2i) -> Node2D:
-	var node:Node2D = null
+
+func get_plant_by_coords(coords: Vector2i) -> Node2D:
+	var node: Node2D = null
 
 	if !plants.is_empty():
 		for plant in plants:
@@ -96,7 +97,8 @@ func get_plant_by_coords(coords:Vector2i) -> Node2D:
 
 	return node
 
-func remove_plant(node:Node2D) -> void:
+
+func remove_plant(node: Node2D) -> void:
 	if self.plants.has(node.name):
 		plants.erase(node.name)
 		self.remove_child(node)

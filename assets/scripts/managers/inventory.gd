@@ -5,7 +5,7 @@ func add_item(id: int, amount: int) -> void:
 	if !Items.items.has(id):
 		printerr("Invalid item id")
 		return
-		
+
 	if (
 		PlayerControl.inventory.has(id)
 		&& PlayerControl.inventory[id]["amount"] is int
