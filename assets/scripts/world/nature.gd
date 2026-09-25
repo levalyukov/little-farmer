@@ -5,7 +5,7 @@ class_name NatureManager extends Node2D
 @onready var tilemap: TileMap = get_tree().current_scene.tilemap
 @onready var shadow: ShadowManager = get_tree().current_scene.shadow
 
-enum NatureType { TREE, BUSH, WEED, STONE, BOULDERS }
+enum NatureType { TREE, BUSH, WEED, LONG_WEED, STONE, BOULDERS }
 
 const TEXTURES: Dictionary = {
 	NatureType.TREE:
@@ -97,6 +97,29 @@ const TEXTURES: Dictionary = {
 			preload("res://assets/resources/world/weeds/winter/weed_8.png")
 		]
 	},
+	NatureType.LONG_WEED:
+	# WorldCycle.Season.SPRING:
+	# [
+	# ]
+	{
+		WorldCycle.Season.SUMMER:
+		[
+			preload("res://assets/resources/world/long_weed/summer/sprite_0.png"),
+			preload("res://assets/resources/world/long_weed/summer/sprite_1.png"),
+			preload("res://assets/resources/world/long_weed/summer/sprite_2.png"),
+			preload("res://assets/resources/world/long_weed/summer/sprite_3.png"),
+			preload("res://assets/resources/world/long_weed/summer/sprite_4.png"),
+			preload("res://assets/resources/world/long_weed/summer/sprite_5.png"),
+			preload("res://assets/resources/world/long_weed/summer/sprite_6.png"),
+			preload("res://assets/resources/world/long_weed/summer/sprite_7.png"),
+		]
+		# WorldCycle.Season.AUTUMN:
+		# [
+		# ]
+		# WorldCycle.Season.WINTER:
+		# [
+		# ]
+	},
 	NatureType.STONE:
 	[
 		preload("res://assets/resources/world/stones/stone_1.png"),
@@ -175,6 +198,20 @@ const SHADOWS: Dictionary = {
 			preload("res://assets/resources/world/weeds/winter/shadow_8.png")
 		]
 	},
+	NatureType.LONG_WEED:
+	{
+		WorldCycle.Season.SUMMER:
+		[
+			preload("res://assets/resources/world/long_weed/summer/shadow/sprite_0.png"),
+			preload("res://assets/resources/world/long_weed/summer/shadow/sprite_1.png"),
+			preload("res://assets/resources/world/long_weed/summer/shadow/sprite_2.png"),
+			preload("res://assets/resources/world/long_weed/summer/shadow/sprite_3.png"),
+			preload("res://assets/resources/world/long_weed/summer/shadow/sprite_4.png"),
+			preload("res://assets/resources/world/long_weed/summer/shadow/sprite_5.png"),
+			preload("res://assets/resources/world/long_weed/summer/shadow/sprite_6.png"),
+			preload("res://assets/resources/world/long_weed/summer/shadow/sprite_7.png"),
+		]
+	},
 	NatureType.STONE:
 	[
 		preload("res://assets/resources/world/stones/shadows/shadow_1.png"),
@@ -195,11 +232,21 @@ const SHADOWS: Dictionary = {
 	]
 }
 
+const NATURES_NODE: Dictionary = {
+	NatureType.TREE: {"id": 1, "value": [0, 10], "sample": "farming/tree_destroy"},
+	NatureType.BUSH: {"sample": "farming/weed_destroy"},
+	NatureType.WEED: {"sample": "farming/weed_destroy"},
+	NatureType.LONG_WEED: {"sample": "farming/weed_destroy"},
+	NatureType.STONE: {"id": 3, "value": [2, 6], "sample": "farming/stone_destroy"},
+	NatureType.BOULDERS: {"id": 3, "value": [10, 30], "sample": "farming/stone_destroy"},
+}
+
 const NOISE_COEFFICIENT: Array[float] = [0.03, 0.04, 0.07, 0.005]
 const SHADER_SOURCE: Shader = preload("res://assets/shaders/wind.gdshader")
 const MAX_TREE: int = 1200
 const MAX_BUSH: int = 100
 const MAX_WEED: int = 1000
+const MAX_LONG_WEED: int = 200
 const MAX_STONE: int = 600
 const MAX_BOULDERS: int = 150
 
@@ -226,6 +273,7 @@ func spawn() -> void:
 
 	_create_tree()
 	_create_weed()
+	_create_long_weed()
 	_create_stone()
 	_create_boulders()
 
@@ -284,6 +332,7 @@ func add_nature_node(
 					tilemap.get_cell_source_id(tilemap.Layers.ROAD, i) != -1
 					|| tilemap.get_cell_source_id(tilemap.Layers.NATURE, i) != -1
 					|| tilemap.get_cell_source_id(tilemap.Layers.BUILDING, i) != -1
+					|| tilemap.get_cell_source_id(tilemap.Layers.STATIC_NODES, i) != -1
 				):
 					return null
 
@@ -348,23 +397,14 @@ func add_nature_node(
 				&& build.buildings[build.GRID.get_state().get_node_name(0)].mode == BuildManager.GridModes.DESTROY
 			):
 				if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
-					match type:
-						NatureType.TREE:
-							Inventory.add_item(1, randi_range(1, 5))
-							SoundManager.play_sound("farming/tree_destroy")
+					if NATURES_NODE.has(type):
+						var id: int = NATURES_NODE[type]["id"] if NATURES_NODE[type].has("id") else -1
+						var value: Array = NATURES_NODE[type]["value"] if NATURES_NODE[type].has("value") else []
+						var sample: String = NATURES_NODE[type]["sample"] if NATURES_NODE[type].has("sample") else ""
 
-						NatureType.BUSH:
-							SoundManager.play_sound("farming/weed_destroy")
-						NatureType.WEED:
-							SoundManager.play_sound("farming/weed_destroy")
-
-						NatureType.STONE:
-							Inventory.add_item(3, randi_range(1, 5))
-							SoundManager.play_sound("farming/stone_destroy")
-
-						NatureType.BOULDERS:
-							Inventory.add_item(3, randi_range(10, 20))
-							SoundManager.play_sound("farming/stone_destroy")
+						if Items.items.has(id) && !value.is_empty():
+							Inventory.add_item(id, randi_range(value[0], value[1]))
+						SoundManager.play_sound(sample)
 
 					for i in node_cells:
 						tilemap.erase_cell(tilemap.Layers.NATURE, i)
@@ -419,6 +459,31 @@ func _create_weed() -> void:
 	while it < MAX_WEED:
 		position_id = randi() % self.tiles.size()
 		self.add_child(add_nature_node(NatureType.WEED, Vector2i(1, 1), self.tiles[position_id]))
+
+		self.tiles.erase(tiles[position_id])
+		it += 1
+
+
+func _create_long_weed() -> void:
+	if MAX_LONG_WEED < 1:
+		return
+
+	var it: int = 0
+	var position_id: int = -1
+	while it < MAX_LONG_WEED:
+		position_id = randi() % self.tiles.size()
+
+		self.add_child(
+			add_nature_node(
+				NatureType.LONG_WEED,
+				Vector2i(1, 1),
+				self.tiles[position_id],
+				Vector2i(0, -8),
+				Vector2i(16, 16),
+				Vector2i(0, 8)
+			)
+		)
+
 		self.tiles.erase(tiles[position_id])
 		it += 1
 
@@ -465,6 +530,7 @@ func _get_free_tiles() -> Array[Vector2i]:
 	occupieds.append_array(tilemap.get_used_cells(tilemap.Layers.BUILDING))
 	occupieds.append_array(tilemap.get_used_cells(tilemap.Layers.COAST))
 	occupieds.append_array(tilemap.get_used_cells(tilemap.Layers.FARMLAND))
+	occupieds.append_array(tilemap.get_used_cells(tilemap.Layers.STATIC_NODES))
 
 	for vector in occupieds:
 		map.erase(vector)
