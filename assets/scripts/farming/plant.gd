@@ -13,7 +13,6 @@ var growed: bool = false
 
 func _ready() -> void:
 	if collision:
-		collision.input_pickable = true
 		collision.mouse_entered.connect(
 			func() -> void:
 				if sprite.material:
@@ -23,12 +22,25 @@ func _ready() -> void:
 						build
 						&& build.buildings.has("Grid")
 						&& growed
+						&& build.buildings["Grid"] is Node2D
 						&& build.buildings["Grid"].mode == BuildManager.GridModes.HARVESTING
 					):
 						sprite.material.set_shader_parameter("success", true)
+						sprite.material.set_shader_parameter("destroy", false)
 						sprite.material.set_shader_parameter("highligth", true)
 
-					if !(build && build.buildings.has("Grid")):
+					if (
+						build
+						&& build.buildings.has("Grid")
+						&& build.buildings["Grid"] is Node2D
+						&& build.buildings["Grid"].mode == BuildManager.GridModes.DESTROY
+					):
+						sprite.material.set_shader_parameter("success", false)
+						sprite.material.set_shader_parameter("destroy", true)
+						sprite.material.set_shader_parameter("highligth", true)
+						return
+
+					if !(build && build.buildings.has("Grid") && build.buildings["Grid"] is Node2D):
 						sprite.material.set_shader_parameter("success", false)
 						sprite.material.set_shader_parameter("destroy", false)
 						sprite.material.set_shader_parameter("highligth", true)

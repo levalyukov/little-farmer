@@ -1,7 +1,7 @@
 extends Node
 
 
-func add_item(id: int, amount: int) -> void:
+func add_item(id: int, amount: int = 1) -> void:
 	if !Items.items.has(id):
 		printerr("Invalid item id")
 		return
@@ -16,7 +16,11 @@ func add_item(id: int, amount: int) -> void:
 		PlayerControl.inventory.merge({id: {"amount": amount}})
 
 
-func subject_item(id: int, amount: int) -> void:
+func get_item_amount(id: int) -> int:
+	return PlayerControl.inventory[id]["amount"] if PlayerControl.inventory.has(id) else 0
+
+
+func subject_item(id: int, amount: int = 1) -> void:
 	if !Items.items.has(id):
 		printerr("Invalid item id")
 		return

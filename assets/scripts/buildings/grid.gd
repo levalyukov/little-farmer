@@ -176,14 +176,15 @@ func _action() -> void:
 			for grid in self.get_children():
 				if grid.texture != GRID_ERROR:
 					var crop: Node2D = farm.add_plant(plant, tilemap.local_to_map(grid.global_position))
-					if crop:
+					var packet_amount: int = Inventory.get_item_amount(plant["inventory_item"])
+					if crop && packet_amount > 0:
 						tilemap.set_cell(
 							tilemap.Layers.CROPS,
 							tilemap.local_to_map(grid.global_position),
 							tilemap.SourcesAtlas.GROUND,
 							tilemap.NODE_COLLISION
 						)
-
+						Inventory.subject_item(plant["inventory_item"])
 						SoundManager.play_sound("farming/planting")
 
 		BuildManager.GridModes.TERRAIN:
@@ -207,6 +208,11 @@ func _collision_check() -> void:
 				):
 					grid.texture = GRID_NORMAL
 					self.layer_id = tilemap.Layers.BUILDING
+					return
+
+				if tilemap.get_cell_source_id(tilemap.Layers.CROPS, tilemap.local_to_map(grid.global_position)) != -1:
+					grid.texture = GRID_NORMAL
+					self.layer_id = tilemap.Layers.CROPS
 					return
 
 				if (
