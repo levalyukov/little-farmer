@@ -34,6 +34,7 @@ Letters="*res://assets/scripts/containers/letters.gd"
 Blueprints="*res://assets/scripts/containers/blueprints.gd"
 Items="*res://assets/scripts/containers/items.gd"
 Inventory="*res://assets/scripts/managers/inventory.gd"
+Crops="*res://assets/scripts/containers/crops.gd"
 
 [debug]
 
