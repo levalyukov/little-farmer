@@ -812,3 +812,29 @@ var content: Dictionary = {
 		"icon": preload("res://assets/resources/ui/interactive/inventory/items/own_production/brown_chicken_egg.png"),
 	},
 }
+
+enum ItemsType { NONE, MATERIALS, ORES, SEEDS, CROPS, FUEL, FEED }
+
+
+func _ready() -> void:
+	items.make_read_only()
+
+
+func get_item(id: int) -> Dictionary:
+	return items[id] if items.has(id) else {}
+
+
+func get_item_type(id: int) -> String:
+	var type: String = ""
+
+	match id:
+		ItemsType.MATERIALS:
+			type = tr("items.type.materials")
+		ItemsType.ORES:
+			type = tr("items.type.ores")
+		ItemsType.SEEDS:
+			type = tr("items.type.seeds")
+		ItemsType.CROPS:
+			type = tr("items.type.coops")
+
+	return type
