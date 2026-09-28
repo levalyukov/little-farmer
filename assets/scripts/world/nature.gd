@@ -233,7 +233,7 @@ const SHADOWS: Dictionary = {
 }
 
 const NATURES_NODE: Dictionary = {
-	NatureType.TREE: {"id": 1, "value": [0, 10], "sample": "farming/tree_destroy"},
+	NatureType.TREE: {"id": 1, "value": [1, 10], "sample": "farming/tree_destroy"},
 	NatureType.BUSH: {"sample": "farming/weed_destroy"},
 	NatureType.WEED: {"sample": "farming/weed_destroy"},
 	NatureType.LONG_WEED: {"sample": "farming/weed_destroy"},
@@ -286,20 +286,20 @@ func add_nature_node(
 	collision_size: Vector2i = Vector2i(0, 0),
 	collision_pos: Vector2i = Vector2i(0, 0)
 ) -> Node2D:
-	# ------------------------------------------------------
-	# Тут нужно пояснение: здесь проверка на соостветствие
-	# размеров массивов для корректной выборки спрайта тени.
-	#
-	# Из-за того что спрайты могут храниться в словарях и в
-	# обычном массиве, из-за того что система смены сезонов,
-	# принято решение сделать такой способ проверки на размер.
-	#
-	# Уродливое решение? Да, но я ничего лучшего не придумал,
-	# зато работает, но позже нужно это переделать...
-	#
-	# P.S. №1 Эта проверка чисто защита от дураков и от меня,
-	# ибо работает даже без этой проверки, но я параноик.
-	# ------------------------------------------------------
+	#* ------------------------------------------------------
+	# * Тут нужно пояснение: здесь проверка на соостветствие
+	# * размеров массивов для корректной выборки спрайта тени.
+	# *
+	# * Из-за того что спрайты могут храниться в словарях и в
+	# * обычном массиве, из-за того что система смены сезонов,
+	# * принято решение сделать такой способ проверки на размер.
+	# *
+	# * Уродливое решение? Да, но я ничего лучшего не придумал,
+	# * зато работает, но позже нужно это переделать...
+	# *
+	# * P.S. №1 Эта проверка чисто защита от дураков и от меня,
+	# * ибо работает даже без этой проверки, но я параноик.
+	#* ------------------------------------------------------
 
 	if TEXTURES[type] is Dictionary && SHADOWS[type] is Dictionary:
 		if !(TEXTURES[type][cycle.season_id].size() == SHADOWS[type][cycle.season_id].size()):
@@ -418,7 +418,6 @@ func add_nature_node(
 	parent.set_meta("type", type)
 	parent.set_meta("shadow", shadow_node)
 	parent.set_meta("relative_cells", node_cells)
-	parent.z_index = tilemap.Layers.NATURE
 	parent.set_position(tilemap.map_to_local(pos))
 	parent.add_child(sprite)
 	parent.add_child(area)
@@ -459,7 +458,6 @@ func _create_weed() -> void:
 	while it < MAX_WEED:
 		position_id = randi() % self.tiles.size()
 		self.add_child(add_nature_node(NatureType.WEED, Vector2i(1, 1), self.tiles[position_id]))
-
 		self.tiles.erase(tiles[position_id])
 		it += 1
 
