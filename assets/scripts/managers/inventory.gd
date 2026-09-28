@@ -28,7 +28,7 @@ func subject_item(id: int, amount: int = 1) -> void:
 	if (
 		PlayerControl.inventory.has(id)
 		&& PlayerControl.inventory[id]["amount"] is int
-		&& PlayerControl.inventory[id]["amount"] > 0
+		&& PlayerControl.inventory[id]["amount"] - amount > 0
 	):
 		PlayerControl.inventory[id]["amount"] -= amount
 	else:
