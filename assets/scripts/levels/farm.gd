@@ -6,6 +6,7 @@ extends Node2D
 @export var build: BuildManager
 @export var nature: NatureManager
 @export var shadow: ShadowManager
+@export var prefabs: PrefabContainer
 
 
 func _input(event: InputEvent) -> void:
