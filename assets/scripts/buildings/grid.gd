@@ -4,6 +4,7 @@ extends Node2D
 @onready var build: BuildManager = get_tree().current_scene.build
 @onready var nature: NatureManager = get_tree().current_scene.nature
 @onready var tilemap: TileMap = get_tree().current_scene.tilemap
+@onready var prefabs: PrefabContainer = get_tree().current_scene.prefabs
 
 const GRID_NORMAL: CompressedTexture2D = preload("res://assets/resources/ui/interactive/hud/grid/default.png")
 const GRID_ERROR: CompressedTexture2D = preload("res://assets/resources/ui/interactive/hud/grid/error.png")
@@ -21,11 +22,14 @@ var layer_id: int = 0
 # * {
 # * 	"node": node,
 # * 	"shadow": shadow
+# * 	"dust": ...
 # * }
 # *
 # * Где:
-# * node 	- PackedScene
-# * shadow 	- CompressedTexture2D
+# * node 	- PackedScene;
+# * shadow 	- CompressedTexture2D;
+# * dust 	- создавать префаб пыли при
+# * добавлении узла на сцену или нет.
 #* -------------------------------
 var node: Dictionary = {}
 var plant: Dictionary = {}
@@ -33,22 +37,34 @@ var terrain: Array[int] = []
 
 
 func _ready() -> void:
-	if !is_instance_valid(build) || !is_instance_valid(tilemap) || !is_instance_valid(nature):
-		printerr("BuildManager or TileMap or Nature is NULL: ", "\n\t", build, "\n\t", tilemap, "\n\t", nature)
-		self.set_process(false)
+	if (
+		!is_instance_valid(build)
+		|| !is_instance_valid(tilemap)
+		|| !is_instance_valid(nature)
+		|| !is_instance_valid(prefabs)
+	):
+		printerr(
+			"BuildManager or TileMap or Nature or PrefabsContainer is NULL: ",
+			"\n\t",
+			build,
+			"\n\t",
+			tilemap,
+			"\n\t",
+			nature,
+			"\n\t",
+			prefabs
+		)
 		return
 
 	update_grid()
 
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton && event.pressed && event.button_index == MOUSE_BUTTON_LEFT:
-		_action()
-
-
-func _process(_delta: float) -> void:
-	_movement()
-	_collision_check()
+	if event is InputEventMouse:
+		_movement()
+		_collision_check()
+		if event is InputEventMouseButton && event.pressed && event.button_index == MOUSE_BUTTON_LEFT:
+			_action()
 
 
 func _movement() -> void:
@@ -119,6 +135,10 @@ func _action() -> void:
 
 			if !grid_positions.is_empty():
 				tilemap.set_cells_terrain_connect(tilemap.Layers.WATERING, grid_positions, 0, tilemap.Terrains.WATERING)
+
+				for i in grid_positions:
+					prefabs.add_prefab(PrefabContainer.PrefabType.WATERING, tilemap.map_to_local(i))
+
 				SoundManager.play_sound("farming/watering")
 
 		BuildManager.GridModes.HARVESTING:
@@ -157,33 +177,46 @@ func _action() -> void:
 					printerr("Node for build is NULL.")
 					return
 
-				if build.add_build(
+				var build_node: Node2D = build.add_build(
 					self.node["node"].instantiate(),
 					self.node["shadow"],
 					tilemap.local_to_map(self.global_position),
 					grid_positions
-				):
+				)
+
+				if build_node:
 					for vector in grid_positions:
 						tilemap.set_cell(
 							tilemap.Layers.BUILDING, vector, tilemap.SourcesAtlas.GROUND, tilemap.NODE_COLLISION
 						)
+
+					if self.node.has("dust") && self.node["dust"]:
+						var sprite: Node = build_node.get_node("Sprite2D")
+						if sprite && sprite is Sprite2D:
+							prefabs.add_prefab(
+								PrefabContainer.PrefabType.DUST,
+								self.global_position + sprite.position,
+								Vector2i(sprite.texture.get_width(), sprite.texture.get_height())
+							)
+
+					SoundManager.play_sound("building/build")
 				else:
 					printerr("Node is NULL.")
-
-				SoundManager.play_sound("building/build")
 
 		BuildManager.GridModes.PLANT:
 			for grid in self.get_children():
 				if grid.texture != GRID_ERROR:
-					var crop: Node2D = farm.add_plant(plant, tilemap.local_to_map(grid.global_position))
-					var packet_amount: int = Inventory.get_item_amount(plant["inventory_item"])
-					if crop && packet_amount > 0:
+					if (
+						farm.add_plant(plant, tilemap.local_to_map(grid.global_position))
+						&& Inventory.get_item_amount(plant["inventory_item"]) > 0
+					):
 						tilemap.set_cell(
 							tilemap.Layers.CROPS,
 							tilemap.local_to_map(grid.global_position),
 							tilemap.SourcesAtlas.GROUND,
 							tilemap.NODE_COLLISION
 						)
+
 						Inventory.subject_item(plant["inventory_item"])
 						SoundManager.play_sound("farming/planting")
 
@@ -317,4 +350,7 @@ func _collision_check() -> void:
 						== -1
 					)
 				):
-					grid.texture = GRID_NORMAL
+					if Inventory.get_item_amount(plant["inventory_item"]) > 0:
+						grid.texture = GRID_NORMAL
+					else:
+						build.grid_remove()
