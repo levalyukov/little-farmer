@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjyudxnlmpwap"]
+
+[ext_resource type="Script" path="res://assets/scripts/prefabs/prefab.gd" id="1_6rlmk"]
+[ext_resource type="Texture2D" uid="uid://togtn5jvf2gr" path="res://assets/resources/world/dust.png" id="2_y1ywg"]
+
+[node name="Dust" type="Node2D"]
+z_index = 2
+y_sort_enabled = true
+script = ExtResource("1_6rlmk")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+y_sort_enabled = true
+emitting = false
+amount = 48
+lifetime = 5.0
+one_shot = true
+explosiveness = 1.0
+randomness = 0.76
+lifetime_randomness = 0.25
+texture = ExtResource("2_y1ywg")
+emission_shape = 3
+emission_rect_extents = Vector2(16, 8)
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(-0.5, -2)
+initial_velocity_max = 7.58
+angular_velocity_min = -65.46
+angular_velocity_max = 87.27
+scale_amount_min = 0.25
+scale_amount_max = 1.25
+color = Color(0.831402, 0.61136, 0.408515, 0.392157)
+hue_variation_min = -0.45
+hue_variation_max = 0.42
