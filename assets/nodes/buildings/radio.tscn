@@ -1,17 +1,25 @@
-[gd_scene load_steps=6 format=3 uid="uid://drwgxtbhd00mq"]
+[gd_scene load_steps=8 format=3 uid="uid://drwgxtbhd00mq"]
 
-[ext_resource type="Texture2D" uid="uid://c5a28id172ffr" path="res://assets/resources/buildings/radio/obj_0.png" id="1_8gu6o"]
-[ext_resource type="Script" path="res://assets/scripts/construction/buildings/radio.gd" id="1_kdrd7"]
+[ext_resource type="Texture2D" uid="uid://c5a28id172ffr" path="res://assets/resources/buildings/radio/sprite.png" id="1_8gu6o"]
+[ext_resource type="Script" path="res://assets/scripts/buildings/radio.gd" id="1_833ap"]
+[ext_resource type="Shader" path="res://assets/shaders/highlight.gdshader" id="2_wx8kl"]
 [ext_resource type="Texture2D" uid="uid://o5f804uorqu8" path="res://assets/resources/buildings/radio/note.png" id="3_r3vyp"]
 [ext_resource type="AudioStream" uid="uid://cy2s0ijc2supg" path="res://assets/sounds/ui/radio.ogg" id="4_rmosd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_64r45"]
+shader = ExtResource("2_wx8kl")
+shader_parameter/highligth = false
+shader_parameter/destroy = false
+shader_parameter/success = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pgwjt"]
 size = Vector2(16, 16)
 
-[node name="radio" type="Node2D"]
-script = ExtResource("1_kdrd7")
+[node name="Radio" type="Node2D"]
+script = ExtResource("1_833ap")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_64r45")
 texture = ExtResource("1_8gu6o")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
@@ -25,20 +33,16 @@ spread = 179.3
 gravity = Vector2(0.25, -50)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-volume_db = -2.75
-MAX_DISTANCE = 1000.0
+volume_db = -15.0
+autoplay = true
 bus = &"Radio"
 
 [node name="RadioNoise" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_rmosd")
-volume_db = -2.5
-MAX_DISTANCE = 64.0
+volume_db = 1.0
+bus = &"Radio"
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_pgwjt")
-
-[connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]
-[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
-[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
