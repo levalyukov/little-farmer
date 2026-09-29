@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://k16hio8c5bl8"]
+
+[ext_resource type="Script" path="res://assets/scripts/prefabs/prefab.gd" id="1_k2a4w"]
+
+[node name="Watering" type="Node2D"]
+script = ExtResource("1_k2a4w")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(1, -8)
+emitting = false
+amount = 64
+lifetime = 0.22
+one_shot = true
+emission_shape = 3
+emission_rect_extents = Vector2(8, 6)
+gravity = Vector2(0, 400)
+color = Color(9.04858e-06, 0.552492, 0.92317, 0.490196)
