@@ -7,16 +7,15 @@
 shader = ExtResource("1_7c5dj")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hix8k"]
-size = Vector2(16, 15.5)
+size = Vector2(16, 16)
 
 [node name="Player" type="CharacterBody2D"]
 material = SubResource("ShaderMaterial_pktnx")
-position = Vector2(494, 255)
 motion_mode = 1
 script = ExtResource("1_6ghsa")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2, 1)
+z_index = 3
 shape = SubResource("RectangleShape2D_hix8k")
 
 [node name="Camera2D" type="Camera2D" parent="."]
