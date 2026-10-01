@@ -3,7 +3,7 @@ extends Control
 @onready var build: BuildManager = get_tree().current_scene.build
 
 @onready var anim: AnimationPlayer = $Animation
-@onready var close: Button = $Window/Close
+@onready var exit: Button = $Window/Close
 
 @onready var container: GridContainer = $Window/HBoxContainer/InventoryContent/Panel/Margin/Scroll/Margin/GridContainer
 @onready var icon: TextureRect = $Window/HBoxContainer/ItemContent/ScrollContainer/VBox/ItemIconContainer/Icon
@@ -16,13 +16,13 @@ extends Control
 const INVENTORY_SLOT_SIZE: Vector2i = Vector2i(64, 64)
 
 var selected_item_id: int = 0
-var selected_item_type: Items.ItemsType = Items.ItemsType.NONE
+var selected_item_type: Array = []
 
 
 func _ready() -> void:
-	close.pressed.connect(_close)
-	close.pressed.connect(UIManager.button_pressed)
-	close.mouse_entered.connect(UIManager.button_hovered)
+	exit.pressed.connect(close)
+	exit.pressed.connect(UIManager.button_pressed)
+	exit.mouse_entered.connect(UIManager.button_hovered)
 
 	apply.pressed.connect(UIManager.button_pressed)
 	apply.mouse_entered.connect(UIManager.button_hovered)
@@ -88,7 +88,7 @@ func _item_slot_create(item_id: int, item_value: int) -> Control:
 			icon.texture = data["icon"]
 			title.text = data["title"]
 			content.text = data["description"]
-			type.text = Items.get_item_type(data["type"])
+			type.text = ", ".join(Items.get_item_type(data["type"]))
 
 			self.selected_item_id = item_id
 			self.selected_item_type = data["type"]
@@ -117,7 +117,7 @@ func _refresh_action_button(data: Dictionary) -> void:
 	# * разные данные и способы работы...	  * #
 	#* --------------------------------------- *#
 
-	if self.selected_item_id == 0 || self.selected_item_type == Items.ItemsType.NONE:
+	if self.selected_item_id == 0 || self.selected_item_type.is_empty():
 		return
 
 	apply.visible = true
@@ -137,17 +137,19 @@ func _action_button(data: Dictionary) -> void:
 	if !data.has("type"):
 		return
 
-	match data["type"]:
-		Items.ItemsType.SEEDS:
-			if is_instance_valid(build):
-				var grid: Node2D = build.grid_add(BuildManager.GridModes.PLANT)
-				if grid != null:
-					grid.plant = Crops.get_crop(data["data"]["plant_id"])
+	# match data["type"]:
+	# 	Items.ItemsType.SEEDS:
+	# 		if is_instance_valid(build):
+	# 			var grid: Node2D = build.grid_add(BuildManager.GridModes.PLANT)
+	# 			if grid != null:
+	# 				var plant_data: Dictionary = Crops.get_crop(data["data"]["plant_id"])
+	# 				plant_data["inventory_item"] = self.selected_item_id
+	# 				grid.plant = plant_data
 
-				self._close(true)
+	# 			self.close(true)
 
 
-func _close(without_hud: bool = false) -> void:
+func close(without_hud: bool = false) -> void:
 	if !without_hud:
 		UIManager.add_ui(UIManager.MENUS.HUD)
 
