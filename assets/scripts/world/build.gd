@@ -2,8 +2,9 @@ class_name BuildManager extends Node
 
 @onready var tilemap: TileMap = get_tree().current_scene.tilemap
 @onready var shadow: ShadowManager = get_tree().current_scene.shadow
+@onready var prefabs: PrefabContainer = get_tree().current_scene.prefabs
 
-enum GridModes { DESTROY, FARMING, FERTILIZER, WATERING, HARVESTING, BUILD, TERRAIN }
+enum GridModes { DESTROY, FARMING, FERTILIZER, WATERING, HARVESTING, BUILD, PLANT, TERRAIN }
 
 const MAX_DISTANCE: int = 250
 const MAX_GRID_SIZE: Vector2i = Vector2i(16, 16)
@@ -64,13 +65,7 @@ func _input(event: InputEvent) -> void:
 		|| ((event.is_action_pressed("esc")) && (buildings.has(GRID.get_state().get_node_name(0))))
 	):
 		if buildings.has(GRID.get_state().get_node_name(0)):
-			var grid: Node2D = buildings[GRID.get_state().get_node_name(0)]
-			if grid:
-				self.remove_child(grid)
-				grid.queue_free()
-				buildings.erase(GRID.get_state().get_node_name(0))
-				UIManager.add_ui(UIManager.MENUS.HUD)
-				set_process_input(false)
+			grid_remove()
 
 
 func grid_add(mode: BuildManager.GridModes, size: Vector2i = Vector2i(1, 1)) -> Node2D:
@@ -92,9 +87,22 @@ func grid_add(mode: BuildManager.GridModes, size: Vector2i = Vector2i(1, 1)) -> 
 	return grid
 
 
-func build_add(node: Node2D, shadow_texture: CompressedTexture2D, position: Vector2i) -> Node2D:
-	var building: Node2D = null
+func grid_remove() -> void:
+	var grid: Node2D = (
+		buildings[GRID.get_state().get_node_name(0)] if buildings.has(GRID.get_state().get_node_name(0)) else null
+	)
 
+	if !grid:
+		return
+
+	self.remove_child(grid)
+	grid.queue_free()
+	buildings.erase(GRID.get_state().get_node_name(0))
+	UIManager.add_ui(UIManager.MENUS.HUD)
+	set_process_input(false)
+
+
+func add_build(node: Node2D, shadow_texture: CompressedTexture2D, position: Vector2i, cells: Array[Vector2i]) -> Node2D:
 	if !is_instance_valid(tilemap):
 		printerr("TileMap is NULL.")
 		return
@@ -105,7 +113,37 @@ func build_add(node: Node2D, shadow_texture: CompressedTexture2D, position: Vect
 
 	node.set_position(tilemap.map_to_local(position))
 
-	building = node
+	var sprite: Node = node.get_node("Sprite2D")
+	var shadow_node: Node2D
+	if sprite && sprite is Sprite2D:
+		shadow_node = self.shadow.add_shadow(shadow_texture, node.position + sprite.position)
+
+	node.set_meta("cells", cells)
+	node.set_meta("shadow", shadow_node)
+	var collision: Node = node.get_node("Area2D")
+	if collision && collision is Area2D:
+		collision.input_pickable = true
+		collision.input_event.connect(
+			func(_viewport: Node, event: InputEvent, _index: int) -> void:
+				var grid: Node2D = self.buildings["Grid"] if self.buildings.has("Grid") else null
+				if (
+					(event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed)
+					&& (grid && grid.mode == BuildManager.GridModes.DESTROY)
+				):
+					if sprite && sprite is Sprite2D:
+						prefabs.add_prefab(
+							PrefabContainer.PrefabType.DUST,
+							node.global_position + sprite.position,
+							Vector2i(sprite.texture.get_width(), sprite.texture.get_height())
+						)
+
+					remove_build(node)
+		)
+
+	#* Сначала добавляем, ибо индекс
+	#* автоинкрементируемый, только
+	#* потом записываем в словарь.
+	self.add_child(node, true)
 	buildings[node.name] = node
 
 	return node
