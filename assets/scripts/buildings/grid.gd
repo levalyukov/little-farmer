@@ -177,6 +177,50 @@ func _action() -> void:
 					printerr("Node for build is NULL.")
 					return
 
+				if (
+					self.node.has("resources")
+					&& self.node["resources"] is Dictionary
+					&& !self.node["resources"].is_empty()
+				):
+					var access_flag: bool = true  # * Флаг, который разрешает создать объект
+					var required_resources: Dictionary = {  # * Базовая структура
+					# 0:
+					# {
+					#	"amount": 100
+					# }
+					}
+
+					for id in self.node["resources"]:
+						var resources_amount: int = self.node["resources"][int(id)]["amount"]
+						if Inventory.get_item_amount(int(id)) < resources_amount:
+							access_flag = false
+							required_resources.clear()
+							break
+						else:
+							required_resources[int(id)] = {}
+							required_resources[int(id)]["amount"] = resources_amount
+
+					if access_flag:
+						if required_resources.is_empty():
+							return
+
+						for i in required_resources:
+							Inventory.subject_item(int(i), required_resources[i]["amount"])
+
+						# * Самая простая проверка: если
+						# * хватит предметов на следующую
+						# * постройку, то оставляем сетку,
+						# * иначе - удаляем.
+						for j in required_resources:
+							var inventory_amount: int = Inventory.get_item_amount(int(j))
+							var resources_amount: int = self.node["resources"][int(j)]["amount"]
+							if inventory_amount < resources_amount:
+								build.grid_remove()
+
+					else:
+						build.grid_remove()
+						return
+
 				var build_node: Node2D = build.add_build(
 					self.node["node"].instantiate(),
 					self.node["shadow"],
@@ -190,7 +234,7 @@ func _action() -> void:
 							tilemap.Layers.BUILDING, vector, tilemap.SourcesAtlas.GROUND, tilemap.NODE_COLLISION
 						)
 
-					if self.node.has("dust") && self.node["dust"]:
+					if self.node.has("dust") && self.node["dust"] is bool:
 						var sprite: Node = build_node.get_node("Sprite2D")
 						if sprite && sprite is Sprite2D:
 							prefabs.add_prefab(

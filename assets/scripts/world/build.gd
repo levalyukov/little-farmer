@@ -104,13 +104,23 @@ func build_add(node: Node2D, shadow_texture: CompressedTexture2D, position: Vect
 		return
 
 	node.set_position(tilemap.map_to_local(position))
-	self.add_child(node, true)
 
 	building = node
 	buildings[node.name] = node
 
-	var sprite: Node = building.get_node("Sprite2D")
-	if sprite && sprite is Sprite2D:
-		self.shadow.add_shadow(shadow_texture, building.position + sprite.position)
+	return node
 
-	return building
+
+func remove_build(node: Node2D) -> void:
+	var node_shadow: Node2D = node.get_meta("shadow")
+	var node_cells: Array[Vector2i] = node.get_meta("cells")
+
+	if !node_cells.is_empty():
+		for i in node_cells:
+			tilemap.erase_cell(tilemap.Layers.BUILDING, i)
+
+	if node_shadow:
+		node_shadow.queue_free()
+
+	SoundManager.play_sound("building/destroy")
+	node.queue_free()
