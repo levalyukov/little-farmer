@@ -102,7 +102,9 @@ func grid_remove() -> void:
 	set_process_input(false)
 
 
-func add_build(node: Node2D, shadow_texture: CompressedTexture2D, position: Vector2i, cells: Array[Vector2i]) -> Node2D:
+func add_build(
+	node: Node2D, shadow_texture: CompressedTexture2D, position: Vector2i, cells: Array[Vector2i], resources: Dictionary
+) -> Node2D:
 	if !is_instance_valid(tilemap):
 		printerr("TileMap is NULL.")
 		return
@@ -112,7 +114,6 @@ func add_build(node: Node2D, shadow_texture: CompressedTexture2D, position: Vect
 		return
 
 	node.set_position(tilemap.map_to_local(position))
-
 	var sprite: Node = node.get_node("Sprite2D")
 	var shadow_node: Node2D
 	if sprite && sprite is Sprite2D:
@@ -136,6 +137,10 @@ func add_build(node: Node2D, shadow_texture: CompressedTexture2D, position: Vect
 							node.global_position + sprite.position,
 							Vector2i(sprite.texture.get_width(), sprite.texture.get_height())
 						)
+
+					if !resources.is_empty():
+						for i in resources:
+							Inventory.add_item(int(i), round(resources[i]["amount"] * (Blueprints.ITEM_RETURNED / 100)))
 
 					remove_build(node)
 		)

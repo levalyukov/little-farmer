@@ -183,12 +183,7 @@ func _action() -> void:
 					&& !self.node["resources"].is_empty()
 				):
 					var access_flag: bool = true  # * Флаг, который разрешает создать объект
-					var required_resources: Dictionary = {  # * Базовая структура
-					# 0:
-					# {
-					#	"amount": 100
-					# }
-					}
+					var required_resources: Dictionary = {}
 
 					for id in self.node["resources"]:
 						var resources_amount: int = self.node["resources"][int(id)]["amount"]
@@ -225,7 +220,8 @@ func _action() -> void:
 					self.node["node"].instantiate(),
 					self.node["shadow"],
 					tilemap.local_to_map(self.global_position),
-					grid_positions
+					grid_positions,
+					self.node["resources"]
 				)
 
 				if build_node:
