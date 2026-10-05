@@ -6,10 +6,10 @@ extends Node2D
 @onready var sprite: Sprite2D = $Sprite2D
 
 const TEXTURES: Dictionary = {
-	0: preload("res://assets/resources/buildings/storage/spring/sprite.png"),
-	1: preload("res://assets/resources/buildings/storage/summer/sprite.png"),
-	2: preload("res://assets/resources/buildings/storage/autumn/sprite.png"),
-	3: preload("res://assets/resources/buildings/storage/winter/sprite.png")
+	WorldCycle.Season.SPRING: preload("res://assets/resources/buildings/storage/spring/sprite.png"),
+	WorldCycle.Season.SUMMER: preload("res://assets/resources/buildings/storage/summer/sprite.png"),
+	WorldCycle.Season.AUTUMN: preload("res://assets/resources/buildings/storage/autumn/sprite.png"),
+	WorldCycle.Season.WINTER: preload("res://assets/resources/buildings/storage/winter/sprite.png")
 }
 
 
