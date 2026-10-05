@@ -5,8 +5,8 @@ class_name NatureManager extends Node2D
 @onready var tilemap: TileMap = get_tree().current_scene.tilemap
 @onready var shadow: ShadowManager = get_tree().current_scene.shadow
 
-enum NatureType { TREE, BUSH, WEED, LONG_WEED, STONE, BOULDERS }
-
+enum NatureType { TREE, BUSH, WEED, LONG_WEED, STONE, BOULDERS, STUMP }
+const SHADER_DISABLE: Array[NatureType] = [NatureType.STONE, NatureType.BOULDERS, NatureType.STUMP]
 const TEXTURES: Dictionary = {
 	NatureType.TREE:
 	{
@@ -98,10 +98,11 @@ const TEXTURES: Dictionary = {
 		]
 	},
 	NatureType.LONG_WEED:
-	# WorldCycle.Season.SPRING:
-	# [
-	# ]
 	{
+		# WorldCycle.Season.SPRING:
+		# [
+		# ],
+		
 		WorldCycle.Season.SUMMER:
 		[
 			preload("res://assets/resources/world/long_weed/summer/sprite_0.png"),
@@ -112,10 +113,12 @@ const TEXTURES: Dictionary = {
 			preload("res://assets/resources/world/long_weed/summer/sprite_5.png"),
 			preload("res://assets/resources/world/long_weed/summer/sprite_6.png"),
 			preload("res://assets/resources/world/long_weed/summer/sprite_7.png"),
-		]
+		],
+
 		# WorldCycle.Season.AUTUMN:
 		# [
-		# ]
+		# ],
+
 		# WorldCycle.Season.WINTER:
 		# [
 		# ]
@@ -137,6 +140,15 @@ const TEXTURES: Dictionary = {
 		preload("res://assets/resources/world/boulders/big_stone_2.png"),
 		preload("res://assets/resources/world/boulders/big_stone_3.png"),
 		preload("res://assets/resources/world/boulders/big_stone_4.png")
+	],
+	NatureType.STUMP:
+	[
+		preload("res://assets/resources/world/stumps/stump_0.png"),
+		preload("res://assets/resources/world/stumps/stump_1.png"),
+		preload("res://assets/resources/world/stumps/stump_2.png"),
+		preload("res://assets/resources/world/stumps/stump_3.png"),
+		preload("res://assets/resources/world/stumps/stump_4.png"),
+		preload("res://assets/resources/world/stumps/stump_5.png")
 	]
 }
 
@@ -229,26 +241,105 @@ const SHADOWS: Dictionary = {
 		preload("res://assets/resources/world/boulders/big_stone_shadow_2.png"),
 		preload("res://assets/resources/world/boulders/big_stone_shadow_3.png"),
 		preload("res://assets/resources/world/boulders/big_stone_shadow_4.png")
+	],
+	NatureType.STUMP:
+	[
+		preload("res://assets/resources/world/stumps/shadow_0.png"),
+		preload("res://assets/resources/world/stumps/shadow_1.png"),
+		preload("res://assets/resources/world/stumps/shadow_2.png"),
+		preload("res://assets/resources/world/stumps/shadow_3.png"),
+		preload("res://assets/resources/world/stumps/shadow_4.png"),
+		preload("res://assets/resources/world/stumps/shadow_5.png")
 	]
 }
 
-const NATURES_NODE: Dictionary = {
-	NatureType.TREE: {"id": 1, "value": [1, 10], "sample": "farming/tree_destroy"},
-	NatureType.BUSH: {"sample": "farming/weed_destroy"},
-	NatureType.WEED: {"sample": "farming/weed_destroy"},
-	NatureType.LONG_WEED: {"sample": "farming/weed_destroy"},
-	NatureType.STONE: {"id": 3, "value": [2, 6], "sample": "farming/stone_destroy"},
-	NatureType.BOULDERS: {"id": 3, "value": [10, 30], "sample": "farming/stone_destroy"},
-}
-
-const NOISE_COEFFICIENT: Array[float] = [0.03, 0.04, 0.07, 0.005]
-const SHADER_SOURCE: Shader = preload("res://assets/shaders/wind.gdshader")
-const MAX_TREE: int = 1200
+const MAX_TREE: int = 1000
 const MAX_BUSH: int = 100
 const MAX_WEED: int = 1000
-const MAX_LONG_WEED: int = 200
+const MAX_LONG_WEED: int = 300
 const MAX_STONE: int = 600
 const MAX_BOULDERS: int = 150
+const MAX_STUMPS: int = 200
+
+const NOISE_COEFFICIENT: Array[float] = [
+	0.03, 	0.04, 	0.07, 
+	0.009, 	0.005, 	0.007,
+	0.02, 	0.3, 	0.1
+]
+const SHADER_SOURCE: Shader = preload("res://assets/shaders/wind.gdshader")
+const NATURES_NODE: Dictionary = {
+	NatureType.TREE:
+	{
+		"max": MAX_TREE,
+		"id": 1,
+		"value": [1, 3],
+		"sample": "farming/tree_destroy",
+		"area_size": Vector2i(1, 1),
+		"sprite_offset": Vector2i(0, -16),
+		"collision_size": Vector2i(16, 16),
+		"collision_offset": Vector2i(0, 16)
+	},
+	NatureType.BUSH:
+	{
+		"max": MAX_BUSH,
+		"sample": "farming/weed_destroy",
+		"area_size": Vector2i(1, 1),
+		"sprite_offset": Vector2i(8, 8),
+		"collision_size": Vector2i(0, 0),
+		"collision_offset": Vector2i(0, 0)
+	},
+	NatureType.WEED:
+	{
+		"max": MAX_WEED,
+		"sample": "farming/weed_destroy",
+		"area_size": Vector2i(1, 1),
+		"sprite_offset": Vector2i(0, 0),
+		"collision_size": Vector2i(0, 0),
+		"collision_offset": Vector2i(0, 0)
+	},
+	NatureType.LONG_WEED:
+	{
+		"max": MAX_LONG_WEED,
+		"sample": "farming/weed_destroy",
+		"area_size": Vector2i(1, 1),
+		"sprite_offset": Vector2i(0, -8),
+		"collision_size": Vector2i(16, 16),
+		"collision_offset": Vector2i(0, 8)
+	},
+	NatureType.STONE:
+	{
+		"max": MAX_STONE,
+		"id": 3,
+		"value": [1, 2],
+		"sample": "farming/stone_destroy",
+		"area_size": Vector2i(1, 1),
+		"sprite_offset": Vector2i(0, 0),
+		"collision_size": Vector2i(0, 0),
+		"collision_offset": Vector2i(0, 0)
+	},
+	NatureType.BOULDERS:
+	{
+		"max": MAX_BOULDERS,
+		"id": 3,
+		"value": [2, 10],
+		"sample": "farming/stone_destroy",
+		"area_size": Vector2i(2, 2),
+		"sprite_offset": Vector2i(8, 8),
+		"collision_size": Vector2i(0, 0),
+		"collision_offset": Vector2i(0, 0)
+	},
+	NatureType.STUMP:
+	{
+		"max": MAX_STUMPS,
+		"id": 1,
+		"value": [1, 1],
+		"sample": "farming/tree_destroy",
+		"area_size": Vector2i(1, 1),
+		"sprite_offset": Vector2i(0, 0),
+		"collision_size": Vector2i(0, 0),
+		"collision_offset": Vector2i(0, 0)
+	}
+}
 
 var tiles: Array[Vector2i] = []
 var shader: ShaderMaterial = _setup_wind_shader()
@@ -271,18 +362,19 @@ func _ready() -> void:
 func spawn() -> void:
 	self.tiles = _get_free_tiles()
 
-	_create_tree()
-	_create_weed()
-	_create_long_weed()
-	_create_stone()
-	_create_boulders()
+	create_nature(NatureType.TREE)
+	create_nature(NatureType.WEED)
+	create_nature(NatureType.LONG_WEED)
+	create_nature(NatureType.STONE)
+	create_nature(NatureType.BOULDERS)
+	create_nature(NatureType.STUMP)
 
 
 func add_nature_node(
 	type: NatureType,
 	size: Vector2i,
 	pos: Vector2i,
-	offset: Vector2i = Vector2i(0, 0),
+	sprite_offset: Vector2i = Vector2i(0, 0),
 	collision_size: Vector2i = Vector2i(0, 0),
 	collision_pos: Vector2i = Vector2i(0, 0)
 ) -> Node2D:
@@ -359,16 +451,16 @@ func add_nature_node(
 	)
 
 	sprite.texture = random_texture
-	sprite.position.x += offset.x
-	sprite.position.y += offset.y
+	sprite.position.x += sprite_offset.x
+	sprite.position.y += sprite_offset.y
 
 	var shadow_node: Node2D = shadow.add_shadow(
 		SHADOWS[type][cycle.season_id][random] if SHADOWS[type] is Dictionary else SHADOWS[type][random],
 		tilemap.map_to_local(pos),
-		offset
+		sprite_offset
 	)
 
-	if type not in [NatureType.STONE, NatureType.BOULDERS]:
+	if type not in SHADER_DISABLE:
 		var coefficient: float = fmod(randf(), NOISE_COEFFICIENT[cycle.season_id])
 
 		sprite.material = self.shader
@@ -387,8 +479,8 @@ func add_nature_node(
 
 	collision.shape = rectangle
 	collision.position = collision_pos
-	area.position.x += offset.x
-	area.position.y += offset.y
+	area.position.x += sprite_offset.x
+	area.position.y += sprite_offset.y
 	area.input_pickable = true
 	area.input_event.connect(
 		func(_viewport: Node, event: InputEvent, _index: int) -> void:
@@ -425,99 +517,36 @@ func add_nature_node(
 	return parent
 
 
-func _create_tree() -> void:
-	if MAX_TREE < 1:
+func create_nature(type: NatureType) -> void:
+	if NATURES_NODE.is_empty() && !NATURES_NODE.has(type):
 		return
 
-	var it: int = 0
-	var position_id: int = -1
-	while it < MAX_TREE:
-		position_id = randi() % self.tiles.size()
-
-		self.add_child(
-			add_nature_node(
-				NatureType.TREE,
-				Vector2i(1, 1),
-				self.tiles[position_id],
-				Vector2i(0, -16),
-				Vector2i(16, 16),
-				Vector2i(0, 16)
+	var current_position: int = -1
+	for i in NATURES_NODE[type]["max"]:
+		current_position = randi() % self.tiles.size()
+		(
+			self
+			. add_child(
+				add_nature_node(
+					type,
+					NATURES_NODE[type]["area_size"],
+					self.tiles[current_position],
+					NATURES_NODE[type]["sprite_offset"] if NATURES_NODE[type].has("sprite_offset") else Vector2i(0, 0),
+					(
+						NATURES_NODE[type]["collision_size"]
+						if NATURES_NODE[type].has("collision_size")
+						else Vector2i(0, 0)
+					),
+					(
+						NATURES_NODE[type]["collision_offset"]
+						if NATURES_NODE[type].has("collision_offset")
+						else Vector2i(0, 0)
+					),
+				)
 			)
 		)
 
-		self.tiles.erase(tiles[position_id])
-		it += 1
-
-
-func _create_weed() -> void:
-	if MAX_WEED < 1:
-		return
-
-	var it: int = 0
-	var position_id: int = -1
-	while it < MAX_WEED:
-		position_id = randi() % self.tiles.size()
-		self.add_child(add_nature_node(NatureType.WEED, Vector2i(1, 1), self.tiles[position_id]))
-		self.tiles.erase(tiles[position_id])
-		it += 1
-
-
-func _create_long_weed() -> void:
-	if MAX_LONG_WEED < 1:
-		return
-
-	var it: int = 0
-	var position_id: int = -1
-	while it < MAX_LONG_WEED:
-		position_id = randi() % self.tiles.size()
-
-		self.add_child(
-			add_nature_node(
-				NatureType.LONG_WEED,
-				Vector2i(1, 1),
-				self.tiles[position_id],
-				Vector2i(0, -8),
-				Vector2i(16, 16),
-				Vector2i(0, 8)
-			)
-		)
-
-		self.tiles.erase(tiles[position_id])
-		it += 1
-
-
-func _create_stone() -> void:
-	if MAX_STONE < 1:
-		return
-
-	var it: int = 0
-	var position_id: int = -1
-	while it < MAX_STONE:
-		position_id = randi() % self.tiles.size()
-		self.add_child(add_nature_node(NatureType.STONE, Vector2i(1, 1), self.tiles[position_id]))
-		self.tiles.erase(tiles[position_id])
-		it += 1
-
-
-func _create_boulders() -> void:
-	if MAX_BOULDERS < 1:
-		return
-
-	var it: int = 0
-	var position_id: int = -1
-	var node_size: Vector2i = Vector2i(2, 2)
-
-	while it < MAX_BOULDERS:
-		position_id = randi() % self.tiles.size()
-
-		var nature_node: Node2D = add_nature_node(
-			NatureType.BOULDERS, node_size, self.tiles[position_id], Vector2i(8, 8)
-		)
-
-		if nature_node:
-			self.add_child(nature_node)
-
-		it += 1
+		self.tiles.erase(tiles[current_position])
 
 
 func _get_free_tiles() -> Array[Vector2i]:
