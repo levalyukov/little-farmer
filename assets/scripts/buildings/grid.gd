@@ -260,6 +260,9 @@ func _action() -> void:
 						Inventory.subject_item(plant["inventory_item"])
 						SoundManager.play_sound("farming/planting")
 
+					if Inventory.get_item_amount(plant["inventory_item"]) < 1:
+						build.grid_remove()
+
 		BuildManager.GridModes.TERRAIN:
 			print("Hello, World!")
 
@@ -390,7 +393,4 @@ func _collision_check() -> void:
 						== -1
 					)
 				):
-					if Inventory.get_item_amount(plant["inventory_item"]) > 0:
-						grid.texture = GRID_NORMAL
-					else:
-						build.grid_remove()
+					grid.texture = GRID_NORMAL
