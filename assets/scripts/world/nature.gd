@@ -98,11 +98,10 @@ const TEXTURES: Dictionary = {
 		]
 	},
 	NatureType.LONG_WEED:
+	# WorldCycle.Season.SPRING:
+	# [
+	# ],
 	{
-		# WorldCycle.Season.SPRING:
-		# [
-		# ],
-		
 		WorldCycle.Season.SUMMER:
 		[
 			preload("res://assets/resources/world/long_weed/summer/sprite_0.png"),
@@ -114,11 +113,9 @@ const TEXTURES: Dictionary = {
 			preload("res://assets/resources/world/long_weed/summer/sprite_6.png"),
 			preload("res://assets/resources/world/long_weed/summer/sprite_7.png"),
 		],
-
 		# WorldCycle.Season.AUTUMN:
 		# [
 		# ],
-
 		# WorldCycle.Season.WINTER:
 		# [
 		# ]
@@ -261,11 +258,7 @@ const MAX_STONE: int = 600
 const MAX_BOULDERS: int = 150
 const MAX_STUMPS: int = 200
 
-const NOISE_COEFFICIENT: Array[float] = [
-	0.03, 	0.04, 	0.07, 
-	0.009, 	0.005, 	0.007,
-	0.02, 	0.3, 	0.1
-]
+const NOISE_COEFFICIENT: Array[float] = [0.03, 0.04, 0.07, 0.009, 0.005, 0.007, 0.02, 0.3, 0.1]
 const SHADER_SOURCE: Shader = preload("res://assets/shaders/wind.gdshader")
 const NATURES_NODE: Dictionary = {
 	NatureType.TREE:
@@ -524,28 +517,20 @@ func create_nature(type: NatureType) -> void:
 	var current_position: int = -1
 	for i in NATURES_NODE[type]["max"]:
 		current_position = randi() % self.tiles.size()
-		(
-			self
-			. add_child(
-				add_nature_node(
-					type,
-					NATURES_NODE[type]["area_size"],
-					self.tiles[current_position],
-					NATURES_NODE[type]["sprite_offset"] if NATURES_NODE[type].has("sprite_offset") else Vector2i(0, 0),
-					(
-						NATURES_NODE[type]["collision_size"]
-						if NATURES_NODE[type].has("collision_size")
-						else Vector2i(0, 0)
-					),
-					(
-						NATURES_NODE[type]["collision_offset"]
-						if NATURES_NODE[type].has("collision_offset")
-						else Vector2i(0, 0)
-					),
-				)
-			)
+
+		var node: Node2D = add_nature_node(
+			type,
+			NATURES_NODE[type]["area_size"],
+			self.tiles[current_position],
+			NATURES_NODE[type]["sprite_offset"] if NATURES_NODE[type].has("sprite_offset") else Vector2i(0, 0),
+			NATURES_NODE[type]["collision_size"] if NATURES_NODE[type].has("collision_size") else Vector2i(0, 0),
+			NATURES_NODE[type]["collision_offset"] if NATURES_NODE[type].has("collision_offset") else Vector2i(0, 0),
 		)
 
+		if !node:
+			continue
+
+		self.add_child(node)
 		self.tiles.erase(tiles[current_position])
 
 
