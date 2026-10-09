@@ -48,8 +48,19 @@ const TEXTURES: Dictionary = {
 		]
 	},
 	NatureType.BUSH:
-	#! Что-то здесь будет
-	{},
+	{
+		WorldCycle.Season.SPRING: [],
+		WorldCycle.Season.SUMMER: [
+			preload("res://assets/resources/world/bush/summer/sprite_0.png"),
+			preload("res://assets/resources/world/bush/summer/sprite_1.png"),
+			preload("res://assets/resources/world/bush/summer/sprite_2.png"),
+			preload("res://assets/resources/world/bush/summer/sprite_3.png"),
+			preload("res://assets/resources/world/bush/summer/sprite_4.png"),
+			preload("res://assets/resources/world/bush/summer/sprite_5.png")
+		],
+		WorldCycle.Season.AUTUMN: [],
+		WorldCycle.Season.WINTER: []
+	},
 	NatureType.WEED:
 	{
 		WorldCycle.Season.SPRING:
@@ -98,10 +109,8 @@ const TEXTURES: Dictionary = {
 		]
 	},
 	NatureType.LONG_WEED:
-	# WorldCycle.Season.SPRING:
-	# [
-	# ],
 	{
+		WorldCycle.Season.SPRING: [],
 		WorldCycle.Season.SUMMER:
 		[
 			preload("res://assets/resources/world/long_weed/summer/sprite_0.png"),
@@ -113,12 +122,8 @@ const TEXTURES: Dictionary = {
 			preload("res://assets/resources/world/long_weed/summer/sprite_6.png"),
 			preload("res://assets/resources/world/long_weed/summer/sprite_7.png"),
 		],
-		# WorldCycle.Season.AUTUMN:
-		# [
-		# ],
-		# WorldCycle.Season.WINTER:
-		# [
-		# ]
+		WorldCycle.Season.AUTUMN: [],
+		WorldCycle.Season.WINTER: [],
 	},
 	NatureType.STONE:
 	[
@@ -159,7 +164,19 @@ const SHADOWS: Dictionary = {
 		preload("res://assets/resources/world/trees/shadow_5.png"),
 		preload("res://assets/resources/world/trees/shadow_6.png")
 	],
-	NatureType.BUSH: {},
+	NatureType.BUSH: {
+		WorldCycle.Season.SPRING: [],
+		WorldCycle.Season.SUMMER: [
+			preload("res://assets/resources/world/bush/summer/shadow_0.png"),
+			preload("res://assets/resources/world/bush/summer/shadow_1.png"),
+			preload("res://assets/resources/world/bush/summer/shadow_2.png"),
+			preload("res://assets/resources/world/bush/summer/shadow_3.png"),
+			preload("res://assets/resources/world/bush/summer/shadow_4.png"),
+			preload("res://assets/resources/world/bush/summer/shadow_5.png")
+		],
+		WorldCycle.Season.AUTUMN: [],
+		WorldCycle.Season.WINTER: []
+	},
 	NatureType.WEED:
 	{
 		WorldCycle.Season.SPRING:
@@ -209,6 +226,7 @@ const SHADOWS: Dictionary = {
 	},
 	NatureType.LONG_WEED:
 	{
+		WorldCycle.Season.SPRING: [],
 		WorldCycle.Season.SUMMER:
 		[
 			preload("res://assets/resources/world/long_weed/summer/shadow/sprite_0.png"),
@@ -219,7 +237,9 @@ const SHADOWS: Dictionary = {
 			preload("res://assets/resources/world/long_weed/summer/shadow/sprite_5.png"),
 			preload("res://assets/resources/world/long_weed/summer/shadow/sprite_6.png"),
 			preload("res://assets/resources/world/long_weed/summer/shadow/sprite_7.png"),
-		]
+		],
+		WorldCycle.Season.AUTUMN: [],
+		WorldCycle.Season.WINTER: []
 	},
 	NatureType.STONE:
 	[
@@ -251,7 +271,7 @@ const SHADOWS: Dictionary = {
 }
 
 const MAX_TREE: int = 1000
-const MAX_BUSH: int = 100
+const MAX_BUSH: int = 200
 const MAX_WEED: int = 1000
 const MAX_LONG_WEED: int = 300
 const MAX_STONE: int = 600
@@ -264,7 +284,7 @@ const NATURES_NODE: Dictionary = {
 	NatureType.TREE:
 	{
 		"max": MAX_TREE,
-		"id": 1,
+		"id": [1,2],
 		"value": [1, 3],
 		"sample": "farming/tree_destroy",
 		"area_size": Vector2i(1, 1),
@@ -274,9 +294,11 @@ const NATURES_NODE: Dictionary = {
 	},
 	NatureType.BUSH:
 	{
+		"id": [2],
+		"value": [1, 3],
 		"max": MAX_BUSH,
 		"sample": "farming/weed_destroy",
-		"area_size": Vector2i(1, 1),
+		"area_size": Vector2i(2, 2),
 		"sprite_offset": Vector2i(8, 8),
 		"collision_size": Vector2i(0, 0),
 		"collision_offset": Vector2i(0, 0)
@@ -302,7 +324,7 @@ const NATURES_NODE: Dictionary = {
 	NatureType.STONE:
 	{
 		"max": MAX_STONE,
-		"id": 3,
+		"id": [3],
 		"value": [1, 2],
 		"sample": "farming/stone_destroy",
 		"area_size": Vector2i(1, 1),
@@ -313,7 +335,7 @@ const NATURES_NODE: Dictionary = {
 	NatureType.BOULDERS:
 	{
 		"max": MAX_BOULDERS,
-		"id": 3,
+		"id": [3],
 		"value": [2, 10],
 		"sample": "farming/stone_destroy",
 		"area_size": Vector2i(2, 2),
@@ -324,7 +346,7 @@ const NATURES_NODE: Dictionary = {
 	NatureType.STUMP:
 	{
 		"max": MAX_STUMPS,
-		"id": 1,
+		"id": [1],
 		"value": [1, 1],
 		"sample": "farming/tree_destroy",
 		"area_size": Vector2i(1, 1),
@@ -357,6 +379,7 @@ func spawn() -> void:
 
 	create_nature(NatureType.TREE)
 	create_nature(NatureType.WEED)
+	create_nature(NatureType.BUSH)
 	create_nature(NatureType.LONG_WEED)
 	create_nature(NatureType.STONE)
 	create_nature(NatureType.BOULDERS)
@@ -483,12 +506,19 @@ func add_nature_node(
 			):
 				if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 					if NATURES_NODE.has(type):
-						var id: int = NATURES_NODE[type]["id"] if NATURES_NODE[type].has("id") else -1
+						var id: Array = NATURES_NODE[type]["id"] if NATURES_NODE[type].has("id") else []
 						var value: Array = NATURES_NODE[type]["value"] if NATURES_NODE[type].has("value") else []
 						var sample: String = NATURES_NODE[type]["sample"] if NATURES_NODE[type].has("sample") else ""
 
-						if Items.items.has(id) && !value.is_empty():
-							Inventory.add_item(id, randi_range(value[0], value[1]))
+						if !id.is_empty():
+							if id.size() > 1:
+								for i in id: 
+									if Items.items.has(int(i)) && !value.is_empty():
+										Inventory.add_item(int(i), randi_range(value[0], value[1]))
+							else: 
+								if Items.items.has(int(id[0])) && !value.is_empty():
+									Inventory.add_item(int(id[0]), randi_range(value[0], value[1]))
+						
 						SoundManager.play_sound(sample)
 
 					for i in node_cells:
