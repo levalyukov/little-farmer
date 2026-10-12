@@ -5,7 +5,7 @@ const ACTIONS: Array[StringName] = ["left", "right", "up", "down", "mwu", "mwd",
 
 
 func _ready() -> void:
-	_setup_input_actions()
+	setup_input_actions()
 
 
 func save() -> void:
@@ -30,7 +30,7 @@ func settings_load() -> void:
 		Settings.settings_update()
 
 
-func _setup_input_actions() -> void:
+func setup_input_actions() -> void:
 	for action in ACTIONS:
 		if !InputMap.has_action(action):
 			InputMap.add_action(action)
