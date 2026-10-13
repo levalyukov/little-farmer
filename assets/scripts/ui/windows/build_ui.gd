@@ -6,7 +6,7 @@ extends Control
 @onready var node_icon: TextureRect = $Main/MainContent/Info/Scroll/VBoxContainer/IconContainer/TextureRect
 @onready var node_title: Label = $Main/MainContent/Info/Scroll/VBoxContainer/HeaderContainer/Header
 @onready var node_description: Label = $Main/MainContent/Info/Scroll/VBoxContainer/DescriptionContainer/Description
-@onready var node_resources: Label = $Main/MainContent/Info/Scroll/VBoxContainer/ResourcesContainer/Resources
+@onready var node_resources: RichTextLabel = $Main/MainContent/Info/Scroll/VBoxContainer/ResourcesContainer/Resources
 @onready var node_time: Label = $Main/MainContent/Info/Scroll/VBoxContainer/TimeContainer/Time
 @onready var node_confirm: Button = $Main/MainContent/Info/Scroll/VBoxContainer/ButtonContainer/Button
 
@@ -95,7 +95,6 @@ func _button_blueprint_create(blueprint_type: int, blueprint_id: int) -> Control
 	icon.set_custom_minimum_size(Vector2i(48, 48))
 
 	button.pressed.connect(func() -> void: _info_set(data, blueprint_type))
-
 	button.pressed.connect(UIManager.button_pressed)
 	button.mouse_entered.connect(UIManager.button_hovered)
 
@@ -117,7 +116,7 @@ func _info_set(data: Dictionary, blueprint_type: int) -> void:
 	if data.is_empty():
 		return
 
-	var total_time: float = data["time"] / 60.0 if data.has("time") && data["time"] is float else 0.00
+	# var total_time: float = data["time"] / 60.0 if data.has("time") && data["time"] is float else 0.00
 
 	node_icon.texture = data["icon"] if data.has("icon") && data["icon"] is CompressedTexture2D else null
 	node_title.text = data["title"] if data.has("title") && data["title"] is String else "??????"
@@ -130,26 +129,52 @@ func _info_set(data: Dictionary, blueprint_type: int) -> void:
 
 		for id in data["resources"]:
 			var item: Dictionary = Items.get_item(id)
-			var amount: int = (
+			var resource_amount: int = (
 				data["resources"][id]["amount"]
 				if (data["resources"][id].has("amount") && data["resources"][id]["amount"] is int)
 				else 0
 			)
+			var inventory_item_amount: int = Inventory.get_item_amount(id)
+			var color: String = "red" if inventory_item_amount < resource_amount else ""
 
-			if !item.is_empty() && amount > 0:
-				node_resources.text += "• " + item["title"] + " (" + ("0" + "/" + str(amount)) + ")\n"
+			if !item.is_empty() && resource_amount > 0:
+				node_resources.text += (
+					"• "
+					+ item["title"]
+					+ " ("
+					+ "[color="
+					+ color
+					+ "]"
+					+ (str(inventory_item_amount) + "/" + str(resource_amount))
+					+ "[/color]"
+					+ ")\n"
+				)
 
 	else:
 		node_resources.text = ""
 		node_resources.visible = false
 
-	node_time.text = tr("build_menu.build_total_time") + ": " + str(total_time)
+	# node_time.text = tr("build_menu.build_total_time") + ": " + str(total_time)
+	node_confirm.text = "build_menu.button.apply"
+	node_confirm.visible = true
 
-	if !node_confirm.visible:
-		node_confirm.text = "build_menu.button.apply"
-		node_confirm.visible = true
-		#node_confirm.disabled = false
+	# * Мне прям не особо нравится,
+	# * ибо тут два цикла... Позже
+	# * надо придумать как исправить...
+	if data.has("resources") && data["resources"] is Dictionary && !data["resources"].is_empty():
+		for id in data["resources"]:
+			if data["resources"][id].has("amount") && data["resources"][id]["amount"] is int:
+				var inventory_item_amount: int = Inventory.get_item_amount(id)
+				var resource_amount: int = data["resources"][id]["amount"]
+				if inventory_item_amount < resource_amount:
+					node_confirm.disabled = true
+					break
+	else:
+		node_confirm.disabled = false
 
+	# * Ну тут я не знаю каким дебилом надо быть,
+	# * чтобы буквально на кнопку одинаковые методы
+	# * прокинуть, ибо там ничего почти не меняется...
 	if node_confirm.pressed.is_connected(_button_build):
 		node_confirm.pressed.disconnect(_button_build)
 
@@ -158,21 +183,24 @@ func _info_set(data: Dictionary, blueprint_type: int) -> void:
 
 	node_confirm.pressed.connect(
 		(
-			_button_build.bind(data["node"], data["shadow"], data["size"])
+			_button_build.bind(data["node"], data["shadow"], data["resources"], data["size"], data["dust"])
 			if blueprint_type == Blueprints.BlueprintsType.BUILDINGS
 			else _button_terrain.bind(data)
 		)
 	)
 
 
-func _button_build(node: PackedScene, shadow: CompressedTexture2D, grid_size: Vector2i) -> void:
+func _button_build(
+	node: PackedScene, shadow: CompressedTexture2D, resources: Dictionary, grid_size: Vector2i, dust: bool = false
+) -> void:
 	var scene: Node = get_tree().current_scene
 
 	if !is_instance_valid(scene.build):
 		printerr("BuildManager is NULL.")
 		return
 
-	var data: Dictionary = {"node": node, "shadow": shadow}
+	var data: Dictionary = {"node": node, "shadow": shadow, "resources": resources, "dust": dust}
+
 	var grid: Node2D = scene.build.grid_add(scene.build.GridModes.BUILD, grid_size)
 	if grid:
 		grid.node = data

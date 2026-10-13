@@ -232,7 +232,9 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 4
 
 [node name="Content" type="Label" parent="Window/HBoxContainer/ItemContent/ScrollContainer/VBox/ContentContainer"]
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
+autowrap_mode = 3
 
 [node name="Specifications" type="MarginContainer" parent="Window/HBoxContainer/ItemContent/ScrollContainer/VBox"]
 layout_mode = 2
@@ -241,14 +243,16 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 16
 
 [node name="Specifications" type="Label" parent="Window/HBoxContainer/ItemContent/ScrollContainer/VBox/Specifications"]
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
+autowrap_mode = 2
 
 [node name="ButtonContainer" type="MarginContainer" parent="Window/HBoxContainer/ItemContent/ScrollContainer/VBox"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_right = 20
 
-[node name="Button" type="Button" parent="Window/HBoxContainer/ItemContent/ScrollContainer/VBox/ButtonContainer"]
+[node name="Apply" type="Button" parent="Window/HBoxContainer/ItemContent/ScrollContainer/VBox/ButtonContainer"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 text_overrun_behavior = 3

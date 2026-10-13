@@ -108,7 +108,7 @@ patch_margin_top = 12
 patch_margin_right = 12
 patch_margin_bottom = 12
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Main"]
+[node name="Scroll" type="ScrollContainer" parent="Main"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -118,7 +118,7 @@ offset_bottom = -46.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="NavMenu" type="HBoxContainer" parent="Main/ScrollContainer"]
+[node name="NavMenu" type="HBoxContainer" parent="Main/Scroll"]
 layout_mode = 2
 
 [node name="MainContent" type="HBoxContainer" parent="Main"]
@@ -214,9 +214,11 @@ layout_mode = 2
 theme_override_constants/margin_left = 38
 theme_override_constants/margin_right = 12
 
-[node name="Resources" type="Label" parent="Main/MainContent/Info/Scroll/VBoxContainer/ResourcesContainer"]
+[node name="Resources" type="RichTextLabel" parent="Main/MainContent/Info/Scroll/VBoxContainer/ResourcesContainer"]
 layout_mode = 2
-autowrap_mode = 3
+bbcode_enabled = true
+text = "[color=]asd[/color]"
+fit_content = true
 
 [node name="TimeContainer" type="MarginContainer" parent="Main/MainContent/Info/Scroll/VBoxContainer"]
 layout_mode = 2
