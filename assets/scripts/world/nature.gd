@@ -50,7 +50,8 @@ const TEXTURES: Dictionary = {
 	NatureType.BUSH:
 	{
 		WorldCycle.Season.SPRING: [],
-		WorldCycle.Season.SUMMER: [
+		WorldCycle.Season.SUMMER:
+		[
 			preload("res://assets/resources/world/bush/summer/sprite_0.png"),
 			preload("res://assets/resources/world/bush/summer/sprite_1.png"),
 			preload("res://assets/resources/world/bush/summer/sprite_2.png"),
@@ -164,9 +165,11 @@ const SHADOWS: Dictionary = {
 		preload("res://assets/resources/world/trees/shadow_5.png"),
 		preload("res://assets/resources/world/trees/shadow_6.png")
 	],
-	NatureType.BUSH: {
+	NatureType.BUSH:
+	{
 		WorldCycle.Season.SPRING: [],
-		WorldCycle.Season.SUMMER: [
+		WorldCycle.Season.SUMMER:
+		[
 			preload("res://assets/resources/world/bush/summer/shadow_0.png"),
 			preload("res://assets/resources/world/bush/summer/shadow_1.png"),
 			preload("res://assets/resources/world/bush/summer/shadow_2.png"),
@@ -276,7 +279,7 @@ const MAX_WEED: int = 1000
 const MAX_LONG_WEED: int = 300
 const MAX_STONE: int = 600
 const MAX_BOULDERS: int = 150
-const MAX_STUMPS: int = 200
+const MAX_STUMPS: int = 100
 
 const NOISE_COEFFICIENT: Array[float] = [0.03, 0.04, 0.07, 0.009, 0.005, 0.007, 0.02, 0.3, 0.1]
 const SHADER_SOURCE: Shader = preload("res://assets/shaders/wind.gdshader")
@@ -284,7 +287,7 @@ const NATURES_NODE: Dictionary = {
 	NatureType.TREE:
 	{
 		"max": MAX_TREE,
-		"id": [1,2],
+		"id": [1, 2],
 		"value": [1, 3],
 		"sample": "farming/tree_destroy",
 		"area_size": Vector2i(1, 1),
@@ -295,7 +298,7 @@ const NATURES_NODE: Dictionary = {
 	NatureType.BUSH:
 	{
 		"id": [2],
-		"value": [1, 3],
+		"value": [1, 5],
 		"max": MAX_BUSH,
 		"sample": "farming/weed_destroy",
 		"area_size": Vector2i(2, 2),
@@ -356,6 +359,95 @@ const NATURES_NODE: Dictionary = {
 	}
 }
 
+const MUSHROOM_SPRING: int = 150
+const MUSHROOM_SUMMER: int = 200
+const MUSHROOM_AUTUMN: int = 300
+const MUSHROOM_WINTER: int = 0
+const MUSHROOM_SOUND: String = ""
+const MUSHROOMS: Dictionary = {
+	WorldCycle.Season.SPRING:
+	{
+		0:
+		{
+			"item_id": 0,
+			"sprite": preload("res://assets/resources/world/mushrooms/spring/mushroom_0.png"),
+			"shadow": preload("res://assets/resources/world/mushrooms/spring/shadow_0.png"),
+		},
+		1:
+		{
+			"item_id": 0,
+			"sprite": preload("res://assets/resources/world/mushrooms/spring/mushroom_1.png"),
+			"shadow": preload("res://assets/resources/world/mushrooms/spring/shadow_1.png"),
+		},
+		2:
+		{
+			"item_id": 0,
+			"sprite": preload("res://assets/resources/world/mushrooms/spring/mushroom_2.png"),
+			"shadow": preload("res://assets/resources/world/mushrooms/spring/shadow_2.png"),
+		},
+		3:
+		{
+			"item_id": 0,
+			"sprite": preload("res://assets/resources/world/mushrooms/spring/mushroom_3.png"),
+			"shadow": preload("res://assets/resources/world/mushrooms/spring/shadow_3.png"),
+		},
+	},
+	WorldCycle.Season.SUMMER:
+	{
+		0:
+		{
+			"item_id": 0,
+			"sprite": preload("res://assets/resources/world/mushrooms/summer/mushroom_0.png"),
+			"shadow": preload("res://assets/resources/world/mushrooms/summer/shadow_0.png"),
+		},
+		1:
+		{
+			"item_id": 0,
+			"sprite": preload("res://assets/resources/world/mushrooms/summer/mushroom_1.png"),
+			"shadow": preload("res://assets/resources/world/mushrooms/summer/shadow_1.png"),
+		},
+		2:
+		{
+			"item_id": 0,
+			"sprite": preload("res://assets/resources/world/mushrooms/summer/mushroom_2.png"),
+			"shadow": preload("res://assets/resources/world/mushrooms/summer/shadow_2.png"),
+		},
+		3:
+		{
+			"item_id": 0,
+			"sprite": preload("res://assets/resources/world/mushrooms/summer/mushroom_3.png"),
+			"shadow": preload("res://assets/resources/world/mushrooms/summer/shadow_3.png"),
+		},
+	},
+	WorldCycle.Season.AUTUMN:
+	{
+		0:
+		{
+			"item_id": 0,
+			"sprite": preload("res://assets/resources/world/mushrooms/autumn/mushroom_0.png"),
+			"shadow": preload("res://assets/resources/world/mushrooms/autumn/shadow_0.png"),
+		},
+		1:
+		{
+			"item_id": 0,
+			"sprite": preload("res://assets/resources/world/mushrooms/autumn/mushroom_1.png"),
+			"shadow": preload("res://assets/resources/world/mushrooms/autumn/shadow_1.png"),
+		},
+		2:
+		{
+			"item_id": 0,
+			"sprite": preload("res://assets/resources/world/mushrooms/autumn/mushroom_2.png"),
+			"shadow": preload("res://assets/resources/world/mushrooms/autumn/shadow_2.png"),
+		},
+		3:
+		{
+			"item_id": 0,
+			"sprite": preload("res://assets/resources/world/mushrooms/autumn/mushroom_3.png"),
+			"shadow": preload("res://assets/resources/world/mushrooms/autumn/shadow_3.png"),
+		},
+	}
+}
+
 var tiles: Array[Vector2i] = []
 var shader: ShaderMaterial = _setup_wind_shader()
 
@@ -384,6 +476,7 @@ func spawn() -> void:
 	create_nature(NatureType.STONE)
 	create_nature(NatureType.BOULDERS)
 	create_nature(NatureType.STUMP)
+	spawn_mushrooms()
 
 
 func add_nature_node(
@@ -410,17 +503,17 @@ func add_nature_node(
 	#* ------------------------------------------------------
 
 	if TEXTURES[type] is Dictionary && SHADOWS[type] is Dictionary:
-		if !(TEXTURES[type][cycle.season_id].size() == SHADOWS[type][cycle.season_id].size()):
+		if !(TEXTURES[type][cycle.season].size() == SHADOWS[type][cycle.season].size()):
 			printerr("The sizes of the two arrays do not match.")
 			return null
 
 	if TEXTURES[type] is Dictionary && SHADOWS[type] is Array[CompressedTexture2D]:
-		if !(TEXTURES[type][cycle.season_id].size() == SHADOWS[type].size()):
+		if !(TEXTURES[type][cycle.season].size() == SHADOWS[type].size()):
 			printerr("The sizes of the two arrays do not match.")
 			return null
 
 	if TEXTURES[type] is Array[CompressedTexture2D] && SHADOWS[type] is Array[CompressedTexture2D]:
-		if !(TEXTURES[type][cycle.season_id].size() == SHADOWS[type].size()):
+		if !(TEXTURES[type][cycle.season].size() == SHADOWS[type].size()):
 			printerr("The sizes of the two arrays do not match.")
 			return null
 
@@ -458,12 +551,12 @@ func add_nature_node(
 	var collision: CollisionShape2D = CollisionShape2D.new()
 	var sprite: Sprite2D = Sprite2D.new()
 	var random: int = (
-		randi() % TEXTURES[type][cycle.season_id].size()
+		randi() % TEXTURES[type][cycle.season].size()
 		if TEXTURES[type] is Dictionary
 		else randi() % TEXTURES[type].size()
 	)
 	var random_texture: CompressedTexture2D = (
-		TEXTURES[type][cycle.season_id][random] if TEXTURES[type] is Dictionary else TEXTURES[type][random]
+		TEXTURES[type][cycle.season][random] if TEXTURES[type] is Dictionary else TEXTURES[type][random]
 	)
 
 	sprite.texture = random_texture
@@ -471,13 +564,13 @@ func add_nature_node(
 	sprite.position.y += sprite_offset.y
 
 	var shadow_node: Node2D = shadow.add_shadow(
-		SHADOWS[type][cycle.season_id][random] if SHADOWS[type] is Dictionary else SHADOWS[type][random],
+		SHADOWS[type][cycle.season][random] if SHADOWS[type] is Dictionary else SHADOWS[type][random],
 		tilemap.map_to_local(pos),
 		sprite_offset
 	)
 
 	if type not in SHADER_DISABLE:
-		var coefficient: float = fmod(randf(), NOISE_COEFFICIENT[cycle.season_id])
+		var coefficient: float = fmod(randf(), NOISE_COEFFICIENT[cycle.season])
 
 		sprite.material = self.shader
 		sprite.material = sprite.material.duplicate()
@@ -512,13 +605,13 @@ func add_nature_node(
 
 						if !id.is_empty():
 							if id.size() > 1:
-								for i in id: 
+								for i in id:
 									if Items.items.has(int(i)) && !value.is_empty():
 										Inventory.add_item(int(i), randi_range(value[0], value[1]))
-							else: 
+							else:
 								if Items.items.has(int(id[0])) && !value.is_empty():
 									Inventory.add_item(int(id[0]), randi_range(value[0], value[1]))
-						
+
 						SoundManager.play_sound(sample)
 
 					for i in node_cells:
@@ -530,9 +623,6 @@ func add_nature_node(
 
 	area.add_child(collision)
 
-	parent.set_meta("type", type)
-	parent.set_meta("shadow", shadow_node)
-	parent.set_meta("relative_cells", node_cells)
 	parent.set_position(tilemap.map_to_local(pos))
 	parent.add_child(sprite)
 	parent.add_child(area)
@@ -546,22 +636,107 @@ func create_nature(type: NatureType) -> void:
 
 	var current_position: int = -1
 	for i in NATURES_NODE[type]["max"]:
-		current_position = randi() % self.tiles.size()
+		current_position = (randi() % self.tiles.size()) - 1
+		if current_position >= 0 && current_position < self.tiles.size():
+			var node: Node2D = add_nature_node(
+				type,
+				NATURES_NODE[type]["area_size"],
+				self.tiles[current_position],
+				NATURES_NODE[type]["sprite_offset"] if NATURES_NODE[type].has("sprite_offset") else Vector2i(0, 0),
+				NATURES_NODE[type]["collision_size"] if NATURES_NODE[type].has("collision_size") else Vector2i(0, 0),
+				NATURES_NODE[type]["collision_offset"] if NATURES_NODE[type].has("collision_offset") else Vector2i(0, 0)
+			)
 
-		var node: Node2D = add_nature_node(
-			type,
-			NATURES_NODE[type]["area_size"],
-			self.tiles[current_position],
-			NATURES_NODE[type]["sprite_offset"] if NATURES_NODE[type].has("sprite_offset") else Vector2i(0, 0),
-			NATURES_NODE[type]["collision_size"] if NATURES_NODE[type].has("collision_size") else Vector2i(0, 0),
-			NATURES_NODE[type]["collision_offset"] if NATURES_NODE[type].has("collision_offset") else Vector2i(0, 0),
-		)
+			if !node:
+				continue
 
-		if !node:
+			self.add_child(node)
+			self.tiles.erase(self.tiles[current_position])
+		else:
 			continue
 
-		self.add_child(node)
-		self.tiles.erase(tiles[current_position])
+
+func _mushroom(season: WorldCycle.Season, id: int, pos: Vector2i) -> Node2D:
+	var cells: Array[Vector2i] = []
+	var parent: Node2D = Node2D.new()
+	var sprite: Sprite2D = Sprite2D.new()
+	var area: Area2D = Area2D.new()
+	var collision: CollisionShape2D = CollisionShape2D.new()
+	var rectangle: RectangleShape2D = RectangleShape2D.new()
+
+	var texture: CompressedTexture2D = (
+		self.MUSHROOMS[season][id]["sprite"] if self.MUSHROOMS[season][id].has("sprite") else null
+	)
+
+	sprite.texture = texture
+	var shadow_node: Node2D = shadow.add_shadow(self.MUSHROOMS[season][id]["shadow"], tilemap.map_to_local(pos))
+	if !shadow_node:
+		return
+
+	cells.append(pos)
+	tilemap.set_cell(tilemap.Layers.NATURE, pos, tilemap.SourcesAtlas.GROUND, tilemap.NODE_COLLISION)
+
+	rectangle.size = texture.get_size()
+	collision.shape = rectangle
+	area.input_pickable = true
+	area.input_event.connect(
+		func(_viewport: Node, event: InputEvent, _index: int) -> void:
+			if (
+				build.buildings.has(build.GRID.get_state().get_node_name(0))
+				&& build.buildings[build.GRID.get_state().get_node_name(0)].mode == BuildManager.GridModes.DESTROY
+			):
+				if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
+					Inventory.add_item(
+						self.MUSHROOMS[season][id]["item_id"] if self.MUSHROOMS[season][id].has("item_id") else 0
+					)
+					SoundManager.play_sound(MUSHROOM_SOUND)
+
+					for i in cells:
+						tilemap.erase_cell(tilemap.Layers.NATURE, i)
+
+					shadow_node.queue_free()
+					parent.queue_free()
+	)
+
+	parent.set_position(tilemap.map_to_local(pos))
+	parent.add_child(sprite)
+	parent.add_child(area)
+	area.add_child(collision)
+
+	return parent
+
+
+func spawn_mushrooms() -> void:
+	if self.MUSHROOMS.is_empty():
+		return
+
+	var value: int = 0
+	match cycle.season:
+		WorldCycle.Season.SPRING:
+			value = MUSHROOM_SPRING
+		WorldCycle.Season.SUMMER:
+			value = MUSHROOM_SUMMER
+		WorldCycle.Season.AUTUMN:
+			value = MUSHROOM_AUTUMN
+		WorldCycle.Season.WINTER:
+			value = MUSHROOM_WINTER
+
+	var mushroom_id: int = -1
+	var current_position: int = -1
+	for i in value:
+		mushroom_id = randi() % self.MUSHROOMS[cycle.season].size()
+		current_position = (randi() % self.tiles.size()) - 1
+		if current_position >= 0 && current_position < self.tiles.size():
+			var node: Node2D = _mushroom(cycle.season, mushroom_id, self.tiles[current_position])
+
+			if !node:
+				continue
+
+			self.add_child(node)
+			self.tiles.erase(self.tiles[current_position])
+
+		else:
+			continue
 
 
 func _get_free_tiles() -> Array[Vector2i]:
