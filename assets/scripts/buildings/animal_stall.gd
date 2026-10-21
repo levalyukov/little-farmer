@@ -6,10 +6,10 @@ extends Node2D
 @onready var sprite: Sprite2D = $Sprite2D
 
 const TEXTURES: Dictionary = {
-	0: preload("res://assets/resources/buildings/stall/spring.png"),
-	1: preload("res://assets/resources/buildings/stall/summer.png"),
-	2: preload("res://assets/resources/buildings/stall/autumn.png"),
-	3: preload("res://assets/resources/buildings/stall/winter.png")
+	WorldCycle.Season.SPRING: preload("res://assets/resources/buildings/stall/spring.png"),
+	WorldCycle.Season.SUMMER: preload("res://assets/resources/buildings/stall/summer.png"),
+	WorldCycle.Season.AUTUMN: preload("res://assets/resources/buildings/stall/autumn.png"),
+	WorldCycle.Season.WINTER: preload("res://assets/resources/buildings/stall/winter.png")
 }
 
 
@@ -23,7 +23,7 @@ func _ready() -> void:
 		return
 
 	if !TEXTURES.is_empty() && sprite:
-		sprite.texture = TEXTURES[cycle.season_id]
+		sprite.texture = TEXTURES[cycle.season]
 
 	if collision:
 		collision.mouse_entered.connect(
