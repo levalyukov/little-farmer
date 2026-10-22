@@ -217,11 +217,12 @@ func _action() -> void:
 						return
 
 				var build_node: Node2D = build.add_build(
-					self.node["node"].instantiate(),
-					self.node["shadow"],
+					self.node["node"].instantiate() if self.node.has("node") else null,
+					self.node["shadow"] if self.node.has("shadow") else null,
 					tilemap.local_to_map(self.global_position),
 					grid_positions,
-					self.node["resources"]
+					self.node["resources"] if self.node.has("resources") else {},
+					self.node["dust"] if self.node.has("dust") else false
 				)
 
 				if build_node:
@@ -232,7 +233,7 @@ func _action() -> void:
 
 					if self.node.has("dust") && self.node["dust"] is bool:
 						var sprite: Node = build_node.get_node("Sprite2D")
-						if sprite && sprite is Sprite2D:
+						if sprite && sprite is Sprite2D && self.node["dust"]:
 							prefabs.add_prefab(
 								PrefabContainer.PrefabType.DUST,
 								self.global_position + sprite.position,
