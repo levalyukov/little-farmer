@@ -62,3 +62,7 @@ func button_pressed() -> void:
 func button_hovered(disabled: bool = false) -> void:
 	if !disabled:
 		SoundManager.play_sound("ui/hover")
+		cursor.set_cursor(Cursor.States.ACTIVE)
+
+func button_exited() -> void:
+	UIManager.cursor.set_cursor(UIManager.cursor.States.DEFAULT)
