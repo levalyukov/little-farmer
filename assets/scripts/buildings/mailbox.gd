@@ -19,7 +19,7 @@ func _ready() -> void:
 		return
 
 	if !TEXTURES.is_empty() && sprite:
-		sprite.texture = TEXTURES[cycle.season_id]
+		sprite.texture = TEXTURES[cycle.season]
 
 	if collision:
 		collision.input_pickable = true
