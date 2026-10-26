@@ -1,249 +1,1417 @@
-[gd_scene load_steps=25 format=3 uid="uid://cfg7cs8a8gogo"]
+[gd_scene load_steps=195 format=3 uid="uid://dy60ld0yv4wgf"]
 
+[ext_resource type="Script" path="res://assets/scripts/levels/menu.gd" id="1_ofqdk"]
 [ext_resource type="Script" path="res://assets/scripts/ui/menu/menu.gd" id="1_x8tav"]
+[ext_resource type="Theme" uid="uid://btsx1m2p0i620" path="res://assets/resources/theme.tres" id="2_pbanc"]
+[ext_resource type="Texture2D" uid="uid://xawi3wfa2nr" path="res://assets/resources/ui/menu_background.png" id="3_e74r2"]
+[ext_resource type="Texture2D" uid="uid://do3btrrrteyou" path="res://assets/resources/world/landscape/summer/ground.png" id="5_tbk12"]
+[ext_resource type="Texture2D" uid="uid://eohf0cxupt5g" path="res://assets/resources/world/landscape/summer/roads.png" id="6_63wd7"]
 [ext_resource type="Texture2D" uid="uid://bgam1jdbmck3c" path="res://assets/resources/ui/logo.png" id="6_tn0f5"]
-[ext_resource type="Texture2D" uid="uid://dfnl2bnmkvsdg" path="res://assets/resources/ui/button_default.png" id="6_uq7gr"]
-[ext_resource type="Texture2D" uid="uid://che3o5el4ph1g" path="res://assets/resources/ui/button_hover.png" id="7_ioe06"]
-[ext_resource type="Texture2D" uid="uid://wud38yeu3b7d" path="res://assets/resources/ui/button_pressed.png" id="8_qn8sj"]
-[ext_resource type="Texture2D" uid="uid://bwhtsbq8jwfk3" path="res://assets/resources/ui/button_disabled.png" id="9_er6dx"]
+[ext_resource type="Texture2D" uid="uid://cqttx1gr6fcum" path="res://assets/resources/buildings/house/summer.png" id="7_el1vq"]
+[ext_resource type="Texture2D" uid="uid://crs5ewpbkcnlp" path="res://assets/resources/world/landscape/summer/farmlands.png" id="8_84d6p"]
+[ext_resource type="Texture2D" uid="uid://camjsop2qdgcs" path="res://assets/resources/buildings/mailbox/summer.png" id="8_x6pit"]
+[ext_resource type="Texture2D" uid="uid://srm6ebuns20i" path="res://assets/resources/buildings/storage/summer.png" id="9_2873p"]
+[ext_resource type="Texture2D" uid="uid://dchyi8f2y3eqq" path="res://assets/resources/world/landscape/summer/waterings.png" id="9_j62c2"]
+[ext_resource type="Texture2D" uid="uid://ckphmjr1ni5jb" path="res://assets/resources/buildings/mailbox/shadow.png" id="10_ltbdg"]
+[ext_resource type="Texture2D" uid="uid://ufucropg27lq" path="res://assets/resources/buildings/house/shadow.png" id="11_r0ls1"]
+[ext_resource type="Texture2D" uid="uid://bh3jw4t4yxw7v" path="res://assets/resources/buildings/storage/shadow.png" id="12_idakg"]
+[ext_resource type="Texture2D" uid="uid://c2l2pown3vt0n" path="res://assets/resources/world/trees/shadow_1.png" id="14_tc4dw"]
+[ext_resource type="Texture2D" uid="uid://btgs2ah5muftq" path="res://assets/resources/world/trees/shadow_2.png" id="15_cwrl6"]
+[ext_resource type="Texture2D" uid="uid://d1vfl6cmg0qbd" path="res://assets/resources/world/trees/summer/tree_1.png" id="15_mnhx2"]
+[ext_resource type="Texture2D" uid="uid://dtlkd2hg7e68m" path="res://assets/resources/world/trees/shadow_4.png" id="16_srkub"]
+[ext_resource type="Texture2D" uid="uid://bma6wwa77vt1n" path="res://assets/resources/world/trees/shadow_3.png" id="17_1q5kf"]
+[ext_resource type="Texture2D" uid="uid://bkmgqmr2u4ycl" path="res://assets/resources/world/trees/shadow_6.png" id="18_hvtec"]
+[ext_resource type="Texture2D" uid="uid://d3h44rvyn62o" path="res://assets/resources/world/stones/shadows/shadow_1.png" id="19_8j5vh"]
+[ext_resource type="Texture2D" uid="uid://bxadnnapnynm" path="res://assets/resources/world/trees/summer/tree_2.png" id="20_6ycpw"]
+[ext_resource type="Texture2D" uid="uid://dxirbj8nx4gns" path="res://assets/resources/world/stones/shadows/shadow_2.png" id="20_8lwh1"]
+[ext_resource type="Texture2D" uid="uid://cu7vaotvh4bg6" path="res://assets/resources/world/trees/summer/tree_4.png" id="21_aoks3"]
+[ext_resource type="Texture2D" uid="uid://rkm5bgeqwwnm" path="res://assets/resources/world/stones/shadows/shadow_3.png" id="21_kybvv"]
+[ext_resource type="Texture2D" uid="uid://jdrp3tnr84xp" path="res://assets/resources/world/trees/summer/tree_3.png" id="22_b6oid"]
+[ext_resource type="Texture2D" uid="uid://dyv2wqovuftjy" path="res://assets/resources/world/stones/shadows/shadow_4.png" id="22_hu8rl"]
+[ext_resource type="Texture2D" uid="uid://5nhkof8kml3e" path="res://assets/resources/world/trees/summer/tree_5.png" id="23_4deks"]
+[ext_resource type="Texture2D" uid="uid://c5kw6cqfo1beg" path="res://assets/resources/world/stones/shadows/shadow_5.png" id="23_6sasq"]
+[ext_resource type="Texture2D" uid="uid://bfvsrhhrjuk05" path="res://assets/resources/world/stones/shadows/shadow_6.png" id="24_c36mp"]
+[ext_resource type="Texture2D" uid="uid://dto2o6ocovi4p" path="res://assets/resources/world/trees/summer/tree_6.png" id="24_vdydt"]
+[ext_resource type="Texture2D" uid="uid://d1er151ql2ab5" path="res://assets/resources/world/stones/shadows/shadow_7.png" id="25_elbj6"]
+[ext_resource type="Texture2D" uid="uid://dgnuv5irg1uu0" path="res://assets/resources/world/stones/shadows/shadow_8.png" id="26_wsls0"]
+[ext_resource type="Texture2D" uid="uid://cjm4rvhgxy2je" path="res://assets/resources/world/stumps/shadow_0.png" id="27_2748r"]
+[ext_resource type="Texture2D" uid="uid://bqsgp55i0ogu1" path="res://assets/resources/world/stumps/shadow_1.png" id="28_ng3n8"]
+[ext_resource type="Texture2D" uid="uid://pjclom6evfoa" path="res://assets/resources/world/stumps/shadow_2.png" id="29_ugpcy"]
+[ext_resource type="Texture2D" uid="uid://dbn7g64xbtdpv" path="res://assets/resources/world/stumps/shadow_5.png" id="30_3syjl"]
+[ext_resource type="Texture2D" uid="uid://bx5ed1tks0cjr" path="res://assets/resources/world/stumps/shadow_4.png" id="31_blpi1"]
+[ext_resource type="Texture2D" uid="uid://dwoxgjapvibqt" path="res://assets/resources/world/stumps/shadow_3.png" id="32_76524"]
+[ext_resource type="Texture2D" uid="uid://dwl6snc7aprrh" path="res://assets/resources/world/stones/stone_1.png" id="33_gtku7"]
+[ext_resource type="Texture2D" uid="uid://cctlobomwi5w1" path="res://assets/resources/world/stones/stone_2.png" id="34_af4pg"]
+[ext_resource type="Texture2D" uid="uid://dcp858xjp2ql7" path="res://assets/resources/world/stones/stone_4.png" id="35_6jekd"]
+[ext_resource type="Texture2D" uid="uid://d0gwefwfdylwb" path="res://assets/resources/world/stones/stone_3.png" id="36_oin6s"]
+[ext_resource type="Texture2D" uid="uid://ccjiceerja62b" path="res://assets/resources/world/stones/stone_5.png" id="37_sfds8"]
+[ext_resource type="Texture2D" uid="uid://bwplufm1nelxp" path="res://assets/resources/world/stones/stone_6.png" id="38_xny4w"]
+[ext_resource type="Texture2D" uid="uid://t8pajplaunw4" path="res://assets/resources/world/stones/stone_7.png" id="39_hupdr"]
+[ext_resource type="Texture2D" uid="uid://bmhqcfwqc6yix" path="res://assets/resources/world/stones/stone_8.png" id="40_30l22"]
+[ext_resource type="Texture2D" uid="uid://xf6e30hj76pn" path="res://assets/resources/world/bush/summer/shadow_0.png" id="41_u0my4"]
+[ext_resource type="Texture2D" uid="uid://cxs00hlyxl8qr" path="res://assets/resources/world/bush/summer/shadow_1.png" id="42_hxeru"]
+[ext_resource type="Texture2D" uid="uid://c5sivljilnek4" path="res://assets/resources/world/bush/summer/shadow_2.png" id="43_1f0r1"]
+[ext_resource type="Texture2D" uid="uid://7nih81hitsla" path="res://assets/resources/world/bush/summer/shadow_3.png" id="44_ixjti"]
+[ext_resource type="Texture2D" uid="uid://dp4hn1xuhka3r" path="res://assets/resources/world/bush/spring/shadow_0.png" id="45_hcrkc"]
+[ext_resource type="Texture2D" uid="uid://c230dr803s0vr" path="res://assets/resources/world/bush/summer/shadow_4.png" id="45_sjnvg"]
+[ext_resource type="Texture2D" uid="uid://dkwd1ckq37087" path="res://assets/resources/world/bush/winter/shadow_0.png" id="46_4c228"]
+[ext_resource type="Texture2D" uid="uid://co8012pbkatw7" path="res://assets/resources/world/bush/summer/shadow_5.png" id="46_6dd8i"]
+[ext_resource type="Texture2D" uid="uid://bimer1lypw5c3" path="res://assets/resources/world/stumps/stump_0.png" id="47_pu0w3"]
+[ext_resource type="Texture2D" uid="uid://cyv1y4ww5bgvj" path="res://assets/resources/world/bush/spring/shadow_1.png" id="48_084tq"]
+[ext_resource type="Script" path="res://assets/scripts/world/_menu_nature.gd" id="48_ka6hk"]
+[ext_resource type="Texture2D" uid="uid://dm2m255a50rwk" path="res://assets/resources/world/stumps/stump_1.png" id="48_l0mwr"]
+[ext_resource type="Texture2D" uid="uid://bdtieyp4xnal6" path="res://assets/resources/world/bush/winter/shadow_1.png" id="49_4kuq7"]
+[ext_resource type="Texture2D" uid="uid://hq7ggsjk4b56" path="res://assets/resources/world/trees/spring/tree_1.png" id="49_bp6vx"]
+[ext_resource type="Texture2D" uid="uid://bg1djjyqtjt7a" path="res://assets/resources/world/stumps/stump_2.png" id="49_o11gu"]
+[ext_resource type="Texture2D" uid="uid://da57acvvve1y6" path="res://assets/resources/world/stumps/stump_3.png" id="50_58etd"]
+[ext_resource type="Texture2D" uid="uid://b624f24esqmi6" path="res://assets/resources/world/trees/autumn/tree_1.png" id="50_rwowq"]
+[ext_resource type="Texture2D" uid="uid://x3pl0up08u0v" path="res://assets/resources/world/bush/spring/shadow_2.png" id="51_6g8ee"]
+[ext_resource type="Texture2D" uid="uid://dwix852lnqbnu" path="res://assets/resources/world/trees/winter/tree_1.png" id="51_7gy52"]
+[ext_resource type="Texture2D" uid="uid://ccf40ohxqrq5n" path="res://assets/resources/world/stumps/stump_4.png" id="51_kblf7"]
+[ext_resource type="Texture2D" uid="uid://bbkn14wtonbel" path="res://assets/resources/world/stumps/stump_5.png" id="52_dhibg"]
+[ext_resource type="Texture2D" uid="uid://6qnrvn7jgmnk" path="res://assets/resources/world/bush/winter/shadow_2.png" id="52_x75xj"]
+[ext_resource type="Texture2D" uid="uid://brmccntxx2185" path="res://assets/resources/world/weeds/autumn/weed_1.png" id="53_1t015"]
+[ext_resource type="Texture2D" uid="uid://hqmwbitpv1kd" path="res://assets/resources/world/trees/spring/tree_2.png" id="53_xwv85"]
+[ext_resource type="Texture2D" uid="uid://bvwi5ipj5ayn1" path="res://assets/resources/world/bush/spring/shadow_3.png" id="54_crgi4"]
+[ext_resource type="Texture2D" uid="uid://ce6a6b781l1hk" path="res://assets/resources/world/weeds/autumn/weed_2.png" id="54_mhblu"]
+[ext_resource type="Texture2D" uid="uid://dewid0avp15g3" path="res://assets/resources/world/trees/autumn/tree_2.png" id="54_tiftu"]
+[ext_resource type="Texture2D" uid="uid://571m7vqy4ls" path="res://assets/resources/world/bush/winter/shadow_3.png" id="55_1ybwl"]
+[ext_resource type="Texture2D" uid="uid://bnvajq3hc8bd1" path="res://assets/resources/world/trees/winter/tree_2.png" id="55_i0ury"]
+[ext_resource type="Texture2D" uid="uid://kfk8vjeb5gcj" path="res://assets/resources/world/weeds/autumn/weed_3.png" id="55_vcnoh"]
+[ext_resource type="Texture2D" uid="uid://pkmip164xgxq" path="res://assets/resources/world/weeds/autumn/weed_4.png" id="56_rx5vp"]
+[ext_resource type="Texture2D" uid="uid://b3m6sn4q8qkvg" path="res://assets/resources/world/bush/spring/shadow_4.png" id="57_3yab4"]
+[ext_resource type="Texture2D" uid="uid://c2xvrnauna678" path="res://assets/resources/world/weeds/autumn/weed_5.png" id="57_tbb14"]
+[ext_resource type="Texture2D" uid="uid://dfnxhdi438e70" path="res://assets/resources/world/trees/spring/tree_4.png" id="57_xwcog"]
+[ext_resource type="Texture2D" uid="uid://b56xq84jjq3el" path="res://assets/resources/world/bush/winter/shadow_4.png" id="58_etft7"]
+[ext_resource type="Texture2D" uid="uid://b0kx427snfjld" path="res://assets/resources/world/weeds/autumn/weed_6.png" id="58_kqx36"]
+[ext_resource type="Texture2D" uid="uid://bomyhm328v6te" path="res://assets/resources/world/trees/autumn/tree_4.png" id="58_xn0s0"]
+[ext_resource type="Texture2D" uid="uid://cb5p6ov6ovnme" path="res://assets/resources/world/weeds/autumn/weed_7.png" id="59_78wc6"]
+[ext_resource type="Texture2D" uid="uid://ujqmem4n8mv7" path="res://assets/resources/world/trees/winter/tree_4.png" id="59_d65ir"]
+[ext_resource type="Texture2D" uid="uid://iqtxvjda3as2" path="res://assets/resources/world/weeds/autumn/weed_8.png" id="60_dqu07"]
+[ext_resource type="Texture2D" uid="uid://d3tgeyep46x6y" path="res://assets/resources/world/bush/spring/shadow_5.png" id="60_opoub"]
+[ext_resource type="Texture2D" uid="uid://cofihe4m8fep1" path="res://assets/resources/world/bush/winter/shadow_5.png" id="61_e3goq"]
+[ext_resource type="Texture2D" uid="uid://83elcymor2lf" path="res://assets/resources/world/weeds/autumn/shadow_1.png" id="61_f8cj3"]
+[ext_resource type="Texture2D" uid="uid://byklqvsyutyp0" path="res://assets/resources/world/trees/spring/tree_3.png" id="61_h8dbp"]
+[ext_resource type="Texture2D" uid="uid://71l7ny2mepld" path="res://assets/resources/world/mushrooms/summer/shadow_0.png" id="62_iqr2s"]
+[ext_resource type="Texture2D" uid="uid://ckfqrubipadyr" path="res://assets/resources/world/trees/autumn/tree_3.png" id="62_kxn41"]
+[ext_resource type="Texture2D" uid="uid://bj1fn85i5p1ga" path="res://assets/resources/world/weeds/autumn/shadow_2.png" id="62_q78y5"]
+[ext_resource type="Texture2D" uid="uid://c8s56vj6guro3" path="res://assets/resources/world/weeds/autumn/shadow_3.png" id="63_344k2"]
+[ext_resource type="Texture2D" uid="uid://bs3a5pd843s0k" path="res://assets/resources/world/mushrooms/spring/shadow_0.png" id="63_k25ph"]
+[ext_resource type="Texture2D" uid="uid://0dn74s0gu5ej" path="res://assets/resources/world/mushrooms/summer/shadow_1.png" id="63_kg3vm"]
+[ext_resource type="Texture2D" uid="uid://dy3n4reqpp2w3" path="res://assets/resources/world/trees/winter/tree_3.png" id="63_m6vs7"]
+[ext_resource type="Texture2D" uid="uid://bo6j2o2n2hajd" path="res://assets/resources/world/mushrooms/autumn/shadow_0.png" id="64_1palk"]
+[ext_resource type="Texture2D" uid="uid://bgjtcvi8h5q8a" path="res://assets/resources/world/mushrooms/summer/shadow_2.png" id="64_3ftle"]
+[ext_resource type="Texture2D" uid="uid://cwgtsgxff4ybk" path="res://assets/resources/world/weeds/autumn/shadow_4.png" id="64_a6uat"]
+[ext_resource type="Texture2D" uid="uid://cufwi7hbfecfe" path="res://assets/resources/world/trees/spring/tree_5.png" id="65_agvlg"]
+[ext_resource type="Texture2D" uid="uid://da4xnmpukwcqa" path="res://assets/resources/world/mushrooms/winter/shadow_0.png" id="65_hh4n0"]
+[ext_resource type="Texture2D" uid="uid://cely4yhba2ob6" path="res://assets/resources/world/mushrooms/summer/shadow_3.png" id="65_v5mk3"]
+[ext_resource type="Texture2D" uid="uid://cascjt85cuwp2" path="res://assets/resources/world/weeds/autumn/shadow_5.png" id="65_xoi5d"]
+[ext_resource type="Texture2D" uid="uid://d2mdid8evilk6" path="res://assets/resources/world/trees/autumn/tree_5.png" id="66_bw87n"]
+[ext_resource type="Texture2D" uid="uid://drwv4neqseq6c" path="res://assets/resources/world/weeds/autumn/shadow_6.png" id="66_wkept"]
+[ext_resource type="Texture2D" uid="uid://b7xkreuxjlee1" path="res://assets/resources/world/weeds/autumn/shadow_7.png" id="67_67h6s"]
+[ext_resource type="Texture2D" uid="uid://bxmkdj7f212ly" path="res://assets/resources/world/mushrooms/spring/shadow_1.png" id="67_g6cp3"]
+[ext_resource type="Texture2D" uid="uid://by2mt4hshokwi" path="res://assets/resources/world/trees/winter/tree_5.png" id="67_kk8ch"]
+[ext_resource type="Texture2D" uid="uid://cwg34hh6fnbwd" path="res://assets/resources/world/mushrooms/autumn/shadow_1.png" id="68_okt7n"]
+[ext_resource type="Texture2D" uid="uid://y4hxxf4sy5bm" path="res://assets/resources/world/weeds/autumn/shadow_8.png" id="68_yxpml"]
+[ext_resource type="Texture2D" uid="uid://c5kb65gebk723" path="res://assets/resources/world/trees/spring/tree_6.png" id="69_pfg4t"]
+[ext_resource type="Texture2D" uid="uid://b11ivh23li2ty" path="res://assets/resources/world/mushrooms/winter/shadow_1.png" id="69_xs2as"]
+[ext_resource type="Texture2D" uid="uid://cx4s13vmocap2" path="res://assets/resources/world/trees/autumn/tree_6.png" id="70_3ijo7"]
+[ext_resource type="Texture2D" uid="uid://5fx17td7rsys" path="res://assets/resources/world/mushrooms/spring/shadow_2.png" id="71_np2vc"]
+[ext_resource type="Texture2D" uid="uid://coxgrxfgff6qj" path="res://assets/resources/world/trees/winter/tree_6.png" id="71_rporq"]
+[ext_resource type="Texture2D" uid="uid://dk1ot027hc0rr" path="res://assets/resources/world/mushrooms/autumn/shadow_2.png" id="72_374lg"]
+[ext_resource type="Texture2D" uid="uid://g50ler70t72v" path="res://assets/resources/world/mushrooms/winter/shadow_2.png" id="73_3t3c6"]
+[ext_resource type="Texture2D" uid="uid://67mng8lgkr3t" path="res://assets/resources/world/mushrooms/spring/shadow_3.png" id="75_d5hfl"]
+[ext_resource type="Texture2D" uid="uid://bw6n6dfe2ku7r" path="res://assets/resources/world/bush/summer/sprite_0.png" id="75_s10bg"]
+[ext_resource type="Texture2D" uid="uid://y01uu2j74dh7" path="res://assets/resources/world/bush/summer/sprite_1.png" id="76_d0bls"]
+[ext_resource type="Texture2D" uid="uid://45wr6yn5tqtu" path="res://assets/resources/world/mushrooms/autumn/shadow_3.png" id="76_mnpbw"]
+[ext_resource type="Texture2D" uid="uid://c2q82fn0ga87h" path="res://assets/resources/world/bush/summer/sprite_2.png" id="77_437qn"]
+[ext_resource type="Texture2D" uid="uid://by2126h1rotkd" path="res://assets/resources/world/mushrooms/winter/shadow_3.png" id="77_ts2rp"]
+[ext_resource type="Texture2D" uid="uid://have21wqb8sw" path="res://assets/resources/world/bush/summer/sprite_3.png" id="78_uel4i"]
+[ext_resource type="Texture2D" uid="uid://b5s13hoctpc7h" path="res://assets/resources/world/bush/summer/sprite_4.png" id="79_6sord"]
+[ext_resource type="Texture2D" uid="uid://blg8hj2mlwyqb" path="res://assets/resources/world/bush/summer/sprite_5.png" id="80_64gjk"]
+[ext_resource type="Texture2D" uid="uid://b5pk4vedj7v2a" path="res://assets/resources/world/weeds/spring/weed_1.png" id="87_agkef"]
+[ext_resource type="Texture2D" uid="uid://dul8pysytgnjh" path="res://assets/resources/world/weeds/summer/weed_1.png" id="88_u3cbx"]
+[ext_resource type="Texture2D" uid="uid://cxhetgmfd0sy7" path="res://assets/resources/world/weeds/winter/weed_1.png" id="89_i378w"]
+[ext_resource type="Texture2D" uid="uid://cdg5opijeicge" path="res://assets/resources/world/weeds/spring/weed_2.png" id="91_f6fqn"]
+[ext_resource type="Texture2D" uid="uid://bommiqs3s6osl" path="res://assets/resources/world/weeds/summer/weed_2.png" id="92_43wk7"]
+[ext_resource type="Texture2D" uid="uid://dgnqjwdvbo7g0" path="res://assets/resources/world/weeds/winter/weed_2.png" id="93_oekrg"]
+[ext_resource type="Texture2D" uid="uid://dtdxx5xsf8ma8" path="res://assets/resources/world/bush/spring/sprite_0.png" id="95_11d0n"]
+[ext_resource type="Texture2D" uid="uid://tnqe0j2vwglw" path="res://assets/resources/world/weeds/spring/weed_3.png" id="95_k7dxc"]
+[ext_resource type="Texture2D" uid="uid://bf7xswviidc4b" path="res://assets/resources/world/weeds/summer/weed_3.png" id="96_4fvx4"]
+[ext_resource type="Texture2D" uid="uid://cnbwm5h4o5232" path="res://assets/resources/world/bush/autumn/sprite_0.png" id="96_webf2"]
+[ext_resource type="Texture2D" uid="uid://5w5fdrrgnep7" path="res://assets/resources/world/bush/winter/sprite_0.png" id="97_4fo7t"]
+[ext_resource type="Texture2D" uid="uid://cxjtyct22038a" path="res://assets/resources/world/weeds/winter/weed_3.png" id="97_8hxgw"]
+[ext_resource type="Texture2D" uid="uid://trve5cwcdfx8" path="res://assets/resources/world/bush/spring/sprite_1.png" id="99_0x3ag"]
+[ext_resource type="Texture2D" uid="uid://dipuc5eg25fru" path="res://assets/resources/world/weeds/spring/weed_4.png" id="99_3qak0"]
+[ext_resource type="Texture2D" uid="uid://c65nejkccbr8h" path="res://assets/resources/world/bush/autumn/sprite_1.png" id="100_dahpm"]
+[ext_resource type="Texture2D" uid="uid://dyytbsq0wi4rh" path="res://assets/resources/world/weeds/summer/weed_4.png" id="100_txjgl"]
+[ext_resource type="Texture2D" uid="uid://igorwnwroumf" path="res://assets/resources/world/weeds/winter/weed_4.png" id="101_5meqi"]
+[ext_resource type="Texture2D" uid="uid://dn6fotsi6sy75" path="res://assets/resources/world/bush/winter/sprite_1.png" id="101_j2s6t"]
+[ext_resource type="Texture2D" uid="uid://bc0ommxq6g3b2" path="res://assets/resources/world/weeds/spring/weed_5.png" id="103_rx8tb"]
+[ext_resource type="Texture2D" uid="uid://cciqmwglwe2vm" path="res://assets/resources/world/bush/spring/sprite_2.png" id="103_t1yc0"]
+[ext_resource type="Texture2D" uid="uid://bh4pywodkx1pa" path="res://assets/resources/world/weeds/summer/weed_5.png" id="104_vu2b2"]
+[ext_resource type="Texture2D" uid="uid://chfx0l7ebuin7" path="res://assets/resources/world/bush/autumn/sprite_2.png" id="104_w23sr"]
+[ext_resource type="Texture2D" uid="uid://bueo2k2a3mrow" path="res://assets/resources/world/weeds/winter/weed_5.png" id="105_gktq5"]
+[ext_resource type="Texture2D" uid="uid://bgkcytdgpp5t3" path="res://assets/resources/world/bush/winter/sprite_2.png" id="105_ueoty"]
+[ext_resource type="Texture2D" uid="uid://dffh8ku63i806" path="res://assets/resources/world/weeds/spring/weed_6.png" id="107_god3q"]
+[ext_resource type="Texture2D" uid="uid://cwvff1aluvnsa" path="res://assets/resources/world/bush/spring/sprite_3.png" id="107_uxgme"]
+[ext_resource type="Texture2D" uid="uid://6bv76c8uuuc3" path="res://assets/resources/world/weeds/summer/weed_6.png" id="108_4p5r3"]
+[ext_resource type="Texture2D" uid="uid://b1a4mpnxqe2oy" path="res://assets/resources/world/bush/autumn/sprite_3.png" id="108_5s8re"]
+[ext_resource type="Texture2D" uid="uid://xtxxuisntqu7" path="res://assets/resources/world/weeds/winter/weed_6.png" id="109_jod2y"]
+[ext_resource type="Texture2D" uid="uid://bqkb570iv6uxa" path="res://assets/resources/world/bush/winter/sprite_3.png" id="109_x1gti"]
+[ext_resource type="Texture2D" uid="uid://dyioqic3cnj5i" path="res://assets/resources/world/weeds/spring/weed_7.png" id="111_n651f"]
+[ext_resource type="Texture2D" uid="uid://dq6ygm3gux8ew" path="res://assets/resources/world/bush/spring/sprite_4.png" id="111_t5pdp"]
+[ext_resource type="Texture2D" uid="uid://dvanoklyldcd2" path="res://assets/resources/world/bush/autumn/sprite_4.png" id="112_e1u6n"]
+[ext_resource type="Texture2D" uid="uid://dw5l3qc4816rt" path="res://assets/resources/world/weeds/summer/weed_7.png" id="112_i52ec"]
+[ext_resource type="Texture2D" uid="uid://uyfyde825ag7" path="res://assets/resources/world/bush/winter/sprite_4.png" id="113_8eoo3"]
+[ext_resource type="Texture2D" uid="uid://ciadb4g3orsm6" path="res://assets/resources/world/weeds/winter/weed_7.png" id="113_717r0"]
+[ext_resource type="Texture2D" uid="uid://bpoix3gil7klw" path="res://assets/resources/world/weeds/spring/weed_8.png" id="115_0oor7"]
+[ext_resource type="Texture2D" uid="uid://dphlfmtjxmvr7" path="res://assets/resources/world/bush/spring/sprite_5.png" id="115_rdffh"]
+[ext_resource type="Texture2D" uid="uid://dohq3xasps833" path="res://assets/resources/world/bush/autumn/sprite_5.png" id="116_8nxfr"]
+[ext_resource type="Texture2D" uid="uid://c0egvm7iijdud" path="res://assets/resources/world/weeds/summer/weed_8.png" id="116_oob5o"]
+[ext_resource type="Texture2D" uid="uid://cdersjr5dnygx" path="res://assets/resources/world/weeds/winter/weed_8.png" id="117_lyor8"]
+[ext_resource type="Texture2D" uid="uid://c7ljqmgpswjxx" path="res://assets/resources/world/bush/winter/sprite_5.png" id="117_s3gyh"]
+[ext_resource type="Texture2D" uid="uid://b2lakpvu236g3" path="res://assets/resources/world/mushrooms/summer/mushroom_0.png" id="156_knq5i"]
+[ext_resource type="Texture2D" uid="uid://c4m7l3rccv6qn" path="res://assets/resources/world/mushrooms/spring/mushroom_0.png" id="157_u7xt8"]
+[ext_resource type="Texture2D" uid="uid://ds0h31ysotc8s" path="res://assets/resources/world/mushrooms/autumn/mushroom_0.png" id="158_2om2c"]
+[ext_resource type="Texture2D" uid="uid://b3pdqlrjkyjkv" path="res://assets/resources/world/mushrooms/winter/sprite_0.png" id="159_optrr"]
+[ext_resource type="Texture2D" uid="uid://betfis4y56x41" path="res://assets/resources/world/mushrooms/spring/mushroom_1.png" id="160_d8858"]
+[ext_resource type="Texture2D" uid="uid://dfxfer3wici8c" path="res://assets/resources/world/mushrooms/summer/mushroom_1.png" id="161_qbuwk"]
+[ext_resource type="Texture2D" uid="uid://2tlf05t3qepp" path="res://assets/resources/world/mushrooms/autumn/mushroom_1.png" id="162_koqd8"]
+[ext_resource type="Texture2D" uid="uid://bcq1ld8jo7ows" path="res://assets/resources/world/mushrooms/winter/sprite_1.png" id="163_jul40"]
+[ext_resource type="Texture2D" uid="uid://cdgukpc3w5luk" path="res://assets/resources/world/mushrooms/spring/mushroom_2.png" id="164_fcxxn"]
+[ext_resource type="Texture2D" uid="uid://b3sbmjnc6fj5c" path="res://assets/resources/world/mushrooms/summer/mushroom_2.png" id="165_rbw87"]
+[ext_resource type="Texture2D" uid="uid://cv7w2iiuv6ok4" path="res://assets/resources/world/mushrooms/autumn/mushroom_2.png" id="166_ucluo"]
+[ext_resource type="Texture2D" uid="uid://2i80kp5v05w0" path="res://assets/resources/world/mushrooms/winter/sprite_2.png" id="167_y4d48"]
+[ext_resource type="Texture2D" uid="uid://2dvds03rvmtg" path="res://assets/resources/world/mushrooms/spring/mushroom_3.png" id="168_q1bhs"]
+[ext_resource type="Texture2D" uid="uid://k41g3c21ds2q" path="res://assets/resources/world/mushrooms/summer/mushroom_3.png" id="169_n5l32"]
+[ext_resource type="Texture2D" uid="uid://f0r5p4k114dh" path="res://assets/resources/world/mushrooms/autumn/mushroom_3.png" id="170_akafb"]
+[ext_resource type="Texture2D" uid="uid://fcbpr2qa6ld4" path="res://assets/resources/world/mushrooms/winter/sprite_3.png" id="171_62yhr"]
+[ext_resource type="Texture2D" uid="uid://dpbxogm3j7dpk" path="res://assets/resources/farming/crops.png" id="188_a6lxe"]
+[ext_resource type="Script" path="res://assets/scripts/world/_menu_plant.gd" id="189_lfffo"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nneai"]
-texture = ExtResource("6_uq7gr")
-texture_margin_left = 12.0
-texture_margin_top = 12.0
-texture_margin_right = 12.0
-texture_margin_bottom = 12.0
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xvf1v"]
+texture = ExtResource("5_tbk12")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o3muj"]
-texture = ExtResource("7_ioe06")
-texture_margin_left = 12.0
-texture_margin_top = 12.0
-texture_margin_right = 12.0
-texture_margin_bottom = 12.0
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bvyvc"]
+texture = ExtResource("6_63wd7")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+11:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+9:2/0 = 0
+10:2/0 = 0
+11:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+8:3/0 = 0
+9:3/0 = 0
+10:3/0 = 0
+11:3/0 = 0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xtslb"]
-texture = ExtResource("8_qn8sj")
-texture_margin_left = 12.0
-texture_margin_top = 12.0
-texture_margin_right = 12.0
-texture_margin_bottom = 12.0
-region_rect = Rect2(0, 0, 128, 64)
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8jgwv"]
+texture = ExtResource("8_84d6p")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+11:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+9:2/0 = 0
+10:2/0 = 0
+11:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+8:3/0 = 0
+9:3/0 = 0
+10:3/0 = 0
+11:3/0 = 0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vqost"]
-texture = ExtResource("9_er6dx")
-texture_margin_left = 12.0
-texture_margin_top = 12.0
-texture_margin_right = 12.0
-texture_margin_bottom = 12.0
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pjbuv"]
+texture = ExtResource("9_j62c2")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+11:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+9:2/0 = 0
+10:2/0 = 0
+11:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+8:3/0 = 0
+9:3/0 = 0
+10:3/0 = 0
+11:3/0 = 0
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y23j3"]
+[sub_resource type="TileSet" id="TileSet_nq7c1"]
+sources/0 = SubResource("TileSetAtlasSource_xvf1v")
+sources/1 = SubResource("TileSetAtlasSource_bvyvc")
+sources/2 = SubResource("TileSetAtlasSource_8jgwv")
+sources/3 = SubResource("TileSetAtlasSource_pjbuv")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8657f"]
-texture = ExtResource("6_uq7gr")
-texture_margin_left = 12.0
-texture_margin_top = 12.0
-texture_margin_right = 12.0
-texture_margin_bottom = 12.0
+[node name="Menu" type="Node2D" node_paths=PackedStringArray("house", "mailbox", "storage")]
+script = ExtResource("1_ofqdk")
+house = NodePath("BuildContainer/House/Sprite2D")
+mailbox = NodePath("BuildContainer/Mailbox/Sprite2D")
+storage = NodePath("BuildContainer/Storage/Sprite2D")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qco8a"]
-texture = ExtResource("7_ioe06")
-texture_margin_left = 12.0
-texture_margin_top = 12.0
-texture_margin_right = 12.0
-texture_margin_bottom = 12.0
+[node name="Canvas" type="CanvasLayer" parent="."]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8pg3f"]
-texture = ExtResource("8_qn8sj")
-texture_margin_left = 12.0
-texture_margin_top = 12.0
-texture_margin_right = 12.0
-texture_margin_bottom = 12.0
-region_rect = Rect2(0, 0, 128, 64)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_63r1u"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dif7q"]
-texture = ExtResource("6_uq7gr")
-texture_margin_left = 12.0
-texture_margin_top = 12.0
-texture_margin_right = 12.0
-texture_margin_bottom = 12.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_phoql"]
-texture = ExtResource("7_ioe06")
-texture_margin_left = 12.0
-texture_margin_top = 12.0
-texture_margin_right = 12.0
-texture_margin_bottom = 12.0
-region_rect = Rect2(0, 0, 128, 64)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_udmmo"]
-texture = ExtResource("8_qn8sj")
-texture_margin_left = 12.0
-texture_margin_top = 12.0
-texture_margin_right = 12.0
-texture_margin_bottom = 12.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_embk8"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7pi30"]
-texture = ExtResource("6_uq7gr")
-texture_margin_left = 12.0
-texture_margin_top = 12.0
-texture_margin_right = 12.0
-texture_margin_bottom = 12.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u7keh"]
-texture = ExtResource("7_ioe06")
-texture_margin_left = 12.0
-texture_margin_top = 12.0
-texture_margin_right = 12.0
-texture_margin_bottom = 12.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dq66j"]
-texture = ExtResource("8_qn8sj")
-texture_margin_left = 12.0
-texture_margin_top = 12.0
-texture_margin_right = 12.0
-texture_margin_bottom = 12.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gtq0s"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_eema0"]
-
-[node name="MainMenu" type="MarginContainer"]
+[node name="UI" type="Control" parent="Canvas"]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -1.0
+offset_right = 2.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("2_pbanc")
+
+[node name="HBox" type="HBoxContainer" parent="Canvas/UI"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -296.5
+offset_right = 384.0
+offset_bottom = 296.5
+grow_vertical = 2
+
+[node name="MainMargin" type="MarginContainer" parent="Canvas/UI/HBox"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
 script = ExtResource("1_x8tav")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Menu" type="NinePatchRect" parent="Canvas/UI/HBox/MainMargin"]
 layout_mode = 2
-color = Color(0.784314, 0.623529, 0.521569, 1)
+texture = ExtResource("3_e74r2")
+region_rect = Rect2(0, 0, 128, 64)
+patch_margin_left = 28
+patch_margin_top = 28
+patch_margin_right = 28
+patch_margin_bottom = 28
 
-[node name="MenuContent" type="MarginContainer" parent="."]
+[node name="Margin" type="MarginContainer" parent="Canvas/UI/HBox/MainMargin"]
 layout_mode = 2
-size_flags_vertical = 4
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_right = 50
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
 
-[node name="VContainer" type="VBoxContainer" parent="MenuContent"]
+[node name="VBox" type="VBoxContainer" parent="Canvas/UI/HBox/MainMargin/Margin"]
 layout_mode = 2
-alignment = 2
 
-[node name="LogoMargin" type="MarginContainer" parent="MenuContent/VContainer"]
+[node name="Logo" type="MarginContainer" parent="Canvas/UI/HBox/MainMargin/Margin/VBox"]
 layout_mode = 2
-size_flags_vertical = 2
 
-[node name="Logo" type="TextureRect" parent="MenuContent/VContainer/LogoMargin"]
-custom_minimum_size = Vector2(512, 256)
+[node name="TextureRect" type="TextureRect" parent="Canvas/UI/HBox/MainMargin/Margin/VBox/Logo"]
+custom_minimum_size = Vector2(256, 160)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
 texture = ExtResource("6_tn0f5")
+expand_mode = 1
 stretch_mode = 5
 
-[node name="ButtonsMargin" type="MarginContainer" parent="MenuContent/VContainer"]
+[node name="Continue" type="MarginContainer" parent="Canvas/UI/HBox/MainMargin/Margin/VBox"]
 layout_mode = 2
-theme_override_constants/margin_top = 8
+
+[node name="Button" type="Button" parent="Canvas/UI/HBox/MainMargin/Margin/VBox/Continue"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="NewGame" type="MarginContainer" parent="Canvas/UI/HBox/MainMargin/Margin/VBox"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Canvas/UI/HBox/MainMargin/Margin/VBox/NewGame"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Settings" type="MarginContainer" parent="Canvas/UI/HBox/MainMargin/Margin/VBox"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Canvas/UI/HBox/MainMargin/Margin/VBox/Settings"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Credits" type="MarginContainer" parent="Canvas/UI/HBox/MainMargin/Margin/VBox"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Canvas/UI/HBox/MainMargin/Margin/VBox/Credits"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Exit" type="MarginContainer" parent="Canvas/UI/HBox/MainMargin/Margin/VBox"]
+layout_mode = 2
 theme_override_constants/margin_bottom = 8
 
-[node name="Buttons" type="VBoxContainer" parent="MenuContent/VContainer/ButtonsMargin"]
-custom_minimum_size = Vector2(375, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 10
-alignment = 1
-
-[node name="ContinueMargin" type="MarginContainer" parent="MenuContent/VContainer/ButtonsMargin/Buttons"]
-layout_mode = 2
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="ContinueButton" type="Button" parent="MenuContent/VContainer/ButtonsMargin/Buttons/ContinueMargin"]
-custom_minimum_size = Vector2(60, 60)
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = SubResource("StyleBoxTexture_nneai")
-theme_override_styles/hover = SubResource("StyleBoxTexture_o3muj")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_xtslb")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_vqost")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_y23j3")
-text = "menu.continue"
-
-[node name="NewGameMargin" type="MarginContainer" parent="MenuContent/VContainer/ButtonsMargin/Buttons"]
-layout_mode = 2
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="NewGameButton" type="Button" parent="MenuContent/VContainer/ButtonsMargin/Buttons/NewGameMargin"]
-custom_minimum_size = Vector2(60, 60)
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = SubResource("StyleBoxTexture_8657f")
-theme_override_styles/hover = SubResource("StyleBoxTexture_qco8a")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_8pg3f")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_63r1u")
-text = "menu.newgame"
-
-[node name="SettingsMargin" type="MarginContainer" parent="MenuContent/VContainer/ButtonsMargin/Buttons"]
-layout_mode = 2
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="SettingsButton" type="Button" parent="MenuContent/VContainer/ButtonsMargin/Buttons/SettingsMargin"]
-custom_minimum_size = Vector2(60, 60)
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = SubResource("StyleBoxTexture_dif7q")
-theme_override_styles/hover = SubResource("StyleBoxTexture_phoql")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_udmmo")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_embk8")
-text = "menu.settings"
-
-[node name="CreditsMargin" type="MarginContainer" parent="MenuContent/VContainer/ButtonsMargin/Buttons"]
-layout_mode = 2
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="CreditsButton" type="Button" parent="MenuContent/VContainer/ButtonsMargin/Buttons/CreditsMargin"]
-custom_minimum_size = Vector2(60, 60)
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = SubResource("StyleBoxTexture_dif7q")
-theme_override_styles/hover = SubResource("StyleBoxTexture_phoql")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_udmmo")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_embk8")
-text = "menu.credits"
-
-[node name="ExitMargin" type="MarginContainer" parent="MenuContent/VContainer/ButtonsMargin/Buttons"]
-layout_mode = 2
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="ExitButton" type="Button" parent="MenuContent/VContainer/ButtonsMargin/Buttons/ExitMargin"]
-custom_minimum_size = Vector2(60, 60)
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = SubResource("StyleBoxTexture_7pi30")
-theme_override_styles/hover = SubResource("StyleBoxTexture_u7keh")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_dq66j")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_gtq0s")
-text = "menu.quit"
-
-[node name="FooterMargin" type="MarginContainer" parent="MenuContent/VContainer"]
-layout_mode = 2
-size_flags_vertical = 10
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MenuContent/VContainer/FooterMargin"]
+[node name="Button" type="Button" parent="Canvas/UI/HBox/MainMargin/Margin/VBox/Exit"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="Version" type="Label" parent="MenuContent/VContainer/FooterMargin/VBoxContainer"]
+[node name="Version" type="Label" parent="Canvas/UI/HBox/MainMargin/Margin/VBox"]
 layout_mode = 2
-size_flags_vertical = 8
-text = "menu.version"
-label_settings = SubResource("LabelSettings_eema0")
+text = "version"
 horizontal_alignment = 1
+
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2(0, -32)
+tile_set = SubResource("TileSet_nq7c1")
+format = 2
+layer_0/name = "ground"
+layer_0/tile_data = PackedInt32Array(1114139, 131072, 0, 1179675, 131072, 2, 1245211, 131072, 0, 1310747, 196608, 2, 1376283, 131072, 2, 1441819, 131072, 2, 1507355, 131072, 2, 1572891, 196608, 1, 1638427, 65536, 1, 1703963, 65536, 2, 1769499, 131072, 0, 1835035, 0, 1, 1900571, 0, 1, 1966107, 0, 2, 2031643, 65536, 2, 1114140, 196608, 2, 1179676, 196608, 0, 1245212, 65536, 2, 1310748, 0, 1, 1376284, 196608, 2, 1441820, 131072, 0, 1507356, 196608, 0, 1572892, 0, 1, 1638428, 0, 0, 1703964, 196608, 1, 1769500, 0, 1, 1835036, 65536, 1, 1900572, 131072, 1, 1966108, 0, 0, 2031644, 0, 0, 1114141, 65536, 1, 1179677, 196608, 2, 1245213, 0, 0, 1310749, 0, 0, 1376285, 0, 0, 1441821, 0, 1, 1507357, 65536, 2, 1572893, 196608, 2, 1638429, 131072, 0, 1703965, 196608, 1, 1769501, 0, 1, 1835037, 131072, 1, 1900573, 196608, 1, 1966109, 196608, 0, 2031645, 65536, 0, 1114142, 131072, 0, 1179678, 0, 0, 1245214, 196608, 0, 1310750, 0, 0, 1376286, 0, 1, 1441822, 131072, 0, 1507358, 0, 0, 1572894, 0, 0, 1638430, 65536, 1, 1703966, 196608, 1, 1769502, 0, 0, 1835038, 131072, 1, 1900574, 0, 0, 1966110, 0, 2, 2031646, 0, 1, 1114143, 196608, 2, 1179679, 196608, 1, 1245215, 196608, 2, 1310751, 65536, 2, 1376287, 65536, 2, 1441823, 131072, 0, 1507359, 0, 0, 1572895, 196608, 2, 1638431, 0, 2, 1703967, 0, 1, 1769503, 65536, 0, 1835039, 196608, 0, 1900575, 131072, 0, 1966111, 131072, 2, 2031647, 196608, 2, 1114144, 65536, 2, 1179680, 131072, 2, 1245216, 131072, 2, 1310752, 65536, 2, 1376288, 0, 1, 1441824, 131072, 1, 1507360, 196608, 2, 1572896, 65536, 2, 1638432, 131072, 2, 1703968, 0, 1, 1769504, 0, 1, 1835040, 131072, 1, 1900576, 65536, 2, 1966112, 0, 1, 2031648, 131072, 1, 1114145, 65536, 2, 1179681, 0, 0, 1245217, 0, 1, 1310753, 196608, 2, 1376289, 131072, 0, 1441825, 65536, 0, 1507361, 65536, 0, 1572897, 0, 0, 1638433, 131072, 2, 1703969, 131072, 2, 1769505, 65536, 0, 1835041, 65536, 1, 1900577, 65536, 1, 1966113, 131072, 1, 2031649, 196608, 2, 1114146, 196608, 0, 1179682, 0, 0, 1245218, 0, 2, 1310754, 196608, 1, 1376290, 65536, 1, 1441826, 65536, 1, 1507362, 131072, 2, 1572898, 65536, 2, 1638434, 65536, 0, 1703970, 65536, 0, 1769506, 0, 0, 1835042, 0, 2, 1900578, 65536, 0, 1966114, 131072, 0, 2031650, 65536, 0, 1114147, 65536, 1, 1179683, 196608, 1, 1245219, 65536, 0, 1310755, 65536, 0, 1376291, 196608, 2, 1441827, 0, 0, 1507363, 196608, 2, 1572899, 65536, 1, 1638435, 65536, 2, 1703971, 196608, 0, 1769507, 65536, 1, 1835043, 131072, 1, 1900579, 65536, 2, 1966115, 0, 0, 2031651, 196608, 0, 1114148, 0, 1, 1179684, 196608, 1, 1245220, 196608, 0, 1310756, 65536, 1, 1376292, 131072, 2, 1441828, 131072, 2, 1507364, 65536, 1, 1572900, 65536, 2, 1769508, 65536, 2, 1835044, 0, 1, 1900580, 65536, 1, 1966116, 65536, 0, 2031652, 196608, 2, 1114149, 196608, 0, 1179685, 131072, 0, 1245221, 131072, 2, 1310757, 0, 2, 1376293, 0, 0, 1441829, 0, 0, 1507365, 196608, 2, 1572901, 0, 0, 1638437, 65536, 2, 1703973, 196608, 1, 1769509, 131072, 0, 1835045, 196608, 0, 1900581, 65536, 1, 1966117, 0, 0, 2031653, 196608, 1, 1114150, 0, 0, 1179686, 131072, 1, 1245222, 0, 0, 1310758, 196608, 2, 1376294, 196608, 0, 1441830, 65536, 1, 1507366, 0, 0, 1572902, 131072, 0, 1638438, 0, 1, 1703974, 0, 0, 1769510, 196608, 0, 1835046, 196608, 1, 1900582, 0, 2, 1966118, 0, 0, 2031654, 131072, 2, 1114151, 131072, 1, 1179687, 131072, 2, 1245223, 65536, 0, 1310759, 131072, 1, 1376295, 196608, 2, 1441831, 0, 1, 1507367, 65536, 0, 1572903, 196608, 1, 1638439, 196608, 1, 1703975, 131072, 1, 1769511, 0, 0, 1835047, 65536, 0, 1900583, 131072, 0, 1966119, 196608, 1, 2031655, 196608, 1, 1114152, 131072, 0, 1179688, 131072, 1, 1245224, 0, 0, 1310760, 0, 2, 1376296, 131072, 1, 1441832, 131072, 2, 1507368, 131072, 0, 1572904, 131072, 2, 1638440, 0, 1, 1703976, 0, 0, 1769512, 196608, 1, 1835048, 196608, 2, 1900584, 65536, 1, 1966120, 65536, 0, 2031656, 131072, 2, 1114153, 0, 0, 1179689, 0, 0, 1245225, 0, 2, 1310761, 65536, 1, 1376297, 65536, 1, 1441833, 0, 0, 1507369, 0, 1, 1572905, 196608, 2, 1638441, 131072, 1, 1703977, 65536, 2, 1769513, 0, 0, 1835049, 0, 0, 1900585, 196608, 1, 1966121, 0, 0, 2031657, 65536, 1, 1114154, 65536, 0, 1179690, 131072, 0, 1245226, 131072, 2, 1310762, 131072, 2, 1376298, 0, 2, 1441834, 65536, 1, 1507370, 131072, 2, 1572906, 196608, 2, 1638442, 196608, 1, 1703978, 65536, 0, 1769514, 0, 1, 1835050, 0, 0, 1900586, 196608, 2, 1966122, 0, 2, 2031658, 65536, 1, 1114155, 65536, 0, 1179691, 196608, 2, 1245227, 0, 0, 1310763, 0, 2, 1376299, 0, 2, 1441835, 0, 2, 1507371, 131072, 0, 1572907, 196608, 2, 1638443, 131072, 2, 1703979, 196608, 2, 1769515, 65536, 0, 1835051, 65536, 2, 1900587, 131072, 2, 1966123, 196608, 0, 2031659, 65536, 0, 1114156, 131072, 2, 1179692, 131072, 1, 1245228, 0, 0, 1310764, 0, 1, 1376300, 65536, 0, 1441836, 196608, 1, 1507372, 196608, 1, 1572908, 0, 2, 1638444, 0, 0, 1703980, 65536, 0, 1769516, 196608, 2, 1835052, 65536, 1, 1900588, 196608, 0, 1966124, 196608, 0, 2031660, 65536, 2, 1114157, 196608, 2, 1179693, 131072, 1, 1245229, 196608, 0, 1310765, 131072, 1, 1376301, 131072, 0, 1441837, 131072, 1, 1507373, 65536, 1, 1572909, 0, 0, 1638445, 131072, 2, 1703981, 0, 2, 1769517, 0, 0, 1835053, 0, 0, 1900589, 131072, 1, 1966125, 0, 0, 2031661, 65536, 0, 1114158, 0, 0, 1179694, 65536, 2, 1245230, 65536, 1, 1310766, 0, 2, 1376302, 131072, 0, 1441838, 0, 0, 1507374, 196608, 2, 1572910, 131072, 2, 1638446, 65536, 2, 1703982, 0, 0, 1769518, 196608, 2, 1835054, 0, 1, 1900590, 131072, 2, 1966126, 131072, 1, 2031662, 65536, 2, 1114159, 196608, 1, 1179695, 196608, 1, 1245231, 0, 0, 1310767, 65536, 2, 1376303, 196608, 1, 1441839, 0, 0, 1507375, 65536, 0, 1572911, 196608, 0, 1638447, 196608, 2, 1703983, 65536, 1, 1769519, 0, 0, 1835055, 131072, 0, 1900591, 65536, 0, 1966127, 196608, 1, 2031663, 65536, 1, 1114160, 131072, 1, 1179696, 196608, 2, 1245232, 0, 0, 1310768, 0, 2, 1376304, 65536, 0, 1441840, 0, 1, 1507376, 131072, 0, 1572912, 196608, 0, 1638448, 196608, 1, 1703984, 65536, 2, 1769520, 0, 1, 1835056, 65536, 2, 1900592, 131072, 1, 1966128, 196608, 0, 2031664, 196608, 2, 1114161, 0, 1, 1179697, 0, 1, 1245233, 0, 1, 1310769, 196608, 0, 1376305, 131072, 1, 1441841, 131072, 0, 1507377, 196608, 2, 1572913, 131072, 0, 1638449, 0, 2, 1703985, 131072, 1, 1769521, 196608, 2, 1835057, 196608, 2, 1900593, 65536, 2, 1966129, 0, 1, 2031665, 196608, 2, 1114162, 65536, 1, 1179698, 0, 0, 1245234, 196608, 1, 1310770, 196608, 1, 1376306, 0, 0, 1441842, 196608, 0, 1507378, 65536, 2, 1572914, 65536, 1, 1638450, 0, 0, 1703986, 196608, 2, 1769522, 0, 0, 1835058, 196608, 1, 1900594, 196608, 1, 1966130, 0, 2, 2031666, 196608, 0, 1114163, 0, 2, 1179699, 196608, 2, 1245235, 196608, 0, 1310771, 65536, 0, 1376307, 131072, 2, 1441843, 196608, 2, 1507379, 131072, 2, 1572915, 131072, 0, 1638451, 131072, 2, 1703987, 0, 1, 1769523, 196608, 0, 1835059, 0, 0, 1900595, 0, 0, 1966131, 65536, 1, 2031667, 131072, 1, 1114164, 196608, 1, 1179700, 131072, 2, 1245236, 131072, 0, 1310772, 0, 0, 1376308, 131072, 0, 1441844, 65536, 0, 1507380, 65536, 2, 1572916, 196608, 2, 1638452, 196608, 0, 1703988, 65536, 0, 1769524, 196608, 2, 1835060, 0, 0, 1900596, 0, 2, 1966132, 0, 0, 2031668, 0, 2, 1638436, 0, 1, 1703972, 0, 0)
+layer_1/name = "roads"
+layer_1/tile_data = PackedInt32Array(1572906, 655361, 0, 1572905, 655361, 0, 1572908, 720897, 0, 1572900, 524289, 0, 1638436, 524289, 1, 1572902, 655361, 0, 1572903, 655361, 0, 1638444, 720897, 2, 1703980, 720897, 2, 1769516, 720897, 2, 1835052, 720897, 3, 1835044, 524289, 3, 1835045, 589825, 3, 1572904, 589825, 0, 1572907, 589825, 0, 1572901, 589825, 0, 1507365, 1, 0, 1507371, 1, 0, 1441832, 1, 0, 1507368, 1, 1, 1703972, 524289, 1, 1769508, 524289, 1, 1835046, 589825, 3, 1835047, 589825, 3, 1835048, 589825, 3, 1835049, 589825, 3, 1835050, 589825, 3, 1835051, 589825, 3, 1769515, 589825, 2, 1703979, 589825, 2, 1638443, 589825, 2, 1638442, 589825, 2, 1638441, 589825, 2, 1638440, 589825, 2, 1638439, 589825, 2, 1638438, 589825, 2, 1638437, 589825, 2, 1703973, 589825, 2, 1769509, 589825, 2, 1769510, 589825, 2, 1769511, 589825, 2, 1769512, 589825, 2, 1769513, 589825, 2, 1769514, 589825, 2, 1703978, 589825, 2, 1703977, 589825, 2, 1703976, 589825, 2, 1703975, 589825, 2, 1703974, 589825, 2)
+layer_2/name = "farmlands"
+layer_2/tile_data = PackedInt32Array(1638437, 2, 0, 1703973, 2, 1, 1769509, 2, 2, 1638443, 2, 0, 1703979, 2, 1, 1769515, 2, 2, 1638439, 524290, 0, 1703975, 524290, 1, 1638440, 655362, 0, 1638441, 720898, 0, 1769512, 589826, 3, 1769513, 720898, 3, 1769511, 524290, 3, 1703977, 720898, 2, 1703976, 589826, 2)
+layer_3/name = "farm_waterings"
+layer_3/tile_data = PackedInt32Array(1638437, 3, 0, 1703973, 3, 1, 1769509, 3, 2, 1638443, 3, 0, 1703979, 3, 1, 1769515, 3, 2, 1638439, 524291, 0, 1703975, 524291, 1, 1769511, 524291, 3, 1769512, 589827, 3, 1703977, 720899, 2, 1769513, 720899, 3, 1638440, 655363, 0, 1638441, 720899, 0, 1703976, 589827, 2)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+zoom = Vector2(3.5, 3.5)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+
+[node name="BuildContainer" type="Node2D" parent="."]
+position = Vector2(0, -32)
+
+[node name="House" type="Node2D" parent="BuildContainer"]
+
+[node name="Sprite2D" type="Sprite2D" parent="BuildContainer/House"]
+position = Vector2(648, 344)
+texture = ExtResource("7_el1vq")
+
+[node name="Mailbox" type="Node2D" parent="BuildContainer"]
+
+[node name="Sprite2D" type="Sprite2D" parent="BuildContainer/Mailbox"]
+position = Vector2(600, 352)
+texture = ExtResource("8_x6pit")
+
+[node name="Storage" type="Node2D" parent="BuildContainer"]
+
+[node name="Sprite2D" type="Sprite2D" parent="BuildContainer/Storage"]
+position = Vector2(696, 352)
+texture = ExtResource("9_2873p")
+
+[node name="ShadowContainer" type="CanvasGroup" parent="."]
+
+[node name="MailboxShadow" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(600, 320)
+texture = ExtResource("10_ltbdg")
+
+[node name="HouseShadow" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(648, 312)
+texture = ExtResource("11_r0ls1")
+
+[node name="StorageShadow" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(696, 320)
+texture = ExtResource("12_idakg")
+
+[node name="Tree_0" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(568, 328)
+texture = ExtResource("14_tc4dw")
+
+[node name="Tree_2" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(728, 296)
+texture = ExtResource("14_tc4dw")
+
+[node name="Tree_3" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(776, 328)
+texture = ExtResource("14_tc4dw")
+
+[node name="Tree_4" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(808, 456)
+texture = ExtResource("14_tc4dw")
+
+[node name="Tree_5" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(504, 440)
+texture = ExtResource("14_tc4dw")
+
+[node name="Tree_1" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(824, 376)
+texture = ExtResource("15_cwrl6")
+
+[node name="Tree_6" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(456, 360)
+texture = ExtResource("16_srkub")
+
+[node name="Tree_7" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(504, 296)
+texture = ExtResource("16_srkub")
+
+[node name="Tree_8" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(744, 424)
+texture = ExtResource("16_srkub")
+
+[node name="Tree_9" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(792, 264)
+texture = ExtResource("16_srkub")
+
+[node name="Tree_10" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(792, 392)
+texture = ExtResource("17_1q5kf")
+
+[node name="Tree_12" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(600, 456)
+texture = ExtResource("17_1q5kf")
+
+[node name="Tree_11" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(600, 264)
+texture = ExtResource("18_hvtec")
+
+[node name="Shadow1" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(680, 440)
+texture = ExtResource("19_8j5vh")
+
+[node name="Shadow2" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(744, 392)
+texture = ExtResource("20_8lwh1")
+
+[node name="Shadow3" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(480, 280)
+texture = ExtResource("21_kybvv")
+
+[node name="Shadow4" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(808, 344)
+texture = ExtResource("22_hu8rl")
+
+[node name="Shadow5" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(552, 408)
+texture = ExtResource("23_6sasq")
+
+[node name="Shadow6" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(536, 456)
+texture = ExtResource("24_c36mp")
+
+[node name="Shadow7" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(760, 312)
+texture = ExtResource("25_elbj6")
+
+[node name="Shadow8" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(568, 296)
+texture = ExtResource("26_wsls0")
+
+[node name="Shadow0" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(568, 376)
+texture = ExtResource("27_2748r")
+
+[node name="Shadow9" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(616, 440)
+texture = ExtResource("28_ng3n8")
+
+[node name="Shadow10" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(776, 296)
+texture = ExtResource("29_ugpcy")
+
+[node name="Shadow11" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(776, 440)
+texture = ExtResource("30_3syjl")
+
+[node name="Shadow12" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(744, 360)
+texture = ExtResource("31_blpi1")
+
+[node name="Shadow13" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(536, 280)
+texture = ExtResource("32_76524")
+
+[node name="Shadow14" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(568, 440)
+texture = ExtResource("61_f8cj3")
+
+[node name="Shadow15" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(696, 440)
+texture = ExtResource("62_q78y5")
+
+[node name="Shadow16" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(728, 328)
+texture = ExtResource("63_344k2")
+
+[node name="Shadow17" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(536, 312)
+texture = ExtResource("64_a6uat")
+
+[node name="Shadow18" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(488, 328)
+texture = ExtResource("65_xoi5d")
+
+[node name="Shadow19" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(472, 392)
+texture = ExtResource("66_wkept")
+
+[node name="Shadow20" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(776, 424)
+texture = ExtResource("67_67h6s")
+
+[node name="Shadow21" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(648, 264)
+texture = ExtResource("68_yxpml")
+
+[node name="Shadow22" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(656, 447)
+texture = ExtResource("41_u0my4")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("45_hcrkc")
+summer = ExtResource("41_u0my4")
+autumn = ExtResource("41_u0my4")
+winter = ExtResource("46_4c228")
+type = null
+
+[node name="Shadow23" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(472, 448)
+texture = ExtResource("42_hxeru")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("48_084tq")
+summer = ExtResource("49_4kuq7")
+autumn = ExtResource("49_4kuq7")
+winter = ExtResource("49_4kuq7")
+type = null
+
+[node name="Shadow24" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(544, 432)
+texture = ExtResource("43_1f0r1")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("51_6g8ee")
+summer = ExtResource("43_1f0r1")
+autumn = ExtResource("43_1f0r1")
+winter = ExtResource("52_x75xj")
+type = null
+
+[node name="Shadow25" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(688, 288)
+texture = ExtResource("44_ixjti")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("54_crgi4")
+summer = ExtResource("44_ixjti")
+autumn = ExtResource("44_ixjti")
+winter = ExtResource("55_1ybwl")
+type = null
+
+[node name="Shadow26" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(768, 368)
+texture = ExtResource("45_sjnvg")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("57_3yab4")
+summer = ExtResource("45_sjnvg")
+autumn = ExtResource("45_sjnvg")
+winter = ExtResource("58_etft7")
+type = null
+
+[node name="Shadow27" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(816, 432)
+texture = ExtResource("46_6dd8i")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("60_opoub")
+summer = ExtResource("46_6dd8i")
+autumn = ExtResource("46_6dd8i")
+winter = ExtResource("61_e3goq")
+type = null
+
+[node name="Mushroom_0" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(616, 312)
+texture = ExtResource("62_iqr2s")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("63_k25ph")
+summer = ExtResource("62_iqr2s")
+autumn = ExtResource("64_1palk")
+winter = ExtResource("65_hh4n0")
+type = 4
+
+[node name="Mushroom_1" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(808, 328)
+texture = ExtResource("62_iqr2s")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("63_k25ph")
+summer = ExtResource("62_iqr2s")
+autumn = ExtResource("64_1palk")
+winter = ExtResource("65_hh4n0")
+type = 4
+
+[node name="Mushroom_2" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(760, 360)
+texture = ExtResource("63_kg3vm")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("67_g6cp3")
+summer = ExtResource("63_kg3vm")
+autumn = ExtResource("68_okt7n")
+winter = ExtResource("69_xs2as")
+type = 4
+
+[node name="Mushroom_3" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(680, 344)
+texture = ExtResource("63_kg3vm")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("67_g6cp3")
+summer = ExtResource("63_kg3vm")
+autumn = ExtResource("68_okt7n")
+winter = ExtResource("69_xs2as")
+type = 4
+
+[node name="Mushroom_4" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(712, 456)
+texture = ExtResource("64_3ftle")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("71_np2vc")
+summer = ExtResource("64_3ftle")
+autumn = ExtResource("72_374lg")
+winter = ExtResource("73_3t3c6")
+type = 4
+
+[node name="Mushroom_5" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(568, 456)
+texture = ExtResource("65_v5mk3")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("75_d5hfl")
+summer = ExtResource("65_v5mk3")
+autumn = ExtResource("76_mnpbw")
+winter = ExtResource("77_ts2rp")
+type = 4
+
+[node name="Mushroom_6" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(760, 280)
+texture = ExtResource("65_v5mk3")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("75_d5hfl")
+summer = ExtResource("65_v5mk3")
+autumn = ExtResource("76_mnpbw")
+winter = ExtResource("77_ts2rp")
+type = 4
+
+[node name="NatureContainer" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Tree_0" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(568, 328)
+texture = ExtResource("15_mnhx2")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("49_bp6vx")
+summer = ExtResource("15_mnhx2")
+autumn = ExtResource("50_rwowq")
+winter = ExtResource("51_7gy52")
+type = null
+
+[node name="Tree_1" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(824, 376)
+texture = ExtResource("20_6ycpw")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("53_xwv85")
+summer = ExtResource("20_6ycpw")
+autumn = ExtResource("54_tiftu")
+winter = ExtResource("55_i0ury")
+type = null
+
+[node name="Tree_2" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(744, 424)
+texture = ExtResource("21_aoks3")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("57_xwcog")
+summer = ExtResource("21_aoks3")
+autumn = ExtResource("58_xn0s0")
+winter = ExtResource("59_d65ir")
+type = null
+
+[node name="Tree_3" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(776, 328)
+texture = ExtResource("15_mnhx2")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("49_bp6vx")
+summer = ExtResource("15_mnhx2")
+autumn = ExtResource("50_rwowq")
+winter = ExtResource("51_7gy52")
+type = null
+
+[node name="Tree_4" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(792, 392)
+texture = ExtResource("22_b6oid")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("61_h8dbp")
+summer = ExtResource("22_b6oid")
+autumn = ExtResource("62_kxn41")
+winter = ExtResource("63_m6vs7")
+type = null
+
+[node name="Tree_5" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(792, 264)
+texture = ExtResource("23_4deks")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("65_agvlg")
+summer = ExtResource("23_4deks")
+autumn = ExtResource("66_bw87n")
+winter = ExtResource("67_kk8ch")
+type = null
+
+[node name="Tree_6" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(600, 264)
+texture = ExtResource("24_vdydt")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("69_pfg4t")
+summer = ExtResource("24_vdydt")
+autumn = ExtResource("70_3ijo7")
+winter = ExtResource("71_rporq")
+type = null
+
+[node name="Tree_7" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(600, 456)
+texture = ExtResource("22_b6oid")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("61_h8dbp")
+summer = ExtResource("22_b6oid")
+autumn = ExtResource("62_kxn41")
+winter = ExtResource("63_m6vs7")
+type = null
+
+[node name="Tree_8" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(504, 440)
+texture = ExtResource("15_mnhx2")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("49_bp6vx")
+summer = ExtResource("15_mnhx2")
+autumn = ExtResource("50_rwowq")
+winter = ExtResource("51_7gy52")
+type = null
+
+[node name="Tree_9" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(504, 296)
+texture = ExtResource("21_aoks3")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("57_xwcog")
+summer = ExtResource("21_aoks3")
+autumn = ExtResource("58_xn0s0")
+winter = ExtResource("59_d65ir")
+type = null
+
+[node name="Tree_12" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(456, 360)
+texture = ExtResource("21_aoks3")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("57_xwcog")
+summer = ExtResource("21_aoks3")
+autumn = ExtResource("58_xn0s0")
+winter = ExtResource("59_d65ir")
+type = null
+
+[node name="Tree_10" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(728, 296)
+texture = ExtResource("15_mnhx2")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("49_bp6vx")
+summer = ExtResource("15_mnhx2")
+autumn = ExtResource("50_rwowq")
+winter = ExtResource("51_7gy52")
+type = null
+
+[node name="Tree_11" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(808, 456)
+texture = ExtResource("15_mnhx2")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("49_bp6vx")
+summer = ExtResource("15_mnhx2")
+autumn = ExtResource("50_rwowq")
+winter = ExtResource("51_7gy52")
+type = null
+
+[node name="Stone1" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(680, 440)
+texture = ExtResource("33_gtku7")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("33_gtku7")
+summer = ExtResource("33_gtku7")
+autumn = ExtResource("33_gtku7")
+winter = ExtResource("33_gtku7")
+type = 4
+
+[node name="Stone2" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(744, 392)
+texture = ExtResource("34_af4pg")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("34_af4pg")
+summer = ExtResource("34_af4pg")
+autumn = ExtResource("34_af4pg")
+winter = ExtResource("34_af4pg")
+type = 4
+
+[node name="Stone4" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(808, 344)
+texture = ExtResource("35_6jekd")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("35_6jekd")
+summer = ExtResource("35_6jekd")
+autumn = ExtResource("35_6jekd")
+winter = ExtResource("35_6jekd")
+type = 4
+
+[node name="Stone3" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(480, 280)
+texture = ExtResource("36_oin6s")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("36_oin6s")
+summer = ExtResource("36_oin6s")
+autumn = ExtResource("36_oin6s")
+winter = ExtResource("36_oin6s")
+type = 4
+
+[node name="Stone5" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(552, 408)
+texture = ExtResource("37_sfds8")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("37_sfds8")
+summer = ExtResource("37_sfds8")
+autumn = ExtResource("37_sfds8")
+winter = ExtResource("37_sfds8")
+type = 4
+
+[node name="Stone6" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(536, 456)
+texture = ExtResource("38_xny4w")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("38_xny4w")
+summer = ExtResource("38_xny4w")
+autumn = ExtResource("38_xny4w")
+winter = ExtResource("38_xny4w")
+type = 4
+
+[node name="Stone7" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(760, 312)
+texture = ExtResource("39_hupdr")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("39_hupdr")
+summer = ExtResource("39_hupdr")
+autumn = ExtResource("39_hupdr")
+winter = ExtResource("39_hupdr")
+type = 4
+
+[node name="Stone8" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(568, 296)
+texture = ExtResource("40_30l22")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("40_30l22")
+summer = ExtResource("40_30l22")
+autumn = ExtResource("40_30l22")
+winter = ExtResource("40_30l22")
+type = 4
+
+[node name="Stump0" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(568, 376)
+texture = ExtResource("47_pu0w3")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("47_pu0w3")
+summer = ExtResource("47_pu0w3")
+autumn = ExtResource("47_pu0w3")
+winter = ExtResource("47_pu0w3")
+type = 6
+
+[node name="Stump1" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(616, 440)
+texture = ExtResource("48_l0mwr")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("48_l0mwr")
+summer = ExtResource("48_l0mwr")
+autumn = ExtResource("48_l0mwr")
+winter = ExtResource("48_l0mwr")
+type = 6
+
+[node name="Stump2" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(776, 296)
+texture = ExtResource("49_o11gu")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("49_o11gu")
+summer = ExtResource("49_o11gu")
+autumn = ExtResource("49_o11gu")
+winter = ExtResource("49_o11gu")
+type = 6
+
+[node name="Stump3" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(536, 280)
+texture = ExtResource("50_58etd")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("50_58etd")
+summer = ExtResource("50_58etd")
+autumn = ExtResource("50_58etd")
+winter = ExtResource("50_58etd")
+type = 6
+
+[node name="Stump4" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(744, 360)
+texture = ExtResource("51_kblf7")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("51_kblf7")
+summer = ExtResource("51_kblf7")
+autumn = ExtResource("51_kblf7")
+winter = ExtResource("51_kblf7")
+type = 6
+
+[node name="Stump5" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(776, 440)
+texture = ExtResource("52_dhibg")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("52_dhibg")
+summer = ExtResource("52_dhibg")
+autumn = ExtResource("52_dhibg")
+winter = ExtResource("52_dhibg")
+type = 6
+
+[node name="Weed1" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(568, 440)
+texture = ExtResource("53_1t015")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("87_agkef")
+summer = ExtResource("88_u3cbx")
+autumn = ExtResource("53_1t015")
+winter = ExtResource("89_i378w")
+type = 2
+
+[node name="Weed2" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(696, 440)
+texture = ExtResource("54_mhblu")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("91_f6fqn")
+summer = ExtResource("92_43wk7")
+autumn = ExtResource("54_mhblu")
+winter = ExtResource("93_oekrg")
+type = 2
+
+[node name="Weed3" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(728, 328)
+texture = ExtResource("55_vcnoh")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("95_k7dxc")
+summer = ExtResource("96_4fvx4")
+autumn = ExtResource("55_vcnoh")
+winter = ExtResource("97_8hxgw")
+type = 2
+
+[node name="Weed4" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(536, 312)
+texture = ExtResource("56_rx5vp")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("99_3qak0")
+summer = ExtResource("100_txjgl")
+autumn = ExtResource("56_rx5vp")
+winter = ExtResource("101_5meqi")
+type = 2
+
+[node name="Weed5" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(488, 328)
+texture = ExtResource("57_tbb14")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("103_rx8tb")
+summer = ExtResource("104_vu2b2")
+autumn = ExtResource("57_tbb14")
+winter = ExtResource("105_gktq5")
+type = 2
+
+[node name="Weed6" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(472, 392)
+texture = ExtResource("58_kqx36")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("107_god3q")
+summer = ExtResource("108_4p5r3")
+autumn = ExtResource("58_kqx36")
+winter = ExtResource("109_jod2y")
+type = 2
+
+[node name="Weed7" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(776, 424)
+texture = ExtResource("59_78wc6")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("111_n651f")
+summer = ExtResource("112_i52ec")
+autumn = ExtResource("59_78wc6")
+winter = ExtResource("113_717r0")
+type = 2
+
+[node name="Weed8" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(648, 264)
+texture = ExtResource("60_dqu07")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("115_0oor7")
+summer = ExtResource("116_oob5o")
+autumn = ExtResource("60_dqu07")
+winter = ExtResource("117_lyor8")
+type = 2
+
+[node name="Sprite0" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(656, 447)
+texture = ExtResource("75_s10bg")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("95_11d0n")
+summer = ExtResource("75_s10bg")
+autumn = ExtResource("96_webf2")
+winter = ExtResource("97_4fo7t")
+type = 1
+
+[node name="Sprite1" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(472, 448)
+texture = ExtResource("76_d0bls")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("99_0x3ag")
+summer = ExtResource("76_d0bls")
+autumn = ExtResource("100_dahpm")
+winter = ExtResource("101_j2s6t")
+type = 1
+
+[node name="Sprite2" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(544, 432)
+texture = ExtResource("77_437qn")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("103_t1yc0")
+summer = ExtResource("77_437qn")
+autumn = ExtResource("104_w23sr")
+winter = ExtResource("105_ueoty")
+type = 1
+
+[node name="Sprite3" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(688, 288)
+texture = ExtResource("78_uel4i")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("107_uxgme")
+summer = ExtResource("78_uel4i")
+autumn = ExtResource("108_5s8re")
+winter = ExtResource("109_x1gti")
+type = 1
+
+[node name="Sprite4" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(768, 368)
+texture = ExtResource("79_6sord")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("111_t5pdp")
+summer = ExtResource("79_6sord")
+autumn = ExtResource("112_e1u6n")
+winter = ExtResource("113_8eoo3")
+type = 1
+
+[node name="Sprite5" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(816, 432)
+texture = ExtResource("80_64gjk")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("115_rdffh")
+summer = ExtResource("80_64gjk")
+autumn = ExtResource("116_8nxfr")
+winter = ExtResource("117_s3gyh")
+type = 1
+
+[node name="Mushroom_0" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(616, 312)
+texture = ExtResource("156_knq5i")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("157_u7xt8")
+summer = ExtResource("156_knq5i")
+autumn = ExtResource("158_2om2c")
+winter = ExtResource("159_optrr")
+type = 4
+
+[node name="Mushroom_6" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(808, 328)
+texture = ExtResource("156_knq5i")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("157_u7xt8")
+summer = ExtResource("156_knq5i")
+autumn = ExtResource("158_2om2c")
+winter = ExtResource("159_optrr")
+type = 4
+
+[node name="Mushroom_1" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(760, 360)
+texture = ExtResource("161_qbuwk")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("160_d8858")
+summer = ExtResource("161_qbuwk")
+autumn = ExtResource("162_koqd8")
+winter = ExtResource("163_jul40")
+type = 4
+
+[node name="Mushroom_5" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(680, 344)
+texture = ExtResource("161_qbuwk")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("160_d8858")
+summer = ExtResource("161_qbuwk")
+autumn = ExtResource("162_koqd8")
+winter = ExtResource("163_jul40")
+type = 4
+
+[node name="Mushroom_2" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(712, 456)
+texture = ExtResource("165_rbw87")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("164_fcxxn")
+summer = ExtResource("165_rbw87")
+autumn = ExtResource("166_ucluo")
+winter = ExtResource("167_y4d48")
+type = 4
+
+[node name="Mushroom_7" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(744, 408)
+texture = ExtResource("165_rbw87")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("164_fcxxn")
+summer = ExtResource("165_rbw87")
+autumn = ExtResource("166_ucluo")
+winter = ExtResource("167_y4d48")
+type = 4
+
+[node name="Mushroom_3" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(568, 456)
+texture = ExtResource("169_n5l32")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("168_q1bhs")
+summer = ExtResource("169_n5l32")
+autumn = ExtResource("170_akafb")
+winter = ExtResource("171_62yhr")
+type = 4
+
+[node name="Mushroom_4" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(760, 280)
+texture = ExtResource("169_n5l32")
+script = ExtResource("48_ka6hk")
+spring = ExtResource("168_q1bhs")
+summer = ExtResource("169_n5l32")
+autumn = ExtResource("170_akafb")
+winter = ExtResource("171_62yhr")
+type = 4
+
+[node name="Plant_0" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(600, 368)
+texture = ExtResource("188_a6lxe")
+region_enabled = true
+region_rect = Rect2(80, 0, 16, 32)
+script = ExtResource("189_lfffo")
+region_offset = Array[Vector2i]([Vector2i(5, 0), Vector2i(13, 0), Vector2i(18, 0), Vector2i(-2147483648, -2147483648)])
+
+[node name="Plant_1" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(600, 384)
+texture = ExtResource("188_a6lxe")
+region_enabled = true
+region_rect = Rect2(80, 0, 16, 32)
+script = ExtResource("189_lfffo")
+region_offset = Array[Vector2i]([Vector2i(5, 0), Vector2i(13, 0), Vector2i(18, 0), Vector2i(-2147483648, -2147483648)])
+
+[node name="Plant_2" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(600, 400)
+texture = ExtResource("188_a6lxe")
+region_enabled = true
+region_rect = Rect2(80, 0, 16, 32)
+script = ExtResource("189_lfffo")
+region_offset = Array[Vector2i]([Vector2i(5, 0), Vector2i(13, 0), Vector2i(18, 0), Vector2i(-2147483648, -2147483648)])
+
+[node name="Plant_3" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(696, 368)
+texture = ExtResource("188_a6lxe")
+region_enabled = true
+region_rect = Rect2(64, 64, 16, 32)
+script = ExtResource("189_lfffo")
+region_offset = Array[Vector2i]([Vector2i(4, 2), Vector2i(11, 2), Vector2i(20, 2), Vector2i(-2147483648, -2147483648)])
+
+[node name="Plant_4" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(664, 368)
+texture = ExtResource("188_a6lxe")
+region_enabled = true
+region_rect = Rect2(96, 32, 16, 32)
+script = ExtResource("189_lfffo")
+region_offset = Array[Vector2i]([Vector2i(6, 1), Vector2i(13, 1), Vector2i(19, 1), Vector2i(-2147483648, -2147483648)])
+
+[node name="Plant_5" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(632, 384)
+texture = ExtResource("188_a6lxe")
+region_enabled = true
+region_rect = Rect2(64, 96, 16, 32)
+script = ExtResource("189_lfffo")
+region_offset = Array[Vector2i]([Vector2i(4, 3), Vector2i(12, 3), Vector2i(18, 3), Vector2i(-2147483648, -2147483648)])
+
+[node name="Plant_6" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(664, 384)
+texture = ExtResource("188_a6lxe")
+region_enabled = true
+region_rect = Rect2(64, 96, 16, 32)
+script = ExtResource("189_lfffo")
+region_offset = Array[Vector2i]([Vector2i(4, 3), Vector2i(12, 3), Vector2i(18, 3), Vector2i(-2147483648, -2147483648)])
+
+[node name="Plant_7" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(648, 384)
+texture = ExtResource("188_a6lxe")
+region_enabled = true
+region_rect = Rect2(80, 160, 16, 32)
+script = ExtResource("189_lfffo")
+region_offset = Array[Vector2i]([Vector2i(5, 5), Vector2i(13, 5), Vector2i(20, 5), Vector2i(-2147483648, -2147483648)])
+
+[node name="Plant_8" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(648, 400)
+texture = ExtResource("188_a6lxe")
+region_enabled = true
+region_rect = Rect2(80, 128, 16, 32)
+script = ExtResource("189_lfffo")
+region_offset = Array[Vector2i]([Vector2i(5, 4), Vector2i(13, 4), Vector2i(18, 4), Vector2i(-2147483648, -2147483648)])
+
+[node name="Plant_9" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(648, 368)
+texture = ExtResource("188_a6lxe")
+region_enabled = true
+region_rect = Rect2(80, 128, 16, 32)
+script = ExtResource("189_lfffo")
+region_offset = Array[Vector2i]([Vector2i(5, 4), Vector2i(13, 4), Vector2i(18, 4), Vector2i(-2147483648, -2147483648)])
+
+[node name="Plant_10" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(632, 368)
+texture = ExtResource("188_a6lxe")
+region_enabled = true
+region_rect = Rect2(96, 32, 16, 32)
+script = ExtResource("189_lfffo")
+region_offset = Array[Vector2i]([Vector2i(6, 1), Vector2i(13, 1), Vector2i(19, 1), Vector2i(-2147483648, -2147483648)])
+
+[node name="Plant_11" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(632, 400)
+texture = ExtResource("188_a6lxe")
+region_enabled = true
+region_rect = Rect2(96, 32, 16, 32)
+script = ExtResource("189_lfffo")
+region_offset = Array[Vector2i]([Vector2i(6, 1), Vector2i(13, 1), Vector2i(19, 1), Vector2i(-2147483648, -2147483648)])
+
+[node name="Plant_12" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(664, 400)
+texture = ExtResource("188_a6lxe")
+region_enabled = true
+region_rect = Rect2(96, 32, 16, 32)
+script = ExtResource("189_lfffo")
+region_offset = Array[Vector2i]([Vector2i(6, 1), Vector2i(13, 1), Vector2i(19, 1), Vector2i(-2147483648, -2147483648)])
+
+[node name="Plant_13" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(696, 384)
+texture = ExtResource("188_a6lxe")
+region_enabled = true
+region_rect = Rect2(64, 64, 16, 32)
+script = ExtResource("189_lfffo")
+region_offset = Array[Vector2i]([Vector2i(4, 2), Vector2i(11, 2), Vector2i(20, 2), Vector2i(-2147483648, -2147483648)])
+
+[node name="Plant_14" type="Sprite2D" parent="NatureContainer"]
+position = Vector2(696, 400)
+texture = ExtResource("188_a6lxe")
+region_enabled = true
+region_rect = Rect2(64, 64, 16, 32)
+script = ExtResource("189_lfffo")
+region_offset = Array[Vector2i]([Vector2i(4, 2), Vector2i(11, 2), Vector2i(20, 2), Vector2i(-2147483648, -2147483648)])
+
+[node name="Clouds" type="CanvasGroup" parent="."]
