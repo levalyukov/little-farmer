@@ -23,7 +23,7 @@ func _input(event: InputEvent) -> void:
 func _ready() -> void:
 	UIManager.add_ui(UIManager.MENUS.HUD)
 	UIManager.blackout.blackout(false)
-	tilemap.update_atlas(cycle.season_id)
+	tilemap.update_atlas(cycle.season)
 
 	nature.spawn()
 
