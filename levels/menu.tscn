@@ -1,9 +1,10 @@
-[gd_scene load_steps=195 format=3 uid="uid://dy60ld0yv4wgf"]
+[gd_scene load_steps=204 format=3 uid="uid://dy60ld0yv4wgf"]
 
 [ext_resource type="Script" path="res://assets/scripts/levels/menu.gd" id="1_ofqdk"]
 [ext_resource type="Script" path="res://assets/scripts/ui/menu/menu.gd" id="1_x8tav"]
 [ext_resource type="Theme" uid="uid://btsx1m2p0i620" path="res://assets/resources/theme.tres" id="2_pbanc"]
 [ext_resource type="Texture2D" uid="uid://xawi3wfa2nr" path="res://assets/resources/ui/menu_background.png" id="3_e74r2"]
+[ext_resource type="Script" path="res://assets/scripts/ui/menu/menu_windows.gd" id="3_ryt3p"]
 [ext_resource type="Texture2D" uid="uid://do3btrrrteyou" path="res://assets/resources/world/landscape/summer/ground.png" id="5_tbk12"]
 [ext_resource type="Texture2D" uid="uid://eohf0cxupt5g" path="res://assets/resources/world/landscape/summer/roads.png" id="6_63wd7"]
 [ext_resource type="Texture2D" uid="uid://bgam1jdbmck3c" path="res://assets/resources/ui/logo.png" id="6_tn0f5"]
@@ -12,10 +13,13 @@
 [ext_resource type="Texture2D" uid="uid://camjsop2qdgcs" path="res://assets/resources/buildings/mailbox/summer.png" id="8_x6pit"]
 [ext_resource type="Texture2D" uid="uid://srm6ebuns20i" path="res://assets/resources/buildings/storage/summer.png" id="9_2873p"]
 [ext_resource type="Texture2D" uid="uid://dchyi8f2y3eqq" path="res://assets/resources/world/landscape/summer/waterings.png" id="9_j62c2"]
+[ext_resource type="Script" path="res://assets/scripts/levels/menu/builds.gd" id="10_2ph12"]
 [ext_resource type="Texture2D" uid="uid://ckphmjr1ni5jb" path="res://assets/resources/buildings/mailbox/shadow.png" id="10_ltbdg"]
 [ext_resource type="Texture2D" uid="uid://ufucropg27lq" path="res://assets/resources/buildings/house/shadow.png" id="11_r0ls1"]
 [ext_resource type="Texture2D" uid="uid://bh3jw4t4yxw7v" path="res://assets/resources/buildings/storage/shadow.png" id="12_idakg"]
+[ext_resource type="Texture2D" uid="uid://c5a28id172ffr" path="res://assets/resources/buildings/radio/sprite.png" id="13_b3b8l"]
 [ext_resource type="Texture2D" uid="uid://c2l2pown3vt0n" path="res://assets/resources/world/trees/shadow_1.png" id="14_tc4dw"]
+[ext_resource type="Shader" path="res://assets/shaders/highlight.gdshader" id="14_vnmuq"]
 [ext_resource type="Texture2D" uid="uid://btgs2ah5muftq" path="res://assets/resources/world/trees/shadow_2.png" id="15_cwrl6"]
 [ext_resource type="Texture2D" uid="uid://d1vfl6cmg0qbd" path="res://assets/resources/world/trees/summer/tree_1.png" id="15_mnhx2"]
 [ext_resource type="Texture2D" uid="uid://dtlkd2hg7e68m" path="res://assets/resources/world/trees/shadow_4.png" id="16_srkub"]
@@ -58,7 +62,7 @@
 [ext_resource type="Texture2D" uid="uid://co8012pbkatw7" path="res://assets/resources/world/bush/summer/shadow_5.png" id="46_6dd8i"]
 [ext_resource type="Texture2D" uid="uid://bimer1lypw5c3" path="res://assets/resources/world/stumps/stump_0.png" id="47_pu0w3"]
 [ext_resource type="Texture2D" uid="uid://cyv1y4ww5bgvj" path="res://assets/resources/world/bush/spring/shadow_1.png" id="48_084tq"]
-[ext_resource type="Script" path="res://assets/scripts/world/_menu_nature.gd" id="48_ka6hk"]
+[ext_resource type="Script" path="res://assets/scripts/levels/menu/_menu_nature.gd" id="48_ka6hk"]
 [ext_resource type="Texture2D" uid="uid://dm2m255a50rwk" path="res://assets/resources/world/stumps/stump_1.png" id="48_l0mwr"]
 [ext_resource type="Texture2D" uid="uid://bdtieyp4xnal6" path="res://assets/resources/world/bush/winter/shadow_1.png" id="49_4kuq7"]
 [ext_resource type="Texture2D" uid="uid://hq7ggsjk4b56" path="res://assets/resources/world/trees/spring/tree_1.png" id="49_bp6vx"]
@@ -129,6 +133,7 @@
 [ext_resource type="Texture2D" uid="uid://have21wqb8sw" path="res://assets/resources/world/bush/summer/sprite_3.png" id="78_uel4i"]
 [ext_resource type="Texture2D" uid="uid://b5s13hoctpc7h" path="res://assets/resources/world/bush/summer/sprite_4.png" id="79_6sord"]
 [ext_resource type="Texture2D" uid="uid://blg8hj2mlwyqb" path="res://assets/resources/world/bush/summer/sprite_5.png" id="80_64gjk"]
+[ext_resource type="Texture2D" uid="uid://dwsquq5pbocx1" path="res://assets/resources/buildings/radio/shadow.png" id="80_urg25"]
 [ext_resource type="Texture2D" uid="uid://b5pk4vedj7v2a" path="res://assets/resources/world/weeds/spring/weed_1.png" id="87_agkef"]
 [ext_resource type="Texture2D" uid="uid://dul8pysytgnjh" path="res://assets/resources/world/weeds/summer/weed_1.png" id="88_u3cbx"]
 [ext_resource type="Texture2D" uid="uid://cxhetgmfd0sy7" path="res://assets/resources/world/weeds/winter/weed_1.png" id="89_i378w"]
@@ -188,7 +193,7 @@
 [ext_resource type="Texture2D" uid="uid://f0r5p4k114dh" path="res://assets/resources/world/mushrooms/autumn/mushroom_3.png" id="170_akafb"]
 [ext_resource type="Texture2D" uid="uid://fcbpr2qa6ld4" path="res://assets/resources/world/mushrooms/winter/sprite_3.png" id="171_62yhr"]
 [ext_resource type="Texture2D" uid="uid://dpbxogm3j7dpk" path="res://assets/resources/farming/crops.png" id="188_a6lxe"]
-[ext_resource type="Script" path="res://assets/scripts/world/_menu_plant.gd" id="189_lfffo"]
+[ext_resource type="Script" path="res://assets/scripts/levels/menu/_menu_plant.gd" id="189_lfffo"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xvf1v"]
 texture = ExtResource("5_tbk12")
@@ -365,6 +370,24 @@ sources/1 = SubResource("TileSetAtlasSource_bvyvc")
 sources/2 = SubResource("TileSetAtlasSource_8jgwv")
 sources/3 = SubResource("TileSetAtlasSource_pjbuv")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t1l5o"]
+shader = ExtResource("14_vnmuq")
+shader_parameter/highligth = false
+shader_parameter/destroy = false
+shader_parameter/success = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_olf87"]
+size = Vector2(16, 16)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qqm5i"]
+shader = ExtResource("14_vnmuq")
+shader_parameter/highligth = false
+shader_parameter/destroy = false
+shader_parameter/success = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_we3qp"]
+size = Vector2(16, 16)
+
 [node name="Menu" type="Node2D" node_paths=PackedStringArray("house", "mailbox", "storage")]
 script = ExtResource("1_ofqdk")
 house = NodePath("BuildContainer/House/Sprite2D")
@@ -386,28 +409,30 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 theme = ExtResource("2_pbanc")
+script = ExtResource("3_ryt3p")
 
 [node name="HBox" type="HBoxContainer" parent="Canvas/UI"]
 layout_mode = 1
-anchors_preset = 4
+anchors_preset = 14
 anchor_top = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
 offset_top = -296.5
-offset_right = 384.0
 offset_bottom = 296.5
+grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MainMargin" type="MarginContainer" parent="Canvas/UI/HBox"]
+[node name="Menu" type="MarginContainer" parent="Canvas/UI/HBox"]
 layout_mode = 2
-size_flags_horizontal = 0
 theme_override_constants/margin_left = 32
 theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
 script = ExtResource("1_x8tav")
 
-[node name="Menu" type="NinePatchRect" parent="Canvas/UI/HBox/MainMargin"]
+[node name="Menu" type="NinePatchRect" parent="Canvas/UI/HBox/Menu"]
 layout_mode = 2
 texture = ExtResource("3_e74r2")
 region_rect = Rect2(0, 0, 128, 64)
@@ -416,63 +441,63 @@ patch_margin_top = 28
 patch_margin_right = 28
 patch_margin_bottom = 28
 
-[node name="Margin" type="MarginContainer" parent="Canvas/UI/HBox/MainMargin"]
+[node name="Margin" type="MarginContainer" parent="Canvas/UI/HBox/Menu"]
 layout_mode = 2
 theme_override_constants/margin_left = 32
 theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
 
-[node name="VBox" type="VBoxContainer" parent="Canvas/UI/HBox/MainMargin/Margin"]
+[node name="VBox" type="VBoxContainer" parent="Canvas/UI/HBox/Menu/Margin"]
 layout_mode = 2
 
-[node name="Logo" type="MarginContainer" parent="Canvas/UI/HBox/MainMargin/Margin/VBox"]
+[node name="Logo" type="MarginContainer" parent="Canvas/UI/HBox/Menu/Margin/VBox"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="Canvas/UI/HBox/MainMargin/Margin/VBox/Logo"]
+[node name="TextureRect" type="TextureRect" parent="Canvas/UI/HBox/Menu/Margin/VBox/Logo"]
 custom_minimum_size = Vector2(256, 160)
 layout_mode = 2
 texture = ExtResource("6_tn0f5")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Continue" type="MarginContainer" parent="Canvas/UI/HBox/MainMargin/Margin/VBox"]
+[node name="Continue" type="MarginContainer" parent="Canvas/UI/HBox/Menu/Margin/VBox"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="Canvas/UI/HBox/MainMargin/Margin/VBox/Continue"]
+[node name="Button" type="Button" parent="Canvas/UI/HBox/Menu/Margin/VBox/Continue"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="NewGame" type="MarginContainer" parent="Canvas/UI/HBox/MainMargin/Margin/VBox"]
+[node name="NewGame" type="MarginContainer" parent="Canvas/UI/HBox/Menu/Margin/VBox"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="Canvas/UI/HBox/MainMargin/Margin/VBox/NewGame"]
+[node name="Button" type="Button" parent="Canvas/UI/HBox/Menu/Margin/VBox/NewGame"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="Settings" type="MarginContainer" parent="Canvas/UI/HBox/MainMargin/Margin/VBox"]
+[node name="Settings" type="MarginContainer" parent="Canvas/UI/HBox/Menu/Margin/VBox"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="Canvas/UI/HBox/MainMargin/Margin/VBox/Settings"]
+[node name="Button" type="Button" parent="Canvas/UI/HBox/Menu/Margin/VBox/Settings"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="Credits" type="MarginContainer" parent="Canvas/UI/HBox/MainMargin/Margin/VBox"]
+[node name="Credits" type="MarginContainer" parent="Canvas/UI/HBox/Menu/Margin/VBox"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="Canvas/UI/HBox/MainMargin/Margin/VBox/Credits"]
+[node name="Button" type="Button" parent="Canvas/UI/HBox/Menu/Margin/VBox/Credits"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="Exit" type="MarginContainer" parent="Canvas/UI/HBox/MainMargin/Margin/VBox"]
+[node name="Exit" type="MarginContainer" parent="Canvas/UI/HBox/Menu/Margin/VBox"]
 layout_mode = 2
 theme_override_constants/margin_bottom = 8
 
-[node name="Button" type="Button" parent="Canvas/UI/HBox/MainMargin/Margin/VBox/Exit"]
+[node name="Button" type="Button" parent="Canvas/UI/HBox/Menu/Margin/VBox/Exit"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="Version" type="Label" parent="Canvas/UI/HBox/MainMargin/Margin/VBox"]
+[node name="Version" type="Label" parent="Canvas/UI/HBox/Menu/Margin/VBox"]
 layout_mode = 2
 text = "version"
 horizontal_alignment = 1
@@ -498,6 +523,7 @@ zoom = Vector2(3.5, 3.5)
 
 [node name="BuildContainer" type="Node2D" parent="."]
 position = Vector2(0, -32)
+script = ExtResource("10_2ph12")
 
 [node name="House" type="Node2D" parent="BuildContainer"]
 
@@ -508,14 +534,40 @@ texture = ExtResource("7_el1vq")
 [node name="Mailbox" type="Node2D" parent="BuildContainer"]
 
 [node name="Sprite2D" type="Sprite2D" parent="BuildContainer/Mailbox"]
+material = SubResource("ShaderMaterial_t1l5o")
 position = Vector2(600, 352)
 texture = ExtResource("8_x6pit")
+
+[node name="Area2D" type="Area2D" parent="BuildContainer/Mailbox"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BuildContainer/Mailbox/Area2D"]
+position = Vector2(600, 360)
+shape = SubResource("RectangleShape2D_olf87")
 
 [node name="Storage" type="Node2D" parent="BuildContainer"]
 
 [node name="Sprite2D" type="Sprite2D" parent="BuildContainer/Storage"]
 position = Vector2(696, 352)
 texture = ExtResource("9_2873p")
+
+[node name="Radio" type="Node2D" parent="BuildContainer"]
+
+[node name="Sprite2D" type="Sprite2D" parent="BuildContainer/Radio"]
+material = SubResource("ShaderMaterial_qqm5i")
+position = Vector2(632, 376)
+texture = ExtResource("13_b3b8l")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="BuildContainer/Radio"]
+position = Vector2(631, 376)
+volume_db = -15.0
+autoplay = true
+bus = &"Radio"
+
+[node name="Area2D" type="Area2D" parent="BuildContainer/Radio"]
+position = Vector2(632, 376)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BuildContainer/Radio/Area2D"]
+shape = SubResource("RectangleShape2D_we3qp")
 
 [node name="ShadowContainer" type="CanvasGroup" parent="."]
 
@@ -800,6 +852,10 @@ summer = ExtResource("65_v5mk3")
 autumn = ExtResource("76_mnpbw")
 winter = ExtResource("77_ts2rp")
 type = 4
+
+[node name="Shadow" type="Sprite2D" parent="ShadowContainer"]
+position = Vector2(632, 344)
+texture = ExtResource("80_urg25")
 
 [node name="NatureContainer" type="Node2D" parent="."]
 y_sort_enabled = true

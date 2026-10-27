@@ -5,6 +5,7 @@ extends Node2D
 @onready var tilemap: TileMap = $TileMap
 @onready var nature: Node2D = $NatureContainer
 @onready var canvas: CanvasGroup = $Clouds
+@onready var ui: Control = $Canvas/UI
 
 @export var house: Sprite2D
 @export var mailbox: Sprite2D
@@ -169,11 +170,17 @@ func update_buildings(season: WorldCycle.Season) -> void:
 
 
 func update_natures(season: WorldCycle.Season) -> void:
-	if nature.get_children().is_empty():
+	if nature.get_children().is_empty() \
+	|| shadow.get_children().is_empty():
 		return
 
 	for i in nature.get_children():
-		i.update(season)
+		if i.has_method("update"):
+			i.update(season)
+
+	for j in shadow.get_children():
+		if j.has_method("update"):
+			j.update(season)
 
 
 func clouds_update() -> void:
@@ -206,4 +213,4 @@ func clouds_spawn() -> void:
 	canvas.add_child(sprite, true)
 	clouds[sprite.name] = {}
 	clouds[sprite.name]["node"] = sprite
-	clouds[sprite.name]["lifetime"] = randi_range(8, 20)
+	clouds[sprite.name]["lifetime"] = randi_range(20, 40)
