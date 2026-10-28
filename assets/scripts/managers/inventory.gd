@@ -3,7 +3,7 @@ extends Node
 
 func add_item(id: int, amount: int = 1) -> void:
 	if !Items.items.has(id):
-		printerr("Invalid item id")
+		printerr("Invalid item id: ", id)
 		return
 
 	if (
