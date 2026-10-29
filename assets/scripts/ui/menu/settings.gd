@@ -2,29 +2,29 @@ extends Control
 
 @onready var anim: AnimationPlayer = $Animation
 
-@onready var graphic: Button = $Menu/Main/HBox/Panel/VBox/MainContent/Margin/SectionsButtons/GraphicButton
-@onready var sounds: Button = $Menu/Main/HBox/Panel/VBox/MainContent/Margin/SectionsButtons/SoundButton
-@onready var control: Button = $Menu/Main/HBox/Panel/VBox/MainContent/Margin/SectionsButtons/ControlButton
-@onready var language: Button = $Menu/Main/HBox/Panel/VBox/Margin/MenuButtons/ChangeLanguage
-@onready var confirm: Button = $Menu/Main/HBox/Panel/VBox/Margin/MenuButtons/Confirm
+@onready var graphic: Button = $Main/HBox/Panel/VBox/MainContent/Margin/SectionsButtons/GraphicButton
+@onready var sounds: Button = $Main/HBox/Panel/VBox/MainContent/Margin/SectionsButtons/SoundButton
+@onready var control: Button = $Main/HBox/Panel/VBox/MainContent/Margin/SectionsButtons/ControlButton
+@onready var language: Button = $Main/HBox/Panel/VBox/Margin/MenuButtons/ChangeLanguage
+@onready var confirm: Button = $Main/HBox/Panel/VBox/Margin/MenuButtons/Confirm
 
-@onready var graphic_section: ScrollContainer = $Menu/Main/HBox/Content/Graphic
-@onready var graphic_vsync: Button = $Menu/Main/HBox/Content/Graphic/Margin/Container/VSync/VSync
-@onready var graphic_fullscreen: Button = $Menu/Main/HBox/Content/Graphic/Margin/Container/FullScreen/FullScreen
-@onready var graphic_fps: OptionButton = $Menu/Main/HBox/Content/Graphic/Margin/Container/FPS/HBox/Margin/OptionButton
+@onready var graphic_section: ScrollContainer = $Main/HBox/Content/Graphic
+@onready var graphic_vsync: Button = $Main/HBox/Content/Graphic/Margin/Container/VSync/VSync
+@onready var graphic_fullscreen: Button = $Main/HBox/Content/Graphic/Margin/Container/FullScreen/FullScreen
+@onready var graphic_fps: OptionButton = $Main/HBox/Content/Graphic/Margin/Container/FPS/HBox/Margin/OptionButton
 
-@onready var sounds_section: ScrollContainer = $Menu/Main/HBox/Content/Sounds
-@onready var sounds_general_label: Label = $Menu/Main/HBox/Content/Sounds/Margin/Container/General/HBox/VBox/Label
-@onready var sounds_general_slider: HSlider = $Menu/Main/HBox/Content/Sounds/Margin/Container/General/HBox/VBox/Slider
-@onready var sounds_music_label: Label = $Menu/Main/HBox/Content/Sounds/Margin/Container/Music/HBox/VBox/Label
-@onready var sounds_music_slider: HSlider = $Menu/Main/HBox/Content/Sounds/Margin/Container/Music/HBox/VBox/Slider
-@onready var sounds_nature_label: Label = $Menu/Main/HBox/Content/Sounds/Margin/Container/Nature/HBox/VBox/Label
-@onready var sounds_nature_slider: HSlider = $Menu/Main/HBox/Content/Sounds/Margin/Container/Nature/HBox/VBox/Slider
-@onready var sounds_radio_label: Label = $Menu/Main/HBox/Content/Sounds/Margin/Container/Radio/HBox/VBox/Label
-@onready var sounds_radio_slider: HSlider = $Menu/Main/HBox/Content/Sounds/Margin/Container/Radio/HBox/VBox/Slider
+@onready var sounds_section: ScrollContainer = $Main/HBox/Content/Sounds
+@onready var sounds_general_label: Label = $Main/HBox/Content/Sounds/Margin/Container/General/HBox/VBox/Label
+@onready var sounds_general_slider: HSlider = $Main/HBox/Content/Sounds/Margin/Container/General/HBox/VBox/Slider
+@onready var sounds_music_label: Label = $Main/HBox/Content/Sounds/Margin/Container/Music/HBox/VBox/Label
+@onready var sounds_music_slider: HSlider = $Main/HBox/Content/Sounds/Margin/Container/Music/HBox/VBox/Slider
+@onready var sounds_nature_label: Label = $Main/HBox/Content/Sounds/Margin/Container/Nature/HBox/VBox/Label
+@onready var sounds_nature_slider: HSlider = $Main/HBox/Content/Sounds/Margin/Container/Nature/HBox/VBox/Slider
+@onready var sounds_radio_label: Label = $Main/HBox/Content/Sounds/Margin/Container/Radio/HBox/VBox/Label
+@onready var sounds_radio_slider: HSlider = $Main/HBox/Content/Sounds/Margin/Container/Radio/HBox/VBox/Slider
 
-@onready var control_section: ScrollContainer = $Menu/Main/HBox/Content/Control
-@onready var control_move: OptionButton = $Menu/Main/HBox/Content/Control/Margin/Container/MoveType/HBox/Margin/Button
+@onready var control_section: ScrollContainer = $Main/HBox/Content/Control
+@onready var control_move: OptionButton = $Main/HBox/Content/Control/Margin/Container/MoveType/HBox/Margin/Button
 
 
 func _ready() -> void:
@@ -34,12 +34,19 @@ func _ready() -> void:
 	anim.animation_finished.connect(
 		func(anim_name: StringName) -> void:
 			if anim_name != "show":
-				if get_tree().current_scene.name != "MainMenu":
+				if get_tree().current_scene.name != "Menu":
 					UIManager.add_ui(UIManager.MENUS.PAUSE)
-				UIManager.remove_ui(self)
+				else:
+					var ui:Control = get_tree().current_scene.ui
+					if ui && ui.has_method("close_window"):
+						ui.close_window(MMWindows.MenuWindows.SETTINGS)
+					else: 
+						printerr("ui is null, removed...")
+						self.queue_free()
 	)
 
-	UIManager.blur.blur(true)
+	if get_tree().current_scene.name != "Menu": 
+		UIManager.blur.blur(true)
 	anim.play("show")
 	self.visible = true
 
@@ -168,7 +175,6 @@ func _init_sounds() -> void:
 
 func _init_control() -> void:
 	control_move.pressed.connect(func() -> void: SoundManager.play_sound("ui/click"))
-
 	control_move.item_selected.connect(func(value: int) -> void: Settings.movement_type = value)
 	control_move.mouse_entered.connect(UIManager.button_hovered)
 	control_move.selected = Settings.movement_type
