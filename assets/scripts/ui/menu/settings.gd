@@ -37,15 +37,15 @@ func _ready() -> void:
 				if get_tree().current_scene.name != "Menu":
 					UIManager.add_ui(UIManager.MENUS.PAUSE)
 				else:
-					var ui:Control = get_tree().current_scene.ui
+					var ui: Control = get_tree().current_scene.ui
 					if ui && ui.has_method("close_window"):
 						ui.close_window(MMWindows.MenuWindows.SETTINGS)
-					else: 
+					else:
 						printerr("ui is null, removed...")
 						self.queue_free()
 	)
 
-	if get_tree().current_scene.name != "Menu": 
+	if get_tree().current_scene.name != "Menu":
 		UIManager.blur.blur(true)
 	anim.play("show")
 	self.visible = true
