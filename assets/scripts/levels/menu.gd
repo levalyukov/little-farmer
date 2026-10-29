@@ -170,8 +170,7 @@ func update_buildings(season: WorldCycle.Season) -> void:
 
 
 func update_natures(season: WorldCycle.Season) -> void:
-	if nature.get_children().is_empty() \
-	|| shadow.get_children().is_empty():
+	if nature.get_children().is_empty() || shadow.get_children().is_empty():
 		return
 
 	for i in nature.get_children():
