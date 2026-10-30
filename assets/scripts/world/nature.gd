@@ -5,7 +5,7 @@ class_name NatureManager extends Node2D
 @onready var tilemap: TileMap = get_tree().current_scene.tilemap
 @onready var shadow: ShadowManager = get_tree().current_scene.shadow
 
-enum NatureType { TREE, BUSH, WEED, LONG_WEED, STONE, BOULDERS, STUMP }
+enum NatureType { TREE, BUSH, WEED, LONG_WEED, STONE, BOULDERS, STUMP, TRASH }
 const SHADER_DISABLE: Array[NatureType] = [NatureType.STONE, NatureType.BOULDERS, NatureType.STUMP]
 const TEXTURES: Dictionary = {
 	NatureType.TREE:
@@ -281,7 +281,9 @@ const MAX_STONE: int = 600
 const MAX_BOULDERS: int = 150
 const MAX_STUMPS: int = 100
 
-const NOISE_COEFFICIENT: Array[float] = [0.03, 0.04, 0.07, 0.009, 0.005, 0.007, 0.02, 0.3, 0.1]
+const AMPLITUDE_COEFFICIENT: Array[float] = [0.22, 0.2, 0.21, 0.23]
+const TIME_SCALE_COEFFICIENT: Array[float] = [0.3, 0.5, 0.2, 0.4]
+const NOISE_SCALE_COEFFICIENT: Array[float] = [0.04, 0.01, 0.01, 0.03]
 const SHADER_SOURCE: Shader = preload("res://assets/shaders/wind.gdshader")
 const NATURES_NODE: Dictionary = {
 	NatureType.TREE:
@@ -476,7 +478,7 @@ func spawn() -> void:
 	create_nature(NatureType.STONE)
 	create_nature(NatureType.BOULDERS)
 	create_nature(NatureType.STUMP)
-	spawn_mushrooms()
+	create_mushrooms()
 
 
 func add_nature_node(
@@ -570,7 +572,7 @@ func add_nature_node(
 	)
 
 	if type not in SHADER_DISABLE:
-		var coefficient: float = fmod(randf(), NOISE_COEFFICIENT[cycle.season])
+		var coefficient: float = fmod(randf(), AMPLITUDE_COEFFICIENT[cycle.season])
 
 		sprite.material = self.shader
 		sprite.material = sprite.material.duplicate()
@@ -636,7 +638,10 @@ func create_nature(type: NatureType) -> void:
 
 	var current_position: int = -1
 	for i in NATURES_NODE[type]["max"]:
-		current_position = (randi() % self.tiles.size()) - 1
+		if self.tiles.is_empty():
+			break
+		
+		current_position = randi() % self.tiles.size()
 		if current_position >= 0 && current_position < self.tiles.size():
 			var node: Node2D = add_nature_node(
 				type,
@@ -651,7 +656,7 @@ func create_nature(type: NatureType) -> void:
 				continue
 
 			self.add_child(node)
-			self.tiles.erase(self.tiles[current_position])
+			self.tiles.remove_at(current_position)
 		else:
 			continue
 
@@ -706,7 +711,7 @@ func _mushroom(season: WorldCycle.Season, id: int, pos: Vector2i) -> Node2D:
 	return parent
 
 
-func spawn_mushrooms() -> void:
+func create_mushrooms() -> void:
 	if self.MUSHROOMS.is_empty():
 		return
 
@@ -757,13 +762,6 @@ func _get_free_tiles() -> Array[Vector2i]:
 
 func _setup_wind_shader() -> ShaderMaterial:
 	var shader_material: ShaderMaterial = ShaderMaterial.new()
-	var noise_texture: NoiseTexture2D = NoiseTexture2D.new()
-	var noise: FastNoiseLite = FastNoiseLite.new()
-
-	noise.noise_type = FastNoiseLite.TYPE_PERLIN
-	noise_texture.noise = noise
-
 	shader_material.shader = SHADER_SOURCE
-	shader_material.set_shader_parameter("noise_texture", noise_texture)
 
 	return shader_material
