@@ -2,9 +2,10 @@ extends TileMap
 
 enum Layers { GROUND, ROAD, NATURE, COAST, AQUATIC, WATER, FARMLAND, WATERING, CROPS, BUILDING, BORDERS, STATIC_NODES }
 enum Terrains { ROADS, FARMING, WATERING, COAST, WATER }
-enum SourcesAtlas { GROUND, ROADS, FARMLANDS, WATERINGS_FARMLANDS, COASTS, WATER }
+enum SourcesAtlas { GROUND, ROADS, FARMLANDS, WATERINGS_FARMLANDS, COASTS, WATER, DEV }
 
-const NODE_COLLISION: Vector2i = Vector2i(0, 3)
+const NODE_COLLISION: Vector2i = Vector2i(1, 0)
+const PLANT_COLLISION: Vector2i = Vector2i(2, 0)
 const ATLAS: Dictionary = {
 	WorldCycle.Season.SPRING:
 	{
@@ -43,6 +44,13 @@ const ATLAS: Dictionary = {
 		5: preload("res://assets/resources/world/landscape/winter/water.png")
 	}
 }
+
+
+func _ready() -> void:
+	self.set_layer_modulate(Layers.CROPS, Color(0, 0, 0, 0))
+	self.set_layer_modulate(Layers.BUILDING, Color(0, 0, 0, 0))
+	self.set_layer_modulate(Layers.BORDERS, Color(0, 0, 0, 0))
+	self.set_layer_modulate(Layers.STATIC_NODES, Color(0, 0, 0, 0))
 
 
 func update_atlas(season: WorldCycle.Season) -> void:

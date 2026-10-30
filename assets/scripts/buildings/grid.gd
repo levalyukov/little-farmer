@@ -228,7 +228,7 @@ func _action() -> void:
 				if build_node:
 					for vector in grid_positions:
 						tilemap.set_cell(
-							tilemap.Layers.BUILDING, vector, tilemap.SourcesAtlas.GROUND, tilemap.NODE_COLLISION
+							tilemap.Layers.BUILDING, vector, tilemap.SourcesAtlas.DEV, tilemap.NODE_COLLISION
 						)
 
 					if self.node.has("dust") && self.node["dust"] is bool:
@@ -255,7 +255,7 @@ func _action() -> void:
 							tilemap.Layers.CROPS,
 							tilemap.local_to_map(grid.global_position),
 							tilemap.SourcesAtlas.GROUND,
-							tilemap.NODE_COLLISION
+							tilemap.PLANT_COLLISION
 						)
 
 						Inventory.subject_item(plant["inventory_item"])
