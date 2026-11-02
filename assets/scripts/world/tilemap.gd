@@ -47,10 +47,11 @@ const ATLAS: Dictionary = {
 
 
 func _ready() -> void:
-	self.set_layer_modulate(Layers.CROPS, Color(0, 0, 0, 0))
-	self.set_layer_modulate(Layers.BUILDING, Color(0, 0, 0, 0))
-	self.set_layer_modulate(Layers.BORDERS, Color(0, 0, 0, 0))
-	self.set_layer_modulate(Layers.STATIC_NODES, Color(0, 0, 0, 0))
+	var _hide: Color = Color(0, 0, 0, 0)
+	self.set_layer_modulate(Layers.CROPS, _hide)
+	self.set_layer_modulate(Layers.BUILDING, _hide)
+	self.set_layer_modulate(Layers.BORDERS, _hide)
+	self.set_layer_modulate(Layers.STATIC_NODES, _hide)
 
 
 func update_atlas(season: WorldCycle.Season) -> void:
@@ -58,26 +59,23 @@ func update_atlas(season: WorldCycle.Season) -> void:
 		printerr("Error while get atlas from the tilemap.")
 		return
 
-	tile_set.get_source(0).texture = (
-		ATLAS[season][0] if ATLAS[season].has(0) && ATLAS[season][0] is CompressedTexture2D else null
-	)
-
-	tile_set.get_source(1).texture = (
-		ATLAS[season][1] if ATLAS[season].has(1) && ATLAS[season][1] is CompressedTexture2D else null
-	)
-
-	tile_set.get_source(2).texture = (
-		ATLAS[season][2] if ATLAS[season].has(2) && ATLAS[season][2] is CompressedTexture2D else null
-	)
-
-	tile_set.get_source(3).texture = (
-		ATLAS[season][3] if ATLAS[season].has(3) && ATLAS[season][3] is CompressedTexture2D else null
-	)
-
-	tile_set.get_source(4).texture = (
-		ATLAS[season][4] if ATLAS[season].has(4) && ATLAS[season][4] is CompressedTexture2D else null
-	)
-
-	tile_set.get_source(5).texture = (
-		ATLAS[season][5] if ATLAS[season].has(5) && ATLAS[season][5] is CompressedTexture2D else null
-	)
+	if (
+		ATLAS[season].has(0)
+		&& ATLAS[season][0] is CompressedTexture2D
+		&& ATLAS[season].has(1)
+		&& ATLAS[season][1] is CompressedTexture2D
+		&& ATLAS[season].has(1)
+		&& ATLAS[season][2] is CompressedTexture2D
+		&& ATLAS[season].has(1)
+		&& ATLAS[season][3] is CompressedTexture2D
+		&& ATLAS[season].has(1)
+		&& ATLAS[season][4] is CompressedTexture2D
+		&& ATLAS[season].has(1)
+		&& ATLAS[season][1] is CompressedTexture2D
+	):
+		tile_set.get_source(0).texture = ATLAS[season][0]
+		tile_set.get_source(1).texture = ATLAS[season][1]
+		tile_set.get_source(2).texture = ATLAS[season][2]
+		tile_set.get_source(3).texture = ATLAS[season][3]
+		tile_set.get_source(4).texture = ATLAS[season][4]
+		tile_set.get_source(5).texture = ATLAS[season][5]
