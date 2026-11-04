@@ -14,22 +14,8 @@ var size: Vector2i = Vector2i(4, 4)
 var layer_id: int = 0
 
 #* -------------------------------
-# * Данные для создания,
-# * игрового объекта,
-# * которая содержит в себя:
-# *
-# * var node:Dictionary = \
-# * {
-# * 	"node": node,
-# * 	"shadow": shadow
-# * 	"dust": ...
-# * }
-# *
-# * Где:
-# * node 	- PackedScene;
-# * shadow 	- CompressedTexture2D;
-# * dust 	- создавать префаб пыли при
-# * добавлении узла на сцену или нет.
+# * Необходимые данные для создания,
+# * игрового объекта на карте игрока.
 #* -------------------------------
 var node: Dictionary = {}
 var plant: Dictionary = {}
@@ -157,6 +143,11 @@ func _action() -> void:
 					SoundManager.play_sound("farming/harvesting")
 
 		BuildManager.GridModes.BUILD:
+			if !self.node.has("node"):
+				printerr("Node for build is NULL.")
+				build.grid_remove()
+				return
+
 			var grid_positions: Array[Vector2i] = []
 
 			for grid in self.get_children():
@@ -173,10 +164,6 @@ func _action() -> void:
 				grid_positions.append(tilemap.local_to_map(grid.global_position))
 
 			if !grid_positions.is_empty():
-				if !self.node.has("node"):
-					printerr("Node for build is NULL.")
-					return
-
 				if (
 					self.node.has("resources")
 					&& self.node["resources"] is Dictionary
@@ -222,6 +209,7 @@ func _action() -> void:
 					tilemap.local_to_map(self.global_position),
 					grid_positions,
 					self.node["resources"] if self.node.has("resources") else {},
+					self.node["only"] if self.node.has("only") else false,
 					self.node["dust"] if self.node.has("dust") else false
 				)
 
@@ -239,6 +227,11 @@ func _action() -> void:
 								self.global_position + sprite.position,
 								Vector2i(sprite.texture.get_width(), sprite.texture.get_height())
 							)
+
+					if self.node.has("only") 	\
+					&& self.node["only"] is bool\
+					&& self.node["only"] == true:
+						build.grid_remove()
 
 					SoundManager.play_sound("building/build")
 				else:

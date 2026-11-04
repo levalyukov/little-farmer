@@ -12,14 +12,17 @@ const MAX_GRID_SIZE: Vector2i = Vector2i(16, 16)
 const HOUSE_POSITION: Vector2i = Vector2i(19, 2)
 const MAILBOX_POSITION: Vector2i = Vector2i(16, 2)
 const STORAGE_POSITION: Vector2i = Vector2i(22, 2)
+const TABLET_POSITION: Vector2i = Vector2i(46, 5)
 
 const HOUSE_SHADOW: CompressedTexture2D = preload("res://assets/resources/buildings/house/shadow.png")
 const MAILBOX_SHADOW: CompressedTexture2D = preload("res://assets/resources/buildings/mailbox/shadow.png")
 const STORAGE_SHADOW: CompressedTexture2D = preload("res://assets/resources/buildings/storage/shadow.png")
+const TABLET_SHADOW: CompressedTexture2D = preload("res://assets/resources/buildings/tablet/shadow.png")
 
 const HOUSE: PackedScene = preload("res://assets/nodes/buildings/house.tscn")
 const MAILBOX: PackedScene = preload("res://assets/nodes/buildings/mailbox.tscn")
 const STORAGE: PackedScene = preload("res://assets/nodes/buildings/storage.tscn")
+const TABLET: PackedScene = preload("res://assets/nodes/buildings/tablet.tscn")
 const GRID: PackedScene = preload("res://assets/nodes/buildings/grid.tscn")
 
 var buildings: Dictionary
@@ -31,32 +34,43 @@ func _ready():
 	var house: Node2D = HOUSE.instantiate()
 	var mailbox: Node2D = MAILBOX.instantiate()
 	var storage: Node2D = STORAGE.instantiate()
+	var tablet: Node2D = TABLET.instantiate()
 
-	if (house && mailbox && storage) && (house is Node2D && mailbox is Node2D && storage is Node2D):
+	if (
+		(house && mailbox && storage && tablet)
+		&& (house is Node2D && mailbox is Node2D && storage is Node2D && tablet is Node2D)
+	):
 		buildings[HOUSE.get_state().get_node_name(0)] = house
 		buildings[MAILBOX.get_state().get_node_name(0)] = mailbox
 		buildings[STORAGE.get_state().get_node_name(0)] = storage
+		buildings[TABLET.get_state().get_node_name(0)] = tablet
 
 		house.set_position(tilemap.map_to_local(HOUSE_POSITION))
 		mailbox.set_position(tilemap.map_to_local(MAILBOX_POSITION))
 		storage.set_position(tilemap.map_to_local(STORAGE_POSITION))
+		tablet.set_position(tilemap.map_to_local(TABLET_POSITION))
 
 		self.add_child(house)
 		self.add_child(mailbox)
 		self.add_child(storage)
+		self.add_child(tablet)
 
 		var house_sprite: Sprite2D = house.get_node("Sprite2D")
 		var mailbox_sprite: Sprite2D = mailbox.get_node("Sprite2D")
 		var storage_sprite: Sprite2D = storage.get_node("Sprite2D")
+		var tablet_sprite: Sprite2D = tablet.get_node("Sprite2D")
 
 		if house_sprite && house_sprite is Sprite2D:
 			shadow.add_shadow(HOUSE_SHADOW, house.position + house_sprite.position)
 
-		if mailbox_sprite && house_sprite is Sprite2D:
+		if mailbox_sprite && mailbox_sprite is Sprite2D:
 			shadow.add_shadow(MAILBOX_SHADOW, mailbox.position + mailbox_sprite.position)
 
-		if storage_sprite && house_sprite is Sprite2D:
+		if storage_sprite && storage_sprite is Sprite2D:
 			shadow.add_shadow(STORAGE_SHADOW, storage.position + storage_sprite.position)
+
+		if tablet_sprite && tablet_sprite is Sprite2D:
+			shadow.add_shadow(TABLET_SHADOW, tablet.position + tablet_sprite.position)
 
 
 func _input(event: InputEvent) -> void:
@@ -103,7 +117,13 @@ func grid_remove() -> void:
 
 
 func add_build(
-	node: Node2D, shadow_texture: CompressedTexture2D, position: Vector2i, cells: Array[Vector2i], resources: Dictionary
+	node: Node2D,
+	shadow_texture: CompressedTexture2D,
+	position: Vector2i,
+	cells: Array[Vector2i],
+	resources: Dictionary,
+	only: bool = false,
+	dust: bool = false
 ) -> Node2D:
 	if !is_instance_valid(tilemap):
 		printerr("TileMap is NULL.")
@@ -131,7 +151,7 @@ func add_build(
 					(event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed)
 					&& (grid && grid.mode == BuildManager.GridModes.DESTROY)
 				):
-					if sprite && sprite is Sprite2D:
+					if sprite && sprite is Sprite2D && dust:
 						prefabs.add_prefab(
 							PrefabContainer.PrefabType.DUST,
 							node.global_position + sprite.position,
@@ -145,11 +165,12 @@ func add_build(
 					remove_build(node)
 		)
 
-	#* Сначала добавляем, ибо индекс
-	#* автоинкрементируемый, только
-	#* потом записываем в словарь.
-	self.add_child(node, true)
-	buildings[node.name] = node
+	if only && !buildings.has(node.name):
+		buildings[node.name] = node
+		self.add_child(node)
+	else:
+		self.add_child(node, true)
+		buildings[node.name] = node
 
 	return node
 
@@ -164,6 +185,7 @@ func remove_build(node: Node2D) -> void:
 
 	if node_shadow:
 		node_shadow.queue_free()
-
+	
+	buildings.erase(node.name)
 	SoundManager.play_sound("building/destroy")
 	node.queue_free()

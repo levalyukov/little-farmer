@@ -1,5 +1,7 @@
 extends Control
 
+@onready var build_manager:BuildManager = get_tree().current_scene.build
+
 @onready var anim: AnimationPlayer = $Animation
 @onready var navmenu: BoxContainer = $Main/Scroll/NavMenu
 
@@ -22,6 +24,10 @@ var sections: Array[String] = [tr("build_menu.all_blueprints"), tr("build_menu.b
 
 
 func _ready() -> void:
+	if !is_instance_valid(build_manager):
+		printerr("BuildManager is NULL.")
+		return
+
 	_init_buttons()
 	_info_clear()
 	update()
@@ -97,6 +103,7 @@ func _button_blueprint_create(blueprint_type: int, blueprint_id: int) -> Control
 	button.pressed.connect(func() -> void: _info_set(data, blueprint_type))
 	button.pressed.connect(UIManager.button_pressed)
 	button.mouse_entered.connect(UIManager.button_hovered)
+	button.mouse_exited.connect(UIManager.button_exited)
 
 	icon.texture = data["icon"] if data.has("icon") && data["icon"] is CompressedTexture2D else ICON
 	label.text = data["title"] if data.has("title") && data["title"] is String else "????????????????"
@@ -160,48 +167,66 @@ func _info_set(data: Dictionary, blueprint_type: int) -> void:
 
 	# * Мне прям не особо нравится,
 	# * ибо тут два цикла... Позже
-	# * надо придумать как исправить...
-	if data.has("resources") && data["resources"] is Dictionary && !data["resources"].is_empty():
-		for id in data["resources"]:
-			if data["resources"][id].has("amount") && data["resources"][id]["amount"] is int:
-				var inventory_item_amount: int = Inventory.get_item_amount(id)
-				var resource_amount: int = data["resources"][id]["amount"]
-				if inventory_item_amount < resource_amount:
-					node_confirm.disabled = true
-					break
+	# * надо придумать как исправить
+
+	if (data.has("only")
+	&& data["only"] is bool
+	&& data["only"] == true) \
+	&& data.has("node") && build_manager.buildings.has(data["node"].get_state().get_node_name(0)):
+		node_confirm.disabled = true
+		
 	else:
-		node_confirm.disabled = false
+		if data.has("resources") && data["resources"] is Dictionary && !data["resources"].is_empty():
+			for id in data["resources"]:
+				if data["resources"][id].has("amount") && data["resources"][id]["amount"] is int:
+					var inventory_item_amount: int = Inventory.get_item_amount(id)
+					var resource_amount: int = data["resources"][id]["amount"]
+					if inventory_item_amount < resource_amount:
+						node_confirm.disabled = true
+						break
+		else:
+			node_confirm.disabled = false
 
-	# * Ну тут я не знаю каким дебилом надо быть,
-	# * чтобы буквально на кнопку одинаковые методы
-	# * прокинуть, ибо там ничего почти не меняется...
-	if node_confirm.pressed.is_connected(_button_build):
-		node_confirm.pressed.disconnect(_button_build)
+		# * Ну тут я не знаю каким дебилом надо быть,
+		# * чтобы буквально на кнопку одинаковые методы
+		# * прокинуть, ибо там ничего почти не меняется...
+		if node_confirm.pressed.is_connected(_button_build):
+			node_confirm.pressed.disconnect(_button_build)
 
-	if node_confirm.pressed.is_connected(_button_terrain):
-		node_confirm.pressed.disconnect(_button_terrain)
+		if node_confirm.pressed.is_connected(_button_terrain):
+			node_confirm.pressed.disconnect(_button_terrain)
 
-	node_confirm.pressed.connect(
-		(
-			_button_build.bind(data["node"], data["shadow"], data["resources"], data["size"], data["dust"])
-			if blueprint_type == Blueprints.BlueprintsType.BUILDINGS
-			else _button_terrain.bind(data)
+		node_confirm.pressed.connect(
+			(
+				_button_build.bind
+				(
+					data["node"], data["shadow"], data["resources"], 
+					data["size"], data["only"] if data.has("only") else false, data["dust"]
+				)
+				if blueprint_type == Blueprints.BlueprintsType.BUILDINGS
+				else _button_terrain.bind(data)
+			)
 		)
-	)
 
 
 func _button_build(
-	node: PackedScene, shadow: CompressedTexture2D, resources: Dictionary, grid_size: Vector2i, dust: bool = false
+	node: PackedScene, 
+	shadow: CompressedTexture2D, 
+	resources: Dictionary, 
+	grid_size: Vector2i, 
+	only:bool = false,
+	dust: bool = false
 ) -> void:
-	var scene: Node = get_tree().current_scene
+	var data: Dictionary = \
+	{
+		"node": node, 
+		"shadow": shadow, 
+		"resources": resources, 
+		"dust": dust, #* Будут ли появляться частицы пыли или нет
+		"only": only #* Можно ли поставить больше одного объекта или нет
+	}
 
-	if !is_instance_valid(scene.build):
-		printerr("BuildManager is NULL.")
-		return
-
-	var data: Dictionary = {"node": node, "shadow": shadow, "resources": resources, "dust": dust}
-
-	var grid: Node2D = scene.build.grid_add(scene.build.GridModes.BUILD, grid_size)
+	var grid: Node2D = build_manager.grid_add(build_manager.GridModes.BUILD, grid_size)
 	if grid:
 		grid.node = data
 		grid.update_grid()
@@ -211,17 +236,11 @@ func _button_build(
 
 
 func _button_terrain(data: Dictionary) -> void:
-	var scene: Node = get_tree().current_scene
-
-	if !is_instance_valid(scene.build):
-		printerr("BuildManager is NULL.")
-		return
-
 	if !data.has("layer"):
 		printerr("The blueprint do not contain an array of layers.")
 		return
 
-	var grid: Node2D = scene.build.grid_add(scene.build.GridModes.TERRAIN)
+	var grid: Node2D = build_manager.grid_add(build_manager.GridModes.TERRAIN)
 	if grid:
 		grid.update_grid()
 		grid.terrain.append(data["layer"])
@@ -267,6 +286,7 @@ func _init_buttons() -> void:
 	exit.pressed.connect(func() -> void: _close())
 	exit.pressed.connect(UIManager.button_pressed)
 	exit.mouse_entered.connect(UIManager.button_hovered)
+	exit.mouse_exited.connect(UIManager.button_exited)
 
 	if navmenu && navmenu.get_children().is_empty() && !sections.is_empty():
 		for index in sections.size():
@@ -287,6 +307,7 @@ func _init_buttons() -> void:
 
 			button.pressed.connect(UIManager.button_pressed)
 			button.mouse_entered.connect(UIManager.button_hovered)
+			button.mouse_exited.connect(UIManager.button_exited)
 			navmenu.add_child(button)
 
 
