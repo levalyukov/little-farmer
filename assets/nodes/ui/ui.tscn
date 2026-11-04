@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://boitxnv4ptxu6"]
+[gd_scene load_steps=6 format=3 uid="uid://boitxnv4ptxu6"]
 
 [ext_resource type="Script" path="res://assets/scripts/ui/ui.gd" id="1_eeogf"]
+[ext_resource type="PackedScene" uid="uid://dmrj3nbdfyut" path="res://assets/nodes/ui/hud/tooltip.tscn" id="2_cd8ss"]
 [ext_resource type="PackedScene" uid="uid://c16oacn0qg214" path="res://assets/nodes/ui/blur.tscn" id="2_dm0en"]
 [ext_resource type="PackedScene" uid="uid://ddp2h6ryjofvt" path="res://assets/nodes/ui/hud/cursor.tscn" id="2_hx65p"]
 [ext_resource type="PackedScene" uid="uid://3w6lj8hrhrxx" path="res://assets/nodes/ui/blackout.tscn" id="3_owyue"]
@@ -13,3 +14,5 @@ script = ExtResource("1_eeogf")
 [node name="Cursor" parent="." instance=ExtResource("2_hx65p")]
 
 [node name="Blackout" parent="." instance=ExtResource("3_owyue")]
+
+[node name="Tooltip" parent="." instance=ExtResource("2_cd8ss")]

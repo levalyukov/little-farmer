@@ -1,56 +1,41 @@
-extends Control
-
-@onready var main: String = str(get_tree().root.get_child(3).name)
-@onready var pause: Control = get_node("/root/" + main + "/UI/Interactive/Pause")
-@onready var blur: Control = get_node("/root/" + main + "/UI/Decorative/Blur")
-@onready var grid: Node2D = get_node("/root/" + main + "/ConstructionManager/Grid")
+class_name Tooltip extends Control
 
 @onready var background: NinePatchRect = $Container/Background
 @onready var container: MarginContainer = $Container
-@onready var label: Label = $Container/MarginContainer/Label
+@onready var content: Label = $Container/MarginContainer/Label
+const OFFSET: int = 32
 
 
-func _process(_delta):
-	if self.visible:
-		var _viewport_size = get_viewport_rect().size
-		var _screen_width = _viewport_size.x
-		var _mouse_global_pos = get_global_mouse_position()
-		var _right_edge_x = _mouse_global_pos.x
-		var _right_edge_y = _mouse_global_pos.y
+func _init() -> void:
+	self.visible = false
 
-		var _threshold_x = background.size.x
-		var _threshold_y = background.size.y
 
-		if _right_edge_x > _screen_width - _threshold_x && !(_right_edge_y < _threshold_y):
-			position = Vector2(get_global_mouse_position().x - container.size.x, get_global_mouse_position().y)
+func tip(text: String = "") -> void:
+	if text.is_empty():
+		self.visible = false
+		return
 
-		elif _right_edge_y < _threshold_y && !(_right_edge_x > _screen_width - _threshold_x):
-			position = Vector2(get_global_mouse_position().x, get_global_mouse_position().y + container.size.y + 32)
+	content.text = text
+	self.visible = true
 
-		elif (_right_edge_y < _threshold_y) && (_right_edge_x > _screen_width - _threshold_x):
-			position = Vector2(
-				get_global_mouse_position().x - container.size.x, get_global_mouse_position().y + container.size.y + 32
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouse:
+		var screen_width: float = get_viewport_rect().size.x
+		var mouse_global_pos: Vector2 = get_global_mouse_position()
+		var edge: Vector2 = Vector2(mouse_global_pos.x, mouse_global_pos.y)
+		var threshold: Vector2 = Vector2(background.size.x, background.size.y)
+
+		if (edge.x > screen_width - threshold.x) && !(edge.y < threshold.y):
+			self.set_position(Vector2(mouse_global_pos.x - container.size.x, mouse_global_pos.y))
+
+		elif edge.y < threshold.y && !(edge.x > screen_width - threshold.x):
+			self.set_position(Vector2(mouse_global_pos.x, mouse_global_pos.y + container.size.y + OFFSET))
+
+		elif (edge.y < threshold.y) && (edge.x > screen_width - threshold.x):
+			self.set_position(
+				Vector2(mouse_global_pos.x - container.size.x, mouse_global_pos.y + container.size.y + OFFSET)
 			)
-		else:
-			position = get_global_mouse_position()
-	else:
-		set_process(false)
 
-
-func tooltip(text: String = "") -> void:
-	if (
-		(pause && !pause.paused)
-		&& (grid.mode == grid.modes.NOTHING || grid.mode == grid.modes.WATERING)
-		&& !pause.other_menu
-	):
-		if text != "":
-			label.text = text
-			if !visible:
-				set_process(true)
-				visible = true
 		else:
-			if visible:
-				visible = false
-	else:
-		if visible:
-			visible = false
+			self.set_position(mouse_global_pos)

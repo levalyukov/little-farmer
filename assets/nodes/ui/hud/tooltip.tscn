@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://assets/scripts/ui/hud/tooltip.gd" id="1_qndc6"]
 [ext_resource type="Texture2D" uid="uid://c23kfk5swpov3" path="res://assets/resources/ui/feedback/tooltip/sprite.png" id="2_x84pq"]
 
-
 [sub_resource type="LabelSettings" id="LabelSettings_8q7il"]
 font_color = Color(0.972549, 0.941176, 0.921569, 1)
 
@@ -40,10 +39,10 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 mouse_filter = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
 
 [node name="Label" type="Label" parent="Container/MarginContainer"]
 layout_mode = 2

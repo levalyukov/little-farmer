@@ -3,6 +3,7 @@ extends CanvasLayer
 @onready var cursor: Cursor = $Cursor
 @onready var blur: BlurEffect = $Blur
 @onready var blackout: BlackoutEffect = $Blackout
+@onready var tooltip: Tooltip = $Tooltip
 
 const MENUS: Dictionary = {
 	PAUSE = preload("res://assets/nodes/ui/menu/pause.tscn"),
@@ -11,7 +12,8 @@ const MENUS: Dictionary = {
 	HUD = preload("res://assets/nodes/ui/hud/hud.tscn"),
 	BUILD = preload("res://assets/nodes/ui/windows/build_menu.tscn"),
 	INVENTORY = preload("res://assets/nodes/ui/windows/inventory.tscn"),
-	MAILBOX = preload("res://assets/nodes/ui/windows/mail.tscn")
+	MAILBOX = preload("res://assets/nodes/ui/windows/mail.tscn"),
+	TOOLTIP = preload("res://assets/nodes/ui/hud/tooltip.tscn")
 }
 
 var ui: Dictionary
