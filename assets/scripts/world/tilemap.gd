@@ -6,6 +6,7 @@ enum SourcesAtlas { GROUND, ROADS, FARMLANDS, WATERINGS_FARMLANDS, COASTS, WATER
 
 const NODE_COLLISION: Vector2i = Vector2i(1, 0)
 const PLANT_COLLISION: Vector2i = Vector2i(2, 0)
+const NATURE_COLLISION:Vector2i = Vector2i(0,1)
 const ATLAS: Dictionary = {
 	WorldCycle.Season.SPRING:
 	{
@@ -49,6 +50,7 @@ const ATLAS: Dictionary = {
 func _ready() -> void:
 	var _hide: Color = Color(0, 0, 0, 0)
 	self.set_layer_modulate(Layers.CROPS, _hide)
+	self.set_layer_modulate(Layers.NATURE, _hide)
 	self.set_layer_modulate(Layers.BUILDING, _hide)
 	self.set_layer_modulate(Layers.BORDERS, _hide)
 	self.set_layer_modulate(Layers.STATIC_NODES, _hide)

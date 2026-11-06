@@ -281,9 +281,9 @@ const MAX_STONE: int = 600
 const MAX_BOULDERS: int = 150
 const MAX_STUMPS: int = 100
 
-const AMPLITUDE_COEFFICIENT: Array[float] = [0.22, 0.2, 0.21, 0.23]
-const TIME_SCALE_COEFFICIENT: Array[float] = [0.3, 0.5, 0.2, 0.4]
-const NOISE_SCALE_COEFFICIENT: Array[float] = [0.04, 0.01, 0.01, 0.03]
+const AMPLITUDE_COEFFICIENT: Array[float] = [0.22, 0.2, 0.21, 0.05]
+const TIME_SCALE_COEFFICIENT: Array[float] = [0.3, 0.5, 0.2, 0.2]
+const NOISE_SCALE_COEFFICIENT: Array[float] = [0.04, 0.01, 0.01, 0.01]
 const SHADER_SOURCE: Shader = preload("res://assets/shaders/wind.gdshader")
 const NATURES_NODE: Dictionary = {
 	NatureType.TREE:
@@ -535,17 +535,18 @@ func add_nature_node(
 					tilemap.get_cell_source_id(tilemap.Layers.ROAD, i) != -1
 					|| tilemap.get_cell_source_id(tilemap.Layers.NATURE, i) != -1
 					|| tilemap.get_cell_source_id(tilemap.Layers.BUILDING, i) != -1
+					|| tilemap.get_cell_source_id(tilemap.Layers.COAST, i) != -1
 					|| tilemap.get_cell_source_id(tilemap.Layers.STATIC_NODES, i) != -1
 				):
 					return null
 
 			for j in node_cells:
 				self.tiles.erase(j)
-				tilemap.set_cell(tilemap.Layers.NATURE, j, tilemap.SourcesAtlas.GROUND, tilemap.NODE_COLLISION)
+				tilemap.set_cell(tilemap.Layers.NATURE, j, tilemap.SourcesAtlas.DEV, tilemap.NATURE_COLLISION)
 
 	else:
 		node_cells.append(pos)
-		tilemap.set_cell(tilemap.Layers.NATURE, pos, tilemap.SourcesAtlas.GROUND, tilemap.NODE_COLLISION)
+		tilemap.set_cell(tilemap.Layers.NATURE, pos, tilemap.SourcesAtlas.DEV, tilemap.NATURE_COLLISION)
 
 	var parent: Node2D = Node2D.new()
 	var area: Area2D = Area2D.new()
@@ -640,7 +641,7 @@ func create_nature(type: NatureType) -> void:
 	for i in NATURES_NODE[type]["max"]:
 		if self.tiles.is_empty():
 			break
-		
+
 		current_position = randi() % self.tiles.size()
 		if current_position >= 0 && current_position < self.tiles.size():
 			var node: Node2D = add_nature_node(
@@ -661,7 +662,7 @@ func create_nature(type: NatureType) -> void:
 			continue
 
 
-func _mushroom(season: WorldCycle.Season, id: int, pos: Vector2i) -> Node2D:
+func add_nature_mushroom(season: WorldCycle.Season, id: int, pos: Vector2i) -> Node2D:
 	var cells: Array[Vector2i] = []
 	var parent: Node2D = Node2D.new()
 	var sprite: Sprite2D = Sprite2D.new()
@@ -732,7 +733,7 @@ func create_mushrooms() -> void:
 		mushroom_id = randi() % self.MUSHROOMS[cycle.season].size()
 		current_position = (randi() % self.tiles.size()) - 1
 		if current_position >= 0 && current_position < self.tiles.size():
-			var node: Node2D = _mushroom(cycle.season, mushroom_id, self.tiles[current_position])
+			var node: Node2D = add_nature_mushroom(cycle.season, mushroom_id, self.tiles[current_position])
 
 			if !node:
 				continue
@@ -752,6 +753,8 @@ func _get_free_tiles() -> Array[Vector2i]:
 	occupieds.append_array(tilemap.get_used_cells(tilemap.Layers.BUILDING))
 	occupieds.append_array(tilemap.get_used_cells(tilemap.Layers.COAST))
 	occupieds.append_array(tilemap.get_used_cells(tilemap.Layers.FARMLAND))
+	occupieds.append_array(tilemap.get_used_cells(tilemap.Layers.COAST))
+	occupieds.append_array(tilemap.get_used_cells(tilemap.Layers.WATER))
 	occupieds.append_array(tilemap.get_used_cells(tilemap.Layers.STATIC_NODES))
 
 	for vector in occupieds:
@@ -763,5 +766,4 @@ func _get_free_tiles() -> Array[Vector2i]:
 func _setup_wind_shader() -> ShaderMaterial:
 	var shader_material: ShaderMaterial = ShaderMaterial.new()
 	shader_material.shader = SHADER_SOURCE
-
 	return shader_material
