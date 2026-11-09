@@ -14,57 +14,58 @@ const CURSOR: Dictionary = {
 	}
 }
 
-var state: States = States.DEFAULT
-
+var cursor_state:States = States.DEFAULT
+var current_cursor_node:Node = null
 
 func _ready() -> void:
-	set_cursor(States.DEFAULT)
+	Input.set_custom_mouse_cursor(
+		CURSOR[cursor_state]["static"], 
+		Input.CURSOR_ARROW, Vector2(0, 0)
+	)
 
+func change_cursor(node:Node, state:States) -> void:
+	cursor_state = state
+	current_cursor_node = node
+	Input.set_custom_mouse_cursor(
+		CURSOR[cursor_state]["static"], 
+		Input.CURSOR_ARROW, Vector2(0, 0)
+	)
 
-func set_cursor(new_state: States) -> void:
-	state = new_state
-	if CURSOR.has(state) && CURSOR[state].has("static"):
-		Input.set_custom_mouse_cursor(CURSOR[state]["static"], Input.CURSOR_ARROW, Vector2(0, 0))
-
+func reset_cursor(node:Node) -> void:
+	if current_cursor_node == node:
+		cursor_state = States.DEFAULT
+		current_cursor_node = node
+		Input.set_custom_mouse_cursor(
+			CURSOR[cursor_state]["static"], 
+			Input.CURSOR_ARROW, Vector2(0, 0)
+		)
 
 func _input(event: InputEvent) -> void:
-	if !CURSOR.has(state):
-		return
+	if event is InputEventMouseButton\
+	&& event.button_index == MOUSE_BUTTON_LEFT:
+		match cursor_state:
+			States.DEFAULT:
+				if event.is_released():
+					Input.set_custom_mouse_cursor(
+						CURSOR[cursor_state]["static"], 
+						Input.CURSOR_ARROW, Vector2(0, 0)
+					)
 
-	match state:
-		States.DEFAULT:
-			if (
-				CURSOR[state].has("static")
-				&& event is InputEventMouseButton
-				&& event.button_index == MOUSE_BUTTON_LEFT
-				&& event.is_released()
-			):
-				Input.set_custom_mouse_cursor(CURSOR[state]["static"], Input.CURSOR_ARROW, Vector2(0, 0))
+				if event.is_pressed():
+					Input.set_custom_mouse_cursor(
+						CURSOR[cursor_state]["active"], 
+						Input.CURSOR_ARROW, Vector2(0, 0)
+					)
 
-			if (
-				CURSOR[state].has("active")
-				&& event is InputEventMouseButton
-				&& event.button_index == MOUSE_BUTTON_LEFT
-				&& event.is_pressed()
-			):
-				Input.set_custom_mouse_cursor(CURSOR[state]["active"], Input.CURSOR_ARROW, Vector2(0, 0))
+			States.ACTIVE:
+				if event.is_pressed():
+					Input.set_custom_mouse_cursor(
+						CURSOR[cursor_state]["active"],
+						Input.CURSOR_ARROW, Vector2(0, 0)
+					)
 
-		States.ACTIVE:
-			if (
-				CURSOR[state].has("active")
-				&& event is InputEventMouseButton
-				&& event.button_index == MOUSE_BUTTON_LEFT
-				&& event.is_pressed()
-			):
-				Input.set_custom_mouse_cursor(CURSOR[state]["active"], Input.CURSOR_ARROW, Vector2(0, 0))
-
-			if (
-				CURSOR[state].has("static")
-				&& event is InputEventMouseButton
-				&& event.button_index == MOUSE_BUTTON_LEFT
-				&& event.is_released()
-			):
-				Input.set_custom_mouse_cursor(CURSOR[state]["static"], Input.CURSOR_ARROW, Vector2(0, 0))
-
-		_:
-			pass
+				if event.is_released():
+					Input.set_custom_mouse_cursor(
+						CURSOR[cursor_state]["static"], 
+						Input.CURSOR_ARROW, Vector2(0, 0)
+					)
