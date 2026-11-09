@@ -14,58 +14,40 @@ const CURSOR: Dictionary = {
 	}
 }
 
-var cursor_state:States = States.DEFAULT
-var current_cursor_node:Node = null
+var cursor_state: States = States.DEFAULT
+var current_cursor_node: Node = null
+
 
 func _ready() -> void:
-	Input.set_custom_mouse_cursor(
-		CURSOR[cursor_state]["static"], 
-		Input.CURSOR_ARROW, Vector2(0, 0)
-	)
+	Input.set_custom_mouse_cursor(CURSOR[cursor_state]["static"], Input.CURSOR_ARROW, Vector2(0, 0))
 
-func change_cursor(node:Node, state:States) -> void:
+
+func change_cursor(node: Node, state: States) -> void:
 	cursor_state = state
 	current_cursor_node = node
-	Input.set_custom_mouse_cursor(
-		CURSOR[cursor_state]["static"], 
-		Input.CURSOR_ARROW, Vector2(0, 0)
-	)
+	Input.set_custom_mouse_cursor(CURSOR[cursor_state]["static"], Input.CURSOR_ARROW, Vector2(0, 0))
 
-func reset_cursor(node:Node) -> void:
+
+func reset_cursor(node: Node) -> void:
 	if current_cursor_node == node:
 		cursor_state = States.DEFAULT
 		current_cursor_node = node
-		Input.set_custom_mouse_cursor(
-			CURSOR[cursor_state]["static"], 
-			Input.CURSOR_ARROW, Vector2(0, 0)
-		)
+		Input.set_custom_mouse_cursor(CURSOR[cursor_state]["static"], Input.CURSOR_ARROW, Vector2(0, 0))
+
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton\
-	&& event.button_index == MOUSE_BUTTON_LEFT:
+	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT:
 		match cursor_state:
 			States.DEFAULT:
 				if event.is_released():
-					Input.set_custom_mouse_cursor(
-						CURSOR[cursor_state]["static"], 
-						Input.CURSOR_ARROW, Vector2(0, 0)
-					)
+					Input.set_custom_mouse_cursor(CURSOR[cursor_state]["static"], Input.CURSOR_ARROW, Vector2(0, 0))
 
 				if event.is_pressed():
-					Input.set_custom_mouse_cursor(
-						CURSOR[cursor_state]["active"], 
-						Input.CURSOR_ARROW, Vector2(0, 0)
-					)
+					Input.set_custom_mouse_cursor(CURSOR[cursor_state]["active"], Input.CURSOR_ARROW, Vector2(0, 0))
 
 			States.ACTIVE:
 				if event.is_pressed():
-					Input.set_custom_mouse_cursor(
-						CURSOR[cursor_state]["active"],
-						Input.CURSOR_ARROW, Vector2(0, 0)
-					)
+					Input.set_custom_mouse_cursor(CURSOR[cursor_state]["active"], Input.CURSOR_ARROW, Vector2(0, 0))
 
 				if event.is_released():
-					Input.set_custom_mouse_cursor(
-						CURSOR[cursor_state]["static"], 
-						Input.CURSOR_ARROW, Vector2(0, 0)
-					)
+					Input.set_custom_mouse_cursor(CURSOR[cursor_state]["static"], Input.CURSOR_ARROW, Vector2(0, 0))
