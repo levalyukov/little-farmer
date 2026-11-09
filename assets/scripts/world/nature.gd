@@ -281,16 +281,16 @@ const MAX_STONE: int = 600
 const MAX_BOULDERS: int = 150
 const MAX_STUMPS: int = 100
 
-const AMPLITUDE_COEFFICIENT: Array[float] = [0.22, 0.2, 0.21, 0.05]
-const TIME_SCALE_COEFFICIENT: Array[float] = [0.3, 0.5, 0.2, 0.2]
+const AMPLITUDE_COEFFICIENT: Array[float] = [0.1, 0.2, 0.21, 0.05]
+const TIME_SCALE_COEFFICIENT: Array[float] = [0.2, 0.5, 0.2, 0.2]
 const NOISE_SCALE_COEFFICIENT: Array[float] = [0.04, 0.01, 0.01, 0.01]
 const SHADER_SOURCE: Shader = preload("res://assets/shaders/wind.gdshader")
 const NATURES_NODE: Dictionary = {
 	NatureType.TREE:
 	{
 		"max": MAX_TREE,
-		"id": [1, 2],
-		"value": [1, 3],
+		"id": [1,2,3],
+		"value": [[1,5], [1,10], [2,7]],
 		"sample": "farming/tree_destroy",
 		"area_size": Vector2i(1, 1),
 		"sprite_offset": Vector2i(0, -16),
@@ -299,8 +299,8 @@ const NATURES_NODE: Dictionary = {
 	},
 	NatureType.BUSH:
 	{
-		"id": [2],
-		"value": [1, 5],
+		"id": [2, 3],
+		"value": [[1,10], [2,7]],
 		"max": MAX_BUSH,
 		"sample": "farming/weed_destroy",
 		"area_size": Vector2i(2, 2),
@@ -341,7 +341,7 @@ const NATURES_NODE: Dictionary = {
 	{
 		"max": MAX_BOULDERS,
 		"id": [3],
-		"value": [2, 10],
+		"value": [5, 20],
 		"sample": "farming/stone_destroy",
 		"area_size": Vector2i(2, 2),
 		"sprite_offset": Vector2i(8, 8),
@@ -446,6 +446,33 @@ const MUSHROOMS: Dictionary = {
 			"item_id": 0,
 			"sprite": preload("res://assets/resources/world/mushrooms/autumn/mushroom_3.png"),
 			"shadow": preload("res://assets/resources/world/mushrooms/autumn/shadow_3.png"),
+		},
+	},
+	WorldCycle.Season.WINTER:
+	{
+		0:
+		{
+			"item_id": 0,
+			"sprite": preload("res://assets/resources/world/mushrooms/winter/mushroom_0.png"),
+			"shadow": preload("res://assets/resources/world/mushrooms/winter/shadow_0.png"),
+		},
+		1:
+		{
+			"item_id": 0,
+			"sprite": preload("res://assets/resources/world/mushrooms/winter/mushroom_1.png"),
+			"shadow": preload("res://assets/resources/world/mushrooms/winter/shadow_1.png"),
+		},
+		2:
+		{
+			"item_id": 0,
+			"sprite": preload("res://assets/resources/world/mushrooms/winter/mushroom_2.png"),
+			"shadow": preload("res://assets/resources/world/mushrooms/winter/shadow_2.png"),
+		},
+		3:
+		{
+			"item_id": 0,
+			"sprite": preload("res://assets/resources/world/mushrooms/winter/mushroom_3.png"),
+			"shadow": preload("res://assets/resources/world/mushrooms/winter/shadow_3.png"),
 		},
 	}
 }
@@ -607,10 +634,12 @@ func add_nature_node(
 						var sample: String = NATURES_NODE[type]["sample"] if NATURES_NODE[type].has("sample") else ""
 
 						if !id.is_empty():
-							if id.size() > 1:
-								for i in id:
-									if Items.items.has(int(i)) && !value.is_empty():
-										Inventory.add_item(int(i), randi_range(value[0], value[1]))
+							if id.size() > 1 && id.size() == value.size():
+								for i in id.size():
+									if Items.items.has(id[i]) && !value.is_empty():
+										Inventory.add_item(
+											id[i], randi_range(value[i][0], value[i][1])
+										)
 							else:
 								if Items.items.has(int(id[0])) && !value.is_empty():
 									Inventory.add_item(int(id[0]), randi_range(value[0], value[1]))
@@ -718,14 +747,10 @@ func create_mushrooms() -> void:
 
 	var value: int = 0
 	match cycle.season:
-		WorldCycle.Season.SPRING:
-			value = MUSHROOM_SPRING
-		WorldCycle.Season.SUMMER:
-			value = MUSHROOM_SUMMER
-		WorldCycle.Season.AUTUMN:
-			value = MUSHROOM_AUTUMN
-		WorldCycle.Season.WINTER:
-			value = MUSHROOM_WINTER
+		WorldCycle.Season.SPRING: value = MUSHROOM_SPRING
+		WorldCycle.Season.SUMMER: value = MUSHROOM_SUMMER
+		WorldCycle.Season.AUTUMN: value = MUSHROOM_AUTUMN
+		WorldCycle.Season.WINTER: value = MUSHROOM_WINTER
 
 	var mushroom_id: int = -1
 	var current_position: int = -1
