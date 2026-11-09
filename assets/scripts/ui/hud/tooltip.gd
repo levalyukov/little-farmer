@@ -5,18 +5,24 @@ class_name Tooltip extends Control
 @onready var content: Label = $Container/MarginContainer/Label
 const OFFSET: int = 32
 
+var current_tip_node: Node = null
+
 
 func _init() -> void:
 	self.visible = false
 
 
-func tip(text: String = "") -> void:
-	if text.is_empty():
-		self.visible = false
-		return
-
-	content.text = text
+func register_hover(node: Node, text: String) -> void:
+	current_tip_node = node
+	self.content.text = text
 	self.visible = true
+
+
+func unregister_hover(node: Node) -> void:
+	if current_tip_node == node:
+		current_tip_node = null
+		self.content.text = ""
+		self.visible = false
 
 
 func _input(event: InputEvent) -> void:
