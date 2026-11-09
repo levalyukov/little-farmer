@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://cg0w8pwcj5roh"]
+
+[ext_resource type="Script" path="res://assets/scripts/buildings/sawmill.gd" id="1_pblkw"]
+[ext_resource type="Shader" path="res://assets/shaders/highlight.gdshader" id="2_30ro8"]
+[ext_resource type="Texture2D" uid="uid://c0sxr17qtb7af" path="res://assets/resources/buildings/woodshed/woodshed.png" id="3_a3jsv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cvlpu"]
+resource_local_to_scene = true
+shader = ExtResource("2_30ro8")
+shader_parameter/highligth = false
+shader_parameter/destroy = false
+shader_parameter/success = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n442p"]
+size = Vector2(48, 32)
+
+[node name="woodshed" type="Node2D"]
+script = ExtResource("1_pblkw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_cvlpu")
+position = Vector2(16, -8)
+texture = ExtResource("3_a3jsv")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(8, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(8, 0)
+shape = SubResource("RectangleShape2D_n442p")
